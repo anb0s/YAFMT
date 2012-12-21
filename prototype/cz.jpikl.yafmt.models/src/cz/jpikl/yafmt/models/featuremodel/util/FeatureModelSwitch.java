@@ -1,8 +1,8 @@
 /**
  */
-package cz.jpikl.yafmt.model.featuremodel.util;
+package cz.jpikl.yafmt.models.featuremodel.util;
 
-import cz.jpikl.yafmt.model.featuremodel.*;
+import cz.jpikl.yafmt.models.featuremodel.*;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.util.Switch;
  * until a non-null result is returned,
  * which is the result of the switch.
  * <!-- end-user-doc -->
- * @see cz.jpikl.yafmt.model.featuremodel.FeatureModelPackage
+ * @see cz.jpikl.yafmt.models.featuremodel.FeatureModelPackage
  * @generated
  */
 public class FeatureModelSwitch<T> extends Switch<T> {

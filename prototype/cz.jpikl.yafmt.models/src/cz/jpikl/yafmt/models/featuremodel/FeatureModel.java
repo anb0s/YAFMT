@@ -1,4 +1,4 @@
-package cz.jpikl.yafmt.model.featuremodel;
+package cz.jpikl.yafmt.models.featuremodel;
 
 import java.util.List;
 import org.eclipse.emf.ecore.EObject;

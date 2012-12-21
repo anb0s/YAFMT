@@ -1,4 +1,4 @@
-package cz.jpikl.yafmt.model.featuremodel;
+package cz.jpikl.yafmt.models.featuremodel;
 
 import org.eclipse.emf.ecore.EObject;
 import java.util.List;
@@ -14,7 +14,7 @@ public interface Feature extends EObject {
 	String getName();
 	
 	/**
-	 * Sets the value of the '{@link cz.jpikl.yafmt.model.featuremodel.Feature#getName <em>Name</em>}' attribute.
+	 * Sets the value of the '{@link cz.jpikl.yafmt.models.featuremodel.Feature#getName <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Name</em>' attribute.

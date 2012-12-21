@@ -1,8 +1,8 @@
 /**
  */
-package cz.jpikl.yafmt.model.featuremodel.impl;
+package cz.jpikl.yafmt.models.featuremodel.impl;
 
-import cz.jpikl.yafmt.model.featuremodel.*;
+import cz.jpikl.yafmt.models.featuremodel.*;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;

@@ -1,12 +1,12 @@
 /**
  */
-package cz.jpikl.yafmt.model.featuremodel.impl;
+package cz.jpikl.yafmt.models.featuremodel.impl;
 
-import cz.jpikl.yafmt.model.featuremodel.Constraint;
-import cz.jpikl.yafmt.model.featuremodel.Feature;
-import cz.jpikl.yafmt.model.featuremodel.FeatureModel;
-import cz.jpikl.yafmt.model.featuremodel.FeatureModelFactory;
-import cz.jpikl.yafmt.model.featuremodel.FeatureModelPackage;
+import cz.jpikl.yafmt.models.featuremodel.Constraint;
+import cz.jpikl.yafmt.models.featuremodel.Feature;
+import cz.jpikl.yafmt.models.featuremodel.FeatureModel;
+import cz.jpikl.yafmt.models.featuremodel.FeatureModelFactory;
+import cz.jpikl.yafmt.models.featuremodel.FeatureModelPackage;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -54,7 +54,7 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see org.eclipse.emf.ecore.EPackage.Registry
-	 * @see cz.jpikl.yafmt.model.featuremodel.FeatureModelPackage#eNS_URI
+	 * @see cz.jpikl.yafmt.models.featuremodel.FeatureModelPackage#eNS_URI
 	 * @see #init()
 	 * @generated
 	 */

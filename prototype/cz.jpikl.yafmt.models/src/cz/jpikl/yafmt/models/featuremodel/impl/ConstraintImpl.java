@@ -1,9 +1,9 @@
 /**
  */
-package cz.jpikl.yafmt.model.featuremodel.impl;
+package cz.jpikl.yafmt.models.featuremodel.impl;
 
-import cz.jpikl.yafmt.model.featuremodel.Constraint;
-import cz.jpikl.yafmt.model.featuremodel.FeatureModelPackage;
+import cz.jpikl.yafmt.models.featuremodel.Constraint;
+import cz.jpikl.yafmt.models.featuremodel.FeatureModelPackage;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link cz.jpikl.yafmt.model.featuremodel.impl.ConstraintImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.models.featuremodel.impl.ConstraintImpl#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
  *

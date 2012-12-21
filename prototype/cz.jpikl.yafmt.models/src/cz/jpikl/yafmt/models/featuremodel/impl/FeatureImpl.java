@@ -1,9 +1,9 @@
 /**
  */
-package cz.jpikl.yafmt.model.featuremodel.impl;
+package cz.jpikl.yafmt.models.featuremodel.impl;
 
-import cz.jpikl.yafmt.model.featuremodel.Feature;
-import cz.jpikl.yafmt.model.featuremodel.FeatureModelPackage;
+import cz.jpikl.yafmt.models.featuremodel.Feature;
+import cz.jpikl.yafmt.models.featuremodel.FeatureModelPackage;
 
 import java.util.Collection;
 
@@ -29,8 +29,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link cz.jpikl.yafmt.model.featuremodel.impl.FeatureImpl#getName <em>Name</em>}</li>
- *   <li>{@link cz.jpikl.yafmt.model.featuremodel.impl.FeatureImpl#getChildren <em>Children</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.models.featuremodel.impl.FeatureImpl#getName <em>Name</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.models.featuremodel.impl.FeatureImpl#getChildren <em>Children</em>}</li>
  * </ul>
  * </p>
  *

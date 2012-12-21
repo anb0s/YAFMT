@@ -1,8 +1,8 @@
 /**
  */
-package cz.jpikl.yafmt.model.featuremodel.util;
+package cz.jpikl.yafmt.models.featuremodel.util;
 
-import cz.jpikl.yafmt.model.featuremodel.*;
+import cz.jpikl.yafmt.models.featuremodel.*;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * The <b>Adapter Factory</b> for the model.
  * It provides an adapter <code>createXXX</code> method for each class of the model.
  * <!-- end-user-doc -->
- * @see cz.jpikl.yafmt.model.featuremodel.FeatureModelPackage
+ * @see cz.jpikl.yafmt.models.featuremodel.FeatureModelPackage
  * @generated
  */
 public class FeatureModelAdapterFactory extends AdapterFactoryImpl {
@@ -100,13 +100,13 @@ public class FeatureModelAdapterFactory extends AdapterFactoryImpl {
 
 
 	/**
-	 * Creates a new adapter for an object of class '{@link cz.jpikl.yafmt.model.featuremodel.Constraint <em>Constraint</em>}'.
+	 * Creates a new adapter for an object of class '{@link cz.jpikl.yafmt.models.featuremodel.Constraint <em>Constraint</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see cz.jpikl.yafmt.model.featuremodel.Constraint
+	 * @see cz.jpikl.yafmt.models.featuremodel.Constraint
 	 * @generated
 	 */
 	public Adapter createConstraintAdapter() {
@@ -114,13 +114,13 @@ public class FeatureModelAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link cz.jpikl.yafmt.model.featuremodel.Feature <em>Feature</em>}'.
+	 * Creates a new adapter for an object of class '{@link cz.jpikl.yafmt.models.featuremodel.Feature <em>Feature</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see cz.jpikl.yafmt.model.featuremodel.Feature
+	 * @see cz.jpikl.yafmt.models.featuremodel.Feature
 	 * @generated
 	 */
 	public Adapter createFeatureAdapter() {
@@ -128,13 +128,13 @@ public class FeatureModelAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link cz.jpikl.yafmt.model.featuremodel.FeatureModel <em>Feature Model</em>}'.
+	 * Creates a new adapter for an object of class '{@link cz.jpikl.yafmt.models.featuremodel.FeatureModel <em>Feature Model</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see cz.jpikl.yafmt.model.featuremodel.FeatureModel
+	 * @see cz.jpikl.yafmt.models.featuremodel.FeatureModel
 	 * @generated
 	 */
 	public Adapter createFeatureModelAdapter() {

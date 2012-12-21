@@ -1,12 +1,12 @@
 /**
  */
-package cz.jpikl.yafmt.model.featuremodel.impl;
+package cz.jpikl.yafmt.models.featuremodel.impl;
 
-import cz.jpikl.yafmt.model.featuremodel.Constraint;
-import cz.jpikl.yafmt.model.featuremodel.Feature;
-import cz.jpikl.yafmt.model.featuremodel.FeatureModel;
-import cz.jpikl.yafmt.model.featuremodel.FeatureModelFactory;
-import cz.jpikl.yafmt.model.featuremodel.FeatureModelPackage;
+import cz.jpikl.yafmt.models.featuremodel.Constraint;
+import cz.jpikl.yafmt.models.featuremodel.Feature;
+import cz.jpikl.yafmt.models.featuremodel.FeatureModel;
+import cz.jpikl.yafmt.models.featuremodel.FeatureModelFactory;
+import cz.jpikl.yafmt.models.featuremodel.FeatureModelPackage;
 
 import java.util.Collection;
 
@@ -32,9 +32,9 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link cz.jpikl.yafmt.model.featuremodel.impl.FeatureModelImpl#getRootFeature <em>Root Feature</em>}</li>
- *   <li>{@link cz.jpikl.yafmt.model.featuremodel.impl.FeatureModelImpl#getOrphanedFeatures <em>Orphaned Features</em>}</li>
- *   <li>{@link cz.jpikl.yafmt.model.featuremodel.impl.FeatureModelImpl#getConstraints <em>Constraints</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.models.featuremodel.impl.FeatureModelImpl#getRootFeature <em>Root Feature</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.models.featuremodel.impl.FeatureModelImpl#getOrphanedFeatures <em>Orphaned Features</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.models.featuremodel.impl.FeatureModelImpl#getConstraints <em>Constraints</em>}</li>
  * </ul>
  * </p>
  *

@@ -1,4 +1,4 @@
-package cz.jpikl.yafmt.model.featuremodel;
+package cz.jpikl.yafmt.models.featuremodel;
 
 import org.eclipse.emf.ecore.EObject;
 
@@ -13,7 +13,7 @@ public interface Constraint extends EObject {
 	String getValue();
 
 	/**
-	 * Sets the value of the '{@link cz.jpikl.yafmt.model.featuremodel.Constraint#getValue <em>Value</em>}' attribute.
+	 * Sets the value of the '{@link cz.jpikl.yafmt.models.featuremodel.Constraint#getValue <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Value</em>' attribute.

@@ -1,4 +1,4 @@
-package cz.jpikl.yafmt.model.featuremodel;
+package cz.jpikl.yafmt.models.featuremodel;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -25,13 +25,13 @@ public interface FeatureModelPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	FeatureModelPackage eINSTANCE = cz.jpikl.yafmt.model.featuremodel.impl.FeatureModelPackageImpl.init();
+	FeatureModelPackage eINSTANCE = cz.jpikl.yafmt.models.featuremodel.impl.FeatureModelPackageImpl.init();
 	/**
-	 * The meta object id for the '{@link cz.jpikl.yafmt.model.featuremodel.impl.ConstraintImpl <em>Constraint</em>}' class.
+	 * The meta object id for the '{@link cz.jpikl.yafmt.models.featuremodel.impl.ConstraintImpl <em>Constraint</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see cz.jpikl.yafmt.model.featuremodel.impl.ConstraintImpl
-	 * @see cz.jpikl.yafmt.model.featuremodel.impl.FeatureModelPackageImpl#getConstraint()
+	 * @see cz.jpikl.yafmt.models.featuremodel.impl.ConstraintImpl
+	 * @see cz.jpikl.yafmt.models.featuremodel.impl.FeatureModelPackageImpl#getConstraint()
 	 * @generated
 	 */
 	int CONSTRAINT = 0;
@@ -52,11 +52,11 @@ public interface FeatureModelPackage extends EPackage {
 	 */
 	int CONSTRAINT_FEATURE_COUNT = 1;
 	/**
-	 * The meta object id for the '{@link cz.jpikl.yafmt.model.featuremodel.impl.FeatureImpl <em>Feature</em>}' class.
+	 * The meta object id for the '{@link cz.jpikl.yafmt.models.featuremodel.impl.FeatureImpl <em>Feature</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see cz.jpikl.yafmt.model.featuremodel.impl.FeatureImpl
-	 * @see cz.jpikl.yafmt.model.featuremodel.impl.FeatureModelPackageImpl#getFeature()
+	 * @see cz.jpikl.yafmt.models.featuremodel.impl.FeatureImpl
+	 * @see cz.jpikl.yafmt.models.featuremodel.impl.FeatureModelPackageImpl#getFeature()
 	 * @generated
 	 */
 	int FEATURE = 1;
@@ -85,11 +85,11 @@ public interface FeatureModelPackage extends EPackage {
 	 */
 	int FEATURE_FEATURE_COUNT = 2;
 	/**
-	 * The meta object id for the '{@link cz.jpikl.yafmt.model.featuremodel.impl.FeatureModelImpl <em>Feature Model</em>}' class.
+	 * The meta object id for the '{@link cz.jpikl.yafmt.models.featuremodel.impl.FeatureModelImpl <em>Feature Model</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see cz.jpikl.yafmt.model.featuremodel.impl.FeatureModelImpl
-	 * @see cz.jpikl.yafmt.model.featuremodel.impl.FeatureModelPackageImpl#getFeatureModel()
+	 * @see cz.jpikl.yafmt.models.featuremodel.impl.FeatureModelImpl
+	 * @see cz.jpikl.yafmt.models.featuremodel.impl.FeatureModelPackageImpl#getFeatureModel()
 	 * @generated
 	 */
 	int FEATURE_MODEL = 2;
@@ -126,88 +126,88 @@ public interface FeatureModelPackage extends EPackage {
 	 */
 	int FEATURE_MODEL_FEATURE_COUNT = 3;
 	/**
-	 * Returns the meta object for class '{@link cz.jpikl.yafmt.model.featuremodel.Constraint <em>Constraint</em>}'.
+	 * Returns the meta object for class '{@link cz.jpikl.yafmt.models.featuremodel.Constraint <em>Constraint</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Constraint</em>'.
-	 * @see cz.jpikl.yafmt.model.featuremodel.Constraint
+	 * @see cz.jpikl.yafmt.models.featuremodel.Constraint
 	 * @generated
 	 */
 	EClass getConstraint();
 	/**
-	 * Returns the meta object for the attribute '{@link cz.jpikl.yafmt.model.featuremodel.Constraint#getValue <em>Value</em>}'.
+	 * Returns the meta object for the attribute '{@link cz.jpikl.yafmt.models.featuremodel.Constraint#getValue <em>Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Value</em>'.
-	 * @see cz.jpikl.yafmt.model.featuremodel.Constraint#getValue()
+	 * @see cz.jpikl.yafmt.models.featuremodel.Constraint#getValue()
 	 * @see #getConstraint()
 	 * @generated
 	 */
 	EAttribute getConstraint_Value();
 	/**
-	 * Returns the meta object for class '{@link cz.jpikl.yafmt.model.featuremodel.Feature <em>Feature</em>}'.
+	 * Returns the meta object for class '{@link cz.jpikl.yafmt.models.featuremodel.Feature <em>Feature</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Feature</em>'.
-	 * @see cz.jpikl.yafmt.model.featuremodel.Feature
+	 * @see cz.jpikl.yafmt.models.featuremodel.Feature
 	 * @generated
 	 */
 	EClass getFeature();
 	/**
-	 * Returns the meta object for the attribute '{@link cz.jpikl.yafmt.model.featuremodel.Feature#getName <em>Name</em>}'.
+	 * Returns the meta object for the attribute '{@link cz.jpikl.yafmt.models.featuremodel.Feature#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see cz.jpikl.yafmt.model.featuremodel.Feature#getName()
+	 * @see cz.jpikl.yafmt.models.featuremodel.Feature#getName()
 	 * @see #getFeature()
 	 * @generated
 	 */
 	EAttribute getFeature_Name();
 	/**
-	 * Returns the meta object for the containment reference list '{@link cz.jpikl.yafmt.model.featuremodel.Feature#getChildren <em>Children</em>}'.
+	 * Returns the meta object for the containment reference list '{@link cz.jpikl.yafmt.models.featuremodel.Feature#getChildren <em>Children</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Children</em>'.
-	 * @see cz.jpikl.yafmt.model.featuremodel.Feature#getChildren()
+	 * @see cz.jpikl.yafmt.models.featuremodel.Feature#getChildren()
 	 * @see #getFeature()
 	 * @generated
 	 */
 	EReference getFeature_Children();
 	/**
-	 * Returns the meta object for class '{@link cz.jpikl.yafmt.model.featuremodel.FeatureModel <em>Feature Model</em>}'.
+	 * Returns the meta object for class '{@link cz.jpikl.yafmt.models.featuremodel.FeatureModel <em>Feature Model</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Feature Model</em>'.
-	 * @see cz.jpikl.yafmt.model.featuremodel.FeatureModel
+	 * @see cz.jpikl.yafmt.models.featuremodel.FeatureModel
 	 * @generated
 	 */
 	EClass getFeatureModel();
 	/**
-	 * Returns the meta object for the containment reference '{@link cz.jpikl.yafmt.model.featuremodel.FeatureModel#getRootFeature <em>Root Feature</em>}'.
+	 * Returns the meta object for the containment reference '{@link cz.jpikl.yafmt.models.featuremodel.FeatureModel#getRootFeature <em>Root Feature</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Root Feature</em>'.
-	 * @see cz.jpikl.yafmt.model.featuremodel.FeatureModel#getRootFeature()
+	 * @see cz.jpikl.yafmt.models.featuremodel.FeatureModel#getRootFeature()
 	 * @see #getFeatureModel()
 	 * @generated
 	 */
 	EReference getFeatureModel_RootFeature();
 	/**
-	 * Returns the meta object for the containment reference list '{@link cz.jpikl.yafmt.model.featuremodel.FeatureModel#getOrphanedFeatures <em>Orphaned Features</em>}'.
+	 * Returns the meta object for the containment reference list '{@link cz.jpikl.yafmt.models.featuremodel.FeatureModel#getOrphanedFeatures <em>Orphaned Features</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Orphaned Features</em>'.
-	 * @see cz.jpikl.yafmt.model.featuremodel.FeatureModel#getOrphanedFeatures()
+	 * @see cz.jpikl.yafmt.models.featuremodel.FeatureModel#getOrphanedFeatures()
 	 * @see #getFeatureModel()
 	 * @generated
 	 */
 	EReference getFeatureModel_OrphanedFeatures();
 	/**
-	 * Returns the meta object for the containment reference list '{@link cz.jpikl.yafmt.model.featuremodel.FeatureModel#getConstraints <em>Constraints</em>}'.
+	 * Returns the meta object for the containment reference list '{@link cz.jpikl.yafmt.models.featuremodel.FeatureModel#getConstraints <em>Constraints</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Constraints</em>'.
-	 * @see cz.jpikl.yafmt.model.featuremodel.FeatureModel#getConstraints()
+	 * @see cz.jpikl.yafmt.models.featuremodel.FeatureModel#getConstraints()
 	 * @see #getFeatureModel()
 	 * @generated
 	 */
@@ -234,11 +234,11 @@ public interface FeatureModelPackage extends EPackage {
 	 */
 	interface Literals {
 		/**
-		 * The meta object literal for the '{@link cz.jpikl.yafmt.model.featuremodel.impl.ConstraintImpl <em>Constraint</em>}' class.
+		 * The meta object literal for the '{@link cz.jpikl.yafmt.models.featuremodel.impl.ConstraintImpl <em>Constraint</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see cz.jpikl.yafmt.model.featuremodel.impl.ConstraintImpl
-		 * @see cz.jpikl.yafmt.model.featuremodel.impl.FeatureModelPackageImpl#getConstraint()
+		 * @see cz.jpikl.yafmt.models.featuremodel.impl.ConstraintImpl
+		 * @see cz.jpikl.yafmt.models.featuremodel.impl.FeatureModelPackageImpl#getConstraint()
 		 * @generated
 		 */
 		EClass CONSTRAINT = eINSTANCE.getConstraint();
@@ -252,11 +252,11 @@ public interface FeatureModelPackage extends EPackage {
 		EAttribute CONSTRAINT__VALUE = eINSTANCE.getConstraint_Value();
 
 		/**
-		 * The meta object literal for the '{@link cz.jpikl.yafmt.model.featuremodel.impl.FeatureImpl <em>Feature</em>}' class.
+		 * The meta object literal for the '{@link cz.jpikl.yafmt.models.featuremodel.impl.FeatureImpl <em>Feature</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see cz.jpikl.yafmt.model.featuremodel.impl.FeatureImpl
-		 * @see cz.jpikl.yafmt.model.featuremodel.impl.FeatureModelPackageImpl#getFeature()
+		 * @see cz.jpikl.yafmt.models.featuremodel.impl.FeatureImpl
+		 * @see cz.jpikl.yafmt.models.featuremodel.impl.FeatureModelPackageImpl#getFeature()
 		 * @generated
 		 */
 		EClass FEATURE = eINSTANCE.getFeature();
@@ -278,11 +278,11 @@ public interface FeatureModelPackage extends EPackage {
 		EReference FEATURE__CHILDREN = eINSTANCE.getFeature_Children();
 
 		/**
-		 * The meta object literal for the '{@link cz.jpikl.yafmt.model.featuremodel.impl.FeatureModelImpl <em>Feature Model</em>}' class.
+		 * The meta object literal for the '{@link cz.jpikl.yafmt.models.featuremodel.impl.FeatureModelImpl <em>Feature Model</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see cz.jpikl.yafmt.model.featuremodel.impl.FeatureModelImpl
-		 * @see cz.jpikl.yafmt.model.featuremodel.impl.FeatureModelPackageImpl#getFeatureModel()
+		 * @see cz.jpikl.yafmt.models.featuremodel.impl.FeatureModelImpl
+		 * @see cz.jpikl.yafmt.models.featuremodel.impl.FeatureModelPackageImpl#getFeatureModel()
 		 * @generated
 		 */
 		EClass FEATURE_MODEL = eINSTANCE.getFeatureModel();
@@ -312,5 +312,5 @@ public interface FeatureModelPackage extends EPackage {
 		EReference FEATURE_MODEL__CONSTRAINTS = eINSTANCE.getFeatureModel_Constraints();
 
 	}
-	
+		
 }
