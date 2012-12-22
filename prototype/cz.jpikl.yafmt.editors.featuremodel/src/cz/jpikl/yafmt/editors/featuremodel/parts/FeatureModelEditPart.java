@@ -132,6 +132,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart implements M
 				removeChild(partRegistry.get(removedObject));				
 				break;
 		}
+		
 	}
 
 }

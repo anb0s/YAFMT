@@ -1,6 +1,7 @@
 package cz.jpikl.yafmt.editors.featuremodel.editor;
 
 import java.io.IOException;
+import java.util.EventObject;
 import java.util.Iterator;
 
 import org.eclipse.core.resources.IFile;
@@ -134,6 +135,7 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
 			resource.getContents().add(modelLayout);
 		}
 		
+		setPartName(file.getName());
 		return featureModel;
 	}
 
@@ -149,6 +151,7 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
 		try {
 			featureModel.eResource().save(null);
 			modelLayout.eResource().save(null);
+			getCommandStack().markSaveLocation();
 		}
 		catch(IOException ex) {
 			ex.printStackTrace();
@@ -180,9 +183,16 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
 	}
 	
 	@Override
+	public void commandStackChanged(EventObject event) {
+		firePropertyChange(PROP_DIRTY);
+		super.commandStackChanged(event);
+	}
+	
+	/*
+	@Override
 	public void dispose() {
 		doSave(null);
 		super.dispose();
-	}
+	}*/
 
 }

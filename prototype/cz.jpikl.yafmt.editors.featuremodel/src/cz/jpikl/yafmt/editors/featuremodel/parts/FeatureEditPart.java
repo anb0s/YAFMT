@@ -170,6 +170,8 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements ModelL
 	@Override
 	public void modelChanged(Notification notification) {
 		((ModelListener) getParent()).modelChanged(notification);
+		refreshTargetConnections();
+		refreshSourceConnections();
 	}
 
 }
