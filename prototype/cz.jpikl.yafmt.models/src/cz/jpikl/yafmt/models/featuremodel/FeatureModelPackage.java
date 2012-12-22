@@ -11,14 +11,20 @@ import org.eclipse.emf.ecore.EReference;
 public interface FeatureModelPackage extends EPackage {
 
 	/**
-	 * The package name.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
+	 * @model
 	 */
 	String eNAME = "featuremodel";
+	
+	/**
+	 * @model
+	 */
 	String eNS_URI = "https://bitbucket.org/jpikl/yafmt/featuremodel.ecore";
+	
+	/**
+	 * @model
+	 */
 	String eNS_PREFIX = "featuremodel";
+	
 	/**
 	 * The singleton instance of the package.
 	 * <!-- begin-user-doc -->

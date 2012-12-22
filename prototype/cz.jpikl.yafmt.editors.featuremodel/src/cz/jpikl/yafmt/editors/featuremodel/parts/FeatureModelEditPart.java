@@ -12,6 +12,7 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
+import cz.jpikl.yafmt.editors.featuremodel.layout.ModelLayoutStore;
 import cz.jpikl.yafmt.editors.featuremodel.utils.ModelAdapter;
 import cz.jpikl.yafmt.editors.featuremodel.utils.ModelListener;
 import cz.jpikl.yafmt.models.featuremodel.Feature;
@@ -19,7 +20,7 @@ import cz.jpikl.yafmt.models.featuremodel.FeatureModel;
 
 public class FeatureModelEditPart extends AbstractGraphicalEditPart implements ModelListener {
 
-	public FeatureModelEditPart(FeatureModel model) {
+	public FeatureModelEditPart(FeatureModel model, ModelLayoutStore layoutStore) {
 		System.out.println("FeatureModelEditPart: constructor");
 		setModel(model);
 	}
