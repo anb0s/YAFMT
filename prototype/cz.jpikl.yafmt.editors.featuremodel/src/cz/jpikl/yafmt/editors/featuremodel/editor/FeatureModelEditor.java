@@ -15,6 +15,7 @@ import org.eclipse.gef.dnd.TemplateTransferDragSourceListener;
 import org.eclipse.gef.dnd.TemplateTransferDropTargetListener;
 import org.eclipse.gef.editparts.FreeformGraphicalRootEditPart;
 import org.eclipse.gef.palette.CombinedTemplateCreationEntry;
+import org.eclipse.gef.palette.ConnectionCreationToolEntry;
 import org.eclipse.gef.palette.MarqueeToolEntry;
 import org.eclipse.gef.palette.PaletteDrawer;
 import org.eclipse.gef.palette.PaletteRoot;
@@ -76,10 +77,10 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
 				return feature;
 			}
 		};
-		
+				
 		PaletteDrawer elements = new PaletteDrawer("Elements");
 		elements.add(new CombinedTemplateCreationEntry("Feature", "Add a new feature.", featureFactory, null, null));
-		elements.add(new CombinedTemplateCreationEntry("Connection", "Create a connection.", null, null, null));
+		elements.add(new ConnectionCreationToolEntry("Connection", "Create a connection.", null, null, null));
 		
 		PaletteRoot root = new PaletteRoot();
 		root.setDefaultEntry(selection);

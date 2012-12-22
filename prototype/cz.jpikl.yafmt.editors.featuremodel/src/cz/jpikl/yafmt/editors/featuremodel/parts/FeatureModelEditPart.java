@@ -1,10 +1,8 @@
 package cz.jpikl.yafmt.editors.featuremodel.parts;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.eclipse.draw2d.FreeformLayer;
 import org.eclipse.draw2d.FreeformLayout;
@@ -26,7 +24,6 @@ import org.eclipse.gef.requests.CreateRequest;
 import cz.jpikl.yafmt.editors.featuremodel.commands.CreateFeatureCommand;
 import cz.jpikl.yafmt.editors.featuremodel.commands.MoveFeatureCommand;
 import cz.jpikl.yafmt.editors.featuremodel.layout.ModelLayoutStore;
-import cz.jpikl.yafmt.editors.featuremodel.utils.Connection;
 import cz.jpikl.yafmt.editors.featuremodel.utils.ModelAdapter;
 import cz.jpikl.yafmt.editors.featuremodel.utils.ModelListener;
 import cz.jpikl.yafmt.models.featuremodel.Feature;
@@ -86,7 +83,6 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart implements M
 	protected void createEditPolicies() {
 		
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, new XYLayoutEditPolicy() {
-			
 			@Override
 			protected Command getCreateCommand(CreateRequest request) {
 				Object type = request.getNewObjectType();
@@ -100,7 +96,6 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart implements M
 			protected Command createChangeConstraintCommand(ChangeBoundsRequest request, EditPart child, Object constraint) {
 				return new MoveFeatureCommand((GraphicalEditPart) child, (Rectangle) constraint, layoutStore);
 			}
-
 		});
 	}
 
@@ -132,6 +127,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart implements M
 				
 			case Notification.REMOVE:
 				Object removedObject = notification.getOldValue();
+				@SuppressWarnings("unchecked")
 				Map<Object, EditPart> partRegistry = getViewer().getEditPartRegistry();
 				removeChild(partRegistry.get(removedObject));				
 				break;

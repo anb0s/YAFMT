@@ -5,8 +5,14 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PolygonDecoration;
 import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.geometry.PointList;
+import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editparts.AbstractConnectionEditPart;
+import org.eclipse.gef.editpolicies.ComponentEditPolicy;
+import org.eclipse.gef.editpolicies.SelectionEditPolicy;
+import org.eclipse.gef.requests.GroupRequest;
 
+import cz.jpikl.yafmt.editors.featuremodel.commands.DeleteConnectionCommand;
 import cz.jpikl.yafmt.editors.featuremodel.utils.Connection;
 
 public class ConnectionEditPart extends AbstractConnectionEditPart {
@@ -32,7 +38,24 @@ public class ConnectionEditPart extends AbstractConnectionEditPart {
 	
 	@Override
 	protected void createEditPolicies() {
-		// TODO Auto-generated method stub
+		installEditPolicy(EditPolicy.COMPONENT_ROLE, new ComponentEditPolicy() {
+			@Override
+			protected Command createDeleteCommand(GroupRequest deleteRequest) {
+				return new DeleteConnectionCommand((Connection) getModel());
+			}
+		});
+		
+		installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new SelectionEditPolicy() {
+			@Override
+			protected void showSelection() {
+				((PolylineConnection) getFigure()).setLineWidth(2);
+			}
+			
+			@Override
+			protected void hideSelection() {
+				((PolylineConnection) getFigure()).setLineWidth(1);	
+			}
+		});
 	}
 
 }
