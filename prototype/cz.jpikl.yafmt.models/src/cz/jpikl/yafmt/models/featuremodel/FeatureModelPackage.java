@@ -83,13 +83,22 @@ public interface FeatureModelPackage extends EPackage {
 	 */
 	int FEATURE__CHILDREN = 1;
 	/**
+	 * The feature id for the '<em><b>Parent</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE__PARENT = 2;
+
+	/**
 	 * The number of structural features of the '<em>Feature</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_FEATURE_COUNT = 2;
+	int FEATURE_FEATURE_COUNT = 3;
 	/**
 	 * The meta object id for the '{@link cz.jpikl.yafmt.models.featuremodel.impl.FeatureModelImpl <em>Feature Model</em>}' class.
 	 * <!-- begin-user-doc -->
@@ -179,6 +188,16 @@ public interface FeatureModelPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getFeature_Children();
+	/**
+	 * Returns the meta object for the container reference '{@link cz.jpikl.yafmt.models.featuremodel.Feature#getParent <em>Parent</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Parent</em>'.
+	 * @see cz.jpikl.yafmt.models.featuremodel.Feature#getParent()
+	 * @see #getFeature()
+	 * @generated
+	 */
+	EReference getFeature_Parent();
 	/**
 	 * Returns the meta object for class '{@link cz.jpikl.yafmt.models.featuremodel.FeatureModel <em>Feature Model</em>}'.
 	 * <!-- begin-user-doc -->
@@ -282,6 +301,14 @@ public interface FeatureModelPackage extends EPackage {
 		 * @generated
 		 */
 		EReference FEATURE__CHILDREN = eINSTANCE.getFeature_Children();
+
+		/**
+		 * The meta object literal for the '<em><b>Parent</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FEATURE__PARENT = eINSTANCE.getFeature_Parent();
 
 		/**
 		 * The meta object literal for the '{@link cz.jpikl.yafmt.models.featuremodel.impl.FeatureModelImpl <em>Feature Model</em>}' class.

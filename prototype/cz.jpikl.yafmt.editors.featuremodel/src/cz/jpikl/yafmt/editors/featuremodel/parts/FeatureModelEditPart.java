@@ -7,11 +7,19 @@ import org.eclipse.draw2d.FreeformLayer;
 import org.eclipse.draw2d.FreeformLayout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.MarginBorder;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.GraphicalEditPart;
+import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
+import org.eclipse.gef.editpolicies.XYLayoutEditPolicy;
+import org.eclipse.gef.requests.CreateRequest;
 
+import cz.jpikl.yafmt.editors.featuremodel.commands.MoveFeatureCommand;
 import cz.jpikl.yafmt.editors.featuremodel.layout.ModelLayoutStore;
 import cz.jpikl.yafmt.editors.featuremodel.utils.ModelAdapter;
 import cz.jpikl.yafmt.editors.featuremodel.utils.ModelListener;
@@ -20,9 +28,12 @@ import cz.jpikl.yafmt.models.featuremodel.FeatureModel;
 
 public class FeatureModelEditPart extends AbstractGraphicalEditPart implements ModelListener {
 
+	private ModelLayoutStore layoutStore;
+	
 	public FeatureModelEditPart(FeatureModel model, ModelLayoutStore layoutStore) {
 		System.out.println("FeatureModelEditPart: constructor");
 		setModel(model);
+		this.layoutStore = layoutStore; 
 	}
 	
 	public FeatureModel getModel() {
@@ -68,6 +79,19 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart implements M
 	@Override
 	protected void createEditPolicies() {
 		
+		installEditPolicy(EditPolicy.LAYOUT_ROLE, new XYLayoutEditPolicy() {
+			
+			@Override
+			protected Command getCreateCommand(CreateRequest request) {
+				return null;
+			}
+			
+			@Override
+			protected Command createChangeConstraintCommand(EditPart child, Object constraint) {
+				return new MoveFeatureCommand((GraphicalEditPart) child, (Rectangle) constraint, layoutStore);
+			}
+
+		});
 	}
 
 	@Override
