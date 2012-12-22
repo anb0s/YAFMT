@@ -119,6 +119,25 @@ public class FeatureModelImpl extends EObjectImpl implements FeatureModel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public void setRootFeature(Feature newRootFeature) {
+		if (newRootFeature != rootFeature) {
+			NotificationChain msgs = null;
+			if (rootFeature != null)
+				msgs = ((InternalEObject)rootFeature).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - FeatureModelPackage.FEATURE_MODEL__ROOT_FEATURE, null, msgs);
+			if (newRootFeature != null)
+				msgs = ((InternalEObject)newRootFeature).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - FeatureModelPackage.FEATURE_MODEL__ROOT_FEATURE, null, msgs);
+			msgs = basicSetRootFeature(newRootFeature, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, FeatureModelPackage.FEATURE_MODEL__ROOT_FEATURE, newRootFeature, newRootFeature));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public List<Feature> getOrphanedFeatures() {
 		if (orphanedFeatures == null) {
 			orphanedFeatures = new EObjectContainmentEList<Feature>(Feature.class, this, FeatureModelPackage.FEATURE_MODEL__ORPHANED_FEATURES);
@@ -183,6 +202,9 @@ public class FeatureModelImpl extends EObjectImpl implements FeatureModel {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case FeatureModelPackage.FEATURE_MODEL__ROOT_FEATURE:
+				setRootFeature((Feature)newValue);
+				return;
 			case FeatureModelPackage.FEATURE_MODEL__ORPHANED_FEATURES:
 				getOrphanedFeatures().clear();
 				getOrphanedFeatures().addAll((Collection<? extends Feature>)newValue);
@@ -203,6 +225,9 @@ public class FeatureModelImpl extends EObjectImpl implements FeatureModel {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case FeatureModelPackage.FEATURE_MODEL__ROOT_FEATURE:
+				setRootFeature((Feature)null);
+				return;
 			case FeatureModelPackage.FEATURE_MODEL__ORPHANED_FEATURES:
 				getOrphanedFeatures().clear();
 				return;

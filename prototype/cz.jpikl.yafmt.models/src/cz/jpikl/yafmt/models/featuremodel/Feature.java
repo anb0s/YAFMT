@@ -7,7 +7,7 @@ import java.util.List;
  * @model
  */
 public interface Feature extends EObject {
-
+	
 	/**
 	 * @model
 	 */

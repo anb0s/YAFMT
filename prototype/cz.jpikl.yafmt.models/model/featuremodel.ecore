@@ -12,7 +12,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeatureModel">
     <eStructuralFeatures xsi:type="ecore:EReference" name="rootFeature" lowerBound="1"
-        eType="#//Feature" changeable="false" containment="true" resolveProxies="false"/>
+        eType="#//Feature" containment="true" resolveProxies="false"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="orphanedFeatures" upperBound="-1"
         eType="#//Feature" containment="true" resolveProxies="false"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="constraints" upperBound="-1"
