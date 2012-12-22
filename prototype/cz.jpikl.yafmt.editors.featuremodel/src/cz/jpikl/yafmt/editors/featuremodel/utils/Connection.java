@@ -8,9 +8,16 @@ public class Connection {
 	private Feature child;
 	
 	public Connection(Feature parent, Feature child) {
-		super();
 		this.parent = parent;
 		this.child = child;
+	}
+	
+	public Feature getParent() {
+		return parent;
+	}
+	
+	public Feature getChild() {
+		return child;
 	}
 	
 	@Override

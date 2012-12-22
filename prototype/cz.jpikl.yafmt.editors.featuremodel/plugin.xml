@@ -5,10 +5,11 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            name="Feature Model Editor"
-            extensions="yafm"
             class="cz.jpikl.yafmt.editors.featuremodel.editor.FeatureModelEditor"
-            id="cz.jpikl.yafmt.editors.featuremodel.editors.FeatureModelEditor">
+            contributorClass="cz.jpikl.yafmt.editors.featuremodel.editor.FeatureModelActionBarContributor"
+            extensions="yafm"
+            id="cz.jpikl.yafmt.editors.featuremodel.editors.FeatureModelEditor"
+            name="Feature Model Editor">
       </editor>
    </extension>
 

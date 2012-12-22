@@ -1,7 +1,10 @@
 package cz.jpikl.yafmt.editors.featuremodel.parts;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.eclipse.draw2d.FreeformLayer;
 import org.eclipse.draw2d.FreeformLayout;
@@ -17,10 +20,13 @@ import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.editpolicies.XYLayoutEditPolicy;
+import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gef.requests.CreateRequest;
 
+import cz.jpikl.yafmt.editors.featuremodel.commands.CreateFeatureCommand;
 import cz.jpikl.yafmt.editors.featuremodel.commands.MoveFeatureCommand;
 import cz.jpikl.yafmt.editors.featuremodel.layout.ModelLayoutStore;
+import cz.jpikl.yafmt.editors.featuremodel.utils.Connection;
 import cz.jpikl.yafmt.editors.featuremodel.utils.ModelAdapter;
 import cz.jpikl.yafmt.editors.featuremodel.utils.ModelListener;
 import cz.jpikl.yafmt.models.featuremodel.Feature;
@@ -83,20 +89,53 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart implements M
 			
 			@Override
 			protected Command getCreateCommand(CreateRequest request) {
+				Object type = request.getNewObjectType();
+				Rectangle bounds = (Rectangle) getConstraintFor(request);
+				if (type == Feature.class)
+					return new CreateFeatureCommand(getModel(), (Feature) request.getNewObject(), bounds, layoutStore);
 				return null;
 			}
 			
 			@Override
-			protected Command createChangeConstraintCommand(EditPart child, Object constraint) {
+			protected Command createChangeConstraintCommand(ChangeBoundsRequest request, EditPart child, Object constraint) {
 				return new MoveFeatureCommand((GraphicalEditPart) child, (Rectangle) constraint, layoutStore);
 			}
 
 		});
 	}
 
+	private String getNotificationTypeName(Notification notification) {
+		switch(notification.getEventType()) {
+			case Notification.SET: return "SET";
+			case Notification.UNSET: return "UNSET";
+			case Notification.ADD: return "ADD";
+			case Notification.REMOVE: return "REMOVE";
+			case Notification.ADD_MANY: return "ADD_MANY";
+			case Notification.REMOVE_MANY: return "REMOVE_MANY";
+			case Notification.MOVE: return "MOVE";
+			case Notification.REMOVING_ADAPTER: return "REMOVING_ADAPTER";
+			case Notification.RESOLVE: return "RESOLVE";
+			case Notification.EVENT_TYPE_COUNT: return "EVENT_TYPE_COUNT";
+			default: return "?";
+		}
+	}
+	
 	@Override
 	public void modelChanged(Notification notification) {
-		System.out.println("FeatureModelEditPart: model changed (" + notification.getEventType() + ")");
+		System.out.println("FeatureModelEditPart: model changed (" + getNotificationTypeName(notification) + ")");
+		
+		switch(notification.getEventType()) {
+			case Notification.ADD:
+				Object addedObject = notification.getNewValue();
+				addChild(createChild(addedObject), 0);
+				break;
+				
+			case Notification.REMOVE:
+				Object removedObject = notification.getOldValue();
+				Map<Object, EditPart> partRegistry = getViewer().getEditPartRegistry();
+				removeChild(partRegistry.get(removedObject));				
+				break;
+		}
 	}
 
 }

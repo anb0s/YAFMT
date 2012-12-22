@@ -9,15 +9,22 @@ import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
+import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
+import org.eclipse.gef.editpolicies.ComponentEditPolicy;
+import org.eclipse.gef.requests.GroupRequest;
 
+import cz.jpikl.yafmt.editors.featuremodel.commands.DeleteFeatureCommand;
 import cz.jpikl.yafmt.editors.featuremodel.layout.ModelLayoutFactory;
 import cz.jpikl.yafmt.editors.featuremodel.layout.ModelLayoutStore;
 import cz.jpikl.yafmt.editors.featuremodel.layout.ObjectBounds;
 import cz.jpikl.yafmt.editors.featuremodel.utils.Connection;
+import cz.jpikl.yafmt.editors.featuremodel.utils.ModelAdapter;
 import cz.jpikl.yafmt.editors.featuremodel.utils.ModelListener;
 import cz.jpikl.yafmt.models.featuremodel.Feature;
+import cz.jpikl.yafmt.models.featuremodel.FeatureModel;
 
 public class FeatureEditPart extends AbstractGraphicalEditPart implements ModelListener {
 
@@ -51,6 +58,18 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements ModelL
 	}
 	
 	@Override
+	public void activate() {
+		super.activate();
+		ModelAdapter.addListener(getModel(), this);
+	}
+	
+	@Override
+	public void deactivate() {
+		ModelAdapter.removeListener(getModel(), this);
+		super.deactivate();
+	}
+	
+	@Override
 	protected IFigure createFigure() {
 		System.out.println("FeatureEditPart: creating figure");
 		Label figure = new Label(getModel().getName()); 
@@ -80,12 +99,23 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements ModelL
 	
 	@Override
 	protected void createEditPolicies() {
+		installEditPolicy(EditPolicy.COMPONENT_ROLE, new ComponentEditPolicy() {
+			
+			@Override
+			protected Command createDeleteCommand(GroupRequest deleteRequest) {
+				Feature feature = getModel();
+				FeatureModel featureModel = (FeatureModel) getParent().getModel();
+				if(feature == featureModel.getRootFeature())
+					return null;
+				return new DeleteFeatureCommand(featureModel, feature);
+			}
+			
+		});
 	}
 
 	@Override
 	public void modelChanged(Notification notification) {
-		System.out.println("FeatureEditPart: model changed");
-		// TODO Auto-generated method stub
+		((ModelListener) getParent()).modelChanged(notification);
 	}
 
 }
