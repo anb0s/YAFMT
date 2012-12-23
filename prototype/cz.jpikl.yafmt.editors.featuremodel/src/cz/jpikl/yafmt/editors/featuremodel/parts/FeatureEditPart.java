@@ -17,21 +17,27 @@ import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
+import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.editpolicies.ComponentEditPolicy;
+import org.eclipse.gef.editpolicies.DirectEditPolicy;
 import org.eclipse.gef.editpolicies.GraphicalNodeEditPolicy;
 import org.eclipse.gef.requests.CreateConnectionRequest;
+import org.eclipse.gef.requests.DirectEditRequest;
 import org.eclipse.gef.requests.GroupRequest;
 import org.eclipse.gef.requests.ReconnectRequest;
+import org.eclipse.gef.tools.DirectEditManager;
 import org.eclipse.ui.views.properties.IPropertySource;
 
 import cz.jpikl.yafmt.editors.featuremodel.commands.CreateConnectionCommand;
 import cz.jpikl.yafmt.editors.featuremodel.commands.DeleteFeatureCommand;
+import cz.jpikl.yafmt.editors.featuremodel.commands.RenameFeatureCommand;
 import cz.jpikl.yafmt.editors.featuremodel.layout.ModelLayoutFactory;
 import cz.jpikl.yafmt.editors.featuremodel.layout.ModelLayoutStore;
 import cz.jpikl.yafmt.editors.featuremodel.layout.ObjectBounds;
 import cz.jpikl.yafmt.editors.featuremodel.utils.Connection;
+import cz.jpikl.yafmt.editors.featuremodel.utils.LabelDirectEditManager;
 import cz.jpikl.yafmt.editors.featuremodel.utils.ModelAdapter;
 import cz.jpikl.yafmt.editors.featuremodel.utils.ModelListener;
 import cz.jpikl.yafmt.editors.featuremodel.utils.UnwrappingPropertySource;
@@ -98,6 +104,7 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements ModelL
 		Label figure = new Label(getModel().getName()); 
 		figure.setBorder(new LineBorder());
 		figure.setBackgroundColor(ColorConstants.white);
+		figure.setOpaque(true);
 		return figure;
 	}
 	
@@ -189,8 +196,36 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements ModelL
 				return null;
 			}
 		});
+		
+		// Direct editing of feature name.
+		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new DirectEditPolicy() {
+			// Called when renaming of feature is done (user confirmed input).
+			@Override
+			protected Command getDirectEditCommand(DirectEditRequest request) {
+				System.out.println("Get direct edit command");
+				return new RenameFeatureCommand(getModel(), (String) request.getCellEditor().getValue());
+			}
+			
+			// Updates figure label text during editing.
+			@Override
+			protected void showCurrentEditValue(DirectEditRequest request) {
+				System.out.println("Show current edit value");
+				((Label) getFigure()).setText((String) request.getCellEditor().getValue());
+			}
+		});
 	}
-
+		
+	// Custom requests.
+	@Override
+	public void performRequest(Request request) {
+		// REQ_OPEN is send when user double-clicked on edit part figure.
+		if(request.getType() == RequestConstants.REQ_OPEN) {
+			// Handle direct edit request - initialize and show direct edit manager.
+			DirectEditManager manager = new LabelDirectEditManager(this, (Label) getFigure());
+			manager.show();
+		}
+	}
+	
 	// Notify root edit part and refresh all connections.
 	@Override
 	public void modelChanged(Notification notification) {
@@ -199,15 +234,18 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements ModelL
 			case Notification.ADD_MANY:
 			case Notification.REMOVE:
 			case Notification.REMOVE_MANY:
+				// Notify root edit part.
 				((ModelListener) getParent()).modelChanged(notification);
 				break;
 				
 			case Notification.SET:
 			case Notification.UNSET:
+				// Update label (name change).
 				((Label) getFigure()).setText(getModel().getName());
 				break;
 		}
 		
+		// Refresh connections.
 		refreshTargetConnections();
 		refreshSourceConnections();
 	}

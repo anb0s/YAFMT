@@ -20,6 +20,7 @@ import org.eclipse.gef.dnd.TemplateTransferDropTargetListener;
 import org.eclipse.gef.editparts.FreeformGraphicalRootEditPart;
 import org.eclipse.gef.palette.CombinedTemplateCreationEntry;
 import org.eclipse.gef.palette.ConnectionCreationToolEntry;
+import org.eclipse.gef.palette.CreationToolEntry;
 import org.eclipse.gef.palette.MarqueeToolEntry;
 import org.eclipse.gef.palette.PaletteDrawer;
 import org.eclipse.gef.palette.PaletteRoot;
@@ -40,6 +41,7 @@ import cz.jpikl.yafmt.editors.featuremodel.layout.ModelLayoutPackage;
 import cz.jpikl.yafmt.editors.featuremodel.layout.ModelLayoutStore;
 import cz.jpikl.yafmt.editors.featuremodel.layout.ObjectLayout;
 import cz.jpikl.yafmt.editors.featuremodel.parts.FeatureModelPartFactory;
+import cz.jpikl.yafmt.editors.featuremodel.utils.CreationAndDirectEditTool;
 import cz.jpikl.yafmt.models.featuremodel.Feature;
 import cz.jpikl.yafmt.models.featuremodel.FeatureModel;
 import cz.jpikl.yafmt.models.featuremodel.FeatureModelFactory;
@@ -91,7 +93,9 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
 		};
 				
 		PaletteDrawer elements = new PaletteDrawer("Elements");
-		elements.add(new CombinedTemplateCreationEntry("Feature", "Add a new feature.", featureFactory, null, null));
+		CreationToolEntry featureCreationToolEntry = new CombinedTemplateCreationEntry("Feature", "Add a new feature.", featureFactory, null, null);
+		featureCreationToolEntry.setToolClass(CreationAndDirectEditTool.class);
+		elements.add(featureCreationToolEntry);
 		elements.add(new ConnectionCreationToolEntry("Connection", "Create a connection.", null, null, null));
 		
 		PaletteRoot root = new PaletteRoot();
