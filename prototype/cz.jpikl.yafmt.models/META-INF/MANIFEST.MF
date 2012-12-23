@@ -8,7 +8,8 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: cz.jpikl.yafmt.models.featuremodel,
- cz.jpikl.yafmt.models.featuremodel.util
+ cz.jpikl.yafmt.models.featuremodel.util,
+ cz.jpikl.yafmt.models.utils
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport
 Bundle-ActivationPolicy: lazy

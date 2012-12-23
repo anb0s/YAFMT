@@ -1,4 +1,4 @@
-package cz.jpikl.yafmt.editors.featuremodel.utils;
+package cz.jpikl.yafmt.models.utils;
 
 import org.eclipse.emf.common.notify.Notification;
 

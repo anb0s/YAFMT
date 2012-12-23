@@ -8,7 +8,7 @@ Bundle-Activator: cz.jpikl.yafmt.models.featuremodel.provider.FeaturemodelEditPl
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Export-Package: cz.jpikl.yafmt.models.featuremodel.provider
+Export-Package: cz.jpikl.yafmt.models.featuremodel.provider, cz.jpikl.yafmt.models.featuremodel.provider.util
 Require-Bundle: org.eclipse.core.runtime,
  cz.jpikl.yafmt.models;visibility:=reexport,
  org.eclipse.emf.edit;visibility:=reexport

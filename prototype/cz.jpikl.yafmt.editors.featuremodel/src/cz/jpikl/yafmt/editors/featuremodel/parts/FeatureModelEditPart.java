@@ -23,10 +23,10 @@ import org.eclipse.gef.requests.CreateRequest;
 import cz.jpikl.yafmt.editors.featuremodel.commands.CreateFeatureCommand;
 import cz.jpikl.yafmt.editors.featuremodel.commands.MoveFeatureCommand;
 import cz.jpikl.yafmt.editors.featuremodel.layout.ModelLayoutStore;
-import cz.jpikl.yafmt.editors.featuremodel.utils.ModelAdapter;
-import cz.jpikl.yafmt.editors.featuremodel.utils.ModelListener;
 import cz.jpikl.yafmt.models.featuremodel.Feature;
 import cz.jpikl.yafmt.models.featuremodel.FeatureModel;
+import cz.jpikl.yafmt.models.utils.ModelAdapter;
+import cz.jpikl.yafmt.models.utils.ModelListener;
 
 public class FeatureModelEditPart extends AbstractGraphicalEditPart implements ModelListener {
 
@@ -85,7 +85,8 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart implements M
 	// Edit policies.
 	@Override
 	protected void createEditPolicies() {
-		
+		// TODO replace all anonymous classes
+		// Edit policy can access edit part via getHost() and getHostFigure().
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, new XYLayoutEditPolicy() {
 			// Called when adding new feature from palette 
 			@Override

@@ -33,12 +33,7 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
  * @generated
  */
 public class FeatureModelItemProviderAdapterFactory extends FeatureModelAdapterFactory implements ComposeableAdapterFactory, IChangeNotifier, IDisposable {
-	
-	/**
-	 * @generated NOT
-	 */
-	public static FeatureModelItemProviderAdapterFactory INSTANCE = new FeatureModelItemProviderAdapterFactory();
-	
+		
 	/**
 	 * This keeps track of the root adapter factory that delegates to this adapter factory.
 	 * <!-- begin-user-doc -->

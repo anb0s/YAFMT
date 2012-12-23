@@ -38,17 +38,14 @@ import cz.jpikl.yafmt.editors.featuremodel.layout.ModelLayoutStore;
 import cz.jpikl.yafmt.editors.featuremodel.layout.ObjectBounds;
 import cz.jpikl.yafmt.editors.featuremodel.utils.Connection;
 import cz.jpikl.yafmt.editors.featuremodel.utils.LabelDirectEditManager;
-import cz.jpikl.yafmt.editors.featuremodel.utils.ModelAdapter;
-import cz.jpikl.yafmt.editors.featuremodel.utils.ModelListener;
 import cz.jpikl.yafmt.editors.featuremodel.utils.UnwrappingPropertySource;
 import cz.jpikl.yafmt.models.featuremodel.Feature;
 import cz.jpikl.yafmt.models.featuremodel.FeatureModel;
-import cz.jpikl.yafmt.models.featuremodel.provider.FeatureItemProvider;
-import cz.jpikl.yafmt.models.featuremodel.provider.FeatureModelItemProviderAdapterFactory;
+import cz.jpikl.yafmt.models.featuremodel.provider.util.FeatureModelProviderUtil;
+import cz.jpikl.yafmt.models.utils.ModelAdapter;
+import cz.jpikl.yafmt.models.utils.ModelListener;
 
 public class FeatureEditPart extends AbstractGraphicalEditPart implements ModelListener, NodeEditPart, IAdaptable {
-
-	private static FeatureItemProvider itemProvider = new FeatureItemProvider(FeatureModelItemProviderAdapterFactory.INSTANCE);
 	
 	private IPropertySource propertySource;
 	private ModelLayoutStore layoutStore;
@@ -56,7 +53,7 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements ModelL
 	public FeatureEditPart(Feature feature, ModelLayoutStore layoutStore) {
 		System.out.println("FeatureEditPart: constructor");
 		setModel(feature);
-		this.propertySource = new UnwrappingPropertySource(feature, itemProvider);
+		this.propertySource = new UnwrappingPropertySource(feature, FeatureModelProviderUtil.getFeatureItemProvider());
 		this.layoutStore = layoutStore;
 	}
 	
@@ -235,7 +232,8 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements ModelL
 			case Notification.REMOVE:
 			case Notification.REMOVE_MANY:
 				// Notify root edit part.
-				((ModelListener) getParent()).modelChanged(notification);
+				if(getParent() != null)
+					((ModelListener) getParent()).modelChanged(notification);
 				break;
 				
 			case Notification.SET:
@@ -246,8 +244,10 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements ModelL
 		}
 		
 		// Refresh connections.
-		refreshTargetConnections();
-		refreshSourceConnections();
+		if(getParent() != null) {
+			refreshTargetConnections();
+			refreshSourceConnections();
+		}
 	}
 
 	@Override

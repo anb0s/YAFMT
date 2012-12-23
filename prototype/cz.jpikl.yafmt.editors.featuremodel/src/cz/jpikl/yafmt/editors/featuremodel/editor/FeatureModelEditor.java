@@ -56,6 +56,10 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
 		setEditDomain(new DefaultEditDomain(this));
 	}
 	
+	public FeatureModel getFeatureModel() {
+		return featureModel;
+	}
+	
 	// Called when editor is created.
 	@Override
 	protected void configureGraphicalViewer() {
