@@ -25,6 +25,7 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, Mo
 	public static final String ID = "cz.jpikl.yafmt.views.featuremodel.views.FeatureModelView";
 
 	private GraphViewer viewer;	
+	private ModelAdapter modelAdapter = new ModelAdapter(this);
 	
 	@Override
 	public void createPartControl(Composite parent) {
@@ -38,12 +39,12 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, Mo
 	private void setModel(FeatureModel model) {
 		FeatureModel prevModel = getModel();
 		if(prevModel != null)
-			ModelAdapter.removeListenerFromAllContents(prevModel.getRootFeature(), this);
+			modelAdapter.disconnectFromAll();
 			
 		if(model != null) {
 			viewer.setInput(model);
 			refreshGraphLayout();
-			ModelAdapter.addListenerToAllContents(model.getRootFeature(), this);
+			modelAdapter.connectToAllContents(model.getRootFeature());
 		}
 	}
 	
@@ -99,10 +100,12 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, Mo
 		viewer.refresh();
 		
 		switch(notification.getEventType()) {
-			case Notification.ADD:
+			case Notification.ADD:		
 			case Notification.ADD_MANY:
 			case Notification.REMOVE:
 			case Notification.REMOVE_MANY:
+				modelAdapter.disconnectFromAll();
+				modelAdapter.connectToAllContents(getModel().getRootFeature());
 				refreshGraphLayout();
 				break;
 		}

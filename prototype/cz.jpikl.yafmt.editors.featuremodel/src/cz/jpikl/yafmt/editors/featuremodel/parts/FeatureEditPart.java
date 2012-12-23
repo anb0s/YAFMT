@@ -49,12 +49,14 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements ModelL
 	
 	private IPropertySource propertySource;
 	private ModelLayoutStore layoutStore;
+	private ModelAdapter modelAdapter;
 	
 	public FeatureEditPart(Feature feature, ModelLayoutStore layoutStore) {
 		System.out.println("FeatureEditPart: constructor");
 		setModel(feature);
 		this.propertySource = new UnwrappingPropertySource(feature, FeatureModelProviderUtil.getFeatureItemProvider());
 		this.layoutStore = layoutStore;
+		this.modelAdapter = new ModelAdapter(this);
 	}
 	
 	public Feature getModel() {
@@ -84,13 +86,13 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements ModelL
 	@Override
 	public void activate() {
 		super.activate();
-		ModelAdapter.addListener(getModel(), this);
+		modelAdapter.connect(getModel());
 	}
 	
 	// Deactivate part, unregister itself as a model listener.
 	@Override
 	public void deactivate() {
-		ModelAdapter.removeListener(getModel(), this);
+		modelAdapter.disconnectFromAll();
 		super.deactivate();
 	}
 	

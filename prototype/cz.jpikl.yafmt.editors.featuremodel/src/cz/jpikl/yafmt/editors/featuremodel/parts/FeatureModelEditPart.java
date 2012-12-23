@@ -31,11 +31,13 @@ import cz.jpikl.yafmt.models.utils.ModelListener;
 public class FeatureModelEditPart extends AbstractGraphicalEditPart implements ModelListener {
 
 	private ModelLayoutStore layoutStore;
+	private ModelAdapter modelAdaper;
 	
 	public FeatureModelEditPart(FeatureModel model, ModelLayoutStore layoutStore) {
 		System.out.println("FeatureModelEditPart: constructor");
 		setModel(model);
-		this.layoutStore = layoutStore; 
+		this.layoutStore = layoutStore;
+		this.modelAdaper = new ModelAdapter(this);
 	}
 	
 	public FeatureModel getModel() {
@@ -61,14 +63,14 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart implements M
 	public void activate() {
 		System.out.println("FeatureModelEditPart: activating");
 		super.activate();
-		ModelAdapter.addListener(getModel(), this);
+		modelAdaper.connect(getModel());
 	}
 	
 	// Deactivate part, unregister itself as a model listener.
 	@Override
 	public void deactivate() {
 		System.out.println("FeatureModelEditPart: deactivating");
-		ModelAdapter.removeListener(getModel(), this);
+		modelAdaper.disconnectFromAll();
 		super.deactivate();
 	}
 	
