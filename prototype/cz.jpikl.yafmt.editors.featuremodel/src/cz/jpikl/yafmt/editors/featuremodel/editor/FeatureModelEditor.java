@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gef.DefaultEditDomain;
+import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.dnd.TemplateTransferDragSourceListener;
 import org.eclipse.gef.dnd.TemplateTransferDropTargetListener;
 import org.eclipse.gef.editparts.FreeformGraphicalRootEditPart;
@@ -57,9 +58,11 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
 	@Override
 	protected void configureGraphicalViewer() {
 		super.configureGraphicalViewer();
-		getGraphicalViewer().setEditPartFactory(new FeatureModelPartFactory(this));
-		getGraphicalViewer().setRootEditPart(new FreeformGraphicalRootEditPart());
-		getGraphicalViewer().addDropTargetListener(new TemplateTransferDropTargetListener(getGraphicalViewer()));
+		GraphicalViewer viewer = getGraphicalViewer();
+		viewer.setEditPartFactory(new FeatureModelPartFactory(this));
+		viewer.setRootEditPart(new FreeformGraphicalRootEditPart());
+		viewer.addDropTargetListener(new TemplateTransferDropTargetListener(viewer));
+		viewer.setContextMenu(new FeatureModelEditorContextMenuProvider(viewer, getActionRegistry()));
 		getSite().setSelectionProvider(getGraphicalViewer());
 	}
 	
