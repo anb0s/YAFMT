@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.util.EventObject;
 import java.util.Iterator;
 
-import org.eclipse.core.resources.IFile;
+import org.eclipse.core.filesystem.EFS;
+import org.eclipse.core.filesystem.IFileStore;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -27,7 +29,9 @@ import org.eclipse.gef.requests.SimpleFactory;
 import org.eclipse.gef.ui.palette.PaletteViewer;
 import org.eclipse.gef.ui.palette.PaletteViewerProvider;
 import org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette;
+import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IFileEditorInput;
+import org.eclipse.ui.IURIEditorInput;
 
 import cz.jpikl.yafmt.editors.featuremodel.layout.ModelLayout;
 import cz.jpikl.yafmt.editors.featuremodel.layout.ModelLayoutFactory;
@@ -49,6 +53,7 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
 		setEditDomain(new DefaultEditDomain(this));
 	}
 	
+	// Called when editor is created.
 	@Override
 	protected void configureGraphicalViewer() {
 		super.configureGraphicalViewer();
@@ -57,12 +62,14 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
 		getGraphicalViewer().addDropTargetListener(new TemplateTransferDropTargetListener(getGraphicalViewer()));
 	}
 	
+	// Called when editor is initialized with an input.
 	@Override
 	protected void initializeGraphicalViewer() {
 		super.initializeGraphicalViewer();
 		getGraphicalViewer().setContents(doLoad());
 	}
 	
+	// Creates and returns palette
 	@Override
 	protected PaletteRoot getPaletteRoot() {
 		PaletteToolbar tools = new PaletteToolbar("Tools");
@@ -90,8 +97,7 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
 		return root;
 	}
 	
-	
-	
+	// Allows dragging features from palette to the canvas.
 	@Override
 	protected PaletteViewerProvider createPaletteViewerProvider() {
 		return new PaletteViewerProvider(getEditDomain()) {
@@ -102,8 +108,28 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
 		};
 	}
 	
+	// Loads specified input.
 	private FeatureModel doLoad() {
-		IFile file = ((IFileEditorInput) getEditorInput()).getFile();
+		IEditorInput input = getEditorInput();
+		String path = null;
+		
+		if(input instanceof IFileEditorInput) {
+			path = ((IFileEditorInput) input).getFile().getFullPath().toString();
+		}
+		else if(input instanceof IURIEditorInput) {
+			try {
+				IFileStore store = EFS.getStore(((IURIEditorInput) input).getURI());
+				path = "file://" + store.toLocalFile(EFS.NONE, null).getAbsolutePath();
+			}
+			catch(CoreException ex) {
+				ex.printStackTrace();
+				return null;
+			}
+		}
+		else {
+			return null;
+		}
+				
 		ResourceSet resourceSet = new ResourceSetImpl();
 		Resource resource = null;
 		
@@ -114,8 +140,7 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
 		ModelLayoutPackage mlPack = ModelLayoutPackage.eINSTANCE;
 				
 		try {
-			URI uri = URI.createURI(file.getFullPath().toString());
-			resource = resourceSet.createResource(uri);
+			resource = resourceSet.createResource(URI.createURI(path));
 			resource.load(null);
 			featureModel = (FeatureModel) resource.getContents().get(0);	
 		}
@@ -125,8 +150,7 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
 		}
 		
 		try {
-			URI uri = URI.createURI(file.getFullPath().toString() + ".layout");
-			resource = resourceSet.createResource(uri);
+			resource = resourceSet.createResource(URI.createURI(path + ".layout"));
 			resource.load(null);
 			modelLayout = (ModelLayout) resource.getContents().get(0);
 		}
@@ -135,13 +159,14 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
 			resource.getContents().add(modelLayout);
 		}
 		
-		setPartName(file.getName());
+		setPartName(input.getName());
 		return featureModel;
 	}
 
+	// Saves model.
 	@Override
 	public void doSave(IProgressMonitor monitor) {
-		// Remove layout data of all objects which were removed from feature model.
+		// Remove layout data of all objects which were removed from the feature model.
 		Iterator<ObjectLayout> it = modelLayout.getObjectLayouts().iterator();
 		while(it.hasNext()) {
 			if(it.next().getObject().eResource() == null)
@@ -157,7 +182,15 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
 			ex.printStackTrace();
 		}
 	}
+	
+	// Makes the editor dirty whenever is a command executed (allows save action).
+	@Override
+	public void commandStackChanged(EventObject event) {
+		firePropertyChange(PROP_DIRTY);
+		super.commandStackChanged(event);
+	}
 
+	// Stores model element layout (ModelLayoutStore interface).
 	@Override
 	public void setObjectLayout(EObject object, EObject layoutData) {		
 		for(ObjectLayout objectLayout: modelLayout.getObjectLayouts()) {
@@ -173,6 +206,7 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
 		modelLayout.getObjectLayouts().add(objectLayout);
 	}
 
+	// Gets model element layout (ModelLayoutStore interface).
 	@Override
 	public EObject getObjectLayout(EObject object) {
 		for(ObjectLayout objectLayout: modelLayout.getObjectLayouts()) {
@@ -182,17 +216,5 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
 		return null;
 	}
 	
-	@Override
-	public void commandStackChanged(EventObject event) {
-		firePropertyChange(PROP_DIRTY);
-		super.commandStackChanged(event);
-	}
-	
-	/*
-	@Override
-	public void dispose() {
-		doSave(null);
-		super.dispose();
-	}*/
 
 }

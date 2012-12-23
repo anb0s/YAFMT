@@ -49,6 +49,7 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements ModelL
 		return (Feature) super.getModel();
 	}
 	
+	// Returns connection to parent feature.
 	@Override
 	protected List<Connection> getModelSourceConnections() {
 		if(getModel().getParent() == null)
@@ -58,6 +59,7 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements ModelL
 		return connections;
 	}
 	
+	// Returns connections to all children features.
 	@Override
 	protected List<Connection> getModelTargetConnections() {
 		List<Connection> connections = new ArrayList<Connection>();
@@ -66,18 +68,21 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements ModelL
 		return connections;
 	}
 	
+	// Activate part, register itself as a model listener.
 	@Override
 	public void activate() {
 		super.activate();
 		ModelAdapter.addListener(getModel(), this);
 	}
 	
+	// Deactivate part, unregister itself as a model listener.
 	@Override
 	public void deactivate() {
 		ModelAdapter.removeListener(getModel(), this);
 		super.deactivate();
 	}
 	
+	// Create feature figure.
 	@Override
 	protected IFigure createFigure() {
 		System.out.println("FeatureEditPart: creating figure");
@@ -87,26 +92,31 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements ModelL
 		return figure;
 	}
 	
+	// Returns source connection anchor object.
 	@Override
 	public ConnectionAnchor getSourceConnectionAnchor(ConnectionEditPart connection) {
 		return new ChopboxAnchor(getFigure());
 	}
 
+	// Returns target connection anchor object.
 	@Override
 	public ConnectionAnchor getTargetConnectionAnchor(ConnectionEditPart connection) {
 		return new ChopboxAnchor(getFigure());
 	}
 
+	// Returns source connection anchor object (called when creating connection between features).
 	@Override
 	public ConnectionAnchor getSourceConnectionAnchor(Request request) {
 		return new ChopboxAnchor(getFigure());
 	}
 
+	// Returns target connection anchor object (called when creating connection between features).
 	@Override
 	public ConnectionAnchor getTargetConnectionAnchor(Request request) {
 		return new ChopboxAnchor(getFigure());
 	}
 	
+	// Restore features position and size from model layout.
 	@Override
 	protected void refreshVisuals() {
 		System.out.println("FeatureEditPart: refreshing visuals");
@@ -126,9 +136,11 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements ModelL
 		super.refreshVisuals();
 	}
 	
+	// Edit policies.
 	@Override
 	protected void createEditPolicies() {
 		installEditPolicy(EditPolicy.COMPONENT_ROLE, new ComponentEditPolicy() {
+			// Called when deleting feature
 			@Override
 			protected Command createDeleteCommand(GroupRequest deleteRequest) {
 				Feature feature = getModel();
@@ -140,12 +152,14 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements ModelL
 		});
 		
 		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new GraphicalNodeEditPolicy() {
+			// Called when starting connecting features (user clicked on source feature).
 			@Override
 			protected Command getConnectionCreateCommand(CreateConnectionRequest request) {
 				request.setStartCommand(new CreateConnectionCommand(getModel()));
 				return request.getStartCommand();
 			}
 			
+			// Called when finishing connecting features (user clicked on destination feature).
 			@Override
 			protected Command getConnectionCompleteCommand(CreateConnectionRequest request) {
 				CreateConnectionCommand command = (CreateConnectionCommand) request.getStartCommand();
@@ -154,12 +168,13 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements ModelL
 				return null;
 			}		
 			
+			// Called when reconnecting source feature of a connection (not used).
 			@Override
 			protected Command getReconnectSourceCommand(ReconnectRequest request) {
 				return null;
 			}
 			
-			
+			// Called when reconnecting destination feature of a connection (not used).
 			@Override
 			protected Command getReconnectTargetCommand(ReconnectRequest request) {
 				return null;
@@ -167,6 +182,7 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements ModelL
 		});
 	}
 
+	// Notify root edit part and refresh all connections.
 	@Override
 	public void modelChanged(Notification notification) {
 		((ModelListener) getParent()).modelChanged(notification);

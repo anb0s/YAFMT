@@ -39,12 +39,14 @@ public class ConnectionEditPart extends AbstractConnectionEditPart {
 	@Override
 	protected void createEditPolicies() {
 		installEditPolicy(EditPolicy.COMPONENT_ROLE, new ComponentEditPolicy() {
+			// Called when deleting connection.
 			@Override
 			protected Command createDeleteCommand(GroupRequest deleteRequest) {
 				return new DeleteConnectionCommand((Connection) getModel());
 			}
 		});
 		
+		// Enable/disable connection selection.
 		installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new SelectionEditPolicy() {
 			@Override
 			protected void showSelection() {

@@ -2,7 +2,6 @@ package cz.jpikl.yafmt.editors.featuremodel.parts;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.eclipse.draw2d.FreeformLayer;
 import org.eclipse.draw2d.FreeformLayout;
@@ -43,6 +42,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart implements M
 		return (FeatureModel) super.getModel();
 	}
 	
+	// Returns all model children
 	@Override
 	protected List<Object> getModelChildren() {
 		System.out.println("FeatureModelEditPart: getting model children");
@@ -56,6 +56,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart implements M
 		return children;
 	}
 	
+	// Activate part, register itself as a model listener.
 	@Override
 	public void activate() {
 		System.out.println("FeatureModelEditPart: activating");
@@ -63,6 +64,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart implements M
 		ModelAdapter.addListener(getModel(), this);
 	}
 	
+	// Deactivate part, unregister itself as a model listener.
 	@Override
 	public void deactivate() {
 		System.out.println("FeatureModelEditPart: deactivating");
@@ -70,6 +72,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart implements M
 		super.deactivate();
 	}
 	
+	// Return root figure.
 	@Override
 	protected IFigure createFigure() {
 		System.out.println("FeatureModelEditPart: creating figure");
@@ -79,10 +82,12 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart implements M
 		return figure;
 	}
 
+	// Edit policies.
 	@Override
 	protected void createEditPolicies() {
 		
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, new XYLayoutEditPolicy() {
+			// Called when adding new feature from palette 
 			@Override
 			protected Command getCreateCommand(CreateRequest request) {
 				Object type = request.getNewObjectType();
@@ -92,6 +97,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart implements M
 				return null;
 			}
 			
+			// Called when moving or resizing feature
 			@Override
 			protected Command createChangeConstraintCommand(ChangeBoundsRequest request, EditPart child, Object constraint) {
 				return new MoveFeatureCommand((GraphicalEditPart) child, (Rectangle) constraint, layoutStore);
@@ -99,6 +105,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart implements M
 		});
 	}
 
+	// Returns name of a notification type.
 	private String getNotificationTypeName(Notification notification) {
 		switch(notification.getEventType()) {
 			case Notification.SET: return "SET";
@@ -115,22 +122,25 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart implements M
 		}
 	}
 	
+	// Called when model changed.
 	@Override
 	public void modelChanged(Notification notification) {
 		System.out.println("FeatureModelEditPart: model changed (" + getNotificationTypeName(notification) + ")");
 		
 		switch(notification.getEventType()) {
+			// Feature/connection was added.
 			case Notification.ADD:
 				Object addedObject = notification.getNewValue();
 				addChild(createChild(addedObject), 0);
 				break;
 				
+			// Feature/connection was removed.
 			case Notification.REMOVE:
 				Object removedObject = notification.getOldValue();
-				@SuppressWarnings("unchecked")
-				Map<Object, EditPart> partRegistry = getViewer().getEditPartRegistry();
-				removeChild(partRegistry.get(removedObject));				
+				removeChild((EditPart) getViewer().getEditPartRegistry().get(removedObject));				
 				break;
+				
+			// Ignore ADD_MANY, REMOVE_MANY - they are called only when feature parent is changed.
 		}
 		
 	}
