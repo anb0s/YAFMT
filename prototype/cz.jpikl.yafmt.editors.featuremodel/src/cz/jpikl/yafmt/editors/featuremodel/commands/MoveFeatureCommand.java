@@ -8,23 +8,27 @@ import org.eclipse.gef.commands.Command;
 import cz.jpikl.yafmt.editors.featuremodel.layout.ModelLayoutFactory;
 import cz.jpikl.yafmt.editors.featuremodel.layout.ModelLayoutStore;
 import cz.jpikl.yafmt.editors.featuremodel.layout.ObjectBounds;
+import cz.jpikl.yafmt.editors.featuremodel.parts.FeatureModelEditPart;
+import cz.jpikl.yafmt.models.featuremodel.Feature;
 
 public class MoveFeatureCommand extends Command {
 
-	private GraphicalEditPart editPart;
+	private FeatureModelEditPart rootPart;
+	private Feature feature;
 	private Rectangle newBounds;
 	private Rectangle oldBounds;
 	private ModelLayoutStore layoutStore;
 
-	public MoveFeatureCommand(GraphicalEditPart editPart, Rectangle newBounds, ModelLayoutStore layoutStore) {
-		this.editPart = editPart;
+	public MoveFeatureCommand(FeatureModelEditPart rootPart, Feature feature, Rectangle newBounds, ModelLayoutStore layoutStore) {
+		this.rootPart = rootPart;
+		this.feature = feature;
 		this.newBounds = newBounds;
 		this.layoutStore = layoutStore;
 	}
 	
 	private void applyBounds(Rectangle bounds) {
-		GraphicalEditPart parentPart = (GraphicalEditPart) editPart.getParent();
-		parentPart.setLayoutConstraint(editPart, editPart.getFigure(), bounds);
+		GraphicalEditPart editPart = rootPart.getEditPartForModel(feature);
+		rootPart.setLayoutConstraint(editPart, editPart.getFigure(), bounds);
 		
 		ObjectBounds objectBounds = ModelLayoutFactory.eINSTANCE.createObjectBounds();
 		objectBounds.setBounds(bounds);
@@ -33,6 +37,7 @@ public class MoveFeatureCommand extends Command {
 
 	@Override
 	public void execute() {
+		GraphicalEditPart editPart = rootPart.getEditPartForModel(feature);
 		oldBounds = new Rectangle(editPart.getFigure().getBounds());
 		applyBounds(newBounds);
 	}

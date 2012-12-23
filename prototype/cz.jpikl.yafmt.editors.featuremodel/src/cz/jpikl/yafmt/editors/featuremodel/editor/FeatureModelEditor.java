@@ -60,6 +60,7 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
 		getGraphicalViewer().setEditPartFactory(new FeatureModelPartFactory(this));
 		getGraphicalViewer().setRootEditPart(new FreeformGraphicalRootEditPart());
 		getGraphicalViewer().addDropTargetListener(new TemplateTransferDropTargetListener(getGraphicalViewer()));
+		getSite().setSelectionProvider(getGraphicalViewer());
 	}
 	
 	// Called when editor is initialized with an input.

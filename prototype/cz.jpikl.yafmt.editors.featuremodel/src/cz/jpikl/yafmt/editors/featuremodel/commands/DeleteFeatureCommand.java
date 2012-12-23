@@ -30,19 +30,6 @@ public class DeleteFeatureCommand extends Command {
 
 		children = new ArrayList<Feature>(feature.getChildren());
 		featureModel.getOrphanedFeatures().addAll(children);
-		featureModel.eResource().getContents().remove(feature);
-
-		if(feature.getParent() == null)
-			System.out.println("Removed feature has no parent .. OK");
-		else
-			System.out.println("Removed feature has parent !!!!");
-		
-		for(Feature child: children)
-			if(child.getParent() != null)
-				System.out.println("Orphan has parent !!!!");
-			else
-				System.out.println("Orphan has no parent ... OK");
-		
 	}
 	
 	@Override
@@ -54,17 +41,6 @@ public class DeleteFeatureCommand extends Command {
 		
 		featureModel.getOrphanedFeatures().removeAll(children);
 		feature.getChildren().addAll(children);
-		
-		if(feature.getParent() != null)
-			System.out.println("Added feature has parent .. OK");
-		else
-			System.out.println("Added feature has no parent !!!!");
-		
-		for(Feature child: children)
-			if(child.getParent() != null)
-				System.out.println("Child has parent ... OK");
-			else
-				System.out.println("Child has no parent !!!!");
 	}
 	
 }

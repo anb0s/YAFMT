@@ -100,7 +100,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart implements M
 			// Called when moving or resizing feature
 			@Override
 			protected Command createChangeConstraintCommand(ChangeBoundsRequest request, EditPart child, Object constraint) {
-				return new MoveFeatureCommand((GraphicalEditPart) child, (Rectangle) constraint, layoutStore);
+				return new MoveFeatureCommand(FeatureModelEditPart.this, (Feature) child.getModel(), (Rectangle) constraint, layoutStore);
 			}
 		});
 	}
@@ -130,19 +130,33 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart implements M
 		switch(notification.getEventType()) {
 			// Feature/connection was added.
 			case Notification.ADD:
+				// Create edit part only for new features (not those wose parent was changed).
 				Object addedObject = notification.getNewValue();
-				addChild(createChild(addedObject), 0);
+				if(getEditPartForModel(addedObject) == null) 
+					addChild(createChild(addedObject), 0);
 				break;
 				
 			// Feature/connection was removed.
 			case Notification.REMOVE:
 				Object removedObject = notification.getOldValue();
-				removeChild((EditPart) getViewer().getEditPartRegistry().get(removedObject));				
+				// Remove edit part only for deleted features (not those wose parent was changed).
+				if(removedObject instanceof Feature) {
+					Feature feature = (Feature) removedObject;
+					if((feature.getParent() == null) && !getModel().getOrphanedFeatures().contains(feature))
+						removeChild(getEditPartForModel(removedObject));
+				}
+				else {
+					removeChild(getEditPartForModel(removedObject));
+				}
 				break;
 				
 			// Ignore ADD_MANY, REMOVE_MANY - they are called only when feature parent is changed.
 		}
 		
+	}
+	
+	public GraphicalEditPart getEditPartForModel(Object model) {
+		return (GraphicalEditPart) getViewer().getEditPartRegistry().get(model);
 	}
 
 }

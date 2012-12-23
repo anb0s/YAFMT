@@ -3,6 +3,7 @@ package cz.jpikl.yafmt.editors.featuremodel.parts;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.ConnectionAnchor;
@@ -23,6 +24,7 @@ import org.eclipse.gef.editpolicies.GraphicalNodeEditPolicy;
 import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.gef.requests.GroupRequest;
 import org.eclipse.gef.requests.ReconnectRequest;
+import org.eclipse.ui.views.properties.IPropertySource;
 
 import cz.jpikl.yafmt.editors.featuremodel.commands.CreateConnectionCommand;
 import cz.jpikl.yafmt.editors.featuremodel.commands.DeleteFeatureCommand;
@@ -32,16 +34,23 @@ import cz.jpikl.yafmt.editors.featuremodel.layout.ObjectBounds;
 import cz.jpikl.yafmt.editors.featuremodel.utils.Connection;
 import cz.jpikl.yafmt.editors.featuremodel.utils.ModelAdapter;
 import cz.jpikl.yafmt.editors.featuremodel.utils.ModelListener;
+import cz.jpikl.yafmt.editors.featuremodel.utils.UnwrappingPropertySource;
 import cz.jpikl.yafmt.models.featuremodel.Feature;
 import cz.jpikl.yafmt.models.featuremodel.FeatureModel;
+import cz.jpikl.yafmt.models.featuremodel.provider.FeatureItemProvider;
+import cz.jpikl.yafmt.models.featuremodel.provider.FeatureModelItemProviderAdapterFactory;
 
-public class FeatureEditPart extends AbstractGraphicalEditPart implements ModelListener, NodeEditPart {
+public class FeatureEditPart extends AbstractGraphicalEditPart implements ModelListener, NodeEditPart, IAdaptable {
 
+	private static FeatureItemProvider itemProvider = new FeatureItemProvider(FeatureModelItemProviderAdapterFactory.INSTANCE);
+	
+	private IPropertySource propertySource;
 	private ModelLayoutStore layoutStore;
 	
 	public FeatureEditPart(Feature feature, ModelLayoutStore layoutStore) {
 		System.out.println("FeatureEditPart: constructor");
 		setModel(feature);
+		this.propertySource = new UnwrappingPropertySource(feature, itemProvider);
 		this.layoutStore = layoutStore;
 	}
 	
@@ -185,9 +194,29 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements ModelL
 	// Notify root edit part and refresh all connections.
 	@Override
 	public void modelChanged(Notification notification) {
-		((ModelListener) getParent()).modelChanged(notification);
+		switch(notification.getEventType()) {
+			case Notification.ADD:
+			case Notification.ADD_MANY:
+			case Notification.REMOVE:
+			case Notification.REMOVE_MANY:
+				((ModelListener) getParent()).modelChanged(notification);
+				break;
+				
+			case Notification.SET:
+			case Notification.UNSET:
+				((Label) getFigure()).setText(getModel().getName());
+				break;
+		}
+		
 		refreshTargetConnections();
 		refreshSourceConnections();
+	}
+
+	@Override
+	public Object getAdapter(@SuppressWarnings("rawtypes") Class key) {
+		if(key == IPropertySource.class)
+			return propertySource;
+		return super.getAdapter(key);
 	}
 
 }
