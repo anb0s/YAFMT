@@ -16,6 +16,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
+import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
@@ -37,14 +39,28 @@ import org.eclipse.gef.requests.SimpleFactory;
 import org.eclipse.gef.ui.palette.PaletteViewer;
 import org.eclipse.gef.ui.palette.PaletteViewerProvider;
 import org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette;
+import org.eclipse.jface.viewers.IContentProvider;
+import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IURIEditorInput;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.views.contentoutline.ContentOutlinePage;
+import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.ui.views.properties.PropertySheet;
 
 import cz.jpikl.yafmt.editors.featuremodel.layout.ModelLayout;
@@ -59,12 +75,14 @@ import cz.jpikl.yafmt.models.featuremodel.Feature;
 import cz.jpikl.yafmt.models.featuremodel.FeatureModel;
 import cz.jpikl.yafmt.models.featuremodel.FeatureModelFactory;
 import cz.jpikl.yafmt.models.featuremodel.FeatureModelPackage;
+import cz.jpikl.yafmt.models.featuremodel.provider.util.FeatureModelProviderUtil;
 
 public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette implements ModelLayoutStore, 
 																			        ISelectionListener {
 
 	private FeatureModel featureModel;
 	private ModelLayout modelLayout;
+	private FeatureModelContentOutlinePage outlinePage;
 	
 	public FeatureModelEditor() {
 		setEditDomain(new DefaultEditDomain(this));
@@ -235,7 +253,9 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
 	// Called when selection changes in feature model view.
 	@Override
 	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
-		if(part.getClass().getName() == "cz.jpikl.yafmt.views.featuremodel.view.FeatureModelView") {
+		String id = part.getClass().getName(); 
+		
+		if((id == "cz.jpikl.yafmt.views.featuremodel.view.FeatureModelView") || (id == "org.eclipse.ui.views.contentoutline.ContentOutline")) {
 			FeatureModelEditPart modelPart = (FeatureModelEditPart) getGraphicalViewer().getContents();
 			EditPart selectedPart = modelPart.getEditPartForModel(((IStructuredSelection) selection).getFirstElement());
 			if(selectedPart != null) {
@@ -254,6 +274,20 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
 				}
 			}
 		}
+		
+		// Forward selection to the content outline view when it comes from the feature model view or from itself.
+		if((id == "cz.jpikl.yafmt.views.featuremodel.view.FeatureModelView") || (part == this)) {
+			if(outlinePage != null) {
+				if(part == this) {
+					Object model = ((EditPart)((IStructuredSelection) selection).getFirstElement()).getModel();
+					outlinePage.setSelection(new StructuredSelection(model));
+				}
+				else {
+					outlinePage.setSelection(selection);
+				}
+			}
+		}
+		
 		super.selectionChanged(part, selection);
 	}
 	
@@ -285,6 +319,21 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
 				return objectLayout.getLayoutData();
 		}
 		return null;
+	}
+	
+	// =====================================================================
+	//  IAdaptable
+	// =====================================================================
+	
+	// Provides outline view content page.
+	@Override
+	public Object getAdapter(Class type) {
+		if(type == IContentOutlinePage.class) {
+			if(outlinePage == null)
+				outlinePage = new FeatureModelContentOutlinePage(featureModel);
+			return outlinePage;
+		}
+		return super.getAdapter(type);
 	}
 	
 }

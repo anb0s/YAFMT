@@ -14,6 +14,8 @@ import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
+import org.eclipse.ui.views.contentoutline.ContentOutline;
+import org.eclipse.ui.views.contentoutline.ContentOutlinePage;
 import org.eclipse.zest.core.viewers.GraphViewer;
 import org.eclipse.zest.core.widgets.GraphItem;
 import org.eclipse.zest.core.widgets.GraphNode;
@@ -50,19 +52,22 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, Mo
 		updateModelAndSelection(editor, null);
 	}
 	
-	private void updateModelAndSelection(IWorkbenchPart part, ISelection selection) {
-		if(!(part instanceof FeatureModelEditor))
+	private void updateModelAndSelection(IWorkbenchPart part, ISelection selection) {		
+		if(part instanceof FeatureModelEditor) {
+			FeatureModelEditor editor = (FeatureModelEditor) part;
+			if(getModel() != editor.getFeatureModel())
+				setModel(editor.getFeatureModel());
+		}
+		else if(!(part instanceof ContentOutline)) {
 			return;
-		
-		FeatureModelEditor editor = (FeatureModelEditor) part;
-		if(getModel() != editor.getFeatureModel())
-			setModel(editor.getFeatureModel());
+		}
 		
 		if(selection == null)
 			return;
 		
-		Object object = ((IStructuredSelection) selection).getFirstElement();
-		Object model = ((EditPart) object).getModel();
+		Object model = ((IStructuredSelection) selection).getFirstElement();
+		if(model instanceof EditPart)
+			model = ((EditPart) model).getModel();
 		viewer.setSelection(new StructuredSelection(new Object[] { model }));
 		
 		// Center viewport to selected feature.
