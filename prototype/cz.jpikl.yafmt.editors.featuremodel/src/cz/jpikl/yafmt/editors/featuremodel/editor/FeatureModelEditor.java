@@ -8,6 +8,9 @@ import org.eclipse.core.filesystem.EFS;
 import org.eclipse.core.filesystem.IFileStore;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Viewport;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -15,6 +18,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.dnd.TemplateTransferDragSourceListener;
 import org.eclipse.gef.dnd.TemplateTransferDropTargetListener;
@@ -217,17 +221,32 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
 		super.commandStackChanged(event);
 	}
 	
+	// =====================================================================
+	//  ISelectionListener
+	// =====================================================================
+	
 	// Called when selection changes in feature model view.
 	@Override
 	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
 		if(part.getClass().getName() == "cz.jpikl.yafmt.views.featuremodel.view.FeatureModelView") {
-			FeatureModelEditPart rootPart = (FeatureModelEditPart) getGraphicalViewer().getContents();
-			EditPart selectedPart = rootPart.getEditPartForModel(((IStructuredSelection) selection).getFirstElement());
-			if(selectedPart != null)
+			FeatureModelEditPart modelPart = (FeatureModelEditPart) getGraphicalViewer().getContents();
+			EditPart selectedPart = modelPart.getEditPartForModel(((IStructuredSelection) selection).getFirstElement());
+			if(selectedPart != null) {
+				// Select edit part.
 				getGraphicalViewer().select(selectedPart);
+				// Zoom to the selected edit part
+				Viewport vp = (Viewport)((FreeformGraphicalRootEditPart) getGraphicalViewer().getRootEditPart()).getFigure();
+				IFigure figure = ((GraphicalEditPart) selectedPart).getFigure();
+				Point p = figure.getBounds().getCenter();
+				vp.setViewLocation(p.x - vp.getSize().width / 2, p.y - vp.getSize().height / 2);
+			}
 		}
 		super.selectionChanged(part, selection);
 	}
+	
+	// =====================================================================
+	//  ModelLayoutStore
+	// =====================================================================
 
 	// Stores model element layout (ModelLayoutStore interface).
 	@Override

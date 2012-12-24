@@ -1,5 +1,7 @@
 package cz.jpikl.yafmt.views.featuremodel.view;
 
+import org.eclipse.draw2d.Viewport;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.gef.EditPart;
 import org.eclipse.jface.viewers.ISelection;
@@ -13,6 +15,8 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.zest.core.viewers.GraphViewer;
+import org.eclipse.zest.core.widgets.GraphItem;
+import org.eclipse.zest.core.widgets.GraphNode;
 import org.eclipse.zest.core.widgets.ZestStyles;
 import org.eclipse.zest.layouts.LayoutStyles;
 import org.eclipse.zest.layouts.algorithms.RadialLayoutAlgorithm;
@@ -60,6 +64,14 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, Mo
 		Object object = ((IStructuredSelection) selection).getFirstElement();
 		Object model = ((EditPart) object).getModel();
 		viewer.setSelection(new StructuredSelection(new Object[] { model }));
+		
+		// Center viewport to selected feature.
+		GraphItem item = viewer.findGraphItem(model);
+		if(item instanceof GraphNode) {
+			Point p = ((GraphNode) item).getLocation();
+			Viewport vp = viewer.getGraphControl().getViewport();
+			vp.setViewLocation(p.x - vp.getSize().width / 2, p.y - vp.getSize().height / 2);
+		}
 	}
 	
 	private void setModel(FeatureModel model) {

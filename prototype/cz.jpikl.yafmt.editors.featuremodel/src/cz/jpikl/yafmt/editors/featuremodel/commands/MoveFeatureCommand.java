@@ -13,22 +13,22 @@ import cz.jpikl.yafmt.models.featuremodel.Feature;
 
 public class MoveFeatureCommand extends Command {
 
-	private FeatureModelEditPart rootPart;
+	private FeatureModelEditPart modelPart;
 	private Feature feature;
 	private Rectangle newBounds;
 	private Rectangle oldBounds;
 	private ModelLayoutStore layoutStore;
 
-	public MoveFeatureCommand(FeatureModelEditPart rootPart, Feature feature, Rectangle newBounds, ModelLayoutStore layoutStore) {
-		this.rootPart = rootPart;
+	public MoveFeatureCommand(FeatureModelEditPart modelPart, Feature feature, Rectangle newBounds, ModelLayoutStore layoutStore) {
+		this.modelPart = modelPart;
 		this.feature = feature;
 		this.newBounds = newBounds;
 		this.layoutStore = layoutStore;
 	}
 	
 	private void applyBounds(Rectangle bounds) {
-		GraphicalEditPart editPart = rootPart.getEditPartForModel(feature);
-		rootPart.setLayoutConstraint(editPart, editPart.getFigure(), bounds);
+		GraphicalEditPart editPart = modelPart.getEditPartForModel(feature);
+		modelPart.setLayoutConstraint(editPart, editPart.getFigure(), bounds);
 		
 		ObjectBounds objectBounds = ModelLayoutFactory.eINSTANCE.createObjectBounds();
 		objectBounds.setBounds(bounds);
@@ -37,7 +37,7 @@ public class MoveFeatureCommand extends Command {
 
 	@Override
 	public void execute() {
-		GraphicalEditPart editPart = rootPart.getEditPartForModel(feature);
+		GraphicalEditPart editPart = modelPart.getEditPartForModel(feature);
 		oldBounds = new Rectangle(editPart.getFigure().getBounds());
 		applyBounds(newBounds);
 	}
