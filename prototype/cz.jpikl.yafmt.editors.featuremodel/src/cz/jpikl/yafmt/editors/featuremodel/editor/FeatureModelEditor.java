@@ -1,8 +1,10 @@
 package cz.jpikl.yafmt.editors.featuremodel.editor;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.Iterator;
+import java.util.List;
 
 import org.eclipse.core.filesystem.EFS;
 import org.eclipse.core.filesystem.IFileStore;
@@ -16,8 +18,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
-import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
@@ -39,27 +39,14 @@ import org.eclipse.gef.requests.SimpleFactory;
 import org.eclipse.gef.ui.palette.PaletteViewer;
 import org.eclipse.gef.ui.palette.PaletteViewerProvider;
 import org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette;
-import org.eclipse.jface.viewers.IContentProvider;
-import org.eclipse.jface.viewers.ILabelProvider;
-import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
-import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IURIEditorInput;
 import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.views.contentoutline.ContentOutlinePage;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.ui.views.properties.PropertySheet;
 
@@ -68,14 +55,12 @@ import cz.jpikl.yafmt.editors.featuremodel.layout.ModelLayoutFactory;
 import cz.jpikl.yafmt.editors.featuremodel.layout.ModelLayoutPackage;
 import cz.jpikl.yafmt.editors.featuremodel.layout.ModelLayoutStore;
 import cz.jpikl.yafmt.editors.featuremodel.layout.ObjectLayout;
-import cz.jpikl.yafmt.editors.featuremodel.parts.FeatureModelEditPart;
 import cz.jpikl.yafmt.editors.featuremodel.parts.FeatureModelPartFactory;
 import cz.jpikl.yafmt.editors.featuremodel.utils.CreationAndDirectEditTool;
 import cz.jpikl.yafmt.models.featuremodel.Feature;
 import cz.jpikl.yafmt.models.featuremodel.FeatureModel;
 import cz.jpikl.yafmt.models.featuremodel.FeatureModelFactory;
 import cz.jpikl.yafmt.models.featuremodel.FeatureModelPackage;
-import cz.jpikl.yafmt.models.featuremodel.provider.util.FeatureModelProviderUtil;
 
 public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette implements ModelLayoutStore, 
 																			        ISelectionListener {
@@ -246,6 +231,38 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
 		super.commandStackChanged(event);
 	}
 	
+	// Unwraps edit parts selection to model elements selection.
+	@SuppressWarnings("unchecked")
+	public ISelection unwrapSelection(ISelection selection) {
+		if(selection == null)
+			return null;
+		
+		List<Object> objects = new ArrayList<Object>();
+		Iterator<Object> it = ((IStructuredSelection) selection).iterator();
+		while(it.hasNext()) {
+			Object object = ((EditPart) it.next()).getModel();
+			if(object != null)
+				objects.add(object);	
+		}
+		return new StructuredSelection(objects);
+	}
+	
+	// Wraps model elements selection to edit parts selection.
+	@SuppressWarnings("unchecked")
+	public ISelection wrapSelection(ISelection selection) {
+		if(selection == null)
+			return null;
+		
+		List<Object> objects = new ArrayList<Object>();
+		Iterator<Object> it = ((IStructuredSelection) selection).iterator();
+		while(it.hasNext()) {
+			Object object = getGraphicalViewer().getEditPartRegistry().get(it.next());
+			if(object != null)
+				objects.add(object);
+		}
+		return new StructuredSelection(objects);
+	}
+	
 	// =====================================================================
 	//  ISelectionListener
 	// =====================================================================
@@ -256,21 +273,25 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
 		String id = part.getClass().getName(); 
 		
 		if((id == "cz.jpikl.yafmt.views.featuremodel.view.FeatureModelView") || (id == "org.eclipse.ui.views.contentoutline.ContentOutline")) {
-			FeatureModelEditPart modelPart = (FeatureModelEditPart) getGraphicalViewer().getContents();
-			EditPart selectedPart = modelPart.getEditPartForModel(((IStructuredSelection) selection).getFirstElement());
+			// Wraps model elements to edit parts
+			ISelection wrappedSelection = wrapSelection(selection);
+			// Select edit parts
+			getGraphicalViewer().setSelection(wrappedSelection); 
+			// Get first selected edit part
+			EditPart selectedPart = (EditPart) ((IStructuredSelection) wrappedSelection).getFirstElement();
+			
 			if(selectedPart != null) {
-				// Select edit part.
-				getGraphicalViewer().select(selectedPart);
 				// Zoom to the selected edit part
 				Viewport vp = (Viewport)((FreeformGraphicalRootEditPart) getGraphicalViewer().getRootEditPart()).getFigure();
 				IFigure figure = ((GraphicalEditPart) selectedPart).getFigure();
 				Point p = figure.getBounds().getCenter();
 				vp.setViewLocation(p.x - vp.getSize().width / 2, p.y - vp.getSize().height / 2);
-				// Forward selection to the propert sheet view (because feature model view does not provide properties itself)
+				
+				// Forward selection to the property sheet view (because feature model view does not provide properties itself)
 				PropertySheet properySheet = (PropertySheet) getSite().getPage().findView("org.eclipse.ui.views.PropertySheet");
 				if(properySheet != null) {
 					properySheet.partActivated(this); // fake editor activation
-					properySheet.selectionChanged(this, new StructuredSelection(selectedPart));
+					properySheet.selectionChanged(this, wrappedSelection);//new StructuredSelection(selectedPart));
 				}
 			}
 		}
@@ -278,13 +299,10 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
 		// Forward selection to the content outline view when it comes from the feature model view or from itself.
 		if((id == "cz.jpikl.yafmt.views.featuremodel.view.FeatureModelView") || (part == this)) {
 			if(outlinePage != null) {
-				if(part == this) {
-					Object model = ((EditPart)((IStructuredSelection) selection).getFirstElement()).getModel();
-					outlinePage.setSelection(new StructuredSelection(model));
-				}
-				else {
+				if(part == this)
+					outlinePage.setSelection(unwrapSelection(selection));
+				else
 					outlinePage.setSelection(selection);
-				}
 			}
 		}
 		
@@ -326,6 +344,7 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
 	// =====================================================================
 	
 	// Provides outline view content page.
+	@SuppressWarnings("rawtypes")
 	@Override
 	public Object getAdapter(Class type) {
 		if(type == IContentOutlinePage.class) {

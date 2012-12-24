@@ -3,10 +3,8 @@ package cz.jpikl.yafmt.views.featuremodel.view;
 import org.eclipse.draw2d.Viewport;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.gef.EditPart;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IPartListener;
@@ -15,7 +13,6 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.ui.views.contentoutline.ContentOutline;
-import org.eclipse.ui.views.contentoutline.ContentOutlinePage;
 import org.eclipse.zest.core.viewers.GraphViewer;
 import org.eclipse.zest.core.widgets.GraphItem;
 import org.eclipse.zest.core.widgets.GraphNode;
@@ -47,16 +44,19 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, Mo
 		getSite().getPage().addSelectionListener(this);
 		getSite().getPage().addPartListener(this);
 		
-		// Load editor input when editor is already opened.
+		// Load input when editor is already opened.
 		IEditorPart editor = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 		updateModelAndSelection(editor, null);
 	}
 	
 	private void updateModelAndSelection(IWorkbenchPart part, ISelection selection) {		
 		if(part instanceof FeatureModelEditor) {
+			// Update feature model when changed.
 			FeatureModelEditor editor = (FeatureModelEditor) part;
 			if(getModel() != editor.getFeatureModel())
 				setModel(editor.getFeatureModel());
+			// Unwrap selected edit parts to model elements
+			selection = editor.unwrapSelection(selection);
 		}
 		else if(!(part instanceof ContentOutline)) {
 			return;
@@ -65,10 +65,10 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, Mo
 		if(selection == null)
 			return;
 		
+		// First selected element.
 		Object model = ((IStructuredSelection) selection).getFirstElement();
-		if(model instanceof EditPart)
-			model = ((EditPart) model).getModel();
-		viewer.setSelection(new StructuredSelection(new Object[] { model }));
+		// Update selection
+		viewer.setSelection(selection);
 		
 		// Center viewport to selected feature.
 		GraphItem item = viewer.findGraphItem(model);
@@ -98,6 +98,7 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, Mo
 		return (FeatureModel) viewer.getInput();
 	}
 	
+	// Set viewport size accordingly to tree height and apply layout.
 	private void refreshGraphLayout() {
 		if(getModel() == null)
 			return;
@@ -127,7 +128,7 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, Mo
 		setModel(null);
 		getSite().getPage().removePartListener(this);
 		getSite().getPage().removeSelectionListener(this);
-		//getSite().setSelectionProvider(null);
+		getSite().setSelectionProvider(null);
 		super.dispose();
 	}
 	
