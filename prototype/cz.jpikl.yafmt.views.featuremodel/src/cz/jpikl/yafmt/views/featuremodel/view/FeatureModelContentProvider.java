@@ -21,15 +21,19 @@ public class FeatureModelContentProvider implements IGraphEntityContentProvider 
 	@Override
 	public Object[] getElements(Object input) {
 		List<Object> features = new ArrayList<Object>();
-		Feature rootFeature = ((FeatureModel) input).getRootFeature();
+		if(input == null)
+			return features.toArray();
 		
+		Feature rootFeature = ((FeatureModel) input).getRootFeature();
 		features.add(rootFeature);
+		
 		TreeIterator<EObject> it = rootFeature.eAllContents();
 		while(it.hasNext()) {
 			EObject obj = it.next();
 			if(obj instanceof Feature)
 				features.add(obj);
 		}
+		
 		return features.toArray();
 	}
 

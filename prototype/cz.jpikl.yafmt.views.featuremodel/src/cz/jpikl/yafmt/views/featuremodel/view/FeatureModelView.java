@@ -5,12 +5,15 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.zest.core.viewers.GraphViewer;
+import org.eclipse.zest.core.widgets.ZestStyles;
 import org.eclipse.zest.layouts.LayoutStyles;
 import org.eclipse.zest.layouts.algorithms.RadialLayoutAlgorithm;
 
@@ -20,7 +23,7 @@ import cz.jpikl.yafmt.models.featuremodel.FeatureModel;
 import cz.jpikl.yafmt.models.utils.ModelAdapter;
 import cz.jpikl.yafmt.models.utils.ModelListener;
 
-public class FeatureModelView extends ViewPart implements ISelectionListener, ModelListener {
+public class FeatureModelView extends ViewPart implements ISelectionListener, ModelListener, IPartListener {
 
 	public static final String ID = "cz.jpikl.yafmt.views.featuremodel.views.FeatureModelView";
 
@@ -29,12 +32,34 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, Mo
 	
 	@Override
 	public void createPartControl(Composite parent) {
-		viewer = new GraphViewer(parent, SWT.NONE);
+		viewer = new GraphViewer(parent, ZestStyles.NONE);
 		viewer.setContentProvider(new FeatureModelContentProvider());
 		viewer.setLabelProvider(new FeatureModelLabelProvider());
 		viewer.setLayoutAlgorithm(new RadialLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING));
+		viewer.setNodeStyle(ZestStyles.NODES_NO_ANIMATION); // Disable graph animation. Animation duration cannot be set (no API).
 		getSite().setSelectionProvider(viewer);
 		getSite().getPage().addSelectionListener(this);
+		getSite().getPage().addPartListener(this);
+		
+		// Load editor input when editor is already opened.
+		IEditorPart editor = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+		updateModelAndSelection(editor, null);
+	}
+	
+	private void updateModelAndSelection(IWorkbenchPart part, ISelection selection) {
+		if(!(part instanceof FeatureModelEditor))
+			return;
+		
+		FeatureModelEditor editor = (FeatureModelEditor) part;
+		if(getModel() != editor.getFeatureModel())
+			setModel(editor.getFeatureModel());
+		
+		if(selection == null)
+			return;
+		
+		Object object = ((IStructuredSelection) selection).getFirstElement();
+		Object model = ((EditPart) object).getModel();
+		viewer.setSelection(new StructuredSelection(new Object[] { model }));
 	}
 	
 	private void setModel(FeatureModel model) {
@@ -42,8 +67,11 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, Mo
 		if(prevModel != null)
 			modelAdapter.disconnectFromAll();
 			
-		if(model != null) {
+		// IllegalStateException is thrown when setting input to disposed control
+		if(!viewer.getControl().isDisposed())
 			viewer.setInput(model);
+		
+		if(model != null) {
 			refreshGraphLayout();
 			modelAdapter.connectToAllContents(model.getRootFeature());
 		}
@@ -80,23 +108,25 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, Mo
 	@Override
 	public void dispose() {
 		setModel(null);
+		getSite().getPage().removePartListener(this);
 		getSite().getPage().removeSelectionListener(this);
 		getSite().setSelectionProvider(null);
 		super.dispose();
 	}
+	
+	// ======================================================================
+	//  ISelectionListener
+	// ======================================================================
 		
 	@Override
 	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
-		if(part instanceof FeatureModelEditor) {
-			FeatureModelEditor editor = (FeatureModelEditor) part;
-			if(getModel() != editor.getFeatureModel())
-				setModel(editor.getFeatureModel());
-			Object object = ((IStructuredSelection) selection).getFirstElement();
-			Object model = ((EditPart) object).getModel();
-			viewer.setSelection(new StructuredSelection(new Object[] { model }));
-		}
+		updateModelAndSelection(part, selection);
 	}
-
+	
+	// ======================================================================
+	//  ModelListener
+	// ======================================================================
+	
 	@Override
 	public void modelChanged(Notification notification) {
 		viewer.refresh();
@@ -113,5 +143,35 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, Mo
 		}
 		
 	}
+
+	// ======================================================================
+	//  IPartListener
+	// ======================================================================
+	
+	@Override
+	public void partActivated(IWorkbenchPart part) {
+		if(part instanceof FeatureModelEditor)
+			updateModelAndSelection(part, null);
+	}
+	
+	@Override
+	public void partClosed(IWorkbenchPart part) {
+		if(part instanceof FeatureModelEditor)
+			setModel(null);
+	}
+	
+	@Override
+	public void partOpened(IWorkbenchPart part) {
+	}
+	
+	@Override
+	public void partDeactivated(IWorkbenchPart part) {
+	}
+
+	@Override
+	public void partBroughtToTop(IWorkbenchPart part) {
+	}
+
+	
 	
 }

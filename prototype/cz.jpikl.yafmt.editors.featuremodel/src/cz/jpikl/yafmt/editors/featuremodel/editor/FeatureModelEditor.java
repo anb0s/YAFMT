@@ -53,7 +53,8 @@ import cz.jpikl.yafmt.models.featuremodel.FeatureModel;
 import cz.jpikl.yafmt.models.featuremodel.FeatureModelFactory;
 import cz.jpikl.yafmt.models.featuremodel.FeatureModelPackage;
 
-public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette implements ModelLayoutStore, ISelectionListener {
+public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette implements ModelLayoutStore, 
+																			        ISelectionListener {
 
 	private FeatureModel featureModel;
 	private ModelLayout modelLayout;
