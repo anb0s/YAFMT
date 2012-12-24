@@ -11,13 +11,13 @@ import org.eclipse.zest.core.widgets.ZestStyles;
 
 import cz.jpikl.yafmt.models.featuremodel.Feature;
 
-public class FeatureModelLabelProvider implements ILabelProvider, 
+public class FeatureModelLabelProvider implements ILabelProvider,
 												  IEntityConnectionStyleProvider {
-	
+
 	// =============================================================
 	//  ILabelProvider
 	// =============================================================
-	
+
 	@Override
 	public void addListener(ILabelProviderListener listener) {
 	}
@@ -28,7 +28,6 @@ public class FeatureModelLabelProvider implements ILabelProvider,
 
 	@Override
 	public boolean isLabelProperty(Object element, String property) {
-		System.out.println("!!! testing if " + property + "is label for " + element.getClass().getName());
 		return false;
 	}
 
@@ -51,7 +50,7 @@ public class FeatureModelLabelProvider implements ILabelProvider,
 	// =============================================================
 	//  IEntityConnectionStyleProvider
 	// =============================================================
-	
+
 	@Override
 	public int getConnectionStyle(Object src, Object dest) {
 		if(((Feature) dest).getParent() == src)
@@ -78,5 +77,5 @@ public class FeatureModelLabelProvider implements ILabelProvider,
 	public IFigure getTooltip(Object entity) {
 		return null;
 	}
-	
+
 }

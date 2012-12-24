@@ -20,6 +20,7 @@ import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
+import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.dnd.TemplateTransferDragSourceListener;
 import org.eclipse.gef.dnd.TemplateTransferDropTargetListener;
 import org.eclipse.gef.editparts.FreeformGraphicalRootEditPart;
@@ -38,11 +39,13 @@ import org.eclipse.gef.ui.palette.PaletteViewerProvider;
 import org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IURIEditorInput;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.views.properties.PropertySheet;
 
 import cz.jpikl.yafmt.editors.featuremodel.layout.ModelLayout;
 import cz.jpikl.yafmt.editors.featuremodel.layout.ModelLayoutFactory;
@@ -69,6 +72,10 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
 	
 	public FeatureModel getFeatureModel() {
 		return featureModel;
+	}
+	
+	public CommandStack getCommandStack() {
+		return getEditDomain().getCommandStack();
 	}
 	
 	// Called when editor is created.
@@ -239,6 +246,12 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
 				IFigure figure = ((GraphicalEditPart) selectedPart).getFigure();
 				Point p = figure.getBounds().getCenter();
 				vp.setViewLocation(p.x - vp.getSize().width / 2, p.y - vp.getSize().height / 2);
+				// Forward selection to the propert sheet view (because feature model view does not provide properties itself)
+				PropertySheet properySheet = (PropertySheet) getSite().getPage().findView("org.eclipse.ui.views.PropertySheet");
+				if(properySheet != null) {
+					properySheet.partActivated(this); // fake editor activation
+					properySheet.selectionChanged(this, new StructuredSelection(selectedPart));
+				}
 			}
 		}
 		super.selectionChanged(part, selection);
@@ -274,5 +287,4 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
 		return null;
 	}
 	
-
 }

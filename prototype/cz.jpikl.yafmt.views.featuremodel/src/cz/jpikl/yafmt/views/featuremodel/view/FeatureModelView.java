@@ -122,7 +122,7 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, Mo
 		setModel(null);
 		getSite().getPage().removePartListener(this);
 		getSite().getPage().removeSelectionListener(this);
-		getSite().setSelectionProvider(null);
+		//getSite().setSelectionProvider(null);
 		super.dispose();
 	}
 	
@@ -183,7 +183,5 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, Mo
 	@Override
 	public void partBroughtToTop(IWorkbenchPart part) {
 	}
-
-	
 	
 }

@@ -46,23 +46,22 @@ import cz.jpikl.yafmt.models.utils.ModelAdapter;
 import cz.jpikl.yafmt.models.utils.ModelListener;
 
 public class FeatureEditPart extends AbstractGraphicalEditPart implements ModelListener, NodeEditPart, IAdaptable {
-	
+
 	private IPropertySource propertySource;
 	private ModelLayoutStore layoutStore;
 	private ModelAdapter modelAdapter;
-	
+
 	public FeatureEditPart(Feature feature, ModelLayoutStore layoutStore) {
-		System.out.println("FeatureEditPart: constructor");
 		setModel(feature);
 		this.propertySource = new UnwrappingPropertySource(feature, FeatureModelProviderUtil.getFeatureItemProvider());
 		this.layoutStore = layoutStore;
 		this.modelAdapter = new ModelAdapter(this);
 	}
-	
+
 	public Feature getModel() {
 		return (Feature) super.getModel();
 	}
-	
+
 	// Returns connection to parent feature.
 	@Override
 	protected List<Connection> getModelSourceConnections() {
@@ -72,7 +71,7 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements ModelL
 		connections.add(new Connection(getModel().getParent(), getModel()));
 		return connections;
 	}
-	
+
 	// Returns connections to all children features.
 	@Override
 	protected List<Connection> getModelTargetConnections() {
@@ -81,32 +80,31 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements ModelL
 			connections.add(new Connection(getModel(), child));
 		return connections;
 	}
-	
+
 	// Activate part, register itself as a model listener.
 	@Override
 	public void activate() {
 		super.activate();
 		modelAdapter.connect(getModel());
 	}
-	
+
 	// Deactivate part, unregister itself as a model listener.
 	@Override
 	public void deactivate() {
 		modelAdapter.disconnectFromAll();
 		super.deactivate();
 	}
-	
+
 	// Create feature figure.
 	@Override
 	protected IFigure createFigure() {
-		System.out.println("FeatureEditPart: creating figure");
-		Label figure = new Label(getModel().getName()); 
+		Label figure = new Label(getModel().getName());
 		figure.setBorder(new LineBorder());
 		figure.setBackgroundColor(ColorConstants.white);
 		figure.setOpaque(true);
 		return figure;
 	}
-	
+
 	// Returns source connection anchor object.
 	@Override
 	public ConnectionAnchor getSourceConnectionAnchor(ConnectionEditPart connection) {
@@ -130,13 +128,12 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements ModelL
 	public ConnectionAnchor getTargetConnectionAnchor(Request request) {
 		return new ChopboxAnchor(getFigure());
 	}
-	
+
 	// Restore features position and size from model layout.
 	@Override
 	protected void refreshVisuals() {
-		System.out.println("FeatureEditPart: refreshing visuals");
 		GraphicalEditPart editPart = (GraphicalEditPart) getParent();
-		
+
 		ObjectBounds bounds = (ObjectBounds) layoutStore.getObjectLayout(getModel());
 		if(bounds != null) {
 			editPart.setLayoutConstraint(this, getFigure(), bounds.getBounds());
@@ -147,10 +144,10 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements ModelL
 			bounds.setBounds(new Rectangle(0, 0, 100, 25));
 			layoutStore.setObjectLayout(getModel(), bounds);
 		}
-		
+
 		super.refreshVisuals();
 	}
-	
+
 	// Edit policies.
 	@Override
 	protected void createEditPolicies() {
@@ -165,7 +162,7 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements ModelL
 				return new DeleteFeatureCommand(featureModel, feature);
 			}
 		});
-		
+
 		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new GraphicalNodeEditPolicy() {
 			// Called when starting connecting features (user clicked on source feature).
 			@Override
@@ -173,7 +170,7 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements ModelL
 				request.setStartCommand(new CreateConnectionCommand(getModel()));
 				return request.getStartCommand();
 			}
-			
+
 			// Called when finishing connecting features (user clicked on destination feature).
 			@Override
 			protected Command getConnectionCompleteCommand(CreateConnectionRequest request) {
@@ -181,39 +178,37 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements ModelL
 				if(command.setDestination(getModel()))
 					return command;
 				return null;
-			}		
-			
+			}
+
 			// Called when reconnecting source feature of a connection (not used).
 			@Override
 			protected Command getReconnectSourceCommand(ReconnectRequest request) {
 				return null;
 			}
-			
+
 			// Called when reconnecting destination feature of a connection (not used).
 			@Override
 			protected Command getReconnectTargetCommand(ReconnectRequest request) {
 				return null;
 			}
 		});
-		
+
 		// Direct editing of feature name.
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new DirectEditPolicy() {
 			// Called when renaming of feature is done (user confirmed input).
 			@Override
 			protected Command getDirectEditCommand(DirectEditRequest request) {
-				System.out.println("Get direct edit command");
 				return new RenameFeatureCommand(getModel(), (String) request.getCellEditor().getValue());
 			}
-			
+
 			// Updates figure label text during editing.
 			@Override
 			protected void showCurrentEditValue(DirectEditRequest request) {
-				System.out.println("Show current edit value");
 				((Label) getFigure()).setText((String) request.getCellEditor().getValue());
 			}
 		});
 	}
-		
+
 	// Custom requests.
 	@Override
 	public void performRequest(Request request) {
@@ -224,7 +219,7 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements ModelL
 			manager.show();
 		}
 	}
-	
+
 	// Notify root edit part and refresh all connections.
 	@Override
 	public void modelChanged(Notification notification) {
@@ -237,14 +232,14 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements ModelL
 				if(getParent() != null)
 					((ModelListener) getParent()).modelChanged(notification);
 				break;
-				
+
 			case Notification.SET:
 			case Notification.UNSET:
 				// Update label (name change).
 				((Label) getFigure()).setText(getModel().getName());
 				break;
 		}
-		
+
 		// Refresh connections.
 		if(getParent() != null) {
 			refreshTargetConnections();

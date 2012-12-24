@@ -15,7 +15,7 @@ public class CreateFeatureCommand extends Command {
 	private Feature feature;
 	private Rectangle bounds;
 	private ModelLayoutStore layoutStore;
-	
+
 	public CreateFeatureCommand(FeatureModel featureModel, Feature feature, Rectangle bounds, ModelLayoutStore layoutStore) {
 		this.featureModel = featureModel;
 		this.feature = feature;
@@ -25,20 +25,18 @@ public class CreateFeatureCommand extends Command {
 
 	@Override
 	public void execute() {
-		System.out.println("New feature bounds: " + bounds.toString());
-		
 		ObjectBounds objectBounds = ModelLayoutFactory.eINSTANCE.createObjectBounds();
 		objectBounds.setBounds(bounds);
 		objectBounds.setWidth(100);
 		objectBounds.setHeight(25);
 		layoutStore.setObjectLayout(feature, objectBounds);
-		
+
 		featureModel.getOrphanedFeatures().add(feature);
 	}
-	
+
 	@Override
 	public void undo() {
 		featureModel.getOrphanedFeatures().remove(feature);
 	}
-	
+
 }
