@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gef.DefaultEditDomain;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.dnd.TemplateTransferDragSourceListener;
 import org.eclipse.gef.dnd.TemplateTransferDropTargetListener;
@@ -31,15 +32,20 @@ import org.eclipse.gef.requests.SimpleFactory;
 import org.eclipse.gef.ui.palette.PaletteViewer;
 import org.eclipse.gef.ui.palette.PaletteViewerProvider;
 import org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IFileEditorInput;
+import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IURIEditorInput;
+import org.eclipse.ui.IWorkbenchPart;
 
 import cz.jpikl.yafmt.editors.featuremodel.layout.ModelLayout;
 import cz.jpikl.yafmt.editors.featuremodel.layout.ModelLayoutFactory;
 import cz.jpikl.yafmt.editors.featuremodel.layout.ModelLayoutPackage;
 import cz.jpikl.yafmt.editors.featuremodel.layout.ModelLayoutStore;
 import cz.jpikl.yafmt.editors.featuremodel.layout.ObjectLayout;
+import cz.jpikl.yafmt.editors.featuremodel.parts.FeatureModelEditPart;
 import cz.jpikl.yafmt.editors.featuremodel.parts.FeatureModelPartFactory;
 import cz.jpikl.yafmt.editors.featuremodel.utils.CreationAndDirectEditTool;
 import cz.jpikl.yafmt.models.featuremodel.Feature;
@@ -47,7 +53,7 @@ import cz.jpikl.yafmt.models.featuremodel.FeatureModel;
 import cz.jpikl.yafmt.models.featuremodel.FeatureModelFactory;
 import cz.jpikl.yafmt.models.featuremodel.FeatureModelPackage;
 
-public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette implements ModelLayoutStore {
+public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette implements ModelLayoutStore, ISelectionListener {
 
 	private FeatureModel featureModel;
 	private ModelLayout modelLayout;
@@ -70,6 +76,7 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
 		viewer.addDropTargetListener(new TemplateTransferDropTargetListener(viewer));
 		viewer.setContextMenu(new FeatureModelEditorContextMenuProvider(viewer, getActionRegistry()));
 		getSite().setSelectionProvider(getGraphicalViewer());
+		getSite().getPage().addSelectionListener(this);
 	}
 	
 	// Called when editor is initialized with an input.
@@ -77,6 +84,13 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
 	protected void initializeGraphicalViewer() {
 		super.initializeGraphicalViewer();
 		getGraphicalViewer().setContents(doLoad());
+	}
+	
+	@Override
+	public void dispose() {
+		getSite().getPage().removeSelectionListener(this);
+		getSite().setSelectionProvider(null);
+		super.dispose();
 	}
 	
 	// Creates and returns palette
@@ -200,6 +214,18 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
 	public void commandStackChanged(EventObject event) {
 		firePropertyChange(PROP_DIRTY);
 		super.commandStackChanged(event);
+	}
+	
+	// Called when selection changes in feature model view.
+	@Override
+	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
+		if(part.getClass().getName() == "cz.jpikl.yafmt.views.featuremodel.view.FeatureModelView") {
+			FeatureModelEditPart rootPart = (FeatureModelEditPart) getGraphicalViewer().getContents();
+			EditPart selectedPart = rootPart.getEditPartForModel(((IStructuredSelection) selection).getFirstElement());
+			if(selectedPart != null)
+				getGraphicalViewer().select(selectedPart);
+		}
+		super.selectionChanged(part, selection);
 	}
 
 	// Stores model element layout (ModelLayoutStore interface).

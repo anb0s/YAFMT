@@ -20,10 +20,8 @@ public class ModelAdapter implements Adapter {
 	}
 	
 	public void connect(Notifier target) {
-		if(!target.eAdapters().contains(target)) {
-			target.eAdapters().add(this);
-			targets.add(target);
-		}
+		target.eAdapters().add(this);
+		targets.add(target);
 	}
 	
 	public void connectToAllContents(EObject target) {

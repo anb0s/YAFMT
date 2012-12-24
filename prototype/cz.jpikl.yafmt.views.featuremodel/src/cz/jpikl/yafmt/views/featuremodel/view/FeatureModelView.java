@@ -33,6 +33,7 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, Mo
 		viewer.setContentProvider(new FeatureModelContentProvider());
 		viewer.setLabelProvider(new FeatureModelLabelProvider());
 		viewer.setLayoutAlgorithm(new RadialLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING));
+		getSite().setSelectionProvider(viewer);
 		getSite().getPage().addSelectionListener(this);
 	}
 	
@@ -80,6 +81,7 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, Mo
 	public void dispose() {
 		setModel(null);
 		getSite().getPage().removeSelectionListener(this);
+		getSite().setSelectionProvider(null);
 		super.dispose();
 	}
 		
