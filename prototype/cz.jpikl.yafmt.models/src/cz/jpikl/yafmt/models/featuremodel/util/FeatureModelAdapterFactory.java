@@ -91,11 +91,14 @@ public class FeatureModelAdapterFactory extends AdapterFactoryImpl {
 	 * <!-- end-user-doc -->
 	 * @param target the object to adapt.
 	 * @return the adapter for the <code>target</code>.
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public Adapter createAdapter(Notifier target) {
-		return modelSwitch.doSwitch((EObject)target);
+		// Some classes tried to get adapter for XMIResource which was not EOBject
+		if(target instanceof EObject)
+			return modelSwitch.doSwitch((EObject)target);
+		return null;
 	}
 
 

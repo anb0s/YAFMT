@@ -20,6 +20,7 @@ public class FeatureModelEditorContextMenuProvider extends ContextMenuProvider {
 	public void buildContextMenu(IMenuManager menu) {
 		menu.add(getAction(ActionFactory.UNDO.getId()));
 		menu.add(getAction(ActionFactory.REDO.getId()));
+		menu.add(getAction(ActionFactory.DELETE.getId()));
 	}
 	
 	private IAction getAction(String id) {

@@ -21,6 +21,7 @@ import org.eclipse.zest.layouts.LayoutStyles;
 import org.eclipse.zest.layouts.algorithms.RadialLayoutAlgorithm;
 
 import cz.jpikl.yafmt.editors.featuremodel.editor.FeatureModelEditor;
+import cz.jpikl.yafmt.editors.featuremodel.editor.FeatureTreeEditor;
 import cz.jpikl.yafmt.models.featuremodel.Feature;
 import cz.jpikl.yafmt.models.featuremodel.FeatureModel;
 import cz.jpikl.yafmt.models.utils.ModelAdapter;
@@ -49,6 +50,20 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, Mo
 		updateModelAndSelection(editor, null);
 	}
 	
+	@Override
+	public void dispose() {
+		setModel(null);
+		getSite().getPage().removePartListener(this);
+		getSite().getPage().removeSelectionListener(this);
+		getSite().setSelectionProvider(null);
+		super.dispose();
+	}
+	
+	@Override
+	public void setFocus() {
+		viewer.getControl().setFocus();
+	}
+	
 	private void updateModelAndSelection(IWorkbenchPart part, ISelection selection) {		
 		if(part instanceof FeatureModelEditor) {
 			// Update feature model when changed.
@@ -56,7 +71,7 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, Mo
 			if(getModel() != editor.getFeatureModel())
 				setModel(editor.getFeatureModel());
 			// Unwrap selected edit parts to model elements
-			selection = editor.unwrapSelection(selection);
+			selection = FeatureTreeEditor.unwrapSelection(selection);
 		}
 		else if(!(part instanceof ContentOutline)) {
 			return;
@@ -116,20 +131,6 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, Mo
 				foundHeight = height;
 		}
 		return foundHeight;
-	}
-
-	@Override
-	public void setFocus() {
-		viewer.getControl().setFocus();
-	}
-	
-	@Override
-	public void dispose() {
-		setModel(null);
-		getSite().getPage().removePartListener(this);
-		getSite().getPage().removeSelectionListener(this);
-		getSite().setSelectionProvider(null);
-		super.dispose();
 	}
 	
 	// ======================================================================
