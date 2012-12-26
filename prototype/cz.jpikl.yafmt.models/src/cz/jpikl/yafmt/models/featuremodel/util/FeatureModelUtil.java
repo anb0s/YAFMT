@@ -29,7 +29,7 @@ public class FeatureModelUtil implements ModelListener {
 		while(it.hasNext()) {
 			EObject object = it.next();
 			if(object instanceof Feature)
-				setFeature((Feature) object);
+				addFeature((Feature) object);
 		}
 	}
 	
@@ -37,18 +37,18 @@ public class FeatureModelUtil implements ModelListener {
 		return featureMap.get(name);
 	}
 
-	private void setFeature(Feature feature) {
+	private void addFeature(Feature feature) {
 		modelAdapter.connect(feature);
 		featureMap.put(feature.getName(), feature);
 	}
 	
-	private void resetFeature(String oldName, String newName) {
+	private void replaceFeature(String oldName, String newName) {
 		Feature feature = featureMap.remove(oldName);
 		if((feature != null) && (newName != null))
 			featureMap.put(newName, feature);
 	}
 	
-	private void unsetFeature(Feature feature) {
+	private void removeFeature(Feature feature) {
 		modelAdapter.disconnect(feature);
 		featureMap.remove(feature.getName());
 	}
@@ -64,35 +64,35 @@ public class FeatureModelUtil implements ModelListener {
 		switch(notification.getEventType()) {
 			case Notification.ADD:
 				if(newValue instanceof Feature)
-					setFeature((Feature) newValue);
+					addFeature((Feature) newValue);
 				break;
 			
 			case Notification.ADD_MANY:
 				if(newValue instanceof Collection<?>) {
 					for(Object object: (Collection<?>) newValue) {
 						if(object instanceof Feature)
-							setFeature((Feature) object);
+							addFeature((Feature) object);
 					}
 				}
 				break;
 				
 			case Notification.REMOVE:
 				if(oldValue instanceof Feature)
-					unsetFeature((Feature) oldValue);
+					removeFeature((Feature) oldValue);
 				break;
 			
 			case Notification.REMOVE_MANY:
 				if(oldValue instanceof Collection<?>) {
 					for(Object object: (Collection<?>) oldValue) {
 						if(object instanceof Feature)
-							unsetFeature((Feature) object);
+							removeFeature((Feature) object);
 					}
 				}
 				break;
 				
 			case Notification.SET:
 				if(notification.getFeatureID(Feature.class) == FeatureModelPackage.FEATURE__NAME)
-					resetFeature((String) oldValue, (String) newValue);
+					replaceFeature((String) oldValue, (String) newValue);
 		}
 	}
 	

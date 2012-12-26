@@ -1,94 +1,39 @@
 package cz.jpikl.yafmt.editors.featuremodel.editor;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jface.viewers.ILabelProvider;
-import org.eclipse.jface.viewers.ILabelProviderListener;
-import org.eclipse.jface.viewers.IStructuredContentProvider;
+import org.eclipse.gef.ui.actions.ActionRegistry;
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ListViewer;
-import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
+import org.eclipse.ui.ISelectionListener;
+import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.EditorPart;
 
-import cz.jpikl.yafmt.models.featuremodel.Constraint;
 import cz.jpikl.yafmt.models.featuremodel.FeatureModel;
 
-public class ConstraintsEditor extends EditorPart {
+public class ConstraintsEditor extends EditorPart implements ISelectionListener {
 
 	private ListViewer viewer;
 	private FeatureModel featureModel;
+	private ActionRegistry actionRegistry;
 	
 	public ConstraintsEditor(FeatureModel featureModel) {
 		this.featureModel = featureModel;
+		this.actionRegistry = new ActionRegistry();
 	}	
 	
 	@Override
 	public void createPartControl(Composite parent) {
+		ConstraintsEditorProvider provider = new ConstraintsEditorProvider();
 		viewer = new ListViewer(parent);
-		viewer.setContentProvider(new IStructuredContentProvider() {
-			
-			@Override
-			public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void dispose() {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public Object[] getElements(Object inputElement) {
-				if(inputElement instanceof FeatureModel)
-					return ((FeatureModel) inputElement).getConstraints().toArray();
-				return null;
-			}
-		});
-		viewer.setLabelProvider(new ILabelProvider() {
-			
-			@Override
-			public void removeListener(ILabelProviderListener listener) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public boolean isLabelProperty(Object element, String property) {
-				// TODO Auto-generated method stub
-				return false;
-			}
-			
-			@Override
-			public void dispose() {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void addListener(ILabelProviderListener listener) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public String getText(Object element) {
-				if(element instanceof Constraint)
-					return ((Constraint) element).getValue();
-				return null;
-			}
-			
-			@Override
-			public Image getImage(Object element) {
-				// TODO Auto-generated method stub
-				return null;
-			}
-		});
+		viewer.setContentProvider(provider);
+		viewer.setLabelProvider(provider);
 		viewer.setInput(featureModel);
+		getSite().setSelectionProvider(viewer);
+		getSite().getPage().addSelectionListener(this);
 	}
 
 	@Override
@@ -104,7 +49,30 @@ public class ConstraintsEditor extends EditorPart {
 	
 	@Override
 	public void dispose() {
+		getSite().getPage().removeSelectionListener(this);
+		getSite().setSelectionProvider(null);
 		super.dispose();
+	}
+	
+	@SuppressWarnings("rawtypes")
+	@Override
+	public Object getAdapter(Class adapter) {
+		if(adapter == ActionRegistry.class)
+			return actionRegistry;
+		return super.getAdapter(adapter);
+	}
+	
+	// =======================================================
+	//  ISelectionListener
+	// =======================================================
+	
+	@Override
+	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
+		String id = part.getClass().getName();
+		if((id == "cz.jpikl.yafmt.views.featuremodel.view.FeatureModelView") || 
+		   (id == "org.eclipse.ui.views.contentoutline.ContentOutline")) {
+			viewer.setSelection(selection);
+		}
 	}
 	
 	// =======================================================

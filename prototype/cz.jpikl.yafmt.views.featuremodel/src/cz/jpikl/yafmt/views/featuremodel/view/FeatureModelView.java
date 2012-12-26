@@ -3,11 +3,11 @@ package cz.jpikl.yafmt.views.featuremodel.view;
 import org.eclipse.draw2d.Viewport;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.gef.EditPart;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
@@ -35,6 +35,7 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, Mo
 	private GraphViewer viewer;	
 	private ModelAdapter modelAdapter = new ModelAdapter(this);
 	private VisibleConstraintsFilter constraintsFilter = new VisibleConstraintsFilter();
+	private IWorkbenchPart activePart;
 	
 	@Override
 	public void createPartControl(Composite parent) {
@@ -50,8 +51,8 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, Mo
 		getSite().getPage().addPartListener(this);
 		
 		// Load input when editor is already opened.
-		IEditorPart editor = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
-		updateModelAndSelection(editor, null);
+		activePart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+		setModelFromEditor(activePart);
 	}
 	
 	@Override
@@ -68,35 +69,13 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, Mo
 		viewer.getControl().setFocus();
 	}
 	
-	private void updateModelAndSelection(IWorkbenchPart part, ISelection selection) {		
-		if(part instanceof FeatureModelEditor) {
-			// Update feature model when changed.
-			FeatureModelEditor editor = (FeatureModelEditor) part;
-			if(getModel() != editor.getFeatureModel())
-				setModel(editor.getFeatureModel());
-		}
-		else if(!(part instanceof ContentOutline)) {
-			return;
-		}
-		
-		if(selection == null)
-			return;
-		
-		// First selected element.
-		Object model = ((IStructuredSelection) selection).getFirstElement();
-		// Update selection
-		viewer.setSelection(selection);
-		
-		// Center viewport to selected feature.
-		GraphItem item = viewer.findGraphItem(model);
-		if(item instanceof GraphNode) {
-			Point p = ((GraphNode) item).getLocation();
-			Viewport vp = viewer.getGraphControl().getViewport();
-			vp.setViewLocation(p.x - vp.getSize().width / 2, p.y - vp.getSize().height / 2);
-		}
+	private void setModelFromEditor(IWorkbenchPart part) {
+		if(part instanceof FeatureModelEditor)
+			setModel(((FeatureModelEditor) part).getFeatureModel());
 	}
 	
 	private void setModel(FeatureModel model) {
+		// Update feature model only when changed.
 		FeatureModel prevModel = getModel();
 		if(prevModel != null)
 			modelAdapter.disconnectFromAll();
@@ -106,17 +85,17 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, Mo
 			viewer.setInput(model);
 		
 		if(model != null) {
+			modelAdapter.connectToAllContents(model.getRootFeature());
 			resizeViewArea();
 			viewer.applyLayout();
-			modelAdapter.connectToAllContents(model.getRootFeature());
 		}
 	}
 	
 	private FeatureModel getModel() {
 		return (FeatureModel) viewer.getInput();
 	}
-	
-	// Set viewport size accordingly to tree height.
+		
+	// Sets viewport size accordingly to tree height.
 	private void resizeViewArea() {
 		if(getModel() != null) {
 			int height = findFeatureTreeHeight(getModel().getRootFeature(), 1);
@@ -134,23 +113,42 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, Mo
 		return foundHeight;
 	}
 	
+	// Center viewport to selected object.
+	private void moveViewportToSelection(Object selectedObject) {		
+		GraphItem item = viewer.findGraphItem(selectedObject);
+		if(item instanceof GraphNode) {
+			Point p = ((GraphNode) item).getLocation();
+			Viewport vp = viewer.getGraphControl().getViewport();
+			vp.setViewLocation(p.x - vp.getSize().width / 2, p.y - vp.getSize().height / 2);
+		}
+	}
+	
 	// ======================================================================
 	//  ISelectionListener
 	// ======================================================================
 		
 	@Override
 	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
+		if(activePart != part)
+			return;
+		
 		if((part instanceof FeatureModelEditor) || (part instanceof ContentOutline) || (part == this)) {
+			Object firstSelection = ((IStructuredSelection) selection).getFirstElement();
+			
 			if(part != this) {
+				setModelFromEditor(part);
 				// Unwrap selected edit parts to model elements
-				if(part instanceof FeatureModelEditor)
+				if(firstSelection instanceof EditPart) { 
 					selection = FeatureTreeEditor.unwrapSelection(selection);
-				updateModelAndSelection(part, selection);
+					firstSelection = ((IStructuredSelection) selection).getFirstElement();
+				}
+				viewer.setSelection(selection);
 			}
 			
 			constraintsFilter.selectionChanged(selection);
 			viewer.refresh();
 			viewer.applyLayout();
+			moveViewportToSelection(firstSelection);
 		}
 	}
 	
@@ -184,8 +182,8 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, Mo
 	
 	@Override
 	public void partActivated(IWorkbenchPart part) {
-		if(part instanceof FeatureModelEditor)
-			updateModelAndSelection(part, null);
+		activePart = part;
+		setModelFromEditor(part);
 	}
 	
 	@Override

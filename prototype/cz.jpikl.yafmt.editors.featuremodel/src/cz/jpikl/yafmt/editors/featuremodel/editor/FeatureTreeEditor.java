@@ -178,8 +178,8 @@ public class FeatureTreeEditor extends GraphicalEditorWithFlyoutPalette implemen
 	// Unwraps edit parts selection to model elements selection.
 	@SuppressWarnings("unchecked")
 	public static ISelection unwrapSelection(ISelection selection) {
-		if(selection == null)
-			return null;
+		if((selection == null) || !(((IStructuredSelection) selection).getFirstElement() instanceof EditPart))
+			return selection;
 		
 		List<Object> objects = new ArrayList<Object>();
 		Iterator<Object> it = ((IStructuredSelection) selection).iterator();
