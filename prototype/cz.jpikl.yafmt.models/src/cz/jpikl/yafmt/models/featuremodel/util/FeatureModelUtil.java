@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.TreeIterator;
+import org.eclipse.emf.ecore.EObject;
 
 import cz.jpikl.yafmt.models.featuremodel.Feature;
 import cz.jpikl.yafmt.models.featuremodel.FeatureModel;
@@ -22,6 +24,13 @@ public class FeatureModelUtil implements ModelListener {
 		this.featureMap = new HashMap<String, Feature>();
 		this.modelAdapter = new ModelAdapter(this);		
 		this.modelAdapter.connectToAllContents(featureModel);
+		
+		TreeIterator<EObject> it = featureModel.eAllContents();
+		while(it.hasNext()) {
+			EObject object = it.next();
+			if(object instanceof Feature)
+				setFeature((Feature) object);
+		}
 	}
 	
 	public Feature getFeatureByName(String name) {
@@ -35,7 +44,7 @@ public class FeatureModelUtil implements ModelListener {
 	
 	private void resetFeature(String oldName, String newName) {
 		Feature feature = featureMap.remove(oldName);
-		if(newName != null)
+		if((feature != null) && (newName != null))
 			featureMap.put(newName, feature);
 	}
 	
@@ -62,21 +71,21 @@ public class FeatureModelUtil implements ModelListener {
 				if(newValue instanceof Collection<?>) {
 					for(Object object: (Collection<?>) newValue) {
 						if(object instanceof Feature)
-							setFeature((Feature) newValue);
+							setFeature((Feature) object);
 					}
 				}
 				break;
 				
 			case Notification.REMOVE:
-				if(newValue instanceof Feature)
+				if(oldValue instanceof Feature)
 					unsetFeature((Feature) oldValue);
 				break;
 			
 			case Notification.REMOVE_MANY:
-				if(newValue instanceof Collection<?>) {
-					for(Object object: (Collection<?>) newValue) {
+				if(oldValue instanceof Collection<?>) {
+					for(Object object: (Collection<?>) oldValue) {
 						if(object instanceof Feature)
-							unsetFeature((Feature) newValue);
+							unsetFeature((Feature) object);
 					}
 				}
 				break;

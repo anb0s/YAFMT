@@ -5,6 +5,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IPartListener;
@@ -33,6 +34,7 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, Mo
 
 	private GraphViewer viewer;	
 	private ModelAdapter modelAdapter = new ModelAdapter(this);
+	private VisibleConstraintsFilter constraintsFilter = new VisibleConstraintsFilter();
 	
 	@Override
 	public void createPartControl(Composite parent) {
@@ -41,6 +43,8 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, Mo
 		viewer.setLabelProvider(new FeatureModelLabelProvider());
 		viewer.setLayoutAlgorithm(new RadialLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING));
 		viewer.setNodeStyle(ZestStyles.NODES_NO_ANIMATION); // Disable graph animation. Animation duration cannot be set (no API).
+		viewer.setFilters(new ViewerFilter[] { constraintsFilter });
+		
 		getSite().setSelectionProvider(viewer);
 		getSite().getPage().addSelectionListener(this);
 		getSite().getPage().addPartListener(this);
@@ -70,8 +74,6 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, Mo
 			FeatureModelEditor editor = (FeatureModelEditor) part;
 			if(getModel() != editor.getFeatureModel())
 				setModel(editor.getFeatureModel());
-			// Unwrap selected edit parts to model elements
-			selection = FeatureTreeEditor.unwrapSelection(selection);
 		}
 		else if(!(part instanceof ContentOutline)) {
 			return;
@@ -104,7 +106,8 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, Mo
 			viewer.setInput(model);
 		
 		if(model != null) {
-			refreshGraphLayout();
+			resizeViewArea();
+			viewer.applyLayout();
 			modelAdapter.connectToAllContents(model.getRootFeature());
 		}
 	}
@@ -113,14 +116,12 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, Mo
 		return (FeatureModel) viewer.getInput();
 	}
 	
-	// Set viewport size accordingly to tree height and apply layout.
-	private void refreshGraphLayout() {
-		if(getModel() == null)
-			return;
-		
-		int height = findFeatureTreeHeight(getModel().getRootFeature(), 1);
-		viewer.getGraphControl().setPreferredSize(height * 100, height * 100);
-		viewer.applyLayout();
+	// Set viewport size accordingly to tree height.
+	private void resizeViewArea() {
+		if(getModel() != null) {
+			int height = findFeatureTreeHeight(getModel().getRootFeature(), 1);
+			viewer.getGraphControl().setPreferredSize(height * 100, height * 100);
+		}
 	}
 	
 	private int findFeatureTreeHeight(Feature root, int currentHeight) {
@@ -139,7 +140,18 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, Mo
 		
 	@Override
 	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
-		updateModelAndSelection(part, selection);
+		if((part instanceof FeatureModelEditor) || (part instanceof ContentOutline) || (part == this)) {
+			if(part != this) {
+				// Unwrap selected edit parts to model elements
+				if(part instanceof FeatureModelEditor)
+					selection = FeatureTreeEditor.unwrapSelection(selection);
+				updateModelAndSelection(part, selection);
+			}
+			
+			constraintsFilter.selectionChanged(selection);
+			viewer.refresh();
+			viewer.applyLayout();
+		}
 	}
 	
 	// ======================================================================
@@ -156,8 +168,11 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, Mo
 			case Notification.REMOVE:
 			case Notification.REMOVE_MANY:
 				modelAdapter.disconnectFromAll();
+				modelAdapter.connect(getModel());
 				modelAdapter.connectToAllContents(getModel().getRootFeature());
-				refreshGraphLayout();
+				// Do not connect to the oprhaned features since they are not displayed
+				resizeViewArea();
+				viewer.applyLayout();
 				break;
 		}
 		

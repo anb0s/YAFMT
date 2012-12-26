@@ -66,6 +66,8 @@ public class FeatureModelEditor extends MultiPageEditorPart implements ISelectio
 		try {
 			addPage(new FeatureTreeEditor(featureModel, editDomain), getEditorInput());
 			setPageText(0, "Feature Tree");
+			addPage(new ConstraintsEditor(featureModel), getEditorInput());
+			setPageText(1, "Constraints");
 		} 
 		catch (PartInitException ex) {
 			ex.printStackTrace();

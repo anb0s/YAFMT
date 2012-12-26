@@ -1,6 +1,7 @@
 package cz.jpikl.yafmt.models.utils;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.Adapter;
@@ -20,8 +21,15 @@ public class ModelAdapter implements Adapter {
 	}
 	
 	public void connect(Notifier target) {
-		target.eAdapters().add(this);
-		targets.add(target);
+		if(!target.eAdapters().contains(this)) {
+			target.eAdapters().add(this);
+			targets.add(target);
+		}
+	}
+	
+	public void connect(Collection<? extends EObject> targets) {
+		for(EObject target: targets)
+			connect(target);
 	}
 	
 	public void connectToAllContents(EObject target) {
@@ -34,6 +42,11 @@ public class ModelAdapter implements Adapter {
 	public void disconnect(Notifier target) {
 		target.eAdapters().remove(this);
 		targets.remove(target);
+	}
+	
+	public void disconnect(Collection<? extends EObject> targets) {
+		for(EObject target: targets)
+			disconnect(target);
 	}
 	
 	public void disconnectFromAllContents(EObject target) {
