@@ -1,5 +1,6 @@
 package cz.jpikl.yafmt.editors.featuremodel.editor;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
@@ -8,15 +9,25 @@ import org.eclipse.swt.graphics.Image;
 
 import cz.jpikl.yafmt.models.featuremodel.Constraint;
 import cz.jpikl.yafmt.models.featuremodel.FeatureModel;
+import cz.jpikl.yafmt.models.utils.ModelAdapter;
+import cz.jpikl.yafmt.models.utils.ModelListener;
 
-public class ConstraintsEditorProvider implements IStructuredContentProvider, ILabelProvider {
+public class ConstraintsEditorProvider implements IStructuredContentProvider, ILabelProvider, ModelListener {
 
+	private Viewer viewer;
+	private ModelAdapter adapter = new ModelAdapter(this);
+	
 	// =================================================================
 	//  IStructuredContentProvider
 	// =================================================================
 
 	@Override
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+		this.viewer = viewer;
+		
+		FeatureModel featureModel = (FeatureModel) newInput;
+		adapter.disconnectFromAll();
+		adapter.connect(featureModel);
 	}
 	
 	@Override
@@ -53,6 +64,15 @@ public class ConstraintsEditorProvider implements IStructuredContentProvider, IL
 
 	@Override
 	public void removeListener(ILabelProviderListener listener) {
+	}
+
+	// =================================================================
+	//  ILabelProvider
+	// =================================================================
+	
+	@Override
+	public void modelChanged(Notification notification) {
+		viewer.refresh();
 	}
 
 }

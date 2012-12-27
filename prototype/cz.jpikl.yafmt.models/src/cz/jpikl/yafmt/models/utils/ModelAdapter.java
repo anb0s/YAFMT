@@ -21,7 +21,7 @@ public class ModelAdapter implements Adapter {
 	}
 	
 	public void connect(Notifier target) {
-		if(!target.eAdapters().contains(this)) {
+		if((target != null) && (!target.eAdapters().contains(this))) {
 			target.eAdapters().add(this);
 			targets.add(target);
 		}

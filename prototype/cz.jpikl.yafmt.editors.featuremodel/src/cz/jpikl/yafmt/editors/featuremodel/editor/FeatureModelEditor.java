@@ -8,12 +8,14 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gef.DefaultEditDomain;
+import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.internal.registry.EditorDescriptor;
 import org.eclipse.ui.part.MultiPageEditorPart;
 import org.eclipse.ui.views.contentoutline.ContentOutlinePage;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
@@ -108,6 +110,18 @@ public class FeatureModelEditor extends MultiPageEditorPart implements ISelectio
 		return false;
 	}
 	
+	// Provides outline view content page.
+	@SuppressWarnings("rawtypes")
+	@Override
+	public Object getAdapter(Class type) {
+		if(type == IContentOutlinePage.class) {
+			if(outlinePage == null)
+				outlinePage = new FeatureModelContentOutlinePage(featureModel);
+			return outlinePage;
+		}
+		return super.getAdapter(type);
+	}
+	
 	// =====================================================================
 	//  ISelectionListener
 	// =====================================================================
@@ -125,23 +139,6 @@ public class FeatureModelEditor extends MultiPageEditorPart implements ISelectio
 		else if(id == "cz.jpikl.yafmt.editors.featuremodel.editor.FeatureModelEditor") {
 			outlinePage.setSelection(FeatureTreeEditor.unwrapSelection(selection));
 		}
-	}
-		
-	// =====================================================================
-	//  IAdaptable
-	// =====================================================================
-	
-	// Provides outline view content page.
-	@SuppressWarnings("rawtypes")
-	@Override
-	public Object getAdapter(Class type) {
-		if(type == IContentOutlinePage.class) {
-			if(outlinePage == null)
-				outlinePage = new FeatureModelContentOutlinePage(featureModel);
-			return outlinePage;
-		}
-
-		return super.getAdapter(type);
 	}
 		
 }

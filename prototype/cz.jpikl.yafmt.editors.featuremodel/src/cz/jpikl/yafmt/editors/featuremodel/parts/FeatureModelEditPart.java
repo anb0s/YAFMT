@@ -111,7 +111,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart implements M
 			case Notification.ADD:
 				// Create edit part only for new features (not those wose parent was changed).
 				Object addedObject = notification.getNewValue();
-				if(getEditPartForModel(addedObject) == null)
+				if((addedObject instanceof Feature) && (getEditPartForModel(addedObject) == null))
 					addChild(createChild(addedObject), 0);
 				break;
 
@@ -123,9 +123,6 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart implements M
 					Feature feature = (Feature) removedObject;
 					if((feature.getParent() == null) && !getModel().getOrphanedFeatures().contains(feature))
 						removeChild(getEditPartForModel(removedObject));
-				}
-				else {
-					removeChild(getEditPartForModel(removedObject));
 				}
 				break;
 
