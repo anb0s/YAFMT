@@ -1,11 +1,12 @@
 package cz.jpikl.yafmt.editors.featuremodel.editor;
 
 import org.eclipse.gef.ui.actions.ActionRegistry;
-import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.part.MultiPageEditorActionBarContributor;
+
+import cz.jpikl.yafmt.editors.featuremodel.actions.AddConstraintAction;
 
 public class FeatureModelActionBarContributor extends MultiPageEditorActionBarContributor {
 
@@ -37,31 +38,35 @@ public class FeatureModelActionBarContributor extends MultiPageEditorActionBarCo
 		bars.getToolBarManager().update(true);
 	}
 
+	private void setGlobalActionHandler(ActionRegistry registry, String actionId) {
+		getActionBars().setGlobalActionHandler(actionId, registry.getAction(actionId));
+	}
+	
+	private void addToolBarAction(ActionRegistry registry, String actionId) {
+		getActionBars().getToolBarManager().add(registry.getAction(actionId));
+	}
+	
 	private void setFeatureTreeEditorActions(FeatureTreeEditor editor) {
-		IActionBars bars = getActionBars();
-		
 		ActionRegistry registry = (ActionRegistry) editor.getAdapter(ActionRegistry.class);
-		bars.setGlobalActionHandler(ActionFactory.UNDO.getId(), registry.getAction(ActionFactory.UNDO.getId()));
-		bars.setGlobalActionHandler(ActionFactory.REDO.getId(), registry.getAction(ActionFactory.REDO.getId()));
-		bars.setGlobalActionHandler(ActionFactory.DELETE.getId(), registry.getAction(ActionFactory.DELETE.getId()));
-		bars.setGlobalActionHandler(ActionFactory.SELECT_ALL.getId(), registry.getAction(ActionFactory.SELECT_ALL.getId()));
-		
-		IToolBarManager toolbarManager = bars.getToolBarManager();
-		toolbarManager.add(registry.getAction(ActionFactory.UNDO.getId()));
-		toolbarManager.add(registry.getAction(ActionFactory.REDO.getId()));
-		toolbarManager.add(registry.getAction(ActionFactory.DELETE.getId()));
+		setGlobalActionHandler(registry, ActionFactory.UNDO.getId());
+		setGlobalActionHandler(registry, ActionFactory.REDO.getId());
+		setGlobalActionHandler(registry, ActionFactory.DELETE.getId());
+		setGlobalActionHandler(registry, ActionFactory.SELECT_ALL.getId());
+		addToolBarAction(registry, ActionFactory.UNDO.getId());
+		addToolBarAction(registry, ActionFactory.REDO.getId());
+		addToolBarAction(registry, ActionFactory.DELETE.getId());
 	}
 	
 	private void setConstraintsEditorActions(ConstraintsEditor editor) {
-		IActionBars bars = getActionBars();
-		bars.setGlobalActionHandler(ActionFactory.UNDO.getId(),editor.undo);
-		bars.setGlobalActionHandler(ActionFactory.REDO.getId(), editor.redo);
-		bars.setGlobalActionHandler(ActionFactory.DELETE.getId(), editor.delete);
-		
-		IToolBarManager toolbarManager = bars.getToolBarManager();
-		toolbarManager.add(editor.undo);
-		toolbarManager.add(editor.redo);
-		toolbarManager.add(editor.delete);
+		ActionRegistry registry = (ActionRegistry) editor.getAdapter(ActionRegistry.class);
+		setGlobalActionHandler(registry, ActionFactory.UNDO.getId());
+		setGlobalActionHandler(registry, ActionFactory.REDO.getId());
+		setGlobalActionHandler(registry, ActionFactory.DELETE.getId());
+		setGlobalActionHandler(registry, ActionFactory.SELECT_ALL.getId());
+		addToolBarAction(registry, ActionFactory.UNDO.getId());
+		addToolBarAction(registry, ActionFactory.REDO.getId());
+		addToolBarAction(registry, AddConstraintAction.ID);
+		addToolBarAction(registry, ActionFactory.DELETE.getId());
 	}
 
 }

@@ -23,8 +23,10 @@ import org.eclipse.zest.layouts.algorithms.RadialLayoutAlgorithm;
 
 import cz.jpikl.yafmt.editors.featuremodel.editor.FeatureModelEditor;
 import cz.jpikl.yafmt.editors.featuremodel.editor.FeatureTreeEditor;
+import cz.jpikl.yafmt.models.featuremodel.Constraint;
 import cz.jpikl.yafmt.models.featuremodel.Feature;
 import cz.jpikl.yafmt.models.featuremodel.FeatureModel;
+import cz.jpikl.yafmt.models.featuremodel.FeatureModelPackage;
 import cz.jpikl.yafmt.models.utils.ModelAdapter;
 import cz.jpikl.yafmt.models.utils.ModelListener;
 
@@ -85,7 +87,7 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, Mo
 			viewer.setInput(model);
 		
 		if(model != null) {
-			modelAdapter.connectToAllContents(model.getRootFeature());
+			modelAdapter.connectToAllContents(model);
 			resizeViewArea();
 			viewer.applyLayout();
 		}
@@ -133,15 +135,11 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, Mo
 			return;
 		
 		if((part instanceof FeatureModelEditor) || (part instanceof ContentOutline) || (part == this)) {
+			// Unwrap selected edit parts to model elements
 			Object firstSelection = ((IStructuredSelection) selection).getFirstElement();
-			
-			if(part != this) {
-				setModelFromEditor(part);
-				// Unwrap selected edit parts to model elements
-				if(firstSelection instanceof EditPart) { 
-					selection = FeatureTreeEditor.unwrapSelection(selection);
-					firstSelection = ((IStructuredSelection) selection).getFirstElement();
-				}
+			if(firstSelection instanceof EditPart) { 
+				selection = FeatureTreeEditor.unwrapSelection(selection);
+				firstSelection = ((IStructuredSelection) selection).getFirstElement();
 			}
 			
 			constraintsFilter.selectionChanged(selection);
@@ -162,13 +160,17 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, Mo
 		viewer.refresh();
 		
 		switch(notification.getEventType()) {
+			case Notification.SET:
+				if(notification.getFeatureID(Constraint.class) != FeatureModelPackage.CONSTRAINT__VALUE)
+					break;
+				
 			case Notification.ADD:		
 			case Notification.ADD_MANY:
 			case Notification.REMOVE:
 			case Notification.REMOVE_MANY:
 				modelAdapter.disconnectFromAll();
 				modelAdapter.connect(getModel());
-				modelAdapter.connectToAllContents(getModel().getRootFeature());
+				modelAdapter.connectToAllContents(getModel());
 				// Do not connect to the oprhaned features since they are not displayed
 				resizeViewArea();
 				viewer.applyLayout();
