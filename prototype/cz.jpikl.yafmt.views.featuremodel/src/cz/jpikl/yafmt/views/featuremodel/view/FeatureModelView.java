@@ -142,12 +142,13 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, Mo
 					selection = FeatureTreeEditor.unwrapSelection(selection);
 					firstSelection = ((IStructuredSelection) selection).getFirstElement();
 				}
-				viewer.setSelection(selection);
 			}
 			
 			constraintsFilter.selectionChanged(selection);
 			viewer.refresh();
 			viewer.applyLayout();
+			if(part != this)
+				viewer.setSelection(selection);
 			moveViewportToSelection(firstSelection);
 		}
 	}
