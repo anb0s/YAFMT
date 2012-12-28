@@ -72,8 +72,9 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, Mo
 	}
 	
 	private void setModelFromEditor(IWorkbenchPart part) {
-		if(part instanceof FeatureModelEditor)
-			setModel(((FeatureModelEditor) part).getFeatureModel());
+		FeatureModel model = (FeatureModel) part.getAdapter(FeatureModel.class);
+		if(model != null)
+			setModel(model);
 	}
 	
 	private void setModel(FeatureModel model) {

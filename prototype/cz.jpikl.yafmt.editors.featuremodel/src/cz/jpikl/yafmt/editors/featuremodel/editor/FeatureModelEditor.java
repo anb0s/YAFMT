@@ -33,10 +33,6 @@ public class FeatureModelEditor extends MultiPageEditorPart implements ISelectio
 		// ISelectionProvider is registered automatically in init() method.
 		// I forwards selection from selection providers of inner editors.
 	}
-	
-	public FeatureModel getFeatureModel() {
-		return featureModel;
-	}
 			
 	// Initializes editor with input.
 	@Override
@@ -108,15 +104,21 @@ public class FeatureModelEditor extends MultiPageEditorPart implements ISelectio
 		return false;
 	}
 	
-	// Provides outline view content page.
+	// =====================================================================
+	//  IAdaptable
+	// =====================================================================
+	
 	@SuppressWarnings("rawtypes")
 	@Override
 	public Object getAdapter(Class type) {
+		// Provides outline view content page.
 		if(type == IContentOutlinePage.class) {
 			if(outlinePage == null)
 				outlinePage = new FeatureModelContentOutlinePage(featureModel);
 			return outlinePage;
 		}
+		if(type == FeatureModel.class)
+			return featureModel;
 		return super.getAdapter(type);
 	}
 	
@@ -132,9 +134,9 @@ public class FeatureModelEditor extends MultiPageEditorPart implements ISelectio
 		// Forward selection to the content outline view when it comes from the feature model view 
 		// or from feature tree editor.
 		String id = part.getClass().getName(); 		
-		if(id == "cz.jpikl.yafmt.views.featuremodel.view.FeatureModelView") 
+		if(id.equals("cz.jpikl.yafmt.views.featuremodel.view.FeatureModelView")) 
 			outlinePage.setSelection(selection);
-		else if(id == "cz.jpikl.yafmt.editors.featuremodel.editor.FeatureModelEditor") {
+		else if(id.equals("cz.jpikl.yafmt.editors.featuremodel.editor.FeatureModelEditor")) {
 			outlinePage.setSelection(FeatureTreeEditor.unwrapSelection(selection));
 		}
 	}

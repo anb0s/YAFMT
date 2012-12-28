@@ -198,8 +198,8 @@ public class ConstraintsEditor extends EditorPart implements ISelectionListener,
 	@Override
 	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
 		String id = part.getClass().getName();
-		if((id == "cz.jpikl.yafmt.views.featuremodel.view.FeatureModelView") || 
-		   (id == "org.eclipse.ui.views.contentoutline.ContentOutline") ||
+		if((id.equals("cz.jpikl.yafmt.views.featuremodel.view.FeatureModelView")) || 
+		   (id.equals("org.eclipse.ui.views.contentoutline.ContentOutline")) ||
 		   (part instanceof FeatureModelEditor)) {
 			
 			// Update view selection only when selection occurred in other part.

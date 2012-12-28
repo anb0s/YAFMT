@@ -223,8 +223,8 @@ public class FeatureTreeEditor extends GraphicalEditorWithFlyoutPalette implemen
 	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
 		String id = part.getClass().getName();
 		
-		if((id == "cz.jpikl.yafmt.views.featuremodel.view.FeatureModelView") || 
-		   (id == "org.eclipse.ui.views.contentoutline.ContentOutline")) {
+		if((id.equals("cz.jpikl.yafmt.views.featuremodel.view.FeatureModelView")) || 
+		   (id.equals("org.eclipse.ui.views.contentoutline.ContentOutline"))) {
 			// Wraps model elements to edit parts
 			ISelection wrappedSelection = wrapSelection(selection);
 			// Select edit parts
