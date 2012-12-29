@@ -1,12 +1,15 @@
 package cz.jpikl.yafmt.editors.featuremodel.editor;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IEditorInput;
@@ -56,6 +59,8 @@ public class FeatureModelEditor extends MultiPageEditorPart implements ISelectio
 		super.dispose();
 	}
 	
+	
+	
 	// Creates editor pages. Called after init.
 	@Override
 	protected void createPages() {
@@ -70,6 +75,12 @@ public class FeatureModelEditor extends MultiPageEditorPart implements ISelectio
 		}
 	}
 	
+	private Map<Object, Object> createSaveLoadOptions() {
+		Map<Object, Object> options = new HashMap<Object, Object>();
+		options.put(XMLResource.OPTION_ENCODING, "UTF-8");
+		return options;
+	}
+	
 	// Loads specified input.
 	private void doLoad() throws IOException {
 		@SuppressWarnings("unused")
@@ -77,7 +88,7 @@ public class FeatureModelEditor extends MultiPageEditorPart implements ISelectio
 		ResourceSet resourceSet = new ResourceSetImpl();
 		String path = EditorUtil.getEditorInputFileName(getEditorInput());
 		Resource resource = resourceSet.createResource(URI.createURI(path));
-		resource.load(null);
+		resource.load(createSaveLoadOptions());
 		featureModel = (FeatureModel) resource.getContents().get(0);	
 	}
 
@@ -85,7 +96,7 @@ public class FeatureModelEditor extends MultiPageEditorPart implements ISelectio
 	@Override
 	public void doSave(IProgressMonitor monitor) {
 		try {
-			featureModel.eResource().save(null);
+			featureModel.eResource().save(createSaveLoadOptions());
 			for(int i = 0; i < getPageCount(); i++)
 				getEditor(i).doSave(monitor);
 			editDomain.getCommandStack().markSaveLocation();
