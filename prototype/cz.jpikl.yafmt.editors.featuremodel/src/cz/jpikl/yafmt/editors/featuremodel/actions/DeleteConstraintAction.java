@@ -21,54 +21,54 @@ import cz.jpikl.yafmt.models.featuremodel.FeatureModel;
 
 public class DeleteConstraintAction extends BaseAction {
 
-	public DeleteConstraintAction(IUndoContext undoContext, FeatureModel featureModel, TableViewer viewer) {
-		super(undoContext, featureModel, viewer);
-		setId(ActionFactory.DELETE.getId());
-		setText("Delete selected constraint");
-		
-		ISharedImages images = PlatformUI.getWorkbench().getSharedImages();
-		setImageDescriptor(images.getImageDescriptor(ISharedImages.IMG_TOOL_DELETE));
-		setDisabledImageDescriptor(images.getImageDescriptor(ISharedImages.IMG_TOOL_DELETE_DISABLED));
-	}
-	
-	@Override
-	public boolean isEnabled() {
-		return !viewer.getSelection().isEmpty();
-	}
+    public DeleteConstraintAction(IUndoContext undoContext, FeatureModel featureModel, TableViewer viewer) {
+        super(undoContext, featureModel, viewer);
+        setId(ActionFactory.DELETE.getId());
+        setText("Delete selected constraint");
 
-	@Override
-	protected IUndoableOperation createOperation() {
-		return new DeleteOperation();
-	}
-	
-	private class DeleteOperation extends AbstractOperation {
+        ISharedImages images = PlatformUI.getWorkbench().getSharedImages();
+        setImageDescriptor(images.getImageDescriptor(ISharedImages.IMG_TOOL_DELETE));
+        setDisabledImageDescriptor(images.getImageDescriptor(ISharedImages.IMG_TOOL_DELETE_DISABLED));
+    }
 
-		private List<Constraint> removedObjects;
-		
-		public DeleteOperation() {
-			super("Delete selected constraints");
-			setId(ActionFactory.DELETE.getId());
-		}
+    @Override
+    public boolean isEnabled() {
+        return !viewer.getSelection().isEmpty();
+    }
 
-		@SuppressWarnings("unchecked")
-		@Override
-		public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-			removedObjects = ((IStructuredSelection) viewer.getSelection()).toList();
-			return redo(monitor, info);
-		}
+    @Override
+    protected IUndoableOperation createOperation() {
+        return new DeleteOperation();
+    }
 
-		@Override
-		public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-			featureModel.getConstraints().removeAll(removedObjects);
-			return Status.OK_STATUS;
-		}
+    private class DeleteOperation extends AbstractOperation {
 
-		@Override
-		public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-			featureModel.getConstraints().addAll(removedObjects);
-			return Status.OK_STATUS;
-		}
-		
-	}
+        private List<Constraint> removedObjects;
+
+        public DeleteOperation() {
+            super("Delete selected constraints");
+            setId(ActionFactory.DELETE.getId());
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+            removedObjects = ((IStructuredSelection) viewer.getSelection()).toList();
+            return redo(monitor, info);
+        }
+
+        @Override
+        public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+            featureModel.getConstraints().removeAll(removedObjects);
+            return Status.OK_STATUS;
+        }
+
+        @Override
+        public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+            featureModel.getConstraints().addAll(removedObjects);
+            return Status.OK_STATUS;
+        }
+
+    }
 
 }

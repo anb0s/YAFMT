@@ -12,34 +12,34 @@ import org.eclipse.ui.PlatformUI;
 import cz.jpikl.yafmt.models.featuremodel.FeatureModel;
 
 public abstract class BaseAction extends Action implements UpdateAction {
-	
-	private IUndoContext undoContext;
-	protected FeatureModel featureModel;
-	protected TableViewer viewer;
-	
-	public BaseAction(IUndoContext undoContext, FeatureModel featureModel, TableViewer viewer) {
-		this.undoContext = undoContext;
-		this.featureModel = featureModel;
-		this.viewer = viewer;
-	}
-	
-	protected abstract IUndoableOperation createOperation();
-	
-	@Override
-	public void run() {
-		try {
-			IUndoableOperation operation = createOperation();
-			operation.addContext(undoContext);
-			IOperationHistory operationHistory = PlatformUI.getWorkbench().getOperationSupport().getOperationHistory();
-			operationHistory.execute(operation, null, null);
-		} catch (ExecutionException ex) {
-			ex.printStackTrace();
-		}
-	}
-	
-	@Override
-	public void update() {
-		setEnabled(isEnabled());
-	}
+
+    private IUndoContext undoContext;
+    protected FeatureModel featureModel;
+    protected TableViewer viewer;
+
+    public BaseAction(IUndoContext undoContext, FeatureModel featureModel, TableViewer viewer) {
+        this.undoContext = undoContext;
+        this.featureModel = featureModel;
+        this.viewer = viewer;
+    }
+
+    protected abstract IUndoableOperation createOperation();
+
+    @Override
+    public void run() {
+        try {
+            IUndoableOperation operation = createOperation();
+            operation.addContext(undoContext);
+            IOperationHistory operationHistory = PlatformUI.getWorkbench().getOperationSupport().getOperationHistory();
+            operationHistory.execute(operation, null, null);
+        } catch (ExecutionException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @Override
+    public void update() {
+        setEnabled(isEnabled());
+    }
 
 }

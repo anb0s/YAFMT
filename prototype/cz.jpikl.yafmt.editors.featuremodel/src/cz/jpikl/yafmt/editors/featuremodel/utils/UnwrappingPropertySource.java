@@ -6,10 +6,10 @@ import org.eclipse.emf.edit.ui.provider.PropertySource;
 
 // Fixes class cast exception when using property source from EMF.Edit.
 public class UnwrappingPropertySource extends PropertySource {
-	
+
     public UnwrappingPropertySource(Object object, IItemPropertySource itemPropertySource) {
-		super(object, itemPropertySource);
-	}
+        super(object, itemPropertySource);
+    }
 
     @Override
     public Object getEditableValue() {

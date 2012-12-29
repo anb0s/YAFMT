@@ -4,6 +4,6 @@ import org.eclipse.emf.common.notify.Notification;
 
 public interface ModelListener {
 
-	public void modelChanged(Notification notification);
-	
+    public void modelChanged(Notification notification);
+
 }

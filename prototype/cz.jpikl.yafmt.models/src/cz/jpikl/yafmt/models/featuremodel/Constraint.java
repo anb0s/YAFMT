@@ -7,19 +7,19 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Constraint extends EObject {
 
-	/**
-	 * @model
-	 */
-	String getValue();
+    /**
+     * @model
+     */
+    String getValue();
 
-	/**
-	 * Sets the value of the '{@link cz.jpikl.yafmt.models.featuremodel.Constraint#getValue <em>Value</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Value</em>' attribute.
-	 * @see #getValue()
-	 * @generated
-	 */
-	void setValue(String value);
-	
+    /**
+     * Sets the value of the '{@link cz.jpikl.yafmt.models.featuremodel.Constraint#getValue <em>Value</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Value</em>' attribute.
+     * @see #getValue()
+     * @generated
+     */
+    void setValue(String value);
+
 }

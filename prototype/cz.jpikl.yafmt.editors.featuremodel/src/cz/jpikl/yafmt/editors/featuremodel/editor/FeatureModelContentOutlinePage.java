@@ -11,19 +11,19 @@ import cz.jpikl.yafmt.models.featuremodel.provider.util.FeatureModelProviderUtil
 
 public class FeatureModelContentOutlinePage extends ContentOutlinePage {
 
-	private FeatureModel featureModel;
-	
-	public FeatureModelContentOutlinePage(FeatureModel featureModel) {
-		this.featureModel = featureModel;
-	}
+    private FeatureModel featureModel;
 
-	@Override
-	public void createControl(Composite parent) {
-		super.createControl(parent);
-		TreeViewer viewer = getTreeViewer();
-		viewer.setContentProvider(new AdapterFactoryContentProvider(FeatureModelProviderUtil.getAdapterFactory()));
-		viewer.setLabelProvider(new AdapterFactoryLabelProvider(FeatureModelProviderUtil.getAdapterFactory()));
-		viewer.setInput(featureModel);
-	}
-	
+    public FeatureModelContentOutlinePage(FeatureModel featureModel) {
+        this.featureModel = featureModel;
+    }
+
+    @Override
+    public void createControl(Composite parent) {
+        super.createControl(parent);
+        TreeViewer viewer = getTreeViewer();
+        viewer.setContentProvider(new AdapterFactoryContentProvider(FeatureModelProviderUtil.getAdapterFactory()));
+        viewer.setLabelProvider(new AdapterFactoryLabelProvider(FeatureModelProviderUtil.getAdapterFactory()));
+        viewer.setInput(featureModel);
+    }
+
 }

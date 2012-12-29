@@ -30,109 +30,109 @@ import cz.jpikl.yafmt.models.utils.ModelListener;
 
 public class FeatureModelEditPart extends AbstractGraphicalEditPart implements ModelListener {
 
-	private ModelLayoutStore layoutStore;
-	private ModelAdapter modelAdaper;
+    private ModelLayoutStore layoutStore;
+    private ModelAdapter modelAdaper;
 
-	public FeatureModelEditPart(FeatureModel model, ModelLayoutStore layoutStore) {
-		setModel(model);
-		this.layoutStore = layoutStore;
-		this.modelAdaper = new ModelAdapter(this);
-	}
+    public FeatureModelEditPart(FeatureModel model, ModelLayoutStore layoutStore) {
+        setModel(model);
+        this.layoutStore = layoutStore;
+        this.modelAdaper = new ModelAdapter(this);
+    }
 
-	public FeatureModel getModel() {
-		return (FeatureModel) super.getModel();
-	}
+    public FeatureModel getModel() {
+        return (FeatureModel) super.getModel();
+    }
 
-	// Returns all model children
-	@Override
-	protected List<Object> getModelChildren() {
-		List<Object> children = new ArrayList<Object>();
-		TreeIterator<EObject> it = getModel().eAllContents();
-		while(it.hasNext()) {
-			EObject obj = it.next();
-			if(obj instanceof Feature)
-				children.add(obj);
-		}
-		return children;
-	}
+    // Returns all model children
+    @Override
+    protected List<Object> getModelChildren() {
+        List<Object> children = new ArrayList<Object>();
+        TreeIterator<EObject> it = getModel().eAllContents();
+        while(it.hasNext()) {
+            EObject obj = it.next();
+            if(obj instanceof Feature)
+                children.add(obj);
+        }
+        return children;
+    }
 
-	// Activate part, register itself as a model listener.
-	@Override
-	public void activate() {
-		super.activate();
-		modelAdaper.connect(getModel());
-	}
+    // Activate part, register itself as a model listener.
+    @Override
+    public void activate() {
+        super.activate();
+        modelAdaper.connect(getModel());
+    }
 
-	// Deactivate part, unregister itself as a model listener.
-	@Override
-	public void deactivate() {
-		modelAdaper.disconnectFromAll();
-		super.deactivate();
-	}
+    // Deactivate part, unregister itself as a model listener.
+    @Override
+    public void deactivate() {
+        modelAdaper.disconnectFromAll();
+        super.deactivate();
+    }
 
-	// Return root figure.
-	@Override
-	protected IFigure createFigure() {
-		IFigure figure = new FreeformLayer();
-		figure.setBorder(new MarginBorder(3));
-		figure.setLayoutManager(new FreeformLayout());
-		return figure;
-	}
+    // Return root figure.
+    @Override
+    protected IFigure createFigure() {
+        IFigure figure = new FreeformLayer();
+        figure.setBorder(new MarginBorder(3));
+        figure.setLayoutManager(new FreeformLayout());
+        return figure;
+    }
 
-	// Edit policies.
-	@Override
-	protected void createEditPolicies() {
-		// TODO replace all anonymous classes
-		// Edit policy can access edit part via getHost() and getHostFigure().
-		installEditPolicy(EditPolicy.LAYOUT_ROLE, new XYLayoutEditPolicy() {
-			// Called when adding new feature from palette
-			@Override
-			protected Command getCreateCommand(CreateRequest request) {
-				Object type = request.getNewObjectType();
-				Rectangle bounds = (Rectangle) getConstraintFor(request);
-				if (type == Feature.class)
-					return new CreateFeatureCommand(getModel(), (Feature) request.getNewObject(), bounds, layoutStore);
-				return null;
-			}
+    // Edit policies.
+    @Override
+    protected void createEditPolicies() {
+        // TODO replace all anonymous classes
+        // Edit policy can access edit part via getHost() and getHostFigure().
+        installEditPolicy(EditPolicy.LAYOUT_ROLE, new XYLayoutEditPolicy() {
+            // Called when adding new feature from palette
+            @Override
+            protected Command getCreateCommand(CreateRequest request) {
+                Object type = request.getNewObjectType();
+                Rectangle bounds = (Rectangle) getConstraintFor(request);
+                if (type == Feature.class)
+                    return new CreateFeatureCommand(getModel(), (Feature) request.getNewObject(), bounds, layoutStore);
+                return null;
+            }
 
-			// Called when moving or resizing feature
-			@Override
-			protected Command createChangeConstraintCommand(ChangeBoundsRequest request, EditPart child, Object constraint) {
-				return new MoveFeatureCommand(FeatureModelEditPart.this, (Feature) child.getModel(), (Rectangle) constraint, layoutStore);
-			}
-		});
-	}
-	
-	// Called when model changed.
-	@Override
-	public void modelChanged(Notification notification) {
-		switch(notification.getEventType()) {
-			// Feature/connection was added.
-			case Notification.ADD:
-				// Create edit part only for new features (not those wose parent was changed).
-				Object addedObject = notification.getNewValue();
-				if((addedObject instanceof Feature) && (getEditPartForModel(addedObject) == null))
-					addChild(createChild(addedObject), 0);
-				break;
+            // Called when moving or resizing feature
+            @Override
+            protected Command createChangeConstraintCommand(ChangeBoundsRequest request, EditPart child, Object constraint) {
+                return new MoveFeatureCommand(FeatureModelEditPart.this, (Feature) child.getModel(), (Rectangle) constraint, layoutStore);
+            }
+        });
+    }
 
-			// Feature/connection was removed.
-			case Notification.REMOVE:
-				Object removedObject = notification.getOldValue();
-				// Remove edit part only for deleted features (not those wose parent was changed).
-				if(removedObject instanceof Feature) {
-					Feature feature = (Feature) removedObject;
-					if((feature.getParent() == null) && !getModel().getOrphanedFeatures().contains(feature))
-						removeChild(getEditPartForModel(removedObject));
-				}
-				break;
+    // Called when model changed.
+    @Override
+    public void modelChanged(Notification notification) {
+        switch(notification.getEventType()) {
+            // Feature/connection was added.
+            case Notification.ADD:
+                // Create edit part only for new features (not those wose parent was changed).
+                Object addedObject = notification.getNewValue();
+                if((addedObject instanceof Feature) && (getEditPartForModel(addedObject) == null))
+                    addChild(createChild(addedObject), 0);
+                break;
 
-			// Ignore ADD_MANY, REMOVE_MANY - they are called only when feature parent is changed.
-		}
+            // Feature/connection was removed.
+            case Notification.REMOVE:
+                Object removedObject = notification.getOldValue();
+                // Remove edit part only for deleted features (not those wose parent was changed).
+                if(removedObject instanceof Feature) {
+                    Feature feature = (Feature) removedObject;
+                    if((feature.getParent() == null) && !getModel().getOrphanedFeatures().contains(feature))
+                        removeChild(getEditPartForModel(removedObject));
+                }
+                break;
 
-	}
+            // Ignore ADD_MANY, REMOVE_MANY - they are called only when feature parent is changed.
+        }
 
-	public GraphicalEditPart getEditPartForModel(Object model) {
-		return (GraphicalEditPart) getViewer().getEditPartRegistry().get(model);
-	}
+    }
+
+    public GraphicalEditPart getEditPartForModel(Object model) {
+        return (GraphicalEditPart) getViewer().getEditPartRegistry().get(model);
+    }
 
 }

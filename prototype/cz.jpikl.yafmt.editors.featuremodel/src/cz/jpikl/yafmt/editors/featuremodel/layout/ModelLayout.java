@@ -9,9 +9,9 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface ModelLayout extends EObject {
 
-	/**
-	 * @model containment="true"
-	 */
-	EList<ObjectLayout> getObjectLayouts();
+    /**
+     * @model containment="true"
+     */
+    EList<ObjectLayout> getObjectLayouts();
 
 }

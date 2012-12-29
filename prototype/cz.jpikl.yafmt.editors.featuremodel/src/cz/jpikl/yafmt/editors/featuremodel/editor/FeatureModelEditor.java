@@ -27,129 +27,129 @@ import cz.jpikl.yafmt.models.featuremodel.FeatureModelPackage;
 
 public class FeatureModelEditor extends MultiPageEditorPart implements ISelectionListener {
 
-	private FeatureModel featureModel;
-	private ContentOutlinePage outlinePage;
-	private DefaultEditDomain editDomain;
-	
-	public FeatureModelEditor() {
-		editDomain = new DefaultEditDomain(this);
-		// ISelectionProvider is registered automatically in init() method.
-		// I forwards selection from selection providers of inner editors.
-	}
-			
-	// Initializes editor with input.
-	@Override
-	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
-		super.init(site, input);
-		
-		try {
-			doLoad();
-		}
-		catch(IOException ex) {
-			throw new PartInitException("Unable to load input.", ex);
-		}
-		
-		setPartName(getEditorInput().getName());
-		site.getPage().addSelectionListener(this);
-	}
-	
-	@Override
-	public void dispose() {
-		getSite().getPage().removeSelectionListener(this);
-		super.dispose();
-	}
-	
-	
-	
-	// Creates editor pages. Called after init.
-	@Override
-	protected void createPages() {
-		try {
-			addPage(new FeatureTreeEditor(featureModel, editDomain), getEditorInput());
-			setPageText(0, "Feature Tree");
-			addPage(new ConstraintsEditor(featureModel), getEditorInput());
-			setPageText(1, "Constraints");
-		} 
-		catch (PartInitException ex) {
-			ex.printStackTrace();
-		}
-	}
-	
-	private Map<Object, Object> createSaveLoadOptions() {
-		Map<Object, Object> options = new HashMap<Object, Object>();
-		options.put(XMLResource.OPTION_ENCODING, "UTF-8");
-		return options;
-	}
-	
-	// Loads specified input.
-	private void doLoad() throws IOException {
-		@SuppressWarnings("unused")
-		FeatureModelPackage fmPackage = FeatureModelPackage.eINSTANCE; // For package registration.
-		ResourceSet resourceSet = new ResourceSetImpl();
-		String path = EditorUtil.getEditorInputFileName(getEditorInput());
-		Resource resource = resourceSet.createResource(URI.createURI(path));
-		resource.load(createSaveLoadOptions());
-		featureModel = (FeatureModel) resource.getContents().get(0);	
-	}
+    private FeatureModel featureModel;
+    private ContentOutlinePage outlinePage;
+    private DefaultEditDomain editDomain;
 
-	// Saves model.
-	@Override
-	public void doSave(IProgressMonitor monitor) {
-		try {
-			featureModel.eResource().save(createSaveLoadOptions());
-			for(int i = 0; i < getPageCount(); i++)
-				getEditor(i).doSave(monitor);
-			editDomain.getCommandStack().markSaveLocation();
-		}
-		catch(IOException ex) {
-			ex.printStackTrace();
-		}
-	}
-	
-	@Override
-	public void doSaveAs() {
-	}
+    public FeatureModelEditor() {
+        editDomain = new DefaultEditDomain(this);
+        // ISelectionProvider is registered automatically in init() method.
+        // I forwards selection from selection providers of inner editors.
+    }
 
-	@Override
-	public boolean isSaveAsAllowed() {
-		return false;
-	}
-	
-	// =====================================================================
-	//  IAdaptable
-	// =====================================================================
-	
-	@SuppressWarnings("rawtypes")
-	@Override
-	public Object getAdapter(Class type) {
-		// Provides outline view content page.
-		if(type == IContentOutlinePage.class) {
-			if(outlinePage == null)
-				outlinePage = new FeatureModelContentOutlinePage(featureModel);
-			return outlinePage;
-		}
-		if(type == FeatureModel.class)
-			return featureModel;
-		return super.getAdapter(type);
-	}
-	
-	// =====================================================================
-	//  ISelectionListener
-	// =====================================================================
-	
-	@Override
-	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
-		if(outlinePage == null)
-			return;
-				
-		// Forward selection to the content outline view when it comes from the feature model view 
-		// or from feature tree editor.
-		String id = part.getClass().getName(); 		
-		if(id.equals("cz.jpikl.yafmt.views.featuremodel.view.FeatureModelView")) 
-			outlinePage.setSelection(selection);
-		else if(id.equals("cz.jpikl.yafmt.editors.featuremodel.editor.FeatureModelEditor")) {
-			outlinePage.setSelection(FeatureTreeEditor.unwrapSelection(selection));
-		}
-	}
-		
+    // Initializes editor with input.
+    @Override
+    public void init(IEditorSite site, IEditorInput input) throws PartInitException {
+        super.init(site, input);
+
+        try {
+            doLoad();
+        }
+        catch(IOException ex) {
+            throw new PartInitException("Unable to load input.", ex);
+        }
+
+        setPartName(getEditorInput().getName());
+        site.getPage().addSelectionListener(this);
+    }
+
+    @Override
+    public void dispose() {
+        getSite().getPage().removeSelectionListener(this);
+        super.dispose();
+    }
+
+
+
+    // Creates editor pages. Called after init.
+    @Override
+    protected void createPages() {
+        try {
+            addPage(new FeatureTreeEditor(featureModel, editDomain), getEditorInput());
+            setPageText(0, "Feature Tree");
+            addPage(new ConstraintsEditor(featureModel), getEditorInput());
+            setPageText(1, "Constraints");
+        }
+        catch (PartInitException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private Map<Object, Object> createSaveLoadOptions() {
+        Map<Object, Object> options = new HashMap<Object, Object>();
+        options.put(XMLResource.OPTION_ENCODING, "UTF-8");
+        return options;
+    }
+
+    // Loads specified input.
+    private void doLoad() throws IOException {
+        @SuppressWarnings("unused")
+        FeatureModelPackage fmPackage = FeatureModelPackage.eINSTANCE; // For package registration.
+        ResourceSet resourceSet = new ResourceSetImpl();
+        String path = EditorUtil.getEditorInputFileName(getEditorInput());
+        Resource resource = resourceSet.createResource(URI.createURI(path));
+        resource.load(createSaveLoadOptions());
+        featureModel = (FeatureModel) resource.getContents().get(0);
+    }
+
+    // Saves model.
+    @Override
+    public void doSave(IProgressMonitor monitor) {
+        try {
+            featureModel.eResource().save(createSaveLoadOptions());
+            for(int i = 0; i < getPageCount(); i++)
+                getEditor(i).doSave(monitor);
+            editDomain.getCommandStack().markSaveLocation();
+        }
+        catch(IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @Override
+    public void doSaveAs() {
+    }
+
+    @Override
+    public boolean isSaveAsAllowed() {
+        return false;
+    }
+
+    // =====================================================================
+    //  IAdaptable
+    // =====================================================================
+
+    @SuppressWarnings("rawtypes")
+    @Override
+    public Object getAdapter(Class type) {
+        // Provides outline view content page.
+        if(type == IContentOutlinePage.class) {
+            if(outlinePage == null)
+                outlinePage = new FeatureModelContentOutlinePage(featureModel);
+            return outlinePage;
+        }
+        if(type == FeatureModel.class)
+            return featureModel;
+        return super.getAdapter(type);
+    }
+
+    // =====================================================================
+    //  ISelectionListener
+    // =====================================================================
+
+    @Override
+    public void selectionChanged(IWorkbenchPart part, ISelection selection) {
+        if(outlinePage == null)
+            return;
+
+        // Forward selection to the content outline view when it comes from the feature model view
+        // or from feature tree editor.
+        String id = part.getClass().getName();
+        if(id.equals("cz.jpikl.yafmt.views.featuremodel.view.FeatureModelView"))
+            outlinePage.setSelection(selection);
+        else if(id.equals("cz.jpikl.yafmt.editors.featuremodel.editor.FeatureModelEditor")) {
+            outlinePage.setSelection(FeatureTreeEditor.unwrapSelection(selection));
+        }
+    }
+
 }

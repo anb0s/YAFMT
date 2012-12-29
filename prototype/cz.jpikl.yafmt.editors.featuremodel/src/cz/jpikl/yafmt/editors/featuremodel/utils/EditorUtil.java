@@ -9,23 +9,23 @@ import org.eclipse.ui.IURIEditorInput;
 
 public class EditorUtil {
 
-	public static String getEditorInputFileName(IEditorInput input) {		
-		if(input instanceof IFileEditorInput) {
-			return ((IFileEditorInput) input).getFile().getFullPath().toString();
-		}
-		
-		if(input instanceof IURIEditorInput) {
-			try {
-				IFileStore store = EFS.getStore(((IURIEditorInput) input).getURI());
-				return "file://" + store.toLocalFile(EFS.NONE, null).getAbsolutePath();
-			}
-			catch(CoreException ex) {
-				ex.printStackTrace();
-				return null;
-			}
-		}
-		
-		return null;
-	}
+    public static String getEditorInputFileName(IEditorInput input) {
+        if(input instanceof IFileEditorInput) {
+            return ((IFileEditorInput) input).getFile().getFullPath().toString();
+        }
+
+        if(input instanceof IURIEditorInput) {
+            try {
+                IFileStore store = EFS.getStore(((IURIEditorInput) input).getURI());
+                return "file://" + store.toLocalFile(EFS.NONE, null).getAbsolutePath();
+            }
+            catch(CoreException ex) {
+                ex.printStackTrace();
+                return null;
+            }
+        }
+
+        return null;
+    }
 
 }

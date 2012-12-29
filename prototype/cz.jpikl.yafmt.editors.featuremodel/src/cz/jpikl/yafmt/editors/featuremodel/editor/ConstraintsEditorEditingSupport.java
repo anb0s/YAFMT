@@ -20,73 +20,73 @@ import cz.jpikl.yafmt.models.featuremodel.Constraint;
 
 public class ConstraintsEditorEditingSupport extends EditingSupport {
 
-	private IUndoContext undoContext;
-	
-	public ConstraintsEditorEditingSupport(ColumnViewer viewer, IUndoContext undoContext) {
-		super(viewer);
-		this.undoContext = undoContext;
-	}
+    private IUndoContext undoContext;
 
-	@Override
-	protected void setValue(Object element, Object value) {
-		IOperationHistory operationHistory = PlatformUI.getWorkbench().getOperationSupport().getOperationHistory();
-		IUndoableOperation operation = new ChangeConstraintOperation((Constraint) element, (String) value);
-		operation.addContext(undoContext);
-		
-		try {
-			operationHistory.execute(operation, null, null);
-			getViewer().update(element, null);
-		}
-		catch(ExecutionException ex) {
-			ex.printStackTrace();
-		}
-	}
-	
-	@Override
-	protected Object getValue(Object element) {
-		return ((Constraint) element).getValue();
-	}
-	
-	@Override
-	protected CellEditor getCellEditor(Object element) {
-		return new TextCellEditor(((TableViewer) getViewer()).getTable());
-	}
-	
-	@Override
-	protected boolean canEdit(Object element) {
-		return true;
-	}
-	
-	public static class ChangeConstraintOperation extends AbstractOperation {
+    public ConstraintsEditorEditingSupport(ColumnViewer viewer, IUndoContext undoContext) {
+        super(viewer);
+        this.undoContext = undoContext;
+    }
 
-		private Constraint constraint;
-		private String newValue;
-		private String oldValue;
-		
-		public ChangeConstraintOperation(Constraint constraint, String newValue) {
-			super("Change constraint");
-			this.constraint = constraint;
-			this.newValue = newValue;
-		}
-		
-		@Override
-		public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-			this.oldValue = constraint.getValue();
-			return redo(monitor, info);
-		}
-		
-		@Override
-		public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-			constraint.setValue(newValue);
-			return Status.OK_STATUS;
-		}
-		
-		@Override
-		public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-			constraint.setValue(oldValue);
-			return Status.OK_STATUS;
-		}
-		
-	}
-	
+    @Override
+    protected void setValue(Object element, Object value) {
+        IOperationHistory operationHistory = PlatformUI.getWorkbench().getOperationSupport().getOperationHistory();
+        IUndoableOperation operation = new ChangeConstraintOperation((Constraint) element, (String) value);
+        operation.addContext(undoContext);
+
+        try {
+            operationHistory.execute(operation, null, null);
+            getViewer().update(element, null);
+        }
+        catch(ExecutionException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @Override
+    protected Object getValue(Object element) {
+        return ((Constraint) element).getValue();
+    }
+
+    @Override
+    protected CellEditor getCellEditor(Object element) {
+        return new TextCellEditor(((TableViewer) getViewer()).getTable());
+    }
+
+    @Override
+    protected boolean canEdit(Object element) {
+        return true;
+    }
+
+    public static class ChangeConstraintOperation extends AbstractOperation {
+
+        private Constraint constraint;
+        private String newValue;
+        private String oldValue;
+
+        public ChangeConstraintOperation(Constraint constraint, String newValue) {
+            super("Change constraint");
+            this.constraint = constraint;
+            this.newValue = newValue;
+        }
+
+        @Override
+        public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+            this.oldValue = constraint.getValue();
+            return redo(monitor, info);
+        }
+
+        @Override
+        public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+            constraint.setValue(newValue);
+            return Status.OK_STATUS;
+        }
+
+        @Override
+        public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+            constraint.setValue(oldValue);
+            return Status.OK_STATUS;
+        }
+
+    }
+
 }

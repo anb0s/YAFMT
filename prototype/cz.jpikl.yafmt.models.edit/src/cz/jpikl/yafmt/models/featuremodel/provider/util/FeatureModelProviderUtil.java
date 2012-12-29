@@ -6,20 +6,20 @@ import cz.jpikl.yafmt.models.featuremodel.provider.FeatureModelItemProviderAdapt
 
 public class FeatureModelProviderUtil {
 
-	private static FeatureModelItemProviderAdapterFactory adapterFactory;
-	
-	public static FeatureModelItemProviderAdapterFactory getAdapterFactory() {
-		if(adapterFactory == null)
-			adapterFactory = new FeatureModelItemProviderAdapterFactory();
-		return adapterFactory;
-	}
-	
-	public static FeatureModelItemProvider getFeatureModelItemProvider() {
-		return (FeatureModelItemProvider) getAdapterFactory().createFeatureModelAdapter();
-	}
-	
-	public static FeatureItemProvider getFeatureItemProvider() {
-		return (FeatureItemProvider) getAdapterFactory().createFeatureAdapter();
-	}
-	
+    private static FeatureModelItemProviderAdapterFactory adapterFactory;
+
+    public static FeatureModelItemProviderAdapterFactory getAdapterFactory() {
+        if(adapterFactory == null)
+            adapterFactory = new FeatureModelItemProviderAdapterFactory();
+        return adapterFactory;
+    }
+
+    public static FeatureModelItemProvider getFeatureModelItemProvider() {
+        return (FeatureModelItemProvider) getAdapterFactory().createFeatureModelAdapter();
+    }
+
+    public static FeatureItemProvider getFeatureItemProvider() {
+        return (FeatureItemProvider) getAdapterFactory().createFeatureAdapter();
+    }
+
 }

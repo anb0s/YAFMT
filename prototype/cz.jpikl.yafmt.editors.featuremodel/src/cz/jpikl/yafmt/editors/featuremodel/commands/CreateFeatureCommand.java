@@ -11,32 +11,32 @@ import cz.jpikl.yafmt.models.featuremodel.FeatureModel;
 
 public class CreateFeatureCommand extends Command {
 
-	private FeatureModel featureModel;
-	private Feature feature;
-	private Rectangle bounds;
-	private ModelLayoutStore layoutStore;
+    private FeatureModel featureModel;
+    private Feature feature;
+    private Rectangle bounds;
+    private ModelLayoutStore layoutStore;
 
-	public CreateFeatureCommand(FeatureModel featureModel, Feature feature, Rectangle bounds, ModelLayoutStore layoutStore) {
-		this.featureModel = featureModel;
-		this.feature = feature;
-		this.bounds = bounds;
-		this.layoutStore = layoutStore;
-	}
+    public CreateFeatureCommand(FeatureModel featureModel, Feature feature, Rectangle bounds, ModelLayoutStore layoutStore) {
+        this.featureModel = featureModel;
+        this.feature = feature;
+        this.bounds = bounds;
+        this.layoutStore = layoutStore;
+    }
 
-	@Override
-	public void execute() {
-		ObjectBounds objectBounds = ModelLayoutFactory.eINSTANCE.createObjectBounds();
-		objectBounds.setBounds(bounds);
-		objectBounds.setWidth(100);
-		objectBounds.setHeight(25);
-		layoutStore.setObjectLayout(feature, objectBounds);
+    @Override
+    public void execute() {
+        ObjectBounds objectBounds = ModelLayoutFactory.eINSTANCE.createObjectBounds();
+        objectBounds.setBounds(bounds);
+        objectBounds.setWidth(100);
+        objectBounds.setHeight(25);
+        layoutStore.setObjectLayout(feature, objectBounds);
 
-		featureModel.getOrphanedFeatures().add(feature);
-	}
+        featureModel.getOrphanedFeatures().add(feature);
+    }
 
-	@Override
-	public void undo() {
-		featureModel.getOrphanedFeatures().remove(feature);
-	}
+    @Override
+    public void undo() {
+        featureModel.getOrphanedFeatures().remove(feature);
+    }
 
 }
