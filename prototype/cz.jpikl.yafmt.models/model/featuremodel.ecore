@@ -1,23 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="featuremodel" nsURI="https://bitbucket.org/jpikl/yafmt/featuremodel.ecore"
-    nsPrefix="featuremodel">
-  <eClassifiers xsi:type="ecore:EClass" name="Constraint">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Feature">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="children" upperBound="-1"
-        eType="#//Feature" containment="true" resolveProxies="false" eOpposite="#//Feature/parent"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="#//Feature"
-        eOpposite="#//Feature/children"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FeatureModel">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="rootFeature" lowerBound="1"
-        eType="#//Feature" containment="true" resolveProxies="false"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="orphanedFeatures" upperBound="-1"
-        eType="#//Feature" containment="true" resolveProxies="false"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="constraints" upperBound="-1"
-        eType="#//Constraint" containment="true" resolveProxies="false"/>
-  </eClassifiers>
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="models" nsURI="https://bitbucket.org/jpikl/yafmt/" nsPrefix="models">
+  <eSubpackages name="featuremodel" nsURI="https://bitbucket.org/jpikl/yafmt/featuremodel.ecore"
+      nsPrefix="featuremodel">
+    <eClassifiers xsi:type="ecore:EClass" name="Constraint">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Feature">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="children" upperBound="-1"
+          eType="#//featuremodel/Feature" containment="true" resolveProxies="false"
+          eOpposite="#//featuremodel/Feature/parent"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="#//featuremodel/Feature"
+          eOpposite="#//featuremodel/Feature/children"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="FeatureModel">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="rootFeature" lowerBound="1"
+          eType="#//featuremodel/Feature" containment="true" resolveProxies="false"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="orphanedFeatures" upperBound="-1"
+          eType="#//featuremodel/Feature" containment="true" resolveProxies="false"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="constraints" upperBound="-1"
+          eType="#//featuremodel/Constraint" containment="true" resolveProxies="false"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="featureconfig" nsURI="https://bitbucket.org/jpikl/yafmt/featureconfig.ecore"
+      nsPrefix="featureconfig">
+    <eClassifiers xsi:type="ecore:EClass" name="FeatureConfiguration">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="featureModel" eType="#//featuremodel/FeatureModel"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="selection" upperBound="-1"
+          eType="#//featureconfig/Selection" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Selection">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="feature" eType="#//featuremodel/Feature"
+          eKeys="#//featuremodel/Feature/name"/>
+    </eClassifiers>
+  </eSubpackages>
 </ecore:EPackage>

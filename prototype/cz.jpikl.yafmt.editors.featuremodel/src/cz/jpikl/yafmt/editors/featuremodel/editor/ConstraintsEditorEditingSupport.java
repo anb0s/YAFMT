@@ -29,6 +29,9 @@ public class ConstraintsEditorEditingSupport extends EditingSupport {
 
     @Override
     protected void setValue(Object element, Object value) {
+        if(((Constraint) element).getValue().equals(value))
+            return;
+        
         IOperationHistory operationHistory = PlatformUI.getWorkbench().getOperationSupport().getOperationHistory();
         IUndoableOperation operation = new ChangeConstraintOperation((Constraint) element, (String) value);
         operation.addContext(undoContext);

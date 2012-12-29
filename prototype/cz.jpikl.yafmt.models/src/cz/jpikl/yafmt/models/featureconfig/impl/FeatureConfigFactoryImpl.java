@@ -1,8 +1,8 @@
 /**
  */
-package cz.jpikl.yafmt.models.featuremodel.impl;
+package cz.jpikl.yafmt.models.featureconfig.impl;
 
-import cz.jpikl.yafmt.models.featuremodel.*;
+import cz.jpikl.yafmt.models.featureconfig.*;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -18,24 +18,24 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
  * <!-- end-user-doc -->
  * @generated
  */
-public class FeatureModelFactoryImpl extends EFactoryImpl implements FeatureModelFactory {
+public class FeatureConfigFactoryImpl extends EFactoryImpl implements FeatureConfigFactory {
     /**
      * Creates the default factory implementation.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    public static FeatureModelFactory init() {
+    public static FeatureConfigFactory init() {
         try {
-            FeatureModelFactory theFeatureModelFactory = (FeatureModelFactory)EPackage.Registry.INSTANCE.getEFactory("https://bitbucket.org/jpikl/yafmt/featuremodel.ecore"); 
-            if (theFeatureModelFactory != null) {
-                return theFeatureModelFactory;
+            FeatureConfigFactory theFeatureConfigFactory = (FeatureConfigFactory)EPackage.Registry.INSTANCE.getEFactory("https://bitbucket.org/jpikl/yafmt/featureconfig.ecore"); 
+            if (theFeatureConfigFactory != null) {
+                return theFeatureConfigFactory;
             }
         }
         catch (Exception exception) {
             EcorePlugin.INSTANCE.log(exception);
         }
-        return new FeatureModelFactoryImpl();
+        return new FeatureConfigFactoryImpl();
     }
 
     /**
@@ -44,7 +44,7 @@ public class FeatureModelFactoryImpl extends EFactoryImpl implements FeatureMode
      * <!-- end-user-doc -->
      * @generated
      */
-    public FeatureModelFactoryImpl() {
+    public FeatureConfigFactoryImpl() {
         super();
     }
 
@@ -56,9 +56,8 @@ public class FeatureModelFactoryImpl extends EFactoryImpl implements FeatureMode
     @Override
     public EObject create(EClass eClass) {
         switch (eClass.getClassifierID()) {
-            case FeatureModelPackage.CONSTRAINT: return createConstraint();
-            case FeatureModelPackage.FEATURE: return createFeature();
-            case FeatureModelPackage.FEATURE_MODEL: return createFeatureModel();
+            case FeatureConfigPackage.FEATURE_CONFIGURATION: return createFeatureConfiguration();
+            case FeatureConfigPackage.SELECTION: return createSelection();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -69,9 +68,9 @@ public class FeatureModelFactoryImpl extends EFactoryImpl implements FeatureMode
      * <!-- end-user-doc -->
      * @generated
      */
-    public Constraint createConstraint() {
-        ConstraintImpl constraint = new ConstraintImpl();
-        return constraint;
+    public FeatureConfiguration createFeatureConfiguration() {
+        FeatureConfigurationImpl featureConfiguration = new FeatureConfigurationImpl();
+        return featureConfiguration;
     }
 
     /**
@@ -79,9 +78,9 @@ public class FeatureModelFactoryImpl extends EFactoryImpl implements FeatureMode
      * <!-- end-user-doc -->
      * @generated
      */
-    public Feature createFeature() {
-        FeatureImpl feature = new FeatureImpl();
-        return feature;
+    public Selection createSelection() {
+        SelectionImpl selection = new SelectionImpl();
+        return selection;
     }
 
     /**
@@ -89,18 +88,8 @@ public class FeatureModelFactoryImpl extends EFactoryImpl implements FeatureMode
      * <!-- end-user-doc -->
      * @generated
      */
-    public FeatureModel createFeatureModel() {
-        FeatureModelImpl featureModel = new FeatureModelImpl();
-        return featureModel;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public FeatureModelPackage getFeatureModelPackage() {
-        return (FeatureModelPackage)getEPackage();
+    public FeatureConfigPackage getFeatureConfigPackage() {
+        return (FeatureConfigPackage)getEPackage();
     }
 
     /**
@@ -110,8 +99,8 @@ public class FeatureModelFactoryImpl extends EFactoryImpl implements FeatureMode
      * @generated
      */
     @Deprecated
-    public static FeatureModelPackage getPackage() {
-        return FeatureModelPackage.eINSTANCE;
+    public static FeatureConfigPackage getPackage() {
+        return FeatureConfigPackage.eINSTANCE;
     }
 
-} //FeatureModelFactoryImpl
+} //FeatureConfigFactoryImpl

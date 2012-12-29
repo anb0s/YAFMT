@@ -139,7 +139,7 @@ public class FeatureModelImpl extends EObjectImpl implements FeatureModel {
      * <!-- end-user-doc -->
      * @generated
      */
-    public List<Feature> getOrphanedFeatures() {
+    public EList<Feature> getOrphanedFeatures() {
         if (orphanedFeatures == null) {
             orphanedFeatures = new EObjectContainmentEList<Feature>(Feature.class, this, FeatureModelPackage.FEATURE_MODEL__ORPHANED_FEATURES);
         }
@@ -151,7 +151,7 @@ public class FeatureModelImpl extends EObjectImpl implements FeatureModel {
      * <!-- end-user-doc -->
      * @generated
      */
-    public List<Constraint> getConstraints() {
+    public EList<Constraint> getConstraints() {
         if (constraints == null) {
             constraints = new EObjectContainmentEList<Constraint>(Constraint.class, this, FeatureModelPackage.FEATURE_MODEL__CONSTRAINTS);
         }

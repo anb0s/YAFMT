@@ -1,5 +1,6 @@
 package cz.jpikl.yafmt.models.featuremodel;
 
+import org.eclipse.emf.common.util.EList;
 import java.util.List;
 import org.eclipse.emf.ecore.EObject;
 
@@ -26,11 +27,11 @@ public interface FeatureModel extends EObject {
     /**
      * @model containment="true"
      */
-    List<Feature> getOrphanedFeatures();
+    EList<Feature> getOrphanedFeatures();
 
     /**
      * @model containment="true"
      */
-    List<Constraint> getConstraints();
+    EList<Constraint> getConstraints();
 
 }

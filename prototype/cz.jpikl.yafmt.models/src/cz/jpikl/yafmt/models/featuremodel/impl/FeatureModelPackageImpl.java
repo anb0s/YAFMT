@@ -2,6 +2,8 @@
  */
 package cz.jpikl.yafmt.models.featuremodel.impl;
 
+import cz.jpikl.yafmt.models.featureconfig.FeatureConfigPackage;
+import cz.jpikl.yafmt.models.featureconfig.impl.FeatureConfigPackageImpl;
 import cz.jpikl.yafmt.models.featuremodel.Constraint;
 import cz.jpikl.yafmt.models.featuremodel.Feature;
 import cz.jpikl.yafmt.models.featuremodel.FeatureModel;
@@ -71,7 +73,7 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
 
     /**
      * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-     *
+     * 
      * <p>This method is used to initialize {@link FeatureModelPackage#eINSTANCE} when that field is accessed.
      * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
      * <!-- begin-user-doc -->
@@ -89,16 +91,21 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
 
         isInited = true;
 
+        // Obtain or create and register interdependencies
+        FeatureConfigPackageImpl theFeatureConfigPackage = (FeatureConfigPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(FeatureConfigPackage.eNS_URI) instanceof FeatureConfigPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(FeatureConfigPackage.eNS_URI) : FeatureConfigPackage.eINSTANCE);
+
         // Create package meta-data objects
         theFeatureModelPackage.createPackageContents();
+        theFeatureConfigPackage.createPackageContents();
 
         // Initialize created meta-data
         theFeatureModelPackage.initializePackageContents();
+        theFeatureConfigPackage.initializePackageContents();
 
         // Mark meta-data to indicate it can't be changed
         theFeatureModelPackage.freeze();
 
-
+  
         // Update the registry and return the package
         EPackage.Registry.INSTANCE.put(FeatureModelPackage.eNS_URI, theFeatureModelPackage);
         return theFeatureModelPackage;

@@ -1,11 +1,13 @@
 /**
  */
-package cz.jpikl.yafmt.models.featuremodel.provider;
+package cz.jpikl.yafmt.models.featureconfig.provider;
 
 
-import cz.jpikl.yafmt.models.featuremodel.FeatureModel;
-import cz.jpikl.yafmt.models.featuremodel.FeatureModelFactory;
-import cz.jpikl.yafmt.models.featuremodel.FeatureModelPackage;
+import cz.jpikl.yafmt.models.featureconfig.FeatureConfigFactory;
+import cz.jpikl.yafmt.models.featureconfig.FeatureConfigPackage;
+import cz.jpikl.yafmt.models.featureconfig.FeatureConfiguration;
+
+import cz.jpikl.yafmt.models.featuremodel.provider.FeaturemodelEditPlugin;
 
 import java.util.Collection;
 import java.util.List;
@@ -17,6 +19,7 @@ import org.eclipse.emf.common.util.ResourceLocator;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
 
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
@@ -27,12 +30,12 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link cz.jpikl.yafmt.models.featuremodel.FeatureModel} object.
+ * This is the item provider adapter for a {@link cz.jpikl.yafmt.models.featureconfig.FeatureConfiguration} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class FeatureModelItemProvider
+public class FeatureConfigurationItemProvider
     extends ItemProviderAdapter
     implements
         IEditingDomainItemProvider,
@@ -46,7 +49,7 @@ public class FeatureModelItemProvider
      * <!-- end-user-doc -->
      * @generated
      */
-    public FeatureModelItemProvider(AdapterFactory adapterFactory) {
+    public FeatureConfigurationItemProvider(AdapterFactory adapterFactory) {
         super(adapterFactory);
     }
 
@@ -61,8 +64,31 @@ public class FeatureModelItemProvider
         if (itemPropertyDescriptors == null) {
             super.getPropertyDescriptors(object);
 
+            addFeatureModelPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
+    }
+
+    /**
+     * This adds a property descriptor for the Feature Model feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addFeatureModelPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_FeatureConfiguration_featureModel_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_FeatureConfiguration_featureModel_feature", "_UI_FeatureConfiguration_type"),
+                 FeatureConfigPackage.Literals.FEATURE_CONFIGURATION__FEATURE_MODEL,
+                 true,
+                 false,
+                 true,
+                 null,
+                 null,
+                 null));
     }
 
     /**
@@ -77,9 +103,7 @@ public class FeatureModelItemProvider
     public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
         if (childrenFeatures == null) {
             super.getChildrenFeatures(object);
-            childrenFeatures.add(FeatureModelPackage.Literals.FEATURE_MODEL__ROOT_FEATURE);
-            childrenFeatures.add(FeatureModelPackage.Literals.FEATURE_MODEL__ORPHANED_FEATURES);
-            childrenFeatures.add(FeatureModelPackage.Literals.FEATURE_MODEL__CONSTRAINTS);
+            childrenFeatures.add(FeatureConfigPackage.Literals.FEATURE_CONFIGURATION__SELECTION);
         }
         return childrenFeatures;
     }
@@ -98,14 +122,14 @@ public class FeatureModelItemProvider
     }
 
     /**
-     * This returns FeatureModel.gif.
+     * This returns FeatureConfiguration.gif.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object getImage(Object object) {
-        return overlayImage(object, getResourceLocator().getImage("full/obj16/FeatureModel"));
+        return overlayImage(object, getResourceLocator().getImage("full/obj16/FeatureConfiguration"));
     }
 
     /**
@@ -116,7 +140,7 @@ public class FeatureModelItemProvider
      */
     @Override
     public String getText(Object object) {
-        return getString("_UI_FeatureModel_type");
+        return getString("_UI_FeatureConfiguration_type");
     }
 
     /**
@@ -130,10 +154,8 @@ public class FeatureModelItemProvider
     public void notifyChanged(Notification notification) {
         updateChildren(notification);
 
-        switch (notification.getFeatureID(FeatureModel.class)) {
-            case FeatureModelPackage.FEATURE_MODEL__ROOT_FEATURE:
-            case FeatureModelPackage.FEATURE_MODEL__ORPHANED_FEATURES:
-            case FeatureModelPackage.FEATURE_MODEL__CONSTRAINTS:
+        switch (notification.getFeatureID(FeatureConfiguration.class)) {
+            case FeatureConfigPackage.FEATURE_CONFIGURATION__SELECTION:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
                 return;
         }
@@ -153,41 +175,8 @@ public class FeatureModelItemProvider
 
         newChildDescriptors.add
             (createChildParameter
-                (FeatureModelPackage.Literals.FEATURE_MODEL__ROOT_FEATURE,
-                 FeatureModelFactory.eINSTANCE.createFeature()));
-
-        newChildDescriptors.add
-            (createChildParameter
-                (FeatureModelPackage.Literals.FEATURE_MODEL__ORPHANED_FEATURES,
-                 FeatureModelFactory.eINSTANCE.createFeature()));
-
-        newChildDescriptors.add
-            (createChildParameter
-                (FeatureModelPackage.Literals.FEATURE_MODEL__CONSTRAINTS,
-                 FeatureModelFactory.eINSTANCE.createConstraint()));
-    }
-
-    /**
-     * This returns the label text for {@link org.eclipse.emf.edit.command.CreateChildCommand}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    @Override
-    public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection) {
-        Object childFeature = feature;
-        Object childObject = child;
-
-        boolean qualify =
-            childFeature == FeatureModelPackage.Literals.FEATURE_MODEL__ROOT_FEATURE ||
-            childFeature == FeatureModelPackage.Literals.FEATURE_MODEL__ORPHANED_FEATURES;
-
-        if (qualify) {
-            return getString
-                ("_UI_CreateChild_text2",
-                 new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
-        }
-        return super.getCreateChildText(owner, feature, child, selection);
+                (FeatureConfigPackage.Literals.FEATURE_CONFIGURATION__SELECTION,
+                 FeatureConfigFactory.eINSTANCE.createSelection()));
     }
 
     /**

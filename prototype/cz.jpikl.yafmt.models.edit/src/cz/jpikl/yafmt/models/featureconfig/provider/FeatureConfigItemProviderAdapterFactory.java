@@ -1,8 +1,8 @@
 /**
  */
-package cz.jpikl.yafmt.models.featuremodel.provider;
+package cz.jpikl.yafmt.models.featureconfig.provider;
 
-import cz.jpikl.yafmt.models.featuremodel.util.FeatureModelAdapterFactory;
+import cz.jpikl.yafmt.models.featureconfig.util.FeatureConfigAdapterFactory;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -32,8 +32,7 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
  * <!-- end-user-doc -->
  * @generated
  */
-public class FeatureModelItemProviderAdapterFactory extends FeatureModelAdapterFactory implements ComposeableAdapterFactory, IChangeNotifier, IDisposable {
-
+public class FeatureConfigItemProviderAdapterFactory extends FeatureConfigAdapterFactory implements ComposeableAdapterFactory, IChangeNotifier, IDisposable {
     /**
      * This keeps track of the root adapter factory that delegates to this adapter factory.
      * <!-- begin-user-doc -->
@@ -64,7 +63,7 @@ public class FeatureModelItemProviderAdapterFactory extends FeatureModelAdapterF
      * <!-- end-user-doc -->
      * @generated
      */
-    public FeatureModelItemProviderAdapterFactory() {
+    public FeatureConfigItemProviderAdapterFactory() {
         supportedTypes.add(IEditingDomainItemProvider.class);
         supportedTypes.add(IStructuredItemContentProvider.class);
         supportedTypes.add(ITreeItemContentProvider.class);
@@ -73,72 +72,49 @@ public class FeatureModelItemProviderAdapterFactory extends FeatureModelAdapterF
     }
 
     /**
-     * This keeps track of the one adapter used for all {@link cz.jpikl.yafmt.models.featuremodel.Constraint} instances.
+     * This keeps track of the one adapter used for all {@link cz.jpikl.yafmt.models.featureconfig.FeatureConfiguration} instances.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected ConstraintItemProvider constraintItemProvider;
+    protected FeatureConfigurationItemProvider featureConfigurationItemProvider;
 
     /**
-     * This creates an adapter for a {@link cz.jpikl.yafmt.models.featuremodel.Constraint}.
+     * This creates an adapter for a {@link cz.jpikl.yafmt.models.featureconfig.FeatureConfiguration}.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     @Override
-    public Adapter createConstraintAdapter() {
-        if (constraintItemProvider == null) {
-            constraintItemProvider = new ConstraintItemProvider(this);
+    public Adapter createFeatureConfigurationAdapter() {
+        if (featureConfigurationItemProvider == null) {
+            featureConfigurationItemProvider = new FeatureConfigurationItemProvider(this);
         }
 
-        return constraintItemProvider;
+        return featureConfigurationItemProvider;
     }
 
     /**
-     * This keeps track of the one adapter used for all {@link cz.jpikl.yafmt.models.featuremodel.Feature} instances.
+     * This keeps track of the one adapter used for all {@link cz.jpikl.yafmt.models.featureconfig.Selection} instances.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected FeatureItemProvider featureItemProvider;
+    protected SelectionItemProvider selectionItemProvider;
 
     /**
-     * This creates an adapter for a {@link cz.jpikl.yafmt.models.featuremodel.Feature}.
+     * This creates an adapter for a {@link cz.jpikl.yafmt.models.featureconfig.Selection}.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     @Override
-    public Adapter createFeatureAdapter() {
-        if (featureItemProvider == null) {
-            featureItemProvider = new FeatureItemProvider(this);
+    public Adapter createSelectionAdapter() {
+        if (selectionItemProvider == null) {
+            selectionItemProvider = new SelectionItemProvider(this);
         }
 
-        return featureItemProvider;
-    }
-
-    /**
-     * This keeps track of the one adapter used for all {@link cz.jpikl.yafmt.models.featuremodel.FeatureModel} instances.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected FeatureModelItemProvider featureModelItemProvider;
-
-    /**
-     * This creates an adapter for a {@link cz.jpikl.yafmt.models.featuremodel.FeatureModel}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    @Override
-    public Adapter createFeatureModelAdapter() {
-        if (featureModelItemProvider == null) {
-            featureModelItemProvider = new FeatureModelItemProvider(this);
-        }
-
-        return featureModelItemProvider;
+        return selectionItemProvider;
     }
 
     /**
@@ -240,9 +216,8 @@ public class FeatureModelItemProviderAdapterFactory extends FeatureModelAdapterF
      * @generated
      */
     public void dispose() {
-        if (constraintItemProvider != null) constraintItemProvider.dispose();
-        if (featureItemProvider != null) featureItemProvider.dispose();
-        if (featureModelItemProvider != null) featureModelItemProvider.dispose();
+        if (featureConfigurationItemProvider != null) featureConfigurationItemProvider.dispose();
+        if (selectionItemProvider != null) selectionItemProvider.dispose();
     }
 
 }

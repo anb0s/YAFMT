@@ -114,7 +114,7 @@ public class FeatureImpl extends EObjectImpl implements Feature {
      * <!-- end-user-doc -->
      * @generated
      */
-    public List<Feature> getChildren() {
+    public EList<Feature> getChildren() {
         if (children == null) {
             children = new EObjectContainmentWithInverseEList<Feature>(Feature.class, this, FeatureModelPackage.FEATURE__CHILDREN, FeatureModelPackage.FEATURE__PARENT);
         }

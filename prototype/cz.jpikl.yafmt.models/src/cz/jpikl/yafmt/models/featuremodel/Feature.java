@@ -1,5 +1,6 @@
 package cz.jpikl.yafmt.models.featuremodel;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public interface Feature extends EObject {
     /**
      * @model containment="true"
      */
-    List<Feature> getChildren();
+    EList<Feature> getChildren();
 
     /**
      * Returns the value of the '<em><b>Parent</b></em>' container reference.
