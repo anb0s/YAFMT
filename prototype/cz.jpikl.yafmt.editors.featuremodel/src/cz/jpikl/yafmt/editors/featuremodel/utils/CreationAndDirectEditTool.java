@@ -20,6 +20,9 @@ public class CreationAndDirectEditTool extends CreationTool {
 			return;
 		
 		final EditPart editPart = (EditPart) viewer.getEditPartRegistry().get(model);
+		if(editPart == null)
+			return;
+		
 		Display.getCurrent().asyncExec(new Runnable() {
 			@Override
 			public void run() {

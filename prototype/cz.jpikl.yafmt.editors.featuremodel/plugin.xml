@@ -12,5 +12,18 @@
             name="Feature Model Editor">
       </editor>
    </extension>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="cz.jpikl.yafmt.editors.featuremodel.FeatureModel"
+            name="YAFMT">
+      </category>
+      <wizard
+            category="cz.jpikl.yafmt.editors.featuremodel.FeatureModel"
+            class="cz.jpikl.yafmt.editors.featuremodel.dialogs.FeatureModelModelWizard"
+            id="cz.jpikl.yafmt.editors.featuremodel.FeatureModelWizard"
+            name="New Feature Model">
+      </wizard>
+   </extension>
 
 </plugin>

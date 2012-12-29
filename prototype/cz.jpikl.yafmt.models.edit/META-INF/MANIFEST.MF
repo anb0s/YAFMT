@@ -7,7 +7,7 @@ Bundle-ClassPath: .
 Bundle-Activator: cz.jpikl.yafmt.models.featuremodel.provider.FeaturemodelEditPlugin$Implementation
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: cz.jpikl.yafmt.models.featuremodel.provider, cz.jpikl.yafmt.models.featuremodel.provider.util
 Require-Bundle: org.eclipse.core.runtime,
  cz.jpikl.yafmt.models;visibility:=reexport,
