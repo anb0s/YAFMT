@@ -59,9 +59,9 @@ public class FeatureTreeEditor extends GraphicalEditorWithFlyoutPalette implemen
     private FeatureModel featureModel;
     private ModelLayout modelLayout;
 
-    public FeatureTreeEditor(FeatureModel featureModel, DefaultEditDomain editDomain) {
+    public FeatureTreeEditor(FeatureModel featureModel) {
         this.featureModel = featureModel;
-        setEditDomain(editDomain);
+        setEditDomain(new DefaultEditDomain(this));
     }
 
     @Override
@@ -166,6 +166,8 @@ public class FeatureTreeEditor extends GraphicalEditorWithFlyoutPalette implemen
         catch(IOException ex) {
             ex.printStackTrace();
         }
+        
+        getCommandStack().markSaveLocation();
     }
 
     // Makes the editor dirty whenever is a command executed (allows save action).

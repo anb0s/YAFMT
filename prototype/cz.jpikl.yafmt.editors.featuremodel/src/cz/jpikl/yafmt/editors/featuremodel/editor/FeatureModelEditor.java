@@ -10,7 +10,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.XMLResource;
-import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
@@ -29,13 +28,6 @@ public class FeatureModelEditor extends MultiPageEditorPart implements ISelectio
 
     private FeatureModel featureModel;
     private ContentOutlinePage outlinePage;
-    private DefaultEditDomain editDomain;
-
-    public FeatureModelEditor() {
-        editDomain = new DefaultEditDomain(this);
-        // ISelectionProvider is registered automatically in init() method.
-        // I forwards selection from selection providers of inner editors.
-    }
 
     // Initializes editor with input.
     @Override
@@ -51,6 +43,8 @@ public class FeatureModelEditor extends MultiPageEditorPart implements ISelectio
 
         setPartName(getEditorInput().getName());
         site.getPage().addSelectionListener(this);
+        // ISelectionProvider is registered automatically in init() method.
+        // I forwards selection from selection providers of inner editors.
     }
 
     @Override
@@ -65,7 +59,7 @@ public class FeatureModelEditor extends MultiPageEditorPart implements ISelectio
     @Override
     protected void createPages() {
         try {
-            addPage(new FeatureTreeEditor(featureModel, editDomain), getEditorInput());
+            addPage(new FeatureTreeEditor(featureModel), getEditorInput());
             setPageText(0, "Feature Tree");
             addPage(new ConstraintsEditor(featureModel), getEditorInput());
             setPageText(1, "Constraints");
@@ -99,7 +93,6 @@ public class FeatureModelEditor extends MultiPageEditorPart implements ISelectio
             featureModel.eResource().save(createSaveLoadOptions());
             for(int i = 0; i < getPageCount(); i++)
                 getEditor(i).doSave(monitor);
-            editDomain.getCommandStack().markSaveLocation();
         }
         catch(IOException ex) {
             ex.printStackTrace();
