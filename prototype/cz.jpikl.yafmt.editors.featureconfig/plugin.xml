@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="cz.jpikl.yafmt.dialogs"
+            name="YAFMT">
+      </category>
+      <wizard
+            category="cz.jpikl.yafmt.dialogs"
+            class="cz.jpikl.yafmt.editors.featureconfig.dialogs.NewFeatureConfigurationWizard"
+            id="cz.jpikl.yafmt.editors.featuremodel.NewFeatureConfigWizard"
+            name="New Feature Configuration">
+      </wizard>
+   </extension>
+
+</plugin>

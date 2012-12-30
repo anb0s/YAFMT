@@ -22,6 +22,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
@@ -38,7 +39,7 @@ import cz.jpikl.yafmt.models.featuremodel.FeatureModel;
 import cz.jpikl.yafmt.models.featuremodel.FeatureModelFactory;
 
 
-public class FeatureModelModelWizard extends Wizard implements INewWizard {
+public class NewFeatureModelWizard extends Wizard implements INewWizard {
 
     private static final String FILE_EXTENSION = "yafm";
     private static final String DEFAULT_FILE_NAME = "FeatureModel." + FILE_EXTENSION;
@@ -58,6 +59,12 @@ public class FeatureModelModelWizard extends Wizard implements INewWizard {
     public void addPages() {
         addPage(newFileCreationPage);
     }
+    
+    private Object getSelectedObject() {
+        if(selection == null || selection.isEmpty())
+            return null;
+        return selection.iterator().next();
+    }
 
     private class NewFileCreationPage extends WizardNewFileCreationPage {
 
@@ -68,14 +75,10 @@ public class FeatureModelModelWizard extends Wizard implements INewWizard {
             setFileName(DEFAULT_FILE_NAME);
 
             // Try and get the resource selection to determine a current directory for the file dialog.
-            if(selection == null || selection.isEmpty())
-                return;
-
-            // Get the resource.
-            Object selectedElement = selection.iterator().next();
-            if (selectedElement instanceof IResource) {
+            Object selectedObject = getSelectedObject();
+            if (selectedObject instanceof IResource) {
                 // Get the resource parent, if its a file.
-                IResource selectedResource = (IResource) selectedElement;
+                IResource selectedResource = (IResource) selectedObject;
                 if (selectedResource.getType() == IResource.FILE)
                     selectedResource = selectedResource.getParent();
                 // This gives us a directory or project, select it as a container.
@@ -133,8 +136,9 @@ public class FeatureModelModelWizard extends Wizard implements INewWizard {
         // Open an editor on the new file.
         try {
             IEditorInput input = new FileEditorInput(file);
-            String editorId = workbench.getEditorRegistry().getDefaultEditor(file.getName()).getId();
-            page.openEditor(input, editorId);
+            IEditorDescriptor descriptor = workbench.getEditorRegistry().getDefaultEditor(file.getName());
+            if(descriptor != null)
+                page.openEditor(input, descriptor.getId());
         }
         catch (PartInitException ex) {
             MessageDialog.openError(window.getShell(), "Unable to open " + file.getName(), ex.getMessage());
