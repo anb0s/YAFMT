@@ -8,11 +8,11 @@ import cz.jpikl.yafmt.editors.featuremodel.utils.Connection;
 import cz.jpikl.yafmt.models.featuremodel.Feature;
 import cz.jpikl.yafmt.models.featuremodel.FeatureModel;
 
-public class FeatureModelPartFactory implements EditPartFactory {
+public class FeatureModelEditPartFactory implements EditPartFactory {
 
     private ModelLayoutStore layoutStore;
 
-    public FeatureModelPartFactory(ModelLayoutStore layoutStore) {
+    public FeatureModelEditPartFactory(ModelLayoutStore layoutStore) {
         this.layoutStore = layoutStore;
     }
 

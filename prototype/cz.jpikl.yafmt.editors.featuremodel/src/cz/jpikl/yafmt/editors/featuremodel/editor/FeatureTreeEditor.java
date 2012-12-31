@@ -46,7 +46,7 @@ import cz.jpikl.yafmt.editors.featuremodel.layout.ModelLayoutFactory;
 import cz.jpikl.yafmt.editors.featuremodel.layout.ModelLayoutPackage;
 import cz.jpikl.yafmt.editors.featuremodel.layout.ModelLayoutStore;
 import cz.jpikl.yafmt.editors.featuremodel.layout.ObjectLayout;
-import cz.jpikl.yafmt.editors.featuremodel.parts.FeatureModelPartFactory;
+import cz.jpikl.yafmt.editors.featuremodel.parts.FeatureModelEditPartFactory;
 import cz.jpikl.yafmt.editors.featuremodel.utils.CreationAndDirectEditTool;
 import cz.jpikl.yafmt.editors.featuremodel.utils.EditorUtil;
 import cz.jpikl.yafmt.models.featuremodel.Feature;
@@ -68,7 +68,7 @@ public class FeatureTreeEditor extends GraphicalEditorWithFlyoutPalette implemen
     protected void configureGraphicalViewer() {
         super.configureGraphicalViewer();
         GraphicalViewer viewer = getGraphicalViewer();
-        viewer.setEditPartFactory(new FeatureModelPartFactory(this));
+        viewer.setEditPartFactory(new FeatureModelEditPartFactory(this));
         viewer.setRootEditPart(new FreeformGraphicalRootEditPart());
         viewer.addDropTargetListener(new TemplateTransferDropTargetListener(viewer));
         viewer.setContextMenu(new FeatureTreeEditorContextMenuProvider(viewer, getActionRegistry()));
@@ -170,7 +170,7 @@ public class FeatureTreeEditor extends GraphicalEditorWithFlyoutPalette implemen
         getCommandStack().markSaveLocation();
     }
 
-    // Makes the editor dirty whenever is a command executed (allows save action).
+ // Makes the editor dirty when a command is executed (allows save action).
     @Override
     public void commandStackChanged(EventObject event) {
         firePropertyChange(PROP_DIRTY);

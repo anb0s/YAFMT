@@ -53,8 +53,6 @@ public class FeatureModelEditor extends MultiPageEditorPart implements ISelectio
         super.dispose();
     }
 
-
-
     // Creates editor pages. Called after init.
     @Override
     protected void createPages() {

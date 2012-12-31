@@ -14,5 +14,15 @@
             name="New Feature Configuration">
       </wizard>
    </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="cz.jpikl.yafmt.editors.featureconfig.FeatureConfigurationEditor"
+            default="false"
+            extensions="yafc"
+            id="cz.jpikl.yafmt.editors.featureconfig.FeatureConfigurationEditor"
+            name="Feature Configuration Editor">
+      </editor>
+   </extension>
 
 </plugin>
