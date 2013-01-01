@@ -32,6 +32,10 @@ public class FeatureModelUtil implements ModelListener {
                 addFeature((Feature) object);
         }
     }
+    
+    public void dispose() {
+        modelAdapter.disconnectFromAll();
+    }
 
     public Feature getFeatureByName(String name) {
         return featureMap.get(name);
@@ -42,10 +46,14 @@ public class FeatureModelUtil implements ModelListener {
         featureMap.put(feature.getName(), feature);
     }
 
-    private void replaceFeature(String oldName, String newName) {
+    private void updateFeature(String oldName, String newName) {
         Feature feature = featureMap.remove(oldName);
-        if((feature != null) && (newName != null))
-            featureMap.put(newName, feature);
+        if(feature != null) {
+            if(newName != null)
+                featureMap.put(newName, feature);
+            else
+                modelAdapter.disconnect(feature);
+        }
     }
 
     private void removeFeature(Feature feature) {
@@ -57,9 +65,6 @@ public class FeatureModelUtil implements ModelListener {
     public void modelChanged(Notification notification) {
         Object newValue = notification.getNewValue();
         Object oldValue = notification.getOldValue();
-
-        // The code expect that all children of added feature are already registered,
-        // so only the changed one should be handled.
 
         switch(notification.getEventType()) {
             case Notification.ADD:
@@ -92,7 +97,7 @@ public class FeatureModelUtil implements ModelListener {
 
             case Notification.SET:
                 if(notification.getFeatureID(Feature.class) == FeatureModelPackage.FEATURE__NAME)
-                    replaceFeature((String) oldValue, (String) newValue);
+                    updateFeature((String) oldValue, (String) newValue);
         }
     }
 

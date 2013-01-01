@@ -21,6 +21,11 @@ public class FeatureModelContentProvider implements IGraphEntityContentProvider 
     public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
         this.fmUtil = (newInput != null) ? new FeatureModelUtil((FeatureModel) newInput) : null;
     }
+    
+    @Override
+    public void dispose() {
+        fmUtil.dispose();
+    }
 
     @Override
     public Object[] getElements(Object input) {
@@ -57,10 +62,6 @@ public class FeatureModelContentProvider implements IGraphEntityContentProvider 
             return objects.toArray();
         }
         return null;
-    }
-
-    @Override
-    public void dispose() {
     }
 
 }
