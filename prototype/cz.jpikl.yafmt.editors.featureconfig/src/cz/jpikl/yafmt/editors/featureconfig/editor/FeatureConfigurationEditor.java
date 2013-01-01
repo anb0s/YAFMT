@@ -33,7 +33,6 @@ public class FeatureConfigurationEditor extends GraphicalEditor {
     protected void configureGraphicalViewer() {
         super.configureGraphicalViewer();
         GraphicalViewer viewer = getGraphicalViewer();
-        viewer.setEditPartFactory(new FeatureConfigEditPartFactory());
         viewer.setRootEditPart(new FreeformGraphicalRootEditPart());
     }
         
@@ -47,6 +46,10 @@ public class FeatureConfigurationEditor extends GraphicalEditor {
         }
         
         setPartName(getEditorInput().getName());
+        
+        GraphicalViewer viewer = getGraphicalViewer();
+        viewer.setEditPartFactory(new FeatureConfigEditPartFactory(featureConfig));
+        viewer.setContents(featureConfig);
     }
     
     private Map<Object, Object> createSaveLoadOptions() {

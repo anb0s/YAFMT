@@ -2,8 +2,10 @@ package cz.jpikl.yafmt.editors.featureconfig.editor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
@@ -29,6 +31,10 @@ public class FeatureConfigurationManager {
         reloadFeatureNames();
         reloadFeatureSelections();
     }
+    
+    public FeatureConfiguration getFeatureConfiguration() {
+        return featureConfig;
+    }
 
     private void reloadFeatureNames() {
         nameToFeature.clear();
@@ -47,14 +53,18 @@ public class FeatureConfigurationManager {
         featureToSelection.clear();
         List<Selection> invalidSelections = new ArrayList<Selection>();
         Map<Feature, Integer> clonesCount = new HashMap<Feature, Integer>();
+        Set<Feature> missingSelections = new HashSet<Feature>();
         
+        // Load all selections into hash map.
         for(Selection selection: featureConfig.getSelection()) {
+            // Check for invalid selection.
             Feature feature = selection.getFeature();
             if(feature == null) {
                 invalidSelections.add(selection);
                 continue;
             }
             
+            // Clone features with cardinality larger than 1 with multiple selection.
             if(featureToSelection.containsKey(feature)) {
                 Integer count = clonesCount.get(feature);
                 if(count == null)
@@ -69,9 +79,29 @@ public class FeatureConfigurationManager {
             featureToSelection.put(feature, selection);
         }
         
+        // Remove selections with missing features.
         featureConfig.getSelection().removeAll(invalidSelections);
-    }
         
+        // Find all selected features which parents are not selected.
+        for(Selection selection: featureConfig.getSelection()) {
+            Feature feature = selection.getFeature();
+            while(feature != null) {
+                if(!isFeatureSelected(feature))
+                    missingSelections.add(feature);
+                feature = feature.getParent();
+            }
+        }
+        
+        // Select unselected parent features.
+        for(Feature feature: missingSelections)
+            selectFeature(feature);
+        
+        // Check if root feature is selected.
+        Feature rootFeature = featureConfig.getFeatureModel().getRootFeature();
+        if(!isFeatureSelected(rootFeature))
+            selectFeature(rootFeature);
+    }
+            
     public Selection selectFeature(Feature feature) {
         Selection selection = FeatureConfigFactory.eINSTANCE.createSelection();
         if(feature instanceof FeatureClone)
@@ -98,8 +128,11 @@ public class FeatureConfigurationManager {
     }
         
     public boolean isFeatureSelectable(Feature feature) {
-        String featureName = feature.getName();
+        Feature parentFeature = feature.getParent();
+        if((parentFeature != null) && !isFeatureSelected(parentFeature))
+            return false;
         
+        String featureName = feature.getName();
         for(Constraint constraint: featureConfig.getFeatureModel().getConstraints()) {
             String[] names = constraint.getValue().split("\\s+");
             boolean shouldTest = false;
