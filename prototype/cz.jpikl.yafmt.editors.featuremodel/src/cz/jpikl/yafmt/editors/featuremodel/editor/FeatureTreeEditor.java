@@ -139,7 +139,7 @@ public class FeatureTreeEditor extends GraphicalEditorWithFlyoutPalette implemen
         ModelLayoutPackage mlPackage = ModelLayoutPackage.eINSTANCE; // For package registration.
         ResourceSet resourceSet = featureModel.eResource().getResourceSet();
         String path = EditorUtil.getEditorInputFileName(getEditorInput()) + ".layout";
-        Resource resource = resourceSet.createResource(URI.createURI(path));
+        Resource resource = resourceSet.createResource(URI.createPlatformResourceURI(path, true));
 
         try {
             resource.load(null);

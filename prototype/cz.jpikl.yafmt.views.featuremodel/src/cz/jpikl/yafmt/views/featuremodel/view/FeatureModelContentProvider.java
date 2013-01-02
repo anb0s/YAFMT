@@ -24,7 +24,8 @@ public class FeatureModelContentProvider implements IGraphEntityContentProvider 
     
     @Override
     public void dispose() {
-        fmUtil.dispose();
+        if(fmUtil != null)
+            fmUtil.dispose();
     }
 
     @Override

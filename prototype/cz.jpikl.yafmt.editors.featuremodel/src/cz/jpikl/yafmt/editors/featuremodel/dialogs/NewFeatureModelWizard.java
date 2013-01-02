@@ -35,6 +35,7 @@ import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.ISetSelectionTarget;
 
+import cz.jpikl.yafmt.models.featuremodel.Feature;
 import cz.jpikl.yafmt.models.featuremodel.FeatureModel;
 import cz.jpikl.yafmt.models.featuremodel.FeatureModelFactory;
 
@@ -160,7 +161,9 @@ public class NewFeatureModelWizard extends Wizard implements INewWizard {
 
                 String modelName = newFileCreationPage.getModelFile().getName().replace("." + FILE_EXTENSION, "");
                 FeatureModel featureModel = FeatureModelFactory.eINSTANCE.createFeatureModel();
-                featureModel.getRootFeature().setName(modelName);
+                Feature rootFeature = FeatureModelFactory.eINSTANCE.createFeature();
+                rootFeature.setName(modelName);
+                featureModel.setRootFeature(rootFeature);
 
                 ResourceSet resourceSet = new ResourceSetImpl();
                 Resource resource = resourceSet.createResource(uri);

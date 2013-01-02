@@ -63,7 +63,7 @@ public class FeatureConfigurationEditor extends GraphicalEditor {
         FeatureConfigPackage fcPackage = FeatureConfigPackage.eINSTANCE; // For package registration.
         ResourceSet resourceSet = new ResourceSetImpl();
         String path = EditorUtil.getEditorInputFileName(getEditorInput());
-        Resource resource = resourceSet.createResource(URI.createURI(path));
+        Resource resource = resourceSet.createResource(URI.createPlatformResourceURI(path, true));
         resource.load(createSaveLoadOptions());
         featureConfig = (FeatureConfiguration) resource.getContents().get(0);
     }

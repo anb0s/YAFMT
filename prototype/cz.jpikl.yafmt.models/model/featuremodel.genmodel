@@ -6,7 +6,8 @@
   <foreignModel>featuremodel.ecore</foreignModel>
   <genPackages prefix="Models" basePackage="cz.jpikl.yafmt" disposableProviderFactory="true"
       ecorePackage="featuremodel.ecore#/">
-    <nestedGenPackages prefix="FeatureModel" disposableProviderFactory="true" ecorePackage="featuremodel.ecore#//featuremodel">
+    <nestedGenPackages prefix="FeatureModel" basePackage="cz.jpikl.yafmt.models" disposableProviderFactory="true"
+        ecorePackage="featuremodel.ecore#//featuremodel">
       <genClasses ecoreClass="featuremodel.ecore#//featuremodel/Constraint">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute featuremodel.ecore#//featuremodel/Constraint/value"/>
       </genClasses>
@@ -21,7 +22,8 @@
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference featuremodel.ecore#//featuremodel/FeatureModel/constraints"/>
       </genClasses>
     </nestedGenPackages>
-    <nestedGenPackages prefix="FeatureConfig" disposableProviderFactory="true" ecorePackage="featuremodel.ecore#//featureconfig">
+    <nestedGenPackages prefix="FeatureConfig" basePackage="cz.jpikl.yafmt.models"
+        disposableProviderFactory="true" ecorePackage="featuremodel.ecore#//featureconfig">
       <genClasses ecoreClass="featuremodel.ecore#//featureconfig/FeatureConfiguration">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference featuremodel.ecore#//featureconfig/FeatureConfiguration/featureModel"/>

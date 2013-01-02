@@ -79,7 +79,7 @@ public class FeatureModelEditor extends MultiPageEditorPart implements ISelectio
         FeatureModelPackage fmPackage = FeatureModelPackage.eINSTANCE; // For package registration.
         ResourceSet resourceSet = new ResourceSetImpl();
         String path = EditorUtil.getEditorInputFileName(getEditorInput());
-        Resource resource = resourceSet.createResource(URI.createURI(path));
+        Resource resource = resourceSet.createResource(URI.createPlatformResourceURI(path, true));
         resource.load(createSaveLoadOptions());
         featureModel = (FeatureModel) resource.getContents().get(0);
     }

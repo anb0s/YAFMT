@@ -50,6 +50,7 @@ import org.eclipse.ui.part.ISetSelectionTarget;
 
 import cz.jpikl.yafmt.models.featureconfig.FeatureConfigFactory;
 import cz.jpikl.yafmt.models.featureconfig.FeatureConfiguration;
+import cz.jpikl.yafmt.models.featureconfig.Selection;
 import cz.jpikl.yafmt.models.featuremodel.FeatureModel;
 
 
@@ -273,6 +274,9 @@ public class NewFeatureConfigurationWizard extends Wizard implements INewWizard 
                 
                 FeatureConfiguration featureConfig = FeatureConfigFactory.eINSTANCE.createFeatureConfiguration();
                 featureConfig.setFeatureModel(featureModel);
+                Selection selection = FeatureConfigFactory.eINSTANCE.createSelection();
+                selection.setFeature(featureModel.getRootFeature());
+                featureConfig.getSelection().add(selection);
                 
                 resource = resourceSet.createResource(configUri);
                 resource.getContents().add(featureConfig);

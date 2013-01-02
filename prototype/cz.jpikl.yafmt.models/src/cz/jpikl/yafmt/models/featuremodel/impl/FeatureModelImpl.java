@@ -74,11 +74,10 @@ public class FeatureModelImpl extends EObjectImpl implements FeatureModel {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated NOT
+     * @generated
      */
     protected FeatureModelImpl() {
-        rootFeature = FeatureModelFactory.eINSTANCE.createFeature();
-        rootFeature.setName("Root Feature");
+        super();
     }
 
     /**
