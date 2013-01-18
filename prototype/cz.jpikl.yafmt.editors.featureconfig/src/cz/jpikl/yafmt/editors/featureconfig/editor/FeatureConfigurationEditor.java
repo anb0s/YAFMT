@@ -20,6 +20,7 @@ import cz.jpikl.yafmt.editors.featureconfig.parts.FeatureConfigEditPartFactory;
 import cz.jpikl.yafmt.editors.featureconfig.utils.EditorUtil;
 import cz.jpikl.yafmt.models.featureconfig.FeatureConfigPackage;
 import cz.jpikl.yafmt.models.featureconfig.FeatureConfiguration;
+import cz.jpikl.yafmt.models.featuremodel.FeatureModel;
 
 public class FeatureConfigurationEditor extends GraphicalEditor {
 
@@ -83,6 +84,14 @@ public class FeatureConfigurationEditor extends GraphicalEditor {
     public void commandStackChanged(EventObject event) {
         firePropertyChange(PROP_DIRTY);
         super.commandStackChanged(event);
+    }
+    
+    @Override
+    @SuppressWarnings("rawtypes")
+    public Object getAdapter(Class type) {
+        if(type == FeatureModel.class)
+            return featureConfig.getFeatureModel();
+        return super.getAdapter(type);
     }
 
 }

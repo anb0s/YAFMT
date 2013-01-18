@@ -8,6 +8,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
@@ -72,8 +73,10 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, Mo
     }
 
     private void setModelFromEditor(IWorkbenchPart part) {
-        FeatureModel model = (FeatureModel) part.getAdapter(FeatureModel.class);
-        setModel(model);
+        if(part instanceof IEditorPart) {
+            FeatureModel model = (FeatureModel) part.getAdapter(FeatureModel.class);
+            setModel(model);
+        }
     }
 
     private void setModel(FeatureModel model) {
