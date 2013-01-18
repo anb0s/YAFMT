@@ -7,7 +7,6 @@ import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.LineBorder;
 import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.NodeEditPart;
@@ -16,6 +15,7 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.swt.graphics.Color;
 
 import cz.jpikl.yafmt.editors.featureconfig.editor.FeatureConfigurationManager;
+import cz.jpikl.yafmt.editors.featureconfig.figures.TreeNodeFigure;
 import cz.jpikl.yafmt.editors.featureconfig.utils.Connection;
 import cz.jpikl.yafmt.models.featuremodel.Feature;
 
@@ -60,11 +60,7 @@ public class SelectionEditPart extends AbstractGraphicalEditPart implements Node
 
     @Override
     protected IFigure createFigure() {
-        Label figure = new Label(getModel().getName());
-        figure.setBorder(new LineBorder());
-        figure.setBackgroundColor(ColorConstants.white);
-        figure.setOpaque(true);
-        return figure;
+        return new TreeNodeFigure(this, getModel().getName());
     }
     
     @Override
