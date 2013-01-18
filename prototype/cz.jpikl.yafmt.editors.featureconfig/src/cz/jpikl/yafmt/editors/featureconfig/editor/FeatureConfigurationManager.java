@@ -115,11 +115,20 @@ public class FeatureConfigurationManager {
         return selection;
     }
     
-    public void unselectFeature(Feature feature) {
+    public List<Selection> unselectFeature(Feature feature) {
+        List<Selection> selections = new ArrayList<Selection>();
+        unselectFeature(selections, feature);
+        featureConfig.getSelection().removeAll(selections);
+        return selections;
+    }
+    
+    private void unselectFeature(List<Selection> selections, Feature feature) {
         Selection selection = featureToSelection.remove(feature);
         if(selection != null) {
             selection.setFeature(null);
-            featureConfig.getSelection().remove(selection);
+            selections.add(selection);
+            for(Feature child: feature.getChildren())
+                unselectFeature(selections, child);
         }
     }
     
@@ -146,7 +155,7 @@ public class FeatureConfigurationManager {
             
             if(shouldTest) {
                 for(String name: names) {
-                    if(!featureName.equals(name) && isFeatureSelected(feature))
+                    if(!featureName.equals(name) && isFeatureSelected(nameToFeature.get(name)))
                         return false;
                 }
             }

@@ -109,7 +109,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart implements M
         switch(notification.getEventType()) {
             // Feature/connection was added.
             case Notification.ADD:
-                // Create edit part only for new features (not those wose parent was changed).
+                // Create edit part only for new features (not those whose parent was changed).
                 Object addedObject = notification.getNewValue();
                 if((addedObject instanceof Feature) && (getEditPartForModel(addedObject) == null))
                     addChild(createChild(addedObject), 0);
@@ -118,7 +118,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart implements M
             // Feature/connection was removed.
             case Notification.REMOVE:
                 Object removedObject = notification.getOldValue();
-                // Remove edit part only for deleted features (not those wose parent was changed).
+                // Remove edit part only for deleted features (not those whose parent was changed).
                 if(removedObject instanceof Feature) {
                     Feature feature = (Feature) removedObject;
                     if((feature.getParent() == null) && !getModel().getOrphanedFeatures().contains(feature))

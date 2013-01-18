@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.eclipse.draw2d.AbstractLayout;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 
@@ -28,7 +29,7 @@ public class FeatureTreeLayout extends AbstractLayout {
             root = parent;
             parent = parent.getTreeNodeParent();
         }
-        
+
         calculateSubTreeWidth(subTreeWidth, root);
         layoutTree(subTreeWidth, root, BORDER_SIZE, BORDER_SIZE);
     }

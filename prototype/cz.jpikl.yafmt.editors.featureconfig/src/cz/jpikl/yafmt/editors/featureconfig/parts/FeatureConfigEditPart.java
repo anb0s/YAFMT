@@ -6,18 +6,25 @@ import java.util.List;
 import org.eclipse.draw2d.FreeformLayer;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.MarginBorder;
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 import cz.jpikl.yafmt.editors.featureconfig.editor.FeatureConfigurationManager;
 import cz.jpikl.yafmt.editors.featureconfig.editor.FeatureTreeLayout;
 import cz.jpikl.yafmt.models.featuremodel.Feature;
+import cz.jpikl.yafmt.models.utils.ModelAdapter;
+import cz.jpikl.yafmt.models.utils.ModelListener;
 
-public class FeatureConfigEditPart extends AbstractGraphicalEditPart {
+public class FeatureConfigEditPart extends AbstractGraphicalEditPart implements ModelListener {
 
-    FeatureConfigurationManager configManager;
+    private FeatureConfigurationManager configManager;
+    private ModelAdapter modelAdapter;
     
     public FeatureConfigEditPart(FeatureConfigurationManager configManager) {
         this.configManager = configManager;
+        this.modelAdapter = new ModelAdapter(this);
+        modelAdapter.connect(configManager.getFeatureConfiguration());
     }
     
     @Override
@@ -29,15 +36,14 @@ public class FeatureConfigEditPart extends AbstractGraphicalEditPart {
     }
     
     private void addVisibleFeaturesToList(Feature feature, List<Object> list) {
-        if(configManager.isFeatureSelected(feature))
+        if(configManager.isFeatureSelected(feature)) {
             list.add(feature);
-        else if(configManager.isFeatureSelected(feature.getParent()) && configManager.isFeatureSelectable(feature))
+            for(Feature childFeature: feature.getChildren())
+                addVisibleFeaturesToList(childFeature, list);
+        }
+        else if(configManager.isFeatureSelectable(feature)) {
             list.add(feature);
-        else
-            return;
-
-        for(Feature childFeature: feature.getChildren())
-            addVisibleFeaturesToList(childFeature, list);
+        }
     }
 
     @Override
@@ -51,6 +57,15 @@ public class FeatureConfigEditPart extends AbstractGraphicalEditPart {
     @Override
     protected void createEditPolicies() {
         
+    }
+
+    @Override
+    public void modelChanged(Notification notification) {
+        refreshChildren();
+        for(Object child: getChildren()) {
+            if(child instanceof NodeEditPart)
+                ((NodeEditPart) child).refresh();
+        }
     }
 
 }

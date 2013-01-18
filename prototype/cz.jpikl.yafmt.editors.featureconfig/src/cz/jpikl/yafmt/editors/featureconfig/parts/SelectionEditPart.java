@@ -11,6 +11,7 @@ import org.eclipse.draw2d.LineBorder;
 import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
+import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.swt.graphics.Color;
 
@@ -77,6 +78,20 @@ public class SelectionEditPart extends AbstractGraphicalEditPart implements Node
         IFigure figure = getFigure();
         figure.setForegroundColor(color);
         ((LineBorder) figure.getBorder()).setColor(color);
+    }
+    
+    @Override
+    public void performRequest(Request req) {
+        if(req.getType() == RequestConstants.REQ_OPEN) {
+            Feature feature = getModel();
+            if(configManager.getFeatureConfiguration().getFeatureModel().getRootFeature() == feature)
+                return;
+            if(configManager.isFeatureSelected(feature))
+                configManager.unselectFeature(feature);
+            else
+                configManager.selectFeature(feature);
+                
+        }
     }
     
     @Override
