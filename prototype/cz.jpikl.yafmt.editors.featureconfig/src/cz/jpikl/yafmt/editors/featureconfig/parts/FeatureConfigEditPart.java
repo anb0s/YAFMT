@@ -11,7 +11,6 @@ import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 import cz.jpikl.yafmt.editors.featureconfig.editor.FeatureConfigurationManager;
-import cz.jpikl.yafmt.editors.featureconfig.editor.FeatureTreeLayout;
 import cz.jpikl.yafmt.models.featuremodel.Feature;
 import cz.jpikl.yafmt.models.utils.ModelAdapter;
 import cz.jpikl.yafmt.models.utils.ModelListener;
@@ -51,7 +50,6 @@ public class FeatureConfigEditPart extends AbstractGraphicalEditPart implements 
     protected IFigure createFigure() {
         IFigure figure = new FreeformLayer();
         figure.setBorder(new MarginBorder(3));
-        figure.setLayoutManager(new FeatureTreeLayout(true));
         return figure;
     }
 
