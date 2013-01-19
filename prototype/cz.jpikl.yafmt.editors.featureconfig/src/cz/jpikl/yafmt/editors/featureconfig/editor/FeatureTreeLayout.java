@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.eclipse.draw2d.AbstractLayout;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 
@@ -15,9 +14,16 @@ public class FeatureTreeLayout extends AbstractLayout {
 
     private static final int RECTANGLE_WIDTH = 100;
     private static final int RECTANGLE_HEIGHT = 25;
-    private static final int BORDER_SIZE = 25;
-    private static final int LEVEL_HEIGHT = 75;
+    private static final int BORDER_SIZE = 10;
+    private static final int LEVEL_SPACE = 50;
+    
 
+    private boolean horizonal;
+    
+    public FeatureTreeLayout(boolean horizonal) {
+        this.horizonal = horizonal;
+    }
+    
     @Override
     public void layout(IFigure container) {
         Map<IFigure, Integer> subTreeWidth = new HashMap<IFigure, Integer>();
@@ -31,7 +37,10 @@ public class FeatureTreeLayout extends AbstractLayout {
         }
 
         calculateSubTreeWidth(subTreeWidth, root);
-        layoutTree(subTreeWidth, root, BORDER_SIZE, BORDER_SIZE);
+        if(horizonal)
+            layoutTreeHorizontal(subTreeWidth, root, BORDER_SIZE, BORDER_SIZE);
+        else
+            layoutTreeVertical(subTreeWidth, root, BORDER_SIZE, BORDER_SIZE);
     }
     
     private int calculateSubTreeWidth(Map<IFigure, Integer> subTreeWidth, TreeNodeFigure figure) {
@@ -39,19 +48,30 @@ public class FeatureTreeLayout extends AbstractLayout {
         for(TreeNodeFigure child: figure.getTreeNodeChildern())
             width += calculateSubTreeWidth(subTreeWidth, child);
         if(width == 0)
-            width = RECTANGLE_WIDTH + BORDER_SIZE;
+            width = (horizonal ? RECTANGLE_WIDTH : RECTANGLE_HEIGHT) + BORDER_SIZE;
         subTreeWidth.put(figure, width);
         return width;
     }
     
-    private void layoutTree(Map<IFigure, Integer> subTreeWidth, TreeNodeFigure figure, int xOffset, int yOffset) {
+    private void layoutTreeHorizontal(Map<IFigure, Integer> subTreeWidth, TreeNodeFigure figure, int xOffset, int yOffset) {
         int x = xOffset + (subTreeWidth.get(figure) - RECTANGLE_WIDTH) / 2;
         figure.setBounds(new Rectangle(x, yOffset, RECTANGLE_WIDTH, RECTANGLE_HEIGHT));
         
-        yOffset += LEVEL_HEIGHT;
+        yOffset += LEVEL_SPACE + RECTANGLE_HEIGHT;
         for(TreeNodeFigure child: figure.getTreeNodeChildern()) {
-            layoutTree(subTreeWidth, child, xOffset, yOffset);
+            layoutTreeHorizontal(subTreeWidth, child, xOffset, yOffset);
             xOffset += subTreeWidth.get(child);
+        }
+    }
+    
+    private void layoutTreeVertical(Map<IFigure, Integer> subTreeWidth, TreeNodeFigure figure, int xOffset, int yOffset) {
+        int y = yOffset + (subTreeWidth.get(figure) - RECTANGLE_HEIGHT) / 2;
+        figure.setBounds(new Rectangle(xOffset, y, RECTANGLE_WIDTH, RECTANGLE_HEIGHT));
+        
+        xOffset += LEVEL_SPACE + RECTANGLE_WIDTH;
+        for(TreeNodeFigure child: figure.getTreeNodeChildern()) {
+            layoutTreeVertical(subTreeWidth, child, xOffset, yOffset);
+            yOffset += subTreeWidth.get(child);
         }
     }
 

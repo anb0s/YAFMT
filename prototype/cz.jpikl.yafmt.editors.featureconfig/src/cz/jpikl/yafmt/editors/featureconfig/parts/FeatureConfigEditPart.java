@@ -51,7 +51,7 @@ public class FeatureConfigEditPart extends AbstractGraphicalEditPart implements 
     protected IFigure createFigure() {
         IFigure figure = new FreeformLayer();
         figure.setBorder(new MarginBorder(3));
-        figure.setLayoutManager(new FeatureTreeLayout());
+        figure.setLayoutManager(new FeatureTreeLayout(true));
         return figure;
     }
 
