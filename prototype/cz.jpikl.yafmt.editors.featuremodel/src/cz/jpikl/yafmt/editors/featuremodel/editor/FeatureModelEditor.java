@@ -1,25 +1,36 @@
 package cz.jpikl.yafmt.editors.featuremodel.editor;
 
-import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.XMLResource;
+import org.eclipse.jface.dialogs.ErrorDialog;
+import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
+import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.actions.WorkspaceModifyOperation;
+import org.eclipse.ui.dialogs.SaveAsDialog;
+import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.MultiPageEditorPart;
 import org.eclipse.ui.views.contentoutline.ContentOutlinePage;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 
+import cz.jpikl.yafmt.editors.featuremodel.Activator;
 import cz.jpikl.yafmt.editors.featuremodel.utils.EditorUtil;
 import cz.jpikl.yafmt.models.featuremodel.FeatureModel;
 import cz.jpikl.yafmt.models.featuremodel.FeatureModelPackage;
@@ -32,21 +43,30 @@ public class FeatureModelEditor extends MultiPageEditorPart implements ISelectio
     // Initializes editor with input.
     @Override
     public void init(IEditorSite site, IEditorInput input) throws PartInitException {
-        super.init(site, input);
-
-        try {
-            doLoad();
-        }
-        catch(IOException ex) {
-            throw new PartInitException("Unable to load input.", ex);
-        }
-
-        setPartName(getEditorInput().getName());
-        site.getPage().addSelectionListener(this);
         // ISelectionProvider is registered automatically in init() method.
         // I forwards selection from selection providers of inner editors.
+        super.init(site, input);
+        
+        // TODO setInput method for model loading instead of init method
+        
+        try {
+            // Loads specified input.
+            @SuppressWarnings("unused")
+            FeatureModelPackage fmPackage = FeatureModelPackage.eINSTANCE; // For package registration.
+            ResourceSet resourceSet = new ResourceSetImpl();
+            String path = EditorUtil.getEditorInputFileName(input);
+            Resource resource = resourceSet.createResource(URI.createPlatformResourceURI(path, true));
+            resource.load(createSaveLoadOptions());
+            featureModel = (FeatureModel) resource.getContents().get(0);
+        }
+        catch(Exception ex) {
+            throw new PartInitException("Unable to load input.", ex);
+        }
+        
+        setPartName(getEditorInput().getName());
+        site.getPage().addSelectionListener(this);
     }
-
+    
     @Override
     public void dispose() {
         getSite().getPage().removeSelectionListener(this);
@@ -73,17 +93,6 @@ public class FeatureModelEditor extends MultiPageEditorPart implements ISelectio
         return options;
     }
 
-    // Loads specified input.
-    private void doLoad() throws IOException {
-        @SuppressWarnings("unused")
-        FeatureModelPackage fmPackage = FeatureModelPackage.eINSTANCE; // For package registration.
-        ResourceSet resourceSet = new ResourceSetImpl();
-        String path = EditorUtil.getEditorInputFileName(getEditorInput());
-        Resource resource = resourceSet.createResource(URI.createPlatformResourceURI(path, true));
-        resource.load(createSaveLoadOptions());
-        featureModel = (FeatureModel) resource.getContents().get(0);
-    }
-
     // Saves model.
     @Override
     public void doSave(IProgressMonitor monitor) {
@@ -93,18 +102,49 @@ public class FeatureModelEditor extends MultiPageEditorPart implements ISelectio
                 getEditor(i).doSave(monitor);
             firePropertyChange(PROP_DIRTY);
         }
-        catch(IOException ex) {
+        catch(Exception ex) {
+            ErrorDialog.openError(getSite().getShell(), "Error During Save", null,
+                                  new Status(Status.ERROR, Activator.PLUGIN_ID, ex.getMessage()), 0);
             ex.printStackTrace();
         }
     }
 
     @Override
     public void doSaveAs() {
+        SaveAsDialog dialog = new SaveAsDialog(getSite().getShell());
+        IEditorInput input = getEditorInput();
+        if(input instanceof IFileEditorInput)
+            dialog.setOriginalFile(((IFileEditorInput) input).getFile());
+        dialog.open();
+        
+        IPath path = dialog.getResult();
+        if (path == null)
+            return;
+
+        featureModel.eResource().setURI(URI.createPlatformResourceURI(path.toString(), true));
+        IEditorInput newInput = new FileEditorInput(ResourcesPlugin.getWorkspace().getRoot().getFile(path));
+        setInput(newInput);
+        // TODO input for nested editors is not changed!!
+        setPartName(newInput.getName());
+        
+        try {
+            new ProgressMonitorDialog(getSite().getWorkbenchWindow().getShell()).run(false, true, 
+                new WorkspaceModifyOperation() {
+                    @Override
+                    protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+                        doSave(null);
+                        monitor.done();
+                    }
+                }
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public boolean isSaveAsAllowed() {
-        return false;
+        return true;
     }
 
     // =====================================================================

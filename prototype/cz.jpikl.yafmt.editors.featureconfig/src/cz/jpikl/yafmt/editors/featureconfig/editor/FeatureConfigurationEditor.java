@@ -1,6 +1,6 @@
 package cz.jpikl.yafmt.editors.featureconfig.editor;
 
-import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.HashMap;
@@ -8,7 +8,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LayoutManager;
 import org.eclipse.draw2d.Viewport;
@@ -24,6 +28,8 @@ import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.editparts.FreeformGraphicalRootEditPart;
 import org.eclipse.gef.ui.parts.GraphicalEditor;
+import org.eclipse.jface.dialogs.ErrorDialog;
+import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -35,8 +41,16 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorSite;
+import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.actions.WorkspaceModifyOperation;
+import org.eclipse.ui.dialogs.SaveAsDialog;
+import org.eclipse.ui.part.FileEditorInput;
 
+import cz.jpikl.yafmt.editors.featureconfig.Activator;
 import cz.jpikl.yafmt.editors.featureconfig.parts.FeatureConfigEditPartFactory;
 import cz.jpikl.yafmt.editors.featureconfig.utils.EditorUtil;
 import cz.jpikl.yafmt.models.featureconfig.FeatureConfigPackage;
@@ -52,6 +66,32 @@ public class FeatureConfigurationEditor extends GraphicalEditor {
     
     public FeatureConfigurationEditor() {
         setEditDomain(new DefaultEditDomain(this));
+    }
+    
+    @Override
+    public void init(IEditorSite site, IEditorInput input) throws PartInitException {
+        super.init(site, input);
+        
+        try {
+            @SuppressWarnings("unused")
+            FeatureConfigPackage fcPackage = FeatureConfigPackage.eINSTANCE; // For package registration.
+            ResourceSet resourceSet = new ResourceSetImpl();
+            String path = EditorUtil.getEditorInputFileName(input);
+            Resource resource = resourceSet.createResource(URI.createPlatformResourceURI(path, true));
+            resource.load(createSaveLoadOptions());
+            featureConfig = (FeatureConfiguration) resource.getContents().get(0);
+        }
+        catch(Exception ex) {
+            ErrorDialog.openError(getSite().getShell(), "Error During Save", null,
+                    new Status(Status.ERROR, Activator.PLUGIN_ID, ex.getMessage()), 0);
+            throw new PartInitException("Unable to load input.", ex);
+        }
+    }
+    
+    @Override
+    public void dispose() {
+        getSite().getPage().removeSelectionListener(this);
+        super.dispose();
     }
     
     private void changeLayout(int index) {
@@ -99,22 +139,8 @@ public class FeatureConfigurationEditor extends GraphicalEditor {
     }
     
     @Override
-    public void dispose() {
-        getSite().getPage().removeSelectionListener(this);
-        super.dispose();
-    }
-        
-    @Override
-    protected void initializeGraphicalViewer() {
-        try {
-            doLoad();
-        }
-        catch(IOException ex) {
-            ex.printStackTrace();
-        }
-        
+    protected void initializeGraphicalViewer() {        
         setPartName(getEditorInput().getName());
-        
         GraphicalViewer viewer = getGraphicalViewer();
         viewer.setEditPartFactory(new FeatureConfigEditPartFactory(featureConfig));
         viewer.setContents(featureConfig);
@@ -125,16 +151,6 @@ public class FeatureConfigurationEditor extends GraphicalEditor {
         options.put(XMLResource.OPTION_ENCODING, "UTF-8");
         return options;
     }
-
-    private void doLoad() throws IOException {
-        @SuppressWarnings("unused")
-        FeatureConfigPackage fcPackage = FeatureConfigPackage.eINSTANCE; // For package registration.
-        ResourceSet resourceSet = new ResourceSetImpl();
-        String path = EditorUtil.getEditorInputFileName(getEditorInput());
-        Resource resource = resourceSet.createResource(URI.createPlatformResourceURI(path, true));
-        resource.load(createSaveLoadOptions());
-        featureConfig = (FeatureConfiguration) resource.getContents().get(0);
-    }
     
     @Override
     public void doSave(IProgressMonitor monitor) {
@@ -142,9 +158,47 @@ public class FeatureConfigurationEditor extends GraphicalEditor {
             featureConfig.eResource().save(createSaveLoadOptions());
             getCommandStack().markSaveLocation();
         }
-        catch(IOException ex) {
+        catch(Exception ex) {
+            ErrorDialog.openError(getSite().getShell(), "Error During Save", null,
+                    new Status(Status.ERROR, Activator.PLUGIN_ID, ex.getMessage()), 0);
             ex.printStackTrace();
         }
+    }
+    
+    @Override
+    public void doSaveAs() {
+        SaveAsDialog dialog = new SaveAsDialog(getSite().getShell());
+        IEditorInput input = getEditorInput();
+        if(input instanceof IFileEditorInput)
+            dialog.setOriginalFile(((IFileEditorInput) input).getFile());
+        dialog.open();
+        
+        IPath path = dialog.getResult();
+        if (path == null)
+            return;
+
+        featureConfig.eResource().setURI(URI.createPlatformResourceURI(path.toString(), true));
+        setInput(new FileEditorInput(ResourcesPlugin.getWorkspace().getRoot().getFile(path)));
+        setPartName(getEditorInput().getName());
+        
+        try {
+            new ProgressMonitorDialog(getSite().getWorkbenchWindow().getShell()).run(false, true, 
+                new WorkspaceModifyOperation() {
+                    @Override
+                    protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+                        doSave(null);
+                        monitor.done();
+                    }
+                }
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @Override
+    public boolean isSaveAsAllowed() {
+        return true;
     }
     
     // Makes the editor dirty when a command is executed (allows save action).

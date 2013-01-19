@@ -48,7 +48,6 @@ import cz.jpikl.yafmt.editors.featuremodel.layout.ModelLayoutStore;
 import cz.jpikl.yafmt.editors.featuremodel.layout.ObjectLayout;
 import cz.jpikl.yafmt.editors.featuremodel.parts.FeatureModelEditPartFactory;
 import cz.jpikl.yafmt.editors.featuremodel.utils.CreationAndDirectEditTool;
-import cz.jpikl.yafmt.editors.featuremodel.utils.EditorUtil;
 import cz.jpikl.yafmt.models.featuremodel.Feature;
 import cz.jpikl.yafmt.models.featuremodel.FeatureModel;
 import cz.jpikl.yafmt.models.featuremodel.FeatureModelFactory;
@@ -133,12 +132,13 @@ public class FeatureTreeEditor extends GraphicalEditorWithFlyoutPalette implemen
             }
         };
     }
-
+    
     void doLoad() {
         @SuppressWarnings("unused")
         ModelLayoutPackage mlPackage = ModelLayoutPackage.eINSTANCE; // For package registration.
         ResourceSet resourceSet = featureModel.eResource().getResourceSet();
-        String path = EditorUtil.getEditorInputFileName(getEditorInput()) + ".layout";
+        String path = featureModel.eResource().getURI().toPlatformString(true) + ".layout";
+        System.out.println("XXXXXX " + path);
         Resource resource = resourceSet.createResource(URI.createPlatformResourceURI(path, true));
 
         try {
@@ -161,6 +161,12 @@ public class FeatureTreeEditor extends GraphicalEditorWithFlyoutPalette implemen
         }
 
         try {
+            // Change URI when parent editor did save as
+            String path = featureModel.eResource().getURI().toPlatformString(true) + ".layout";
+            URI uri = URI.createPlatformResourceURI(path, true);
+            System.out.println(uri + " ... " + modelLayout.eResource().getURI().equals(uri));
+            if(!modelLayout.eResource().getURI().equals(uri)) {
+                modelLayout.eResource().setURI(uri);System.out.println("uri changed");}
             modelLayout.eResource().save(null);
         }
         catch(IOException ex) {
@@ -218,8 +224,10 @@ public class FeatureTreeEditor extends GraphicalEditorWithFlyoutPalette implemen
     // Called when selection changes in feature model view or outline view.
     @Override
     public void selectionChanged(IWorkbenchPart part, ISelection selection) {
+        super.selectionChanged(part, selection);
+        updateActions(getSelectionActions()); // !!! enable actions
+        
         String id = part.getClass().getName();
-
         if((id.equals("cz.jpikl.yafmt.views.featuremodel.view.FeatureModelView")) ||
            (id.equals("org.eclipse.ui.views.contentoutline.ContentOutline"))) {
             // Wraps model elements to edit parts
@@ -244,8 +252,6 @@ public class FeatureTreeEditor extends GraphicalEditorWithFlyoutPalette implemen
                 }
             }
         }
-
-        super.selectionChanged(part, selection);
     }
 
     // =====================================================================
