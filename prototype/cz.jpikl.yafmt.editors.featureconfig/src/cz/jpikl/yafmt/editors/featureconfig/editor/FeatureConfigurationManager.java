@@ -1,6 +1,7 @@
 package cz.jpikl.yafmt.editors.featureconfig.editor;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -93,8 +94,7 @@ public class FeatureConfigurationManager {
         }
         
         // Select unselected parent features.
-        for(Feature feature: missingSelections)
-            selectFeature(feature);
+        selectFeatures(missingSelections);
         
         // Check if root feature is selected.
         Feature rootFeature = featureConfig.getFeatureModel().getRootFeature();
@@ -102,33 +102,57 @@ public class FeatureConfigurationManager {
             selectFeature(rootFeature);
     }
             
-    public Selection selectFeature(Feature feature) {
-        Selection selection = FeatureConfigFactory.eINSTANCE.createSelection();
-        if(feature instanceof FeatureClone)
-            selection.setFeature(((FeatureClone) feature).getOriginator());
-        else
-            selection.setFeature(feature);
-        
-        featureToSelection.put(feature, selection);
-        featureConfig.getSelection().add(selection);
-        
-        return selection;
+    public void selectFeature(Feature feature) {
+        List<Feature> features = new ArrayList<Feature>();
+        features.add(feature);
+        selectFeatures(features);
     }
     
-    public List<Selection> unselectFeature(Feature feature) {
+    public void selectFeatures(Collection<Feature> features) {
         List<Selection> selections = new ArrayList<Selection>();
-        unselectFeature(selections, feature);
-        featureConfig.getSelection().removeAll(selections);
-        return selections;
+        
+        for(Feature feature: features) {
+            Selection selection = FeatureConfigFactory.eINSTANCE.createSelection();
+            if(feature instanceof FeatureClone)
+                selection.setFeature(((FeatureClone) feature).getOriginator());
+            else
+                selection.setFeature(feature);
+            
+            featureToSelection.put(feature, selection);
+            selections.add(selection);
+        }
+        
+        featureConfig.getSelection().addAll(selections);
     }
     
-    private void unselectFeature(List<Selection> selections, Feature feature) {
+    public List<Feature> unselectFeature(Feature feature) {
+        List<Feature> features = new ArrayList<Feature>();
+        features.add(feature);
+        return unselectFeatures(features);
+    }
+    
+    public List<Feature> unselectFeatures(Collection<Feature> features) {
+        List<Selection> selections = new ArrayList<Selection>();
+        List<Feature> affectedFeatures = new ArrayList<Feature>();
+        
+        for(Feature feature: features)
+            unselectFeatureInternal(selections, affectedFeatures, feature);
+                
+        featureConfig.getSelection().removeAll(selections);
+        return affectedFeatures;
+    }
+    
+    private void unselectFeatureInternal(List<Selection> selections, List<Feature> affectedFeatures, Feature feature) {
+        if(feature == featureConfig.getFeatureModel().getRootFeature())
+            return;
+        
         Selection selection = featureToSelection.remove(feature);
         if(selection != null) {
             selection.setFeature(null);
             selections.add(selection);
+            affectedFeatures.add(feature);
             for(Feature child: feature.getChildren())
-                unselectFeature(selections, child);
+                unselectFeatureInternal(selections, affectedFeatures, child);
         }
     }
     

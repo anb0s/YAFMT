@@ -91,6 +91,7 @@ public class FeatureModelEditor extends MultiPageEditorPart implements ISelectio
             featureModel.eResource().save(createSaveLoadOptions());
             for(int i = 0; i < getPageCount(); i++)
                 getEditor(i).doSave(monitor);
+            firePropertyChange(PROP_DIRTY);
         }
         catch(IOException ex) {
             ex.printStackTrace();

@@ -32,7 +32,7 @@ public class ConnectionEditPart extends AbstractConnectionEditPart {
         decoration.setBackgroundColor(ColorConstants.white);
         decoration.setScale(2, 2);
         decoration.setTemplate(CIRCLE);
-        connection.setTargetDecoration(decoration);
+        connection.setSourceDecoration(decoration);
         return connection;
     }
 

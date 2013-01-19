@@ -73,6 +73,7 @@ public class FeatureConfigurationEditor extends GraphicalEditor {
     public void doSave(IProgressMonitor monitor) {
         try {
             featureConfig.eResource().save(createSaveLoadOptions());
+            getCommandStack().markSaveLocation();
         }
         catch(IOException ex) {
             ex.printStackTrace();

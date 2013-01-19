@@ -25,6 +25,7 @@ public class FeatureConfigEditPart extends AbstractGraphicalEditPart implements 
         this.configManager = configManager;
         this.modelAdapter = new ModelAdapter(this);
         modelAdapter.connect(configManager.getFeatureConfiguration());
+        setModel(configManager.getFeatureConfiguration());
     }
     
     @Override
@@ -56,7 +57,6 @@ public class FeatureConfigEditPart extends AbstractGraphicalEditPart implements 
 
     @Override
     protected void createEditPolicies() {
-        
     }
 
     @Override

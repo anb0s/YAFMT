@@ -9,12 +9,17 @@ import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LineBorder;
 import org.eclipse.gef.ConnectionEditPart;
+import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
+import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
+import org.eclipse.gef.editpolicies.SelectionEditPolicy;
 import org.eclipse.swt.graphics.Color;
 
+import cz.jpikl.yafmt.editors.featureconfig.commands.SelectCommand;
+import cz.jpikl.yafmt.editors.featureconfig.commands.UnselectCommand;
 import cz.jpikl.yafmt.editors.featureconfig.editor.FeatureConfigurationManager;
 import cz.jpikl.yafmt.editors.featureconfig.figures.TreeNodeFigure;
 import cz.jpikl.yafmt.editors.featureconfig.utils.Connection;
@@ -86,11 +91,15 @@ public class SelectionEditPart extends AbstractGraphicalEditPart implements Node
             Feature feature = getModel();
             if(configManager.getFeatureConfiguration().getFeatureModel().getRootFeature() == feature)
                 return;
+            
+            Command command = null;
             if(configManager.isFeatureSelected(feature))
-                configManager.unselectFeature(feature);
+                command = new UnselectCommand(configManager, feature);
             else
-                configManager.selectFeature(feature);
-                
+                command = new SelectCommand(configManager, feature);
+            
+            if(command != null)
+                getViewer().getEditDomain().getCommandStack().execute(command);               
         }
     }
     
@@ -116,6 +125,19 @@ public class SelectionEditPart extends AbstractGraphicalEditPart implements Node
 
     @Override
     protected void createEditPolicies() {
+        installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new SelectionEditPolicy() {
+            @Override
+            protected void showSelection() {
+                ((LineBorder) getFigure().getBorder()).setWidth(2);
+                getFigure().repaint();
+            }
+            
+            @Override
+            protected void hideSelection() {
+                ((LineBorder) getFigure().getBorder()).setWidth(1);
+                getFigure().repaint();
+            }
+        });
     }
 
 }

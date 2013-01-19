@@ -18,7 +18,7 @@ public class ConnectionEditPart extends AbstractConnectionEditPart {
         PolylineConnection connection = new PolylineConnection();
         PolygonDecoration decoration = new PolygonDecoration();
         decoration.setTemplate(PolygonDecoration.TRIANGLE_TIP);
-        connection.setTargetDecoration(decoration);
+        connection.setSourceDecoration(decoration);
         return connection;
     }
 
