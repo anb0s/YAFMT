@@ -137,7 +137,9 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, Mo
         if(activePart != part)
             return;
 
-        if((part instanceof FeatureModelEditor) || (part instanceof ContentOutline) || (part == this)) {
+        if((part instanceof FeatureModelEditor) || (part instanceof ContentOutline) || (part == this) ||
+            part.getClass().getName().equals("cz.jpikl.yafmt.editors.featureconfig.editor.FeatureConfigurationEditor")) {
+            
             // Unwrap selected edit parts to model elements
             Object firstSelection = ((IStructuredSelection) selection).getFirstElement();
             if(firstSelection instanceof EditPart) {

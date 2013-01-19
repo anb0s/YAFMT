@@ -211,11 +211,6 @@ public class FeatureTreeEditor extends GraphicalEditorWithFlyoutPalette implemen
         return new StructuredSelection(objects);
     }
 
-    // Updates all selection actions.
-    private void refreshActions() {
-        updateActions(getSelectionActions());
-    }
-
     // =====================================================================
     //  ISelectionListener
     // =====================================================================
@@ -250,11 +245,7 @@ public class FeatureTreeEditor extends GraphicalEditorWithFlyoutPalette implemen
             }
         }
 
-        // IMPORTANT!!!
-        // It is necessary to manually update all selection actions (actions enabled by selection,
-        // like delete action), because the superclass implementation updates them only when this
-        // is the active editor (which is not in case when we are using MultiPageEditorPart).
-        refreshActions();
+        super.selectionChanged(part, selection);
     }
 
     // =====================================================================
