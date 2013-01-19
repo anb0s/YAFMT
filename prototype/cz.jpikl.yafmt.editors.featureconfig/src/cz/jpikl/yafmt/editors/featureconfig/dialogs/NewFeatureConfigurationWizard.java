@@ -275,7 +275,7 @@ public class NewFeatureConfigurationWizard extends Wizard implements INewWizard 
                 FeatureConfiguration featureConfig = FeatureConfigFactory.eINSTANCE.createFeatureConfiguration();
                 featureConfig.setFeatureModel(featureModel);
                 Selection selection = FeatureConfigFactory.eINSTANCE.createSelection();
-                selection.setFeature(featureModel.getRootFeature());
+                selection.setFeatureName(featureModel.getRootFeature().getName());
                 featureConfig.getSelection().add(selection);
                 
                 resource = resourceSet.createResource(configUri);

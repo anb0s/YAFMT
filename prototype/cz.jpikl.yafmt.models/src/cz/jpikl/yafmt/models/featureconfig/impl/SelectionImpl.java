@@ -22,7 +22,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link cz.jpikl.yafmt.models.featureconfig.impl.SelectionImpl#getFeature <em>Feature</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.models.featureconfig.impl.SelectionImpl#getFeatureName <em>Feature Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -30,15 +30,23 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  */
 public class SelectionImpl extends EObjectImpl implements Selection {
     /**
-     * The cached value of the '{@link #getFeature() <em>Feature</em>}' reference.
+     * The default value of the '{@link #getFeatureName() <em>Feature Name</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getFeature()
+     * @see #getFeatureName()
      * @generated
      * @ordered
      */
-    protected Feature feature;
-
+    protected static final String FEATURE_NAME_EDEFAULT = null;
+    /**
+     * The cached value of the '{@link #getFeatureName() <em>Feature Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getFeatureName()
+     * @generated
+     * @ordered
+     */
+    protected String featureName = FEATURE_NAME_EDEFAULT;
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -63,16 +71,8 @@ public class SelectionImpl extends EObjectImpl implements Selection {
      * <!-- end-user-doc -->
      * @generated
      */
-    public Feature getFeature() {
-        if (feature != null && feature.eIsProxy()) {
-            InternalEObject oldFeature = (InternalEObject)feature;
-            feature = (Feature)eResolveProxy(oldFeature);
-            if (feature != oldFeature) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, FeatureConfigPackage.SELECTION__FEATURE, oldFeature, feature));
-            }
-        }
-        return feature;
+    public String getFeatureName() {
+        return featureName;
     }
 
     /**
@@ -80,20 +80,11 @@ public class SelectionImpl extends EObjectImpl implements Selection {
      * <!-- end-user-doc -->
      * @generated
      */
-    public Feature basicGetFeature() {
-        return feature;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setFeature(Feature newFeature) {
-        Feature oldFeature = feature;
-        feature = newFeature;
+    public void setFeatureName(String newFeatureName) {
+        String oldFeatureName = featureName;
+        featureName = newFeatureName;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, FeatureConfigPackage.SELECTION__FEATURE, oldFeature, feature));
+            eNotify(new ENotificationImpl(this, Notification.SET, FeatureConfigPackage.SELECTION__FEATURE_NAME, oldFeatureName, featureName));
     }
 
     /**
@@ -104,9 +95,8 @@ public class SelectionImpl extends EObjectImpl implements Selection {
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case FeatureConfigPackage.SELECTION__FEATURE:
-                if (resolve) return getFeature();
-                return basicGetFeature();
+            case FeatureConfigPackage.SELECTION__FEATURE_NAME:
+                return getFeatureName();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -119,8 +109,8 @@ public class SelectionImpl extends EObjectImpl implements Selection {
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case FeatureConfigPackage.SELECTION__FEATURE:
-                setFeature((Feature)newValue);
+            case FeatureConfigPackage.SELECTION__FEATURE_NAME:
+                setFeatureName((String)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -134,8 +124,8 @@ public class SelectionImpl extends EObjectImpl implements Selection {
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case FeatureConfigPackage.SELECTION__FEATURE:
-                setFeature((Feature)null);
+            case FeatureConfigPackage.SELECTION__FEATURE_NAME:
+                setFeatureName(FEATURE_NAME_EDEFAULT);
                 return;
         }
         super.eUnset(featureID);
@@ -149,10 +139,26 @@ public class SelectionImpl extends EObjectImpl implements Selection {
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case FeatureConfigPackage.SELECTION__FEATURE:
-                return feature != null;
+            case FeatureConfigPackage.SELECTION__FEATURE_NAME:
+                return FEATURE_NAME_EDEFAULT == null ? featureName != null : !FEATURE_NAME_EDEFAULT.equals(featureName);
         }
         return super.eIsSet(featureID);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public String toString() {
+        if (eIsProxy()) return super.toString();
+
+        StringBuffer result = new StringBuffer(super.toString());
+        result.append(" (featureName: ");
+        result.append(featureName);
+        result.append(')');
+        return result.toString();
     }
 
 } //SelectionImpl

@@ -30,8 +30,7 @@
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference featuremodel.ecore#//featureconfig/FeatureConfiguration/selection"/>
       </genClasses>
       <genClasses ecoreClass="featuremodel.ecore#//featureconfig/Selection">
-        <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference featuremodel.ecore#//featureconfig/Selection/feature"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute featuremodel.ecore#//featureconfig/Selection/featureName"/>
       </genClasses>
     </nestedGenPackages>
   </genPackages>

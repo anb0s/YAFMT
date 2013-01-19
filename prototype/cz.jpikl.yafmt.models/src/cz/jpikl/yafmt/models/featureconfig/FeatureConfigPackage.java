@@ -2,6 +2,7 @@
  */
 package cz.jpikl.yafmt.models.featureconfig;
 
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -102,13 +103,13 @@ public interface FeatureConfigPackage extends EPackage {
     int SELECTION = 1;
 
     /**
-     * The feature id for the '<em><b>Feature</b></em>' reference.
+     * The feature id for the '<em><b>Feature Name</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int SELECTION__FEATURE = 0;
+    int SELECTION__FEATURE_NAME = 0;
 
     /**
      * The number of structural features of the '<em>Selection</em>' class.
@@ -163,15 +164,15 @@ public interface FeatureConfigPackage extends EPackage {
     EClass getSelection();
 
     /**
-     * Returns the meta object for the reference '{@link cz.jpikl.yafmt.models.featureconfig.Selection#getFeature <em>Feature</em>}'.
+     * Returns the meta object for the attribute '{@link cz.jpikl.yafmt.models.featureconfig.Selection#getFeatureName <em>Feature Name</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Feature</em>'.
-     * @see cz.jpikl.yafmt.models.featureconfig.Selection#getFeature()
+     * @return the meta object for the attribute '<em>Feature Name</em>'.
+     * @see cz.jpikl.yafmt.models.featureconfig.Selection#getFeatureName()
      * @see #getSelection()
      * @generated
      */
-    EReference getSelection_Feature();
+    EAttribute getSelection_FeatureName();
 
     /**
      * Returns the factory that creates the instances of the model.
@@ -232,12 +233,12 @@ public interface FeatureConfigPackage extends EPackage {
         EClass SELECTION = eINSTANCE.getSelection();
 
         /**
-         * The meta object literal for the '<em><b>Feature</b></em>' reference feature.
+         * The meta object literal for the '<em><b>Feature Name</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EReference SELECTION__FEATURE = eINSTANCE.getSelection_Feature();
+        EAttribute SELECTION__FEATURE_NAME = eINSTANCE.getSelection_FeatureName();
 
     }
 

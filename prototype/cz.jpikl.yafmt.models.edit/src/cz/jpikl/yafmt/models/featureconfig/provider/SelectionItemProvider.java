@@ -5,6 +5,7 @@ package cz.jpikl.yafmt.models.featureconfig.provider;
 
 import cz.jpikl.yafmt.models.featureconfig.FeatureConfigPackage;
 
+import cz.jpikl.yafmt.models.featureconfig.Selection;
 import cz.jpikl.yafmt.models.featuremodel.provider.FeaturemodelEditPlugin;
 
 import java.util.Collection;
@@ -22,7 +23,9 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
+import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
  * This is the item provider adapter for a {@link cz.jpikl.yafmt.models.featureconfig.Selection} object.
@@ -59,29 +62,29 @@ public class SelectionItemProvider
         if (itemPropertyDescriptors == null) {
             super.getPropertyDescriptors(object);
 
-            addFeaturePropertyDescriptor(object);
+            addFeatureNamePropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
 
     /**
-     * This adds a property descriptor for the Feature feature.
+     * This adds a property descriptor for the Feature Name feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected void addFeaturePropertyDescriptor(Object object) {
+    protected void addFeatureNamePropertyDescriptor(Object object) {
         itemPropertyDescriptors.add
             (createItemPropertyDescriptor
                 (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
                  getResourceLocator(),
-                 getString("_UI_Selection_feature_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_Selection_feature_feature", "_UI_Selection_type"),
-                 FeatureConfigPackage.Literals.SELECTION__FEATURE,
+                 getString("_UI_Selection_featureName_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_Selection_featureName_feature", "_UI_Selection_type"),
+                 FeatureConfigPackage.Literals.SELECTION__FEATURE_NAME,
                  true,
                  false,
-                 true,
-                 null,
+                 false,
+                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
                  null,
                  null));
     }
@@ -105,7 +108,10 @@ public class SelectionItemProvider
      */
     @Override
     public String getText(Object object) {
-        return getString("_UI_Selection_type");
+        String label = ((Selection)object).getFeatureName();
+        return label == null || label.length() == 0 ?
+            getString("_UI_Selection_type") :
+            getString("_UI_Selection_type") + " " + label;
     }
 
     /**
@@ -118,6 +124,12 @@ public class SelectionItemProvider
     @Override
     public void notifyChanged(Notification notification) {
         updateChildren(notification);
+
+        switch (notification.getFeatureID(Selection.class)) {
+            case FeatureConfigPackage.SELECTION__FEATURE_NAME:
+                fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+                return;
+        }
         super.notifyChanged(notification);
     }
 

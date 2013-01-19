@@ -59,7 +59,7 @@ public class FeatureConfigurationManager {
         // Load all selections into hash map.
         for(Selection selection: featureConfig.getSelection()) {
             // Check for invalid selection.
-            Feature feature = selection.getFeature();
+            Feature feature = nameToFeature.get(selection.getFeatureName());
             if(feature == null) {
                 invalidSelections.add(selection);
                 continue;
@@ -85,7 +85,7 @@ public class FeatureConfigurationManager {
         
         // Find all selected features which parents are not selected.
         for(Selection selection: featureConfig.getSelection()) {
-            Feature feature = selection.getFeature();
+            Feature feature = nameToFeature.get(selection.getFeatureName());
             while(feature != null) {
                 if(!isFeatureSelected(feature))
                     missingSelections.add(feature);
@@ -113,11 +113,7 @@ public class FeatureConfigurationManager {
         
         for(Feature feature: features) {
             Selection selection = FeatureConfigFactory.eINSTANCE.createSelection();
-            if(feature instanceof FeatureClone)
-                selection.setFeature(((FeatureClone) feature).getOriginator());
-            else
-                selection.setFeature(feature);
-            
+            selection.setFeatureName(feature.getName());
             featureToSelection.put(feature, selection);
             selections.add(selection);
         }
@@ -148,7 +144,6 @@ public class FeatureConfigurationManager {
         
         Selection selection = featureToSelection.remove(feature);
         if(selection != null) {
-            selection.setFeature(null);
             selections.add(selection);
             affectedFeatures.add(feature);
             for(Feature child: feature.getChildren())

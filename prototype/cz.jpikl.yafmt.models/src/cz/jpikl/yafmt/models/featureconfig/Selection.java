@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link cz.jpikl.yafmt.models.featureconfig.Selection#getFeature <em>Feature</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.models.featureconfig.Selection#getFeatureName <em>Feature Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -24,29 +24,29 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Selection extends EObject {
     /**
-     * Returns the value of the '<em><b>Feature</b></em>' reference.
+     * Returns the value of the '<em><b>Feature Name</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Feature</em>' reference isn't clear,
+     * If the meaning of the '<em>Feature Name</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Feature</em>' reference.
-     * @see #setFeature(Feature)
-     * @see cz.jpikl.yafmt.models.featureconfig.FeatureConfigPackage#getSelection_Feature()
-     * @model keys="name"
+     * @return the value of the '<em>Feature Name</em>' attribute.
+     * @see #setFeatureName(String)
+     * @see cz.jpikl.yafmt.models.featureconfig.FeatureConfigPackage#getSelection_FeatureName()
+     * @model
      * @generated
      */
-    Feature getFeature();
+    String getFeatureName();
 
     /**
-     * Sets the value of the '{@link cz.jpikl.yafmt.models.featureconfig.Selection#getFeature <em>Feature</em>}' reference.
+     * Sets the value of the '{@link cz.jpikl.yafmt.models.featureconfig.Selection#getFeatureName <em>Feature Name</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Feature</em>' reference.
-     * @see #getFeature()
+     * @param value the new value of the '<em>Feature Name</em>' attribute.
+     * @see #getFeatureName()
      * @generated
      */
-    void setFeature(Feature value);
+    void setFeatureName(String value);
 
 } // Selection

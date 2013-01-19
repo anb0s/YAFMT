@@ -11,6 +11,7 @@ import cz.jpikl.yafmt.models.featuremodel.FeatureModelPackage;
 
 import cz.jpikl.yafmt.models.featuremodel.impl.FeatureModelPackageImpl;
 
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -145,8 +146,8 @@ public class FeatureConfigPackageImpl extends EPackageImpl implements FeatureCon
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getSelection_Feature() {
-        return (EReference)selectionEClass.getEStructuralFeatures().get(0);
+    public EAttribute getSelection_FeatureName() {
+        return (EAttribute)selectionEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -182,7 +183,7 @@ public class FeatureConfigPackageImpl extends EPackageImpl implements FeatureCon
         createEReference(featureConfigurationEClass, FEATURE_CONFIGURATION__SELECTION);
 
         selectionEClass = createEClass(SELECTION);
-        createEReference(selectionEClass, SELECTION__FEATURE);
+        createEAttribute(selectionEClass, SELECTION__FEATURE_NAME);
     }
 
     /**
@@ -223,8 +224,7 @@ public class FeatureConfigPackageImpl extends EPackageImpl implements FeatureCon
         initEReference(getFeatureConfiguration_Selection(), this.getSelection(), null, "selection", null, 0, -1, FeatureConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(selectionEClass, Selection.class, "Selection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getSelection_Feature(), theFeatureModelPackage.getFeature(), null, "feature", null, 0, 1, Selection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        getSelection_Feature().getEKeys().add(theFeatureModelPackage.getFeature_Name());
+        initEAttribute(getSelection_FeatureName(), ecorePackage.getEString(), "featureName", null, 0, 1, Selection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Create resource
         createResource(eNS_URI);

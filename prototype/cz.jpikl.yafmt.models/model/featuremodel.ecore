@@ -30,8 +30,7 @@
           eType="#//featureconfig/Selection" containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Selection">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="feature" eType="#//featuremodel/Feature"
-          eKeys="#//featuremodel/Feature/name"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="featureName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
   </eSubpackages>
 </ecore:EPackage>
