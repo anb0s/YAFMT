@@ -163,7 +163,6 @@ public class FeatureTreeEditor extends GraphicalEditorWithFlyoutPalette implemen
             // Change URI when parent editor did save as
             String path = featureModel.eResource().getURI().toPlatformString(true) + ".layout";
             URI uri = URI.createPlatformResourceURI(path, true);
-            System.out.println(uri + " ... " + modelLayout.eResource().getURI().equals(uri));
             if(!modelLayout.eResource().getURI().equals(uri)) {
                 modelLayout.eResource().setURI(uri);System.out.println("uri changed");}
             modelLayout.eResource().save(null);
