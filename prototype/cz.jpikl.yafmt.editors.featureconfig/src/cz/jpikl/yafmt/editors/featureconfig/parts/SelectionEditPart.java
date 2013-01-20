@@ -15,9 +15,12 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
+import org.eclipse.gef.editpolicies.AbstractEditPolicy;
 import org.eclipse.gef.editpolicies.SelectionEditPolicy;
 import org.eclipse.swt.graphics.Color;
 
+import cz.jpikl.yafmt.editors.featureconfig.actions.SelectAction;
+import cz.jpikl.yafmt.editors.featureconfig.actions.UnselectAction;
 import cz.jpikl.yafmt.editors.featureconfig.commands.SelectCommand;
 import cz.jpikl.yafmt.editors.featureconfig.commands.UnselectCommand;
 import cz.jpikl.yafmt.editors.featureconfig.editor.FeatureConfigurationManager;
@@ -84,25 +87,7 @@ public class SelectionEditPart extends AbstractGraphicalEditPart implements Node
         figure.setForegroundColor(color);
         ((LineBorder) figure.getBorder()).setColor(color);
     }
-    
-    @Override
-    public void performRequest(Request req) {
-        if(req.getType() == RequestConstants.REQ_OPEN) {
-            Feature feature = getModel();
-            if(configManager.getFeatureConfiguration().getFeatureModel().getRootFeature() == feature)
-                return;
-            
-            Command command = null;
-            if(configManager.isFeatureSelected(feature))
-                command = new UnselectCommand(configManager, feature);
-            else
-                command = new SelectCommand(configManager, feature);
-            
-            if(command != null)
-                getViewer().getEditDomain().getCommandStack().execute(command);               
-        }
-    }
-    
+        
     @Override
     public ConnectionAnchor getSourceConnectionAnchor(ConnectionEditPart connection) {
         return new ChopboxAnchor(getFigure());
@@ -138,6 +123,47 @@ public class SelectionEditPart extends AbstractGraphicalEditPart implements Node
                 getFigure().repaint();
             }
         });
+        
+        installEditPolicy(EditPolicy.NODE_ROLE, new AbstractEditPolicy() {
+            @Override
+            public Command getCommand(Request request) {
+                if(SelectAction.REQUEST.equals(request.getType()))
+                    return getSelectCommand();
+                if(UnselectAction.REQUEST.equals(request.getType()))
+                    return getUnselectCommand();
+                return null;
+            }
+    
+            private Command getSelectCommand() {
+                Feature feature = getModel();
+                if(configManager.getFeatureConfiguration().getFeatureModel().getRootFeature() == feature)
+                    return null;
+                if(configManager.isFeatureSelected(feature))
+                    return null;
+                return new SelectCommand(configManager, feature);
+            }
+            
+            private Command getUnselectCommand() {
+                Feature feature = getModel();
+                if(configManager.getFeatureConfiguration().getFeatureModel().getRootFeature() == feature)
+                    return null;
+                if(!configManager.isFeatureSelected(feature))
+                    return null;
+                return new UnselectCommand(configManager, feature);
+            }
+            
+        });
+    }
+    
+    
+    @Override
+    public void performRequest(Request req) {
+        if(req.getType() == RequestConstants.REQ_OPEN) {
+            String id = configManager.isFeatureSelected(getModel()) ? UnselectAction.REQUEST : SelectAction.REQUEST;
+            Command command = getCommand(new Request(id));
+            if(command != null)
+                getViewer().getEditDomain().getCommandStack().execute(command);               
+        }
     }
 
 }

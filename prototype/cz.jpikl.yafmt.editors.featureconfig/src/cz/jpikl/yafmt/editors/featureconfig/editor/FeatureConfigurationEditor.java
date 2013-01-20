@@ -17,6 +17,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LayoutManager;
 import org.eclipse.draw2d.Viewport;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -27,7 +28,9 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.editparts.FreeformGraphicalRootEditPart;
+import org.eclipse.gef.ui.actions.ActionRegistry;
 import org.eclipse.gef.ui.parts.GraphicalEditor;
+import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.viewers.ISelection;
@@ -51,23 +54,28 @@ import org.eclipse.ui.dialogs.SaveAsDialog;
 import org.eclipse.ui.part.FileEditorInput;
 
 import cz.jpikl.yafmt.editors.featureconfig.Activator;
+import cz.jpikl.yafmt.editors.featureconfig.actions.SelectAction;
+import cz.jpikl.yafmt.editors.featureconfig.actions.UnselectAction;
 import cz.jpikl.yafmt.editors.featureconfig.parts.FeatureConfigEditPartFactory;
 import cz.jpikl.yafmt.editors.featureconfig.utils.EditorUtil;
 import cz.jpikl.yafmt.models.featureconfig.FeatureConfigPackage;
 import cz.jpikl.yafmt.models.featureconfig.FeatureConfiguration;
 import cz.jpikl.yafmt.models.featuremodel.FeatureModel;
+import cz.jpikl.yafmt.models.utils.ModelAdapter;
+import cz.jpikl.yafmt.models.utils.ModelListener;
 
-public class FeatureConfigurationEditor extends GraphicalEditor {
+public class FeatureConfigurationEditor extends GraphicalEditor implements ModelListener {
 
     private static final LayoutManager LAYOUT_MANAGERS[] = { new FeatureTreeLayout(true), new FeatureTreeLayout(false) };
     private static final String LAYOUT_NAMES[] = { "Horizontal tree", "Vertical tree" };
     
     private FeatureConfiguration featureConfig;
+    private ModelAdapter modelAdapter = new ModelAdapter(this);
     
     public FeatureConfigurationEditor() {
         setEditDomain(new DefaultEditDomain(this));
     }
-    
+        
     @Override
     public void init(IEditorSite site, IEditorInput input) throws PartInitException {
         super.init(site, input);
@@ -80,6 +88,7 @@ public class FeatureConfigurationEditor extends GraphicalEditor {
             Resource resource = resourceSet.createResource(URI.createPlatformResourceURI(path, true));
             resource.load(createSaveLoadOptions());
             featureConfig = (FeatureConfiguration) resource.getContents().get(0);
+            modelAdapter.connect(featureConfig);
         }
         catch(Exception ex) {
             ErrorDialog.openError(getSite().getShell(), "Error During Save", null,
@@ -90,6 +99,7 @@ public class FeatureConfigurationEditor extends GraphicalEditor {
     
     @Override
     public void dispose() {
+        modelAdapter.disconnectFromAll();
         getSite().getPage().removeSelectionListener(this);
         super.dispose();
     }
@@ -144,6 +154,23 @@ public class FeatureConfigurationEditor extends GraphicalEditor {
         GraphicalViewer viewer = getGraphicalViewer();
         viewer.setEditPartFactory(new FeatureConfigEditPartFactory(featureConfig));
         viewer.setContents(featureConfig);
+    }
+    
+    @Override
+    @SuppressWarnings("unchecked")
+    protected void createActions() {
+        super.createActions();
+        
+        ActionRegistry registry = getActionRegistry();
+        IAction action = null;
+        
+        action = new SelectAction(this);
+        registry.registerAction(action);
+        getSelectionActions().add(action.getId());
+        
+        action = new UnselectAction(this);
+        registry.registerAction(action);
+        getSelectionActions().add(action.getId());
     }
     
     private Map<Object, Object> createSaveLoadOptions() {
@@ -235,8 +262,10 @@ public class FeatureConfigurationEditor extends GraphicalEditor {
     
     @Override
     public void selectionChanged(IWorkbenchPart part, ISelection selection) {
-        String id = part.getClass().getName();
+        super.selectionChanged(part, selection);
+        updateActions(getSelectionActions());
         
+        String id = part.getClass().getName();
         if(id.equals("cz.jpikl.yafmt.views.featuremodel.view.FeatureModelView")) {
          // Wraps model elements to edit parts
             ISelection wrappedSelection = wrapSelection(selection);
@@ -253,8 +282,11 @@ public class FeatureConfigurationEditor extends GraphicalEditor {
                 vp.setViewLocation(p.x - vp.getSize().width / 2, p.y - vp.getSize().height / 2);
             }
         }
-        
-        super.selectionChanged(part, selection);
+    }
+    
+    @Override
+    public void modelChanged(Notification notification) {
+        updateActions(getSelectionActions());
     }
 
 }
