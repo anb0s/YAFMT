@@ -34,7 +34,7 @@ public interface Selection extends EObject {
      * @return the value of the '<em>Feature Name</em>' attribute.
      * @see #setFeatureName(String)
      * @see cz.jpikl.yafmt.models.featureconfig.FeatureConfigPackage#getSelection_FeatureName()
-     * @model
+     * @model required="true"
      * @generated
      */
     String getFeatureName();

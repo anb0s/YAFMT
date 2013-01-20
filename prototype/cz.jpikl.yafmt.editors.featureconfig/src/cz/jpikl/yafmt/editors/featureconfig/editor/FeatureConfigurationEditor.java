@@ -75,7 +75,7 @@ public class FeatureConfigurationEditor extends GraphicalEditor implements Model
     public FeatureConfigurationEditor() {
         setEditDomain(new DefaultEditDomain(this));
     }
-        
+     
     @Override
     public void init(IEditorSite site, IEditorInput input) throws PartInitException {
         super.init(site, input);
@@ -88,11 +88,11 @@ public class FeatureConfigurationEditor extends GraphicalEditor implements Model
             Resource resource = resourceSet.createResource(URI.createPlatformResourceURI(path, true));
             resource.load(createSaveLoadOptions());
             featureConfig = (FeatureConfiguration) resource.getContents().get(0);
+            if(featureConfig.getFeatureModel().getRootFeature() == null)
+                throw new Exception("Missing feature model file!");
             modelAdapter.connect(featureConfig);
         }
         catch(Exception ex) {
-            ErrorDialog.openError(getSite().getShell(), "Error During Save", null,
-                    new Status(Status.ERROR, Activator.PLUGIN_ID, ex.getMessage()), 0);
             throw new PartInitException("Unable to load input.", ex);
         }
     }
@@ -149,7 +149,7 @@ public class FeatureConfigurationEditor extends GraphicalEditor implements Model
     }
     
     @Override
-    protected void initializeGraphicalViewer() {        
+    protected void initializeGraphicalViewer() {
         setPartName(getEditorInput().getName());
         GraphicalViewer viewer = getGraphicalViewer();
         viewer.setEditPartFactory(new FeatureConfigEditPartFactory(featureConfig));

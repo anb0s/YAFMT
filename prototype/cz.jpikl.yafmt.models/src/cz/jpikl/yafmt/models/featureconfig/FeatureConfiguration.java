@@ -37,7 +37,7 @@ public interface FeatureConfiguration extends EObject {
      * @return the value of the '<em>Feature Model</em>' reference.
      * @see #setFeatureModel(FeatureModel)
      * @see cz.jpikl.yafmt.models.featureconfig.FeatureConfigPackage#getFeatureConfiguration_FeatureModel()
-     * @model
+     * @model required="true"
      * @generated
      */
     FeatureModel getFeatureModel();
