@@ -332,7 +332,7 @@ public class FeatureModelImpl extends EObjectImpl implements FeatureModel {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     public Feature getFeatureById(String id) {
         if(featureCache == null)
