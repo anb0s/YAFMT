@@ -35,6 +35,7 @@ public class FeatureModelUtil {
         emd.setName(Literals.GROUP__FEATURES, "feature");
         emd.setName(Literals.GROUP__LOWER, "lower-bound");
         emd.setName(Literals.GROUP__UPPER, "upper-bound");
+        emd.setFeatureKind(Literals.FEATURE_MODEL__DESCRIPTION, ExtendedMetaData.ELEMENT_FEATURE);
         return emd;
     }
     
@@ -66,7 +67,7 @@ public class FeatureModelUtil {
         FeatureModelFactory factory = FeatureModelFactory.eINSTANCE;
         
         Feature rootFeature = factory.createFeature();
-        rootFeature.setId(name);
+        rootFeature.setId(name.trim().replaceAll("\\s+", ".").toLowerCase());
         rootFeature.setName(name);
         
         FeatureModel featureModel = factory.createFeatureModel();

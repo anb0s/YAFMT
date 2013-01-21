@@ -27,6 +27,7 @@ public class FeatureConfigurationUtil {
         emd.setName(Literals.INTEGER_VALUE, "integer");
         emd.setName(Literals.DOUBLE_VALUE, "double");
         emd.setName(Literals.STRING_VALUE, "string");
+        emd.setFeatureKind(Literals.FEATURE_CONFIGURATION__DESCRIPTION, ExtendedMetaData.ELEMENT_FEATURE);
         return emd;
     }
     

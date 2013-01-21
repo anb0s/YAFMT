@@ -71,8 +71,10 @@ public class NewFeatureModelWizard extends Wizard implements INewWizard {
         String version = featureModelPropertiesPage.getFeatureModelVersion();
         String description = featureModelPropertiesPage.getFeatureModelDescription();
         FeatureModel featureModel = FeatureModelUtil.createEmptyFeatureModel(name);
-        featureModel.setVersion(version);
-        featureModel.setDescription(description);
+        if(!version.isEmpty())
+            featureModel.setVersion(version);
+        if(!description.isEmpty())
+            featureModel.setDescription(description);
         
         URI uri = URI.createPlatformResourceURI(file.getFullPath().toString(), true);
         ResourceSet resourceSet = new ResourceSetImpl();
