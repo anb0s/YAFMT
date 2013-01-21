@@ -42,7 +42,7 @@ public interface Feature extends EObject {
      * @return the value of the '<em>Id</em>' attribute.
      * @see #setId(String)
      * @see cz.jpikl.yafmt.model.fm.FeatureModelPackage#getFeature_Id()
-     * @model id="true" required="true"
+     * @model required="true"
      * @generated
      */
     String getId();

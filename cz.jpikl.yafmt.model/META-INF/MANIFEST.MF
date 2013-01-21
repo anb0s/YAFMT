@@ -14,3 +14,4 @@ Export-Package: cz.jpikl.yafmt.model.fc,
  cz.jpikl.yafmt.model.fm,
  cz.jpikl.yafmt.model.fm.util
 Bundle-Vendor: %providerName
+Import-Package: cz.jpikl.yafmt.model.fm

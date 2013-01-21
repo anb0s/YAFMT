@@ -3,46 +3,54 @@ package cz.jpikl.yafmt.model.fc.util;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.BasicExtendedMetaData;
+import org.eclipse.emf.ecore.util.ExtendedMetaData;
+import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.emf.ecore.xmi.XMLResource;
-import org.eclipse.emf.ecore.xmi.XMLResource.XMLInfo;
-import org.eclipse.emf.ecore.xmi.impl.XMLInfoImpl;
-import org.eclipse.emf.ecore.xmi.impl.XMLMapImpl;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
-import cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage;
 import cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage.Literals;
 
 public class FeatureConfigurationUtil {
 
     private static Map<Object, Object> saveLoadOptions;
     
-    private static XMLInfo createXmlInfo(String name) {
-        XMLInfo info = new XMLInfoImpl();
-        info.setName(name);
-        return info;
-    }
-    
-    private static XMLResource.XMLMap createXmlNamesMapping() {  
-        XMLResource.XMLMap mapping = new XMLMapImpl();
-        XMLInfo rootInfo = createXmlInfo("feature-configuration");
-        rootInfo.setTargetNamespace(FeatureConfigurationPackage.eNS_URI);
-        mapping.add(Literals.FEATURE_CONFIGURATION, rootInfo);
-        mapping.add(Literals.FEATURE_CONFIGURATION__FEATURE_MODEL, createXmlInfo("feature-model"));
-        mapping.add(Literals.FEATURE_CONFIGURATION__SELECTIONS, createXmlInfo("feature"));
-        mapping.add(Literals.SELECTION__VALUES, createXmlInfo("attribute"));
-        mapping.add(Literals.BOOLEAN_VALUE, createXmlInfo("boolean"));
-        mapping.add(Literals.INTEGER_VALUE, createXmlInfo("integer"));
-        mapping.add(Literals.DOUBLE_VALUE, createXmlInfo("double"));
-        mapping.add(Literals.STRING_VALUE, createXmlInfo("string"));
-        return mapping;
+    private static ExtendedMetaData createExtendedMetadata() {
+        ExtendedMetaData emd = new BasicExtendedMetaData();
+        emd.setName(Literals.FEATURE_CONFIGURATION, "feature-configuration");
+        emd.setName(Literals.FEATURE_CONFIGURATION__FEATURE_MODEL, "feature-model");
+        emd.setName(Literals.FEATURE_CONFIGURATION__SELECTIONS, "feature");
+        emd.setName(Literals.SELECTION__VALUES, "attribute");
+        emd.setName(Literals.BOOLEAN_VALUE, "boolean");
+        emd.setName(Literals.INTEGER_VALUE, "integer");
+        emd.setName(Literals.DOUBLE_VALUE, "double");
+        emd.setName(Literals.STRING_VALUE, "string");
+        return emd;
     }
     
     public static Map<Object, Object> createSaveLoadOptions() {
         if(saveLoadOptions == null) {
-            Map<Object, Object> saveLoadOptions = new HashMap<Object, Object>();
+            saveLoadOptions = new HashMap<Object, Object>();
             saveLoadOptions.put(XMLResource.OPTION_ENCODING, "UTF-8");
-            saveLoadOptions.put(XMLResource.OPTION_XML_MAP, createXmlNamesMapping());
+            saveLoadOptions.put(XMLResource.OPTION_EXTENDED_META_DATA, createExtendedMetadata());
         }
         return saveLoadOptions;
+    }
+    
+    public static void hookResourceFactoryRegistry() {
+        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("yafc", 
+            new XMIResourceFactoryImpl(){
+                @Override
+                public Resource createResource(URI uri) {
+                    XMIResource resource = (XMIResource) super.createResource(uri);
+                    resource.getDefaultLoadOptions().putAll(createSaveLoadOptions());
+                    resource.getDefaultSaveOptions().putAll(createSaveLoadOptions());
+                    return resource;
+                }
+            }
+        );
     }
 
 }
