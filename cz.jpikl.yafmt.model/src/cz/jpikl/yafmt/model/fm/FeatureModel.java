@@ -191,4 +191,12 @@ public interface FeatureModel extends EObject {
      */
     EList<Constraint> getConstraints();
 
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @model
+     * @generated
+     */
+    Feature getFeatureById(String id);
+
 } // FeatureModel

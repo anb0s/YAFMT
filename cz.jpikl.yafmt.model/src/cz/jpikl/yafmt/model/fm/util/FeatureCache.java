@@ -56,7 +56,7 @@ public class FeatureCache {
             super.notifyChanged(notification);
             if(notification.getFeatureID(Feature.class) == FeatureModelPackage.FEATURE__ID) {
                 Feature feature = idToFeature.remove(notification.getOldStringValue());
-                    idToFeature.put(notification.getNewStringValue(), feature);
+                idToFeature.put(notification.getNewStringValue(), feature);
             }
         }
         

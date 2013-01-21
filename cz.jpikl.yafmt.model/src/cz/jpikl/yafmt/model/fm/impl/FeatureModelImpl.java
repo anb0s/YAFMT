@@ -6,6 +6,7 @@ import cz.jpikl.yafmt.model.fm.Constraint;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
+import cz.jpikl.yafmt.model.fm.util.FeatureCache;
 
 import java.util.Collection;
 
@@ -152,6 +153,11 @@ public class FeatureModelImpl extends EObjectImpl implements FeatureModel {
      * @ordered
      */
     protected EList<Constraint> constraints;
+    
+    /**
+     * Cache for mapping IDs to features.
+     */
+    private FeatureCache featureCache;
 
     /**
      * <!-- begin-user-doc -->
@@ -321,6 +327,17 @@ public class FeatureModelImpl extends EObjectImpl implements FeatureModel {
             constraints = new EObjectContainmentEList<Constraint>(Constraint.class, this, FeatureModelPackage.FEATURE_MODEL__CONSTRAINTS);
         }
         return constraints;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Feature getFeatureById(String id) {
+        if(featureCache == null)
+            featureCache = new FeatureCache(this);
+        return featureCache.getFeature(id);
     }
 
     /**
