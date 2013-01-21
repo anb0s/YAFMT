@@ -6,7 +6,7 @@ package cz.jpikl.yafmt.model.fc.provider;
 import cz.jpikl.yafmt.model.fc.DoubleValue;
 import cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage;
 
-import cz.jpikl.yafmt.model.fm.provider.ModelEditPlugin;
+import cz.jpikl.yafmt.model.fm.provider.FeatureModelEditPlugin;
 
 import java.util.Collection;
 import java.util.List;
@@ -177,7 +177,7 @@ public class DoubleValueItemProvider
      */
     @Override
     public ResourceLocator getResourceLocator() {
-        return ModelEditPlugin.INSTANCE;
+        return FeatureModelEditPlugin.INSTANCE;
     }
 
 }

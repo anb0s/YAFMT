@@ -214,7 +214,7 @@ public class GroupItemProvider
      */
     @Override
     public ResourceLocator getResourceLocator() {
-        return ModelEditPlugin.INSTANCE;
+        return FeatureModelEditPlugin.INSTANCE;
     }
 
 }

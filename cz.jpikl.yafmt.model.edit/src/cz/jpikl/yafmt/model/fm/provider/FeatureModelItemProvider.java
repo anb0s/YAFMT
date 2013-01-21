@@ -301,7 +301,7 @@ public class FeatureModelItemProvider
      */
     @Override
     public ResourceLocator getResourceLocator() {
-        return ModelEditPlugin.INSTANCE;
+        return FeatureModelEditPlugin.INSTANCE;
     }
 
 }

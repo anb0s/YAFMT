@@ -7,19 +7,19 @@ import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.util.ResourceLocator;
 
 /**
- * This is the central singleton for the Model edit plugin.
+ * This is the central singleton for the FeatureModel edit plugin.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public final class ModelEditPlugin extends EMFPlugin {
+public final class FeatureModelEditPlugin extends EMFPlugin {
     /**
      * Keep track of the singleton.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    public static final ModelEditPlugin INSTANCE = new ModelEditPlugin();
+    public static final FeatureModelEditPlugin INSTANCE = new FeatureModelEditPlugin();
 
     /**
      * Keep track of the singleton.
@@ -35,7 +35,7 @@ public final class ModelEditPlugin extends EMFPlugin {
      * <!-- end-user-doc -->
      * @generated
      */
-    public ModelEditPlugin() {
+    public FeatureModelEditPlugin() {
         super
           (new ResourceLocator [] {
            });

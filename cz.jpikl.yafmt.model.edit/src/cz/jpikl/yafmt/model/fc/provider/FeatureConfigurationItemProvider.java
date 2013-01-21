@@ -7,7 +7,7 @@ import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
 import cz.jpikl.yafmt.model.fc.FeatureConfigurationFactory;
 import cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage;
 
-import cz.jpikl.yafmt.model.fm.provider.ModelEditPlugin;
+import cz.jpikl.yafmt.model.fm.provider.FeatureModelEditPlugin;
 
 import java.util.Collection;
 import java.util.List;
@@ -265,7 +265,7 @@ public class FeatureConfigurationItemProvider
      */
     @Override
     public ResourceLocator getResourceLocator() {
-        return ModelEditPlugin.INSTANCE;
+        return FeatureModelEditPlugin.INSTANCE;
     }
 
 }
