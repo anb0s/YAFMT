@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: cz.jpikl.yafmt.model.edit;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: .
+Bundle-Activator: cz.jpikl.yafmt.model.fm.provider.ModelEditPlugin$Implementation
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: cz.jpikl.yafmt.model.fc.provider,
+ cz.jpikl.yafmt.model.fm.provider
+Require-Bundle: org.eclipse.core.runtime,
+ cz.jpikl.yafmt.model;visibility:=reexport,
+ org.eclipse.emf.edit;visibility:=reexport
+Bundle-ActivationPolicy: lazy

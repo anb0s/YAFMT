@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/cz.jpikl.yafmt.model/src" modelPluginID="cz.jpikl.yafmt.model"
+    modelName="Model" importerID="org.eclipse.emf.importer.ecore" complianceLevel="6.0"
+    copyrightFields="false" language="">
+  <foreignModel>FeatureConfiguration.ecore</foreignModel>
+  <foreignModel>FeatureModel.ecore</foreignModel>
+  <genPackages prefix="FeatureModel" basePackage="cz.jpikl.yafmt.model" disposableProviderFactory="true"
+      fileExtensions="yafm" ecorePackage="FeatureModel.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="FeatureModel.ecore#//AttributeType">
+      <genEnumLiterals ecoreEnumLiteral="FeatureModel.ecore#//AttributeType/BOOLEAN"/>
+      <genEnumLiterals ecoreEnumLiteral="FeatureModel.ecore#//AttributeType/INTEGER"/>
+      <genEnumLiterals ecoreEnumLiteral="FeatureModel.ecore#//AttributeType/DOUBLE"/>
+      <genEnumLiterals ecoreEnumLiteral="FeatureModel.ecore#//AttributeType/STRING"/>
+    </genEnums>
+    <genClasses ecoreClass="FeatureModel.ecore#//FeatureModel">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//FeatureModel/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//FeatureModel/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//FeatureModel/version"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//FeatureModel/constraintLanguage"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FeatureModel.ecore#//FeatureModel/root"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FeatureModel.ecore#//FeatureModel/orphans"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FeatureModel.ecore#//FeatureModel/constraints"/>
+    </genClasses>
+    <genClasses ecoreClass="FeatureModel.ecore#//Feature">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Feature/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Feature/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Feature/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Feature/lower"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Feature/upper"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FeatureModel.ecore#//Feature/attributes"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference FeatureModel.ecore#//Feature/parent"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FeatureModel.ecore#//Feature/features"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FeatureModel.ecore#//Feature/groups"/>
+    </genClasses>
+    <genClasses ecoreClass="FeatureModel.ecore#//Group">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Group/lower"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Group/upper"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference FeatureModel.ecore#//Group/parent"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FeatureModel.ecore#//Group/features"/>
+    </genClasses>
+    <genClasses ecoreClass="FeatureModel.ecore#//Attribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Attribute/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Attribute/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Attribute/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Attribute/type"/>
+    </genClasses>
+    <genClasses ecoreClass="FeatureModel.ecore#//Constraint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Constraint/value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Constraint/description"/>
+    </genClasses>
+  </genPackages>
+  <genPackages prefix="FeatureConfiguration" basePackage="cz.jpikl.yafmt.model" disposableProviderFactory="true"
+      fileExtensions="yafc" ecorePackage="FeatureConfiguration.ecore#/">
+    <genClasses ecoreClass="FeatureConfiguration.ecore#//FeatureConfiguration">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//FeatureConfiguration/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//FeatureConfiguration/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//FeatureConfiguration/version"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference FeatureConfiguration.ecore#//FeatureConfiguration/featureModel"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FeatureConfiguration.ecore#//FeatureConfiguration/selections"/>
+    </genClasses>
+    <genClasses ecoreClass="FeatureConfiguration.ecore#//Selection">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//Selection/id"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FeatureConfiguration.ecore#//Selection/values"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="FeatureConfiguration.ecore#//AttributeValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//AttributeValue/id"/>
+    </genClasses>
+    <genClasses ecoreClass="FeatureConfiguration.ecore#//BooleanValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//BooleanValue/value"/>
+    </genClasses>
+    <genClasses ecoreClass="FeatureConfiguration.ecore#//IntegerValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//IntegerValue/value"/>
+    </genClasses>
+    <genClasses ecoreClass="FeatureConfiguration.ecore#//DoubleValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//DoubleValue/value"/>
+    </genClasses>
+    <genClasses ecoreClass="FeatureConfiguration.ecore#//StringValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//StringValue/value"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

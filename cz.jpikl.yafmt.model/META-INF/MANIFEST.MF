@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: YAMFT Model
+Bundle-SymbolicName: cz.jpikl.yafmt.model;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: .
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.emf.ecore;visibility:=reexport
+Bundle-ActivationPolicy: lazy
+Export-Package: cz.jpikl.yafmt.model.fc,
+ cz.jpikl.yafmt.model.fc.util,
+ cz.jpikl.yafmt.model.fm,
+ cz.jpikl.yafmt.model.fm.util
