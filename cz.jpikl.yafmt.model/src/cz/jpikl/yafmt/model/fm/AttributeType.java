@@ -26,7 +26,7 @@ public enum AttributeType implements Enumerator {
      * @generated
      * @ordered
      */
-    BOOLEAN(0, "BOOLEAN", "BOOLEAN"),
+    BOOLEAN(0, "BOOLEAN", "boolean"),
 
     /**
      * The '<em><b>INTEGER</b></em>' literal object.
@@ -36,7 +36,7 @@ public enum AttributeType implements Enumerator {
      * @generated
      * @ordered
      */
-    INTEGER(1, "INTEGER", "INTEGER"),
+    INTEGER(1, "INTEGER", "integer"),
 
     /**
      * The '<em><b>DOUBLE</b></em>' literal object.
@@ -46,7 +46,7 @@ public enum AttributeType implements Enumerator {
      * @generated
      * @ordered
      */
-    DOUBLE(2, "DOUBLE", "DOUBLE"),
+    DOUBLE(2, "DOUBLE", "double"),
 
     /**
      * The '<em><b>STRING</b></em>' literal object.
@@ -56,7 +56,7 @@ public enum AttributeType implements Enumerator {
      * @generated
      * @ordered
      */
-    STRING(3, "STRING", "STRING");
+    STRING(3, "STRING", "string");
 
     /**
      * The '<em><b>BOOLEAN</b></em>' literal value.
@@ -67,7 +67,7 @@ public enum AttributeType implements Enumerator {
      * </p>
      * <!-- end-user-doc -->
      * @see #BOOLEAN
-     * @model
+     * @model literal="boolean"
      * @generated
      * @ordered
      */
@@ -82,7 +82,7 @@ public enum AttributeType implements Enumerator {
      * </p>
      * <!-- end-user-doc -->
      * @see #INTEGER
-     * @model
+     * @model literal="integer"
      * @generated
      * @ordered
      */
@@ -97,7 +97,7 @@ public enum AttributeType implements Enumerator {
      * </p>
      * <!-- end-user-doc -->
      * @see #DOUBLE
-     * @model
+     * @model literal="double"
      * @generated
      * @ordered
      */
@@ -112,7 +112,7 @@ public enum AttributeType implements Enumerator {
      * </p>
      * <!-- end-user-doc -->
      * @see #STRING
-     * @model
+     * @model literal="string"
      * @generated
      * @ordered
      */

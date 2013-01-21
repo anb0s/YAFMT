@@ -27,7 +27,7 @@ public class FeatureConfigurationFactoryImpl extends EFactoryImpl implements Fea
      */
     public static FeatureConfigurationFactory init() {
         try {
-            FeatureConfigurationFactory theFeatureConfigurationFactory = (FeatureConfigurationFactory)EPackage.Registry.INSTANCE.getEFactory("bitbucket.org/jpikl/yafmt/model/fc"); 
+            FeatureConfigurationFactory theFeatureConfigurationFactory = (FeatureConfigurationFactory)EPackage.Registry.INSTANCE.getEFactory("https://bitbucket.org/jpikl/yafmt/model/fc"); 
             if (theFeatureConfigurationFactory != null) {
                 return theFeatureConfigurationFactory;
             }

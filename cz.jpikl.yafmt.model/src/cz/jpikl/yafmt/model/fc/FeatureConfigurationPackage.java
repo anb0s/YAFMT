@@ -37,7 +37,7 @@ public interface FeatureConfigurationPackage extends EPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    String eNS_URI = "bitbucket.org/jpikl/yafmt/model/fc";
+    String eNS_URI = "https://bitbucket.org/jpikl/yafmt/model/fc";
 
     /**
      * The package namespace name.
