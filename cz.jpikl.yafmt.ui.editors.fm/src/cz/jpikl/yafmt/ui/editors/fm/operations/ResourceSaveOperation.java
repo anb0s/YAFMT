@@ -1,4 +1,4 @@
-package cz.jpikl.yafmt.ui.editors.fm;
+package cz.jpikl.yafmt.ui.editors.fm.operations;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;

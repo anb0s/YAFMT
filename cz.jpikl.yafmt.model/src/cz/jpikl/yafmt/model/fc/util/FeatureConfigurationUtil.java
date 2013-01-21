@@ -35,6 +35,7 @@ public class FeatureConfigurationUtil {
             saveLoadOptions = new HashMap<Object, Object>();
             saveLoadOptions.put(XMLResource.OPTION_ENCODING, "UTF-8");
             saveLoadOptions.put(XMLResource.OPTION_EXTENDED_META_DATA, createExtendedMetadata());
+            saveLoadOptions.put(XMLResource.OPTION_LAX_FEATURE_PROCESSING, Boolean.TRUE); // Allows proper loading of renamed XML elements.
         }
         return saveLoadOptions;
     }

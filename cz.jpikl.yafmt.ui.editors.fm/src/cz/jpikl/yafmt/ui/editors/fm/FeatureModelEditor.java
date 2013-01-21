@@ -12,7 +12,6 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.widgets.Display;
@@ -31,6 +30,7 @@ import org.eclipse.ui.part.MultiPageEditorPart;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
 import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
+import cz.jpikl.yafmt.ui.editors.fm.operations.ResourceSaveOperation;
 
 public class FeatureModelEditor extends MultiPageEditorPart implements ISelectionListener,
                                                                        IResourceChangeListener {
@@ -43,9 +43,11 @@ public class FeatureModelEditor extends MultiPageEditorPart implements ISelectio
         
         super.init(site, input);
         setPartName(input.getName());
+        System.out.println(input.getName());
         doLoad((IFileEditorInput) input);
         site.getPage().addSelectionListener(this);
         ResourcesPlugin.getWorkspace().addResourceChangeListener(this);
+        System.out.println("DONE");
     }
     
     public void dispose() {
@@ -65,15 +67,11 @@ public class FeatureModelEditor extends MultiPageEditorPart implements ISelectio
             ResourceSet resourceSet = new ResourceSetImpl();
             String path = input.getFile().getFullPath().toString();
             Resource resource = resourceSet.createResource(URI.createPlatformResourceURI(path, true));
-            if(resource instanceof XMLResource) {
-                ((XMLResource) resource).getDefaultLoadOptions().putAll(FeatureModelUtil.createSaveLoadOptions());
-                ((XMLResource) resource).getDefaultSaveOptions().putAll(FeatureModelUtil.createSaveLoadOptions());
-            }
             resource.load(null);
             featureModel = (FeatureModel) resource.getContents().get(0);
 	    }
 	    catch(IOException ex) {
-	        throw new PartInitException("Error During Load", ex);
+	        throw new PartInitException("Unable to load " + input.getName(), ex);
 	    }
 	}
 	
@@ -85,8 +83,8 @@ public class FeatureModelEditor extends MultiPageEditorPart implements ISelectio
             firePropertyChange(PROP_DIRTY);
         } 
 	    catch (Exception ex) {
-	        ErrorDialog.openError(getSite().getShell(), "Error During Save", null,
-                new Status(Status.ERROR, FeatureModelEditorPlugin.PLUGIN_ID, ex.getMessage()), 0);
+	        ErrorDialog.openError(getSite().getShell(), "Unable to save " + getEditorInput().getName(),
+	            null, new Status(Status.ERROR, FeatureModelEditorPlugin.PLUGIN_ID, ex.getMessage()), 0);
         }
 	}
 

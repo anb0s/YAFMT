@@ -4,6 +4,8 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
+import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
+
 /**
  * The activator class controls the plug-in life cycle.
  */
@@ -18,6 +20,7 @@ public class FeatureModelEditorPlugin extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
+		FeatureModelUtil.hookResourceFactoryRegistry();
 	}
 
 	public void stop(BundleContext context) throws Exception {

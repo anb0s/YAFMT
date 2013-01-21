@@ -11,6 +11,9 @@ import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
+import cz.jpikl.yafmt.model.fm.Feature;
+import cz.jpikl.yafmt.model.fm.FeatureModel;
+import cz.jpikl.yafmt.model.fm.FeatureModelFactory;
 import cz.jpikl.yafmt.model.fm.FeatureModelPackage.Literals;
 
 public class FeatureModelUtil {
@@ -40,6 +43,7 @@ public class FeatureModelUtil {
             saveLoadOptions = new HashMap<Object, Object>();
             saveLoadOptions.put(XMLResource.OPTION_ENCODING, "UTF-8");
             saveLoadOptions.put(XMLResource.OPTION_EXTENDED_META_DATA, createExtendedMetadata());
+            saveLoadOptions.put(XMLResource.OPTION_LAX_FEATURE_PROCESSING, Boolean.TRUE); // Allows proper loading of renamed XML elements.
         }
         return saveLoadOptions;
     }
@@ -56,6 +60,19 @@ public class FeatureModelUtil {
                 }
             }
         );
+    }
+    
+    public static FeatureModel createEmptyFeatureModel(String name) {
+        FeatureModelFactory factory = FeatureModelFactory.eINSTANCE;
+        
+        Feature rootFeature = factory.createFeature();
+        rootFeature.setId(name);
+        rootFeature.setName(name);
+        
+        FeatureModel featureModel = factory.createFeatureModel();
+        featureModel.setName(name);
+        featureModel.setRoot(rootFeature);
+        return featureModel;
     }
     
 }
