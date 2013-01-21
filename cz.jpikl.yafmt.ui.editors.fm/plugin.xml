@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            name="Feature Model Editor"
+            extensions="yafm"
+            icon="icons/sample.gif"
+            contributorClass="cz.jpikl.yafmt.ui.editors.fm.FeatureModelEditorContributor"
+            class="cz.jpikl.yafmt.ui.editors.fm.FeatureModelEditor"
+            id="cz.jpikl.yafmt.ui.editors.fm.editors.FeatureModelEditor">
+      </editor>
+   </extension>
+
+</plugin>
