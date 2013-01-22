@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.FeatureModelFactory;
+import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
 import cz.jpikl.yafmt.model.fm.FeatureModelPackage.Literals;
 
 public class FeatureModelUtil {
@@ -61,6 +62,11 @@ public class FeatureModelUtil {
                 }
             }
         );
+    }
+    
+    @SuppressWarnings("unused")
+    public static void hookPackageRegistry() {
+        FeatureModelPackage pkg = FeatureModelPackage.eINSTANCE;
     }
     
     public static FeatureModel createEmptyFeatureModel(String name) {

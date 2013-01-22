@@ -25,7 +25,6 @@ import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.MultiPageEditorPart;
 
 import cz.jpikl.yafmt.model.fm.FeatureModel;
-import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
 import cz.jpikl.yafmt.ui.editors.fm.operations.ResourceSaveOperation;
 
 public class FeatureModelEditor extends MultiPageEditorPart implements IResourceChangeListener {
@@ -61,10 +60,8 @@ public class FeatureModelEditor extends MultiPageEditorPart implements IResource
 		}
 	}
 		
-	@SuppressWarnings("unused")
 	private void doLoad(IFileEditorInput input) throws PartInitException {
 	    try {
-    	    FeatureModelPackage pkg = FeatureModelPackage.eINSTANCE; // For package registration.
             ResourceSet resourceSet = new ResourceSetImpl();
             String path = input.getFile().getFullPath().toString();
             Resource resource = resourceSet.createResource(URI.createPlatformResourceURI(path, true));

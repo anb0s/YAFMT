@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
+import cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage;
 import cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage.Literals;
 
 public class FeatureConfigurationUtil {
@@ -40,7 +41,7 @@ public class FeatureConfigurationUtil {
         }
         return saveLoadOptions;
     }
-    
+        
     public static void hookResourceFactoryRegistry() {
         Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("yafc", 
             new XMIResourceFactoryImpl(){
@@ -53,6 +54,11 @@ public class FeatureConfigurationUtil {
                 }
             }
         );
+    }
+    
+    @SuppressWarnings("unused")
+    public static void hookPackageRegistry() {
+        FeatureConfigurationPackage pkg = FeatureConfigurationPackage.eINSTANCE;
     }
 
 }

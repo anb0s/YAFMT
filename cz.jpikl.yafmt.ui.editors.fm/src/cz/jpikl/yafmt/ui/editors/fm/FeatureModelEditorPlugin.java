@@ -20,7 +20,10 @@ public class FeatureModelEditorPlugin extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
-		FeatureModelUtil.hookResourceFactoryRegistry();
+		
+		// Register packages and custom resource factories.
+        FeatureModelUtil.hookResourceFactoryRegistry();
+        FeatureModelUtil.hookPackageRegistry();
 	}
 
 	public void stop(BundleContext context) throws Exception {
