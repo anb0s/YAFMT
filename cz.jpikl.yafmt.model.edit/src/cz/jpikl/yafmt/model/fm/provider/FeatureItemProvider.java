@@ -56,7 +56,7 @@ public class FeatureItemProvider
      * This returns the property descriptors for the adapted class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     @Override
     public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
@@ -68,7 +68,6 @@ public class FeatureItemProvider
             addDescriptionPropertyDescriptor(object);
             addLowerPropertyDescriptor(object);
             addUpperPropertyDescriptor(object);
-            addParentPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }

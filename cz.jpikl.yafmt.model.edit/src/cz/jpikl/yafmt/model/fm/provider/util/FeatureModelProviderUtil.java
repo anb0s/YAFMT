@@ -1,7 +1,9 @@
 package cz.jpikl.yafmt.model.fm.provider.util;
 
+import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
+import org.eclipse.ui.views.properties.IPropertySource;
 
 import cz.jpikl.yafmt.model.fm.provider.FeatureModelItemProviderAdapterFactory;
 
@@ -16,7 +18,12 @@ public class FeatureModelProviderUtil {
     }
 
     public static AdapterFactoryContentProvider getContentProvider() {
-        return new AdapterFactoryContentProvider(getAdapterFactory());
+        return new AdapterFactoryContentProvider(getAdapterFactory()) {
+            @Override
+            protected IPropertySource createPropertySource(Object object, IItemPropertySource itemPropertySource) {
+                return new UnwrappingPropertySource(object, itemPropertySource);
+            }
+        };
     }
     
     public static AdapterFactoryLabelProvider getLabelProvider() {

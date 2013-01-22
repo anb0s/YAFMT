@@ -14,18 +14,23 @@ import org.eclipse.gef.dnd.TemplateTransferDropTargetListener;
 import org.eclipse.gef.editparts.FreeformGraphicalRootEditPart;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.ui.parts.GraphicalEditorWithPalette;
+import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.actions.ActionFactory;
+import org.eclipse.ui.views.properties.IPropertySheetPage;
+import org.eclipse.ui.views.properties.PropertySheetPage;
 
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayout;
 import cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayoutFactory;
 import cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayoutPackage;
 import cz.jpikl.yafmt.ui.editors.fm.parts.FeatureModelEditPartFactory;
+import cz.jpikl.yafmt.ui.editors.fm.util.NonSortingPropertySheetPage;
 
 public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISelectionListener {
 
@@ -121,6 +126,20 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
     
     @Override
     public void selectionChanged(IWorkbenchPart part, ISelection selection) {
+    }
+    
+    // ======================================================================
+    //  ISelectionsListener
+    // ======================================================================
+    @Override
+    @SuppressWarnings("rawtypes")
+    public Object getAdapter(Class type) {
+        if(type == IPropertySheetPage.class) {
+            IAction undoAction = getActionRegistry().getAction(ActionFactory.UNDO.getId());
+            IAction redoAction = getActionRegistry().getAction(ActionFactory.REDO.getId());
+            return new NonSortingPropertySheetPage(getCommandStack(), undoAction, redoAction);
+        }
+        return super.getAdapter(type);
     }
     
 }
