@@ -96,7 +96,7 @@ public class NewFeatureModelWizard extends Wizard implements INewWizard {
         }
         catch(Exception ex) {
             ErrorDialog.openError(window.getShell(), "Unable to create " + file.getName(), null, 
-                    new Status(Status.ERROR, FeatureModelEditorPlugin.PLUGIN_ID, ex.getMessage()));
+                    new Status(Status.ERROR, FeatureModelEditorPlugin.PLUGIN_ID, ex.getMessage(), ex));
             return false;
         }
 

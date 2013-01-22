@@ -29,13 +29,13 @@ import org.eclipse.ui.part.MultiPageEditorPart;
 
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
-import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
 import cz.jpikl.yafmt.ui.editors.fm.operations.ResourceSaveOperation;
 
 public class FeatureModelEditor extends MultiPageEditorPart implements ISelectionListener,
                                                                        IResourceChangeListener {
 	
     private FeatureModel featureModel;
+    private FeatureTreeEditor featureTreeEditor;
 	
     public void init(IEditorSite site, IEditorInput input) throws PartInitException {
         if (!(input instanceof IFileEditorInput))
@@ -43,11 +43,9 @@ public class FeatureModelEditor extends MultiPageEditorPart implements ISelectio
         
         super.init(site, input);
         setPartName(input.getName());
-        System.out.println(input.getName());
         doLoad((IFileEditorInput) input);
         site.getPage().addSelectionListener(this);
         ResourcesPlugin.getWorkspace().addResourceChangeListener(this);
-        System.out.println("DONE");
     }
     
     public void dispose() {
@@ -57,7 +55,15 @@ public class FeatureModelEditor extends MultiPageEditorPart implements ISelectio
     }
 		
 	protected void createPages() {
+		featureTreeEditor = new FeatureTreeEditor(featureModel);
 		
+		try {
+		    addPage(featureTreeEditor, getEditorInput());
+		}
+		catch(PartInitException ex) {
+		    FeatureModelEditorPlugin.getDefault().getLog().log(new Status(Status.ERROR, 
+		            FeatureModelEditorPlugin.PLUGIN_ID, ex.getMessage(), ex));
+		}
 	}
 		
 	@SuppressWarnings("unused")
@@ -78,13 +84,12 @@ public class FeatureModelEditor extends MultiPageEditorPart implements ISelectio
 	public void doSave(IProgressMonitor monitor) {
 	    try {
             getSite().getWorkbenchWindow().run(true, false, new ResourceSaveOperation(featureModel.eResource()));
-            for(int i = 0; i < getPageCount(); i++)
-                getEditor(i).doSave(monitor);
+            featureTreeEditor.doSave(null);
             firePropertyChange(PROP_DIRTY);
         } 
 	    catch (Exception ex) {
 	        ErrorDialog.openError(getSite().getShell(), "Unable to save " + getEditorInput().getName(),
-	            null, new Status(Status.ERROR, FeatureModelEditorPlugin.PLUGIN_ID, ex.getMessage()), 0);
+	            null, new Status(Status.ERROR, FeatureModelEditorPlugin.PLUGIN_ID, ex.getMessage(), ex), 0);
         }
 	}
 
@@ -99,9 +104,9 @@ public class FeatureModelEditor extends MultiPageEditorPart implements ISelectio
 
         featureModel.eResource().setURI(URI.createPlatformResourceURI(path.toString(), true));
         IEditorInput newInput = new FileEditorInput(ResourcesPlugin.getWorkspace().getRoot().getFile(path));
-        setInput(newInput);
         setPartName(newInput.getName());
-        firePropertyChange(PROP_INPUT);
+        setInputWithNotify(newInput);
+        featureTreeEditor.setInput(newInput);
         doSave(null);
 	}
 	
