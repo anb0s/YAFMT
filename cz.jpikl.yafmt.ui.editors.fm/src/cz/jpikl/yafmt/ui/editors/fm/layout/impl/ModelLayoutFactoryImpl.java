@@ -5,6 +5,7 @@ package cz.jpikl.yafmt.ui.editors.fm.layout.impl;
 import cz.jpikl.yafmt.ui.editors.fm.layout.*;
 
 import java.util.Map;
+import java.util.Scanner;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 
@@ -121,19 +122,27 @@ public class ModelLayoutFactoryImpl extends EFactoryImpl implements ModelLayoutF
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     public Rectangle createBoundsFromString(EDataType eDataType, String initialValue) {
-        return (Rectangle)super.createFromString(eDataType, initialValue);
+        Scanner scanner = new Scanner(initialValue);
+        Rectangle bounds = new Rectangle();
+        bounds.x = scanner.nextInt();
+        bounds.y = scanner.nextInt();
+        bounds.width = scanner.nextInt();
+        bounds.height = scanner.nextInt();
+        scanner.close();
+        return bounds;
     }
 
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     public String convertBoundsToString(EDataType eDataType, Object instanceValue) {
-        return super.convertToString(eDataType, instanceValue);
+        Rectangle bounds = (Rectangle) instanceValue;
+        return String.format("%d %d %d %d", bounds.x, bounds.y, bounds.width, bounds.height);
     }
 
     /**

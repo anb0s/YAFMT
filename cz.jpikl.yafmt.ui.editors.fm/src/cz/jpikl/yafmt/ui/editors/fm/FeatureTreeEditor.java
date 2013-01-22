@@ -25,6 +25,7 @@ import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayout;
 import cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayoutFactory;
 import cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayoutPackage;
+import cz.jpikl.yafmt.ui.editors.fm.parts.FeatureModelEditPartFactory;
 
 public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISelectionListener {
 
@@ -56,7 +57,7 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
     protected void configureGraphicalViewer() {
         super.configureGraphicalViewer();
         GraphicalViewer viewer = getGraphicalViewer();
-        //viewer.setEditPartFactory(new FeatureModelEditPartFactory(this));
+        viewer.setEditPartFactory(new FeatureModelEditPartFactory(modelLayout));
         viewer.setRootEditPart(new FreeformGraphicalRootEditPart());
         viewer.addDropTargetListener(new TemplateTransferDropTargetListener(viewer));
         //viewer.setContextMenu(new FeatureTreeEditorContextMenuProvider(viewer, getActionRegistry()));
@@ -64,7 +65,7 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
     
     @Override
     protected void initializeGraphicalViewer() {
-        //getGraphicalViewer().setContents(featureModel);
+        getGraphicalViewer().setContents(featureModel);
     }
     
     @Override
