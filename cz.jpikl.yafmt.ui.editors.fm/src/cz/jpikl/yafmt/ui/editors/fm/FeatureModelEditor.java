@@ -23,6 +23,7 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.dialogs.SaveAsDialog;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.MultiPageEditorPart;
+import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.ui.editors.fm.operations.ResourceSaveOperation;
@@ -31,6 +32,7 @@ public class FeatureModelEditor extends MultiPageEditorPart implements IResource
 	
     private FeatureModel featureModel;
     private FeatureTreeEditor featureTreeEditor;
+    private FeatureModelContentOutlinePage contentOutlinePage;
 	
     public void init(IEditorSite site, IEditorInput input) throws PartInitException {
         if (!(input instanceof IFileEditorInput))
@@ -137,6 +139,11 @@ public class FeatureModelEditor extends MultiPageEditorPart implements IResource
 	public Object getAdapter(Class type) {
 	    if(type == FeatureModel.class)
 	        return featureModel;
+	    if(type == IContentOutlinePage.class) {
+	        if(contentOutlinePage == null)
+	            contentOutlinePage = new FeatureModelContentOutlinePage(featureModel);
+	        return contentOutlinePage;
+	    }
 	    return super.getAdapter(type);
 	}
 	
