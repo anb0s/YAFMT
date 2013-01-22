@@ -13,15 +13,12 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.dialogs.ErrorDialog;
-import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IFileEditorInput;
-import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.dialogs.SaveAsDialog;
 import org.eclipse.ui.part.FileEditorInput;
@@ -31,8 +28,7 @@ import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
 import cz.jpikl.yafmt.ui.editors.fm.operations.ResourceSaveOperation;
 
-public class FeatureModelEditor extends MultiPageEditorPart implements ISelectionListener,
-                                                                       IResourceChangeListener {
+public class FeatureModelEditor extends MultiPageEditorPart implements IResourceChangeListener {
 	
     private FeatureModel featureModel;
     private FeatureTreeEditor featureTreeEditor;
@@ -44,13 +40,11 @@ public class FeatureModelEditor extends MultiPageEditorPart implements ISelectio
         super.init(site, input);
         setPartName(input.getName());
         doLoad((IFileEditorInput) input);
-        site.getPage().addSelectionListener(this);
         ResourcesPlugin.getWorkspace().addResourceChangeListener(this);
     }
     
     public void dispose() {
         ResourcesPlugin.getWorkspace().removeResourceChangeListener(this);
-        getSite().getPage().removeSelectionListener(this);
         super.dispose();
     }
 		
@@ -59,6 +53,7 @@ public class FeatureModelEditor extends MultiPageEditorPart implements ISelectio
 		
 		try {
 		    addPage(featureTreeEditor, getEditorInput());
+		    setPageText(0, "Feature Tree");
 		}
 		catch(PartInitException ex) {
 		    FeatureModelEditorPlugin.getDefault().getLog().log(new Status(Status.ERROR, 
@@ -106,22 +101,13 @@ public class FeatureModelEditor extends MultiPageEditorPart implements ISelectio
         IEditorInput newInput = new FileEditorInput(ResourcesPlugin.getWorkspace().getRoot().getFile(path));
         setPartName(newInput.getName());
         setInputWithNotify(newInput);
-        featureTreeEditor.setInput(newInput);
+        featureTreeEditor.prepareToSaveAs(newInput);
         doSave(null);
 	}
 	
 	public boolean isSaveAsAllowed() {
 		return true;
 	}
-	
-	// ======================================================================
-    //  ISelectionsListener
-    // ======================================================================
-	
-	@Override
-    public void selectionChanged(IWorkbenchPart part, ISelection selection) {
-        
-    }
 	
 	// ======================================================================
 	//  IResourceChangeListener
@@ -143,6 +129,18 @@ public class FeatureModelEditor extends MultiPageEditorPart implements ISelectio
 				}
 			}            
 		});
+	}
+	
+	// ======================================================================
+    //  IAdaptable
+    // ======================================================================
+	
+	@Override
+	@SuppressWarnings("rawtypes")
+	public Object getAdapter(Class type) {
+	    if(type == FeatureModel.class)
+	        return featureModel;
+	    return super.getAdapter(type);
 	}
 	
 }
