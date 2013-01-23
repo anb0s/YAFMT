@@ -19,10 +19,13 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#getDescription <em>Description</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#getLower <em>Lower</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#getUpper <em>Upper</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#isRoot <em>Root</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#isOrphan <em>Orphan</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#getAttributes <em>Attributes</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#getParent <em>Parent</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#getFeatures <em>Features</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#getGroups <em>Groups</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#getFeatureModel <em>Feature Model</em>}</li>
  * </ul>
  * </p>
  *
@@ -162,6 +165,36 @@ public interface Feature extends EObject {
     void setUpper(int value);
 
     /**
+     * Returns the value of the '<em><b>Root</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Root</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Root</em>' attribute.
+     * @see cz.jpikl.yafmt.model.fm.FeatureModelPackage#getFeature_Root()
+     * @model required="true" transient="true" changeable="false" volatile="true" derived="true"
+     * @generated
+     */
+    boolean isRoot();
+
+    /**
+     * Returns the value of the '<em><b>Orphan</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Orphan</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Orphan</em>' attribute.
+     * @see cz.jpikl.yafmt.model.fm.FeatureModelPackage#getFeature_Orphan()
+     * @model required="true" transient="true" changeable="false" volatile="true" derived="true"
+     * @generated
+     */
+    boolean isOrphan();
+
+    /**
      * Returns the value of the '<em><b>Attributes</b></em>' containment reference list.
      * The list contents are of type {@link cz.jpikl.yafmt.model.fm.Attribute}.
      * <!-- begin-user-doc -->
@@ -225,5 +258,20 @@ public interface Feature extends EObject {
      * @generated
      */
     EList<Group> getGroups();
+
+    /**
+     * Returns the value of the '<em><b>Feature Model</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Feature Model</em>' reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Feature Model</em>' reference.
+     * @see cz.jpikl.yafmt.model.fm.FeatureModelPackage#getFeature_FeatureModel()
+     * @model transient="true" changeable="false" volatile="true" derived="true"
+     * @generated
+     */
+    FeatureModel getFeatureModel();
 
 } // Feature

@@ -4,6 +4,7 @@ package cz.jpikl.yafmt.model.fm.impl;
 
 import cz.jpikl.yafmt.model.fm.Attribute;
 import cz.jpikl.yafmt.model.fm.Feature;
+import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
 import cz.jpikl.yafmt.model.fm.Group;
 
@@ -37,10 +38,13 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#getLower <em>Lower</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#getUpper <em>Upper</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#isRoot <em>Root</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#isOrphan <em>Orphan</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#getAttributes <em>Attributes</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#getParent <em>Parent</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#getFeatures <em>Features</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#getGroups <em>Groups</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#getFeatureModel <em>Feature Model</em>}</li>
  * </ul>
  * </p>
  *
@@ -146,6 +150,26 @@ public class FeatureImpl extends EObjectImpl implements Feature {
      * @ordered
      */
     protected int upper = UPPER_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isRoot() <em>Root</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isRoot()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean ROOT_EDEFAULT = false;
+
+    /**
+     * The default value of the '{@link #isOrphan() <em>Orphan</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isOrphan()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean ORPHAN_EDEFAULT = false;
 
     /**
      * The cached value of the '{@link #getAttributes() <em>Attributes</em>}' containment reference list.
@@ -304,6 +328,24 @@ public class FeatureImpl extends EObjectImpl implements Feature {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    public boolean isRoot() {
+        return getFeatureModel().getRoot() == this;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    public boolean isOrphan() {
+        return (getParent() == null) && !isRoot();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EList<Attribute> getAttributes() {
@@ -361,6 +403,25 @@ public class FeatureImpl extends EObjectImpl implements Feature {
      * <!-- end-user-doc -->
      * @generated
      */
+    public FeatureModel getFeatureModel() {
+        FeatureModel featureModel = basicGetFeatureModel();
+        return featureModel != null && featureModel.eIsProxy() ? (FeatureModel)eResolveProxy((InternalEObject)featureModel) : featureModel;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    public FeatureModel basicGetFeatureModel() {
+        return (FeatureModel) eResource().getContents().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -407,6 +468,10 @@ public class FeatureImpl extends EObjectImpl implements Feature {
                 return getLower();
             case FeatureModelPackage.FEATURE__UPPER:
                 return getUpper();
+            case FeatureModelPackage.FEATURE__ROOT:
+                return isRoot();
+            case FeatureModelPackage.FEATURE__ORPHAN:
+                return isOrphan();
             case FeatureModelPackage.FEATURE__ATTRIBUTES:
                 return getAttributes();
             case FeatureModelPackage.FEATURE__PARENT:
@@ -416,6 +481,9 @@ public class FeatureImpl extends EObjectImpl implements Feature {
                 return getFeatures();
             case FeatureModelPackage.FEATURE__GROUPS:
                 return getGroups();
+            case FeatureModelPackage.FEATURE__FEATURE_MODEL:
+                if (resolve) return getFeatureModel();
+                return basicGetFeatureModel();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -514,6 +582,10 @@ public class FeatureImpl extends EObjectImpl implements Feature {
                 return lower != LOWER_EDEFAULT;
             case FeatureModelPackage.FEATURE__UPPER:
                 return upper != UPPER_EDEFAULT;
+            case FeatureModelPackage.FEATURE__ROOT:
+                return isRoot() != ROOT_EDEFAULT;
+            case FeatureModelPackage.FEATURE__ORPHAN:
+                return isOrphan() != ORPHAN_EDEFAULT;
             case FeatureModelPackage.FEATURE__ATTRIBUTES:
                 return attributes != null && !attributes.isEmpty();
             case FeatureModelPackage.FEATURE__PARENT:
@@ -522,6 +594,8 @@ public class FeatureImpl extends EObjectImpl implements Feature {
                 return features != null && !features.isEmpty();
             case FeatureModelPackage.FEATURE__GROUPS:
                 return groups != null && !groups.isEmpty();
+            case FeatureModelPackage.FEATURE__FEATURE_MODEL:
+                return basicGetFeatureModel() != null;
         }
         return super.eIsSet(featureID);
     }

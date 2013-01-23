@@ -194,13 +194,31 @@ public interface FeatureModelPackage extends EPackage {
     int FEATURE__UPPER = 4;
 
     /**
+     * The feature id for the '<em><b>Root</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FEATURE__ROOT = 5;
+
+    /**
+     * The feature id for the '<em><b>Orphan</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FEATURE__ORPHAN = 6;
+
+    /**
      * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int FEATURE__ATTRIBUTES = 5;
+    int FEATURE__ATTRIBUTES = 7;
 
     /**
      * The feature id for the '<em><b>Parent</b></em>' reference.
@@ -209,7 +227,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FEATURE__PARENT = 6;
+    int FEATURE__PARENT = 8;
 
     /**
      * The feature id for the '<em><b>Features</b></em>' containment reference list.
@@ -218,7 +236,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FEATURE__FEATURES = 7;
+    int FEATURE__FEATURES = 9;
 
     /**
      * The feature id for the '<em><b>Groups</b></em>' containment reference list.
@@ -227,7 +245,16 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FEATURE__GROUPS = 8;
+    int FEATURE__GROUPS = 10;
+
+    /**
+     * The feature id for the '<em><b>Feature Model</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FEATURE__FEATURE_MODEL = 11;
 
     /**
      * The number of structural features of the '<em>Feature</em>' class.
@@ -236,7 +263,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FEATURE_FEATURE_COUNT = 9;
+    int FEATURE_FEATURE_COUNT = 12;
 
     /**
      * The meta object id for the '{@link cz.jpikl.yafmt.model.fm.impl.GroupImpl <em>Group</em>}' class.
@@ -549,6 +576,28 @@ public interface FeatureModelPackage extends EPackage {
     EAttribute getFeature_Upper();
 
     /**
+     * Returns the meta object for the attribute '{@link cz.jpikl.yafmt.model.fm.Feature#isRoot <em>Root</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Root</em>'.
+     * @see cz.jpikl.yafmt.model.fm.Feature#isRoot()
+     * @see #getFeature()
+     * @generated
+     */
+    EAttribute getFeature_Root();
+
+    /**
+     * Returns the meta object for the attribute '{@link cz.jpikl.yafmt.model.fm.Feature#isOrphan <em>Orphan</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Orphan</em>'.
+     * @see cz.jpikl.yafmt.model.fm.Feature#isOrphan()
+     * @see #getFeature()
+     * @generated
+     */
+    EAttribute getFeature_Orphan();
+
+    /**
      * Returns the meta object for the containment reference list '{@link cz.jpikl.yafmt.model.fm.Feature#getAttributes <em>Attributes</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -591,6 +640,17 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      */
     EReference getFeature_Groups();
+
+    /**
+     * Returns the meta object for the reference '{@link cz.jpikl.yafmt.model.fm.Feature#getFeatureModel <em>Feature Model</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Feature Model</em>'.
+     * @see cz.jpikl.yafmt.model.fm.Feature#getFeatureModel()
+     * @see #getFeature()
+     * @generated
+     */
+    EReference getFeature_FeatureModel();
 
     /**
      * Returns the meta object for class '{@link cz.jpikl.yafmt.model.fm.Group <em>Group</em>}'.
@@ -881,6 +941,22 @@ public interface FeatureModelPackage extends EPackage {
         EAttribute FEATURE__UPPER = eINSTANCE.getFeature_Upper();
 
         /**
+         * The meta object literal for the '<em><b>Root</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FEATURE__ROOT = eINSTANCE.getFeature_Root();
+
+        /**
+         * The meta object literal for the '<em><b>Orphan</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FEATURE__ORPHAN = eINSTANCE.getFeature_Orphan();
+
+        /**
          * The meta object literal for the '<em><b>Attributes</b></em>' containment reference list feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -911,6 +987,14 @@ public interface FeatureModelPackage extends EPackage {
          * @generated
          */
         EReference FEATURE__GROUPS = eINSTANCE.getFeature_Groups();
+
+        /**
+         * The meta object literal for the '<em><b>Feature Model</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference FEATURE__FEATURE_MODEL = eINSTANCE.getFeature_FeatureModel();
 
         /**
          * The meta object literal for the '{@link cz.jpikl.yafmt.model.fm.impl.GroupImpl <em>Group</em>}' class.
