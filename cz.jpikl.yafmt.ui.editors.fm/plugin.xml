@@ -8,7 +8,7 @@
             class="cz.jpikl.yafmt.ui.editors.fm.FeatureModelEditor"
             contributorClass="cz.jpikl.yafmt.ui.editors.fm.FeatureModelEditorContributor"
             extensions="yafm"
-            icon="icons/sample.gif"
+            icon="icons/fm-file.png"
             id="cz.jpikl.yafmt.ui.editors.fm.editors.FeatureModelEditor"
             name="Feature Model Editor">
       </editor>
@@ -22,7 +22,7 @@
       <wizard
             category="cz.jpikl.yafmt.ui.wizards"
             class="cz.jpikl.yafmt.ui.editors.fm.wizards.NewFeatureModelWizard"
-            icon="icons/sample.gif"
+            icon="icons/fm-file-new.png"
             id="cz.jpikl.yafmt.ui.editors.fm.wizards.NewFeatureModelWizard"
             name="New Feature Model Wizard">
       </wizard>
