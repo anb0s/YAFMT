@@ -40,8 +40,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#getUpper <em>Upper</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#isRoot <em>Root</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#isOrphan <em>Orphan</em>}</li>
- *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#getAttributes <em>Attributes</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#getParent <em>Parent</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#getAttributes <em>Attributes</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#getFeatures <em>Features</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#getGroups <em>Groups</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#getFeatureModel <em>Feature Model</em>}</li>
@@ -139,7 +139,7 @@ public class FeatureImpl extends EObjectImpl implements Feature {
      * @generated
      * @ordered
      */
-    protected static final int UPPER_EDEFAULT = 0;
+    protected static final int UPPER_EDEFAULT = 1;
 
     /**
      * The cached value of the '{@link #getUpper() <em>Upper</em>}' attribute.
@@ -472,11 +472,11 @@ public class FeatureImpl extends EObjectImpl implements Feature {
                 return isRoot();
             case FeatureModelPackage.FEATURE__ORPHAN:
                 return isOrphan();
-            case FeatureModelPackage.FEATURE__ATTRIBUTES:
-                return getAttributes();
             case FeatureModelPackage.FEATURE__PARENT:
                 if (resolve) return getParent();
                 return basicGetParent();
+            case FeatureModelPackage.FEATURE__ATTRIBUTES:
+                return getAttributes();
             case FeatureModelPackage.FEATURE__FEATURES:
                 return getFeatures();
             case FeatureModelPackage.FEATURE__GROUPS:
@@ -586,10 +586,10 @@ public class FeatureImpl extends EObjectImpl implements Feature {
                 return isRoot() != ROOT_EDEFAULT;
             case FeatureModelPackage.FEATURE__ORPHAN:
                 return isOrphan() != ORPHAN_EDEFAULT;
-            case FeatureModelPackage.FEATURE__ATTRIBUTES:
-                return attributes != null && !attributes.isEmpty();
             case FeatureModelPackage.FEATURE__PARENT:
                 return basicGetParent() != null;
+            case FeatureModelPackage.FEATURE__ATTRIBUTES:
+                return attributes != null && !attributes.isEmpty();
             case FeatureModelPackage.FEATURE__FEATURES:
                 return features != null && !features.isEmpty();
             case FeatureModelPackage.FEATURE__GROUPS:

@@ -64,17 +64,21 @@ public class FeatureModelUtil {
         );
     }
     
-    @SuppressWarnings("unused")
     public static void hookPackageRegistry() {
-        FeatureModelPackage pkg = FeatureModelPackage.eINSTANCE;
+        FeatureModelPackage.eINSTANCE.eClass();
     }
     
     public static FeatureModel createEmptyFeatureModel(String name) {
+        if((name == null) || name.isEmpty())
+            throw new IllegalArgumentException("Feature model name cannot be empty");
+        
         FeatureModelFactory factory = FeatureModelFactory.eINSTANCE;
         
         Feature rootFeature = factory.createFeature();
         rootFeature.setId(name.trim().replaceAll("\\s+", ".").toLowerCase());
         rootFeature.setName(name);
+        rootFeature.setLower(1);
+        rootFeature.setUpper(1);
         
         FeatureModel featureModel = factory.createFeatureModel();
         featureModel.setName(name);

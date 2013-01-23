@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.EObject;
 public interface Group extends EObject {
     /**
      * Returns the value of the '<em><b>Lower</b></em>' attribute.
+     * The default value is <code>"0"</code>.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Lower</em>' attribute isn't clear,
@@ -37,7 +38,7 @@ public interface Group extends EObject {
      * @return the value of the '<em>Lower</em>' attribute.
      * @see #setLower(int)
      * @see cz.jpikl.yafmt.model.fm.FeatureModelPackage#getGroup_Lower()
-     * @model required="true"
+     * @model default="0" required="true"
      * @generated
      */
     int getLower();
@@ -54,6 +55,7 @@ public interface Group extends EObject {
 
     /**
      * Returns the value of the '<em><b>Upper</b></em>' attribute.
+     * The default value is <code>"-1"</code>.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Upper</em>' attribute isn't clear,
@@ -63,7 +65,7 @@ public interface Group extends EObject {
      * @return the value of the '<em>Upper</em>' attribute.
      * @see #setUpper(int)
      * @see cz.jpikl.yafmt.model.fm.FeatureModelPackage#getGroup_Upper()
-     * @model required="true"
+     * @model default="-1" required="true"
      * @generated
      */
     int getUpper();

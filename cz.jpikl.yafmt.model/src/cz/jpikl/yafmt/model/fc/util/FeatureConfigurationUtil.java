@@ -56,9 +56,8 @@ public class FeatureConfigurationUtil {
         );
     }
     
-    @SuppressWarnings("unused")
     public static void hookPackageRegistry() {
-        FeatureConfigurationPackage pkg = FeatureConfigurationPackage.eINSTANCE;
+        FeatureConfigurationPackage.eINSTANCE.eClass();
     }
 
 }

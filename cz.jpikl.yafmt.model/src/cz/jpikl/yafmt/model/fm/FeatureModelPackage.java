@@ -212,22 +212,22 @@ public interface FeatureModelPackage extends EPackage {
     int FEATURE__ORPHAN = 6;
 
     /**
-     * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FEATURE__ATTRIBUTES = 7;
-
-    /**
      * The feature id for the '<em><b>Parent</b></em>' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int FEATURE__PARENT = 8;
+    int FEATURE__PARENT = 7;
+
+    /**
+     * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FEATURE__ATTRIBUTES = 8;
 
     /**
      * The feature id for the '<em><b>Features</b></em>' containment reference list.

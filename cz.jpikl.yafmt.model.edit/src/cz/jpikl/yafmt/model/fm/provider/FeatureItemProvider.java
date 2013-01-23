@@ -66,8 +66,10 @@ public class FeatureItemProvider
             addIdPropertyDescriptor(object);
             addNamePropertyDescriptor(object);
             addDescriptionPropertyDescriptor(object);
-            addLowerPropertyDescriptor(object);
-            addUpperPropertyDescriptor(object);
+            if(!((Feature) object).isRoot()) {
+                addLowerPropertyDescriptor(object);
+                addUpperPropertyDescriptor(object);
+            }
         }
         return itemPropertyDescriptors;
     }
@@ -183,6 +185,50 @@ public class FeatureItemProvider
     }
 
     /**
+     * This adds a property descriptor for the Root feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addRootPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_Feature_root_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_Feature_root_feature", "_UI_Feature_type"),
+                 FeatureModelPackage.Literals.FEATURE__ROOT,
+                 false,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
+     * This adds a property descriptor for the Orphan feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addOrphanPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_Feature_orphan_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_Feature_orphan_feature", "_UI_Feature_type"),
+                 FeatureModelPackage.Literals.FEATURE__ORPHAN,
+                 false,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
      * This adds a property descriptor for the Parent feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -196,6 +242,28 @@ public class FeatureItemProvider
                  getString("_UI_Feature_parent_feature"),
                  getString("_UI_PropertyDescriptor_description", "_UI_Feature_parent_feature", "_UI_Feature_type"),
                  FeatureModelPackage.Literals.FEATURE__PARENT,
+                 false,
+                 false,
+                 false,
+                 null,
+                 null,
+                 null));
+    }
+
+    /**
+     * This adds a property descriptor for the Feature Model feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addFeatureModelPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_Feature_featureModel_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_Feature_featureModel_feature", "_UI_Feature_type"),
+                 FeatureModelPackage.Literals.FEATURE__FEATURE_MODEL,
                  false,
                  false,
                  false,
@@ -278,6 +346,8 @@ public class FeatureItemProvider
             case FeatureModelPackage.FEATURE__DESCRIPTION:
             case FeatureModelPackage.FEATURE__LOWER:
             case FeatureModelPackage.FEATURE__UPPER:
+            case FeatureModelPackage.FEATURE__ROOT:
+            case FeatureModelPackage.FEATURE__ORPHAN:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
                 return;
             case FeatureModelPackage.FEATURE__ATTRIBUTES:

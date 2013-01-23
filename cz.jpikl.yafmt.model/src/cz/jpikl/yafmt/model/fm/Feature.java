@@ -21,8 +21,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#getUpper <em>Upper</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#isRoot <em>Root</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#isOrphan <em>Orphan</em>}</li>
- *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#getAttributes <em>Attributes</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#getParent <em>Parent</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#getAttributes <em>Attributes</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#getFeatures <em>Features</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#getGroups <em>Groups</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#getFeatureModel <em>Feature Model</em>}</li>
@@ -114,6 +114,7 @@ public interface Feature extends EObject {
 
     /**
      * Returns the value of the '<em><b>Lower</b></em>' attribute.
+     * The default value is <code>"0"</code>.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Lower</em>' attribute isn't clear,
@@ -123,7 +124,7 @@ public interface Feature extends EObject {
      * @return the value of the '<em>Lower</em>' attribute.
      * @see #setLower(int)
      * @see cz.jpikl.yafmt.model.fm.FeatureModelPackage#getFeature_Lower()
-     * @model required="true"
+     * @model default="0" required="true"
      * @generated
      */
     int getLower();
@@ -140,6 +141,7 @@ public interface Feature extends EObject {
 
     /**
      * Returns the value of the '<em><b>Upper</b></em>' attribute.
+     * The default value is <code>"1"</code>.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Upper</em>' attribute isn't clear,
@@ -149,7 +151,7 @@ public interface Feature extends EObject {
      * @return the value of the '<em>Upper</em>' attribute.
      * @see #setUpper(int)
      * @see cz.jpikl.yafmt.model.fm.FeatureModelPackage#getFeature_Upper()
-     * @model required="true"
+     * @model default="1" required="true"
      * @generated
      */
     int getUpper();
