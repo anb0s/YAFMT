@@ -20,7 +20,6 @@ import org.eclipse.gef.ui.parts.GraphicalEditorWithPalette;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
@@ -36,6 +35,7 @@ import cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayout;
 import cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayoutFactory;
 import cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayoutPackage;
 import cz.jpikl.yafmt.ui.editors.fm.parts.FeatureModelEditPartFactory;
+import cz.jpikl.yafmt.ui.editors.fm.util.SelectionConvertor;
 import cz.jpikl.yafmt.ui.editors.fm.util.UnwrappingSelectionProvider;
 
 public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISelectionListener {
@@ -43,6 +43,7 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
     private FeatureModel featureModel;
     private ModelLayout modelLayout;
     private PropertySheetPage propertySheetPage;
+    private SelectionConvertor selectionConvertor;
     
     public FeatureTreeEditor(FeatureModel featureModel) {
         if(featureModel == null)
@@ -99,6 +100,8 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
             if(action instanceof SelectionAction)
                 ((SelectionAction) action).setSelectionProvider(viewer);
         }
+        
+        selectionConvertor = new SelectionConvertor(viewer.getEditPartRegistry());
     }
     
     @Override
@@ -166,9 +169,16 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
     
     @Override
     public void selectionChanged(IWorkbenchPart part, ISelection selection) {
-        IEditorPart activePart = getSite().getPage().getActiveEditor();
-        if((activePart instanceof FeatureModelEditor) && (((FeatureModelEditor) activePart).getSelectedPage() == this))
+        // Update actions if selection comes from this editor.
+        if(part instanceof FeatureModelEditor) {
+            if(((FeatureModelEditor) part).getSelectedPage() == this)
             updateActions(getSelectionActions());
+            return;
+        }
+        
+        // Selection comes from another workbench part.
+        selection = selectionConvertor.wrapSelection(selection);
+        getGraphicalViewer().setSelection(selection);
     }
         
     // ======================================================================

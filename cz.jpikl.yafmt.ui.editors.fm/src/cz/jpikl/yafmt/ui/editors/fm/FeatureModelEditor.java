@@ -32,7 +32,7 @@ public class FeatureModelEditor extends MultiPageEditorPart implements IResource
 	
     private FeatureModel featureModel;
     private FeatureTreeEditor featureTreeEditor;
-    private IContentOutlinePage contentOutlinePage;
+    private FeatureModelContentOutlinePage contentOutlinePage;
 	
     public void init(IEditorSite site, IEditorInput input) throws PartInitException {
         if (!(input instanceof IFileEditorInput))
@@ -140,8 +140,10 @@ public class FeatureModelEditor extends MultiPageEditorPart implements IResource
 	    if(type == FeatureModel.class)
 	        return featureModel;
 	    if(type == IContentOutlinePage.class) {
-	        if(contentOutlinePage == null)
+	        if(contentOutlinePage == null) {
 	            contentOutlinePage = new FeatureModelContentOutlinePage(featureModel);
+	            getSite().getPage().addSelectionListener(contentOutlinePage);
+	        }
 	        return contentOutlinePage;
 	    }
 	    return super.getAdapter(type);
