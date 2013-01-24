@@ -2,9 +2,9 @@ package cz.jpikl.yafmt.model.fm.provider.util;
 
 import cz.jpikl.yafmt.model.fm.Attribute;
 import cz.jpikl.yafmt.model.fm.Feature;
-import cz.jpikl.yafmt.model.provider.util.BaseInputValidator;
+import cz.jpikl.yafmt.model.provider.util.ProperySourceValidator;
 
-public class FeatureModelInputValidator extends BaseInputValidator {
+public class FeatureModelPropertySourceValidator extends ProperySourceValidator {
     
     @Override
     public String validate(Object object, String property, String value) {
