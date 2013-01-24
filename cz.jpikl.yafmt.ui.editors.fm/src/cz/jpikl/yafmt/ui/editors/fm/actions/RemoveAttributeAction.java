@@ -2,8 +2,10 @@ package cz.jpikl.yafmt.ui.editors.fm.actions;
 
 import java.util.List;
 
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
-import org.eclipse.gef.commands.CommandStack;
+import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.ui.actions.SelectionAction;
 import org.eclipse.jface.action.IMenuCreator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -12,57 +14,62 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.ui.ISharedImages;
+import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 
-import cz.jpikl.yafmt.model.fm.Attribute;
-import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.ui.editors.fm.RequestConstants;
-import cz.jpikl.yafmt.ui.editors.fm.parts.FeatureEditPart;
 
-public class RemoveAttributeAction extends AttributeAction {
+public class RemoveAttributeAction extends SelectionAction {
 
     public static final String ID = "cz.jpikl.yafmt.ui.editors.fm.actions.RemoveAtributeAction";
     
-    public RemoveAttributeAction(CommandStack commandStack) {
-        super(commandStack);
+    public RemoveAttributeAction(IWorkbenchPart part) {
+        super(part);
         setId(ID);
+        
+    }
+    
+    @Override
+    protected void init() {
+        super.init();
         setText("Remove Attribute");
         setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_ETOOL_DELETE));
         setMenuCreator(new MenuCreator());
     }
     
-    @Override
-    public boolean isEnabled() {
-        if(!super.isEnabled())
-            return false;
-        return !((Feature) getFeatureEditPart().getModel()).getAttributes().isEmpty();
-    }
-    
     @SuppressWarnings("unchecked")
-    private void execute(int index) {
-        FeatureEditPart featureEditPart = getFeatureEditPart();
+    private Command getCommand(int attributeIndex) {
+        List<Object> objects = getSelectedObjects();
+        if((objects.size() != 1) || !(objects.get(0) instanceof EditPart))
+            return null;
         Request request = new Request(RequestConstants.REQ_REMOVE_ATTRIBUTE);
-        request.getExtendedData().put("index", index);
-        executeCommand(featureEditPart.getCommand(request));
+        request.getExtendedData().put("index", attributeIndex);
+        EditPart editPart = (EditPart) objects.get(0);
+        return editPart.getCommand(request);
     }
     
+    @Override
+    protected boolean calculateEnabled() {
+        Command command = getCommand(0);
+        return (command != null) && command.canExecute();
+    }
+            
     private class MenuCreator implements IMenuCreator, SelectionListener {
 
         private Menu menu;
         
         @Override
         public Menu getMenu(Menu parent) {
-            Feature feature = (Feature) getFeatureEditPart().getModel();
-            List<Attribute> attributes = feature.getAttributes();
-            
             menu = new Menu(parent);
-            for(int i = 0; i < attributes.size(); i++) {
+            for(int i = 0; ; i++) {
+                Command command = getCommand(i);
+                if(command == null)
+                    break;
                 MenuItem menuItem = new MenuItem(menu, SWT.NONE);
-                menuItem.setText(attributes.get(i).getName());
-                menuItem.setData(i);
+                menuItem.setText(command.toString());
+                menuItem.setData(command);
                 menuItem.addSelectionListener(this);
             }
-            
             return menu;
         }
         
@@ -80,13 +87,18 @@ public class RemoveAttributeAction extends AttributeAction {
 
         @Override
         public void widgetSelected(SelectionEvent e) {
-            execute((Integer)((MenuItem) e.getSource()).getData());
+            execute((Command)((MenuItem) e.getSource()).getData());
         }
 
         @Override
         public void widgetDefaultSelected(SelectionEvent e) {
         }
         
+    }
+    
+    @Override
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
     }
 
 }

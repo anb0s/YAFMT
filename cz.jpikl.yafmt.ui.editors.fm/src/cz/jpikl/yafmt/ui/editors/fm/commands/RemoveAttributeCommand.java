@@ -33,4 +33,9 @@ public class RemoveAttributeCommand extends Command {
         feature.getAttributes().add(attributeIndex, attribute);
     }
     
+    @Override
+    public String toString() {
+        return feature.getAttributes().get(attributeIndex).getName();
+    }
+    
 }

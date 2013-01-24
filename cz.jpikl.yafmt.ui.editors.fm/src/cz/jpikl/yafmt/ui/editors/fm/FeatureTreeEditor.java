@@ -18,6 +18,7 @@ import org.eclipse.gef.ui.parts.GraphicalEditorWithPalette;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
@@ -27,7 +28,6 @@ import org.eclipse.ui.views.properties.IPropertySheetPage;
 
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.ui.editors.fm.actions.AddAttributeAction;
-import cz.jpikl.yafmt.ui.editors.fm.actions.AttributeAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.RemoveAttributeAction;
 import cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayout;
 import cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayoutFactory;
@@ -62,12 +62,20 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
     }
     
     @Override
+    @SuppressWarnings("unchecked")
     protected void createActions() {
         super.createActions();
         
         ActionRegistry registry = getActionRegistry();
-        registry.registerAction(new AddAttributeAction(getCommandStack()));
-        registry.registerAction(new RemoveAttributeAction(getCommandStack()));
+        IAction action; 
+        
+        action = new AddAttributeAction(this);
+        registry.registerAction(action);
+        getSelectionActions().add(action.getId());
+        
+        action = new RemoveAttributeAction(this);
+        registry.registerAction(action);
+        getSelectionActions().add(action.getId());
     }
     
     @Override
@@ -79,9 +87,6 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
         viewer.setRootEditPart(new FreeformGraphicalRootEditPart());
         viewer.addDropTargetListener(new TemplateTransferDropTargetListener(viewer));
         viewer.setContextMenu(new FeatureTreeEditorContextMenuProvider(viewer, getActionRegistry()));
-        
-        ((AttributeAction) getActionRegistry().getAction(AddAttributeAction.ID)).setGraphicalViewer(viewer);
-        ((AttributeAction) getActionRegistry().getAction(RemoveAttributeAction.ID)).setGraphicalViewer(viewer);
     }
     
     @Override
@@ -142,6 +147,9 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
     
     @Override
     public void selectionChanged(IWorkbenchPart part, ISelection selection) {
+        IEditorPart activePart = getSite().getPage().getActiveEditor();
+        if((activePart instanceof FeatureModelEditor) && (((FeatureModelEditor) activePart).getSelectedPage() == this))
+            updateActions(getSelectionActions());
     }
     
     // ======================================================================
