@@ -1,4 +1,4 @@
-package cz.jpikl.yafmt.ui.editors.fm;
+package cz.jpikl.yafmt.ui.editors.fm.util;
 
 public interface RequestConstants {
 

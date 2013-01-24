@@ -305,13 +305,12 @@ public class FeatureItemProvider
      * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     @Override
     public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
         if (childrenFeatures == null) {
             super.getChildrenFeatures(object);
-            childrenFeatures.add(FeatureModelPackage.Literals.FEATURE__ATTRIBUTES);
             childrenFeatures.add(FeatureModelPackage.Literals.FEATURE__FEATURES);
             childrenFeatures.add(FeatureModelPackage.Literals.FEATURE__GROUPS);
         }

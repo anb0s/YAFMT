@@ -49,11 +49,11 @@ public class FeatureEditPart extends AbstractGraphicalEditPart {
     @Override
     @SuppressWarnings("rawtypes")
     public Object getAdapter(Class type) {
-        if(type == IPropertySource.class) {
+        /*if(type == IPropertySource.class) {
             if(propertySource == null)
                 propertySource = FeatureModelProviderUtil.getContentProvider().getPropertySource(feature);
             return propertySource;
-        }
+        }*/
         return super.getAdapter(type);
     }
 

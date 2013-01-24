@@ -5,9 +5,9 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.AbstractEditPolicy;
 
 import cz.jpikl.yafmt.model.fm.Feature;
-import cz.jpikl.yafmt.ui.editors.fm.RequestConstants;
 import cz.jpikl.yafmt.ui.editors.fm.commands.AddAttributeCommand;
 import cz.jpikl.yafmt.ui.editors.fm.commands.RemoveAttributeCommand;
+import cz.jpikl.yafmt.ui.editors.fm.util.RequestConstants;
 
 public class FeatureEditPolicy extends AbstractEditPolicy {
 

@@ -2,6 +2,7 @@ package cz.jpikl.yafmt.ui.editors.fm;
 
 import java.io.IOException;
 import java.util.EventObject;
+import java.util.Iterator;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Status;
@@ -14,6 +15,7 @@ import org.eclipse.gef.dnd.TemplateTransferDropTargetListener;
 import org.eclipse.gef.editparts.FreeformGraphicalRootEditPart;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.ui.actions.ActionRegistry;
+import org.eclipse.gef.ui.actions.SelectionAction;
 import org.eclipse.gef.ui.parts.GraphicalEditorWithPalette;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
@@ -25,6 +27,7 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
+import org.eclipse.ui.views.properties.PropertySheetPage;
 
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.ui.editors.fm.actions.AddAttributeAction;
@@ -33,12 +36,13 @@ import cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayout;
 import cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayoutFactory;
 import cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayoutPackage;
 import cz.jpikl.yafmt.ui.editors.fm.parts.FeatureModelEditPartFactory;
-import cz.jpikl.yafmt.ui.editors.fm.util.NonSortingPropertySheetPage;
+import cz.jpikl.yafmt.ui.editors.fm.util.UnwrappingSelectionProvider;
 
 public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISelectionListener {
 
     private FeatureModel featureModel;
     private ModelLayout modelLayout;
+    private PropertySheetPage propertySheetPage;
     
     public FeatureTreeEditor(FeatureModel featureModel) {
         if(featureModel == null)
@@ -79,6 +83,7 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
     }
     
     @Override
+    @SuppressWarnings("unchecked")
     protected void configureGraphicalViewer() {
         super.configureGraphicalViewer();
         
@@ -87,6 +92,20 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
         viewer.setRootEditPart(new FreeformGraphicalRootEditPart());
         viewer.addDropTargetListener(new TemplateTransferDropTargetListener(viewer));
         viewer.setContextMenu(new FeatureTreeEditorContextMenuProvider(viewer, getActionRegistry()));
+        
+        // Actions need original selection provider.
+        for(Iterator<IAction> it = getActionRegistry().getActions(); it.hasNext(); ) {
+            IAction action = it.next();
+            if(action instanceof SelectionAction)
+                ((SelectionAction) action).setSelectionProvider(viewer);
+        }
+    }
+    
+    @Override
+    protected void hookGraphicalViewer() {
+        super.hookGraphicalViewer();
+        // Provide unwrapped selections for rest of the world.
+        getSite().setSelectionProvider(new UnwrappingSelectionProvider(getGraphicalViewer()));
     }
     
     @Override
@@ -151,7 +170,7 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
         if((activePart instanceof FeatureModelEditor) && (((FeatureModelEditor) activePart).getSelectedPage() == this))
             updateActions(getSelectionActions());
     }
-    
+        
     // ======================================================================
     //  ISelectionsListener
     // ======================================================================
@@ -159,9 +178,12 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
     @SuppressWarnings("rawtypes")
     public Object getAdapter(Class type) {
         if(type == IPropertySheetPage.class) {
-            IAction undoAction = getActionRegistry().getAction(ActionFactory.UNDO.getId());
-            IAction redoAction = getActionRegistry().getAction(ActionFactory.REDO.getId());
-            return new NonSortingPropertySheetPage(getCommandStack(), undoAction, redoAction);
+            if(propertySheetPage == null) {
+                IAction undoAction = getActionRegistry().getAction(ActionFactory.UNDO.getId());
+                IAction redoAction = getActionRegistry().getAction(ActionFactory.REDO.getId());
+                propertySheetPage = new FeatureModelPropertySheetPage(getCommandStack(), undoAction, redoAction);
+            }
+            return propertySheetPage;
         }
         return super.getAdapter(type);
     }

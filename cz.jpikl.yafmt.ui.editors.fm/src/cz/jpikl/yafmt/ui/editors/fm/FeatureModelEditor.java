@@ -32,7 +32,7 @@ public class FeatureModelEditor extends MultiPageEditorPart implements IResource
 	
     private FeatureModel featureModel;
     private FeatureTreeEditor featureTreeEditor;
-    private FeatureModelContentOutlinePage contentOutlinePage;
+    private IContentOutlinePage contentOutlinePage;
 	
     public void init(IEditorSite site, IEditorInput input) throws PartInitException {
         if (!(input instanceof IFileEditorInput))

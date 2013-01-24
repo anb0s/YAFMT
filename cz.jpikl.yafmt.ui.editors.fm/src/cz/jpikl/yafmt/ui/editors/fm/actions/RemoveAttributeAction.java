@@ -17,7 +17,7 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 
-import cz.jpikl.yafmt.ui.editors.fm.RequestConstants;
+import cz.jpikl.yafmt.ui.editors.fm.util.RequestConstants;
 
 public class RemoveAttributeAction extends SelectionAction {
 

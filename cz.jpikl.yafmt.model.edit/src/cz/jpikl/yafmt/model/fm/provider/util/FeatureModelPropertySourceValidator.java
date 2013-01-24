@@ -56,7 +56,6 @@ public class FeatureModelPropertySourceValidator extends ProperySourceValidator 
             if(result != null)
                 return result;
             for(Attribute otherAttribute: ((Feature) attribute.eContainer()).getAttributes()) {
-                System.out.println(otherAttribute.getId() + "/" + value);
                 if((otherAttribute != attribute) && (otherAttribute.getId().equals(value)))
                     return getString("_UI_Errors_IdNotUnique", getString("_UI_Feature_type"));
             }
