@@ -1,4 +1,4 @@
-package cz.jpikl.yafmt.ui.editors.fm;
+package cz.jpikl.yafmt.ui.editors.fm.commands;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.commands.Command;
@@ -14,6 +14,7 @@ public class MoveResizeFeatureCommand extends Command {
     private Rectangle oldBounds;
     
     public MoveResizeFeatureCommand(FeatureModelEditPart featureModelEditPart, Feature feature, Rectangle bounds) {
+        setLabel("Move/Resize Feature");
         this.featureModelEditPart = featureModelEditPart;
         this.feature = feature;
         this.newBounds = bounds;

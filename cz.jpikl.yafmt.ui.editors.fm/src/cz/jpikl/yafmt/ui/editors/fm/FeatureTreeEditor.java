@@ -13,6 +13,7 @@ import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.dnd.TemplateTransferDropTargetListener;
 import org.eclipse.gef.editparts.FreeformGraphicalRootEditPart;
 import org.eclipse.gef.palette.PaletteRoot;
+import org.eclipse.gef.ui.actions.ActionRegistry;
 import org.eclipse.gef.ui.parts.GraphicalEditorWithPalette;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
@@ -25,6 +26,9 @@ import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 
 import cz.jpikl.yafmt.model.fm.FeatureModel;
+import cz.jpikl.yafmt.ui.editors.fm.actions.AddAttributeAction;
+import cz.jpikl.yafmt.ui.editors.fm.actions.AttributeAction;
+import cz.jpikl.yafmt.ui.editors.fm.actions.RemoveAttributeAction;
 import cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayout;
 import cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayoutFactory;
 import cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayoutPackage;
@@ -58,13 +62,26 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
     }
     
     @Override
+    protected void createActions() {
+        super.createActions();
+        
+        ActionRegistry registry = getActionRegistry();
+        registry.registerAction(new AddAttributeAction(getCommandStack()));
+        registry.registerAction(new RemoveAttributeAction(getCommandStack()));
+    }
+    
+    @Override
     protected void configureGraphicalViewer() {
         super.configureGraphicalViewer();
+        
         GraphicalViewer viewer = getGraphicalViewer();
         viewer.setEditPartFactory(new FeatureModelEditPartFactory(modelLayout));
         viewer.setRootEditPart(new FreeformGraphicalRootEditPart());
         viewer.addDropTargetListener(new TemplateTransferDropTargetListener(viewer));
-        //viewer.setContextMenu(new FeatureTreeEditorContextMenuProvider(viewer, getActionRegistry()));
+        viewer.setContextMenu(new FeatureTreeEditorContextMenuProvider(viewer, getActionRegistry()));
+        
+        ((AttributeAction) getActionRegistry().getAction(AddAttributeAction.ID)).setGraphicalViewer(viewer);
+        ((AttributeAction) getActionRegistry().getAction(RemoveAttributeAction.ID)).setGraphicalViewer(viewer);
     }
     
     @Override

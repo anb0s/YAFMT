@@ -8,7 +8,7 @@ import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gef.requests.CreateRequest;
 
 import cz.jpikl.yafmt.model.fm.Feature;
-import cz.jpikl.yafmt.ui.editors.fm.MoveResizeFeatureCommand;
+import cz.jpikl.yafmt.ui.editors.fm.commands.MoveResizeFeatureCommand;
 import cz.jpikl.yafmt.ui.editors.fm.parts.FeatureModelEditPart;
 
 public class FeatureModelLayoutPolicy extends XYLayoutEditPolicy {
