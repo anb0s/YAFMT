@@ -1,7 +1,10 @@
 package cz.jpikl.yafmt.model.fm.provider.util;
 
+import java.util.regex.Pattern;
+
 import cz.jpikl.yafmt.model.fm.Attribute;
 import cz.jpikl.yafmt.model.fm.Feature;
+import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.provider.util.ProperySourceValidator;
 
 public class FeatureModelPropertySourceValidator extends ProperySourceValidator {
@@ -10,12 +13,14 @@ public class FeatureModelPropertySourceValidator extends ProperySourceValidator 
     public String validate(Object object, String property, String value) {
         if(object instanceof Feature)
             return validate((Feature) object, property, value);
+        if(object instanceof FeatureModel)
+            return validate((FeatureModel) object, property, value);
         return null;
     }
     
     private String validate(Feature feature, String property, String value) {
         if("id".equals(property)) {
-            String result = checkEmptyValue(value, "_UI_Feature_id_feature");
+            String result = checkIdValue(value, "_UI_Feature_id_feature");
             if(result != null)
                 return result;
             Feature otherFeature = feature.getFeatureModel().getFeatureById(value);
@@ -52,7 +57,7 @@ public class FeatureModelPropertySourceValidator extends ProperySourceValidator 
     
     private String validate(Attribute attribute, String property, String value) {
         if("id".equals(property)) {
-            String result = checkEmptyValue(value, "_UI_Attribute_id_feature");
+            String result = checkIdValue(value, "_UI_Attribute_id_feature");
             if(result != null)
                 return result;
             for(Attribute otherAttribute: ((Feature) attribute.eContainer()).getAttributes()) {
@@ -63,6 +68,21 @@ public class FeatureModelPropertySourceValidator extends ProperySourceValidator 
         else if("name".equals(property)) {
             return checkEmptyValue(value, "_UI_Attribute_name_feature");
         }
+        return null;
+    }
+    
+    private String validate(FeatureModel featureModel, String property, String value) {
+        if("name".equals(property))
+            return checkEmptyValue(value, "_UI_FeatureModel_name_feature");
+        return null;
+    }
+    
+    private String checkIdValue(String value, String name) {
+        String result = checkEmptyValue(value, name);
+        if(result != null)
+            return result;
+        if(!Pattern.matches("[a-zA-Z0-9_\\.]+", value))
+            return getString("_UI_Errors_WrongIdFormat");
         return null;
     }
     

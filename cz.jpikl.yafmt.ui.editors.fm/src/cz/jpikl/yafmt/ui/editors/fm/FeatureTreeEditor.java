@@ -175,8 +175,13 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
     public void selectionChanged(IWorkbenchPart part, ISelection selection) {
         // Update actions if selection comes from this editor.
         if(part instanceof FeatureModelEditor) {
+            // Check if editor is active. This is important otherwise editor selection 
+            // would be discarded when deactivating current editor.
+            if(getSite().getPage().getActiveEditor() != part)
+                return;
+            // Perform update editor page is active within multipage editor part.
             if(((FeatureModelEditor) part).getSelectedPage() == this)
-            updateActions(getSelectionActions());
+                updateActions(getSelectionActions());
             return;
         }
         
