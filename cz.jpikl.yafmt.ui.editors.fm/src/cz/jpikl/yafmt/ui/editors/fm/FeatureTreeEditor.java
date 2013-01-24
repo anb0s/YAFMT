@@ -6,10 +6,13 @@ import java.util.Iterator;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.draw2d.Viewport;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.gef.DefaultEditDomain;
+import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.dnd.TemplateTransferDropTargetListener;
 import org.eclipse.gef.editparts.FreeformGraphicalRootEditPart;
@@ -19,6 +22,7 @@ import org.eclipse.gef.ui.actions.SelectionAction;
 import org.eclipse.gef.ui.parts.GraphicalEditorWithPalette;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.ISelectionListener;
@@ -179,6 +183,26 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
         // Selection comes from another workbench part.
         selection = selectionConvertor.wrapSelection(selection);
         getGraphicalViewer().setSelection(selection);
+        
+        // Center to last selected object.
+        if(selection instanceof IStructuredSelection) {
+            Object[] objects = ((IStructuredSelection) selection).toArray();
+            for(int i = objects.length - 1; i >= 0; i--) {
+                if(objects[i] instanceof GraphicalEditPart) {
+                    centerViewportToEditPart((GraphicalEditPart) objects[i]);
+                    break;
+                }
+            }
+        }
+    }
+    
+    private void centerViewportToEditPart(GraphicalEditPart editPart) {
+        FreeformGraphicalRootEditPart rootEditPart = (FreeformGraphicalRootEditPart) getGraphicalViewer().getRootEditPart();
+        Viewport viewport = (Viewport) rootEditPart.getFigure();
+        Point point = editPart.getFigure().getBounds().getCenter();
+        int x = point.x - viewport.getSize().width / 2;
+        int y = point.y - viewport.getSize().height / 2;
+        viewport.setViewLocation(x, y);
     }
         
     // ======================================================================
