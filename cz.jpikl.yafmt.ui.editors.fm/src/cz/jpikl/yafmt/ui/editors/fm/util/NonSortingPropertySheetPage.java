@@ -15,6 +15,16 @@ public class NonSortingPropertySheetPage extends UndoablePropertySheetPage {
             @Override
             public void sort(IPropertySheetEntry[] entries) {
             }
+            
+            @Override
+            public int compareCategories(String categoryA, String categoryB) {
+                // General category has always space at the end (sorting trick).
+                if(categoryA.endsWith(" "))
+                    return -1;
+                if(categoryB.endsWith(" "))
+                    return 1;
+                return super.compareCategories(categoryA, categoryB);
+            }
         });
     }
 

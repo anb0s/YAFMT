@@ -1,7 +1,6 @@
 package cz.jpikl.yafmt.model.provider.util;
 
 import org.eclipse.emf.ecore.EDataType;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor.PropertyValueWrapper;
@@ -67,8 +66,8 @@ public class ValidatingPropertySource extends PropertySource {
             
             @Override
             public String isValid(Object value) {
-                int propertyId = ((EStructuralFeature) itemPropertyDescriptor.getFeature(null)).getFeatureID();
-                String result = validator.validate(object, propertyId, (String) value);
+                String property = itemPropertyDescriptor.getId(value);
+                String result = validator.validate(object, property, (String) value);
                 if(result != null)
                     return result;
                 if(originalValidator != null)
