@@ -107,11 +107,7 @@ public class FeatureModelEditor extends MultiPageEditorPart implements IResource
 	public boolean isSaveAsAllowed() {
 		return true;
 	}
-	
-	// ======================================================================
-	//  IResourceChangeListener
-	// ======================================================================
-		
+
 	public void resourceChanged(final IResourceChangeEvent event) {
 		if(event.getType() != IResourceChangeEvent.PRE_CLOSE)
 		    return;
@@ -129,10 +125,6 @@ public class FeatureModelEditor extends MultiPageEditorPart implements IResource
 			}            
 		});
 	}
-	
-	// ======================================================================
-    //  IAdaptable
-    // ======================================================================
 	
 	@Override
 	@SuppressWarnings("rawtypes")

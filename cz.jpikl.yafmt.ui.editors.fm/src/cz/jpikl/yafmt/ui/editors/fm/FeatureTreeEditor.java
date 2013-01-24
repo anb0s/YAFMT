@@ -122,7 +122,7 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
     
     @Override
     protected PaletteRoot getPaletteRoot() {
-        return null;
+        return new FeatureTreeEditorPaletteRoot();
     }
     
     @Override
@@ -166,20 +166,16 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
         String path = featureModel.eResource().getURI().toPlatformString(true) + ".layout";
         modelLayout.eResource().setURI(URI.createPlatformResourceURI(path, true));
     }
-       
-    // ======================================================================
-    //  ISelectionsListener
-    // ======================================================================
     
     @Override
     public void selectionChanged(IWorkbenchPart part, ISelection selection) {
         // Update actions if selection comes from this editor.
         if(part instanceof FeatureModelEditor) {
             // Check if editor is active. This is important otherwise editor selection 
-            // would be discarded when deactivating current editor.
+            // would be invalidated when deactivating current editor.
             if(getSite().getPage().getActiveEditor() != part)
                 return;
-            // Perform update editor page is active within multipage editor part.
+            // Perform update if editor page is active within multipage editor part.
             if(((FeatureModelEditor) part).getSelectedPage() == this)
                 updateActions(getSelectionActions());
             return;
@@ -189,7 +185,7 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
         selection = selectionConvertor.wrapSelection(selection);
         getGraphicalViewer().setSelection(selection);
         
-        // Center to last selected object.
+        // Center viewport to last selected object.
         if(selection instanceof IStructuredSelection) {
             Object[] objects = ((IStructuredSelection) selection).toArray();
             for(int i = objects.length - 1; i >= 0; i--) {
@@ -209,10 +205,7 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
         int y = point.y - viewport.getSize().height / 2;
         viewport.setViewLocation(x, y);
     }
-        
-    // ======================================================================
-    //  ISelectionsListener
-    // ======================================================================
+            
     @Override
     @SuppressWarnings("rawtypes")
     public Object getAdapter(Class type) {
