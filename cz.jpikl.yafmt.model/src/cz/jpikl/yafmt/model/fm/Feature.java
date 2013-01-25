@@ -21,6 +21,9 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#getUpper <em>Upper</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#isRoot <em>Root</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#isOrphan <em>Orphan</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#isOptional <em>Optional</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#isMandatory <em>Mandatory</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#isClonable <em>Clonable</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#getParent <em>Parent</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#getAttributes <em>Attributes</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#getFeatures <em>Features</em>}</li>
@@ -195,6 +198,73 @@ public interface Feature extends EObject {
      * @generated
      */
     boolean isOrphan();
+
+    /**
+     * Returns the value of the '<em><b>Optional</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Optional</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Optional</em>' attribute.
+     * @see #setOptional(boolean)
+     * @see cz.jpikl.yafmt.model.fm.FeatureModelPackage#getFeature_Optional()
+     * @model required="true" transient="true" volatile="true" derived="true"
+     * @generated
+     */
+    boolean isOptional();
+
+    /**
+     * Sets the value of the '{@link cz.jpikl.yafmt.model.fm.Feature#isOptional <em>Optional</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Optional</em>' attribute.
+     * @see #isOptional()
+     * @generated
+     */
+    void setOptional(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>Mandatory</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Mandatory</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Mandatory</em>' attribute.
+     * @see #setMandatory(boolean)
+     * @see cz.jpikl.yafmt.model.fm.FeatureModelPackage#getFeature_Mandatory()
+     * @model required="true" transient="true" volatile="true" derived="true"
+     * @generated
+     */
+    boolean isMandatory();
+
+    /**
+     * Sets the value of the '{@link cz.jpikl.yafmt.model.fm.Feature#isMandatory <em>Mandatory</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Mandatory</em>' attribute.
+     * @see #isMandatory()
+     * @generated
+     */
+    void setMandatory(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>Clonable</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Clonable</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Clonable</em>' attribute.
+     * @see cz.jpikl.yafmt.model.fm.FeatureModelPackage#getFeature_Clonable()
+     * @model required="true" transient="true" changeable="false" volatile="true" derived="true"
+     * @generated
+     */
+    boolean isClonable();
 
     /**
      * Returns the value of the '<em><b>Attributes</b></em>' containment reference list.

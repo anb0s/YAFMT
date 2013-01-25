@@ -40,6 +40,9 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#getUpper <em>Upper</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#isRoot <em>Root</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#isOrphan <em>Orphan</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#isOptional <em>Optional</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#isMandatory <em>Mandatory</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#isClonable <em>Clonable</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#getParent <em>Parent</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#getAttributes <em>Attributes</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#getFeatures <em>Features</em>}</li>
@@ -170,6 +173,36 @@ public class FeatureImpl extends EObjectImpl implements Feature {
      * @ordered
      */
     protected static final boolean ORPHAN_EDEFAULT = false;
+
+    /**
+     * The default value of the '{@link #isOptional() <em>Optional</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isOptional()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean OPTIONAL_EDEFAULT = false;
+
+    /**
+     * The default value of the '{@link #isMandatory() <em>Mandatory</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isMandatory()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean MANDATORY_EDEFAULT = false;
+
+    /**
+     * The default value of the '{@link #isClonable() <em>Clonable</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isClonable()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean CLONABLE_EDEFAULT = false;
 
     /**
      * The cached value of the '{@link #getAttributes() <em>Attributes</em>}' containment reference list.
@@ -346,6 +379,54 @@ public class FeatureImpl extends EObjectImpl implements Feature {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    public boolean isOptional() {
+        return lower == 0;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    public void setOptional(boolean newOptional) {
+        if(newOptional)
+            setLower(0);
+        else if(lower == 0)
+            setLower(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    public boolean isMandatory() {
+        return !isOptional();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    public void setMandatory(boolean newMandatory) {
+        setOptional(!newMandatory);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    public boolean isClonable() {
+        return upper > 1;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EList<Attribute> getAttributes() {
@@ -472,6 +553,12 @@ public class FeatureImpl extends EObjectImpl implements Feature {
                 return isRoot();
             case FeatureModelPackage.FEATURE__ORPHAN:
                 return isOrphan();
+            case FeatureModelPackage.FEATURE__OPTIONAL:
+                return isOptional();
+            case FeatureModelPackage.FEATURE__MANDATORY:
+                return isMandatory();
+            case FeatureModelPackage.FEATURE__CLONABLE:
+                return isClonable();
             case FeatureModelPackage.FEATURE__PARENT:
                 if (resolve) return getParent();
                 return basicGetParent();
@@ -512,6 +599,12 @@ public class FeatureImpl extends EObjectImpl implements Feature {
             case FeatureModelPackage.FEATURE__UPPER:
                 setUpper((Integer)newValue);
                 return;
+            case FeatureModelPackage.FEATURE__OPTIONAL:
+                setOptional((Boolean)newValue);
+                return;
+            case FeatureModelPackage.FEATURE__MANDATORY:
+                setMandatory((Boolean)newValue);
+                return;
             case FeatureModelPackage.FEATURE__ATTRIBUTES:
                 getAttributes().clear();
                 getAttributes().addAll((Collection<? extends Attribute>)newValue);
@@ -551,6 +644,12 @@ public class FeatureImpl extends EObjectImpl implements Feature {
             case FeatureModelPackage.FEATURE__UPPER:
                 setUpper(UPPER_EDEFAULT);
                 return;
+            case FeatureModelPackage.FEATURE__OPTIONAL:
+                setOptional(OPTIONAL_EDEFAULT);
+                return;
+            case FeatureModelPackage.FEATURE__MANDATORY:
+                setMandatory(MANDATORY_EDEFAULT);
+                return;
             case FeatureModelPackage.FEATURE__ATTRIBUTES:
                 getAttributes().clear();
                 return;
@@ -586,6 +685,12 @@ public class FeatureImpl extends EObjectImpl implements Feature {
                 return isRoot() != ROOT_EDEFAULT;
             case FeatureModelPackage.FEATURE__ORPHAN:
                 return isOrphan() != ORPHAN_EDEFAULT;
+            case FeatureModelPackage.FEATURE__OPTIONAL:
+                return isOptional() != OPTIONAL_EDEFAULT;
+            case FeatureModelPackage.FEATURE__MANDATORY:
+                return isMandatory() != MANDATORY_EDEFAULT;
+            case FeatureModelPackage.FEATURE__CLONABLE:
+                return isClonable() != CLONABLE_EDEFAULT;
             case FeatureModelPackage.FEATURE__PARENT:
                 return basicGetParent() != null;
             case FeatureModelPackage.FEATURE__ATTRIBUTES:

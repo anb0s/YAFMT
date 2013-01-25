@@ -288,8 +288,35 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getFeature_Optional() {
+        return (EAttribute)featureEClass.getEStructuralFeatures().get(7);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getFeature_Mandatory() {
+        return (EAttribute)featureEClass.getEStructuralFeatures().get(8);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getFeature_Clonable() {
+        return (EAttribute)featureEClass.getEStructuralFeatures().get(9);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EReference getFeature_Attributes() {
-        return (EReference)featureEClass.getEStructuralFeatures().get(8);
+        return (EReference)featureEClass.getEStructuralFeatures().get(11);
     }
 
     /**
@@ -298,24 +325,6 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
      * @generated
      */
     public EReference getFeature_Parent() {
-        return (EReference)featureEClass.getEStructuralFeatures().get(7);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EReference getFeature_Features() {
-        return (EReference)featureEClass.getEStructuralFeatures().get(9);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EReference getFeature_Groups() {
         return (EReference)featureEClass.getEStructuralFeatures().get(10);
     }
 
@@ -324,8 +333,26 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
      * <!-- end-user-doc -->
      * @generated
      */
+    public EReference getFeature_Features() {
+        return (EReference)featureEClass.getEStructuralFeatures().get(12);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getFeature_Groups() {
+        return (EReference)featureEClass.getEStructuralFeatures().get(13);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EReference getFeature_FeatureModel() {
-        return (EReference)featureEClass.getEStructuralFeatures().get(11);
+        return (EReference)featureEClass.getEStructuralFeatures().get(14);
     }
 
     /**
@@ -360,8 +387,26 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getGroup_Xor() {
+        return (EAttribute)groupEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getGroup_Or() {
+        return (EAttribute)groupEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EReference getGroup_Parent() {
-        return (EReference)groupEClass.getEStructuralFeatures().get(2);
+        return (EReference)groupEClass.getEStructuralFeatures().get(4);
     }
 
     /**
@@ -370,7 +415,7 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
      * @generated
      */
     public EReference getGroup_Features() {
-        return (EReference)groupEClass.getEStructuralFeatures().get(3);
+        return (EReference)groupEClass.getEStructuralFeatures().get(5);
     }
 
     /**
@@ -499,6 +544,9 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
         createEAttribute(featureEClass, FEATURE__UPPER);
         createEAttribute(featureEClass, FEATURE__ROOT);
         createEAttribute(featureEClass, FEATURE__ORPHAN);
+        createEAttribute(featureEClass, FEATURE__OPTIONAL);
+        createEAttribute(featureEClass, FEATURE__MANDATORY);
+        createEAttribute(featureEClass, FEATURE__CLONABLE);
         createEReference(featureEClass, FEATURE__PARENT);
         createEReference(featureEClass, FEATURE__ATTRIBUTES);
         createEReference(featureEClass, FEATURE__FEATURES);
@@ -508,6 +556,8 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
         groupEClass = createEClass(GROUP);
         createEAttribute(groupEClass, GROUP__LOWER);
         createEAttribute(groupEClass, GROUP__UPPER);
+        createEAttribute(groupEClass, GROUP__XOR);
+        createEAttribute(groupEClass, GROUP__OR);
         createEReference(groupEClass, GROUP__PARENT);
         createEReference(groupEClass, GROUP__FEATURES);
 
@@ -575,6 +625,9 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
         initEAttribute(getFeature_Upper(), ecorePackage.getEInt(), "upper", "1", 1, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getFeature_Root(), ecorePackage.getEBoolean(), "root", null, 1, 1, Feature.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
         initEAttribute(getFeature_Orphan(), ecorePackage.getEBoolean(), "orphan", null, 1, 1, Feature.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFeature_Optional(), ecorePackage.getEBoolean(), "optional", null, 1, 1, Feature.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFeature_Mandatory(), ecorePackage.getEBoolean(), "mandatory", null, 1, 1, Feature.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFeature_Clonable(), ecorePackage.getEBoolean(), "clonable", null, 1, 1, Feature.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
         initEReference(getFeature_Parent(), ecorePackage.getEObject(), null, "parent", null, 0, 1, Feature.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
         initEReference(getFeature_Attributes(), this.getAttribute(), null, "attributes", null, 0, -1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getFeature_Features(), this.getFeature(), null, "features", null, 0, -1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -582,8 +635,10 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
         initEReference(getFeature_FeatureModel(), this.getFeatureModel(), null, "featureModel", null, 0, 1, Feature.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
         initEClass(groupEClass, Group.class, "Group", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getGroup_Lower(), ecorePackage.getEInt(), "lower", "0", 1, 1, Group.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getGroup_Upper(), ecorePackage.getEInt(), "upper", "-1", 1, 1, Group.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getGroup_Lower(), ecorePackage.getEInt(), "lower", "1", 1, 1, Group.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getGroup_Upper(), ecorePackage.getEInt(), "upper", "1", 1, 1, Group.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getGroup_Xor(), ecorePackage.getEBoolean(), "xor", null, 1, 1, Group.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+        initEAttribute(getGroup_Or(), ecorePackage.getEBoolean(), "or", null, 1, 1, Group.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
         initEReference(getGroup_Parent(), this.getFeature(), this.getFeature_Groups(), "parent", null, 1, 1, Group.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getGroup_Features(), this.getFeature(), null, "features", null, 0, -1, Group.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

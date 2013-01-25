@@ -39,7 +39,7 @@ import cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayout;
 import cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayoutFactory;
 import cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayoutPackage;
 import cz.jpikl.yafmt.ui.editors.fm.parts.FeatureModelEditPartFactory;
-import cz.jpikl.yafmt.ui.editors.fm.util.SelectionConvertor;
+import cz.jpikl.yafmt.ui.editors.fm.util.SelectionConverter;
 import cz.jpikl.yafmt.ui.editors.fm.util.UnwrappingSelectionProvider;
 
 public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISelectionListener {
@@ -47,7 +47,7 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
     private FeatureModel featureModel;
     private ModelLayout modelLayout;
     private PropertySheetPage propertySheetPage;
-    private SelectionConvertor selectionConvertor;
+    private SelectionConverter selectionConvertor;
     
     public FeatureTreeEditor(FeatureModel featureModel) {
         if(featureModel == null)
@@ -105,7 +105,7 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
                 ((SelectionAction) action).setSelectionProvider(viewer);
         }
         
-        selectionConvertor = new SelectionConvertor(viewer.getEditPartRegistry());
+        selectionConvertor = new SelectionConverter(viewer.getEditPartRegistry());
     }
     
     @Override
@@ -169,12 +169,12 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
     
     @Override
     public void selectionChanged(IWorkbenchPart part, ISelection selection) {
+        // Take selection only from active part.
+        if(getSite().getPage().getActivePart() != part)
+            return;
+        
         // Update actions if selection comes from this editor.
         if(part instanceof FeatureModelEditor) {
-            // Check if editor is active. This is important otherwise editor selection 
-            // would be invalidated when deactivating current editor.
-            if(getSite().getPage().getActiveEditor() != part)
-                return;
             // Perform update if editor page is active within multipage editor part.
             if(((FeatureModelEditor) part).getSelectedPage() == this)
                 updateActions(getSelectionActions());

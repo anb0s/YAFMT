@@ -29,6 +29,15 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="orphan" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" changeable="false"
         volatile="true" transient="true" derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="optional" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" volatile="true"
+        transient="true" derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="mandatory" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" volatile="true"
+        transient="true" derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="clonable" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" changeable="false"
+        volatile="true" transient="true" derived="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"
         changeable="false" volatile="true" transient="true" derived="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="attributes" upperBound="-1"
@@ -42,9 +51,13 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Group">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="lower" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
-        defaultValueLiteral="0"/>
+        defaultValueLiteral="1"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="upper" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
-        defaultValueLiteral="-1"/>
+        defaultValueLiteral="1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="xor" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        volatile="true" transient="true" derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="or" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        volatile="true" transient="true" derived="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parent" lowerBound="1"
         eType="#//Feature" eOpposite="#//Feature/groups"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="features" upperBound="-1"

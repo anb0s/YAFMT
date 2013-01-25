@@ -16,6 +16,8 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link cz.jpikl.yafmt.model.fm.Group#getLower <em>Lower</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.Group#getUpper <em>Upper</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fm.Group#isXor <em>Xor</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fm.Group#isOr <em>Or</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.Group#getParent <em>Parent</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.Group#getFeatures <em>Features</em>}</li>
  * </ul>
@@ -28,7 +30,7 @@ import org.eclipse.emf.ecore.EObject;
 public interface Group extends EObject {
     /**
      * Returns the value of the '<em><b>Lower</b></em>' attribute.
-     * The default value is <code>"0"</code>.
+     * The default value is <code>"1"</code>.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Lower</em>' attribute isn't clear,
@@ -38,7 +40,7 @@ public interface Group extends EObject {
      * @return the value of the '<em>Lower</em>' attribute.
      * @see #setLower(int)
      * @see cz.jpikl.yafmt.model.fm.FeatureModelPackage#getGroup_Lower()
-     * @model default="0" required="true"
+     * @model default="1" required="true"
      * @generated
      */
     int getLower();
@@ -55,7 +57,7 @@ public interface Group extends EObject {
 
     /**
      * Returns the value of the '<em><b>Upper</b></em>' attribute.
-     * The default value is <code>"-1"</code>.
+     * The default value is <code>"1"</code>.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Upper</em>' attribute isn't clear,
@@ -65,7 +67,7 @@ public interface Group extends EObject {
      * @return the value of the '<em>Upper</em>' attribute.
      * @see #setUpper(int)
      * @see cz.jpikl.yafmt.model.fm.FeatureModelPackage#getGroup_Upper()
-     * @model default="-1" required="true"
+     * @model default="1" required="true"
      * @generated
      */
     int getUpper();
@@ -79,6 +81,58 @@ public interface Group extends EObject {
      * @generated
      */
     void setUpper(int value);
+
+    /**
+     * Returns the value of the '<em><b>Xor</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Xor</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Xor</em>' attribute.
+     * @see #setXor(boolean)
+     * @see cz.jpikl.yafmt.model.fm.FeatureModelPackage#getGroup_Xor()
+     * @model required="true" transient="true" volatile="true" derived="true"
+     * @generated
+     */
+    boolean isXor();
+
+    /**
+     * Sets the value of the '{@link cz.jpikl.yafmt.model.fm.Group#isXor <em>Xor</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Xor</em>' attribute.
+     * @see #isXor()
+     * @generated
+     */
+    void setXor(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>Or</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Or</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Or</em>' attribute.
+     * @see #setOr(boolean)
+     * @see cz.jpikl.yafmt.model.fm.FeatureModelPackage#getGroup_Or()
+     * @model required="true" transient="true" volatile="true" derived="true"
+     * @generated
+     */
+    boolean isOr();
+
+    /**
+     * Sets the value of the '{@link cz.jpikl.yafmt.model.fm.Group#isOr <em>Or</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Or</em>' attribute.
+     * @see #isOr()
+     * @generated
+     */
+    void setOr(boolean value);
 
     /**
      * Returns the value of the '<em><b>Parent</b></em>' container reference.

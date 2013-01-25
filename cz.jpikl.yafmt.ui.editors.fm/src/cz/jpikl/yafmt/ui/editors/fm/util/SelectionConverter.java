@@ -9,11 +9,11 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 
-public class SelectionConvertor {
+public class SelectionConverter {
 
     private Map<Object, Object> editPartRegistry;
     
-    public SelectionConvertor(Map<Object, Object> editPartRegistry) {
+    public SelectionConverter(Map<Object, Object> editPartRegistry) {
         this.editPartRegistry = editPartRegistry;
     }
     

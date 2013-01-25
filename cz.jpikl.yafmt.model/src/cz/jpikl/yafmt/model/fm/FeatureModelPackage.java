@@ -212,13 +212,40 @@ public interface FeatureModelPackage extends EPackage {
     int FEATURE__ORPHAN = 6;
 
     /**
+     * The feature id for the '<em><b>Optional</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FEATURE__OPTIONAL = 7;
+
+    /**
+     * The feature id for the '<em><b>Mandatory</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FEATURE__MANDATORY = 8;
+
+    /**
+     * The feature id for the '<em><b>Clonable</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FEATURE__CLONABLE = 9;
+
+    /**
      * The feature id for the '<em><b>Parent</b></em>' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int FEATURE__PARENT = 7;
+    int FEATURE__PARENT = 10;
 
     /**
      * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
@@ -227,7 +254,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FEATURE__ATTRIBUTES = 8;
+    int FEATURE__ATTRIBUTES = 11;
 
     /**
      * The feature id for the '<em><b>Features</b></em>' containment reference list.
@@ -236,7 +263,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FEATURE__FEATURES = 9;
+    int FEATURE__FEATURES = 12;
 
     /**
      * The feature id for the '<em><b>Groups</b></em>' containment reference list.
@@ -245,7 +272,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FEATURE__GROUPS = 10;
+    int FEATURE__GROUPS = 13;
 
     /**
      * The feature id for the '<em><b>Feature Model</b></em>' reference.
@@ -254,7 +281,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FEATURE__FEATURE_MODEL = 11;
+    int FEATURE__FEATURE_MODEL = 14;
 
     /**
      * The number of structural features of the '<em>Feature</em>' class.
@@ -263,7 +290,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FEATURE_FEATURE_COUNT = 12;
+    int FEATURE_FEATURE_COUNT = 15;
 
     /**
      * The meta object id for the '{@link cz.jpikl.yafmt.model.fm.impl.GroupImpl <em>Group</em>}' class.
@@ -294,13 +321,31 @@ public interface FeatureModelPackage extends EPackage {
     int GROUP__UPPER = 1;
 
     /**
+     * The feature id for the '<em><b>Xor</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int GROUP__XOR = 2;
+
+    /**
+     * The feature id for the '<em><b>Or</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int GROUP__OR = 3;
+
+    /**
      * The feature id for the '<em><b>Parent</b></em>' container reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int GROUP__PARENT = 2;
+    int GROUP__PARENT = 4;
 
     /**
      * The feature id for the '<em><b>Features</b></em>' containment reference list.
@@ -309,7 +354,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int GROUP__FEATURES = 3;
+    int GROUP__FEATURES = 5;
 
     /**
      * The number of structural features of the '<em>Group</em>' class.
@@ -318,7 +363,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int GROUP_FEATURE_COUNT = 4;
+    int GROUP_FEATURE_COUNT = 6;
 
     /**
      * The meta object id for the '{@link cz.jpikl.yafmt.model.fm.impl.AttributeImpl <em>Attribute</em>}' class.
@@ -598,6 +643,39 @@ public interface FeatureModelPackage extends EPackage {
     EAttribute getFeature_Orphan();
 
     /**
+     * Returns the meta object for the attribute '{@link cz.jpikl.yafmt.model.fm.Feature#isOptional <em>Optional</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Optional</em>'.
+     * @see cz.jpikl.yafmt.model.fm.Feature#isOptional()
+     * @see #getFeature()
+     * @generated
+     */
+    EAttribute getFeature_Optional();
+
+    /**
+     * Returns the meta object for the attribute '{@link cz.jpikl.yafmt.model.fm.Feature#isMandatory <em>Mandatory</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Mandatory</em>'.
+     * @see cz.jpikl.yafmt.model.fm.Feature#isMandatory()
+     * @see #getFeature()
+     * @generated
+     */
+    EAttribute getFeature_Mandatory();
+
+    /**
+     * Returns the meta object for the attribute '{@link cz.jpikl.yafmt.model.fm.Feature#isClonable <em>Clonable</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Clonable</em>'.
+     * @see cz.jpikl.yafmt.model.fm.Feature#isClonable()
+     * @see #getFeature()
+     * @generated
+     */
+    EAttribute getFeature_Clonable();
+
+    /**
      * Returns the meta object for the containment reference list '{@link cz.jpikl.yafmt.model.fm.Feature#getAttributes <em>Attributes</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -683,6 +761,28 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      */
     EAttribute getGroup_Upper();
+
+    /**
+     * Returns the meta object for the attribute '{@link cz.jpikl.yafmt.model.fm.Group#isXor <em>Xor</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Xor</em>'.
+     * @see cz.jpikl.yafmt.model.fm.Group#isXor()
+     * @see #getGroup()
+     * @generated
+     */
+    EAttribute getGroup_Xor();
+
+    /**
+     * Returns the meta object for the attribute '{@link cz.jpikl.yafmt.model.fm.Group#isOr <em>Or</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Or</em>'.
+     * @see cz.jpikl.yafmt.model.fm.Group#isOr()
+     * @see #getGroup()
+     * @generated
+     */
+    EAttribute getGroup_Or();
 
     /**
      * Returns the meta object for the container reference '{@link cz.jpikl.yafmt.model.fm.Group#getParent <em>Parent</em>}'.
@@ -957,6 +1057,30 @@ public interface FeatureModelPackage extends EPackage {
         EAttribute FEATURE__ORPHAN = eINSTANCE.getFeature_Orphan();
 
         /**
+         * The meta object literal for the '<em><b>Optional</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FEATURE__OPTIONAL = eINSTANCE.getFeature_Optional();
+
+        /**
+         * The meta object literal for the '<em><b>Mandatory</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FEATURE__MANDATORY = eINSTANCE.getFeature_Mandatory();
+
+        /**
+         * The meta object literal for the '<em><b>Clonable</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FEATURE__CLONABLE = eINSTANCE.getFeature_Clonable();
+
+        /**
          * The meta object literal for the '<em><b>Attributes</b></em>' containment reference list feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -1021,6 +1145,22 @@ public interface FeatureModelPackage extends EPackage {
          * @generated
          */
         EAttribute GROUP__UPPER = eINSTANCE.getGroup_Upper();
+
+        /**
+         * The meta object literal for the '<em><b>Xor</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute GROUP__XOR = eINSTANCE.getGroup_Xor();
+
+        /**
+         * The meta object literal for the '<em><b>Or</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute GROUP__OR = eINSTANCE.getGroup_Or();
 
         /**
          * The meta object literal for the '<em><b>Parent</b></em>' container reference feature.

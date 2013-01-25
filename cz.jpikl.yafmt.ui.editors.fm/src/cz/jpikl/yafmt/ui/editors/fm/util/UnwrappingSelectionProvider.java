@@ -28,7 +28,7 @@ public class UnwrappingSelectionProvider implements ISelectionProvider, ISelecti
     
     @Override
     public ISelection getSelection() {
-        return SelectionConvertor.unwrapSelection(viewer.getSelection());
+        return SelectionConverter.unwrapSelection(viewer.getSelection());
     }
     
     @Override
@@ -39,7 +39,7 @@ public class UnwrappingSelectionProvider implements ISelectionProvider, ISelecti
     
     @Override
     public void selectionChanged(SelectionChangedEvent event) {
-        ISelection selection = SelectionConvertor.unwrapSelection(event.getSelection());
+        ISelection selection = SelectionConverter.unwrapSelection(event.getSelection());
         fireSelectionChangedEvent(new SelectionChangedEvent(this, selection));
     }
     

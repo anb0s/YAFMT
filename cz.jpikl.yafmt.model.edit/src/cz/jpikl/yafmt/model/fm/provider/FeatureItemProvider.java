@@ -3,22 +3,14 @@
 package cz.jpikl.yafmt.model.fm.provider;
 
 
-import cz.jpikl.yafmt.model.fm.Attribute;
-import cz.jpikl.yafmt.model.fm.Feature;
-import cz.jpikl.yafmt.model.fm.FeatureModelFactory;
-import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.common.util.ResourceLocator;
-
 import org.eclipse.emf.ecore.EStructuralFeature;
-
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -30,6 +22,11 @@ import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptorDecorator;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+
+import cz.jpikl.yafmt.model.fm.Attribute;
+import cz.jpikl.yafmt.model.fm.Feature;
+import cz.jpikl.yafmt.model.fm.FeatureModelFactory;
+import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
 
 /**
  * This is the item provider adapter for a {@link cz.jpikl.yafmt.model.fm.Feature} object.
@@ -311,6 +308,7 @@ public class FeatureItemProvider
     public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
         if (childrenFeatures == null) {
             super.getChildrenFeatures(object);
+            childrenFeatures.add(FeatureModelPackage.Literals.FEATURE__ATTRIBUTES);
             childrenFeatures.add(FeatureModelPackage.Literals.FEATURE__FEATURES);
             childrenFeatures.add(FeatureModelPackage.Literals.FEATURE__GROUPS);
         }
@@ -334,25 +332,34 @@ public class FeatureItemProvider
      * This returns Feature.gif.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     @Override
     public Object getImage(Object object) {
-        return overlayImage(object, getResourceLocator().getImage("full/obj16/Feature"));
+        Feature feature = (Feature) object;
+        if(feature.isRoot())
+            return getResourceLocator().getImage("feature-root.png");
+        else if(feature.isMandatory())
+            return getResourceLocator().getImage("feature-man.png");
+        else if(feature.isOptional())
+            return getResourceLocator().getImage("feature-opt.png");
+        else
+            return getResourceLocator().getImage("feature.png");
     }
 
     /**
      * This returns the label text for the adapted class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     @Override
     public String getText(Object object) {
-        String label = ((Feature)object).getName();
-        return label == null || label.length() == 0 ?
-            getString("_UI_Feature_type") :
-            getString("_UI_Feature_type") + " " + label;
+        Feature feature = (Feature) object;
+        String label = feature.getName();
+        if(feature.isClonable())
+            label += " [" + feature.getLower() + ".." + feature.getUpper() + "]"; 
+        return label;
     }
 
     /**

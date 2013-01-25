@@ -32,6 +32,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.GroupImpl#getLower <em>Lower</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.GroupImpl#getUpper <em>Upper</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fm.impl.GroupImpl#isXor <em>Xor</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fm.impl.GroupImpl#isOr <em>Or</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.GroupImpl#getParent <em>Parent</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.GroupImpl#getFeatures <em>Features</em>}</li>
  * </ul>
@@ -48,7 +50,7 @@ public class GroupImpl extends EObjectImpl implements Group {
      * @generated
      * @ordered
      */
-    protected static final int LOWER_EDEFAULT = 0;
+    protected static final int LOWER_EDEFAULT = 1;
 
     /**
      * The cached value of the '{@link #getLower() <em>Lower</em>}' attribute.
@@ -68,7 +70,7 @@ public class GroupImpl extends EObjectImpl implements Group {
      * @generated
      * @ordered
      */
-    protected static final int UPPER_EDEFAULT = -1;
+    protected static final int UPPER_EDEFAULT = 1;
 
     /**
      * The cached value of the '{@link #getUpper() <em>Upper</em>}' attribute.
@@ -79,6 +81,26 @@ public class GroupImpl extends EObjectImpl implements Group {
      * @ordered
      */
     protected int upper = UPPER_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isXor() <em>Xor</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isXor()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean XOR_EDEFAULT = false;
+
+    /**
+     * The default value of the '{@link #isOr() <em>Or</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isOr()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean OR_EDEFAULT = false;
 
     /**
      * The cached value of the '{@link #getFeatures() <em>Features</em>}' containment reference list.
@@ -149,6 +171,49 @@ public class GroupImpl extends EObjectImpl implements Group {
         upper = newUpper;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, FeatureModelPackage.GROUP__UPPER, oldUpper, upper));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    public boolean isXor() {
+        return (lower == 1) && (upper == 1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    public void setXor(boolean newXor) {
+        if(newXor) {
+            setLower(1);
+            setUpper(1);
+        }
+        else {
+            setLower(1);
+            setUpper(features.isEmpty() ? 1 : features.size());
+        }
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    public boolean isOr() {
+        return (lower == 1) && (upper > 1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    public void setOr(boolean newOr) {
+        setXor(!newOr);
     }
 
     /**
@@ -262,6 +327,10 @@ public class GroupImpl extends EObjectImpl implements Group {
                 return getLower();
             case FeatureModelPackage.GROUP__UPPER:
                 return getUpper();
+            case FeatureModelPackage.GROUP__XOR:
+                return isXor();
+            case FeatureModelPackage.GROUP__OR:
+                return isOr();
             case FeatureModelPackage.GROUP__PARENT:
                 return getParent();
             case FeatureModelPackage.GROUP__FEATURES:
@@ -284,6 +353,12 @@ public class GroupImpl extends EObjectImpl implements Group {
                 return;
             case FeatureModelPackage.GROUP__UPPER:
                 setUpper((Integer)newValue);
+                return;
+            case FeatureModelPackage.GROUP__XOR:
+                setXor((Boolean)newValue);
+                return;
+            case FeatureModelPackage.GROUP__OR:
+                setOr((Boolean)newValue);
                 return;
             case FeatureModelPackage.GROUP__PARENT:
                 setParent((Feature)newValue);
@@ -310,6 +385,12 @@ public class GroupImpl extends EObjectImpl implements Group {
             case FeatureModelPackage.GROUP__UPPER:
                 setUpper(UPPER_EDEFAULT);
                 return;
+            case FeatureModelPackage.GROUP__XOR:
+                setXor(XOR_EDEFAULT);
+                return;
+            case FeatureModelPackage.GROUP__OR:
+                setOr(OR_EDEFAULT);
+                return;
             case FeatureModelPackage.GROUP__PARENT:
                 setParent((Feature)null);
                 return;
@@ -332,6 +413,10 @@ public class GroupImpl extends EObjectImpl implements Group {
                 return lower != LOWER_EDEFAULT;
             case FeatureModelPackage.GROUP__UPPER:
                 return upper != UPPER_EDEFAULT;
+            case FeatureModelPackage.GROUP__XOR:
+                return isXor() != XOR_EDEFAULT;
+            case FeatureModelPackage.GROUP__OR:
+                return isOr() != OR_EDEFAULT;
             case FeatureModelPackage.GROUP__PARENT:
                 return getParent() != null;
             case FeatureModelPackage.GROUP__FEATURES:

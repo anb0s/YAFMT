@@ -160,25 +160,22 @@ public class AttributeItemProvider
      * This returns Attribute.gif.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     @Override
     public Object getImage(Object object) {
-        return overlayImage(object, getResourceLocator().getImage("full/obj16/Attribute"));
+        return getResourceLocator().getImage("attribute.png");
     }
 
     /**
      * This returns the label text for the adapted class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     @Override
     public String getText(Object object) {
-        String label = ((Attribute)object).getName();
-        return label == null || label.length() == 0 ?
-            getString("_UI_Attribute_type") :
-            getString("_UI_Attribute_type") + " " + label;
+        return ((Attribute)object).getName();
     }
 
     /**

@@ -31,6 +31,10 @@ public class FeatureModelContentOutlinePage extends ContentOutlinePage implement
 
     @Override
     public void selectionChanged(IWorkbenchPart part, ISelection selection) {
+        // Take selection only from active part.
+        if(getSite().getPage().getActivePart() != part)
+            return;
+        
         if(!(part instanceof ContentOutline))
             setSelection(selection);
     }

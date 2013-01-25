@@ -147,11 +147,17 @@ public class GroupItemProvider
      * This returns Group.gif.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     @Override
     public Object getImage(Object object) {
-        return overlayImage(object, getResourceLocator().getImage("full/obj16/Group"));
+        Group group = (Group) object;
+        if(group.isOr())
+            return getResourceLocator().getImage("group-or.png");
+        else if(group.isXor())
+            return getResourceLocator().getImage("group-xor.png");
+        else
+            return getResourceLocator().getImage("group.png");
     }
 
     /**
@@ -162,8 +168,11 @@ public class GroupItemProvider
      */
     @Override
     public String getText(Object object) {
-        Group group = (Group)object;
-        return getString("_UI_Group_type") + " " + group.getLower();
+        String label = getString("_UI_Group_type");
+        Group group = (Group) object;
+        if(!group.isOr() && !group.isXor())
+            label += " <" + group.getLower() + "-" + group.getUpper() + ">";
+        return label;
     }
 
     /**
