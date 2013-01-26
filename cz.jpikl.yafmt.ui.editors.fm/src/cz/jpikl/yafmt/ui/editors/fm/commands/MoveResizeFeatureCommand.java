@@ -4,36 +4,36 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.commands.Command;
 
 import cz.jpikl.yafmt.model.fm.Feature;
-import cz.jpikl.yafmt.ui.editors.fm.parts.FeatureModelEditPart;
+import cz.jpikl.yafmt.ui.editors.fm.layout.IModelLayoutProvider;
 
 public class MoveResizeFeatureCommand extends Command {
 
-    private FeatureModelEditPart featureModelEditPart;
+    private IModelLayoutProvider layoutProvider;
     private Feature feature;
     private Rectangle newBounds;
     private Rectangle oldBounds;
     
-    public MoveResizeFeatureCommand(FeatureModelEditPart featureModelEditPart, Feature feature, Rectangle bounds) {
+    public MoveResizeFeatureCommand(IModelLayoutProvider layoutProvider, Feature feature, Rectangle bounds) {
         setLabel("Move/Resize Feature");
-        this.featureModelEditPart = featureModelEditPart;
+        this.layoutProvider = layoutProvider;
         this.feature = feature;
         this.newBounds = bounds;
     }
 
     @Override
     public void execute() {
-        oldBounds = featureModelEditPart.getFeatureBounds(feature);
+        oldBounds = layoutProvider.getObjectBounds(feature);
         redo();
     }
     
     @Override
     public void redo() {
-        featureModelEditPart.setFeatureBounds(feature, newBounds);
+        layoutProvider.setObjectBounds(feature, newBounds);
     }
 
     @Override
     public void undo() {
-        featureModelEditPart.setFeatureBounds(feature, oldBounds);
+        layoutProvider.setObjectBounds(feature, oldBounds);
     }
     
 }

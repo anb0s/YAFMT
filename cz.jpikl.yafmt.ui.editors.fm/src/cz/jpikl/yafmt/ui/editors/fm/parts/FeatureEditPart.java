@@ -2,23 +2,39 @@ package cz.jpikl.yafmt.ui.editors.fm.parts;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
-import org.eclipse.ui.views.properties.IPropertySource;
 
 import cz.jpikl.yafmt.model.fm.Feature;
-import cz.jpikl.yafmt.model.fm.provider.util.FeatureModelProviderUtil;
+import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
+import cz.jpikl.yafmt.model.util.IModelListener;
+import cz.jpikl.yafmt.model.util.ModelListenerAdapter;
 import cz.jpikl.yafmt.ui.editors.fm.figures.FeatureFigure;
+import cz.jpikl.yafmt.ui.editors.fm.layout.IModelLayoutProvider;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureEditPolicy;
 
-public class FeatureEditPart extends AbstractGraphicalEditPart {
+public class FeatureEditPart extends AbstractGraphicalEditPart implements IModelListener {
 
     private Feature feature;
-    private IPropertySource propertySource;
+    private ModelListenerAdapter listenerAdapter;
     
     public FeatureEditPart(Feature feature) {
         this.feature = feature;
+        this.listenerAdapter = new ModelListenerAdapter(this);
         setModel(feature);
+    }
+    
+    @Override
+    public void activate() {
+        super.activate();
+        listenerAdapter.connect(feature);
+    }
+    
+    @Override
+    public void deactivate() {
+        listenerAdapter.dispose();
+        super.deactivate();
     }
 
     @Override
@@ -28,33 +44,22 @@ public class FeatureEditPart extends AbstractGraphicalEditPart {
     
     @Override
     protected void refreshVisuals() {
-        FeatureModelEditPart featureModelEditPart = (FeatureModelEditPart) getParent();
-        Rectangle bounds = featureModelEditPart.getFeatureBounds(feature);
-        if(bounds == null) {
-            bounds = new Rectangle(0, 0, 100, 24);
-            featureModelEditPart.setFeatureBounds(feature, bounds);
-        }
-        featureModelEditPart.setLayoutConstraint(this, getFigure(), bounds);
+        IModelLayoutProvider layoutProvider = (IModelLayoutProvider) getParent();
+        Rectangle bounds = layoutProvider.getObjectBounds(feature);
+        if(bounds == null)
+            bounds = new Rectangle(0, 0, 100, 25);
+        layoutProvider.setObjectBounds(feature, bounds);
     }
 
     @Override
     protected void createEditPolicies() {
         installEditPolicy(EditPolicy.COMPONENT_ROLE, new FeatureEditPolicy());
     }
-    
-    // ======================================================================
-    //  IAdaptable
-    // ======================================================================
-    
+
     @Override
-    @SuppressWarnings("rawtypes")
-    public Object getAdapter(Class type) {
-        /*if(type == IPropertySource.class) {
-            if(propertySource == null)
-                propertySource = FeatureModelProviderUtil.getContentProvider().getPropertySource(feature);
-            return propertySource;
-        }*/
-        return super.getAdapter(type);
+    public void modelChanged(Notification notification) {
+        if(notification.getFeatureID(Feature.class) == FeatureModelPackage.FEATURE__NAME)
+           ((FeatureFigure) getFigure()).setFeatureName(notification.getNewStringValue());
     }
 
 }

@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -364,7 +365,8 @@ public class FeatureImpl extends EObjectImpl implements Feature {
      * @generated NOT
      */
     public boolean isRoot() {
-        return getFeatureModel().getRoot() == this;
+        FeatureModel featureModel = getFeatureModel();
+        return (featureModel == null) ? false : (featureModel.getRoot() == this); 
     }
 
     /**
@@ -495,7 +497,8 @@ public class FeatureImpl extends EObjectImpl implements Feature {
      * @generated NOT
      */
     public FeatureModel basicGetFeatureModel() {
-        return (FeatureModel) eResource().getContents().get(0);
+        Resource resource = eResource();
+        return (resource == null) ? null : (FeatureModel) resource.getContents().get(0);
     }
 
     /**

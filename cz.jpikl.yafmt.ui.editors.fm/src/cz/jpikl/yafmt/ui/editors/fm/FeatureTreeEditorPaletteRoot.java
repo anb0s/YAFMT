@@ -48,7 +48,7 @@ public class FeatureTreeEditorPaletteRoot extends PaletteRoot {
     private ToolEntry createMandatoryFeatureCreationEntry() {
         ImageDescriptor img = FeatureModelEditorPlugin.getImageDescriptor("icons/feature-man.png");
         CreationToolEntry featureCreationEntry = new CombinedTemplateCreationEntry(
-            "Mandatory Feature", "Add new mandatory feature.", new FeatureFactory(false), img, null);
+            "Mandatory Feature", "Add new mandatory feature.", new FeatureFactory(true), img, null);
         return featureCreationEntry;
     }
     
