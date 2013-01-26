@@ -34,6 +34,6 @@ public class FeatureEditPolicy extends AbstractEditPolicy {
         if((attributeIndex < 0) || (attributeIndex >= feature.getAttributes().size()))
             return null;
         return new RemoveAttributeCommand(feature, attributeIndex);
-    }
+    }   
     
 }

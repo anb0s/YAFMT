@@ -76,7 +76,6 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart implements I
     
     @Override
     public void setObjectBounds(EObject object, Rectangle bounds) {
-        System.out.println("aaa");
         GraphicalEditPart editPart = getEditPartForObject(object);
         if((editPart != null) && (object != null)) {
             setLayoutConstraint(editPart, editPart.getFigure(), bounds);

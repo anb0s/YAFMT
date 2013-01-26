@@ -22,6 +22,10 @@ public class FeatureFigure extends RoundedRectangle {
         setConstraint(label, BorderLayout.CENTER);
     }
     
+    public Label getLabel() {
+        return label;
+    }
+    
     @Override
     protected void fillShape(Graphics graphics) {
         Rectangle bounds = getBounds();
@@ -38,9 +42,5 @@ public class FeatureFigure extends RoundedRectangle {
         pattern.dispose();
         lightBlue.dispose();
     }
-    
-    public void setFeatureName(String name) {
-        label.setText(name);
-    }
-    
+        
 }

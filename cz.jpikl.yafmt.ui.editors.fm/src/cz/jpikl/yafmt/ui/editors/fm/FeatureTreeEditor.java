@@ -14,11 +14,13 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
+import org.eclipse.gef.dnd.TemplateTransferDragSourceListener;
 import org.eclipse.gef.dnd.TemplateTransferDropTargetListener;
 import org.eclipse.gef.editparts.FreeformGraphicalRootEditPart;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.ui.actions.ActionRegistry;
 import org.eclipse.gef.ui.actions.SelectionAction;
+import org.eclipse.gef.ui.palette.PaletteViewer;
 import org.eclipse.gef.ui.parts.GraphicalEditorWithPalette;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
@@ -116,6 +118,13 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
     @Override
     protected void initializeGraphicalViewer() {
         getGraphicalViewer().setContents(featureModel);
+    }
+    
+    @Override
+    protected void configurePaletteViewer() {
+        super.configurePaletteViewer();
+        PaletteViewer palleteViewer = getPaletteViewer();
+        palleteViewer.addDragSourceListener(new TemplateTransferDragSourceListener(palleteViewer));
     }
     
     @Override

@@ -1,7 +1,6 @@
 package cz.jpikl.yafmt.ui.editors.fm;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.gef.palette.CombinedTemplateCreationEntry;
 import org.eclipse.gef.palette.ConnectionCreationToolEntry;
 import org.eclipse.gef.palette.CreationToolEntry;
 import org.eclipse.gef.palette.MarqueeToolEntry;
@@ -14,6 +13,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModelFactory;
+import cz.jpikl.yafmt.ui.editors.fm.tools.CreationToolWithDirectEdit;
 
 public class FeatureTreeEditorPaletteRoot extends PaletteRoot {
 
@@ -40,15 +40,17 @@ public class FeatureTreeEditorPaletteRoot extends PaletteRoot {
         
     private ToolEntry createOptionalFeatureCreationEntry() {
         ImageDescriptor img = FeatureModelEditorPlugin.getImageDescriptor("icons/feature-opt.png");
-        CreationToolEntry featureCreationEntry = new CombinedTemplateCreationEntry(
+        CreationToolEntry featureCreationEntry = new CreationToolEntry(
             "Optional Feature", "Add new optional feature.", new FeatureFactory(false), img, null);
+        featureCreationEntry.setToolClass(CreationToolWithDirectEdit.class);
         return featureCreationEntry;
     }
     
     private ToolEntry createMandatoryFeatureCreationEntry() {
         ImageDescriptor img = FeatureModelEditorPlugin.getImageDescriptor("icons/feature-man.png");
-        CreationToolEntry featureCreationEntry = new CombinedTemplateCreationEntry(
+        CreationToolEntry featureCreationEntry = new CreationToolEntry(
             "Mandatory Feature", "Add new mandatory feature.", new FeatureFactory(true), img, null);
+        featureCreationEntry.setToolClass(CreationToolWithDirectEdit.class);
         return featureCreationEntry;
     }
     
