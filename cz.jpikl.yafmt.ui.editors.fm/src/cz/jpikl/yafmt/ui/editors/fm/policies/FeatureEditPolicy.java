@@ -2,14 +2,16 @@ package cz.jpikl.yafmt.ui.editors.fm.policies;
 
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
-import org.eclipse.gef.editpolicies.AbstractEditPolicy;
+import org.eclipse.gef.editpolicies.ComponentEditPolicy;
+import org.eclipse.gef.requests.GroupRequest;
 
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.ui.editors.fm.commands.AddAttributeCommand;
+import cz.jpikl.yafmt.ui.editors.fm.commands.DeleteFeatureCommand;
 import cz.jpikl.yafmt.ui.editors.fm.commands.RemoveAttributeCommand;
 import cz.jpikl.yafmt.ui.editors.fm.util.RequestConstants;
 
-public class FeatureEditPolicy extends AbstractEditPolicy {
+public class FeatureEditPolicy extends ComponentEditPolicy {
 
     @Override
     public Command getCommand(Request request) {
@@ -23,7 +25,7 @@ public class FeatureEditPolicy extends AbstractEditPolicy {
             Integer attributeIndex = (Integer) request.getExtendedData().get("index");
             return createRemoveAttributeCommand(feature, attributeIndex);
         }
-        return null;
+        return super.getCommand(request);
     }
 
     private Command createAddAttributeCommand(Feature feature) {
@@ -35,5 +37,13 @@ public class FeatureEditPolicy extends AbstractEditPolicy {
             return null;
         return new RemoveAttributeCommand(feature, attributeIndex);
     }   
+    
+    @Override
+    protected Command createDeleteCommand(GroupRequest deleteRequest) {
+        Feature feature = (Feature) getHost().getModel();
+        if(feature.isRoot())
+            return null;
+        return new DeleteFeatureCommand(feature);
+    }
     
 }
