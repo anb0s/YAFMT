@@ -170,8 +170,11 @@ public class GroupItemProvider
     public String getText(Object object) {
         String label = getString("_UI_Group_type");
         Group group = (Group) object;
-        if(!group.isOr() && !group.isXor())
-            label += " <" + group.getLower() + "-" + group.getUpper() + ">";
+        if(!group.isOr() && !group.isXor()) {
+            int lower = group.getLower();
+            int upper = group.getUpper();
+            label += " <" + lower + "-" + ((upper == -1) ? "*" : upper) + ">";
+        }
         return label;
     }
 

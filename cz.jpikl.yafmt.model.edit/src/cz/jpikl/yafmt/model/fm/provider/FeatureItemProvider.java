@@ -357,8 +357,11 @@ public class FeatureItemProvider
     public String getText(Object object) {
         Feature feature = (Feature) object;
         String label = feature.getName();
-        if(feature.isClonable())
-            label += " [" + feature.getLower() + ".." + feature.getUpper() + "]"; 
+        if(feature.isClonable()) {
+            int lower = feature.getLower();
+            int upper = feature.getUpper();
+            label += " [" + lower + ".." + ((upper == -1) ? "*" : upper) + "]";
+        }
         return label;
     }
 

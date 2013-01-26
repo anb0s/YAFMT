@@ -194,7 +194,17 @@ public class GroupImpl extends EObjectImpl implements Group {
         }
         else {
             setLower(1);
-            setUpper(features.isEmpty() ? 1 : features.size());
+            int sum = 0;
+            for(Feature feature: features) {
+                if(feature.getLower() == -1) {
+                    sum = -1;
+                    break;
+                }
+                else {
+                    sum += feature.getLower();
+                }
+            }
+            setUpper((sum == 0) ? 1 : sum);
         }
     }
 
@@ -204,7 +214,7 @@ public class GroupImpl extends EObjectImpl implements Group {
      * @generated NOT
      */
     public boolean isOr() {
-        return (lower == 1) && (upper > 1);
+        return (lower == 1) && ((upper > 1) || (upper == -1));
     }
 
     /**

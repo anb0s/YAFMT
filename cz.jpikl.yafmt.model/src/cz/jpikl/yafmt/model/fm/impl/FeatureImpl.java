@@ -421,7 +421,7 @@ public class FeatureImpl extends EObjectImpl implements Feature {
      * @generated NOT
      */
     public boolean isClonable() {
-        return upper > 1;
+        return (upper > 1) || (upper == -1);
     }
 
     /**
