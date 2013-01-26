@@ -18,40 +18,45 @@ import org.eclipse.ui.part.MultiPageEditorPart;
 
 public class FeatureModelEditorContributor extends ActionBarContributor implements IPageChangedListener {
 
-    private MultiPageEditorPart activeEditor;
+    private MultiPageEditorPart multipageEditor;
     
     @Override
     public void dispose() {
-        if(activeEditor != null)
-            activeEditor.removePageChangedListener(this);
+        if(multipageEditor != null) {
+            multipageEditor.removePageChangedListener(this);
+            multipageEditor = null;
+        }
         super.dispose();
     }
     
     @Override
     public void setActiveEditor(IEditorPart editor) {
-        if(activeEditor != null)
-            activeEditor.removePageChangedListener(this);
-        activeEditor = (MultiPageEditorPart) editor;
-        activeEditor.addPageChangedListener(this);
-        setActivePage((IEditorPart) activeEditor.getSelectedPage());
-    }
-    
-    public void setActivePage(IEditorPart editor) {
+        if(multipageEditor != null) {
+            multipageEditor.removePageChangedListener(this);
+            multipageEditor = null;
+        }
+                
+        if(editor instanceof MultiPageEditorPart) {
+            multipageEditor = (MultiPageEditorPart) editor;
+            multipageEditor.addPageChangedListener(this);
+            editor = (IEditorPart) multipageEditor.getSelectedPage();
+        }
+        
         super.setActiveEditor(editor);
     }
-    
+        
     @Override
     @SuppressWarnings("unchecked")
     public void pageChanged(PageChangedEvent event) {
-        IEditorPart activaPage = (IEditorPart) event.getSelectedPage();
-        setActivePage(activaPage);
+        IEditorPart activePage = (IEditorPart) event.getSelectedPage();
+        super.setActiveEditor(activePage);
         
-        // Manualy update actions when page changes (actions react only to editor part changes).
+        // Manually update actions when page changes (actions react only to editor part changes).
         Iterator<Map.Entry<String, IAction>> it = getActionRegistry().getActions();
         while(it.hasNext()) {
             IAction action = it.next().getValue();
             if(action instanceof RetargetAction)
-                ((RetargetAction) action).partActivated(activaPage);
+                ((RetargetAction) action).partActivated(activePage);
         }
     }
     
