@@ -5,11 +5,12 @@ import org.eclipse.gef.palette.CombinedTemplateCreationEntry;
 import org.eclipse.gef.palette.ConnectionCreationToolEntry;
 import org.eclipse.gef.palette.CreationToolEntry;
 import org.eclipse.gef.palette.MarqueeToolEntry;
-import org.eclipse.gef.palette.PaletteGroup;
+import org.eclipse.gef.palette.PaletteDrawer;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.palette.PanningSelectionToolEntry;
 import org.eclipse.gef.palette.ToolEntry;
 import org.eclipse.gef.requests.SimpleFactory;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModelFactory;
@@ -19,32 +20,50 @@ public class FeatureTreeEditorPaletteRoot extends PaletteRoot {
     public FeatureTreeEditorPaletteRoot() {
         ToolEntry selectionEntry = new PanningSelectionToolEntry();
         ToolEntry marqueeEntry = new MarqueeToolEntry();
-        ToolEntry featureCreationEntry = createFeatureCreationEntry();
-        ToolEntry connectionCreationEntry = new ConnectionCreationToolEntry(
-                "Connection", "Create a connection.", null, null, null);
+        ToolEntry optionalFeatureCreationEntry = createOptionalFeatureCreationEntry();
+        ToolEntry mandatoryFeatureCreationEntry = createMandatoryFeatureCreationEntry();
+        ToolEntry connectionCreationEntry = createConnectionCreationEntry();
         
-        // TODO use PaletteToolbar or PaletteDrawer instead.
-        // TODO add icons.
-        PaletteGroup group = new PaletteGroup(null);
-        group.add(selectionEntry);
-        group.add(marqueeEntry);
-        group.add(featureCreationEntry);
-        group.add(connectionCreationEntry);
+        PaletteDrawer selectionTools = new PaletteDrawer("Selection Tools");
+        selectionTools.add(selectionEntry);
+        selectionTools.add(marqueeEntry);
         
-        add(group);
+        PaletteDrawer cretionTools = new PaletteDrawer("Creation Tools");
+        cretionTools.add(optionalFeatureCreationEntry);
+        cretionTools.add(mandatoryFeatureCreationEntry);
+        cretionTools.add(connectionCreationEntry);
+        
+        add(selectionTools);
+        add(cretionTools);
         setDefaultEntry(selectionEntry);
     }
-    
-    private ToolEntry createFeatureCreationEntry() {
+        
+    private ToolEntry createOptionalFeatureCreationEntry() {
+        ImageDescriptor img = FeatureModelEditorPlugin.getImageDescriptor("icons/feature-opt.png");
         CreationToolEntry featureCreationEntry = new CombinedTemplateCreationEntry(
-            "Feature", "Add a new feature.", new FeatureFactory(), null, null);
+            "Optional Feature", "Add new optional feature.", new FeatureFactory(false), img, null);
         return featureCreationEntry;
+    }
+    
+    private ToolEntry createMandatoryFeatureCreationEntry() {
+        ImageDescriptor img = FeatureModelEditorPlugin.getImageDescriptor("icons/feature-man.png");
+        CreationToolEntry featureCreationEntry = new CombinedTemplateCreationEntry(
+            "Mandatory Feature", "Add new mandatory feature.", new FeatureFactory(false), img, null);
+        return featureCreationEntry;
+    }
+    
+    private ToolEntry createConnectionCreationEntry() {
+        ImageDescriptor img = FeatureModelEditorPlugin.getImageDescriptor("icons/connection.png");
+        return new ConnectionCreationToolEntry("Connection", "Create a connection.", null, img, null);
     }
     
     private static class FeatureFactory extends SimpleFactory {
 
-        public FeatureFactory() {
+        private boolean mandatoryFeatures;
+        
+        public FeatureFactory(boolean mandatoryFeatures) {
             super(Feature.class);
+            this.mandatoryFeatures = mandatoryFeatures;
         }
         
         @Override
@@ -52,6 +71,7 @@ public class FeatureTreeEditorPaletteRoot extends PaletteRoot {
             Feature feature = FeatureModelFactory.eINSTANCE.createFeature();
             feature.setId(EcoreUtil.generateUUID());
             feature.setName("New feature");
+            feature.setMandatory(mandatoryFeatures);
             return feature;
         }
         
