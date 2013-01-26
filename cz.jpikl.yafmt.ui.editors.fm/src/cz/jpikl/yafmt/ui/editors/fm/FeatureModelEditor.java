@@ -50,7 +50,7 @@ public class FeatureModelEditor extends MultiPageEditorPart implements IResource
     }
 		
 	protected void createPages() {
-		featureTreeEditor = new FeatureTreeEditor(featureModel);
+		featureTreeEditor = new FeatureTreeEditor(this, featureModel);
 		
 		try {
 		    addPage(featureTreeEditor, getEditorInput());
@@ -125,17 +125,15 @@ public class FeatureModelEditor extends MultiPageEditorPart implements IResource
 			}            
 		});
 	}
-	
+		
 	@Override
 	@SuppressWarnings("rawtypes")
 	public Object getAdapter(Class type) {
 	    if(type == FeatureModel.class)
 	        return featureModel;
 	    if(type == IContentOutlinePage.class) {
-	        if(contentOutlinePage == null) {
+	        if(contentOutlinePage == null)
 	            contentOutlinePage = new FeatureModelContentOutlinePage(featureModel);
-	            getSite().getPage().addSelectionListener(contentOutlinePage);
-	        }
 	        return contentOutlinePage;
 	    }
 	    return super.getAdapter(type);

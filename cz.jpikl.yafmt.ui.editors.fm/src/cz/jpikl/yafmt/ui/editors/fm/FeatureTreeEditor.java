@@ -29,7 +29,9 @@ import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.actions.ActionFactory;
+import org.eclipse.ui.part.MultiPageEditorPart;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
+import org.eclipse.ui.views.properties.PropertySheet;
 import org.eclipse.ui.views.properties.PropertySheetPage;
 
 import cz.jpikl.yafmt.model.fm.FeatureModel;
@@ -38,21 +40,24 @@ import cz.jpikl.yafmt.ui.editors.fm.actions.RemoveAttributeAction;
 import cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayout;
 import cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayoutFactory;
 import cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayoutPackage;
+import cz.jpikl.yafmt.ui.editors.fm.operations.ResourceSaveOperation;
 import cz.jpikl.yafmt.ui.editors.fm.parts.FeatureModelEditPartFactory;
 import cz.jpikl.yafmt.ui.editors.fm.util.SelectionConverter;
 import cz.jpikl.yafmt.ui.editors.fm.util.UnwrappingSelectionProvider;
 
 public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISelectionListener {
 
+    private MultiPageEditorPart parentEditor;
     private FeatureModel featureModel;
     private ModelLayout modelLayout;
     private PropertySheetPage propertySheetPage;
-    private SelectionConverter selectionConvertor;
+    private SelectionConverter selectionConverter;
     
-    public FeatureTreeEditor(FeatureModel featureModel) {
+    public FeatureTreeEditor(MultiPageEditorPart parentEditor, FeatureModel featureModel) {
         if(featureModel == null)
             throw new IllegalArgumentException("Feature model cannot be null");
         
+        this.parentEditor = parentEditor;
         this.featureModel = featureModel;
         setEditDomain(new DefaultEditDomain(this));
     }
@@ -61,15 +66,8 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
     public void init(IEditorSite site, IEditorInput input) throws PartInitException {
         super.init(site, input);
         doLoad();
-        getSite().getPage().addSelectionListener(this);
     }
-    
-    @Override
-    public void dispose() {
-        getSite().getPage().removeSelectionListener(this);
-        super.dispose();
-    }
-    
+        
     @Override
     @SuppressWarnings("unchecked")
     protected void createActions() {
@@ -105,7 +103,7 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
                 ((SelectionAction) action).setSelectionProvider(viewer);
         }
         
-        selectionConvertor = new SelectionConverter(viewer.getEditPartRegistry());
+        selectionConverter = new SelectionConverter(viewer.getEditPartRegistry());
     }
     
     @Override
@@ -151,9 +149,9 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
     @Override
     public void doSave(IProgressMonitor monitor) {
         try {
-            modelLayout.eResource().save(null);
+            getSite().getWorkbenchWindow().run(true, false, new ResourceSaveOperation(modelLayout.eResource()));
         }
-        catch(IOException ex) {
+        catch(Exception ex) {
             FeatureModelEditorPlugin.getDefault().getLog().log(new Status(Status.ERROR, 
                     FeatureModelEditorPlugin.PLUGIN_ID, ex.getMessage(), ex));
         }
@@ -168,22 +166,33 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
     }
     
     @Override
-    public void selectionChanged(IWorkbenchPart part, ISelection selection) {
-        // Take selection only from active part.
-        if(getSite().getPage().getActivePart() != part)
+    public void selectionChanged(IWorkbenchPart part, ISelection selection) {        
+        // Check if this is the active editor.
+        if((parentEditor != getSite().getPage().getActiveEditor()) || (parentEditor.getSelectedPage() != this))
             return;
         
-        // Update actions if selection comes from this editor.
-        if(part instanceof FeatureModelEditor) {
-            // Perform update if editor page is active within multipage editor part.
-            if(((FeatureModelEditor) part).getSelectedPage() == this)
-                updateActions(getSelectionActions());
+        // Ignore invalid selections.
+        if((part != getSite().getPage().getActivePart()) || (part instanceof PropertySheet))
             return;
-        }
-        
-        // Selection comes from another workbench part.
-        selection = selectionConvertor.wrapSelection(selection);
+                
+        // Handle selection change.
+        if(part == parentEditor)
+            handleSelectionFromItself(selection);
+        else
+            handleSelectionFromOthers(selection);       
+    }
+    
+    private void handleSelectionFromItself(ISelection selection) {
+        // Update all actions which state depends on selection.
+        updateActions(getSelectionActions());
+    }
+    
+    private void handleSelectionFromOthers(ISelection selection) {
+        // Apply selection to the editor.
+        selection = selectionConverter.wrapSelection(selection);
         getGraphicalViewer().setSelection(selection);
+        if(selection.isEmpty())
+            return;
         
         // Center viewport to last selected object.
         if(selection instanceof IStructuredSelection) {

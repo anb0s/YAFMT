@@ -15,7 +15,7 @@ public class FeatureModelPropertySheetPage extends UndoablePropertySheetPage {
         super(commandStack, undoAction, redoAction);
         setSorter(new DisabledSorter());
     }
-    
+
     @Override
     public void createControl(Composite parent) {
         super.createControl(parent);
