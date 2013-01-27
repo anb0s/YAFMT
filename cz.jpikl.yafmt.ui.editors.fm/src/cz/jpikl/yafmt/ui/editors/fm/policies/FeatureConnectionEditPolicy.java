@@ -1,12 +1,17 @@
 package cz.jpikl.yafmt.ui.editors.fm.policies;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.GraphicalNodeEditPolicy;
 import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.gef.requests.ReconnectRequest;
 
 import cz.jpikl.yafmt.model.fm.Feature;
+import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.ui.editors.fm.commands.AddConnectionCommand;
+import cz.jpikl.yafmt.ui.editors.fm.commands.ChangeConnectionSourceCommand;
+import cz.jpikl.yafmt.ui.editors.fm.commands.ChangeConnectionTargetCommand;
+import cz.jpikl.yafmt.ui.editors.fm.model.Connection;
 
 public class FeatureConnectionEditPolicy extends GraphicalNodeEditPolicy {
 
@@ -28,12 +33,38 @@ public class FeatureConnectionEditPolicy extends GraphicalNodeEditPolicy {
 
     @Override
     protected Command getReconnectSourceCommand(ReconnectRequest request) {
-        return null;
+        EObject newTarget = (EObject) request.getTarget().getModel();
+        if(!(newTarget instanceof Feature))
+            return null;
+
+        Connection connection = (Connection) request.getConnectionEditPart().getModel();
+        if((newTarget == connection.getTarget()) || (newTarget.eContainer() == connection.getSource()))
+            return null;
+
+        for(EObject object = connection.getSource(); object != null; object = object.eContainer()) {
+            if(newTarget == object)
+                return null;
+        }
+        
+        return new ChangeConnectionTargetCommand(connection, (Feature) newTarget);
     }
 
     @Override
     protected Command getReconnectTargetCommand(ReconnectRequest request) {
-        return null;
+        Object newSource = request.getTarget().getModel();
+        if(!(newSource instanceof Feature) && (newSource instanceof Group))
+            return null;
+        
+        Connection connection = (Connection) request.getConnectionEditPart().getModel();
+        if(newSource == connection.getSource())
+            return null;
+        
+        for(EObject object = (EObject) newSource; object != null; object = object.eContainer()) {
+            if(connection.getTarget() == object)
+                return null;
+        }
+        
+        return new ChangeConnectionSourceCommand(connection, (EObject) newSource);
     }
 
 }

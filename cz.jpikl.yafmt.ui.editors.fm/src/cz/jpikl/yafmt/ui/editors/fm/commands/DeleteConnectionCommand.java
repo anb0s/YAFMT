@@ -14,8 +14,8 @@ public class DeleteConnectionCommand extends RecordingCommand {
     private Feature child;
         
     public DeleteConnectionCommand(Connection connection) {
-        parent = connection.getParent();
-        child = (Feature) connection.getChild();
+        parent = connection.getSource();
+        child = connection.getTarget();
         featureModel = child.getFeatureModel();
         
         String parentName = (parent instanceof Group) ? ((Group) parent).getParent().getName() : ((Feature) parent).getName();

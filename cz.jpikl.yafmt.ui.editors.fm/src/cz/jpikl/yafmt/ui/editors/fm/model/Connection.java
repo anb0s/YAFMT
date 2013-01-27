@@ -2,22 +2,24 @@ package cz.jpikl.yafmt.ui.editors.fm.model;
 
 import org.eclipse.emf.ecore.EObject;
 
+import cz.jpikl.yafmt.model.fm.Feature;
+
 public class Connection {
 
-    private EObject parent;
-    private EObject child;
+    private EObject source;
+    private Feature target;
 
-    public Connection(EObject parent, EObject child) {
-        this.parent = parent;
-        this.child = child;
+    public Connection(EObject source, Feature target) {
+        this.source = source;
+        this.target = target;
     }
 
-    public EObject getParent() {
-        return parent;
+    public EObject getSource() {
+        return source;
     }
 
-    public EObject getChild() {
-        return child;
+    public Feature getTarget() {
+        return target;
     }
 
     @Override
@@ -25,16 +27,16 @@ public class Connection {
         if(!(obj instanceof Connection))
             return false;
         Connection con = (Connection) obj;
-        return (parent == con.parent) && (child == con.child);
+        return (source == con.source) && (target == con.target);
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        if(parent != null)
-            hash += parent.hashCode();
-        if(child != null)
-            hash += child.hashCode();
+        if(source != null)
+            hash += source.hashCode();
+        if(target != null)
+            hash += target.hashCode();
         return hash;
     }
     

@@ -9,12 +9,11 @@ import cz.jpikl.yafmt.model.fm.Group;
 public class AddConnectionCommand extends RecordingCommand {
 
     private FeatureModel featureModel;
-    private Feature source;
+    private EObject source;
     private Feature destination;
     
-    public AddConnectionCommand(Feature feature) {
-        this.featureModel = feature.getFeatureModel();
-        this.source = feature;
+    public AddConnectionCommand(EObject source) {
+        this.source = source;
     }
     
     public boolean setDestination(Feature destination) {
@@ -27,7 +26,10 @@ public class AddConnectionCommand extends RecordingCommand {
         }
 
         this.destination = destination;
-        setLabel("Make " + destination.getName() + " Subfeature of " + source.getName());
+        this.featureModel = destination.getFeatureModel();
+        
+        String sourceName = (source instanceof Group) ? ((Group) source).getParent().getName() : ((Feature) source).getName();
+        setLabel("Make " + destination.getName() + " Subfeature of " + sourceName);
         return true;
     }
     
@@ -50,7 +52,10 @@ public class AddConnectionCommand extends RecordingCommand {
     @Override
     protected void performRecording() {
         EObject parent = destination.getParent();
-        source.getFeatures().add(destination);
+        if(source instanceof Group)
+            ((Group) source).getFeatures().add(destination);
+        else
+            ((Feature) source).getFeatures().add(destination);
         
         if(parent instanceof Group) {
             Group group = (Group) parent;
