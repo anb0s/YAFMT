@@ -40,8 +40,7 @@ public class ConnectionEditPart extends AbstractConnectionEditPart implements IM
     
     @Override
     protected IFigure createFigure() {
-        boolean mandatoryTarget = connection.getTarget().isMandatory();
-        return new ConnectionFigure(mandatoryTarget);
+        return new ConnectionFigure(connection.getTarget());
     }
                 
     @Override
@@ -53,11 +52,12 @@ public class ConnectionEditPart extends AbstractConnectionEditPart implements IM
 
     @Override
     public void modelChanged(Notification notification) {
-        if(notification.getFeatureID(Feature.class) == FeatureModelPackage.FEATURE__LOWER) {
-            boolean mandatoryTarget = connection.getTarget().isMandatory();
-            ((ConnectionFigure) getFigure()).setMandatoryTarget(mandatoryTarget);
-        }
-            
+        switch(notification.getFeatureID(Feature.class)) {
+            case FeatureModelPackage.FEATURE__LOWER:
+            case FeatureModelPackage.FEATURE__UPPER:
+                ((ConnectionFigure) getFigure()).updateDecoration(connection.getTarget());
+                break;
+        }            
     }
 
 }

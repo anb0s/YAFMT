@@ -1,36 +1,53 @@
 package cz.jpikl.yafmt.ui.editors.fm.figures;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.ConnectionEndpointLocator;
 import org.eclipse.draw2d.Ellipse;
+import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.RotatableDecoration;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PrecisionPoint;
 
+import cz.jpikl.yafmt.model.fm.Feature;
+
 public class ConnectionFigure extends PolylineConnection {
     
-    private CircleDecoration decoration;
+    private CircleDecoration decoration = new CircleDecoration();;
+    private Label label = new Label();
     
-    public ConnectionFigure(boolean mandatoryTarget) {
-        decoration = new CircleDecoration(mandatoryTarget);
-        setSourceDecoration(decoration);
+    public ConnectionFigure(Feature feature) {
+        ConnectionEndpointLocator locator = new ConnectionEndpointLocator(this, false);
+        locator.setUDistance(4);
+        locator.setVDistance(16);
+        add(label, locator);
+        updateDecoration(feature);
     }
     
-    public void highlight(boolean value) {
+    public void setHighlighted(boolean value) {
         setLineWidth(value ? 2 : 1);
     }
     
-    public void setMandatoryTarget(boolean mandatoryTarget) {
-        decoration.setFilled(mandatoryTarget);
+    public void updateDecoration(Feature feature) {
+        if(feature.isClonable()) {
+            setSourceDecoration(null);
+            int lower = feature.getLower();
+            int upper = feature.getUpper();
+            label.setText("[" + lower + ".." + ((upper == -1) ? "*" : upper) + "]");
+        }
+        else {
+            setSourceDecoration(decoration);
+            decoration.setFilled(feature.isMandatory());
+            label.setText(null);
+        }
     }
     
     private static class CircleDecoration extends Ellipse implements RotatableDecoration {
     
         private static final int SIZE = 10;
         
-        public CircleDecoration(boolean filled) {
+        public CircleDecoration() {
             setForegroundColor(ColorConstants.black);
-            setFilled(filled);
             setSize(SIZE, SIZE);
         }
         
