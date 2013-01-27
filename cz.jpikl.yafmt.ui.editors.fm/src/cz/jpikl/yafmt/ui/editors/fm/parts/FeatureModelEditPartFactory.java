@@ -24,9 +24,9 @@ public class FeatureModelEditPartFactory implements EditPartFactory {
         if(model instanceof Feature)
             return new FeatureEditPart((Feature) model);
         if(model instanceof Group)
-            return new GroupEditPart();
+            return new GroupEditPart((Group) model);
         if(model instanceof Connection)
-            return new ConnectionEditPart();
+            return new ConnectionEditPart((Connection) model);
         throw new IllegalStateException("No EditPart for " + model.getClass());
     }
 

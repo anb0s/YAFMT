@@ -93,6 +93,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart implements I
     private void addEditPartForObject(Object object) {
         if(getEditPartForObject(object) != null)
             return;
+        
         if(object instanceof Feature)
             addChild(createChild(object), 0);
     }
@@ -104,8 +105,16 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart implements I
     
     private void removeEditPartForObject(Object object) {
         EditPart editPart = getEditPartForObject(object);
-        if(editPart != null)
-            removeChild(editPart);
+        if(editPart == null)
+            return;
+            
+        if(object instanceof Feature) {
+            // Do not remove edit parts when they are still present in model.
+            // This situation usually happens when feature parent was changed.
+            Feature feature = (Feature) object;
+            if((feature.getParent() == null) && !featureModel.getOrphans().contains(object))
+                removeChild(editPart);
+        }
     }
     
     private void removeEditPartsForObjects(Collection<Object> objects) {
@@ -115,7 +124,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart implements I
     
     @Override
     @SuppressWarnings("unchecked")
-    public void modelChanged(Notification notification) {
+    public void modelChanged(Notification notification) {       
         switch(notification.getEventType()) {
             case Notification.ADD:
                 addEditPartForObject(notification.getNewValue());
@@ -133,6 +142,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart implements I
                 removeEditPartsForObjects((Collection<Object>) notification.getOldValue());
                 break;
         }
+        
     }
     
 }

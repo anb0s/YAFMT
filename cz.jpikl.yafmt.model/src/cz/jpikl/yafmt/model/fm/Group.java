@@ -165,6 +165,7 @@ public interface Group extends EObject {
     /**
      * Returns the value of the '<em><b>Features</b></em>' containment reference list.
      * The list contents are of type {@link cz.jpikl.yafmt.model.fm.Feature}.
+     * It is bidirectional and its opposite is '{@link cz.jpikl.yafmt.model.fm.Feature#getParentGroup <em>Parent Group</em>}'.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Features</em>' containment reference list isn't clear,
@@ -173,7 +174,8 @@ public interface Group extends EObject {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Features</em>' containment reference list.
      * @see cz.jpikl.yafmt.model.fm.FeatureModelPackage#getGroup_Features()
-     * @model containment="true"
+     * @see cz.jpikl.yafmt.model.fm.Feature#getParentGroup
+     * @model opposite="parentGroup" containment="true"
      * @generated
      */
     EList<Feature> getFeatures();

@@ -1,10 +1,18 @@
 package cz.jpikl.yafmt.ui.editors.fm.parts;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.eclipse.draw2d.ChopboxAnchor;
+import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.jface.viewers.ICellEditorValidator;
@@ -15,11 +23,13 @@ import cz.jpikl.yafmt.model.util.IModelListener;
 import cz.jpikl.yafmt.model.util.ModelListenerAdapter;
 import cz.jpikl.yafmt.ui.editors.fm.figures.FeatureFigure;
 import cz.jpikl.yafmt.ui.editors.fm.layout.IModelLayoutProvider;
+import cz.jpikl.yafmt.ui.editors.fm.model.Connection;
+import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureConnectionEditPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureDirectEditPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureEditPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.util.LabelDirectEditManager;
 
-public class FeatureEditPart extends AbstractGraphicalEditPart implements IModelListener {
+public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEditPart, IModelListener {
 
     private Feature feature;
     private ModelListenerAdapter listenerAdapter;
@@ -66,11 +76,54 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements IModel
             bounds = new Rectangle(0, 0, 100, 25);
         layoutProvider.setObjectBounds(feature, bounds);
     }
+    
+    @Override
+    protected List<Object> getModelSourceConnections() {
+        EObject parent = feature.getParent();
+        if(parent == null)
+            return null;
+        
+        List<Object> connections = new ArrayList<Object>();
+        connections.add(new Connection(parent, feature));
+        return connections;
+    }
+    
+    @Override
+    protected List<Object> getModelTargetConnections() {
+        if(feature.getFeatures().isEmpty())
+            return null;
+        
+        List<Object> connections = new ArrayList<Object>();
+        for(Feature child: feature.getFeatures())
+            connections.add(new Connection(feature, child));
+        return connections;
+    }
+    
+    @Override
+    public ConnectionAnchor getSourceConnectionAnchor(ConnectionEditPart connection) {
+        return new ChopboxAnchor(getFigure());
+    }
+
+    @Override
+    public ConnectionAnchor getTargetConnectionAnchor(ConnectionEditPart connection) {
+        return new ChopboxAnchor(getFigure());
+    }
+
+    @Override
+    public ConnectionAnchor getSourceConnectionAnchor(Request request) {
+        return new ChopboxAnchor(getFigure());
+    }
+
+    @Override
+    public ConnectionAnchor getTargetConnectionAnchor(Request request) {
+        return new ChopboxAnchor(getFigure());
+    }
 
     @Override
     protected void createEditPolicies() {
         installEditPolicy(EditPolicy.COMPONENT_ROLE, new FeatureEditPolicy());
         installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new FeatureDirectEditPolicy());
+        installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new FeatureConnectionEditPolicy());
     }
     
     @Override
@@ -85,8 +138,27 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements IModel
 
     @Override
     public void modelChanged(Notification notification) {
-        if(notification.getFeatureID(Feature.class) == FeatureModelPackage.FEATURE__NAME)
-           ((FeatureFigure) getFigure()).getLabel().setText(notification.getNewStringValue());
+        switch(notification.getEventType()) {
+            case Notification.ADD:
+            case Notification.ADD_MANY:
+            case Notification.REMOVE:
+            case Notification.REMOVE_MANY:
+                refreshTargetConnections();
+                break;
+            
+            case Notification.SET:
+                switch(notification.getFeatureID(Feature.class)) {
+                    case FeatureModelPackage.FEATURE__NAME:
+                        ((FeatureFigure) getFigure()).getLabel().setText(notification.getNewStringValue());
+                        break;
+                        
+                    case FeatureModelPackage.FEATURE__PARENT_FEATURE:
+                    case FeatureModelPackage.FEATURE__PARENT_GROUP:
+                        refreshSourceConnections();
+                        break;
+                }
+                break;
+        }
     }
     
     private static class DirectInputValidator implements ICellEditorValidator {

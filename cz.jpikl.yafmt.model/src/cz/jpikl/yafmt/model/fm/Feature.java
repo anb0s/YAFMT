@@ -25,6 +25,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#isMandatory <em>Mandatory</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#isClonable <em>Clonable</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#getParent <em>Parent</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#getParentFeature <em>Parent Feature</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#getParentGroup <em>Parent Group</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#getAttributes <em>Attributes</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#getFeatures <em>Features</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#getGroups <em>Groups</em>}</li>
@@ -298,8 +300,65 @@ public interface Feature extends EObject {
     EObject getParent();
 
     /**
+     * Returns the value of the '<em><b>Parent Feature</b></em>' container reference.
+     * It is bidirectional and its opposite is '{@link cz.jpikl.yafmt.model.fm.Feature#getFeatures <em>Features</em>}'.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Parent Feature</em>' container reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Parent Feature</em>' container reference.
+     * @see #setParentFeature(Feature)
+     * @see cz.jpikl.yafmt.model.fm.FeatureModelPackage#getFeature_ParentFeature()
+     * @see cz.jpikl.yafmt.model.fm.Feature#getFeatures
+     * @model opposite="features" transient="false"
+     * @generated
+     */
+    Feature getParentFeature();
+
+    /**
+     * Sets the value of the '{@link cz.jpikl.yafmt.model.fm.Feature#getParentFeature <em>Parent Feature</em>}' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Parent Feature</em>' container reference.
+     * @see #getParentFeature()
+     * @generated
+     */
+    void setParentFeature(Feature value);
+
+    /**
+     * Returns the value of the '<em><b>Parent Group</b></em>' container reference.
+     * It is bidirectional and its opposite is '{@link cz.jpikl.yafmt.model.fm.Group#getFeatures <em>Features</em>}'.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Parent Group</em>' container reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Parent Group</em>' container reference.
+     * @see #setParentGroup(Group)
+     * @see cz.jpikl.yafmt.model.fm.FeatureModelPackage#getFeature_ParentGroup()
+     * @see cz.jpikl.yafmt.model.fm.Group#getFeatures
+     * @model opposite="features" transient="false"
+     * @generated
+     */
+    Group getParentGroup();
+
+    /**
+     * Sets the value of the '{@link cz.jpikl.yafmt.model.fm.Feature#getParentGroup <em>Parent Group</em>}' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Parent Group</em>' container reference.
+     * @see #getParentGroup()
+     * @generated
+     */
+    void setParentGroup(Group value);
+
+    /**
      * Returns the value of the '<em><b>Features</b></em>' containment reference list.
      * The list contents are of type {@link cz.jpikl.yafmt.model.fm.Feature}.
+     * It is bidirectional and its opposite is '{@link cz.jpikl.yafmt.model.fm.Feature#getParentFeature <em>Parent Feature</em>}'.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Features</em>' containment reference list isn't clear,
@@ -308,7 +367,8 @@ public interface Feature extends EObject {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Features</em>' containment reference list.
      * @see cz.jpikl.yafmt.model.fm.FeatureModelPackage#getFeature_Features()
-     * @model containment="true"
+     * @see cz.jpikl.yafmt.model.fm.Feature#getParentFeature
+     * @model opposite="parentFeature" containment="true"
      * @generated
      */
     EList<Feature> getFeatures();

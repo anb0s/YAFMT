@@ -1,13 +1,24 @@
 package cz.jpikl.yafmt.ui.editors.fm.parts;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.editparts.AbstractConnectionEditPart;
+
+import cz.jpikl.yafmt.ui.editors.fm.figures.ConnectionFigure;
+import cz.jpikl.yafmt.ui.editors.fm.model.Connection;
 
 public class ConnectionEditPart extends AbstractConnectionEditPart {
 
+    public ConnectionEditPart(Connection connection) {
+        setModel(connection);
+    }
+    
+    @Override
+    protected IFigure createFigure() {
+        return new ConnectionFigure();
+    }
+        
     @Override
     protected void createEditPolicies() {
-        // TODO Auto-generated method stub
-        
     }
 
 }

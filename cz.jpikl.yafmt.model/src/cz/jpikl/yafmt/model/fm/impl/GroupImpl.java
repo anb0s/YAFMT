@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -274,7 +274,7 @@ public class GroupImpl extends EObjectImpl implements Group {
      */
     public EList<Feature> getFeatures() {
         if (features == null) {
-            features = new EObjectContainmentEList<Feature>(Feature.class, this, FeatureModelPackage.GROUP__FEATURES);
+            features = new EObjectContainmentWithInverseEList<Feature>(Feature.class, this, FeatureModelPackage.GROUP__FEATURES, FeatureModelPackage.FEATURE__PARENT_GROUP);
         }
         return features;
     }
@@ -284,6 +284,7 @@ public class GroupImpl extends EObjectImpl implements Group {
      * <!-- end-user-doc -->
      * @generated
      */
+    @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
@@ -291,6 +292,8 @@ public class GroupImpl extends EObjectImpl implements Group {
                 if (eInternalContainer() != null)
                     msgs = eBasicRemoveFromContainer(msgs);
                 return basicSetParent((Feature)otherEnd, msgs);
+            case FeatureModelPackage.GROUP__FEATURES:
+                return ((InternalEList<InternalEObject>)(InternalEList<?>)getFeatures()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }

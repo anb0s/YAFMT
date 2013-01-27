@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -45,6 +46,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#isMandatory <em>Mandatory</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#isClonable <em>Clonable</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#getParent <em>Parent</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#getParentFeature <em>Parent Feature</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#getParentGroup <em>Parent Group</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#getAttributes <em>Attributes</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#getFeatures <em>Features</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#getGroups <em>Groups</em>}</li>
@@ -454,7 +457,91 @@ public class FeatureImpl extends EObjectImpl implements Feature {
      * @generated NOT
      */
     public EObject basicGetParent() {
-        return eContainer();
+        // Must not return FeatureModel.
+        EObject parent = getParentFeature();
+        return (parent == null) ? getParentGroup() : parent;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Feature getParentFeature() {
+        if (eContainerFeatureID() != FeatureModelPackage.FEATURE__PARENT_FEATURE) return null;
+        return (Feature)eContainer();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetParentFeature(Feature newParentFeature, NotificationChain msgs) {
+        msgs = eBasicSetContainer((InternalEObject)newParentFeature, FeatureModelPackage.FEATURE__PARENT_FEATURE, msgs);
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setParentFeature(Feature newParentFeature) {
+        if (newParentFeature != eInternalContainer() || (eContainerFeatureID() != FeatureModelPackage.FEATURE__PARENT_FEATURE && newParentFeature != null)) {
+            if (EcoreUtil.isAncestor(this, newParentFeature))
+                throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+            NotificationChain msgs = null;
+            if (eInternalContainer() != null)
+                msgs = eBasicRemoveFromContainer(msgs);
+            if (newParentFeature != null)
+                msgs = ((InternalEObject)newParentFeature).eInverseAdd(this, FeatureModelPackage.FEATURE__FEATURES, Feature.class, msgs);
+            msgs = basicSetParentFeature(newParentFeature, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, FeatureModelPackage.FEATURE__PARENT_FEATURE, newParentFeature, newParentFeature));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Group getParentGroup() {
+        if (eContainerFeatureID() != FeatureModelPackage.FEATURE__PARENT_GROUP) return null;
+        return (Group)eContainer();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetParentGroup(Group newParentGroup, NotificationChain msgs) {
+        msgs = eBasicSetContainer((InternalEObject)newParentGroup, FeatureModelPackage.FEATURE__PARENT_GROUP, msgs);
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setParentGroup(Group newParentGroup) {
+        if (newParentGroup != eInternalContainer() || (eContainerFeatureID() != FeatureModelPackage.FEATURE__PARENT_GROUP && newParentGroup != null)) {
+            if (EcoreUtil.isAncestor(this, newParentGroup))
+                throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+            NotificationChain msgs = null;
+            if (eInternalContainer() != null)
+                msgs = eBasicRemoveFromContainer(msgs);
+            if (newParentGroup != null)
+                msgs = ((InternalEObject)newParentGroup).eInverseAdd(this, FeatureModelPackage.GROUP__FEATURES, Group.class, msgs);
+            msgs = basicSetParentGroup(newParentGroup, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, FeatureModelPackage.FEATURE__PARENT_GROUP, newParentGroup, newParentGroup));
     }
 
     /**
@@ -464,7 +551,7 @@ public class FeatureImpl extends EObjectImpl implements Feature {
      */
     public EList<Feature> getFeatures() {
         if (features == null) {
-            features = new EObjectContainmentEList<Feature>(Feature.class, this, FeatureModelPackage.FEATURE__FEATURES);
+            features = new EObjectContainmentWithInverseEList<Feature>(Feature.class, this, FeatureModelPackage.FEATURE__FEATURES, FeatureModelPackage.FEATURE__PARENT_FEATURE);
         }
         return features;
     }
@@ -510,6 +597,16 @@ public class FeatureImpl extends EObjectImpl implements Feature {
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
+            case FeatureModelPackage.FEATURE__PARENT_FEATURE:
+                if (eInternalContainer() != null)
+                    msgs = eBasicRemoveFromContainer(msgs);
+                return basicSetParentFeature((Feature)otherEnd, msgs);
+            case FeatureModelPackage.FEATURE__PARENT_GROUP:
+                if (eInternalContainer() != null)
+                    msgs = eBasicRemoveFromContainer(msgs);
+                return basicSetParentGroup((Group)otherEnd, msgs);
+            case FeatureModelPackage.FEATURE__FEATURES:
+                return ((InternalEList<InternalEObject>)(InternalEList<?>)getFeatures()).basicAdd(otherEnd, msgs);
             case FeatureModelPackage.FEATURE__GROUPS:
                 return ((InternalEList<InternalEObject>)(InternalEList<?>)getGroups()).basicAdd(otherEnd, msgs);
         }
@@ -524,6 +621,10 @@ public class FeatureImpl extends EObjectImpl implements Feature {
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
+            case FeatureModelPackage.FEATURE__PARENT_FEATURE:
+                return basicSetParentFeature(null, msgs);
+            case FeatureModelPackage.FEATURE__PARENT_GROUP:
+                return basicSetParentGroup(null, msgs);
             case FeatureModelPackage.FEATURE__ATTRIBUTES:
                 return ((InternalEList<?>)getAttributes()).basicRemove(otherEnd, msgs);
             case FeatureModelPackage.FEATURE__FEATURES:
@@ -532,6 +633,22 @@ public class FeatureImpl extends EObjectImpl implements Feature {
                 return ((InternalEList<?>)getGroups()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+        switch (eContainerFeatureID()) {
+            case FeatureModelPackage.FEATURE__PARENT_FEATURE:
+                return eInternalContainer().eInverseRemove(this, FeatureModelPackage.FEATURE__FEATURES, Feature.class, msgs);
+            case FeatureModelPackage.FEATURE__PARENT_GROUP:
+                return eInternalContainer().eInverseRemove(this, FeatureModelPackage.GROUP__FEATURES, Group.class, msgs);
+        }
+        return super.eBasicRemoveFromContainerFeature(msgs);
     }
 
     /**
@@ -565,6 +682,10 @@ public class FeatureImpl extends EObjectImpl implements Feature {
             case FeatureModelPackage.FEATURE__PARENT:
                 if (resolve) return getParent();
                 return basicGetParent();
+            case FeatureModelPackage.FEATURE__PARENT_FEATURE:
+                return getParentFeature();
+            case FeatureModelPackage.FEATURE__PARENT_GROUP:
+                return getParentGroup();
             case FeatureModelPackage.FEATURE__ATTRIBUTES:
                 return getAttributes();
             case FeatureModelPackage.FEATURE__FEATURES:
@@ -607,6 +728,12 @@ public class FeatureImpl extends EObjectImpl implements Feature {
                 return;
             case FeatureModelPackage.FEATURE__MANDATORY:
                 setMandatory((Boolean)newValue);
+                return;
+            case FeatureModelPackage.FEATURE__PARENT_FEATURE:
+                setParentFeature((Feature)newValue);
+                return;
+            case FeatureModelPackage.FEATURE__PARENT_GROUP:
+                setParentGroup((Group)newValue);
                 return;
             case FeatureModelPackage.FEATURE__ATTRIBUTES:
                 getAttributes().clear();
@@ -653,6 +780,12 @@ public class FeatureImpl extends EObjectImpl implements Feature {
             case FeatureModelPackage.FEATURE__MANDATORY:
                 setMandatory(MANDATORY_EDEFAULT);
                 return;
+            case FeatureModelPackage.FEATURE__PARENT_FEATURE:
+                setParentFeature((Feature)null);
+                return;
+            case FeatureModelPackage.FEATURE__PARENT_GROUP:
+                setParentGroup((Group)null);
+                return;
             case FeatureModelPackage.FEATURE__ATTRIBUTES:
                 getAttributes().clear();
                 return;
@@ -696,6 +829,10 @@ public class FeatureImpl extends EObjectImpl implements Feature {
                 return isClonable() != CLONABLE_EDEFAULT;
             case FeatureModelPackage.FEATURE__PARENT:
                 return basicGetParent() != null;
+            case FeatureModelPackage.FEATURE__PARENT_FEATURE:
+                return getParentFeature() != null;
+            case FeatureModelPackage.FEATURE__PARENT_GROUP:
+                return getParentGroup() != null;
             case FeatureModelPackage.FEATURE__ATTRIBUTES:
                 return attributes != null && !attributes.isEmpty();
             case FeatureModelPackage.FEATURE__FEATURES:

@@ -248,13 +248,31 @@ public interface FeatureModelPackage extends EPackage {
     int FEATURE__PARENT = 10;
 
     /**
+     * The feature id for the '<em><b>Parent Feature</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FEATURE__PARENT_FEATURE = 11;
+
+    /**
+     * The feature id for the '<em><b>Parent Group</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FEATURE__PARENT_GROUP = 12;
+
+    /**
      * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int FEATURE__ATTRIBUTES = 11;
+    int FEATURE__ATTRIBUTES = 13;
 
     /**
      * The feature id for the '<em><b>Features</b></em>' containment reference list.
@@ -263,7 +281,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FEATURE__FEATURES = 12;
+    int FEATURE__FEATURES = 14;
 
     /**
      * The feature id for the '<em><b>Groups</b></em>' containment reference list.
@@ -272,7 +290,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FEATURE__GROUPS = 13;
+    int FEATURE__GROUPS = 15;
 
     /**
      * The feature id for the '<em><b>Feature Model</b></em>' reference.
@@ -281,7 +299,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FEATURE__FEATURE_MODEL = 14;
+    int FEATURE__FEATURE_MODEL = 16;
 
     /**
      * The number of structural features of the '<em>Feature</em>' class.
@@ -290,7 +308,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FEATURE_FEATURE_COUNT = 15;
+    int FEATURE_FEATURE_COUNT = 17;
 
     /**
      * The meta object id for the '{@link cz.jpikl.yafmt.model.fm.impl.GroupImpl <em>Group</em>}' class.
@@ -698,6 +716,28 @@ public interface FeatureModelPackage extends EPackage {
     EReference getFeature_Parent();
 
     /**
+     * Returns the meta object for the container reference '{@link cz.jpikl.yafmt.model.fm.Feature#getParentFeature <em>Parent Feature</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the container reference '<em>Parent Feature</em>'.
+     * @see cz.jpikl.yafmt.model.fm.Feature#getParentFeature()
+     * @see #getFeature()
+     * @generated
+     */
+    EReference getFeature_ParentFeature();
+
+    /**
+     * Returns the meta object for the container reference '{@link cz.jpikl.yafmt.model.fm.Feature#getParentGroup <em>Parent Group</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the container reference '<em>Parent Group</em>'.
+     * @see cz.jpikl.yafmt.model.fm.Feature#getParentGroup()
+     * @see #getFeature()
+     * @generated
+     */
+    EReference getFeature_ParentGroup();
+
+    /**
      * Returns the meta object for the containment reference list '{@link cz.jpikl.yafmt.model.fm.Feature#getFeatures <em>Features</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1095,6 +1135,22 @@ public interface FeatureModelPackage extends EPackage {
          * @generated
          */
         EReference FEATURE__PARENT = eINSTANCE.getFeature_Parent();
+
+        /**
+         * The meta object literal for the '<em><b>Parent Feature</b></em>' container reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference FEATURE__PARENT_FEATURE = eINSTANCE.getFeature_ParentFeature();
+
+        /**
+         * The meta object literal for the '<em><b>Parent Group</b></em>' container reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference FEATURE__PARENT_GROUP = eINSTANCE.getFeature_ParentGroup();
 
         /**
          * The meta object literal for the '<em><b>Features</b></em>' containment reference list feature.
