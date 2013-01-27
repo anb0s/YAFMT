@@ -97,6 +97,7 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
         viewer.setRootEditPart(new FreeformGraphicalRootEditPart());
         viewer.addDropTargetListener(new TemplateTransferDropTargetListener(viewer));
         viewer.setContextMenu(new FeatureTreeEditorContextMenuProvider(viewer, getActionRegistry()));
+        viewer.addDropTargetListener(new TemplateTransferDropTargetListener(viewer));
         
         // Actions need original selection provider.
         for(Iterator<IAction> it = getActionRegistry().getActions(); it.hasNext(); ) {

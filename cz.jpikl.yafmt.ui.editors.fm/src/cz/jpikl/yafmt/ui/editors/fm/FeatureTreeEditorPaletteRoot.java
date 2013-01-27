@@ -1,6 +1,9 @@
 package cz.jpikl.yafmt.ui.editors.fm;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.gef.dnd.TemplateTransferDragSourceListener;
+import org.eclipse.gef.dnd.TemplateTransferDropTargetListener;
+import org.eclipse.gef.palette.CombinedTemplateCreationEntry;
 import org.eclipse.gef.palette.ConnectionCreationToolEntry;
 import org.eclipse.gef.palette.CreationToolEntry;
 import org.eclipse.gef.palette.MarqueeToolEntry;
@@ -39,8 +42,10 @@ public class FeatureTreeEditorPaletteRoot extends PaletteRoot {
     }
         
     private ToolEntry createOptionalFeatureCreationEntry() {
+        // Use CombinedTemplateCreationEntry instead of CreationToolEntry to support drag and drop
+        // via TemplateTransferDragSourceListener and TemplateTransferDropTargetListener.
         ImageDescriptor img = FeatureModelEditorPlugin.getImageDescriptor("icons/feature-opt.png");
-        CreationToolEntry featureCreationEntry = new CreationToolEntry(
+        CreationToolEntry featureCreationEntry = new CombinedTemplateCreationEntry(
             "Optional Feature", "Add new optional feature.", new FeatureFactory(false), img, null);
         featureCreationEntry.setToolClass(CreationToolWithDirectEdit.class);
         return featureCreationEntry;
@@ -48,7 +53,7 @@ public class FeatureTreeEditorPaletteRoot extends PaletteRoot {
     
     private ToolEntry createMandatoryFeatureCreationEntry() {
         ImageDescriptor img = FeatureModelEditorPlugin.getImageDescriptor("icons/feature-man.png");
-        CreationToolEntry featureCreationEntry = new CreationToolEntry(
+        CreationToolEntry featureCreationEntry = new CombinedTemplateCreationEntry(
             "Mandatory Feature", "Add new mandatory feature.", new FeatureFactory(true), img, null);
         featureCreationEntry.setToolClass(CreationToolWithDirectEdit.class);
         return featureCreationEntry;
