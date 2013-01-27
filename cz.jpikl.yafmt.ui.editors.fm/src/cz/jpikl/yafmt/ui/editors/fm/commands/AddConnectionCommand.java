@@ -27,6 +27,7 @@ public class AddConnectionCommand extends RecordingCommand {
         }
 
         this.destination = destination;
+        setLabel("Make " + destination.getName() + " Subfeature of " + source.getName());
         return true;
     }
     

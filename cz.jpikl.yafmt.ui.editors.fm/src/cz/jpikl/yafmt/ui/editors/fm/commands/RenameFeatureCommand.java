@@ -11,6 +11,7 @@ public class RenameFeatureCommand extends Command {
     private String oldName;
 
     public RenameFeatureCommand(Feature feature, String newName) {
+        setLabel("Rename Feature " + feature.getName() + " to " + newName);
         this.feature = feature;
         this.newName = newName;
         this.oldName = feature.getName();

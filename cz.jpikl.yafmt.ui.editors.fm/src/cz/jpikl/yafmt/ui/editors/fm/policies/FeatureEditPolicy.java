@@ -8,7 +8,7 @@ import org.eclipse.gef.requests.GroupRequest;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.ui.editors.fm.commands.AddAttributeCommand;
 import cz.jpikl.yafmt.ui.editors.fm.commands.DeleteFeatureCommand;
-import cz.jpikl.yafmt.ui.editors.fm.commands.RemoveAttributeCommand;
+import cz.jpikl.yafmt.ui.editors.fm.commands.DeleteAttributeCommand;
 import cz.jpikl.yafmt.ui.editors.fm.util.RequestConstants;
 
 public class FeatureEditPolicy extends ComponentEditPolicy {
@@ -35,7 +35,7 @@ public class FeatureEditPolicy extends ComponentEditPolicy {
     private Command createRemoveAttributeCommand(Feature feature, int attributeIndex) {
         if((attributeIndex < 0) || (attributeIndex >= feature.getAttributes().size()))
             return null;
-        return new RemoveAttributeCommand(feature, attributeIndex);
+        return new DeleteAttributeCommand(feature, attributeIndex);
     }   
     
     @Override

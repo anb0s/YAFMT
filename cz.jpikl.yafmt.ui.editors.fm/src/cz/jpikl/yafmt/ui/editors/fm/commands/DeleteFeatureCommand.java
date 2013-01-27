@@ -11,6 +11,7 @@ public class DeleteFeatureCommand extends RecordingCommand {
     private Feature feature;
     
     public DeleteFeatureCommand(Feature feature) {
+        setLabel("Delete Feature " + feature.getName());
         this.feature = feature;
     }
         

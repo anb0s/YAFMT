@@ -5,14 +5,14 @@ import org.eclipse.gef.commands.Command;
 import cz.jpikl.yafmt.model.fm.Attribute;
 import cz.jpikl.yafmt.model.fm.Feature;
 
-public class RemoveAttributeCommand extends Command {
+public class DeleteAttributeCommand extends Command {
 
     private Feature feature;
     private Attribute attribute;
     private int attributeIndex;
     
-    public RemoveAttributeCommand(Feature feature, int attributeIndex) {
-        setLabel("Remove Attribute " + feature.getAttributes().get(attributeIndex).getName());
+    public DeleteAttributeCommand(Feature feature, int attributeIndex) {
+        setLabel("Delete Attribute " + feature.getAttributes().get(attributeIndex).getName());
         this.feature = feature;
         this.attributeIndex = attributeIndex;
     }

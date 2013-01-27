@@ -10,5 +10,9 @@ public class ConnectionFigure extends PolylineConnection {
         decoration.setTemplate(PolygonDecoration.TRIANGLE_TIP);
         setSourceDecoration(decoration);
     }
+    
+    public void highlight(boolean value) {
+        setLineWidth(value ? 2 : 1);
+    }
 
 }
