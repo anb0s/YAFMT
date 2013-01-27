@@ -16,6 +16,7 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
+import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.model.util.IModelListener;
 import cz.jpikl.yafmt.model.util.ModelListenerAdapter;
 import cz.jpikl.yafmt.ui.editors.fm.figures.FeatureModelFigure;
@@ -60,12 +61,21 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart implements I
     @Override
     protected List<Object> getModelChildren() {
         List<Object> modelChildren = new ArrayList<Object>();
+        
         TreeIterator<EObject> it = featureModel.eAllContents();
+        while(it.hasNext()) {
+            EObject object = it.next();
+            if(object instanceof Group)
+                modelChildren.add(object);
+        }
+        
+        it = featureModel.eAllContents();
         while(it.hasNext()) {
             EObject object = it.next();
             if(object instanceof Feature)
                 modelChildren.add(object);
         }
+        
         return modelChildren;
     }
             

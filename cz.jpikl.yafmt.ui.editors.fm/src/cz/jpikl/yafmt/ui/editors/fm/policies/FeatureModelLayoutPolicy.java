@@ -1,5 +1,6 @@
 package cz.jpikl.yafmt.ui.editors.fm.policies;
 
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
@@ -10,7 +11,9 @@ import org.eclipse.gef.requests.CreateRequest;
 
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
+import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.ui.editors.fm.commands.AddFeatureCommand;
+import cz.jpikl.yafmt.ui.editors.fm.commands.MoveGroupCommand;
 import cz.jpikl.yafmt.ui.editors.fm.commands.MoveResizeFeatureCommand;
 import cz.jpikl.yafmt.ui.editors.fm.layout.IModelLayoutProvider;
 
@@ -28,9 +31,19 @@ public class FeatureModelLayoutPolicy extends XYLayoutEditPolicy {
     @Override
     protected Command createChangeConstraintCommand(ChangeBoundsRequest request, EditPart child, Object constraint) {
         IModelLayoutProvider layoutProvider = (IModelLayoutProvider) getHost();
-        Feature feature = (Feature) child.getModel();
-        Rectangle bounds = (Rectangle) constraint; 
-        return new MoveResizeFeatureCommand(layoutProvider, feature, bounds);
+        Object model = child.getModel();
+        
+        if(model instanceof Group){
+            Dimension sizeDelta = request.getSizeDelta();
+            if((sizeDelta.width != 0) || (sizeDelta.height != 0))
+                return null;
+            return new MoveGroupCommand(layoutProvider, (Group) model, (Rectangle) constraint);
+        }
+        
+        if(model instanceof Feature)
+            return new MoveResizeFeatureCommand(layoutProvider, (Feature) model, (Rectangle) constraint);
+
+        return null;
     }
 
 }

@@ -4,6 +4,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.commands.Command;
 
 import cz.jpikl.yafmt.model.fm.Feature;
+import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.ui.editors.fm.layout.IModelLayoutProvider;
 
 public class MoveResizeFeatureCommand extends Command {
@@ -29,11 +30,25 @@ public class MoveResizeFeatureCommand extends Command {
     @Override
     public void redo() {
         layoutProvider.setObjectBounds(feature, newBounds);
+        moveGroups(oldBounds, newBounds);
     }
 
     @Override
     public void undo() {
         layoutProvider.setObjectBounds(feature, oldBounds);
+        moveGroups(newBounds, oldBounds);
+    }
+    
+    private void moveGroups(Rectangle from, Rectangle to) {
+        int dx = to.x - from.x;
+        int dy = to.y - from.y;
+        
+        for(Group group: feature.getGroups()) {
+            Rectangle bounds = layoutProvider.getObjectBounds(group);
+            bounds.x += dx;
+            bounds.y += dy;
+            layoutProvider.setObjectBounds(group, bounds);
+        }
     }
     
 }
