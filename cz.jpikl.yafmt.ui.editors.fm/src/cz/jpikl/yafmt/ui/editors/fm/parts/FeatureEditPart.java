@@ -71,10 +71,8 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
     
     private void loadModelLayout() {
         IModelLayoutProvider layoutProvider = (IModelLayoutProvider) getParent();
-        Rectangle bounds = layoutProvider.getObjectBounds(feature);
-        if(bounds == null)
-            bounds = new Rectangle(0, 0, 100, 25);
-        layoutProvider.setObjectBounds(feature, bounds);
+        if(!layoutProvider.refreshObjectBounds(feature))
+            layoutProvider.setObjectBounds(feature, new Rectangle(0, 0, 100, 25));
     }
     
     @Override

@@ -4,9 +4,11 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.ecore.EObject;
 
 public interface IModelLayoutProvider {
-
+    
     Rectangle getObjectBounds(EObject object);
     
     void setObjectBounds(EObject object, Rectangle bounds);
+    
+    boolean refreshObjectBounds(EObject object);
     
 }

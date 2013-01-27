@@ -62,6 +62,8 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart implements I
     protected List<Object> getModelChildren() {
         List<Object> modelChildren = new ArrayList<Object>();
         
+        // Groups go before features.
+        // This order is used for rendering objects.
         TreeIterator<EObject> it = featureModel.eAllContents();
         while(it.hasNext()) {
             EObject object = it.next();
@@ -87,13 +89,19 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart implements I
     @Override
     public void setObjectBounds(EObject object, Rectangle bounds) {
         GraphicalEditPart editPart = getEditPartForObject(object);
-        if((editPart != null) && (object != null)) {
-            setLayoutConstraint(editPart, editPart.getFigure(), bounds);
-            modelLayout.getMapping().put(object, bounds);
-        }
-        else {
-            modelLayout.getMapping().remove(object);
-        }
+        setLayoutConstraint(editPart, editPart.getFigure(), bounds);
+        modelLayout.getMapping().put(object, bounds);
+    }
+    
+    @Override
+    public boolean refreshObjectBounds(EObject object) {
+        Rectangle bounds = modelLayout.getMapping().get(object);
+        if(bounds == null)
+            return false;
+        GraphicalEditPart editPart = getEditPartForObject(object);
+        setLayoutConstraint(editPart, editPart.getFigure(), bounds);
+        editPart.getFigure().repaint();
+        return true;
     }
     
     private GraphicalEditPart getEditPartForObject(Object object) {
@@ -104,8 +112,12 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart implements I
         if(getEditPartForObject(object) != null)
             return;
         
-        if(object instanceof Feature)
+        // Groups go before features.
+        // This order is used for rendering objects.
+        if(object instanceof Group)
             addChild(createChild(object), 0);
+        if(object instanceof Feature)
+            addChild(createChild(object), getChildren().size());
     }
     
     private void addEditPartsForObjects(Collection<Object> objects) {
@@ -118,11 +130,15 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart implements I
         if(editPart == null)
             return;
             
+        // Do not remove edit parts when they are still present in model.
+        // This situation usually happens when feature parent was changed.
         if(object instanceof Feature) {
-            // Do not remove edit parts when they are still present in model.
-            // This situation usually happens when feature parent was changed.
             Feature feature = (Feature) object;
             if((feature.getParent() == null) && !featureModel.getOrphans().contains(object))
+                removeChild(editPart);
+        }
+        else if(object instanceof Group) {
+            if(((Group) object).getParent() == null)
                 removeChild(editPart);
         }
     }

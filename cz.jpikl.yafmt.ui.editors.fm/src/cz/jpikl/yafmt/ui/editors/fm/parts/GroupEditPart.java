@@ -13,6 +13,7 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 import cz.jpikl.yafmt.model.fm.Feature;
+import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
 import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.model.util.IModelListener;
 import cz.jpikl.yafmt.model.util.ModelListenerAdapter;
@@ -49,7 +50,8 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
     
     @Override
     protected IFigure createFigure() {
-        return new GroupFigure();
+        IModelLayoutProvider layoutProvider = (IModelLayoutProvider) getParent();
+        return new GroupFigure(layoutProvider, group);
     }
     
     @Override
@@ -59,12 +61,13 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
             firstRefresh = false;
         }
     }
-        
+            
     private void loadModelLayout() {
         IModelLayoutProvider layoutProvider = (IModelLayoutProvider) getParent();
-        Rectangle bounds = layoutProvider.getObjectBounds(group);
-        if(bounds == null) {
+        if(!layoutProvider.refreshObjectBounds(group)) {
             Rectangle parentBounds = layoutProvider.getObjectBounds(group.getParent());
+            Rectangle bounds;
+            
             if(parentBounds == null) {
                 bounds = new Rectangle(50 - SIZE / 2, 25 - SIZE / 2, SIZE, SIZE);
             }
@@ -73,8 +76,9 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
                 int y = parentBounds.y + parentBounds.height - (SIZE / 2);
                 bounds = new Rectangle(x, y, SIZE, SIZE);
             }
-        }
-        layoutProvider.setObjectBounds(group, bounds);
+            
+            layoutProvider.setObjectBounds(group, bounds);
+        }        
     }
 
     @Override
@@ -90,7 +94,6 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
     
     @Override
     public ConnectionAnchor getSourceConnectionAnchor(ConnectionEditPart connection) {
-        //return new EllipseAnchor(getFigure());
         return new MiddlePointAnchor(getFigure());
     }
 
@@ -121,6 +124,15 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
             case Notification.REMOVE:
             case Notification.REMOVE_MANY:
                 refreshTargetConnections();
+                break;
+                
+            case Notification.SET:
+                switch(notification.getFeatureID(Group.class)) {
+                    case FeatureModelPackage.GROUP__LOWER:
+                    case FeatureModelPackage.GROUP__UPPER:
+                        ((GroupFigure) getFigure()).updateState();
+                        break;
+                }
                 break;
         }
     }

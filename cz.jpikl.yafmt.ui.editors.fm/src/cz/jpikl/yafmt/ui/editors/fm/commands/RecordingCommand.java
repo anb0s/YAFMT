@@ -13,11 +13,13 @@ public abstract class RecordingCommand extends Command {
     private InnerCommand innerCommand;
     
     protected void addRecordedObject(Notifier object) {
-        recordedObjects.add(object);
+        if(object != null)
+            recordedObjects.add(object);
     }
     
     protected void addRecordedObjects(Collection<Notifier> objects) {
-        recordedObjects.addAll(objects);
+        if(objects != null)
+            recordedObjects.addAll(objects);
     }
     
     protected abstract void initializeRecording();

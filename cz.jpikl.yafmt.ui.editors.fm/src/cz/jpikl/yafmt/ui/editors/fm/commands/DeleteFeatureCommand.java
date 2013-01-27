@@ -49,8 +49,11 @@ public class DeleteFeatureCommand extends RecordingCommand {
         else if(parent instanceof Group) {
             Group group = (Group) parent;
             group.getFeatures().remove(feature);
-            if(group.getFeatures().isEmpty())
+            if(group.getFeatures().size() <= 1) {
+                if(group.getFeatures().size() == 1)
+                    group.getParent().getFeatures().add(group.getFeatures().get(0));
                 group.getParent().getGroups().remove(group);
+            }
         }
         else {
             featureModel.getOrphans().remove(feature);

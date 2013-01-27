@@ -1,6 +1,7 @@
 package cz.jpikl.yafmt.ui.editors.fm.commands;
 
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.commands.Command;
 
 import cz.jpikl.yafmt.model.fm.Feature;
@@ -49,6 +50,11 @@ public class MoveResizeFeatureCommand extends Command {
             bounds.y += dy;
             layoutProvider.setObjectBounds(group, bounds);
         }
+        
+        // Force repainting of parent group.
+        EObject parent = feature.getParent();
+        if(parent instanceof Group)
+            layoutProvider.refreshObjectBounds(parent);
     }
     
 }
