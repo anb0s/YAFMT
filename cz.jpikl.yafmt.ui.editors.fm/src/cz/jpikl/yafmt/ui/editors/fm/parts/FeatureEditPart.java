@@ -8,7 +8,9 @@ import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.EditPolicy;
@@ -20,38 +22,37 @@ import org.eclipse.jface.viewers.ICellEditorValidator;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
-import cz.jpikl.yafmt.model.util.ModelListener;
-import cz.jpikl.yafmt.model.util.ModelListenerAdapter;
 import cz.jpikl.yafmt.ui.editors.fm.figures.FeatureFigure;
-import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutProvider;
+import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 import cz.jpikl.yafmt.ui.editors.fm.model.Connection;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureConnectionEditPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureDirectEditPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureEditPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.util.LabelDirectEditManager;
 
-public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEditPart, ModelListener {
+public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEditPart {
 
     private Feature feature;
-    private ModelListenerAdapter listenerAdapter;
-    private boolean firstRefresh;
+    private Adapter featureAdapter;
+    private LayoutData layoutData;
     
-    public FeatureEditPart(Feature feature) {
+    public FeatureEditPart(Feature feature, LayoutData layoutData) {
         this.feature = feature;
-        this.listenerAdapter = new ModelListenerAdapter(this);
-        this.firstRefresh = true;
+        this.featureAdapter = new FeatureAdapter();
+        this.layoutData = layoutData;
         setModel(feature);
     }
     
     @Override
     public void activate() {
         super.activate();
-        listenerAdapter.adapt(feature);
+        feature.eAdapters().add(featureAdapter);
+        loadModelLayout();
     }
     
     @Override
     public void deactivate() {
-        listenerAdapter.dispose();
+        feature.eAdapters().remove(featureAdapter);
         super.deactivate();
     }
 
@@ -63,17 +64,13 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
     @Override
     protected void refreshVisuals() {
         ((FeatureFigure) getFigure()).getLabel().setText(feature.getName());
-        
-        if(firstRefresh) {
-            loadModelLayout();
-            firstRefresh = false;
-        }
     }
     
     private void loadModelLayout() {
-        LayoutProvider layoutProvider = (LayoutProvider) getParent();
-        if(!layoutProvider.refreshObjectBounds(feature))
-            layoutProvider.setObjectBounds(feature, new Rectangle(0, 0, 100, 25));
+        Rectangle bounds = layoutData.getMapping().get(feature);
+        if(bounds == null)
+            bounds = new Rectangle(0, 0, FeatureFigure.WIDTH, FeatureFigure.HEGHT);
+        layoutData.getMapping().put(feature, bounds);
     }
     
     @Override
@@ -133,32 +130,7 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
             manager.setValidator(new DirectInputValidator());
             manager.show();
         }
-    }
-
-    @Override
-    public void modelChanged(Notification notification) {
-        switch(notification.getEventType()) {
-            case Notification.ADD:
-            case Notification.ADD_MANY:
-            case Notification.REMOVE:
-            case Notification.REMOVE_MANY:
-                refreshTargetConnections();
-                break;
-            
-            case Notification.SET:
-                switch(notification.getFeatureID(Feature.class)) {
-                    case FeatureModelPackage.FEATURE__NAME:
-                        ((FeatureFigure) getFigure()).getLabel().setText(notification.getNewStringValue());
-                        break;
-                        
-                    case FeatureModelPackage.FEATURE__PARENT_FEATURE:
-                    case FeatureModelPackage.FEATURE__PARENT_GROUP:
-                        refreshSourceConnections();
-                        break;
-                }
-                break;
-        }
-    }
+    }   
     
     private static class DirectInputValidator implements ICellEditorValidator {
         
@@ -167,6 +139,35 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
             if((value == null) || ("".equals(value)))
                 return "Empty input"; // Not displayed anywhere.
             return null;
+        }
+        
+    }
+    
+    private class FeatureAdapter extends AdapterImpl {
+        
+        @Override
+        public void notifyChanged(Notification notification) {
+            switch(notification.getEventType()) {
+                case Notification.ADD:
+                case Notification.ADD_MANY:
+                case Notification.REMOVE:
+                case Notification.REMOVE_MANY:
+                    refreshTargetConnections();
+                    break;
+                
+                case Notification.SET:
+                    switch(notification.getFeatureID(Feature.class)) {
+                        case FeatureModelPackage.FEATURE__NAME:
+                            ((FeatureFigure) getFigure()).getLabel().setText(notification.getNewStringValue());
+                            break;
+                            
+                        case FeatureModelPackage.FEATURE__PARENT_FEATURE:
+                        case FeatureModelPackage.FEATURE__PARENT_GROUP:
+                            refreshSourceConnections();
+                            break;
+                    }
+                    break;
+            }
         }
         
     }

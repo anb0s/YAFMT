@@ -13,8 +13,8 @@ public class FeatureModelEditPartFactory implements EditPartFactory {
 
     private LayoutData layoutData;
         
-    public FeatureModelEditPartFactory(LayoutData modelLayout) {
-        this.layoutData = modelLayout;
+    public FeatureModelEditPartFactory(LayoutData layoutData) {
+        this.layoutData = layoutData;
     }
 
     @Override
@@ -22,9 +22,9 @@ public class FeatureModelEditPartFactory implements EditPartFactory {
         if(model instanceof FeatureModel)
             return new FeatureModelEditPart((FeatureModel) model, layoutData);
         if(model instanceof Feature)
-            return new FeatureEditPart((Feature) model);
+            return new FeatureEditPart((Feature) model, layoutData);
         if(model instanceof Group)
-            return new GroupEditPart((Group) model);
+            return new GroupEditPart((Group) model, layoutData);
         if(model instanceof Connection)
             return new ConnectionEditPart((Connection) model);
         throw new IllegalStateException("No EditPart for " + model.getClass());

@@ -20,8 +20,8 @@ public class DeleteFeatureCommand extends RecordingCommand {
         
     protected void initializeRecording() {
         addRecordedObject(feature.getFeatureModel());
-        addRecordedObject(feature.getParent());
         addRecordedObject(feature);
+        addRecordedObjectParent(feature);
     }
     
     @Override
@@ -37,6 +37,7 @@ public class DeleteFeatureCommand extends RecordingCommand {
         EObject parent = feature.getParent();
         feature.setParent(null);
         FeatureModelUtil.removeUnneededGroup(parent);
+        
     }
     
 }

@@ -9,8 +9,8 @@ import org.eclipse.gef.requests.ReconnectRequest;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.ui.editors.fm.commands.AddConnectionCommand;
-import cz.jpikl.yafmt.ui.editors.fm.commands.ChangeConnectionSourceCommand;
-import cz.jpikl.yafmt.ui.editors.fm.commands.ChangeConnectionTargetCommand;
+import cz.jpikl.yafmt.ui.editors.fm.commands.ReconnectTargetCommand;
+import cz.jpikl.yafmt.ui.editors.fm.commands.ReconnectSourceCommand;
 import cz.jpikl.yafmt.ui.editors.fm.model.Connection;
 
 public class FeatureConnectionEditPolicy extends GraphicalNodeEditPolicy {
@@ -46,7 +46,7 @@ public class FeatureConnectionEditPolicy extends GraphicalNodeEditPolicy {
                 return null;
         }
         
-        return new ChangeConnectionTargetCommand(connection, (Feature) newTarget);
+        return new ReconnectSourceCommand(connection, (Feature) newTarget);
     }
 
     @Override
@@ -64,7 +64,7 @@ public class FeatureConnectionEditPolicy extends GraphicalNodeEditPolicy {
                 return null;
         }
         
-        return new ChangeConnectionSourceCommand(connection, (EObject) newSource);
+        return new ReconnectTargetCommand(connection, (EObject) newSource);
     }
 
 }

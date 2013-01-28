@@ -4,24 +4,41 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.commands.Command;
 
 import cz.jpikl.yafmt.model.fm.Group;
-import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutProvider;
+import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 
 public class MoveGroupCommand extends Command {
     
-    private LayoutProvider layoutProvider;
+    private LayoutData layoutData;
     private Group group;
-    private Rectangle newBounds;
     private Rectangle oldBounds;
+    private Rectangle newBounds;
     
-    public MoveGroupCommand(LayoutProvider layoutProvider, Group group, Rectangle bounds) {
+    public MoveGroupCommand(LayoutData layoutData, Group group, Rectangle newBounds) {
         setLabel("Move Group");
-        this.layoutProvider = layoutProvider;
+        this.layoutData = layoutData;
         this.group = group;
-        this.newBounds = bounds;
+        this.oldBounds = layoutData.getMapping().get(group);
+        this.newBounds = newBounds;
     }
-        
-    private void relocateNewPosition() {
-        Rectangle parentBounds = layoutProvider.getObjectBounds(group.getParent());
+    
+    @Override
+    public void execute() {
+        recomputeNewBounds();
+        redo();
+    }
+    
+    @Override
+    public void redo() {
+        layoutData.getMapping().put(group, newBounds);
+    }
+    
+    @Override
+    public void undo() {
+        layoutData.getMapping().put(group, oldBounds);
+    }
+    
+    private void recomputeNewBounds() {
+        Rectangle parentBounds = layoutData.getMapping().get(group.getParent());
         
         int cx = newBounds.x + newBounds.width / 2;
         int cy = newBounds.y + newBounds.height / 2;
@@ -49,23 +66,7 @@ public class MoveGroupCommand extends Command {
                  
         newBounds.x = cx - newBounds.width / 2;
         newBounds.y = cy - newBounds.height / 2;
-    }
-    
-    @Override
-    public void execute() {
-        oldBounds = layoutProvider.getObjectBounds(group);
-        relocateNewPosition();
-        redo();
-    }
-    
-    @Override
-    public void redo() {
-        layoutProvider.setObjectBounds(group, newBounds);
-    }
-
-    @Override
-    public void undo() {
-        layoutProvider.setObjectBounds(group, oldBounds);
+        layoutData.getMapping().put(group, newBounds);
     }
 
 }

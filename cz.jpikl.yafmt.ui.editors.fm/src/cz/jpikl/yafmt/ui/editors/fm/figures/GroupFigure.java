@@ -16,11 +16,13 @@ import org.eclipse.draw2d.geometry.Rectangle;
 
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.Group;
-import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutProvider;
+import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 
 public class GroupFigure extends RectangleFigure {
 
-    private LayoutProvider layoutProvider;
+    public static final int SIZE = 40;
+    
+    private LayoutData layoutData;
     private Group group;
     private Label label;
 
@@ -29,8 +31,8 @@ public class GroupFigure extends RectangleFigure {
     private int arcOffset;
     private int arcLength;
     
-    public GroupFigure(LayoutProvider layoutProvider, Group group) {
-        this.layoutProvider = layoutProvider;
+    public GroupFigure(LayoutData layoutData, Group group) {
+        this.layoutData = layoutData;
         this.group = group;
         this.label = new NonInteractiveLabel();
         
@@ -113,10 +115,10 @@ public class GroupFigure extends RectangleFigure {
         
         angles = new double[size + 1];
         angles[size] = Double.MAX_VALUE; 
-        Point self = layoutProvider.getObjectBounds(group).getCenter();
+        Point self = layoutData.getMapping().get(group).getCenter();
         
         for(int i = 0; i < size; i++) {
-            Point target = layoutProvider.getObjectBounds(features.get(i)).getCenter();
+            Point target = layoutData.getMapping().get(features.get(i)).getCenter();
             angles[i] = getAngle(self, target);
         }
         

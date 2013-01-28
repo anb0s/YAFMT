@@ -6,6 +6,7 @@ import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutDataPackage;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.BasicEMap;
 import org.eclipse.emf.common.util.EMap;
 
@@ -13,6 +14,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 /**
@@ -274,11 +276,14 @@ public class EObjectToRectangleImpl extends EObjectImpl implements BasicEMap.Ent
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     public Rectangle setValue(Rectangle value) {
         Rectangle oldValue = getValue();
         setTypedValue(value);
+        // EMF does not generate this notification code for some reason!!!
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, LayoutDataPackage.EOBJECT_TO_RECTANGLE__VALUE, oldValue, value));
         return oldValue;
     }
 

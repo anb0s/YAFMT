@@ -6,7 +6,9 @@ import java.util.List;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
@@ -15,70 +17,59 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
 import cz.jpikl.yafmt.model.fm.Group;
-import cz.jpikl.yafmt.model.util.ModelListener;
-import cz.jpikl.yafmt.model.util.ModelListenerAdapter;
 import cz.jpikl.yafmt.ui.editors.fm.figures.GroupFigure;
 import cz.jpikl.yafmt.ui.editors.fm.figures.MiddlePointAnchor;
-import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutProvider;
+import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 import cz.jpikl.yafmt.ui.editors.fm.model.Connection;
 
-public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEditPart, ModelListener {
-
-    private static final int SIZE = 40;
+public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEditPart {
     
     private Group group;
-    private ModelListenerAdapter listenerAdapter = new ModelListenerAdapter(this);
-    private boolean firstRefresh;
-    
-    public GroupEditPart(Group group) {
+    private Adapter groupAdapter;
+    private LayoutData layoutData;
+        
+    public GroupEditPart(Group group, LayoutData layoutData) {
         this.group = group;
-        this.firstRefresh = true;
+        this.groupAdapter = new GroupAdapter();
+        this.layoutData = layoutData;
         setModel(group);
     }
     
     @Override
     public void activate() {
         super.activate();
-        listenerAdapter.adapt(group);
+        group.eAdapters().add(groupAdapter);
+        loadModelLayout();
     }
     
     @Override
     public void deactivate() {
-        listenerAdapter.dispose();
+        group.eAdapters().remove(groupAdapter);
         super.deactivate();
     }
     
     @Override
     protected IFigure createFigure() {
-        LayoutProvider layoutProvider = (LayoutProvider) getParent();
-        return new GroupFigure(layoutProvider, group);
+        return new GroupFigure(layoutData, group);
     }
-    
-    @Override
-    protected void refreshVisuals() {
-        if(firstRefresh) {
-            loadModelLayout();
-            firstRefresh = false;
-        }
-    }
-            
+                
     private void loadModelLayout() {
-        LayoutProvider layoutProvider = (LayoutProvider) getParent();
-        if(!layoutProvider.refreshObjectBounds(group)) {
-            Rectangle parentBounds = layoutProvider.getObjectBounds(group.getParent());
-            Rectangle bounds;
-            
+        Rectangle bounds = layoutData.getMapping().get(group);
+        if(bounds == null) {
+            Rectangle parentBounds = layoutData.getMapping().get(group.getParent());
+            int x, y, w, h;
             if(parentBounds == null) {
-                bounds = new Rectangle(50 - SIZE / 2, 25 - SIZE / 2, SIZE, SIZE);
+                x = y = 0;
+                w = h = GroupFigure.SIZE;
             }
             else {
-                int x = parentBounds.x + (parentBounds.width - SIZE) / 2;
-                int y = parentBounds.y + parentBounds.height - (SIZE / 2);
-                bounds = new Rectangle(x, y, SIZE, SIZE);
+                x = parentBounds.x + (parentBounds.width - GroupFigure.SIZE) / 2;
+                y = parentBounds.y + parentBounds.height - (GroupFigure.SIZE / 2);
+                w = h = GroupFigure.SIZE;
             }
-            
-            layoutProvider.setObjectBounds(group, bounds);
-        }        
+            bounds = new Rectangle(x, y, w, h);
+        }
+        layoutData.getMapping().put(group, bounds);
     }
 
     @Override
@@ -116,25 +107,29 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
     protected void createEditPolicies() {
     }
 
-    @Override
-    public void modelChanged(Notification notification) {
-        switch(notification.getEventType()) {
-            case Notification.ADD:
-            case Notification.ADD_MANY:
-            case Notification.REMOVE:
-            case Notification.REMOVE_MANY:
-                refreshTargetConnections();
-                break;
-                
-            case Notification.SET:
-                switch(notification.getFeatureID(Group.class)) {
-                    case FeatureModelPackage.GROUP__LOWER:
-                    case FeatureModelPackage.GROUP__UPPER:
-                        ((GroupFigure) getFigure()).updateState();
-                        break;
-                }
-                break;
+    class GroupAdapter extends AdapterImpl {
+        
+        @Override
+        public void notifyChanged(Notification notification) {
+            switch(notification.getEventType()) {
+                case Notification.ADD:
+                case Notification.ADD_MANY:
+                case Notification.REMOVE:
+                case Notification.REMOVE_MANY:
+                    refreshTargetConnections();
+                    break;
+                    
+                case Notification.SET:
+                    switch(notification.getFeatureID(Group.class)) {
+                        case FeatureModelPackage.GROUP__LOWER:
+                        case FeatureModelPackage.GROUP__UPPER:
+                            ((GroupFigure) getFigure()).updateState();
+                            break;
+                    }
+                    break;
+            }
         }
+        
     }
-
+    
 }

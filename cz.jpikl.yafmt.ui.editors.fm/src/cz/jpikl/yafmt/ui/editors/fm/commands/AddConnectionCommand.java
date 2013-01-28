@@ -35,9 +35,9 @@ public class AddConnectionCommand extends RecordingCommand {
 
     @Override
     protected void performRecording() {
-        EObject oldParent = destination.getParent();
+        EObject destinationPreviousParent = destination.getParent();
         destination.setParent(source);
-        FeatureModelUtil.removeUnneededGroup(oldParent);
+        FeatureModelUtil.removeUnneededGroup(destinationPreviousParent);
     }
 
 }

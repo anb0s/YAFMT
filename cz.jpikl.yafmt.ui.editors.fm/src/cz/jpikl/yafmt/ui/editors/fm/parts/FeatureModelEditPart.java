@@ -3,13 +3,15 @@ package cz.jpikl.yafmt.ui.editors.fm.parts;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
@@ -18,35 +20,39 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.Group;
-import cz.jpikl.yafmt.model.util.ModelListener;
-import cz.jpikl.yafmt.model.util.ModelListenerAdapter;
+import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
 import cz.jpikl.yafmt.ui.editors.fm.figures.FeatureModelFigure;
-import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutProvider;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureModelLayoutPolicy;
 
-public class FeatureModelEditPart extends AbstractGraphicalEditPart implements ModelListener, LayoutProvider {
+public class FeatureModelEditPart extends AbstractGraphicalEditPart {
 
     private FeatureModel featureModel;
     private LayoutData layoutData;
-    private ModelListenerAdapter modelAdapter;
+    private Adapter featureModelAdapter;
+    private Adapter layoutDataAdapter;
     
-    public FeatureModelEditPart(FeatureModel featureModel, LayoutData modelLayout) {
+    public FeatureModelEditPart(FeatureModel featureModel, LayoutData layoutData) {
         this.featureModel = featureModel;
-        this.layoutData = modelLayout;
-        this.modelAdapter = new ModelListenerAdapter(this);
+        this.layoutData = layoutData;
+        this.featureModelAdapter = new FeatureModelAdapter();
+        this.layoutDataAdapter = new LayoutDataAdapter(); 
         setModel(featureModel);
     }
     
     @Override
     public void activate() {
+        featureModel.eAdapters().add(featureModelAdapter);
+        layoutData.eAdapters().add(layoutDataAdapter);
+        // Adapters MUST be registered BEFORE children parts activation!
         super.activate();
-        modelAdapter.adaptContents(featureModel);
     }
     
     @Override
     public void deactivate() {
-        modelAdapter.dispose();
+        featureModel.eAdapters().remove(featureModelAdapter);
+        layoutData.eAdapters().remove(layoutDataAdapter);
+        super.deactivate();
     }
 
     @Override
@@ -81,32 +87,8 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart implements M
         
         return modelChildren;
     }
-            
-    @Override
-    public Rectangle getObjectBounds(EObject object) {
-        return layoutData.getMapping().get(object);
-    }
-    
-    @Override
-    public void setObjectBounds(EObject object, Rectangle bounds) {
-        GraphicalEditPart editPart = getEditPartForObject(object);
-        setLayoutConstraint(editPart, editPart.getFigure(), bounds);
-        layoutData.getMapping().put(object, bounds);
-    }
-    
-    @Override
-    public boolean refreshObjectBounds(EObject object) {
-        Rectangle bounds = layoutData.getMapping().get(object);
-        if(bounds == null)
-            return false;
-        GraphicalEditPart editPart = getEditPartForObject(object);
-        setLayoutConstraint(editPart, editPart.getFigure(), bounds);
-        editPart.getFigure().repaint();
-        return true;
-    }
-    
-    @Override
-    public Notifier getLayoutNotifier() {
+
+    public LayoutData getLayoutData() {
         return layoutData;
     }
     
@@ -120,10 +102,21 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart implements M
         
         // Groups go before features.
         // This order is used for rendering objects.
-        if(object instanceof Group)
+        if(object instanceof Group) {
             addChild(createChild(object), 0);
-        if(object instanceof Feature)
+            // When ChangeRecorder does undo, it merge all changes, so previously deleted
+            // group can be added together with previously deleted features.
+            Group group = (Group) object;
+            for(Feature feature: group.getFeatures())
+                addEditPartForObject(feature);
+        }
+        if(object instanceof Feature) {
             addChild(createChild(object), getChildren().size());
+            // Same case as mentioned above.
+            Feature feature = (Feature) object;
+            for(Group group: feature.getGroups())
+                addEditPartForObject(group);
+        }
     }
     
     private void addEditPartsForObjects(Collection<Object> objects) {
@@ -139,8 +132,10 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart implements M
         // Do not remove edit parts when they are still present in model.
         // This situation usually happens when feature parent was changed.
         if(object instanceof EObject) {
-            if(((EObject) object).eContainer() == null)
+            if(((EObject) object).eContainer() == null) {
+                System.out.println("Removing " + FeatureModelUtil.getName((EObject)object));
                 removeChild(editPart);
+            }
         }
     }
     
@@ -148,28 +143,65 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart implements M
         for(Object object: objects)
             removeEditPartForObject(object);
     }
-    
-    @Override
-    @SuppressWarnings("unchecked")
-    public void modelChanged(Notification notification) {       
-        switch(notification.getEventType()) {
-            case Notification.ADD:
-                addEditPartForObject(notification.getNewValue());
-                break;
-                
-            case Notification.ADD_MANY:
-                addEditPartsForObjects((Collection<Object>) notification.getNewValue());
-                break;
-                
-            case Notification.REMOVE:
-                removeEditPartForObject(notification.getOldValue());
-                break;
-                
-            case Notification.REMOVE_MANY:
-                removeEditPartsForObjects((Collection<Object>) notification.getOldValue());
-                break;
+
+    class FeatureModelAdapter extends EContentAdapter {
+        
+        @Override
+        @SuppressWarnings("unchecked")
+        public void notifyChanged(Notification notification) {
+            super.notifyChanged(notification);
+            
+            switch(notification.getEventType()) {
+                case Notification.ADD:
+                    addEditPartForObject(notification.getNewValue());
+                    break;
+                    
+                case Notification.ADD_MANY:
+                    addEditPartsForObjects((Collection<Object>) notification.getNewValue());
+                    break;
+                    
+                case Notification.REMOVE:
+                    removeEditPartForObject(notification.getOldValue());
+                    break;
+                    
+                case Notification.REMOVE_MANY:
+                    removeEditPartsForObjects((Collection<Object>) notification.getOldValue());
+                    break;
+            }
+            
+            
         }
         
     }
     
+    class LayoutDataAdapter extends EContentAdapter {
+                
+        @SuppressWarnings("unchecked")
+        private void updateLayoutConstraint(Object object) {
+            if(!(object instanceof Map.Entry<?, ?>))
+                return;
+            
+            Map.Entry<EObject, Rectangle> entry = (Map.Entry<EObject, Rectangle>) object;
+            GraphicalEditPart editPart = getEditPartForObject(entry.getKey());
+            if(editPart != null)
+                setLayoutConstraint(editPart, editPart.getFigure(), entry.getValue());
+        }
+        
+        @Override
+        public void notifyChanged(Notification notification) {
+            super.notifyChanged(notification);
+            
+            switch (notification.getEventType()) {
+                case Notification.ADD:
+                    updateLayoutConstraint(notification.getNewValue());
+                    break;
+                
+                case Notification.SET:
+                    updateLayoutConstraint(notification.getNotifier());
+                    break;
+            }
+        }
+        
+    }
+        
 }

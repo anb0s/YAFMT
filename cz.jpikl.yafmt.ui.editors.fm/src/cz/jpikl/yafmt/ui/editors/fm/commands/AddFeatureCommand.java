@@ -6,18 +6,18 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.ui.editors.fm.figures.FeatureFigure;
-import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutProvider;
+import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 
 public class AddFeatureCommand extends RecordingCommand {
     
-    private LayoutProvider layoutProvider;
+    private LayoutData layoutData;
     private FeatureModel featureModel;
     private Feature feature;
     private Point location;
     
-    public AddFeatureCommand(LayoutProvider layoutProvider, FeatureModel featureModel, Feature feature, Point location) {
+    public AddFeatureCommand(LayoutData layoutData, FeatureModel featureModel, Feature feature, Point location) {
         setLabel("Add New Feature");
-        this.layoutProvider = layoutProvider;
+        this.layoutData = layoutData;
         this.featureModel = featureModel;
         this.feature = feature;
         this.location = location;
@@ -26,7 +26,7 @@ public class AddFeatureCommand extends RecordingCommand {
     @Override
     protected void initializeRecording() {
         addRecordedObject(featureModel);
-        addRecordedObject(layoutProvider.getLayoutNotifier());
+        addRecordedObject(layoutData);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class AddFeatureCommand extends RecordingCommand {
         Rectangle bounds = new Rectangle(x, y, FeatureFigure.WIDTH, FeatureFigure.HEGHT);
         
         featureModel.getOrphans().add(feature);
-        layoutProvider.setObjectBounds(feature, bounds);
+        layoutData.getMapping().put(feature, bounds);
     }
         
 }

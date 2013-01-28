@@ -6,55 +6,60 @@ import org.eclipse.gef.commands.Command;
 
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.Group;
-import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutProvider;
+import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 
 public class MoveResizeFeatureCommand extends Command {
 
-    private LayoutProvider layoutProvider;
+    private LayoutData layoutData;
     private Feature feature;
-    private Rectangle newBounds;
     private Rectangle oldBounds;
+    private Rectangle newBounds;
     
-    public MoveResizeFeatureCommand(LayoutProvider layoutProvider, Feature feature, Rectangle bounds) {
+    public MoveResizeFeatureCommand(LayoutData layoutData, Feature feature, Rectangle newBounds) {
         setLabel("Move/Resize Feature");
-        this.layoutProvider = layoutProvider;
+        this.layoutData = layoutData;
         this.feature = feature;
-        this.newBounds = bounds;
+        this.oldBounds = layoutData.getMapping().get(feature);
+        this.newBounds = newBounds;
     }
 
     @Override
     public void execute() {
-        oldBounds = layoutProvider.getObjectBounds(feature);
         redo();
     }
     
     @Override
     public void redo() {
-        layoutProvider.setObjectBounds(feature, newBounds);
-        moveGroups(oldBounds, newBounds);
-    }
-
-    @Override
-    public void undo() {
-        layoutProvider.setObjectBounds(feature, oldBounds);
-        moveGroups(newBounds, oldBounds);
+        layoutData.getMapping().put(feature, newBounds);
+        moveGrous(oldBounds, newBounds);
+        repaintParentGroup();
     }
     
-    private void moveGroups(Rectangle from, Rectangle to) {
+    @Override
+    public void undo() {
+        layoutData.getMapping().put(feature, oldBounds);
+        moveGrous(newBounds, oldBounds);
+        repaintParentGroup();
+    }
+    
+    private void moveGrous(Rectangle from, Rectangle to) {
         int dx = to.x - from.x;
         int dy = to.y - from.y;
         
         for(Group group: feature.getGroups()) {
-            Rectangle bounds = layoutProvider.getObjectBounds(group);
+            Rectangle bounds = layoutData.getMapping().get(group);
             bounds.x += dx;
             bounds.y += dy;
-            layoutProvider.setObjectBounds(group, bounds);
+            layoutData.getMapping().put(group, bounds);
         }
-        
-        // Force repainting of parent group.
-        EObject parent = feature.getParent();
-        if(parent instanceof Group)
-            layoutProvider.refreshObjectBounds(parent);
+    }
+    
+    private void repaintParentGroup() {
+        EObject group = feature.getParentGroup();
+        if(group != null) {
+            Rectangle bounds = layoutData.getMapping().get(group);
+            layoutData.getMapping().put(group, bounds);
+        }
     }
     
 }
