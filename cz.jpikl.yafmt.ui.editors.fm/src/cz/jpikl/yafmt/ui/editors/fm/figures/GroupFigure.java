@@ -3,9 +3,14 @@ package cz.jpikl.yafmt.ui.editors.fm.figures;
 import java.util.Arrays;
 import java.util.List;
 
+import org.eclipse.draw2d.AncestorListener;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.RectangleFigure;
+import org.eclipse.draw2d.TreeSearch;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
@@ -17,14 +22,17 @@ public class GroupFigure extends RectangleFigure {
 
     private IModelLayoutProvider layoutProvider;
     private Group group;
+    private Label label;
 
     private Rectangle arcBounds;
+    private double[] angles;
     private int arcOffset;
     private int arcLength;
     
     public GroupFigure(IModelLayoutProvider layoutProvider, Group group) {
         this.layoutProvider = layoutProvider;
         this.group = group;
+        this.label = new NonInteractiveLabel();
         
         setOpaque(true);
         setForegroundColor(ColorConstants.black);
@@ -32,12 +40,31 @@ public class GroupFigure extends RectangleFigure {
     }
     
     public void updateState() {
-        setBackgroundColor(group.isOr() ? ColorConstants.black : null);
+        if(group.isOr()) {
+            setBackgroundColor(ColorConstants.black);
+            label.setText(null);
+        }
+        else if(group.isXor()) {
+            setBackgroundColor(null);
+            label.setText(null);
+        }
+        else {
+            setBackgroundColor(null);
+            int lower = group.getLower();
+            int upper = group.getUpper();
+            label.setText("<" + lower + " -" + ((upper == -1) ? "*" : upper) + ">");
+        }
     }
         
     @Override
     public void paintFigure(Graphics graphics) {
+        if(label.getParent() == null) {
+            getParent().add(label);
+            addAncestorListener(new AutoRemover(label));
+        }
+        
         recomputeArcData();
+        repositionLabel();
         super.paintFigure(graphics);
     }
         
@@ -51,13 +78,40 @@ public class GroupFigure extends RectangleFigure {
         graphics.drawArc(arcBounds, arcOffset, arcLength);
     }
     
+    private void repositionLabel() {
+        if(label.getText().isEmpty())
+            return;
+        
+        Dimension size = label.getPreferredSize();
+        
+        int maxIndex = 0;
+        int maxIndex2 = 0;
+        double maxDiff = -1.0;
+        for(int i = 0; i < (angles.length - 1); i++) {
+            double diff = angles[i + 1] - angles[i];
+            if(diff > maxDiff) {
+                maxIndex2 = maxIndex;
+                maxIndex = i;
+                maxDiff = diff;
+            }
+        }
+        
+        double theta = Math.toRadians((angles[maxIndex2 + 1] + angles[maxIndex2]) / 2);
+        int x =   (int) (50.0 * Math.cos(theta)) - size.width / 2;
+        int y = - (int) (50.0 * Math.sin(theta)) - size.width / 2;
+        
+        Point position = bounds.getCenter().translate(x, y);
+        Rectangle bounds = new Rectangle(position, size);
+        getParent().setConstraint(label, bounds);
+    }
+    
     private void recomputeArcData() {
         List<Feature> features = group.getFeatures();
         int size = features.size();
         if(size < 2)
             return;
         
-        double[] angles = new double[size + 1];
+        angles = new double[size + 1];
         angles[size] = Double.MAX_VALUE; 
         Point self = layoutProvider.getObjectBounds(group).getCenter();
         
@@ -69,8 +123,8 @@ public class GroupFigure extends RectangleFigure {
         Arrays.sort(angles);
         angles[size] = angles[0] + 360.0;
         
-        double maxDiff = -1.0;
         int maxIndex = 0;
+        double maxDiff = -1.0;
         for(int i = 0; i < size; i++) {
             double diff = angles[i + 1] - angles[i];
             if(diff > maxDiff) {
@@ -88,30 +142,8 @@ public class GroupFigure extends RectangleFigure {
         double dx = target.x - self.x;
         double dy = target.y - self.y;
 
-        if(dx > 0.0) {
-            if(dy > 0.0)
-                return 270 + Math.toDegrees(Math.atan(dx / dy));
-            if(dy < 0.0)
-                return Math.toDegrees(Math.atan(-dy / dx));
-            else
-                return 0.0;
-        }
-        else if(dx < 0.0) {
-            if(dy > 0.0)
-                return 180.0 + Math.toDegrees(Math.atan(dy / -dx));
-            if(dy < 0.0)
-                return 90.0 + Math.toDegrees(Math.atan(dx / dy));
-            else
-                return 180.0;
-        }
-        else {
-            if(dy > 0.0)
-                return 270.0;
-            if(dy < 0.0)
-                return 90.0;
-            else
-                return 0.0;
-        }
+        double result = Math.toDegrees(Math.atan2(-dy, dx));
+        return (result < 0.0) ? result + 360.0 : result;
     }
 
     private Rectangle getOptimizedBounds() {
@@ -125,6 +157,40 @@ public class GroupFigure extends RectangleFigure {
         r.width -= inset1 + inset2;
         r.height -= inset1 + inset2;
         return r;
+    }
+    
+    private static class NonInteractiveLabel extends Label {
+        
+        @Override
+        public IFigure findFigureAt(int x, int y, TreeSearch search) {
+            return null;
+        }
+        
+    }
+    
+    private static class AutoRemover implements AncestorListener {
+
+        private IFigure target;
+        
+        public AutoRemover(IFigure target) {
+            this.target = target;
+        }
+        
+        @Override
+        public void ancestorAdded(IFigure ancestor) {
+        }
+
+        @Override
+        public void ancestorMoved(IFigure ancestor) {
+        }
+
+        @Override
+        public void ancestorRemoved(IFigure ancestor) {
+            IFigure parent = target.getParent();
+            if(parent != null)
+                parent.remove(target);
+        }
+        
     }
     
 }
