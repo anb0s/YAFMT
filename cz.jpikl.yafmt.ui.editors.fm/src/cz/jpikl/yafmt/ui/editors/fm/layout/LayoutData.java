@@ -10,21 +10,21 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Model Layout</b></em>'.
+ * A representation of the model object '<em><b>Layout Data</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayout#getMapping <em>Mapping</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData#getMapping <em>Mapping</em>}</li>
  * </ul>
  * </p>
  *
- * @see cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayoutPackage#getModelLayout()
+ * @see cz.jpikl.yafmt.ui.editors.fm.layout.LayoutDataPackage#getLayoutData()
  * @model
  * @generated
  */
-public interface ModelLayout extends EObject {
+public interface LayoutData extends EObject {
     /**
      * Returns the value of the '<em><b>Mapping</b></em>' map.
      * The key is of type {@link org.eclipse.emf.ecore.EObject},
@@ -36,10 +36,10 @@ public interface ModelLayout extends EObject {
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Mapping</em>' map.
-     * @see cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayoutPackage#getModelLayout_Mapping()
-     * @model mapType="cz.jpikl.yafmt.ui.editors.fm.layout.EObjectToBounds<org.eclipse.emf.ecore.EObject, cz.jpikl.yafmt.ui.editors.fm.layout.Bounds>" changeable="false"
+     * @see cz.jpikl.yafmt.ui.editors.fm.layout.LayoutDataPackage#getLayoutData_Mapping()
+     * @model mapType="cz.jpikl.yafmt.ui.editors.fm.layout.EObjectToRectangle<org.eclipse.emf.ecore.EObject, cz.jpikl.yafmt.ui.editors.fm.layout.Rectangle>" changeable="false"
      * @generated
      */
     EMap<EObject, Rectangle> getMapping();
 
-} // ModelLayout
+} // LayoutData

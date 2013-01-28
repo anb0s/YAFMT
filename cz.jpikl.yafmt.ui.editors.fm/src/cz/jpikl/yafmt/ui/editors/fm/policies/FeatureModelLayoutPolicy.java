@@ -15,13 +15,13 @@ import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.ui.editors.fm.commands.AddFeatureCommand;
 import cz.jpikl.yafmt.ui.editors.fm.commands.MoveGroupCommand;
 import cz.jpikl.yafmt.ui.editors.fm.commands.MoveResizeFeatureCommand;
-import cz.jpikl.yafmt.ui.editors.fm.layout.IModelLayoutProvider;
+import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutProvider;
 
 public class FeatureModelLayoutPolicy extends XYLayoutEditPolicy {
 
     @Override
     protected Command getCreateCommand(CreateRequest request) {
-        IModelLayoutProvider layoutProvider = (IModelLayoutProvider) getHost();
+        LayoutProvider layoutProvider = (LayoutProvider) getHost();
         FeatureModel featureModel = (FeatureModel) getHost().getModel();
         Feature feature = (Feature) request.getNewObject();
         Point location = request.getLocation();
@@ -30,7 +30,7 @@ public class FeatureModelLayoutPolicy extends XYLayoutEditPolicy {
     
     @Override
     protected Command createChangeConstraintCommand(ChangeBoundsRequest request, EditPart child, Object constraint) {
-        IModelLayoutProvider layoutProvider = (IModelLayoutProvider) getHost();
+        LayoutProvider layoutProvider = (LayoutProvider) getHost();
         Object model = child.getModel();
         
         if(model instanceof Group){

@@ -39,9 +39,9 @@ import org.eclipse.ui.views.properties.PropertySheetPage;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.ui.editors.fm.actions.AddAttributeAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.RemoveAttributeAction;
-import cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayout;
-import cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayoutFactory;
-import cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayoutPackage;
+import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
+import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutDataFactory;
+import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutDataPackage;
 import cz.jpikl.yafmt.ui.editors.fm.operations.ResourceSaveOperation;
 import cz.jpikl.yafmt.ui.editors.fm.parts.FeatureModelEditPartFactory;
 import cz.jpikl.yafmt.ui.editors.fm.util.SelectionConverter;
@@ -51,7 +51,7 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
 
     private MultiPageEditorPart parentEditor;
     private FeatureModel featureModel;
-    private ModelLayout modelLayout;
+    private LayoutData layoutData;
     private PropertySheetPage propertySheetPage;
     private SelectionConverter selectionConverter;
     
@@ -93,7 +93,7 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
         super.configureGraphicalViewer();
         
         GraphicalViewer viewer = getGraphicalViewer();
-        viewer.setEditPartFactory(new FeatureModelEditPartFactory(modelLayout));
+        viewer.setEditPartFactory(new FeatureModelEditPartFactory(layoutData));
         viewer.setRootEditPart(new FreeformGraphicalRootEditPart());
         viewer.addDropTargetListener(new TemplateTransferDropTargetListener(viewer));
         viewer.setContextMenu(new FeatureTreeEditorContextMenuProvider(viewer, getActionRegistry()));
@@ -139,27 +139,26 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
         firePropertyChange(PROP_DIRTY);
     }
         
-    @SuppressWarnings("unused")
     private void doLoad() {
-        ModelLayoutPackage pkg = ModelLayoutPackage.eINSTANCE; // For package registration.
+        LayoutDataPackage.eINSTANCE.eClass(); // For package registration.
         ResourceSet resourceSet = featureModel.eResource().getResourceSet();
         String path = featureModel.eResource().getURI().toPlatformString(true) + ".layout";
         Resource resource = resourceSet.createResource(URI.createPlatformResourceURI(path, true));
         
         try {
             resource.load(null);
-            modelLayout = (ModelLayout) resource.getContents().get(0);
+            layoutData = (LayoutData) resource.getContents().get(0);
         }
         catch(IOException ex) {
-            modelLayout = ModelLayoutFactory.eINSTANCE.createModelLayout();
-            resource.getContents().add(modelLayout);
+            layoutData = LayoutDataFactory.eINSTANCE.createLayoutData();
+            resource.getContents().add(layoutData);
         }
     }
     
     @Override
     public void doSave(IProgressMonitor monitor) {
         try {
-            getSite().getWorkbenchWindow().run(true, false, new ResourceSaveOperation(modelLayout.eResource()));
+            getSite().getWorkbenchWindow().run(true, false, new ResourceSaveOperation(layoutData.eResource()));
         }
         catch(Exception ex) {
             FeatureModelEditorPlugin.getDefault().getLog().log(new Status(Status.ERROR, 
@@ -172,7 +171,7 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
     public void prepareToSaveAs(IEditorInput input) {
         setInput(input);
         String path = featureModel.eResource().getURI().toPlatformString(true) + ".layout";
-        modelLayout.eResource().setURI(URI.createPlatformResourceURI(path, true));
+        layoutData.eResource().setURI(URI.createPlatformResourceURI(path, true));
     }
     
     @Override

@@ -13,9 +13,9 @@ import org.eclipse.ui.views.properties.IPropertyDescriptor;
 
 public class ValidatingPropertySource extends PropertySource {
 
-    private IPropertySourceValidator validator;
+    private PropertySourceValidator validator;
     
-    public ValidatingPropertySource(Object object, IItemPropertySource itemPropertySource, IPropertySourceValidator validator) {
+    public ValidatingPropertySource(Object object, IItemPropertySource itemPropertySource, PropertySourceValidator validator) {
         super(object, itemPropertySource);
         this.validator = validator;
     }

@@ -6,16 +6,16 @@ import org.eclipse.gef.commands.Command;
 
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
-import cz.jpikl.yafmt.ui.editors.fm.layout.IModelLayoutProvider;
+import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutProvider;
 
 public class AddFeatureCommand extends Command {
     
-    private IModelLayoutProvider layoutProvider;
+    private LayoutProvider layoutProvider;
     private FeatureModel featureModel;
     private Feature feature;
     private Rectangle bounds;
     
-    public AddFeatureCommand(IModelLayoutProvider layoutProvider, FeatureModel featureModel, Feature feature, Point location) {
+    public AddFeatureCommand(LayoutProvider layoutProvider, FeatureModel featureModel, Feature feature, Point location) {
         setLabel("Add New Feature");
         this.layoutProvider = layoutProvider;
         this.featureModel = featureModel;
@@ -31,13 +31,13 @@ public class AddFeatureCommand extends Command {
     @Override
     public void redo() {
         featureModel.getOrphans().add(feature);
-        layoutProvider.setObjectBounds(feature, bounds);
+        layoutProvider.setBounds(feature, bounds);
     }
     
     @Override
     public void undo() {
         featureModel.getOrphans().remove(feature);
-        layoutProvider.setObjectBounds(feature, null);
+        layoutProvider.setBounds(feature, null);
     }
         
 }

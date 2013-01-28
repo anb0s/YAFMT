@@ -2,8 +2,8 @@
  */
 package cz.jpikl.yafmt.ui.editors.fm.layout.impl;
 
-import cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayout;
-import cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayoutPackage;
+import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
+import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutDataPackage;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 
@@ -18,18 +18,18 @@ import org.eclipse.emf.ecore.util.EcoreEMap;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Model Layout</b></em>'.
+ * An implementation of the model object '<em><b>Layout Data</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link cz.jpikl.yafmt.ui.editors.fm.layout.impl.ModelLayoutImpl#getMapping <em>Mapping</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.ui.editors.fm.layout.impl.LayoutDataImpl#getMapping <em>Mapping</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class ModelLayoutImpl extends EObjectImpl implements ModelLayout {
+public class LayoutDataImpl extends EObjectImpl implements LayoutData {
     /**
      * The cached value of the '{@link #getMapping() <em>Mapping</em>}' map.
      * <!-- begin-user-doc -->
@@ -45,7 +45,7 @@ public class ModelLayoutImpl extends EObjectImpl implements ModelLayout {
      * <!-- end-user-doc -->
      * @generated
      */
-    protected ModelLayoutImpl() {
+    protected LayoutDataImpl() {
         super();
     }
 
@@ -56,7 +56,7 @@ public class ModelLayoutImpl extends EObjectImpl implements ModelLayout {
      */
     @Override
     protected EClass eStaticClass() {
-        return ModelLayoutPackage.Literals.MODEL_LAYOUT;
+        return LayoutDataPackage.Literals.LAYOUT_DATA;
     }
 
     /**
@@ -66,7 +66,7 @@ public class ModelLayoutImpl extends EObjectImpl implements ModelLayout {
      */
     public EMap<EObject, Rectangle> getMapping() {
         if (mapping == null) {
-            mapping = new EcoreEMap<EObject,Rectangle>(ModelLayoutPackage.Literals.EOBJECT_TO_BOUNDS, EObjectToBoundsImpl.class, this, ModelLayoutPackage.MODEL_LAYOUT__MAPPING);
+            mapping = new EcoreEMap<EObject,Rectangle>(LayoutDataPackage.Literals.EOBJECT_TO_RECTANGLE, EObjectToRectangleImpl.class, this, LayoutDataPackage.LAYOUT_DATA__MAPPING);
         }
         return mapping;
     }
@@ -79,7 +79,7 @@ public class ModelLayoutImpl extends EObjectImpl implements ModelLayout {
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ModelLayoutPackage.MODEL_LAYOUT__MAPPING:
+            case LayoutDataPackage.LAYOUT_DATA__MAPPING:
                 if (coreType) return getMapping();
                 else return getMapping().map();
         }
@@ -94,10 +94,10 @@ public class ModelLayoutImpl extends EObjectImpl implements ModelLayout {
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ModelLayoutPackage.MODEL_LAYOUT__MAPPING:
+            case LayoutDataPackage.LAYOUT_DATA__MAPPING:
                 return mapping != null && !mapping.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
-} //ModelLayoutImpl
+} //LayoutDataImpl

@@ -2,7 +2,7 @@
  */
 package cz.jpikl.yafmt.ui.editors.fm.layout.impl;
 
-import cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayoutPackage;
+import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutDataPackage;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 
@@ -17,19 +17,19 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>EObject To Bounds</b></em>'.
+ * An implementation of the model object '<em><b>EObject To Rectangle</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link cz.jpikl.yafmt.ui.editors.fm.layout.impl.EObjectToBoundsImpl#getTypedKey <em>Key</em>}</li>
- *   <li>{@link cz.jpikl.yafmt.ui.editors.fm.layout.impl.EObjectToBoundsImpl#getTypedValue <em>Value</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.ui.editors.fm.layout.impl.EObjectToRectangleImpl#getTypedKey <em>Key</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.ui.editors.fm.layout.impl.EObjectToRectangleImpl#getTypedValue <em>Value</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class EObjectToBoundsImpl extends EObjectImpl implements BasicEMap.Entry<EObject,Rectangle> {
+public class EObjectToRectangleImpl extends EObjectImpl implements BasicEMap.Entry<EObject,Rectangle> {
     /**
      * The cached value of the '{@link #getTypedKey() <em>Key</em>}' reference.
      * <!-- begin-user-doc -->
@@ -65,7 +65,7 @@ public class EObjectToBoundsImpl extends EObjectImpl implements BasicEMap.Entry<
      * <!-- end-user-doc -->
      * @generated
      */
-    protected EObjectToBoundsImpl() {
+    protected EObjectToRectangleImpl() {
         super();
     }
 
@@ -76,7 +76,7 @@ public class EObjectToBoundsImpl extends EObjectImpl implements BasicEMap.Entry<
      */
     @Override
     protected EClass eStaticClass() {
-        return ModelLayoutPackage.Literals.EOBJECT_TO_BOUNDS;
+        return LayoutDataPackage.Literals.EOBJECT_TO_RECTANGLE;
     }
 
     /**
@@ -138,10 +138,10 @@ public class EObjectToBoundsImpl extends EObjectImpl implements BasicEMap.Entry<
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ModelLayoutPackage.EOBJECT_TO_BOUNDS__KEY:
+            case LayoutDataPackage.EOBJECT_TO_RECTANGLE__KEY:
                 if (resolve) return getTypedKey();
                 return basicGetTypedKey();
-            case ModelLayoutPackage.EOBJECT_TO_BOUNDS__VALUE:
+            case LayoutDataPackage.EOBJECT_TO_RECTANGLE__VALUE:
                 return getTypedValue();
         }
         return super.eGet(featureID, resolve, coreType);
@@ -155,10 +155,10 @@ public class EObjectToBoundsImpl extends EObjectImpl implements BasicEMap.Entry<
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ModelLayoutPackage.EOBJECT_TO_BOUNDS__KEY:
+            case LayoutDataPackage.EOBJECT_TO_RECTANGLE__KEY:
                 setTypedKey((EObject)newValue);
                 return;
-            case ModelLayoutPackage.EOBJECT_TO_BOUNDS__VALUE:
+            case LayoutDataPackage.EOBJECT_TO_RECTANGLE__VALUE:
                 setTypedValue((Rectangle)newValue);
                 return;
         }
@@ -173,10 +173,10 @@ public class EObjectToBoundsImpl extends EObjectImpl implements BasicEMap.Entry<
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ModelLayoutPackage.EOBJECT_TO_BOUNDS__KEY:
+            case LayoutDataPackage.EOBJECT_TO_RECTANGLE__KEY:
                 setTypedKey((EObject)null);
                 return;
-            case ModelLayoutPackage.EOBJECT_TO_BOUNDS__VALUE:
+            case LayoutDataPackage.EOBJECT_TO_RECTANGLE__VALUE:
                 setTypedValue(VALUE_EDEFAULT);
                 return;
         }
@@ -191,9 +191,9 @@ public class EObjectToBoundsImpl extends EObjectImpl implements BasicEMap.Entry<
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ModelLayoutPackage.EOBJECT_TO_BOUNDS__KEY:
+            case LayoutDataPackage.EOBJECT_TO_RECTANGLE__KEY:
                 return key != null;
-            case ModelLayoutPackage.EOBJECT_TO_BOUNDS__VALUE:
+            case LayoutDataPackage.EOBJECT_TO_RECTANGLE__VALUE:
                 return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
         }
         return super.eIsSet(featureID);
@@ -293,4 +293,4 @@ public class EObjectToBoundsImpl extends EObjectImpl implements BasicEMap.Entry<
         return container == null ? null : (EMap<EObject, Rectangle>)container.eGet(eContainmentFeature());
     }
 
-} //EObjectToBoundsImpl
+} //EObjectToRectangleImpl

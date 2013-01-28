@@ -5,7 +5,6 @@ package cz.jpikl.yafmt.ui.editors.fm.layout.impl;
 import cz.jpikl.yafmt.ui.editors.fm.layout.*;
 
 import java.util.Map;
-import java.util.Scanner;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 
@@ -24,24 +23,24 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ModelLayoutFactoryImpl extends EFactoryImpl implements ModelLayoutFactory {
+public class LayoutDataFactoryImpl extends EFactoryImpl implements LayoutDataFactory {
     /**
      * Creates the default factory implementation.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    public static ModelLayoutFactory init() {
+    public static LayoutDataFactory init() {
         try {
-            ModelLayoutFactory theModelLayoutFactory = (ModelLayoutFactory)EPackage.Registry.INSTANCE.getEFactory("https://bitbucket.org/jpikl/yafmt/ui/editors/fm/layout"); 
-            if (theModelLayoutFactory != null) {
-                return theModelLayoutFactory;
+            LayoutDataFactory theLayoutDataFactory = (LayoutDataFactory)EPackage.Registry.INSTANCE.getEFactory("https://bitbucket.org/jpikl/yafmt/ui/editors/fm/layout"); 
+            if (theLayoutDataFactory != null) {
+                return theLayoutDataFactory;
             }
         }
         catch (Exception exception) {
             EcorePlugin.INSTANCE.log(exception);
         }
-        return new ModelLayoutFactoryImpl();
+        return new LayoutDataFactoryImpl();
     }
 
     /**
@@ -50,7 +49,7 @@ public class ModelLayoutFactoryImpl extends EFactoryImpl implements ModelLayoutF
      * <!-- end-user-doc -->
      * @generated
      */
-    public ModelLayoutFactoryImpl() {
+    public LayoutDataFactoryImpl() {
         super();
     }
 
@@ -62,8 +61,8 @@ public class ModelLayoutFactoryImpl extends EFactoryImpl implements ModelLayoutF
     @Override
     public EObject create(EClass eClass) {
         switch (eClass.getClassifierID()) {
-            case ModelLayoutPackage.MODEL_LAYOUT: return createModelLayout();
-            case ModelLayoutPackage.EOBJECT_TO_BOUNDS: return (EObject)createEObjectToBounds();
+            case LayoutDataPackage.LAYOUT_DATA: return createLayoutData();
+            case LayoutDataPackage.EOBJECT_TO_RECTANGLE: return (EObject)createEObjectToRectangle();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -77,8 +76,8 @@ public class ModelLayoutFactoryImpl extends EFactoryImpl implements ModelLayoutF
     @Override
     public Object createFromString(EDataType eDataType, String initialValue) {
         switch (eDataType.getClassifierID()) {
-            case ModelLayoutPackage.BOUNDS:
-                return createBoundsFromString(eDataType, initialValue);
+            case LayoutDataPackage.RECTANGLE:
+                return createRectangleFromString(eDataType, initialValue);
             default:
                 throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
         }
@@ -92,8 +91,8 @@ public class ModelLayoutFactoryImpl extends EFactoryImpl implements ModelLayoutF
     @Override
     public String convertToString(EDataType eDataType, Object instanceValue) {
         switch (eDataType.getClassifierID()) {
-            case ModelLayoutPackage.BOUNDS:
-                return convertBoundsToString(eDataType, instanceValue);
+            case LayoutDataPackage.RECTANGLE:
+                return convertRectangleToString(eDataType, instanceValue);
             default:
                 throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
         }
@@ -104,9 +103,9 @@ public class ModelLayoutFactoryImpl extends EFactoryImpl implements ModelLayoutF
      * <!-- end-user-doc -->
      * @generated
      */
-    public ModelLayout createModelLayout() {
-        ModelLayoutImpl modelLayout = new ModelLayoutImpl();
-        return modelLayout;
+    public LayoutData createLayoutData() {
+        LayoutDataImpl layoutData = new LayoutDataImpl();
+        return layoutData;
     }
 
     /**
@@ -114,35 +113,9 @@ public class ModelLayoutFactoryImpl extends EFactoryImpl implements ModelLayoutF
      * <!-- end-user-doc -->
      * @generated
      */
-    public Map.Entry<EObject, Rectangle> createEObjectToBounds() {
-        EObjectToBoundsImpl eObjectToBounds = new EObjectToBoundsImpl();
-        return eObjectToBounds;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated NOT
-     */
-    public Rectangle createBoundsFromString(EDataType eDataType, String initialValue) {
-        Scanner scanner = new Scanner(initialValue);
-        Rectangle bounds = new Rectangle();
-        bounds.x = scanner.nextInt();
-        bounds.y = scanner.nextInt();
-        bounds.width = scanner.nextInt();
-        bounds.height = scanner.nextInt();
-        scanner.close();
-        return bounds;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated NOT
-     */
-    public String convertBoundsToString(EDataType eDataType, Object instanceValue) {
-        Rectangle bounds = (Rectangle) instanceValue;
-        return String.format("%d %d %d %d", bounds.x, bounds.y, bounds.width, bounds.height);
+    public Map.Entry<EObject, Rectangle> createEObjectToRectangle() {
+        EObjectToRectangleImpl eObjectToRectangle = new EObjectToRectangleImpl();
+        return eObjectToRectangle;
     }
 
     /**
@@ -150,8 +123,26 @@ public class ModelLayoutFactoryImpl extends EFactoryImpl implements ModelLayoutF
      * <!-- end-user-doc -->
      * @generated
      */
-    public ModelLayoutPackage getModelLayoutPackage() {
-        return (ModelLayoutPackage)getEPackage();
+    public Rectangle createRectangleFromString(EDataType eDataType, String initialValue) {
+        return (Rectangle)super.createFromString(eDataType, initialValue);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String convertRectangleToString(EDataType eDataType, Object instanceValue) {
+        return super.convertToString(eDataType, instanceValue);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public LayoutDataPackage getLayoutDataPackage() {
+        return (LayoutDataPackage)getEPackage();
     }
 
     /**
@@ -161,8 +152,8 @@ public class ModelLayoutFactoryImpl extends EFactoryImpl implements ModelLayoutF
      * @generated
      */
     @Deprecated
-    public static ModelLayoutPackage getPackage() {
-        return ModelLayoutPackage.eINSTANCE;
+    public static LayoutDataPackage getPackage() {
+        return LayoutDataPackage.eINSTANCE;
     }
 
-} //ModelLayoutFactoryImpl
+} //LayoutDataFactoryImpl

@@ -1,6 +1,6 @@
 package cz.jpikl.yafmt.model.provider.util;
 
-public interface IPropertySourceValidator {
+public interface PropertySourceValidator {
 
     String validate(Object object, String property, String value);
     

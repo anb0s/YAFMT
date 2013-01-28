@@ -9,26 +9,26 @@ import org.eclipse.emf.ecore.EFactory;
  * The <b>Factory</b> for the model.
  * It provides a create method for each non-abstract class of the model.
  * <!-- end-user-doc -->
- * @see cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayoutPackage
+ * @see cz.jpikl.yafmt.ui.editors.fm.layout.LayoutDataPackage
  * @generated
  */
-public interface ModelLayoutFactory extends EFactory {
+public interface LayoutDataFactory extends EFactory {
     /**
      * The singleton instance of the factory.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    ModelLayoutFactory eINSTANCE = cz.jpikl.yafmt.ui.editors.fm.layout.impl.ModelLayoutFactoryImpl.init();
+    LayoutDataFactory eINSTANCE = cz.jpikl.yafmt.ui.editors.fm.layout.impl.LayoutDataFactoryImpl.init();
 
     /**
-     * Returns a new object of class '<em>Model Layout</em>'.
+     * Returns a new object of class '<em>Layout Data</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return a new object of class '<em>Model Layout</em>'.
+     * @return a new object of class '<em>Layout Data</em>'.
      * @generated
      */
-    ModelLayout createModelLayout();
+    LayoutData createLayoutData();
 
     /**
      * Returns the package supported by this factory.
@@ -37,6 +37,6 @@ public interface ModelLayoutFactory extends EFactory {
      * @return the package supported by this factory.
      * @generated
      */
-    ModelLayoutPackage getModelLayoutPackage();
+    LayoutDataPackage getLayoutDataPackage();
 
-} //ModelLayoutFactory
+} //LayoutDataFactory

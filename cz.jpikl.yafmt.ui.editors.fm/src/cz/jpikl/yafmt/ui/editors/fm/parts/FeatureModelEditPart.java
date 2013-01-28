@@ -20,19 +20,19 @@ import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.model.util.IModelListener;
 import cz.jpikl.yafmt.model.util.ModelListenerAdapter;
 import cz.jpikl.yafmt.ui.editors.fm.figures.FeatureModelFigure;
-import cz.jpikl.yafmt.ui.editors.fm.layout.IModelLayoutProvider;
-import cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayout;
+import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutProvider;
+import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureModelLayoutPolicy;
 
-public class FeatureModelEditPart extends AbstractGraphicalEditPart implements IModelListener, IModelLayoutProvider {
+public class FeatureModelEditPart extends AbstractGraphicalEditPart implements IModelListener, LayoutProvider {
 
     private FeatureModel featureModel;
-    private ModelLayout modelLayout;
+    private LayoutData layoutData;
     private ModelListenerAdapter modelAdapter;
     
-    public FeatureModelEditPart(FeatureModel featureModel, ModelLayout modelLayout) {
+    public FeatureModelEditPart(FeatureModel featureModel, LayoutData modelLayout) {
         this.featureModel = featureModel;
-        this.modelLayout = modelLayout;
+        this.layoutData = modelLayout;
         this.modelAdapter = new ModelListenerAdapter(this);
         setModel(featureModel);
     }
@@ -82,20 +82,20 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart implements I
     }
             
     @Override
-    public Rectangle getObjectBounds(EObject object) {
-        return modelLayout.getMapping().get(object);
+    public Rectangle getBounds(EObject object) {
+        return layoutData.getMapping().get(object);
     }
     
     @Override
-    public void setObjectBounds(EObject object, Rectangle bounds) {
+    public void setBounds(EObject object, Rectangle bounds) {
         GraphicalEditPart editPart = getEditPartForObject(object);
         setLayoutConstraint(editPart, editPart.getFigure(), bounds);
-        modelLayout.getMapping().put(object, bounds);
+        layoutData.getMapping().put(object, bounds);
     }
     
     @Override
-    public boolean refreshObjectBounds(EObject object) {
-        Rectangle bounds = modelLayout.getMapping().get(object);
+    public boolean refreshBounds(EObject object) {
+        Rectangle bounds = layoutData.getMapping().get(object);
         if(bounds == null)
             return false;
         GraphicalEditPart editPart = getEditPartForObject(object);

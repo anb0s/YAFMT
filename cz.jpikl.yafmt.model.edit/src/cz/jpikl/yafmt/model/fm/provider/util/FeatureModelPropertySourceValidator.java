@@ -6,10 +6,11 @@ import cz.jpikl.yafmt.model.fm.Attribute;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.Group;
-import cz.jpikl.yafmt.model.provider.util.ProperySourceValidator;
+import cz.jpikl.yafmt.model.fm.provider.FeatureModelEditPlugin;
+import cz.jpikl.yafmt.model.provider.util.PropertySourceValidator;
 
-public class FeatureModelPropertySourceValidator extends ProperySourceValidator {
-    
+public class FeatureModelPropertySourceValidator implements PropertySourceValidator {
+        
     @Override
     public String validate(Object object, String property, String value) {
         if(object instanceof Feature)
@@ -127,4 +128,13 @@ public class FeatureModelPropertySourceValidator extends ProperySourceValidator 
             return getString("_UI_Errors_UpperLowerBoundMismatch");
         return null;
     }
+    
+    private String getString(String key, Object param) {
+        return FeatureModelEditPlugin.INSTANCE.getString(key, new Object[] { param }, true);
+    }
+    
+    private String getString(String key) {
+        return FeatureModelEditPlugin.INSTANCE.getString(key, true);
+    }
+    
 }

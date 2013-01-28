@@ -19,11 +19,11 @@ import org.eclipse.emf.ecore.EReference;
  *   <li>and each data type</li>
  * </ul>
  * <!-- end-user-doc -->
- * @see cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayoutFactory
+ * @see cz.jpikl.yafmt.ui.editors.fm.layout.LayoutDataFactory
  * @model kind="package"
  * @generated
  */
-public interface ModelLayoutPackage extends EPackage {
+public interface LayoutDataPackage extends EPackage {
     /**
      * The package name.
      * <!-- begin-user-doc -->
@@ -54,17 +54,17 @@ public interface ModelLayoutPackage extends EPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    ModelLayoutPackage eINSTANCE = cz.jpikl.yafmt.ui.editors.fm.layout.impl.ModelLayoutPackageImpl.init();
+    LayoutDataPackage eINSTANCE = cz.jpikl.yafmt.ui.editors.fm.layout.impl.LayoutDataPackageImpl.init();
 
     /**
-     * The meta object id for the '{@link cz.jpikl.yafmt.ui.editors.fm.layout.impl.ModelLayoutImpl <em>Model Layout</em>}' class.
+     * The meta object id for the '{@link cz.jpikl.yafmt.ui.editors.fm.layout.impl.LayoutDataImpl <em>Layout Data</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see cz.jpikl.yafmt.ui.editors.fm.layout.impl.ModelLayoutImpl
-     * @see cz.jpikl.yafmt.ui.editors.fm.layout.impl.ModelLayoutPackageImpl#getModelLayout()
+     * @see cz.jpikl.yafmt.ui.editors.fm.layout.impl.LayoutDataImpl
+     * @see cz.jpikl.yafmt.ui.editors.fm.layout.impl.LayoutDataPackageImpl#getLayoutData()
      * @generated
      */
-    int MODEL_LAYOUT = 0;
+    int LAYOUT_DATA = 0;
 
     /**
      * The feature id for the '<em><b>Mapping</b></em>' map.
@@ -73,26 +73,26 @@ public interface ModelLayoutPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int MODEL_LAYOUT__MAPPING = 0;
+    int LAYOUT_DATA__MAPPING = 0;
 
     /**
-     * The number of structural features of the '<em>Model Layout</em>' class.
+     * The number of structural features of the '<em>Layout Data</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int MODEL_LAYOUT_FEATURE_COUNT = 1;
+    int LAYOUT_DATA_FEATURE_COUNT = 1;
 
     /**
-     * The meta object id for the '{@link cz.jpikl.yafmt.ui.editors.fm.layout.impl.EObjectToBoundsImpl <em>EObject To Bounds</em>}' class.
+     * The meta object id for the '{@link cz.jpikl.yafmt.ui.editors.fm.layout.impl.EObjectToRectangleImpl <em>EObject To Rectangle</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see cz.jpikl.yafmt.ui.editors.fm.layout.impl.EObjectToBoundsImpl
-     * @see cz.jpikl.yafmt.ui.editors.fm.layout.impl.ModelLayoutPackageImpl#getEObjectToBounds()
+     * @see cz.jpikl.yafmt.ui.editors.fm.layout.impl.EObjectToRectangleImpl
+     * @see cz.jpikl.yafmt.ui.editors.fm.layout.impl.LayoutDataPackageImpl#getEObjectToRectangle()
      * @generated
      */
-    int EOBJECT_TO_BOUNDS = 1;
+    int EOBJECT_TO_RECTANGLE = 1;
 
     /**
      * The feature id for the '<em><b>Key</b></em>' reference.
@@ -101,7 +101,7 @@ public interface ModelLayoutPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EOBJECT_TO_BOUNDS__KEY = 0;
+    int EOBJECT_TO_RECTANGLE__KEY = 0;
 
     /**
      * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -110,60 +110,60 @@ public interface ModelLayoutPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EOBJECT_TO_BOUNDS__VALUE = 1;
+    int EOBJECT_TO_RECTANGLE__VALUE = 1;
 
     /**
-     * The number of structural features of the '<em>EObject To Bounds</em>' class.
+     * The number of structural features of the '<em>EObject To Rectangle</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int EOBJECT_TO_BOUNDS_FEATURE_COUNT = 2;
+    int EOBJECT_TO_RECTANGLE_FEATURE_COUNT = 2;
 
     /**
-     * The meta object id for the '<em>Bounds</em>' data type.
+     * The meta object id for the '<em>Rectangle</em>' data type.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @see org.eclipse.draw2d.geometry.Rectangle
-     * @see cz.jpikl.yafmt.ui.editors.fm.layout.impl.ModelLayoutPackageImpl#getBounds()
+     * @see cz.jpikl.yafmt.ui.editors.fm.layout.impl.LayoutDataPackageImpl#getRectangle()
      * @generated
      */
-    int BOUNDS = 2;
+    int RECTANGLE = 2;
 
 
     /**
-     * Returns the meta object for class '{@link cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayout <em>Model Layout</em>}'.
+     * Returns the meta object for class '{@link cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData <em>Layout Data</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for class '<em>Model Layout</em>'.
-     * @see cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayout
+     * @return the meta object for class '<em>Layout Data</em>'.
+     * @see cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData
      * @generated
      */
-    EClass getModelLayout();
+    EClass getLayoutData();
 
     /**
-     * Returns the meta object for the map '{@link cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayout#getMapping <em>Mapping</em>}'.
+     * Returns the meta object for the map '{@link cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData#getMapping <em>Mapping</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @return the meta object for the map '<em>Mapping</em>'.
-     * @see cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayout#getMapping()
-     * @see #getModelLayout()
+     * @see cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData#getMapping()
+     * @see #getLayoutData()
      * @generated
      */
-    EReference getModelLayout_Mapping();
+    EReference getLayoutData_Mapping();
 
     /**
-     * Returns the meta object for class '{@link java.util.Map.Entry <em>EObject To Bounds</em>}'.
+     * Returns the meta object for class '{@link java.util.Map.Entry <em>EObject To Rectangle</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for class '<em>EObject To Bounds</em>'.
+     * @return the meta object for class '<em>EObject To Rectangle</em>'.
      * @see java.util.Map.Entry
      * @model keyType="org.eclipse.emf.ecore.EObject"
-     *        valueDataType="cz.jpikl.yafmt.ui.editors.fm.layout.Bounds"
+     *        valueDataType="cz.jpikl.yafmt.ui.editors.fm.layout.Rectangle"
      * @generated
      */
-    EClass getEObjectToBounds();
+    EClass getEObjectToRectangle();
 
     /**
      * Returns the meta object for the reference '{@link java.util.Map.Entry <em>Key</em>}'.
@@ -171,10 +171,10 @@ public interface ModelLayoutPackage extends EPackage {
      * <!-- end-user-doc -->
      * @return the meta object for the reference '<em>Key</em>'.
      * @see java.util.Map.Entry
-     * @see #getEObjectToBounds()
+     * @see #getEObjectToRectangle()
      * @generated
      */
-    EReference getEObjectToBounds_Key();
+    EReference getEObjectToRectangle_Key();
 
     /**
      * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Value</em>}'.
@@ -182,21 +182,21 @@ public interface ModelLayoutPackage extends EPackage {
      * <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Value</em>'.
      * @see java.util.Map.Entry
-     * @see #getEObjectToBounds()
+     * @see #getEObjectToRectangle()
      * @generated
      */
-    EAttribute getEObjectToBounds_Value();
+    EAttribute getEObjectToRectangle_Value();
 
     /**
-     * Returns the meta object for data type '{@link org.eclipse.draw2d.geometry.Rectangle <em>Bounds</em>}'.
+     * Returns the meta object for data type '{@link org.eclipse.draw2d.geometry.Rectangle <em>Rectangle</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for data type '<em>Bounds</em>'.
+     * @return the meta object for data type '<em>Rectangle</em>'.
      * @see org.eclipse.draw2d.geometry.Rectangle
      * @model instanceClass="org.eclipse.draw2d.geometry.Rectangle"
      * @generated
      */
-    EDataType getBounds();
+    EDataType getRectangle();
 
     /**
      * Returns the factory that creates the instances of the model.
@@ -205,7 +205,7 @@ public interface ModelLayoutPackage extends EPackage {
      * @return the factory that creates the instances of the model.
      * @generated
      */
-    ModelLayoutFactory getModelLayoutFactory();
+    LayoutDataFactory getLayoutDataFactory();
 
     /**
      * <!-- begin-user-doc -->
@@ -221,14 +221,14 @@ public interface ModelLayoutPackage extends EPackage {
      */
     interface Literals {
         /**
-         * The meta object literal for the '{@link cz.jpikl.yafmt.ui.editors.fm.layout.impl.ModelLayoutImpl <em>Model Layout</em>}' class.
+         * The meta object literal for the '{@link cz.jpikl.yafmt.ui.editors.fm.layout.impl.LayoutDataImpl <em>Layout Data</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @see cz.jpikl.yafmt.ui.editors.fm.layout.impl.ModelLayoutImpl
-         * @see cz.jpikl.yafmt.ui.editors.fm.layout.impl.ModelLayoutPackageImpl#getModelLayout()
+         * @see cz.jpikl.yafmt.ui.editors.fm.layout.impl.LayoutDataImpl
+         * @see cz.jpikl.yafmt.ui.editors.fm.layout.impl.LayoutDataPackageImpl#getLayoutData()
          * @generated
          */
-        EClass MODEL_LAYOUT = eINSTANCE.getModelLayout();
+        EClass LAYOUT_DATA = eINSTANCE.getLayoutData();
 
         /**
          * The meta object literal for the '<em><b>Mapping</b></em>' map feature.
@@ -236,17 +236,17 @@ public interface ModelLayoutPackage extends EPackage {
          * <!-- end-user-doc -->
          * @generated
          */
-        EReference MODEL_LAYOUT__MAPPING = eINSTANCE.getModelLayout_Mapping();
+        EReference LAYOUT_DATA__MAPPING = eINSTANCE.getLayoutData_Mapping();
 
         /**
-         * The meta object literal for the '{@link cz.jpikl.yafmt.ui.editors.fm.layout.impl.EObjectToBoundsImpl <em>EObject To Bounds</em>}' class.
+         * The meta object literal for the '{@link cz.jpikl.yafmt.ui.editors.fm.layout.impl.EObjectToRectangleImpl <em>EObject To Rectangle</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @see cz.jpikl.yafmt.ui.editors.fm.layout.impl.EObjectToBoundsImpl
-         * @see cz.jpikl.yafmt.ui.editors.fm.layout.impl.ModelLayoutPackageImpl#getEObjectToBounds()
+         * @see cz.jpikl.yafmt.ui.editors.fm.layout.impl.EObjectToRectangleImpl
+         * @see cz.jpikl.yafmt.ui.editors.fm.layout.impl.LayoutDataPackageImpl#getEObjectToRectangle()
          * @generated
          */
-        EClass EOBJECT_TO_BOUNDS = eINSTANCE.getEObjectToBounds();
+        EClass EOBJECT_TO_RECTANGLE = eINSTANCE.getEObjectToRectangle();
 
         /**
          * The meta object literal for the '<em><b>Key</b></em>' reference feature.
@@ -254,7 +254,7 @@ public interface ModelLayoutPackage extends EPackage {
          * <!-- end-user-doc -->
          * @generated
          */
-        EReference EOBJECT_TO_BOUNDS__KEY = eINSTANCE.getEObjectToBounds_Key();
+        EReference EOBJECT_TO_RECTANGLE__KEY = eINSTANCE.getEObjectToRectangle_Key();
 
         /**
          * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
@@ -262,18 +262,18 @@ public interface ModelLayoutPackage extends EPackage {
          * <!-- end-user-doc -->
          * @generated
          */
-        EAttribute EOBJECT_TO_BOUNDS__VALUE = eINSTANCE.getEObjectToBounds_Value();
+        EAttribute EOBJECT_TO_RECTANGLE__VALUE = eINSTANCE.getEObjectToRectangle_Value();
 
         /**
-         * The meta object literal for the '<em>Bounds</em>' data type.
+         * The meta object literal for the '<em>Rectangle</em>' data type.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @see org.eclipse.draw2d.geometry.Rectangle
-         * @see cz.jpikl.yafmt.ui.editors.fm.layout.impl.ModelLayoutPackageImpl#getBounds()
+         * @see cz.jpikl.yafmt.ui.editors.fm.layout.impl.LayoutDataPackageImpl#getRectangle()
          * @generated
          */
-        EDataType BOUNDS = eINSTANCE.getBounds();
+        EDataType RECTANGLE = eINSTANCE.getRectangle();
 
     }
 
-} //ModelLayoutPackage
+} //LayoutDataPackage

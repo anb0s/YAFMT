@@ -2,9 +2,9 @@
  */
 package cz.jpikl.yafmt.ui.editors.fm.layout.impl;
 
-import cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayout;
-import cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayoutFactory;
-import cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayoutPackage;
+import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
+import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutDataFactory;
+import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutDataPackage;
 
 import java.util.Map;
 
@@ -24,27 +24,27 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ModelLayoutPackageImpl extends EPackageImpl implements ModelLayoutPackage {
+public class LayoutDataPackageImpl extends EPackageImpl implements LayoutDataPackage {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    private EClass modelLayoutEClass = null;
+    private EClass layoutDataEClass = null;
 
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    private EClass eObjectToBoundsEClass = null;
+    private EClass eObjectToRectangleEClass = null;
 
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    private EDataType boundsEDataType = null;
+    private EDataType rectangleEDataType = null;
 
     /**
      * Creates an instance of the model <b>Package</b>, registered with
@@ -57,12 +57,12 @@ public class ModelLayoutPackageImpl extends EPackageImpl implements ModelLayoutP
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @see org.eclipse.emf.ecore.EPackage.Registry
-     * @see cz.jpikl.yafmt.ui.editors.fm.layout.ModelLayoutPackage#eNS_URI
+     * @see cz.jpikl.yafmt.ui.editors.fm.layout.LayoutDataPackage#eNS_URI
      * @see #init()
      * @generated
      */
-    private ModelLayoutPackageImpl() {
-        super(eNS_URI, ModelLayoutFactory.eINSTANCE);
+    private LayoutDataPackageImpl() {
+        super(eNS_URI, LayoutDataFactory.eINSTANCE);
     }
 
     /**
@@ -75,7 +75,7 @@ public class ModelLayoutPackageImpl extends EPackageImpl implements ModelLayoutP
     /**
      * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
      * 
-     * <p>This method is used to initialize {@link ModelLayoutPackage#eINSTANCE} when that field is accessed.
+     * <p>This method is used to initialize {@link LayoutDataPackage#eINSTANCE} when that field is accessed.
      * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -84,27 +84,27 @@ public class ModelLayoutPackageImpl extends EPackageImpl implements ModelLayoutP
      * @see #initializePackageContents()
      * @generated
      */
-    public static ModelLayoutPackage init() {
-        if (isInited) return (ModelLayoutPackage)EPackage.Registry.INSTANCE.getEPackage(ModelLayoutPackage.eNS_URI);
+    public static LayoutDataPackage init() {
+        if (isInited) return (LayoutDataPackage)EPackage.Registry.INSTANCE.getEPackage(LayoutDataPackage.eNS_URI);
 
         // Obtain or create and register package
-        ModelLayoutPackageImpl theModelLayoutPackage = (ModelLayoutPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof ModelLayoutPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new ModelLayoutPackageImpl());
+        LayoutDataPackageImpl theLayoutDataPackage = (LayoutDataPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof LayoutDataPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new LayoutDataPackageImpl());
 
         isInited = true;
 
         // Create package meta-data objects
-        theModelLayoutPackage.createPackageContents();
+        theLayoutDataPackage.createPackageContents();
 
         // Initialize created meta-data
-        theModelLayoutPackage.initializePackageContents();
+        theLayoutDataPackage.initializePackageContents();
 
         // Mark meta-data to indicate it can't be changed
-        theModelLayoutPackage.freeze();
+        theLayoutDataPackage.freeze();
 
   
         // Update the registry and return the package
-        EPackage.Registry.INSTANCE.put(ModelLayoutPackage.eNS_URI, theModelLayoutPackage);
-        return theModelLayoutPackage;
+        EPackage.Registry.INSTANCE.put(LayoutDataPackage.eNS_URI, theLayoutDataPackage);
+        return theLayoutDataPackage;
     }
 
     /**
@@ -112,8 +112,8 @@ public class ModelLayoutPackageImpl extends EPackageImpl implements ModelLayoutP
      * <!-- end-user-doc -->
      * @generated
      */
-    public EClass getModelLayout() {
-        return modelLayoutEClass;
+    public EClass getLayoutData() {
+        return layoutDataEClass;
     }
 
     /**
@@ -121,8 +121,8 @@ public class ModelLayoutPackageImpl extends EPackageImpl implements ModelLayoutP
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getModelLayout_Mapping() {
-        return (EReference)modelLayoutEClass.getEStructuralFeatures().get(0);
+    public EReference getLayoutData_Mapping() {
+        return (EReference)layoutDataEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -130,8 +130,8 @@ public class ModelLayoutPackageImpl extends EPackageImpl implements ModelLayoutP
      * <!-- end-user-doc -->
      * @generated
      */
-    public EClass getEObjectToBounds() {
-        return eObjectToBoundsEClass;
+    public EClass getEObjectToRectangle() {
+        return eObjectToRectangleEClass;
     }
 
     /**
@@ -139,8 +139,8 @@ public class ModelLayoutPackageImpl extends EPackageImpl implements ModelLayoutP
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getEObjectToBounds_Key() {
-        return (EReference)eObjectToBoundsEClass.getEStructuralFeatures().get(0);
+    public EReference getEObjectToRectangle_Key() {
+        return (EReference)eObjectToRectangleEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -148,8 +148,8 @@ public class ModelLayoutPackageImpl extends EPackageImpl implements ModelLayoutP
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getEObjectToBounds_Value() {
-        return (EAttribute)eObjectToBoundsEClass.getEStructuralFeatures().get(1);
+    public EAttribute getEObjectToRectangle_Value() {
+        return (EAttribute)eObjectToRectangleEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -157,8 +157,8 @@ public class ModelLayoutPackageImpl extends EPackageImpl implements ModelLayoutP
      * <!-- end-user-doc -->
      * @generated
      */
-    public EDataType getBounds() {
-        return boundsEDataType;
+    public EDataType getRectangle() {
+        return rectangleEDataType;
     }
 
     /**
@@ -166,8 +166,8 @@ public class ModelLayoutPackageImpl extends EPackageImpl implements ModelLayoutP
      * <!-- end-user-doc -->
      * @generated
      */
-    public ModelLayoutFactory getModelLayoutFactory() {
-        return (ModelLayoutFactory)getEFactoryInstance();
+    public LayoutDataFactory getLayoutDataFactory() {
+        return (LayoutDataFactory)getEFactoryInstance();
     }
 
     /**
@@ -189,15 +189,15 @@ public class ModelLayoutPackageImpl extends EPackageImpl implements ModelLayoutP
         isCreated = true;
 
         // Create classes and their features
-        modelLayoutEClass = createEClass(MODEL_LAYOUT);
-        createEReference(modelLayoutEClass, MODEL_LAYOUT__MAPPING);
+        layoutDataEClass = createEClass(LAYOUT_DATA);
+        createEReference(layoutDataEClass, LAYOUT_DATA__MAPPING);
 
-        eObjectToBoundsEClass = createEClass(EOBJECT_TO_BOUNDS);
-        createEReference(eObjectToBoundsEClass, EOBJECT_TO_BOUNDS__KEY);
-        createEAttribute(eObjectToBoundsEClass, EOBJECT_TO_BOUNDS__VALUE);
+        eObjectToRectangleEClass = createEClass(EOBJECT_TO_RECTANGLE);
+        createEReference(eObjectToRectangleEClass, EOBJECT_TO_RECTANGLE__KEY);
+        createEAttribute(eObjectToRectangleEClass, EOBJECT_TO_RECTANGLE__VALUE);
 
         // Create data types
-        boundsEDataType = createEDataType(BOUNDS);
+        rectangleEDataType = createEDataType(RECTANGLE);
     }
 
     /**
@@ -230,18 +230,18 @@ public class ModelLayoutPackageImpl extends EPackageImpl implements ModelLayoutP
         // Add supertypes to classes
 
         // Initialize classes and features; add operations and parameters
-        initEClass(modelLayoutEClass, ModelLayout.class, "ModelLayout", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getModelLayout_Mapping(), this.getEObjectToBounds(), null, "mapping", null, 0, -1, ModelLayout.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(layoutDataEClass, LayoutData.class, "LayoutData", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getLayoutData_Mapping(), this.getEObjectToRectangle(), null, "mapping", null, 0, -1, LayoutData.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(eObjectToBoundsEClass, Map.Entry.class, "EObjectToBounds", !IS_ABSTRACT, !IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getEObjectToBounds_Key(), ecorePackage.getEObject(), null, "key", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getEObjectToBounds_Value(), this.getBounds(), "value", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(eObjectToRectangleEClass, Map.Entry.class, "EObjectToRectangle", !IS_ABSTRACT, !IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getEObjectToRectangle_Key(), ecorePackage.getEObject(), null, "key", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getEObjectToRectangle_Value(), this.getRectangle(), "value", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize data types
-        initEDataType(boundsEDataType, Rectangle.class, "Bounds", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+        initEDataType(rectangleEDataType, Rectangle.class, "Rectangle", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 
         // Create resource
         createResource(eNS_URI);
     }
 
-} //ModelLayoutPackageImpl
+} //LayoutDataPackageImpl

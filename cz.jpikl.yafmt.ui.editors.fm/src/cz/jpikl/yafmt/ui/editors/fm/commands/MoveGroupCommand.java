@@ -4,16 +4,16 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.commands.Command;
 
 import cz.jpikl.yafmt.model.fm.Group;
-import cz.jpikl.yafmt.ui.editors.fm.layout.IModelLayoutProvider;
+import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutProvider;
 
 public class MoveGroupCommand extends Command {
     
-    private IModelLayoutProvider layoutProvider;
+    private LayoutProvider layoutProvider;
     private Group group;
     private Rectangle newBounds;
     private Rectangle oldBounds;
     
-    public MoveGroupCommand(IModelLayoutProvider layoutProvider, Group group, Rectangle bounds) {
+    public MoveGroupCommand(LayoutProvider layoutProvider, Group group, Rectangle bounds) {
         setLabel("Move Group");
         this.layoutProvider = layoutProvider;
         this.group = group;
@@ -21,7 +21,7 @@ public class MoveGroupCommand extends Command {
     }
         
     private void relocateNewPosition() {
-        Rectangle parentBounds = layoutProvider.getObjectBounds(group.getParent());
+        Rectangle parentBounds = layoutProvider.getBounds(group.getParent());
         
         int cx = newBounds.x + newBounds.width / 2;
         int cy = newBounds.y + newBounds.height / 2;
@@ -53,19 +53,19 @@ public class MoveGroupCommand extends Command {
     
     @Override
     public void execute() {
-        oldBounds = layoutProvider.getObjectBounds(group);
+        oldBounds = layoutProvider.getBounds(group);
         relocateNewPosition();
         redo();
     }
     
     @Override
     public void redo() {
-        layoutProvider.setObjectBounds(group, newBounds);
+        layoutProvider.setBounds(group, newBounds);
     }
 
     @Override
     public void undo() {
-        layoutProvider.setObjectBounds(group, oldBounds);
+        layoutProvider.setBounds(group, oldBounds);
     }
 
 }

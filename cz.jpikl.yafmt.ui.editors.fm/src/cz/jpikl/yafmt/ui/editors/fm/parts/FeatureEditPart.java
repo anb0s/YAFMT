@@ -22,7 +22,7 @@ import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
 import cz.jpikl.yafmt.model.util.IModelListener;
 import cz.jpikl.yafmt.model.util.ModelListenerAdapter;
 import cz.jpikl.yafmt.ui.editors.fm.figures.FeatureFigure;
-import cz.jpikl.yafmt.ui.editors.fm.layout.IModelLayoutProvider;
+import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutProvider;
 import cz.jpikl.yafmt.ui.editors.fm.model.Connection;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureConnectionEditPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureDirectEditPolicy;
@@ -70,9 +70,9 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
     }
     
     private void loadModelLayout() {
-        IModelLayoutProvider layoutProvider = (IModelLayoutProvider) getParent();
-        if(!layoutProvider.refreshObjectBounds(feature))
-            layoutProvider.setObjectBounds(feature, new Rectangle(0, 0, 100, 25));
+        LayoutProvider layoutProvider = (LayoutProvider) getParent();
+        if(!layoutProvider.refreshBounds(feature))
+            layoutProvider.setBounds(feature, new Rectangle(0, 0, 100, 25));
     }
     
     @Override

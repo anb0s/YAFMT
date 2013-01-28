@@ -19,7 +19,7 @@ import cz.jpikl.yafmt.model.util.IModelListener;
 import cz.jpikl.yafmt.model.util.ModelListenerAdapter;
 import cz.jpikl.yafmt.ui.editors.fm.figures.GroupFigure;
 import cz.jpikl.yafmt.ui.editors.fm.figures.MiddlePointAnchor;
-import cz.jpikl.yafmt.ui.editors.fm.layout.IModelLayoutProvider;
+import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutProvider;
 import cz.jpikl.yafmt.ui.editors.fm.model.Connection;
 
 public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEditPart, IModelListener {
@@ -50,7 +50,7 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
     
     @Override
     protected IFigure createFigure() {
-        IModelLayoutProvider layoutProvider = (IModelLayoutProvider) getParent();
+        LayoutProvider layoutProvider = (LayoutProvider) getParent();
         return new GroupFigure(layoutProvider, group);
     }
     
@@ -63,9 +63,9 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
     }
             
     private void loadModelLayout() {
-        IModelLayoutProvider layoutProvider = (IModelLayoutProvider) getParent();
-        if(!layoutProvider.refreshObjectBounds(group)) {
-            Rectangle parentBounds = layoutProvider.getObjectBounds(group.getParent());
+        LayoutProvider layoutProvider = (LayoutProvider) getParent();
+        if(!layoutProvider.refreshBounds(group)) {
+            Rectangle parentBounds = layoutProvider.getBounds(group.getParent());
             Rectangle bounds;
             
             if(parentBounds == null) {
@@ -77,7 +77,7 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
                 bounds = new Rectangle(x, y, SIZE, SIZE);
             }
             
-            layoutProvider.setObjectBounds(group, bounds);
+            layoutProvider.setBounds(group, bounds);
         }        
     }
 
