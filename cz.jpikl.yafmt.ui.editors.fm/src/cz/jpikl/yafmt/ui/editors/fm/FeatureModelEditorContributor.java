@@ -23,19 +23,20 @@ public class FeatureModelEditorContributor extends ActionBarContributor implemen
     
     @Override
     public void dispose() {
+        disposeMultipageEditor();
+        super.dispose();
+    }
+    
+    private void disposeMultipageEditor() {
         if(multipageEditor != null) {
             multipageEditor.removePageChangedListener(this);
             multipageEditor = null;
         }
-        super.dispose();
     }
     
     @Override
     public void setActiveEditor(IEditorPart editor) {
-        if(multipageEditor != null) {
-            multipageEditor.removePageChangedListener(this);
-            multipageEditor = null;
-        }
+        disposeMultipageEditor();
                 
         if(editor instanceof MultiPageEditorPart) {
             multipageEditor = (MultiPageEditorPart) editor;

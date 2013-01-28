@@ -3,12 +3,15 @@ package cz.jpikl.yafmt.ui.editors.fm;
 import java.io.IOException;
 import java.util.EventObject;
 import java.util.Iterator;
+import java.util.Map;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.draw2d.Viewport;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.gef.DefaultEditDomain;
@@ -124,6 +127,7 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
     @Override
     protected void configurePaletteViewer() {
         super.configurePaletteViewer();
+        // Add drag and drop support for palette.
         PaletteViewer palleteViewer = getPaletteViewer();
         palleteViewer.addDragSourceListener(new TemplateTransferDragSourceListener(palleteViewer));
     }
@@ -140,6 +144,7 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
     }
         
     private void doLoad() {
+        // Load model layout data.
         LayoutDataPackage.eINSTANCE.eClass(); // For package registration.
         ResourceSet resourceSet = featureModel.eResource().getResourceSet();
         String path = featureModel.eResource().getURI().toPlatformString(true) + ".layout";
@@ -148,6 +153,12 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
         try {
             resource.load(null);
             layoutData = (LayoutData) resource.getContents().get(0);
+            // Delete all entries with missing object.
+            for(Iterator<Map.Entry<EObject, Rectangle>> it = layoutData.getMapping().iterator(); it.hasNext(); ) {
+                Map.Entry<EObject, Rectangle> entry = it.next();
+                if(entry.getKey().eResource() == null)
+                    it.remove();
+            }
         }
         catch(IOException ex) {
             layoutData = LayoutDataFactory.eINSTANCE.createLayoutData();
