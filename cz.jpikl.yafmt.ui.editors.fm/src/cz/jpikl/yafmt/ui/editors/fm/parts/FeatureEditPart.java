@@ -18,8 +18,9 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.jface.viewers.ICellEditorValidator;
 
 import cz.jpikl.yafmt.model.fm.Feature;
+import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
-import cz.jpikl.yafmt.model.util.IModelListener;
+import cz.jpikl.yafmt.model.util.ModelListener;
 import cz.jpikl.yafmt.model.util.ModelListenerAdapter;
 import cz.jpikl.yafmt.ui.editors.fm.figures.FeatureFigure;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutProvider;
@@ -29,7 +30,7 @@ import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureDirectEditPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureEditPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.util.LabelDirectEditManager;
 
-public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEditPart, IModelListener {
+public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEditPart, ModelListener {
 
     private Feature feature;
     private ModelListenerAdapter listenerAdapter;
@@ -45,7 +46,7 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
     @Override
     public void activate() {
         super.activate();
-        listenerAdapter.connect(feature);
+        listenerAdapter.adapt(feature);
     }
     
     @Override
@@ -71,14 +72,14 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
     
     private void loadModelLayout() {
         LayoutProvider layoutProvider = (LayoutProvider) getParent();
-        if(!layoutProvider.refreshBounds(feature))
-            layoutProvider.setBounds(feature, new Rectangle(0, 0, 100, 25));
+        if(!layoutProvider.refreshObjectBounds(feature))
+            layoutProvider.setObjectBounds(feature, new Rectangle(0, 0, 100, 25));
     }
     
     @Override
     protected List<Object> getModelSourceConnections() {
         EObject parent = feature.getParent();
-        if(parent == null)
+        if((parent == null) || (parent instanceof FeatureModel))
             return null;
         
         List<Object> connections = new ArrayList<Object>();

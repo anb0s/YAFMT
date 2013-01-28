@@ -293,11 +293,22 @@ public interface Feature extends EObject {
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Parent</em>' reference.
+     * @see #setParent(EObject)
      * @see cz.jpikl.yafmt.model.fm.FeatureModelPackage#getFeature_Parent()
-     * @model transient="true" changeable="false" volatile="true" derived="true"
+     * @model transient="true" volatile="true" derived="true"
      * @generated
      */
     EObject getParent();
+
+    /**
+     * Sets the value of the '{@link cz.jpikl.yafmt.model.fm.Feature#getParent <em>Parent</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Parent</em>' reference.
+     * @see #getParent()
+     * @generated
+     */
+    void setParent(EObject value);
 
     /**
      * Returns the value of the '<em><b>Parent Feature</b></em>' container reference.

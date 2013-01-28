@@ -1,14 +1,17 @@
 package cz.jpikl.yafmt.ui.editors.fm.layout;
 
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.ecore.EObject;
 
 public interface LayoutProvider {
     
-    Rectangle getBounds(EObject object);
+    Rectangle getObjectBounds(EObject object);
     
-    void setBounds(EObject object, Rectangle bounds);
+    void setObjectBounds(EObject object, Rectangle bounds);
     
-    boolean refreshBounds(EObject object);
+    boolean refreshObjectBounds(EObject object);
+    
+    Notifier getLayoutNotifier();
     
 }

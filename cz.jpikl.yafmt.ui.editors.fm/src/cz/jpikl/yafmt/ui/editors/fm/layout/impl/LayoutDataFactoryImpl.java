@@ -5,6 +5,7 @@ package cz.jpikl.yafmt.ui.editors.fm.layout.impl;
 import cz.jpikl.yafmt.ui.editors.fm.layout.*;
 
 import java.util.Map;
+import java.util.Scanner;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 
@@ -121,19 +122,33 @@ public class LayoutDataFactoryImpl extends EFactoryImpl implements LayoutDataFac
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     public Rectangle createRectangleFromString(EDataType eDataType, String initialValue) {
-        return (Rectangle)super.createFromString(eDataType, initialValue);
+        Rectangle bounds = new Rectangle();
+        Scanner scanner = new Scanner(initialValue);
+        
+        try {
+            bounds.x = scanner.nextInt();
+            bounds.y = scanner.nextInt();
+            bounds.width = scanner.nextInt();
+            bounds.height = scanner.nextInt();
+        }
+        finally {
+            scanner.close();
+        }
+        
+        return bounds;
     }
 
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     public String convertRectangleToString(EDataType eDataType, Object instanceValue) {
-        return super.convertToString(eDataType, instanceValue);
+        Rectangle bounds = (Rectangle) instanceValue;
+        return bounds.x + " " + bounds.y + " " + bounds.width + " " + bounds.height;
     }
 
     /**

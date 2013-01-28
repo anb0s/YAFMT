@@ -10,7 +10,7 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.ui.actions.ActionFactory;
 
 import cz.jpikl.yafmt.ui.editors.fm.actions.AddAttributeAction;
-import cz.jpikl.yafmt.ui.editors.fm.actions.RemoveAttributeAction;
+import cz.jpikl.yafmt.ui.editors.fm.actions.DeleteAttributeAction;
 
 public class FeatureTreeEditorContextMenuProvider extends ContextMenuProvider {
 
@@ -31,7 +31,7 @@ public class FeatureTreeEditorContextMenuProvider extends ContextMenuProvider {
         if(action.isEnabled())
             menu.appendToGroup(GEFActionConstants.GROUP_ADD, action);
         
-        action = registry.getAction(RemoveAttributeAction.ID);
+        action = registry.getAction(DeleteAttributeAction.ID);
         if(action.isEnabled()) {
             menu.appendToGroup(GEFActionConstants.GROUP_ADD, new ActionContributionItem(action) {
                 // Always regenerate menu when shown.

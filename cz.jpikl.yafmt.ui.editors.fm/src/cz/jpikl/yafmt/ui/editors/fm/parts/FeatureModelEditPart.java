@@ -7,6 +7,7 @@ import java.util.List;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.EditPart;
@@ -17,14 +18,14 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.Group;
-import cz.jpikl.yafmt.model.util.IModelListener;
+import cz.jpikl.yafmt.model.util.ModelListener;
 import cz.jpikl.yafmt.model.util.ModelListenerAdapter;
 import cz.jpikl.yafmt.ui.editors.fm.figures.FeatureModelFigure;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutProvider;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureModelLayoutPolicy;
 
-public class FeatureModelEditPart extends AbstractGraphicalEditPart implements IModelListener, LayoutProvider {
+public class FeatureModelEditPart extends AbstractGraphicalEditPart implements ModelListener, LayoutProvider {
 
     private FeatureModel featureModel;
     private LayoutData layoutData;
@@ -40,7 +41,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart implements I
     @Override
     public void activate() {
         super.activate();
-        modelAdapter.connectContents(featureModel);
+        modelAdapter.adaptContents(featureModel);
     }
     
     @Override
@@ -82,19 +83,19 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart implements I
     }
             
     @Override
-    public Rectangle getBounds(EObject object) {
+    public Rectangle getObjectBounds(EObject object) {
         return layoutData.getMapping().get(object);
     }
     
     @Override
-    public void setBounds(EObject object, Rectangle bounds) {
+    public void setObjectBounds(EObject object, Rectangle bounds) {
         GraphicalEditPart editPart = getEditPartForObject(object);
         setLayoutConstraint(editPart, editPart.getFigure(), bounds);
         layoutData.getMapping().put(object, bounds);
     }
     
     @Override
-    public boolean refreshBounds(EObject object) {
+    public boolean refreshObjectBounds(EObject object) {
         Rectangle bounds = layoutData.getMapping().get(object);
         if(bounds == null)
             return false;
@@ -102,6 +103,11 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart implements I
         setLayoutConstraint(editPart, editPart.getFigure(), bounds);
         editPart.getFigure().repaint();
         return true;
+    }
+    
+    @Override
+    public Notifier getLayoutNotifier() {
+        return layoutData;
     }
     
     private GraphicalEditPart getEditPartForObject(Object object) {
@@ -132,13 +138,8 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart implements I
             
         // Do not remove edit parts when they are still present in model.
         // This situation usually happens when feature parent was changed.
-        if(object instanceof Feature) {
-            Feature feature = (Feature) object;
-            if((feature.getParent() == null) && !featureModel.getOrphans().contains(object))
-                removeChild(editPart);
-        }
-        else if(object instanceof Group) {
-            if(((Group) object).getParent() == null)
+        if(object instanceof EObject) {
+            if(((EObject) object).eContainer() == null)
                 removeChild(editPart);
         }
     }

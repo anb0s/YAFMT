@@ -8,14 +8,14 @@ import org.eclipse.gef.editpolicies.ConnectionEndpointEditPolicy;
 
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
-import cz.jpikl.yafmt.model.util.IModelListener;
+import cz.jpikl.yafmt.model.util.ModelListener;
 import cz.jpikl.yafmt.model.util.ModelListenerAdapter;
 import cz.jpikl.yafmt.ui.editors.fm.figures.ConnectionFigure;
 import cz.jpikl.yafmt.ui.editors.fm.model.Connection;
 import cz.jpikl.yafmt.ui.editors.fm.policies.ConnectionEditPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.ConnectionSelectionPolicy;
 
-public class ConnectionEditPart extends AbstractConnectionEditPart implements IModelListener {
+public class ConnectionEditPart extends AbstractConnectionEditPart implements ModelListener {
 
     private Connection connection;
     private ModelListenerAdapter listenerAdapter;
@@ -29,7 +29,7 @@ public class ConnectionEditPart extends AbstractConnectionEditPart implements IM
     @Override
     public void activate() {
         super.activate();
-        listenerAdapter.connect(connection.getTarget());
+        listenerAdapter.adapt(connection.getTarget());
     }
     
     @Override

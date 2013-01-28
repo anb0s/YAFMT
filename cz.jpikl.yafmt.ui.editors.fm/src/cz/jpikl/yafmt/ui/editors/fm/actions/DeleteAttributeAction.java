@@ -19,20 +19,19 @@ import org.eclipse.ui.PlatformUI;
 
 import cz.jpikl.yafmt.ui.editors.fm.util.RequestConstants;
 
-public class RemoveAttributeAction extends SelectionAction {
+public class DeleteAttributeAction extends SelectionAction {
 
-    public static final String ID = "cz.jpikl.yafmt.ui.editors.fm.actions.RemoveAtributeAction";
+    public static final String ID = "cz.jpikl.yafmt.ui.editors.fm.actions.DeleteAtributeAction";
     
-    public RemoveAttributeAction(IWorkbenchPart part) {
+    public DeleteAttributeAction(IWorkbenchPart part) {
         super(part);
-        setId(ID);
-        
     }
     
     @Override
     protected void init() {
         super.init();
-        setText("Remove Attribute");
+        setId(ID);
+        setText("Delete Attribute");
         setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_ETOOL_DELETE));
         setMenuCreator(new MenuCreator());
     }
@@ -94,11 +93,6 @@ public class RemoveAttributeAction extends SelectionAction {
         public void widgetDefaultSelected(SelectionEvent e) {
         }
         
-    }
-    
-    @Override
-    public void setEnabled(boolean enabled) {
-        super.setEnabled(enabled);
     }
 
 }

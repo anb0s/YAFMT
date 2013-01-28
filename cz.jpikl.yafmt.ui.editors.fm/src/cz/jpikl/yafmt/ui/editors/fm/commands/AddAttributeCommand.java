@@ -1,16 +1,14 @@
 package cz.jpikl.yafmt.ui.editors.fm.commands;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.gef.commands.Command;
 
 import cz.jpikl.yafmt.model.fm.Attribute;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModelFactory;
 
-public class AddAttributeCommand extends Command {
+public class AddAttributeCommand extends RecordingCommand {
 
     private Feature feature;
-    private Attribute attribute;
     
     public AddAttributeCommand(Feature feature) {
         setLabel("Add Attribute");
@@ -18,21 +16,16 @@ public class AddAttributeCommand extends Command {
     }
     
     @Override
-    public void execute() {
-        attribute = FeatureModelFactory.eINSTANCE.createAttribute();
+    protected void initializeRecording() {
+        addRecordedObject(feature);
+    }
+
+    @Override
+    protected void performRecording() {
+        Attribute attribute = FeatureModelFactory.eINSTANCE.createAttribute();
         attribute.setId(EcoreUtil.generateUUID());
         attribute.setName("New Attribute");
-        redo();
-    }
-    
-    @Override
-    public void redo() {
         feature.getAttributes().add(attribute);
-    }
-    
-    @Override
-    public void undo() {
-        feature.getAttributes().remove(attribute);
     }
     
 }

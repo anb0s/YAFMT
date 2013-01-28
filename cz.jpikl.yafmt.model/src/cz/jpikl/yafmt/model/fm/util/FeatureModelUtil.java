@@ -1,9 +1,11 @@
 package cz.jpikl.yafmt.model.fm.util;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.BasicExtendedMetaData;
 import org.eclipse.emf.ecore.util.ExtendedMetaData;
@@ -11,11 +13,13 @@ import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
+import cz.jpikl.yafmt.model.fm.Attribute;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.FeatureModelFactory;
 import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
 import cz.jpikl.yafmt.model.fm.FeatureModelPackage.Literals;
+import cz.jpikl.yafmt.model.fm.Group;
 
 public class FeatureModelUtil {
 
@@ -84,6 +88,43 @@ public class FeatureModelUtil {
         featureModel.setName(name);
         featureModel.setRoot(rootFeature);
         return featureModel;
+    }
+
+    public static String getName(EObject object) {
+        if(object == null)
+            return "null";
+        if(object instanceof FeatureModel)
+            return ((FeatureModel) object).getName();
+        if(object instanceof Feature)
+            return ((Feature) object).getName();
+        if(object instanceof Group)
+            return "Group";
+        if(object instanceof Attribute)
+            return ((Attribute) object).getName();
+        return object.toString();
+    }
+    
+    public static String getParentName(Feature feature) {
+        if(feature == null)
+            return "null";
+        
+        EObject parent = feature.getParent();
+        if(parent instanceof Group)
+            return getName(((Group) parent).getParent());
+        return getName(parent);
+    }
+    
+    public static void removeUnneededGroup(EObject object) {
+        if(!(object instanceof Group))
+            return;
+            
+        Group group = (Group) object;
+        List<Feature> features = group.getFeatures();
+        if(features.size() <= 1) {
+            if(features.size() == 1)
+                features.get(0).setParent(group.getParent());
+            group.setParent(null);
+        }
     }
     
 }

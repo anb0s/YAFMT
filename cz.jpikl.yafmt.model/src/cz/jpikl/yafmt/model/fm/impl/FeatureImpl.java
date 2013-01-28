@@ -368,8 +368,10 @@ public class FeatureImpl extends EObjectImpl implements Feature {
      * @generated NOT
      */
     public boolean isRoot() {
-        FeatureModel featureModel = getFeatureModel();
-        return (featureModel == null) ? false : (featureModel.getRoot() == this); 
+        EObject parent = getParent();
+        if(!(parent instanceof FeatureModel))
+            return false;
+        return ((FeatureModel) parent).getRoot() == this; 
     }
 
     /**
@@ -378,7 +380,10 @@ public class FeatureImpl extends EObjectImpl implements Feature {
      * @generated NOT
      */
     public boolean isOrphan() {
-        return (getParent() == null) && !isRoot();
+        EObject parent = getParent();
+        if(!(parent instanceof FeatureModel))
+            return false;
+        return ((FeatureModel) parent).getRoot() != this;
     }
 
     /**
@@ -457,9 +462,23 @@ public class FeatureImpl extends EObjectImpl implements Feature {
      * @generated NOT
      */
     public EObject basicGetParent() {
-        // Must not return FeatureModel.
-        EObject parent = getParentFeature();
-        return (parent == null) ? getParentGroup() : parent;
+        return eContainer();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    public void setParent(EObject newParent) {
+        if(newParent instanceof Feature)
+            ((Feature) newParent).getFeatures().add(this);
+        else if(newParent instanceof Group)
+            ((Group) newParent).getFeatures().add(this);
+        else if(newParent instanceof FeatureModel)
+            ((FeatureModel) newParent).getOrphans().add(this);
+        else
+            EcoreUtil.remove(this);
     }
 
     /**
@@ -585,7 +604,10 @@ public class FeatureImpl extends EObjectImpl implements Feature {
      */
     public FeatureModel basicGetFeatureModel() {
         Resource resource = eResource();
-        return (resource == null) ? null : (FeatureModel) resource.getContents().get(0);
+        if(resource == null)
+            return null;
+        EObject target = resource.getContents().get(0);
+        return (target instanceof FeatureModel) ? (FeatureModel) target : null;
     }
 
     /**
@@ -729,6 +751,9 @@ public class FeatureImpl extends EObjectImpl implements Feature {
             case FeatureModelPackage.FEATURE__MANDATORY:
                 setMandatory((Boolean)newValue);
                 return;
+            case FeatureModelPackage.FEATURE__PARENT:
+                setParent((EObject)newValue);
+                return;
             case FeatureModelPackage.FEATURE__PARENT_FEATURE:
                 setParentFeature((Feature)newValue);
                 return;
@@ -779,6 +804,9 @@ public class FeatureImpl extends EObjectImpl implements Feature {
                 return;
             case FeatureModelPackage.FEATURE__MANDATORY:
                 setMandatory(MANDATORY_EDEFAULT);
+                return;
+            case FeatureModelPackage.FEATURE__PARENT:
+                setParent((EObject)null);
                 return;
             case FeatureModelPackage.FEATURE__PARENT_FEATURE:
                 setParentFeature((Feature)null);

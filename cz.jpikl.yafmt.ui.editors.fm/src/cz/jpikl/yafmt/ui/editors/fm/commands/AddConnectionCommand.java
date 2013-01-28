@@ -1,14 +1,13 @@
 package cz.jpikl.yafmt.ui.editors.fm.commands;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import cz.jpikl.yafmt.model.fm.Feature;
-import cz.jpikl.yafmt.model.fm.FeatureModel;
-import cz.jpikl.yafmt.model.fm.Group;
+import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
 
 public class AddConnectionCommand extends RecordingCommand {
 
-    private FeatureModel featureModel;
     private EObject source;
     private Feature destination;
     
@@ -18,18 +17,12 @@ public class AddConnectionCommand extends RecordingCommand {
     
     public boolean setDestination(Feature destination) {
         if(destination.isRoot())
+            return false;        
+        if(EcoreUtil.isAncestor(destination, source))
             return false;
 
-        for(EObject item = source; item != null; item = item.eContainer()) {
-            if(item == destination)
-                return false;
-        }
-
         this.destination = destination;
-        this.featureModel = destination.getFeatureModel();
-        
-        String sourceName = (source instanceof Group) ? ((Group) source).getParent().getName() : ((Feature) source).getName();
-        setLabel("Make " + destination.getName() + " Subfeature of " + sourceName);
+        setLabel("Make " + destination.getName() + " Subfeature of " + FeatureModelUtil.getParentName(destination));
         return true;
     }
     
@@ -37,34 +30,14 @@ public class AddConnectionCommand extends RecordingCommand {
     protected void initializeRecording() {
         addRecordedObject(source);
         addRecordedObject(destination);
-        
-        EObject parent = destination.getParent();
-        if(parent != null) {
-            addRecordedObject(parent);
-            if(parent instanceof Group)
-                addRecordedObject(((Group) parent).getParent());
-        }
-        else {
-            addRecordedObject(featureModel);
-        }
+        addRecordedObjectParent(destination);
     }
 
     @Override
     protected void performRecording() {
-        EObject parent = destination.getParent();
-        if(source instanceof Group)
-            ((Group) source).getFeatures().add(destination);
-        else
-            ((Feature) source).getFeatures().add(destination);
-        
-        if(parent instanceof Group) {
-            Group group = (Group) parent;
-            if(group.getFeatures().size() <= 1) {
-                if(group.getFeatures().size() == 1)
-                    group.getParent().getFeatures().add(group.getFeatures().get(0));
-                group.getParent().getGroups().remove(group);
-            }
-        }
+        EObject oldParent = destination.getParent();
+        destination.setParent(source);
+        FeatureModelUtil.removeUnneededGroup(oldParent);
     }
 
 }

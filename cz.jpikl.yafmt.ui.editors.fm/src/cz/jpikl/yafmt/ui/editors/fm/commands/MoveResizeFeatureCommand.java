@@ -24,19 +24,19 @@ public class MoveResizeFeatureCommand extends Command {
 
     @Override
     public void execute() {
-        oldBounds = layoutProvider.getBounds(feature);
+        oldBounds = layoutProvider.getObjectBounds(feature);
         redo();
     }
     
     @Override
     public void redo() {
-        layoutProvider.setBounds(feature, newBounds);
+        layoutProvider.setObjectBounds(feature, newBounds);
         moveGroups(oldBounds, newBounds);
     }
 
     @Override
     public void undo() {
-        layoutProvider.setBounds(feature, oldBounds);
+        layoutProvider.setObjectBounds(feature, oldBounds);
         moveGroups(newBounds, oldBounds);
     }
     
@@ -45,16 +45,16 @@ public class MoveResizeFeatureCommand extends Command {
         int dy = to.y - from.y;
         
         for(Group group: feature.getGroups()) {
-            Rectangle bounds = layoutProvider.getBounds(group);
+            Rectangle bounds = layoutProvider.getObjectBounds(group);
             bounds.x += dx;
             bounds.y += dy;
-            layoutProvider.setBounds(group, bounds);
+            layoutProvider.setObjectBounds(group, bounds);
         }
         
         // Force repainting of parent group.
         EObject parent = feature.getParent();
         if(parent instanceof Group)
-            layoutProvider.refreshBounds(parent);
+            layoutProvider.refreshObjectBounds(parent);
     }
     
 }

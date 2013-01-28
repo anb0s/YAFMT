@@ -1,10 +1,13 @@
 package cz.jpikl.yafmt.ui.editors.fm.commands;
 
+import java.util.List;
+
 import org.eclipse.emf.ecore.EObject;
 
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.Group;
+import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
 
 public class DeleteFeatureCommand extends RecordingCommand {
     
@@ -16,48 +19,24 @@ public class DeleteFeatureCommand extends RecordingCommand {
     }
         
     protected void initializeRecording() {
-        FeatureModel featureModel = feature.getFeatureModel();
-        if(featureModel == null)
-            return;
-        
-        addRecordedObject(featureModel);
+        addRecordedObject(feature.getFeatureModel());
+        addRecordedObject(feature.getParent());
         addRecordedObject(feature);
-        
-        EObject parent = feature.getParent();
-        if(parent != null) {
-            addRecordedObject(parent);
-            if(parent instanceof Group)
-                addRecordedObject(((Group) parent).getParent());
-        }
     }
     
     @Override
     protected void performRecording() {
         FeatureModel featureModel = feature.getFeatureModel();
-        if(featureModel == null)
-            return;
+        List<Feature> orphans = featureModel.getOrphans();
         
-        featureModel.getOrphans().addAll(feature.getFeatures());
+        orphans.addAll(feature.getFeatures());
         for(Group group: feature.getGroups())
-            featureModel.getOrphans().addAll(group.getFeatures());
+            orphans.addAll(group.getFeatures());
         feature.getGroups().clear();
         
         EObject parent = feature.getParent();
-        if(parent instanceof Feature) {
-            ((Feature) parent).getFeatures().remove(feature);
-        }
-        else if(parent instanceof Group) {
-            Group group = (Group) parent;
-            group.getFeatures().remove(feature);
-            if(group.getFeatures().size() <= 1) {
-                if(group.getFeatures().size() == 1)
-                    group.getParent().getFeatures().add(group.getFeatures().get(0));
-                group.getParent().getGroups().remove(group);
-            }
-        }
-        else {
-            featureModel.getOrphans().remove(feature);
-        }
+        feature.setParent(null);
+        FeatureModelUtil.removeUnneededGroup(parent);
     }
     
 }

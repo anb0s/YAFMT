@@ -8,16 +8,16 @@ import org.eclipse.emf.ecore.util.EContentAdapter;
 
 public class ModelListenerAdapter {
 
-    private IModelListener listener;
+    private ModelListener listener;
     private Adapter adapter;
     
-    public ModelListenerAdapter(IModelListener listener) {
+    public ModelListenerAdapter(ModelListener listener) {
         if(listener == null)
             throw new IllegalArgumentException("Argument cannot be null");
         this.listener = listener;
     }
     
-    public void connect(Notifier target) {
+    public void adapt(Notifier target) {
         dispose(target);
         if(target == null)
             return;
@@ -31,7 +31,7 @@ public class ModelListenerAdapter {
         target.eAdapters().add(adapter);
     }
     
-    public void connectContents(Notifier target) {
+    public void adaptContents(Notifier target) {
         dispose(target);
         if(target == null)
             return;

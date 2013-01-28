@@ -15,14 +15,14 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
 import cz.jpikl.yafmt.model.fm.Group;
-import cz.jpikl.yafmt.model.util.IModelListener;
+import cz.jpikl.yafmt.model.util.ModelListener;
 import cz.jpikl.yafmt.model.util.ModelListenerAdapter;
 import cz.jpikl.yafmt.ui.editors.fm.figures.GroupFigure;
 import cz.jpikl.yafmt.ui.editors.fm.figures.MiddlePointAnchor;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutProvider;
 import cz.jpikl.yafmt.ui.editors.fm.model.Connection;
 
-public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEditPart, IModelListener {
+public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEditPart, ModelListener {
 
     private static final int SIZE = 40;
     
@@ -39,7 +39,7 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
     @Override
     public void activate() {
         super.activate();
-        listenerAdapter.connect(group);
+        listenerAdapter.adapt(group);
     }
     
     @Override
@@ -64,8 +64,8 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
             
     private void loadModelLayout() {
         LayoutProvider layoutProvider = (LayoutProvider) getParent();
-        if(!layoutProvider.refreshBounds(group)) {
-            Rectangle parentBounds = layoutProvider.getBounds(group.getParent());
+        if(!layoutProvider.refreshObjectBounds(group)) {
+            Rectangle parentBounds = layoutProvider.getObjectBounds(group.getParent());
             Rectangle bounds;
             
             if(parentBounds == null) {
@@ -77,7 +77,7 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
                 bounds = new Rectangle(x, y, SIZE, SIZE);
             }
             
-            layoutProvider.setBounds(group, bounds);
+            layoutProvider.setObjectBounds(group, bounds);
         }        
     }
 

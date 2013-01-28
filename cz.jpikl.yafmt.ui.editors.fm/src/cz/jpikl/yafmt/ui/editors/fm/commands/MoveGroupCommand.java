@@ -21,7 +21,7 @@ public class MoveGroupCommand extends Command {
     }
         
     private void relocateNewPosition() {
-        Rectangle parentBounds = layoutProvider.getBounds(group.getParent());
+        Rectangle parentBounds = layoutProvider.getObjectBounds(group.getParent());
         
         int cx = newBounds.x + newBounds.width / 2;
         int cy = newBounds.y + newBounds.height / 2;
@@ -53,19 +53,19 @@ public class MoveGroupCommand extends Command {
     
     @Override
     public void execute() {
-        oldBounds = layoutProvider.getBounds(group);
+        oldBounds = layoutProvider.getObjectBounds(group);
         relocateNewPosition();
         redo();
     }
     
     @Override
     public void redo() {
-        layoutProvider.setBounds(group, newBounds);
+        layoutProvider.setObjectBounds(group, newBounds);
     }
 
     @Override
     public void undo() {
-        layoutProvider.setBounds(group, oldBounds);
+        layoutProvider.setObjectBounds(group, oldBounds);
     }
 
 }

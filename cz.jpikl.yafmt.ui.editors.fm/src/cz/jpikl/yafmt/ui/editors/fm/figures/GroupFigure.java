@@ -113,10 +113,10 @@ public class GroupFigure extends RectangleFigure {
         
         angles = new double[size + 1];
         angles[size] = Double.MAX_VALUE; 
-        Point self = layoutProvider.getBounds(group).getCenter();
+        Point self = layoutProvider.getObjectBounds(group).getCenter();
         
         for(int i = 0; i < size; i++) {
-            Point target = layoutProvider.getBounds(features.get(i)).getCenter();
+            Point target = layoutProvider.getObjectBounds(features.get(i)).getCenter();
             angles[i] = getAngle(self, target);
         }
         

@@ -2,42 +2,41 @@ package cz.jpikl.yafmt.ui.editors.fm.commands;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.gef.commands.Command;
 
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
+import cz.jpikl.yafmt.ui.editors.fm.figures.FeatureFigure;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutProvider;
 
-public class AddFeatureCommand extends Command {
+public class AddFeatureCommand extends RecordingCommand {
     
     private LayoutProvider layoutProvider;
     private FeatureModel featureModel;
     private Feature feature;
-    private Rectangle bounds;
+    private Point location;
     
     public AddFeatureCommand(LayoutProvider layoutProvider, FeatureModel featureModel, Feature feature, Point location) {
         setLabel("Add New Feature");
         this.layoutProvider = layoutProvider;
         this.featureModel = featureModel;
         this.feature = feature;
-        this.bounds = new Rectangle(location.x - 50, location.y - 12, 100, 25);
+        this.location = location;
     }
 
     @Override
-    public void execute() {
-        redo();
+    protected void initializeRecording() {
+        addRecordedObject(featureModel);
+        addRecordedObject(layoutProvider.getLayoutNotifier());
     }
-    
+
     @Override
-    public void redo() {
+    protected void performRecording() {
+        int x = location.x - FeatureFigure.WIDTH / 2;
+        int y = location.y - FeatureFigure.HEGHT / 2;
+        Rectangle bounds = new Rectangle(x, y, FeatureFigure.WIDTH, FeatureFigure.HEGHT);
+        
         featureModel.getOrphans().add(feature);
-        layoutProvider.setBounds(feature, bounds);
-    }
-    
-    @Override
-    public void undo() {
-        featureModel.getOrphans().remove(feature);
-        layoutProvider.setBounds(feature, null);
+        layoutProvider.setObjectBounds(feature, bounds);
     }
         
 }

@@ -12,6 +12,9 @@ import org.eclipse.swt.graphics.Pattern;
 import org.eclipse.swt.widgets.Display;
 
 public class FeatureFigure extends RoundedRectangle {
+    
+    public static final int WIDTH = 100;
+    public static final int HEGHT = 25;
 
     private Label label = new Label();
     
