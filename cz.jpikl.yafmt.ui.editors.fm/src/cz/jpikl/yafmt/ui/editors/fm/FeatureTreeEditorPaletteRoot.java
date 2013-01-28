@@ -1,8 +1,6 @@
 package cz.jpikl.yafmt.ui.editors.fm;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.gef.dnd.TemplateTransferDragSourceListener;
-import org.eclipse.gef.dnd.TemplateTransferDropTargetListener;
 import org.eclipse.gef.palette.CombinedTemplateCreationEntry;
 import org.eclipse.gef.palette.ConnectionCreationToolEntry;
 import org.eclipse.gef.palette.CreationToolEntry;

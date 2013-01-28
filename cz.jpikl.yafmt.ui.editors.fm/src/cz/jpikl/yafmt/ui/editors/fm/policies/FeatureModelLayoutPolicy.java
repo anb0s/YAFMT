@@ -34,15 +34,15 @@ public class FeatureModelLayoutPolicy extends XYLayoutEditPolicy {
         LayoutData layoutData = ((FeatureModelEditPart) getHost()).getLayoutData();
         Object model = child.getModel();
         
+        if(model instanceof Feature)
+            return new MoveResizeFeatureCommand(layoutData, (Feature) model, (Rectangle) constraint);
+        
         if(model instanceof Group){
             Dimension sizeDelta = request.getSizeDelta();
             if((sizeDelta.width != 0) || (sizeDelta.height != 0))
                 return null;
             return new MoveGroupCommand(layoutData, (Group) model, (Rectangle) constraint);
         }
-        
-        if(model instanceof Feature)
-            return new MoveResizeFeatureCommand(layoutData, (Feature) model, (Rectangle) constraint);
 
         return null;
     }

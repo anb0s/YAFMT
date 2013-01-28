@@ -9,6 +9,8 @@ import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.ui.editors.fm.commands.AddAttributeCommand;
 import cz.jpikl.yafmt.ui.editors.fm.commands.DeleteFeatureCommand;
 import cz.jpikl.yafmt.ui.editors.fm.commands.DeleteAttributeCommand;
+import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
+import cz.jpikl.yafmt.ui.editors.fm.parts.FeatureEditPart;
 import cz.jpikl.yafmt.ui.editors.fm.util.RequestConstants;
 
 public class FeatureEditPolicy extends ComponentEditPolicy {
@@ -43,7 +45,9 @@ public class FeatureEditPolicy extends ComponentEditPolicy {
         Feature feature = (Feature) getHost().getModel();
         if(feature.isRoot())
             return null;
-        return new DeleteFeatureCommand(feature);
+        
+        LayoutData layoutData = ((FeatureEditPart) getHost()).getLayoutData();
+        return new DeleteFeatureCommand(feature, layoutData);
     }
     
 }

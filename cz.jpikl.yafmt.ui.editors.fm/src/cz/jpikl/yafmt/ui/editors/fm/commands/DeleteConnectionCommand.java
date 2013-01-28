@@ -14,7 +14,7 @@ public class DeleteConnectionCommand extends RecordingCommand {
     public DeleteConnectionCommand(Connection connection) {
         source = connection.getSource();
         target = connection.getTarget();
-        setLabel("Delete Subfeature " + target.getName() + " from " + FeatureModelUtil.getParentName(target));
+        setLabel("Delete Subfeature " + target.getName() + " from " + FeatureModelUtil.getParentName(target.getParent()));
     }
 
     @Override

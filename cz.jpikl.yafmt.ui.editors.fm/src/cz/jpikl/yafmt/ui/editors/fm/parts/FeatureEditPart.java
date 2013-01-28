@@ -25,7 +25,7 @@ import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
 import cz.jpikl.yafmt.ui.editors.fm.figures.FeatureFigure;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 import cz.jpikl.yafmt.ui.editors.fm.model.Connection;
-import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureConnectionEditPolicy;
+import cz.jpikl.yafmt.ui.editors.fm.policies.ConnectionCreationPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureDirectEditPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureEditPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.util.LabelDirectEditManager;
@@ -41,6 +41,10 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
         this.featureAdapter = new FeatureAdapter();
         this.layoutData = layoutData;
         setModel(feature);
+    }
+    
+    public LayoutData getLayoutData() {
+        return layoutData;
     }
     
     @Override
@@ -119,7 +123,7 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
     protected void createEditPolicies() {
         installEditPolicy(EditPolicy.COMPONENT_ROLE, new FeatureEditPolicy());
         installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new FeatureDirectEditPolicy());
-        installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new FeatureConnectionEditPolicy());
+        installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new ConnectionCreationPolicy());
     }
     
     @Override

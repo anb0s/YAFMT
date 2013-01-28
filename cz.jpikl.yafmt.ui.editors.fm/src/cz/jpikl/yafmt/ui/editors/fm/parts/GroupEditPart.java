@@ -10,6 +10,7 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.gef.ConnectionEditPart;
+import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
@@ -21,6 +22,8 @@ import cz.jpikl.yafmt.ui.editors.fm.figures.GroupFigure;
 import cz.jpikl.yafmt.ui.editors.fm.figures.MiddlePointAnchor;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 import cz.jpikl.yafmt.ui.editors.fm.model.Connection;
+import cz.jpikl.yafmt.ui.editors.fm.policies.ConnectionCreationPolicy;
+import cz.jpikl.yafmt.ui.editors.fm.policies.GroupEditPolicy;
 
 public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEditPart {
     
@@ -33,6 +36,10 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
         this.groupAdapter = new GroupAdapter();
         this.layoutData = layoutData;
         setModel(group);
+    }
+    
+    public LayoutData getLayoutData() {
+        return layoutData;
     }
     
     @Override
@@ -105,6 +112,8 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
 
     @Override
     protected void createEditPolicies() {
+        installEditPolicy(EditPolicy.COMPONENT_ROLE, new GroupEditPolicy());
+        installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new ConnectionCreationPolicy());
     }
 
     class GroupAdapter extends AdapterImpl {

@@ -20,7 +20,6 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.Group;
-import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
 import cz.jpikl.yafmt.ui.editors.fm.figures.FeatureModelFigure;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureModelLayoutPolicy;
@@ -132,10 +131,8 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
         // Do not remove edit parts when they are still present in model.
         // This situation usually happens when feature parent was changed.
         if(object instanceof EObject) {
-            if(((EObject) object).eContainer() == null) {
-                System.out.println("Removing " + FeatureModelUtil.getName((EObject)object));
+            if(((EObject) object).eContainer() == null)
                 removeChild(editPart);
-            }
         }
     }
     
@@ -168,7 +165,6 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
                     removeEditPartsForObjects((Collection<Object>) notification.getOldValue());
                     break;
             }
-            
             
         }
         

@@ -104,11 +104,9 @@ public class FeatureModelUtil {
         return object.toString();
     }
     
-    public static String getParentName(Feature feature) {
-        if(feature == null)
+    public static String getParentName(EObject parent) {
+        if(parent == null)
             return "null";
-        
-        EObject parent = feature.getParent();
         if(parent instanceof Group)
             return getName(((Group) parent).getParent());
         return getName(parent);
