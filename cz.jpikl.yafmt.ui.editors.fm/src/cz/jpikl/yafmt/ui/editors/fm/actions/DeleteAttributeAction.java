@@ -58,6 +58,8 @@ public class DeleteAttributeAction extends SelectionAction {
         
         @Override
         public Menu getMenu(Menu parent) {
+            dispose();
+            
             menu = new Menu(parent);
             for(int i = 0; ; i++) {
                 Command command = getCommand(i);
@@ -78,8 +80,10 @@ public class DeleteAttributeAction extends SelectionAction {
         
         @Override
         public void dispose() {
-            menu.dispose();
-            menu = null;
+            if(menu != null) {
+                menu.dispose();
+                menu = null;
+            }
         }
 
 

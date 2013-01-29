@@ -9,6 +9,7 @@ public class DeleteAttributeCommand extends RecordingCommand {
     
     public DeleteAttributeCommand(Feature feature, int attributeIndex) {
         setLabel("Delete Attribute " + feature.getAttributes().get(attributeIndex).getName());
+        this.attributeIndex = attributeIndex;
         this.feature = feature;
     }
 
