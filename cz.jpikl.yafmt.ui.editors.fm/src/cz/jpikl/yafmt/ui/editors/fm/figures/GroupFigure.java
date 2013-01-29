@@ -115,7 +115,7 @@ public class GroupFigure extends RectangleFigure {
         
         // Arc is made between connections outside the found region.
         arcOffset = (int) connectionAngles[maxIndex + 1];
-        arcLength = (int) (360.0 - (connectionAngles[maxIndex + 1] - connectionAngles[maxIndex]));
+        arcLength = (int) (360.0 - (connectionAngles[maxIndex + 1] - connectionAngles[maxIndex]) + 1);
         arcBounds = getOptimizedBounds();
     }
         

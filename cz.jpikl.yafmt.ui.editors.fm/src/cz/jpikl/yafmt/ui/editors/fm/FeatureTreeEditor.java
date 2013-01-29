@@ -44,6 +44,7 @@ import cz.jpikl.yafmt.ui.editors.fm.actions.AddAttributeAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.DeleteAttributeAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.GroupFeaturesAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.UngroupFeaturesAction;
+import cz.jpikl.yafmt.ui.editors.fm.figures.FeatureFigure;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutDataFactory;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutDataPackage;
@@ -170,13 +171,16 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
             // Delete all entries with missing object.
             for(Iterator<Map.Entry<EObject, Rectangle>> it = layoutData.getMapping().iterator(); it.hasNext(); ) {
                 Map.Entry<EObject, Rectangle> entry = it.next();
-                if(entry.getKey().eResource() == null)
+                if(entry.getKey() == null)
                     it.remove();
             }
         }
         catch(IOException ex) {
             layoutData = LayoutDataFactory.eINSTANCE.createLayoutData();
             resource.getContents().add(layoutData);
+            // Set root feature position.
+            Rectangle rootBounds = new Rectangle(320, 32, FeatureFigure.WIDTH, FeatureFigure.HEGHT);
+            layoutData.getMapping().put(featureModel.getRoot(), rootBounds);
         }
     }
     

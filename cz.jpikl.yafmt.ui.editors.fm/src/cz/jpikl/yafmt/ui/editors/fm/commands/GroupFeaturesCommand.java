@@ -2,6 +2,7 @@ package cz.jpikl.yafmt.ui.editors.fm.commands;
 
 import java.util.List;
 
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.ecore.EObject;
 
@@ -55,9 +56,9 @@ public class GroupFeaturesCommand extends RecordingCommand {
         int cx = 0;
         int cy = 0;
         for(Feature feature: features) {
-            Rectangle featureBounds = layoutData.getMapping().get(feature);
-            cx += featureBounds.x;
-            cy += featureBounds.y;
+            Point center = layoutData.getMapping().get(feature).getCenter();
+            cx += center.x;
+            cy += center.y;
         }
         cx /= features.size();
         cy /= features.size();
