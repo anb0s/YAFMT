@@ -2,6 +2,7 @@ package cz.jpikl.yafmt.ui.editors.fm;
 
 import java.io.IOException;
 import java.util.EventObject;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -11,9 +12,9 @@ import org.eclipse.draw2d.Viewport;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
@@ -157,6 +158,13 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
         super.commandStackChanged(event);
         firePropertyChange(PROP_DIRTY);
     }
+    
+    private Map<Object, Object> createDefaultLoadSaveOptions() {
+        Map<Object, Object> options = new HashMap<Object, Object>();
+        // Ignore and discard all dangling references.
+        options.put(XMLResource.OPTION_PROCESS_DANGLING_HREF, XMLResource.OPTION_PROCESS_DANGLING_HREF_DISCARD);
+        return options;
+    }
         
     private void doLoad() {
         // Load model layout data.
@@ -166,14 +174,8 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
         Resource resource = resourceSet.createResource(URI.createPlatformResourceURI(path, true));
         
         try {
-            resource.load(null);
+            resource.load(createDefaultLoadSaveOptions());
             layoutData = (LayoutData) resource.getContents().get(0);
-            // Delete all entries with missing object.
-            for(Iterator<Map.Entry<EObject, Rectangle>> it = layoutData.getMapping().iterator(); it.hasNext(); ) {
-                Map.Entry<EObject, Rectangle> entry = it.next();
-                if(entry.getKey() == null)
-                    it.remove();
-            }
         }
         catch(IOException ex) {
             layoutData = LayoutDataFactory.eINSTANCE.createLayoutData();
@@ -187,7 +189,8 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
     @Override
     public void doSave(IProgressMonitor monitor) {
         try {
-            getSite().getWorkbenchWindow().run(true, false, new ResourceSaveOperation(layoutData.eResource()));
+            Map<Object, Object> options = createDefaultLoadSaveOptions();
+            getSite().getWorkbenchWindow().run(true, false, new ResourceSaveOperation(layoutData.eResource(), options));
         }
         catch(Exception ex) {
             FeatureModelEditorPlugin.getDefault().getLog().log(new Status(Status.ERROR, 
