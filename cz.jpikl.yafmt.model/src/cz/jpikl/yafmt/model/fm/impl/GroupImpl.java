@@ -188,24 +188,12 @@ public class GroupImpl extends EObjectImpl implements Group {
      * @generated NOT
      */
     public void setXor(boolean newXor) {
-        if(newXor) {
-            setLower(1);
+        setLower(1);
+        
+        if(newXor)
             setUpper(1);
-        }
-        else {
-            setLower(1);
-            int sum = 0;
-            for(Feature feature: features) {
-                if(feature.getLower() == -1) {
-                    sum = -1;
-                    break;
-                }
-                else {
-                    sum += feature.getLower();
-                }
-            }
-            setUpper((sum == 0) ? 1 : sum);
-        }
+        else
+            setUpper(Math.max(1, getFeatures().size()));
     }
 
     /**

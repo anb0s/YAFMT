@@ -22,6 +22,7 @@ import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.ui.editors.fm.figures.FeatureModelFigure;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
+import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureModelEditPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureModelLayoutPolicy;
 
 public class FeatureModelEditPart extends AbstractGraphicalEditPart {
@@ -62,6 +63,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
     @Override
     protected void createEditPolicies() {
         installEditPolicy(EditPolicy.LAYOUT_ROLE, new FeatureModelLayoutPolicy());
+        installEditPolicy(EditPolicy.COMPONENT_ROLE, new FeatureModelEditPolicy());
     }
     
     @Override

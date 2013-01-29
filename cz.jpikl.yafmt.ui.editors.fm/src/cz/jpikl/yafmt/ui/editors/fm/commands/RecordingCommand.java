@@ -20,7 +20,7 @@ public abstract class RecordingCommand extends Command {
             recordedObjects.add(object);
     }
     
-    protected void addRecordedObjects(Collection<Notifier> objects) {
+    protected void addRecordedObjects(Collection<? extends Notifier> objects) {
         if(objects != null)
             recordedObjects.addAll(objects);
     }

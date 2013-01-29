@@ -4,6 +4,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.commands.Command;
 
 import cz.jpikl.yafmt.model.fm.Group;
+import cz.jpikl.yafmt.ui.editors.fm.figures.GroupFigure;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 
 public class MoveGroupCommand extends Command {
@@ -23,7 +24,7 @@ public class MoveGroupCommand extends Command {
     
     @Override
     public void execute() {
-        recomputeNewBounds();
+        computeNewBounds();
         redo();
     }
     
@@ -37,12 +38,14 @@ public class MoveGroupCommand extends Command {
         layoutData.getMapping().put(group, oldBounds);
     }
     
-    private void recomputeNewBounds() {
+    private void computeNewBounds() {
         Rectangle parentBounds = layoutData.getMapping().get(group.getParent());
-        
         int cx = newBounds.x + newBounds.width / 2;
         int cy = newBounds.y + newBounds.height / 2;
-
+        newBounds = computeGroupBounds(parentBounds, cx, cy);
+    }
+    
+    public static Rectangle computeGroupBounds(Rectangle parentBounds, int cx, int cy) {
         if((cx < parentBounds.x) || (cx > parentBounds.right()) || (cy < parentBounds.y) || (cy > parentBounds.bottom())) {
             if(cx < parentBounds.x) cx = parentBounds.x;
             else if(cx > parentBounds.right()) cx = parentBounds.right();
@@ -63,10 +66,13 @@ public class MoveGroupCommand extends Command {
             else
                 cy = (dyTop < dyBottom) ? parentBounds.y : parentBounds.bottom();
         }
-                 
-        newBounds.x = cx - newBounds.width / 2;
-        newBounds.y = cy - newBounds.height / 2;
-        layoutData.getMapping().put(group, newBounds);
-    }
 
+        Rectangle bounds = new Rectangle();
+        bounds.x = cx - GroupFigure.SIZE / 2;
+        bounds.y = cy - GroupFigure.SIZE / 2;
+        bounds.width = GroupFigure.SIZE;
+        bounds.height = GroupFigure.SIZE;
+        return bounds;
+    }
+    
 }

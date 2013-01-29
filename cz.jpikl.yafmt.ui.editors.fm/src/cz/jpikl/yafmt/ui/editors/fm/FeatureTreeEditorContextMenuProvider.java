@@ -11,6 +11,8 @@ import org.eclipse.ui.actions.ActionFactory;
 
 import cz.jpikl.yafmt.ui.editors.fm.actions.AddAttributeAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.DeleteAttributeAction;
+import cz.jpikl.yafmt.ui.editors.fm.actions.GroupFeaturesAction;
+import cz.jpikl.yafmt.ui.editors.fm.actions.UngroupFeaturesAction;
 
 public class FeatureTreeEditorContextMenuProvider extends ContextMenuProvider {
 
@@ -27,7 +29,11 @@ public class FeatureTreeEditorContextMenuProvider extends ContextMenuProvider {
         menu.appendToGroup(GEFActionConstants.GROUP_UNDO, registry.getAction(ActionFactory.UNDO.getId()));
         menu.appendToGroup(GEFActionConstants.GROUP_UNDO, registry.getAction(ActionFactory.REDO.getId()));
         
-        IAction action = registry.getAction(AddAttributeAction.ID);
+        IAction action = registry.getAction(ActionFactory.DELETE.getId());
+        if(action.isEnabled())
+            menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+        
+        action = registry.getAction(AddAttributeAction.ID);
         if(action.isEnabled())
             menu.appendToGroup(GEFActionConstants.GROUP_ADD, action);
         
@@ -42,9 +48,17 @@ public class FeatureTreeEditorContextMenuProvider extends ContextMenuProvider {
             });
         }
         
-        action = registry.getAction(ActionFactory.DELETE.getId());
+        action = registry.getAction(GroupFeaturesAction.ID_XOR);
         if(action.isEnabled())
-            menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+            menu.appendToGroup(GEFActionConstants.GROUP_REST, action);
+        
+        action = registry.getAction(GroupFeaturesAction.ID_OR);
+        if(action.isEnabled())
+            menu.appendToGroup(GEFActionConstants.GROUP_REST, action);
+        
+        action = registry.getAction(UngroupFeaturesAction.ID);
+        if(action.isEnabled())
+            menu.appendToGroup(GEFActionConstants.GROUP_REST, action);
         
     }
 
