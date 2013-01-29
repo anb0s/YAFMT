@@ -15,7 +15,8 @@ public class ReconnectTargetCommand extends RecordingCommand {
     public ReconnectTargetCommand(Connection connection, EObject newSource) {
         this.target = connection.getTarget();
         this.oldSource = connection.getSource();
-        this.newSource = newSource;        
+        this.newSource = newSource;
+        setLabel("Make " + target.getName() + " Subfeature of " + FeatureModelUtil.getParentName(newSource));
     }
     
     @Override

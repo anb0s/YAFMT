@@ -16,6 +16,7 @@ public class ReconnectSourceCommand extends RecordingCommand {
         this.source = connection.getSource();
         this.oldTarget = connection.getTarget();
         this.newTarget = newTarget;
+        setLabel("Make " + newTarget.getName() + " Subfeature of " + FeatureModelUtil.getParentName(source));
     }
     
     @Override
