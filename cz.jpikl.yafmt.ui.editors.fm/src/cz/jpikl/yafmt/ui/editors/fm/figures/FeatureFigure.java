@@ -6,7 +6,6 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.RoundedRectangle;
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Pattern;
 import org.eclipse.swt.widgets.Display;
@@ -19,10 +18,14 @@ public class FeatureFigure extends RoundedRectangle {
     private Label label = new Label();
     
     public FeatureFigure(String featureName) {
-        label = new Label(featureName);
         add(label);
         setLayoutManager(new BorderLayout());
         setConstraint(label, BorderLayout.CENTER);
+        updateLabel(featureName);
+    }
+    
+    public void updateLabel(String featurename) {
+        label.setText(featurename);
     }
     
     public Label getLabel() {
@@ -31,7 +34,6 @@ public class FeatureFigure extends RoundedRectangle {
     
     @Override
     protected void fillShape(Graphics graphics) {
-        Rectangle bounds = getBounds();
         Point top = bounds.getTop();
         Point bottom = bounds.getBottom();
         

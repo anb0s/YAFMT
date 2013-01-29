@@ -1,7 +1,6 @@
 package cz.jpikl.yafmt.ui.editors.fm.commands;
 
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.commands.Command;
 
 import cz.jpikl.yafmt.model.fm.Feature;
@@ -16,11 +15,15 @@ public class MoveResizeFeatureCommand extends Command {
     private Rectangle newBounds;
     
     public MoveResizeFeatureCommand(LayoutData layoutData, Feature feature, Rectangle newBounds) {
-        setLabel("Move/Resize Feature");
         this.layoutData = layoutData;
         this.feature = feature;
         this.oldBounds = layoutData.getMapping().get(feature);
         this.newBounds = newBounds;
+        
+        if((oldBounds.x != newBounds.x) || (oldBounds.y != newBounds.y))
+            setLabel("Move Feature");
+        else
+            setLabel("Resize Feature");
     }
 
     @Override
@@ -32,14 +35,12 @@ public class MoveResizeFeatureCommand extends Command {
     public void redo() {
         layoutData.getMapping().put(feature, newBounds);
         moveGrous(oldBounds, newBounds);
-        repaintParentGroup();
     }
     
     @Override
     public void undo() {
         layoutData.getMapping().put(feature, oldBounds);
         moveGrous(newBounds, oldBounds);
-        repaintParentGroup();
     }
     
     private void moveGrous(Rectangle from, Rectangle to) {
@@ -50,14 +51,6 @@ public class MoveResizeFeatureCommand extends Command {
             Rectangle bounds = layoutData.getMapping().get(group);
             bounds.x += dx;
             bounds.y += dy;
-            layoutData.getMapping().put(group, bounds);
-        }
-    }
-    
-    private void repaintParentGroup() {
-        EObject group = feature.getParentGroup();
-        if(group != null) {
-            Rectangle bounds = layoutData.getMapping().get(group);
             layoutData.getMapping().put(group, bounds);
         }
     }

@@ -125,4 +125,22 @@ public class FeatureModelUtil {
         }
     }
     
+    public static String getCardinality(Feature feature) {
+        if(feature == null)
+            return null;
+            
+        int lower = feature.getLower();
+        int upper = feature.getUpper();
+        return "[" + lower + ".." + ((upper == -1) ? "*" : upper) + "]";
+    }
+    
+    public static String getCardinality(Group group) {
+        if(group == null)
+            return null;
+            
+        int lower = group.getLower();
+        int upper = group.getUpper();
+        return "<" + lower + "-" + ((upper == -1) ? "*" : upper) + ">";
+    }
+    
 }

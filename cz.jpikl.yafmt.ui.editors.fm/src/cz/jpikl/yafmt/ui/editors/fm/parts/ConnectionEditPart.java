@@ -56,7 +56,7 @@ public class ConnectionEditPart extends AbstractConnectionEditPart {
             switch(notification.getFeatureID(Feature.class)) {
                 case FeatureModelPackage.FEATURE__LOWER:
                 case FeatureModelPackage.FEATURE__UPPER:
-                    ((ConnectionFigure) getFigure()).updateDecoration(connection.getTarget());
+                    ((ConnectionFigure) getFigure()).updateTargetDecoration(connection.getTarget());
                     break;
             }
         }

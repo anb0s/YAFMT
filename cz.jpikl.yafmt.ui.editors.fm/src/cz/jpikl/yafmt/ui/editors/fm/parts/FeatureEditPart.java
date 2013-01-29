@@ -11,7 +11,6 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.NodeEditPart;
@@ -20,7 +19,6 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.jface.viewers.ICellEditorValidator;
 
 import cz.jpikl.yafmt.model.fm.Feature;
-import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
 import cz.jpikl.yafmt.ui.editors.fm.figures.FeatureFigure;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
@@ -42,16 +40,12 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
         this.layoutData = layoutData;
         setModel(feature);
     }
-    
-    public LayoutData getLayoutData() {
-        return layoutData;
-    }
-    
+        
     @Override
     public void activate() {
         super.activate();
         feature.eAdapters().add(featureAdapter);
-        loadModelLayout();
+        refresLayoutData();
     }
     
     @Override
@@ -70,7 +64,11 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
         ((FeatureFigure) getFigure()).getLabel().setText(feature.getName());
     }
     
-    private void loadModelLayout() {
+    public LayoutData getLayoutData() {
+        return layoutData;
+    }
+    
+    private void refresLayoutData() {
         Rectangle bounds = layoutData.getMapping().get(feature);
         if(bounds == null)
             bounds = new Rectangle(0, 0, FeatureFigure.WIDTH, FeatureFigure.HEGHT);
@@ -79,12 +77,11 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
     
     @Override
     protected List<Object> getModelSourceConnections() {
-        EObject parent = feature.getParent();
-        if((parent == null) || (parent instanceof FeatureModel))
+        if(feature.isOrphan() || feature.isRoot())
             return null;
         
         List<Object> connections = new ArrayList<Object>();
-        connections.add(new Connection(parent, feature));
+        connections.add(new Connection(feature.getParent(), feature));
         return connections;
     }
     
@@ -151,25 +148,20 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
         
         @Override
         public void notifyChanged(Notification notification) {
-            switch(notification.getEventType()) {
-                case Notification.ADD:
-                case Notification.ADD_MANY:
-                case Notification.REMOVE:
-                case Notification.REMOVE_MANY:
-                    refreshTargetConnections();
+            switch(notification.getFeatureID(Feature.class)) {
+                case FeatureModelPackage.FEATURE__NAME:
+                    ((FeatureFigure) getFigure()).getLabel().setText(notification.getNewStringValue());
                     break;
-                
-                case Notification.SET:
-                    switch(notification.getFeatureID(Feature.class)) {
-                        case FeatureModelPackage.FEATURE__NAME:
-                            ((FeatureFigure) getFigure()).getLabel().setText(notification.getNewStringValue());
-                            break;
-                            
-                        case FeatureModelPackage.FEATURE__PARENT_FEATURE:
-                        case FeatureModelPackage.FEATURE__PARENT_GROUP:
-                            refreshSourceConnections();
-                            break;
-                    }
+                    
+                case FeatureModelPackage.FEATURE__PARENT_FEATURE:
+                case FeatureModelPackage.FEATURE__PARENT_GROUP:
+                    refreshSourceConnections();
+                    break;
+                    
+                    
+                case FeatureModelPackage.FEATURE__FEATURES:
+                case FeatureModelPackage.FEATURE__GROUPS:
+                    refreshTargetConnections();
                     break;
             }
         }
