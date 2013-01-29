@@ -77,6 +77,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
                 modelChildren.add(object);
         }
         
+        // Features go after groups.
         it = featureModel.eAllContents();
         while(it.hasNext()) {
             EObject object = it.next();
@@ -99,17 +100,18 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
         if(getEditPartForObject(object) != null)
             return;
         
-        // Groups go before features.
-        // This order is used for rendering objects.
         if(object instanceof Group) {
+            // Groups go before features.
+            // This order is used for rendering objects.
             addChild(createChild(object), 0);
             // When ChangeRecorder does undo, it merge all changes, so previously deleted
-            // group can be added together with previously deleted features.
+            // group can be added together with previously deleted feature.
             Group group = (Group) object;
             for(Feature feature: group.getFeatures())
                 addEditPartForObject(feature);
         }
         if(object instanceof Feature) {
+            // Features go after groups.
             addChild(createChild(object), getChildren().size());
             // Same case as mentioned above.
             Feature feature = (Feature) object;
@@ -146,7 +148,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
         @Override
         @SuppressWarnings("unchecked")
         public void notifyChanged(Notification notification) {
-            super.notifyChanged(notification);
+            super.notifyChanged(notification); // Superclass implementation must be called!
             
             switch(notification.getEventType()) {
                 case Notification.ADD:
@@ -179,13 +181,22 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
             
             Map.Entry<EObject, Rectangle> entry = (Map.Entry<EObject, Rectangle>) object;
             GraphicalEditPart editPart = getEditPartForObject(entry.getKey());
-            if(editPart != null)
+            
+            if(editPart != null) {
                 setLayoutConstraint(editPart, editPart.getFigure(), entry.getValue());
+                
+                if(entry.getKey() instanceof Feature) {
+                    Feature feature = (Feature) entry.getKey();
+                    editPart = getEditPartForObject(feature.getParentGroup());
+                    if(editPart != null)
+                        editPart.getFigure().repaint();
+                }
+            }
         }
         
         @Override
         public void notifyChanged(Notification notification) {
-            super.notifyChanged(notification);
+            super.notifyChanged(notification); // Superclass implementation must be called!
             
             switch (notification.getEventType()) {
                 case Notification.ADD:

@@ -37,16 +37,12 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
         this.layoutData = layoutData;
         setModel(group);
     }
-    
-    public LayoutData getLayoutData() {
-        return layoutData;
-    }
-    
+        
     @Override
     public void activate() {
         super.activate();
         group.eAdapters().add(groupAdapter);
-        loadModelLayout();
+        refreshLayoutData();
     }
     
     @Override
@@ -57,10 +53,14 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
     
     @Override
     protected IFigure createFigure() {
-        return new GroupFigure(layoutData, group);
+        return new GroupFigure(group, layoutData);
+    }
+    
+    public LayoutData getLayoutData() {
+        return layoutData;
     }
                 
-    private void loadModelLayout() {
+    private void refreshLayoutData() {
         Rectangle bounds = layoutData.getMapping().get(group);
         if(bounds == null) {
             Rectangle parentBounds = layoutData.getMapping().get(group.getParent());
