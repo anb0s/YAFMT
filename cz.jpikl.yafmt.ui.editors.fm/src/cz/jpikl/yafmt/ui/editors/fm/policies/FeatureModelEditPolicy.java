@@ -8,6 +8,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.ComponentEditPolicy;
+import org.eclipse.gef.requests.GroupRequest;
 
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.Group;
@@ -23,13 +24,16 @@ public class FeatureModelEditPolicy extends ComponentEditPolicy {
     @SuppressWarnings("unchecked")
     public Command getCommand(Request request) {
         Object type = request.getType();
-        if(RequestConstants.REQ_GROUP_FEATURES.equals(type)) {
-            List<Object> selection = (List<Object>) request.getExtendedData().get("selection");
-            boolean xorGroup = (Boolean) request.getExtendedData().get("xor");
-            return createGroupFeaturesCommand(selection, xorGroup);
+        if(RequestConstants.REQ_GROUP_FEATURES_XOR.equals(type)) {
+            List<Object> selection = (List<Object>) ((GroupRequest) request).getEditParts();
+            return createGroupFeaturesCommand(selection, true);
+        }
+        else if(RequestConstants.REQ_GROUP_FEATURES_OR.equals(type)) {
+            List<Object> selection = (List<Object>) ((GroupRequest) request).getEditParts();
+            return createGroupFeaturesCommand(selection, false);
         }
         else if(RequestConstants.REQ_UNGROUP_FEATURES.equals(type)) {
-            List<Object> selection = (List<Object>) request.getExtendedData().get("selection");
+            List<Object> selection = (List<Object>) ((GroupRequest) request).getEditParts();
             return createUngroupFeaturesCommand(selection);
         }
         return super.getCommand(request);
@@ -78,17 +82,14 @@ public class FeatureModelEditPolicy extends ComponentEditPolicy {
     }
 
     List<Feature> getFeatureSelection(List<Object> selectedEditParts) {
+        List<Feature> features = new ArrayList<Feature>();
+        
         for(Object selectedObject: selectedEditParts) {
-            if(!(selectedObject instanceof EditPart))
-                return null;
             Object model = ((EditPart) selectedObject).getModel();
-            if(!(model instanceof Feature))
-                return null;
+            if(model instanceof Feature)
+                features.add((Feature) model);
         }
         
-        List<Feature> features = new ArrayList<Feature>();
-        for(Object selectedObject: selectedEditParts)
-            features.add((Feature) ((EditPart) selectedObject).getModel());
         return features;
     }
     

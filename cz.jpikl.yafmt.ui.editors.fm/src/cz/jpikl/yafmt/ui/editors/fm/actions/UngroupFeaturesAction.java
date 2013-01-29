@@ -3,8 +3,8 @@ package cz.jpikl.yafmt.ui.editors.fm.actions;
 import java.util.List;
 
 import org.eclipse.gef.EditPart;
-import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.requests.GroupRequest;
 import org.eclipse.gef.ui.actions.SelectionAction;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.actions.LabelRetargetAction;
@@ -45,8 +45,8 @@ public class UngroupFeaturesAction extends SelectionAction {
         if(parentEditPart == null)
             return null;
         
-        Request request = new Request(RequestConstants.REQ_UNGROUP_FEATURES);
-        request.getExtendedData().put("selection", objects);
+        GroupRequest request = new GroupRequest(RequestConstants.REQ_UNGROUP_FEATURES);
+        request.setEditParts(objects);
         return parentEditPart.getCommand(request);
     }
     

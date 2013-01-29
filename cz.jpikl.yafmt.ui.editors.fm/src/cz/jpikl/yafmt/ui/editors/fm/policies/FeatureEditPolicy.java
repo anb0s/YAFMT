@@ -9,6 +9,7 @@ import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.ui.editors.fm.commands.AddAttributeCommand;
 import cz.jpikl.yafmt.ui.editors.fm.commands.DeleteFeatureCommand;
 import cz.jpikl.yafmt.ui.editors.fm.commands.DeleteAttributeCommand;
+import cz.jpikl.yafmt.ui.editors.fm.commands.SetFeatureCardinalityCommand;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 import cz.jpikl.yafmt.ui.editors.fm.parts.FeatureEditPart;
 import cz.jpikl.yafmt.ui.editors.fm.util.RequestConstants;
@@ -26,6 +27,14 @@ public class FeatureEditPolicy extends ComponentEditPolicy {
             Feature feature = (Feature) getHost().getModel();
             Integer attributeIndex = (Integer) request.getExtendedData().get("index");
             return createRemoveAttributeCommand(feature, attributeIndex);
+        }
+        else if(RequestConstants.REQ_MAKE_FEATURES_MAN.equals(type)) {
+            Feature feature = (Feature) getHost().getModel();
+            return createSetFeatureCardinalityCommand(feature, true);
+        }
+        else if(RequestConstants.REQ_MAKE_FEATURES_OPT.equals(type)) {
+            Feature feature = (Feature) getHost().getModel();
+            return createSetFeatureCardinalityCommand(feature, false);
         }
         return super.getCommand(request);
     }
@@ -48,6 +57,14 @@ public class FeatureEditPolicy extends ComponentEditPolicy {
         
         LayoutData layoutData = ((FeatureEditPart) getHost()).getLayoutData();
         return new DeleteFeatureCommand(feature, layoutData);
+    }
+    
+    private Command createSetFeatureCardinalityCommand(Feature feature, boolean mandatory) {
+        if(feature.isRoot())
+            return null;
+        if(feature.isMandatory() == mandatory)
+            return null;
+        return new SetFeatureCardinalityCommand(feature, mandatory);
     }
     
 }

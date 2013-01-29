@@ -44,6 +44,7 @@ import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.ui.editors.fm.actions.AddAttributeAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.DeleteAttributeAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.GroupFeaturesAction;
+import cz.jpikl.yafmt.ui.editors.fm.actions.SetFeatureCardinalityAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.UngroupFeaturesAction;
 import cz.jpikl.yafmt.ui.editors.fm.figures.FeatureFigure;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
@@ -90,6 +91,14 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
         getSelectionActions().add(action.getId());
         
         action = new DeleteAttributeAction(this);
+        registry.registerAction(action);
+        getSelectionActions().add(action.getId());
+        
+        action = new SetFeatureCardinalityAction(this, false);
+        registry.registerAction(action);
+        getSelectionActions().add(action.getId());
+        
+        action = new SetFeatureCardinalityAction(this, true);
         registry.registerAction(action);
         getSelectionActions().add(action.getId());
         
@@ -157,8 +166,14 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
     public void commandStackChanged(EventObject event) {
         super.commandStackChanged(event);
         firePropertyChange(PROP_DIRTY);
+        updateSelectionActions();
     }
     
+    public void updateSelectionActions() {
+        // Update all actions which state depends on selection.
+        updateActions(getSelectionActions());
+    }
+        
     private Map<Object, Object> createDefaultLoadSaveOptions() {
         Map<Object, Object> options = new HashMap<Object, Object>();
         // Ignore and discard all dangling references.
@@ -224,8 +239,7 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
     }
     
     private void handleSelectionFromItself(ISelection selection) {
-        // Update all actions which state depends on selection.
-        updateActions(getSelectionActions());
+        updateSelectionActions();
     }
     
     private void handleSelectionFromOthers(ISelection selection) {
@@ -255,7 +269,7 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
         int y = point.y - viewport.getSize().height / 2;
         viewport.setViewLocation(x, y);
     }
-            
+                
     @Override
     @SuppressWarnings("rawtypes")
     public Object getAdapter(Class type) {

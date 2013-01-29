@@ -3,9 +3,10 @@ package cz.jpikl.yafmt.ui.editors.fm.actions;
 import java.util.List;
 
 import org.eclipse.gef.EditPart;
-import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.requests.GroupRequest;
 import org.eclipse.gef.ui.actions.SelectionAction;
+import org.eclipse.jface.action.IAction;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.actions.LabelRetargetAction;
 import org.eclipse.ui.actions.RetargetAction;
@@ -17,20 +18,24 @@ public class GroupFeaturesAction extends SelectionAction {
     
     public static final String ID_XOR = "cz.jpikl.yafmt.ui.editors.fm.actions.GroupFeaturesAction.XOR";
     public static final String ID_OR = "cz.jpikl.yafmt.ui.editors.fm.actions.GroupFeaturesAction.OR";
-
+    
     public static RetargetAction createRetargetAction(boolean xorGroup) {
-        LabelRetargetAction action;
-        
+        LabelRetargetAction action = new LabelRetargetAction(null, null);
+        setActionProperties(action, xorGroup);        
+        return action;
+    }
+    
+    private static void setActionProperties(IAction action, boolean xorGroup) {
         if(xorGroup) {
-            action = new LabelRetargetAction(ID_XOR, "Make XOR group");
+            action.setId(ID_XOR);
+            action.setText("Make XOR Group");
             action.setImageDescriptor(FeatureModelEditorPlugin.getImageDescriptor("icons/group-xor.png"));
         }
         else {
-            action = new LabelRetargetAction(ID_OR, "Make OR group");
+            action.setId(ID_OR);
+            action.setText("Make OR Group");
             action.setImageDescriptor(FeatureModelEditorPlugin.getImageDescriptor("icons/group-or.png"));
         }
-        
-        return action;
     }
     
     private boolean xorGroup;
@@ -38,18 +43,8 @@ public class GroupFeaturesAction extends SelectionAction {
     public GroupFeaturesAction(IWorkbenchPart part, boolean xorGroup) {
         super(part);
         this.xorGroup = xorGroup;
-        
         // Do not call this code in init method since it its called in superclass constructor.
-        if(xorGroup) {
-            setId(ID_XOR);
-            setText("Make XOR Group");
-            setImageDescriptor(FeatureModelEditorPlugin.getImageDescriptor("icons/group-xor.png"));
-        }
-        else {
-            setId(ID_OR);
-            setText("Make OR Group");
-            setImageDescriptor(FeatureModelEditorPlugin.getImageDescriptor("icons/group-or.png"));
-        }
+        setActionProperties(this, xorGroup);
     }
         
     @SuppressWarnings("unchecked")
@@ -62,9 +57,9 @@ public class GroupFeaturesAction extends SelectionAction {
         if(parentEditPart == null)
             return null;
         
-        Request request = new Request(RequestConstants.REQ_GROUP_FEATURES);
-        request.getExtendedData().put("selection", objects);
-        request.getExtendedData().put("xor", xorGroup);
+        String type = xorGroup ? RequestConstants.REQ_GROUP_FEATURES_XOR : RequestConstants.REQ_GROUP_FEATURES_OR;
+        GroupRequest request = new GroupRequest(type);
+        request.setEditParts(objects);
         return parentEditPart.getCommand(request);
     }
     

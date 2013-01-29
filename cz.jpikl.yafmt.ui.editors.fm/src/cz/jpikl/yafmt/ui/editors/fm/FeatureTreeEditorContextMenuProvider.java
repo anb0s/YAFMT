@@ -12,6 +12,7 @@ import org.eclipse.ui.actions.ActionFactory;
 import cz.jpikl.yafmt.ui.editors.fm.actions.AddAttributeAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.DeleteAttributeAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.GroupFeaturesAction;
+import cz.jpikl.yafmt.ui.editors.fm.actions.SetFeatureCardinalityAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.UngroupFeaturesAction;
 
 public class FeatureTreeEditorContextMenuProvider extends ContextMenuProvider {
@@ -47,6 +48,14 @@ public class FeatureTreeEditorContextMenuProvider extends ContextMenuProvider {
                 }
             });
         }
+        
+        action = registry.getAction(SetFeatureCardinalityAction.ID_OPTIONAL);
+        if(action.isEnabled())
+            menu.appendToGroup(GEFActionConstants.GROUP_REST, action);
+        
+        action = registry.getAction(SetFeatureCardinalityAction.ID_MANDATORY);
+        if(action.isEnabled())
+            menu.appendToGroup(GEFActionConstants.GROUP_REST, action);
         
         action = registry.getAction(GroupFeaturesAction.ID_XOR);
         if(action.isEnabled())
