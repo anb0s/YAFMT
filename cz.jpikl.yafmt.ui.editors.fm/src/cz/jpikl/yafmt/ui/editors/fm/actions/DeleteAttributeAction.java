@@ -13,10 +13,9 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
-import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.PlatformUI;
 
+import cz.jpikl.yafmt.ui.editors.fm.FeatureModelEditorPlugin;
 import cz.jpikl.yafmt.ui.editors.fm.util.RequestConstants;
 
 public class DeleteAttributeAction extends SelectionAction {
@@ -32,7 +31,7 @@ public class DeleteAttributeAction extends SelectionAction {
         super.init();
         setId(ID);
         setText("Delete Attribute");
-        setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_ETOOL_DELETE));
+        setImageDescriptor(FeatureModelEditorPlugin.getImageDescriptor("icons/attribute-del.png"));
         setMenuCreator(new MenuCreator());
     }
     

@@ -6,10 +6,9 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.ui.actions.SelectionAction;
-import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.PlatformUI;
 
+import cz.jpikl.yafmt.ui.editors.fm.FeatureModelEditorPlugin;
 import cz.jpikl.yafmt.ui.editors.fm.util.RequestConstants;
 
 public class AddAttributeAction extends SelectionAction {
@@ -25,7 +24,7 @@ public class AddAttributeAction extends SelectionAction {
         super.init();
         setId(ID);
         setText("Add Attribute");
-        setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJ_ADD));
+        setImageDescriptor(FeatureModelEditorPlugin.getImageDescriptor("icons/attribute-add.png"));
     }
     
     @SuppressWarnings("unchecked")

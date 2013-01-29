@@ -42,6 +42,10 @@ public class FeatureTreeEditorContextMenuProvider extends ContextMenuProvider {
             });
         }
         
+        action = registry.getAction(ActionFactory.DELETE.getId());
+        if(action.isEnabled())
+            menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+        
     }
 
 }

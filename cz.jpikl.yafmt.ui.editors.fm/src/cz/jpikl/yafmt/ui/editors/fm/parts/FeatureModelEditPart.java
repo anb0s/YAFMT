@@ -184,7 +184,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
             
             if(editPart != null) {
                 setLayoutConstraint(editPart, editPart.getFigure(), entry.getValue());
-                
+                // Force repaint of parent group when child feature was moved.
                 if(entry.getKey() instanceof Feature) {
                     Feature feature = (Feature) entry.getKey();
                     editPart = getEditPartForObject(feature.getParentGroup());
