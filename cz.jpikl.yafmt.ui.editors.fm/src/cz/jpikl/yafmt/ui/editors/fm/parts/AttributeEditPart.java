@@ -11,7 +11,6 @@ import cz.jpikl.yafmt.model.fm.Attribute;
 import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
 import cz.jpikl.yafmt.ui.editors.fm.figures.AttributeFigure;
 import cz.jpikl.yafmt.ui.editors.fm.policies.AttributeEditPolicy;
-import cz.jpikl.yafmt.ui.editors.fm.policies.AttributeSelectionPolicy;
 
 public class AttributeEditPart extends AbstractGraphicalEditPart {
 
@@ -44,7 +43,6 @@ public class AttributeEditPart extends AbstractGraphicalEditPart {
     @Override
     protected void createEditPolicies() {
         installEditPolicy(EditPolicy.COMPONENT_ROLE, new AttributeEditPolicy());
-        installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new AttributeSelectionPolicy());
     }
     
     private class AttributeAdapter extends AdapterImpl {

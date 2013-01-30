@@ -12,7 +12,6 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.gef.ConnectionEditPart;
-import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
@@ -27,6 +26,7 @@ import cz.jpikl.yafmt.ui.editors.fm.model.Connection;
 import cz.jpikl.yafmt.ui.editors.fm.policies.ConnectionCreationPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureDirectEditPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureEditPolicy;
+import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureLayoutPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.util.LabelDirectEditManager;
 
 public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEditPart {
@@ -77,8 +77,7 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
     }
     
     @Override
-    @SuppressWarnings("rawtypes")
-    protected List getModelChildren() {
+    protected List<?> getModelChildren() {
         return feature.getAttributes();
     }
     
@@ -128,6 +127,7 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
         installEditPolicy(EditPolicy.COMPONENT_ROLE, new FeatureEditPolicy());
         installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new FeatureDirectEditPolicy());
         installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new ConnectionCreationPolicy());
+        installEditPolicy(EditPolicy.LAYOUT_ROLE, new FeatureLayoutPolicy());
     }
     
     @Override
@@ -155,6 +155,7 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
         
         @Override
         public void notifyChanged(Notification notification) {
+
             switch(notification.getFeatureID(Feature.class)) {
                 case FeatureModelPackage.FEATURE__NAME:
                     ((FeatureFigure) getFigure()).getLabel().setText(notification.getNewStringValue());
@@ -174,11 +175,10 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
                 case FeatureModelPackage.FEATURE__ATTRIBUTES:
                     switch(notification.getEventType()) {
                         case Notification.ADD:
-                            addChild(createChild(notification.getNewValue()), 0);
+                        case Notification.REMOVE:                            
+                        case Notification.MOVE:
+                            refreshChildren();
                             break;
-                            
-                        case Notification.REMOVE:
-                            removeChild((EditPart) getViewer().getEditPartRegistry().get(notification.getOldValue()));
                     }
             }
         }

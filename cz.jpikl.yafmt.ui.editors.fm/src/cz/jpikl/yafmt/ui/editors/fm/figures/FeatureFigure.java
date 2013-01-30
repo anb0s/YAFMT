@@ -36,6 +36,11 @@ public class FeatureFigure extends RoundedRectangle {
         label.setText(featurename);
     }
     
+    @Override
+    public void paint(Graphics graphics) {
+        super.paint(graphics);
+    }
+    
     public Label getLabel() {
         return label;
     }
@@ -49,7 +54,7 @@ public class FeatureFigure extends RoundedRectangle {
                 add(separator, new GridData(SWT.FILL, SWT.CENTER, true, false), 1);
                 add(attributes, new GridData(SWT.CENTER, SWT.FILL, true, false), 2);
             }
-            attributes.add(figure);
+            attributes.add(figure, constraint, index);
         }
         else {
             super.add(figure, constraint, index);
