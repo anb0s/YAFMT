@@ -44,8 +44,8 @@ public class DeleteGroupCommand extends RecordingCommand {
     
     @Override
     public void undo() {
-        super.undo();
         layoutData.getMapping().put(group, bounds);
+        super.undo();
     }
 
 }

@@ -68,14 +68,15 @@ public class GroupFeaturesCommand extends RecordingCommand {
     
     @Override
     public void execute() {
-        super.execute();
         layoutData.getMapping().put(group, bounds);
+        super.execute();
+        
     }
     
     @Override
     public void redo() {
-        super.redo();
         layoutData.getMapping().put(group, bounds);
+        super.redo();
     }
     
     @Override
