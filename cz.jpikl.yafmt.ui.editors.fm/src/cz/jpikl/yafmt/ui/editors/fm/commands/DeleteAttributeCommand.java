@@ -1,31 +1,40 @@
 package cz.jpikl.yafmt.ui.editors.fm.commands;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
+
+import cz.jpikl.yafmt.model.fm.Attribute;
 import cz.jpikl.yafmt.model.fm.Feature;
 
 public class DeleteAttributeCommand extends RecordingCommand {
 
-    private Feature feature;
-    private int attributeIndex;
+    private Attribute attribute;
+    
+    public DeleteAttributeCommand(Attribute attribute) {
+        init(attribute);
+    }
     
     public DeleteAttributeCommand(Feature feature, int attributeIndex) {
-        setLabel("Delete Attribute " + feature.getAttributes().get(attributeIndex).getName());
-        this.attributeIndex = attributeIndex;
-        this.feature = feature;
+        init(feature.getAttributes().get(0));
+    }
+    
+    private void init(Attribute attribute) {
+        setLabel("Delete Attribute " + attribute.getName());
+        this.attribute = attribute;
     }
 
     @Override
     protected void initializeRecording() {
-        addRecordedObject(feature);
+        addRecordedObjectParent(attribute);
     }
 
     @Override
     protected void performRecording() {
-        feature.getAttributes().remove(attributeIndex);
+        EcoreUtil.remove(attribute);
     }
     
     @Override
     public String toString() {
-        return feature.getAttributes().get(attributeIndex).getName();
+        return attribute.getName();
     }
     
 }

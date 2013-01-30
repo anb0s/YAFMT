@@ -12,6 +12,7 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.gef.ConnectionEditPart;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
@@ -73,6 +74,12 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
         if(bounds == null)
             bounds = new Rectangle(0, 0, FeatureFigure.WIDTH, FeatureFigure.HEGHT);
         layoutData.getMapping().put(feature, bounds);
+    }
+    
+    @Override
+    @SuppressWarnings("rawtypes")
+    protected List getModelChildren() {
+        return feature.getAttributes();
     }
     
     @Override
@@ -163,6 +170,16 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
                 case FeatureModelPackage.FEATURE__GROUPS:
                     refreshTargetConnections();
                     break;
+                    
+                case FeatureModelPackage.FEATURE__ATTRIBUTES:
+                    switch(notification.getEventType()) {
+                        case Notification.ADD:
+                            addChild(createChild(notification.getNewValue()), 0);
+                            break;
+                            
+                        case Notification.REMOVE:
+                            removeChild((EditPart) getViewer().getEditPartRegistry().get(notification.getOldValue()));
+                    }
             }
         }
         

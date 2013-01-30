@@ -3,6 +3,7 @@ package cz.jpikl.yafmt.ui.editors.fm.parts;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartFactory;
 
+import cz.jpikl.yafmt.model.fm.Attribute;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.Group;
@@ -27,6 +28,8 @@ public class FeatureModelEditPartFactory implements EditPartFactory {
             return new GroupEditPart((Group) model, layoutData);
         if(model instanceof Connection)
             return new ConnectionEditPart((Connection) model);
+        if(model instanceof Attribute)
+            return new AttributeEditPart((Attribute) model);
         
         throw new IllegalStateException("No EditPart for " + model.getClass());
     }

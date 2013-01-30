@@ -23,7 +23,7 @@ public class FeatureEditPolicy extends ComponentEditPolicy {
             Feature feature = (Feature) getHost().getModel();
             return createAddAttributeCommand(feature);
         }
-        else if(RequestConstants.REQ_REMOVE_ATTRIBUTE.equals(type)) {
+        else if(RequestConstants.REQ_DELETE_ATTRIBUTE.equals(type)) {
             Feature feature = (Feature) getHost().getModel();
             Integer attributeIndex = (Integer) request.getExtendedData().get("index");
             return createRemoveAttributeCommand(feature, attributeIndex);

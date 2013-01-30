@@ -5,6 +5,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
+import cz.jpikl.yafmt.ui.editors.fm.util.DrawConstantans;
 
 /**
  * The activator class controls the plug-in life cycle.
@@ -24,9 +25,13 @@ public class FeatureModelEditorPlugin extends AbstractUIPlugin {
 		// Register packages and custom resource factories.
         FeatureModelUtil.hookResourceFactoryRegistry();
         FeatureModelUtil.hookPackageRegistry();
+        
+        DrawConstantans.init();
 	}
 
 	public void stop(BundleContext context) throws Exception {
+	    DrawConstantans.dispose();
+	    
 		plugin = null;
 		super.stop(context);
 	}
