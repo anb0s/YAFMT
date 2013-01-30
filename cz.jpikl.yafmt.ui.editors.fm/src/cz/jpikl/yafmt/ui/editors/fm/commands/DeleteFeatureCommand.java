@@ -59,8 +59,8 @@ public class DeleteFeatureCommand extends RecordingCommand {
     
     @Override
     public void undo() {
-        super.undo();
         layoutData.getMapping().put(feature, bounds);
+        super.undo();
     }
     
 }

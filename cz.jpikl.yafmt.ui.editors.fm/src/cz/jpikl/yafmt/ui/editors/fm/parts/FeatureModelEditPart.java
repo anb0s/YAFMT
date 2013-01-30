@@ -21,6 +21,7 @@ import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.ui.editors.fm.figures.FeatureModelFigure;
+import cz.jpikl.yafmt.ui.editors.fm.figures.GroupFigure;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureModelEditPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureModelLayoutPolicy;
@@ -177,21 +178,32 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
     class LayoutDataAdapter extends EContentAdapter {
                 
         @SuppressWarnings("unchecked")
-        private void updateLayoutConstraint(Object object) {
-            if(!(object instanceof Map.Entry<?, ?>))
+        private void updateLayoutConstraint(Object updateValue) {
+            if(!(updateValue instanceof Map.Entry<?, ?>))
                 return;
             
-            Map.Entry<EObject, Rectangle> entry = (Map.Entry<EObject, Rectangle>) object;
-            GraphicalEditPart editPart = getEditPartForObject(entry.getKey());
+            Map.Entry<EObject, Rectangle> entry = (Map.Entry<EObject, Rectangle>) updateValue;
+            EObject object = entry.getKey();
+            Rectangle constraints = entry.getValue();
+            GraphicalEditPart editPart = getEditPartForObject(object);
             
             if(editPart != null) {
-                setLayoutConstraint(editPart, editPart.getFigure(), entry.getValue());
-                // Force repaint of parent group when child feature was moved.
-                if(entry.getKey() instanceof Feature) {
-                    Feature feature = (Feature) entry.getKey();
-                    editPart = getEditPartForObject(feature.getParentGroup());
-                    if(editPart != null)
-                        editPart.getFigure().repaint();
+                setLayoutConstraint(editPart, editPart.getFigure(), constraints);
+                
+                // Update group figure shape when the group or one of its children
+                // features moved.                
+                if(object instanceof Group) {
+                    GroupFigure groupFigure = (GroupFigure) editPart.getFigure();
+                    groupFigure.updateVisuals(constraints); // Propagate the newest bounds.
+                    groupFigure.repaint();
+                }
+                else if(object instanceof Feature) {
+                    editPart = getEditPartForObject(((Feature) object).getParentGroup());
+                    if(editPart != null) {
+                        GroupFigure groupFigure = (GroupFigure) editPart.getFigure();
+                        groupFigure.updateVisuals();
+                        groupFigure.repaint();
+                    }
                 }
             }
         }

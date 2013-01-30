@@ -40,14 +40,15 @@ public class AddFeatureCommand extends RecordingCommand {
     
     @Override
     public void execute() {
-        super.execute();
         layoutData.getMapping().put(feature, bounds);
+        super.execute();
+        
     }
         
     @Override
     public void redo() {
-        super.redo();
         layoutData.getMapping().put(feature, bounds);
+        super.redo();
     }
     
     @Override
