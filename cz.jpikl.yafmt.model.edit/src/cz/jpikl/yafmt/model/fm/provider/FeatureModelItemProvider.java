@@ -56,7 +56,7 @@ public class FeatureModelItemProvider
      * This returns the property descriptors for the adapted class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     @Override
     public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
@@ -64,9 +64,9 @@ public class FeatureModelItemProvider
             super.getPropertyDescriptors(object);
 
             addNamePropertyDescriptor(object);
-            addDescriptionPropertyDescriptor(object);
             addVersionPropertyDescriptor(object);
             addConstraintLanguagePropertyDescriptor(object);
+            addDescriptionPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
@@ -97,7 +97,7 @@ public class FeatureModelItemProvider
      * This adds a property descriptor for the Description feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     protected void addDescriptionPropertyDescriptor(Object object) {
         itemPropertyDescriptors.add
@@ -108,7 +108,7 @@ public class FeatureModelItemProvider
                  getString("_UI_PropertyDescriptor_description", "_UI_FeatureModel_description_feature", "_UI_FeatureModel_type"),
                  FeatureModelPackage.Literals.FEATURE_MODEL__DESCRIPTION,
                  true,
-                 false,
+                 true,
                  false,
                  ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
                  null,
