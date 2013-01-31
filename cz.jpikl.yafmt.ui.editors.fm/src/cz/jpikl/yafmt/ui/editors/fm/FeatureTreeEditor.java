@@ -108,7 +108,6 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
     }
     
     @Override
-    @SuppressWarnings("unchecked")
     protected void configureGraphicalViewer() {
         super.configureGraphicalViewer();
         
@@ -120,8 +119,8 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
         viewer.addDropTargetListener(new TemplateTransferDropTargetListener(viewer));
         
         // Actions need original selection provider.
-        for(Iterator<IAction> it = getActionRegistry().getActions(); it.hasNext(); ) {
-            IAction action = it.next();
+        for(Iterator<?> it = getActionRegistry().getActions(); it.hasNext(); ) {
+            IAction action = (IAction) it.next();
             if(action instanceof SelectionAction)
                 ((SelectionAction) action).setSelectionProvider(viewer);
         }

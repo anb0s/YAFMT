@@ -11,9 +11,9 @@ import org.eclipse.jface.viewers.StructuredSelection;
 
 public class SelectionConverter {
 
-    private Map<Object, Object> editPartRegistry;
+    private Map<?, ?> editPartRegistry;
     
-    public SelectionConverter(Map<Object, Object> editPartRegistry) {
+    public SelectionConverter(Map<?, ?> editPartRegistry) {
         this.editPartRegistry = editPartRegistry;
     }
     
