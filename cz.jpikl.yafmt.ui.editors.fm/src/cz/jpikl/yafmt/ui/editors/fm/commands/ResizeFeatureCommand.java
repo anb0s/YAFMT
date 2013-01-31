@@ -11,31 +11,28 @@ import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 
-public class MoveResizeFeatureCommand extends Command {
+public class ResizeFeatureCommand extends Command {
 
     private LayoutData layoutData;
     private Feature feature;
+    private Rectangle deltas;
     private Rectangle featureOldBounds;
     private Rectangle featureNewBounds;
     private Map<Group, Rectangle> groupOldBounds;
     private Map<Group, Rectangle> groupNewBounds;
-    private boolean resize;
     
-    public MoveResizeFeatureCommand(LayoutData layoutData, Feature feature, Rectangle newBounds) {
+    public ResizeFeatureCommand(LayoutData layoutData, Feature feature, Rectangle deltas) {
+        setLabel("Resize Feature");
         this.layoutData = layoutData;
         this.feature = feature;
-        this.featureOldBounds = layoutData.getMapping().get(feature);
-        this.featureNewBounds = newBounds;
-        this.resize = (featureOldBounds.width != featureNewBounds.width) || (featureOldBounds.height != featureNewBounds.height);
-        
-        if(resize)
-            setLabel("Resize Feature");
-        else
-            setLabel("Move Feature");
+        this.deltas = deltas; // x, y, w, h attributes difference.
     }
 
     @Override
     public void execute() {
+        // Must be computed here.
+        // Necessary when more resize commands are executed together.
+        computeFeatureBounds();
         computeGroupBounds();
         redo();
     }
@@ -50,6 +47,15 @@ public class MoveResizeFeatureCommand extends Command {
     public void undo() {
         layoutData.getMapping().put(feature, featureOldBounds);
         applyGroupBounds(groupOldBounds);
+    }
+    
+    private void computeFeatureBounds() {
+        featureOldBounds = layoutData.getMapping().get(feature);
+        featureNewBounds = featureOldBounds.getCopy();
+        featureNewBounds.x += deltas.x;
+        featureNewBounds.y += deltas.y;
+        featureNewBounds.width += deltas.width;
+        featureNewBounds.height += deltas.height;
     }
     
     private void applyGroupBounds(Map<Group, Rectangle> groupBounds) {
@@ -69,38 +75,30 @@ public class MoveResizeFeatureCommand extends Command {
         for(Group group: feature.getGroups())
             groupOldBounds.put(group, layoutData.getMapping().get(group));
         
-        int dx = featureNewBounds.x - featureOldBounds.x;
-        int dy = featureNewBounds.y - featureOldBounds.y;
-        
         double dwRatio = featureNewBounds.width / ((double) featureOldBounds.width);
         double dhRatio = featureNewBounds.height / ((double) featureOldBounds.height);
         
         for(Group group: feature.getGroups()) {
             Rectangle groupBounds = layoutData.getMapping().get(group).getCopy();
-            if(resize) {
-                // Change coordinates according to ratio. 
-                Point groupCenter = groupBounds.getCenter();
-                groupCenter.x = featureNewBounds.x + (int) ((groupCenter.x - featureOldBounds.x) * dwRatio);
-                groupCenter.y = featureNewBounds.y + (int) ((groupCenter.y - featureOldBounds.y) * dhRatio);
-                
-                // Fix rounding error.
-                if(Math.abs(groupCenter.x - featureNewBounds.x) <= 1)
-                    groupCenter.x = featureNewBounds.x;
-                else if(Math.abs(groupCenter.x - featureNewBounds.right()) <= 1)
-                    groupCenter.x = featureNewBounds.right();
-                if(Math.abs(groupCenter.y - featureNewBounds.y) <= 1)
-                    groupCenter.y = featureNewBounds.y;
-                else if(Math.abs(groupCenter.y - featureNewBounds.bottom()) <= 1)
-                    groupCenter.y = featureNewBounds.bottom();
-                
-                groupBounds.x = groupCenter.x - groupBounds.width / 2;
-                groupBounds.y = groupCenter.y - groupBounds.height / 2;
-                            }
-            else {
-                // Just move coordinates.
-                groupBounds.x += dx;
-                groupBounds.y += dy;
-            }
+            
+            // Change coordinates according to the ratio. 
+            Point groupCenter = groupBounds.getCenter();
+            groupCenter.x = featureNewBounds.x + (int) ((groupCenter.x - featureOldBounds.x) * dwRatio);
+            groupCenter.y = featureNewBounds.y + (int) ((groupCenter.y - featureOldBounds.y) * dhRatio);
+            
+            // Fix rounding error.
+            if(Math.abs(groupCenter.x - featureNewBounds.x) <= 1)
+                groupCenter.x = featureNewBounds.x;
+            else if(Math.abs(groupCenter.x - featureNewBounds.right()) <= 1)
+                groupCenter.x = featureNewBounds.right();
+            if(Math.abs(groupCenter.y - featureNewBounds.y) <= 1)
+                groupCenter.y = featureNewBounds.y;
+            else if(Math.abs(groupCenter.y - featureNewBounds.bottom()) <= 1)
+                groupCenter.y = featureNewBounds.bottom();
+            
+            groupBounds.x = groupCenter.x - groupBounds.width / 2;
+            groupBounds.y = groupCenter.y - groupBounds.height / 2;
+                            
             groupNewBounds.put(group, groupBounds);
         }
     }

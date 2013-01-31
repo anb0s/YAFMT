@@ -17,8 +17,9 @@ import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.ui.editors.fm.commands.AddFeatureCommand;
+import cz.jpikl.yafmt.ui.editors.fm.commands.MoveFeatureCommand;
 import cz.jpikl.yafmt.ui.editors.fm.commands.MoveGroupCommand;
-import cz.jpikl.yafmt.ui.editors.fm.commands.MoveResizeFeatureCommand;
+import cz.jpikl.yafmt.ui.editors.fm.commands.ResizeFeatureCommand;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 import cz.jpikl.yafmt.ui.editors.fm.parts.FeatureModelEditPart;
 
@@ -64,15 +65,25 @@ public class FeatureModelLayoutPolicy extends XYLayoutEditPolicy {
     
     @Override
     protected Command createChangeConstraintCommand(ChangeBoundsRequest request, EditPart child, Object constraint) {
+        Dimension sizeDelta = request.getSizeDelta();
+        boolean resizeCommand = (sizeDelta.width != 0) || (sizeDelta.height != 0);
+        
         LayoutData layoutData = ((FeatureModelEditPart) getHost()).getLayoutData();
         Object model = child.getModel();
         
-        if(model instanceof Feature)
-            return new MoveResizeFeatureCommand(layoutData, (Feature) model, (Rectangle) constraint);
+        if(model instanceof Feature) {
+            if(resizeCommand) {
+                Rectangle deltas = new Rectangle(request.getMoveDelta(), sizeDelta);
+                return new ResizeFeatureCommand(layoutData, (Feature) model, deltas);
+            }            
+            else {
+                return new MoveFeatureCommand(layoutData, (Feature) model, (Rectangle) constraint);   
+            }
+        }
         
         if(model instanceof Group){
-            Dimension sizeDelta = request.getSizeDelta();
-            if((sizeDelta.width != 0) || (sizeDelta.height != 0))
+            // Groups can be only moved.
+            if(resizeCommand)
                 return null;
             return new MoveGroupCommand(layoutData, (Group) model, (Rectangle) constraint);
         }
