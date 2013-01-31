@@ -37,7 +37,7 @@ public class DeleteAttributeAction extends SelectionAction {
     
     @SuppressWarnings("unchecked")
     private Command getCommand(int attributeIndex) {
-        List<Object> objects = getSelectedObjects();
+        List<?> objects = getSelectedObjects();
         if((objects.size() != 1) || !(objects.get(0) instanceof EditPart))
             return null;
         Request request = new Request(RequestConstants.REQ_REMOVE_ATTRIBUTE);

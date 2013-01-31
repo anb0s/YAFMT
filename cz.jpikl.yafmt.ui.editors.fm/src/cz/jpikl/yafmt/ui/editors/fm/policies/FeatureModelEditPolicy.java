@@ -21,25 +21,24 @@ import cz.jpikl.yafmt.ui.editors.fm.util.RequestConstants;
 public class FeatureModelEditPolicy extends ComponentEditPolicy {
 
     @Override
-    @SuppressWarnings("unchecked")
     public Command getCommand(Request request) {
         Object type = request.getType();
         if(RequestConstants.REQ_GROUP_FEATURES_XOR.equals(type)) {
-            List<Object> selection = (List<Object>) ((GroupRequest) request).getEditParts();
+            List<?> selection = ((GroupRequest) request).getEditParts();
             return createGroupFeaturesCommand(selection, true);
         }
         else if(RequestConstants.REQ_GROUP_FEATURES_OR.equals(type)) {
-            List<Object> selection = (List<Object>) ((GroupRequest) request).getEditParts();
+            List<?> selection = ((GroupRequest) request).getEditParts();
             return createGroupFeaturesCommand(selection, false);
         }
         else if(RequestConstants.REQ_UNGROUP_FEATURES.equals(type)) {
-            List<Object> selection = (List<Object>) ((GroupRequest) request).getEditParts();
+            List<?> selection = ((GroupRequest) request).getEditParts();
             return createUngroupFeaturesCommand(selection);
         }
         return super.getCommand(request);
     }
 
-    private Command createGroupFeaturesCommand(List<Object> selectedEditParts, boolean xorGroup) {
+    private Command createGroupFeaturesCommand(List<?> selectedEditParts, boolean xorGroup) {
         List<Feature> features = getFeatureSelection(selectedEditParts);
         if((features == null) || (features.size() < 2))
             return null;
@@ -62,7 +61,7 @@ public class FeatureModelEditPolicy extends ComponentEditPolicy {
         return new GroupFeaturesCommand(layoutData, features, xorGroup);
     }
     
-    private Command createUngroupFeaturesCommand(List<Object> selectedEditParts) {
+    private Command createUngroupFeaturesCommand(List<?> selectedEditParts) {
         List<Feature> features = getFeatureSelection(selectedEditParts);
         if((features == null) || features.isEmpty())
             return null;
@@ -81,7 +80,7 @@ public class FeatureModelEditPolicy extends ComponentEditPolicy {
         return new UngroupFeaturesCommand(features);
     }
 
-    List<Feature> getFeatureSelection(List<Object> selectedEditParts) {
+    List<Feature> getFeatureSelection(List<?> selectedEditParts) {
         List<Feature> features = new ArrayList<Feature>();
         
         for(Object selectedObject: selectedEditParts) {

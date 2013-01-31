@@ -27,9 +27,8 @@ public class AddAttributeAction extends SelectionAction {
         setImageDescriptor(FeatureModelEditorPlugin.getImageDescriptor("icons/attribute-add.png"));
     }
     
-    @SuppressWarnings("unchecked")
     private Command getCommand() {
-        List<Object> objects = getSelectedObjects();
+        List<?> objects = getSelectedObjects();
         if((objects.size() != 1) || !(objects.get(0) instanceof EditPart))
             return null;
         EditPart editPart = (EditPart) objects.get(0);

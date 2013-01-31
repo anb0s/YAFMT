@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.EventObject;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -84,35 +85,36 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
         super.createActions();
         
         ActionRegistry registry = getActionRegistry();
+        List<Object> selectionActions = (List<Object>) getSelectionActions();
         IAction action; 
         
         action = new AddAttributeAction(this);
         registry.registerAction(action);
-        getSelectionActions().add(action.getId());
+        selectionActions.add(action.getId());
         
         action = new DeleteAttributeAction(this);
         registry.registerAction(action);
-        getSelectionActions().add(action.getId());
+        selectionActions.add(action.getId());
         
         action = new SetFeatureCardinalityAction(this, false);
         registry.registerAction(action);
-        getSelectionActions().add(action.getId());
+        selectionActions.add(action.getId());
         
         action = new SetFeatureCardinalityAction(this, true);
         registry.registerAction(action);
-        getSelectionActions().add(action.getId());
+        selectionActions.add(action.getId());
         
         action = new GroupFeaturesAction(this, true);
         registry.registerAction(action);
-        getSelectionActions().add(action.getId());
+        selectionActions.add(action.getId());
         
         action = new GroupFeaturesAction(this, false);
         registry.registerAction(action);
-        getSelectionActions().add(action.getId());
+        selectionActions.add(action.getId());
         
         action = new UngroupFeaturesAction(this);
         registry.registerAction(action);
-        getSelectionActions().add(action.getId());
+        selectionActions.add(action.getId());
     }
     
     @Override

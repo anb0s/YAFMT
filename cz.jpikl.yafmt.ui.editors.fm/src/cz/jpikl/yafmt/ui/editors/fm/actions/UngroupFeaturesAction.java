@@ -35,9 +35,8 @@ public class UngroupFeaturesAction extends SelectionAction {
         setImageDescriptor(FeatureModelEditorPlugin.getImageDescriptor("icons/group-del.png"));
     }
     
-    @SuppressWarnings("unchecked")
     private Command getCommand() {
-        List<Object> objects = getSelectedObjects();
+        List<?> objects = getSelectedObjects();
         if(objects.isEmpty() || !(objects.get(0) instanceof EditPart))
             return null;
         

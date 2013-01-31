@@ -47,9 +47,8 @@ public class GroupFeaturesAction extends SelectionAction {
         setActionProperties(this, xorGroup);
     }
         
-    @SuppressWarnings("unchecked")
     private Command getCommand() {
-        List<Object> objects = getSelectedObjects();
+        List<?> objects = getSelectedObjects();
         if((objects.size() < 2) || !(objects.get(0) instanceof EditPart))
             return null;
         
