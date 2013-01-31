@@ -6,7 +6,7 @@ import org.eclipse.gef.editpolicies.DirectEditPolicy;
 import org.eclipse.gef.requests.DirectEditRequest;
 
 import cz.jpikl.yafmt.model.fm.Feature;
-import cz.jpikl.yafmt.ui.editors.fm.commands.RenameFeatureCommand;
+import cz.jpikl.yafmt.ui.editors.fm.commands.SetFeatureNameCommand;
 import cz.jpikl.yafmt.ui.editors.fm.figures.FeatureFigure;
 
 public class FeatureDirectEditPolicy extends DirectEditPolicy {
@@ -22,7 +22,7 @@ public class FeatureDirectEditPolicy extends DirectEditPolicy {
             return null;
         
         Feature feature = (Feature) getHost().getModel();
-        return new RenameFeatureCommand(feature, text);
+        return new SetFeatureNameCommand(feature, text);
     }
 
     @Override
