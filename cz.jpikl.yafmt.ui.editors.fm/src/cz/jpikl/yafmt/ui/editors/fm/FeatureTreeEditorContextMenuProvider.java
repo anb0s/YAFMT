@@ -30,16 +30,15 @@ public class FeatureTreeEditorContextMenuProvider extends ContextMenuProvider {
     @Override
     public void buildContextMenu(IMenuManager menu) {
         GEFActionConstants.addStandardActionGroups(menu);
-        menu.appendToGroup(GEFActionConstants.GROUP_UNDO, registry.getAction(ActionFactory.UNDO.getId()));
-        menu.appendToGroup(GEFActionConstants.GROUP_UNDO, registry.getAction(ActionFactory.REDO.getId()));
         
+        addAction(menu, GEFActionConstants.GROUP_UNDO, ActionFactory.UNDO.getId());
+        addAction(menu, GEFActionConstants.GROUP_UNDO, ActionFactory.REDO.getId());
         addAction(menu, GEFActionConstants.GROUP_EDIT, ActionFactory.DELETE.getId());
         addAction(menu, GEFActionConstants.GROUP_REST, SetFeatureCardinalityAction.ID_OPTIONAL);
         addAction(menu, GEFActionConstants.GROUP_REST, SetFeatureCardinalityAction.ID_MANDATORY);
         addAction(menu, GEFActionConstants.GROUP_REST, GroupFeaturesAction.ID_XOR);
         addAction(menu, GEFActionConstants.GROUP_REST, GroupFeaturesAction.ID_OR);
         addAction(menu, GEFActionConstants.GROUP_REST, UngroupFeaturesAction.ID);
-        
     }
 
 }
