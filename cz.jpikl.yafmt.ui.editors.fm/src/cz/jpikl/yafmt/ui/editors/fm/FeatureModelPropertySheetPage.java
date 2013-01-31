@@ -29,16 +29,6 @@ public class FeatureModelPropertySheetPage extends UndoablePropertySheetPage {
             // Disable sorting of entries.
         }
         
-        @Override
-        public int compareCategories(String categoryA, String categoryB) {
-            // General category will always have space at the end (sorting trick).
-            if(categoryA.endsWith(" "))
-                return -1;
-            if(categoryB.endsWith(" "))
-                return 1;
-            return super.compareCategories(categoryA, categoryB);
-        }
-        
     }
 
 }

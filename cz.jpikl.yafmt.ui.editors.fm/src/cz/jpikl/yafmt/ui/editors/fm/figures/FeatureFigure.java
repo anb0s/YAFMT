@@ -9,11 +9,13 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.RoundedRectangle;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Pattern;
 import org.eclipse.swt.widgets.Display;
 
+import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.ui.editors.fm.util.DrawConstantans;
 
 public class FeatureFigure extends RoundedRectangle {
@@ -21,6 +23,20 @@ public class FeatureFigure extends RoundedRectangle {
     public static final int WIDTH = 100;
     public static final int HEGHT = 25;
 
+    public static Rectangle computeBoundsWithAttribute(Feature feature, Rectangle currentBounds) {
+        Rectangle bounds = currentBounds.getCopy();
+        bounds.height += (feature.getAttributes().isEmpty()) ? AttributeFigure.EXTENDED_HEIGHT : AttributeFigure.HEIGHT;
+        if(bounds.width < AttributeFigure.WIDTH)
+            bounds.width = AttributeFigure.WIDTH;
+        return bounds;
+    }
+    
+    public static Rectangle computeBoundsWithoutAttribute(Feature feature, Rectangle currentBounds) {
+        Rectangle bounds = currentBounds.getCopy();
+        bounds.height -= (feature.getAttributes().size() == 1) ? AttributeFigure.EXTENDED_HEIGHT : AttributeFigure.HEIGHT;
+        return bounds;
+    }
+    
     private Label label = new Label();
     private SeparatorFigure separator;
     private Figure attributes;

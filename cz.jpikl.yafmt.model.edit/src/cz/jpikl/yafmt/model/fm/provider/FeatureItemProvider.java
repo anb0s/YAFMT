@@ -19,14 +19,13 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptorDecorator;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
-import cz.jpikl.yafmt.model.fm.Attribute;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModelFactory;
 import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
+import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
 
 /**
  * This is the item provider adapter for a {@link cz.jpikl.yafmt.model.fm.Feature} object.
@@ -51,12 +50,7 @@ public class FeatureItemProvider
     public FeatureItemProvider(AdapterFactory adapterFactory) {
         super(adapterFactory);
     }
-
-    private String getGeneralGroupName(Object feature) {
-        // Space at the end is used for categories sorting trick.
-        return ((((Feature) feature).getAttributes().isEmpty()) ? null : (getString("_UI_PropertyGroup_Feature_General")) + " ");
-    }
-    
+   
     /**
      * This returns the property descriptors for the adapted class.
      * <!-- begin-user-doc -->
@@ -77,24 +71,6 @@ public class FeatureItemProvider
             addUpperPropertyDescriptor(object);
         }
         
-        int i = 0;
-        for(final Attribute attribute: feature.getAttributes()) {
-            IItemPropertySource source = (IItemPropertySource) adapterFactory.adapt(attribute, IItemPropertySource.class);
-            final int index = i++; 
-            for(IItemPropertyDescriptor descriptor: source.getPropertyDescriptors(attribute)) {
-                itemPropertyDescriptors.add(new ItemPropertyDescriptorDecorator(attribute, descriptor) {
-                    @Override
-                    public String getCategory(Object thisObject) {
-                        return getString("_UI_PropertyGroup_Feature_Attribute", new Object[] { index + 1 });
-                    }
-                    @Override
-                    public String getId(Object thisObject) {
-                        return "attribute[" + index + "]." + super.getId(thisObject);
-                    }
-                });
-            }
-        }
-        
         return itemPropertyDescriptors;
     }
 
@@ -102,7 +78,7 @@ public class FeatureItemProvider
      * This adds a property descriptor for the Id feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated NOT
+     * @generated
      */
     protected void addIdPropertyDescriptor(Object object) {
         itemPropertyDescriptors.add
@@ -116,7 +92,7 @@ public class FeatureItemProvider
                  false,
                  false,
                  ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-                 getGeneralGroupName(object),
+                 null,
                  null));
     }
 
@@ -124,7 +100,7 @@ public class FeatureItemProvider
      * This adds a property descriptor for the Name feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated NOT
+     * @generated
      */
     protected void addNamePropertyDescriptor(Object object) {
         itemPropertyDescriptors.add
@@ -138,7 +114,7 @@ public class FeatureItemProvider
                  false,
                  false,
                  ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-                 getGeneralGroupName(object),
+                 null,
                  null));
     }
 
@@ -146,7 +122,7 @@ public class FeatureItemProvider
      * This adds a property descriptor for the Description feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated NOT
+     * @generated
      */
     protected void addDescriptionPropertyDescriptor(Object object) {
         itemPropertyDescriptors.add
@@ -160,7 +136,7 @@ public class FeatureItemProvider
                  false,
                  false,
                  ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-                 getGeneralGroupName(object),
+                 null,
                  null));
     }
 
@@ -168,7 +144,7 @@ public class FeatureItemProvider
      * This adds a property descriptor for the Lower feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated NOT
+     * @generated
      */
     protected void addLowerPropertyDescriptor(Object object) {
         itemPropertyDescriptors.add
@@ -182,7 +158,7 @@ public class FeatureItemProvider
                  false,
                  false,
                  ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
-                 getGeneralGroupName(object),
+                 null,
                  null));
     }
 
@@ -190,7 +166,7 @@ public class FeatureItemProvider
      * This adds a property descriptor for the Upper feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated NOT
+     * @generated
      */
     protected void addUpperPropertyDescriptor(Object object) {
         itemPropertyDescriptors.add
@@ -204,7 +180,7 @@ public class FeatureItemProvider
                  false,
                  false,
                  ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
-                 getGeneralGroupName(object),
+                 null,
                  null));
     }
 
@@ -357,11 +333,8 @@ public class FeatureItemProvider
     public String getText(Object object) {
         Feature feature = (Feature) object;
         String label = feature.getName();
-        if(feature.isClonable()) {
-            int lower = feature.getLower();
-            int upper = feature.getUpper();
-            label += " [" + lower + ".." + ((upper == -1) ? "*" : upper) + "]";
-        }
+        if(feature.isClonable())
+            label +=  " " + FeatureModelUtil.getCardinality(feature);
         return label;
     }
 

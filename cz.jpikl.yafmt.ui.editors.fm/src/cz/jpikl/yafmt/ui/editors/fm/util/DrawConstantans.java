@@ -7,7 +7,7 @@ import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.widgets.Display;
 
 public class DrawConstantans {
-
+    
     private static Font defaultFont;
     private static Font boldFont;
     private static Color backgroundColor;

@@ -12,6 +12,7 @@ import org.eclipse.gef.palette.ToolEntry;
 import org.eclipse.gef.requests.SimpleFactory;
 import org.eclipse.jface.resource.ImageDescriptor;
 
+import cz.jpikl.yafmt.model.fm.Attribute;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModelFactory;
 import cz.jpikl.yafmt.ui.editors.fm.tools.CreationToolWithDirectEdit;
@@ -23,6 +24,7 @@ public class FeatureTreeEditorPaletteRoot extends PaletteRoot {
         ToolEntry marqueeEntry = new MarqueeToolEntry();
         ToolEntry optionalFeatureCreationEntry = createOptionalFeatureCreationEntry();
         ToolEntry mandatoryFeatureCreationEntry = createMandatoryFeatureCreationEntry();
+        ToolEntry attributeCreationEntry = createAttributeCreationEntry();
         ToolEntry connectionCreationEntry = createConnectionCreationEntry();
         
         PaletteDrawer selectionTools = new PaletteDrawer("Selection Tools");
@@ -32,6 +34,7 @@ public class FeatureTreeEditorPaletteRoot extends PaletteRoot {
         PaletteDrawer cretionTools = new PaletteDrawer("Creation Tools");
         cretionTools.add(optionalFeatureCreationEntry);
         cretionTools.add(mandatoryFeatureCreationEntry);
+        cretionTools.add(attributeCreationEntry);
         cretionTools.add(connectionCreationEntry);
         
         add(selectionTools);
@@ -44,7 +47,7 @@ public class FeatureTreeEditorPaletteRoot extends PaletteRoot {
         // via TemplateTransferDragSourceListener and TemplateTransferDropTargetListener.
         ImageDescriptor img = FeatureModelEditorPlugin.getImageDescriptor("icons/feature-opt.png");
         CreationToolEntry featureCreationEntry = new CombinedTemplateCreationEntry(
-            "Optional Feature", "Add new optional feature.", new FeatureFactory(false), img, null);
+            "Optional Feature", "Create optional feature.", new FeatureFactory(false), img, null);
         featureCreationEntry.setToolClass(CreationToolWithDirectEdit.class);
         return featureCreationEntry;
     }
@@ -52,14 +55,21 @@ public class FeatureTreeEditorPaletteRoot extends PaletteRoot {
     private ToolEntry createMandatoryFeatureCreationEntry() {
         ImageDescriptor img = FeatureModelEditorPlugin.getImageDescriptor("icons/feature-man.png");
         CreationToolEntry featureCreationEntry = new CombinedTemplateCreationEntry(
-            "Mandatory Feature", "Add new mandatory feature.", new FeatureFactory(true), img, null);
+            "Mandatory Feature", "Create mandatory feature.", new FeatureFactory(true), img, null);
         featureCreationEntry.setToolClass(CreationToolWithDirectEdit.class);
         return featureCreationEntry;
     }
     
+    private ToolEntry createAttributeCreationEntry() {
+        ImageDescriptor img = FeatureModelEditorPlugin.getImageDescriptor("icons/attribute.png");
+        CreationToolEntry attributeCreationEntry = new CombinedTemplateCreationEntry(
+            "Attribute", "Add atribute to a feature.", new AttributeFactory(), img, null);
+        return attributeCreationEntry;
+    }
+    
     private ToolEntry createConnectionCreationEntry() {
         ImageDescriptor img = FeatureModelEditorPlugin.getImageDescriptor("icons/connection.png");
-        return new ConnectionCreationToolEntry("Connection", "Create a connection.", null, img, null);
+        return new ConnectionCreationToolEntry("Connection", "Create connection.", null, img, null);
     }
     
     private static class FeatureFactory extends SimpleFactory {
@@ -78,6 +88,22 @@ public class FeatureTreeEditorPaletteRoot extends PaletteRoot {
             feature.setName("New feature");
             feature.setMandatory(mandatoryFeatures);
             return feature;
+        }
+        
+    }
+    
+    private static class AttributeFactory extends SimpleFactory {
+        
+        public AttributeFactory() {
+            super(Attribute.class);
+        }
+        
+        @Override
+        public Object getNewObject() {
+            Attribute atttribute = FeatureModelFactory.eINSTANCE.createAttribute();
+            atttribute.setId(EcoreUtil.generateUUID());
+            atttribute.setName("New Attribute");
+            return atttribute;
         }
         
     }

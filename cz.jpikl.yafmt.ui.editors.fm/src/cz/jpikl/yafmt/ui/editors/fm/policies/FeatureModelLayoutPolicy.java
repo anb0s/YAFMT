@@ -22,9 +22,13 @@ public class FeatureModelLayoutPolicy extends XYLayoutEditPolicy {
 
     @Override
     protected Command getCreateCommand(CreateRequest request) {
+        Object object = request.getNewObject();
+        if(!(object instanceof Feature))
+            return null;
+        
         LayoutData layoutData = ((FeatureModelEditPart) getHost()).getLayoutData();
         FeatureModel featureModel = (FeatureModel) getHost().getModel();
-        Feature feature = (Feature) request.getNewObject();
+        Feature feature = (Feature) object;
         Point location = request.getLocation();
         return new AddFeatureCommand(layoutData, featureModel, feature, location);
     }

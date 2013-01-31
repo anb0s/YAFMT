@@ -41,8 +41,6 @@ import org.eclipse.ui.views.properties.PropertySheet;
 import org.eclipse.ui.views.properties.PropertySheetPage;
 
 import cz.jpikl.yafmt.model.fm.FeatureModel;
-import cz.jpikl.yafmt.ui.editors.fm.actions.AddAttributeAction;
-import cz.jpikl.yafmt.ui.editors.fm.actions.DeleteAttributeAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.GroupFeaturesAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.SetFeatureCardinalityAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.UngroupFeaturesAction;
@@ -85,14 +83,6 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
         
         ActionRegistry registry = getActionRegistry();
         IAction action; 
-        
-        action = new AddAttributeAction(this);
-        registry.registerAction(action);
-        getSelectionActions().add(action.getId());
-        
-        action = new DeleteAttributeAction(this);
-        registry.registerAction(action);
-        getSelectionActions().add(action.getId());
         
         action = new SetFeatureCardinalityAction(this, false);
         registry.registerAction(action);

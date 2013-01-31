@@ -52,12 +52,6 @@ public class FeatureModelPropertySourceValidator implements PropertySourceValida
                 return getString("_UI_Errors_NotANumber");
             }
         }
-        else if (property.startsWith("attribute[")) {
-            property = property.substring(10);
-            int pos = property.indexOf("].");
-            int index = Integer.parseInt(property.substring(0, pos));
-            return validateAttribute(feature.getAttributes().get(index), property.substring(pos + 2), value);
-        }
         return null;
     }
     

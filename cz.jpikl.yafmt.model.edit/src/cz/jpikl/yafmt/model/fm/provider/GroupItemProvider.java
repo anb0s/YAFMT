@@ -6,6 +6,7 @@ package cz.jpikl.yafmt.model.fm.provider;
 import cz.jpikl.yafmt.model.fm.FeatureModelFactory;
 import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
 import cz.jpikl.yafmt.model.fm.Group;
+import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
 
 import java.util.Collection;
 import java.util.List;
@@ -170,11 +171,8 @@ public class GroupItemProvider
     public String getText(Object object) {
         String label = getString("_UI_Group_type");
         Group group = (Group) object;
-        if(!group.isOr() && !group.isXor()) {
-            int lower = group.getLower();
-            int upper = group.getUpper();
-            label += " <" + lower + "-" + ((upper == -1) ? "*" : upper) + ">";
-        }
+        if(!group.isOr() && !group.isXor())
+            label += " " + FeatureModelUtil.getCardinality(group);
         return label;
     }
 

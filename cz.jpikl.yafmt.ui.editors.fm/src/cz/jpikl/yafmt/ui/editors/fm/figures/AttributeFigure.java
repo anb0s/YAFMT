@@ -7,6 +7,10 @@ import cz.jpikl.yafmt.model.fm.AttributeType;
 
 public class AttributeFigure extends Label {
     
+    public static int WIDTH = 150;
+    public static int HEIGHT = 18;
+    public static int EXTENDED_HEIGHT = 28;
+    
     public AttributeFigure(Attribute attribute) {
         updateLabel(attribute);
     }
