@@ -2,12 +2,10 @@ package cz.jpikl.yafmt.ui.editors.fm.policies;
 
 import java.util.List;
 
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
-import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.editpolicies.OrderedLayoutEditPolicy;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gef.requests.CreateRequest;
@@ -16,8 +14,6 @@ import cz.jpikl.yafmt.model.fm.Attribute;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.ui.editors.fm.commands.AddAttributeCommand;
 import cz.jpikl.yafmt.ui.editors.fm.commands.MoveAttributeCommand;
-import cz.jpikl.yafmt.ui.editors.fm.commands.MoveResizeFeatureCommand;
-import cz.jpikl.yafmt.ui.editors.fm.figures.FeatureFigure;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 import cz.jpikl.yafmt.ui.editors.fm.parts.FeatureEditPart;
 
@@ -77,13 +73,8 @@ public class FeatureLayoutPolicy extends OrderedLayoutEditPolicy {
         
         Feature feature = (Feature) getHost().getModel();
         LayoutData layoutData = ((FeatureEditPart) getHost()).getLayoutData();
-        Rectangle bounds = layoutData.getMapping().get(feature);
-        bounds = FeatureFigure.computeBoundsWithAttribute(feature, bounds);
         
-        CompoundCommand compoundCommand = new CompoundCommand();
-        compoundCommand.add(new AddAttributeCommand(feature, (Attribute) object));
-        compoundCommand.add(new MoveResizeFeatureCommand(layoutData, feature, bounds));
-        return compoundCommand;
+        return new AddAttributeCommand(layoutData, feature, (Attribute) object);
     }
 
 }

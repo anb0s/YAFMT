@@ -23,18 +23,18 @@ public class FeatureFigure extends RoundedRectangle {
     public static final int WIDTH = 100;
     public static final int HEGHT = 25;
 
-    public static Rectangle computeBoundsWithAttribute(Feature feature, Rectangle currentBounds) {
-        Rectangle bounds = currentBounds.getCopy();
-        bounds.height += (feature.getAttributes().isEmpty()) ? AttributeFigure.EXTENDED_HEIGHT : AttributeFigure.HEIGHT;
+    public static Rectangle computeBoundsDeltaAddAttribute(Feature feature, Rectangle bounds) {
+        Rectangle deltas = new Rectangle();
+        deltas.height = (feature.getAttributes().isEmpty()) ? AttributeFigure.EXTENDED_HEIGHT : AttributeFigure.HEIGHT;
         if(bounds.width < AttributeFigure.WIDTH)
-            bounds.width = AttributeFigure.WIDTH;
-        return bounds;
+            deltas.width = AttributeFigure.WIDTH - bounds.width;
+        return deltas;
     }
     
-    public static Rectangle computeBoundsWithoutAttribute(Feature feature, Rectangle currentBounds) {
-        Rectangle bounds = currentBounds.getCopy();
-        bounds.height -= (feature.getAttributes().size() == 1) ? AttributeFigure.EXTENDED_HEIGHT : AttributeFigure.HEIGHT;
-        return bounds;
+    public static Rectangle computeBoundsDeltaDeleteAttribute(Feature feature) {
+        Rectangle deltas = new Rectangle();
+        deltas.height = -((feature.getAttributes().size() == 1) ? AttributeFigure.EXTENDED_HEIGHT : AttributeFigure.HEIGHT);
+        return deltas;
     }
     
     private Label label = new Label();
