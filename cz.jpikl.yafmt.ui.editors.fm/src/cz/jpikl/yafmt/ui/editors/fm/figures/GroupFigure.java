@@ -77,30 +77,29 @@ public class GroupFigure extends RectangleFigure {
         }
     }
     
-    public void updateVisuals(Rectangle newBounds) {
-        recomputeArcData(newBounds);
-        repositionLabel(newBounds);
-    }
-    
     public void updateVisuals() {
-        recomputeArcData(bounds);
-        repositionLabel(bounds);
+        Rectangle newBounds = layoutData.get(group);
+        if(newBounds != null)
+            setBounds(newBounds.getCopy());
+        
+        recomputeArcData();
+        repositionLabel();
     }
         
-    private void recomputeArcData(Rectangle groupBounds) {
+    private void recomputeArcData() {
         List<Feature> features = group.getFeatures();
         int size = features.size();
         
         if(size < 2) {
             arcOffset = 0;
             arcLength = 0;
-            arcBounds = groupBounds;
+            arcBounds = bounds;
             return;
         }
                 
         connectionAngles = new double[size + 1];
         connectionAngles[size] = Double.MAX_VALUE; 
-        Point self = groupBounds.getCenter(); // Do not get this value from layout data, it could be outdated!
+        Point self = bounds.getCenter(); // Do not get this value from layout data, it could be outdated!
         
         // Get angle of each group-to-feature connection.
         for(int i = 0; i < size; i++) {
@@ -127,7 +126,7 @@ public class GroupFigure extends RectangleFigure {
         // Arc is made between connections outside the found region.
         arcOffset = (int) connectionAngles[maxIndex + 1];
         arcLength = (int) (360.0 - (connectionAngles[maxIndex + 1] - connectionAngles[maxIndex]) + 1);
-        arcBounds = getOptimizedBounds(groupBounds);
+        arcBounds = getOptimizedBounds();
     }
         
     private double getAngle(Point self, Point target) {
@@ -138,13 +137,13 @@ public class GroupFigure extends RectangleFigure {
         return (result < 0.0) ? result + 360.0 : result;
     }
 
-    private Rectangle getOptimizedBounds(Rectangle sourceBounds) {
+    private Rectangle getOptimizedBounds() {
         // Copied from superclass.
         float lineInset = Math.max(1.0f, getLineWidthFloat()) / 2.0f;
         int inset1 = (int) Math.floor(lineInset);
         int inset2 = (int) Math.ceil(lineInset);
 
-        Rectangle r = new Rectangle(sourceBounds);
+        Rectangle r = new Rectangle(bounds);
         r.x += inset1;
         r.y += inset1;
         r.width -= inset1 + inset2;
@@ -152,7 +151,7 @@ public class GroupFigure extends RectangleFigure {
         return r;
     }
     
-    private void repositionLabel(Rectangle groupBounds) {
+    private void repositionLabel() {
         if(label.getText().isEmpty() || label.getParent() == null)
             return;
         
@@ -183,7 +182,7 @@ public class GroupFigure extends RectangleFigure {
         int x =   (int) (50.0 * Math.cos(theta)) - size.width / 2;
         int y = - (int) (50.0 * Math.sin(theta)) - size.width / 2;
         
-        Point position = groupBounds.getCenter().translate(x, y);
+        Point position = bounds.getCenter().translate(x, y);
         Rectangle labelBounds = new Rectangle(position, size);
         getParent().setConstraint(label, labelBounds);
     }

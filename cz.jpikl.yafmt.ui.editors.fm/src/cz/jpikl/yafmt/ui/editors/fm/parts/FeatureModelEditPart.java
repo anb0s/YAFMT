@@ -188,28 +188,24 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
             GraphicalEditPart editPart = getEditPartForObject(object);
             
             if(editPart != null) {
-                System.out.println(object.toString());
                 setLayoutConstraint(editPart, editPart.getFigure(), bounds);
-                
                 // Update group figure shape when the group or one of its children features moved.
                 if(object instanceof Group)
-                    updateGroupFigure((Group) object, bounds); // Propagate the newest bounds.
+                    updateGroupFigure((Group) object); // Propagate the newest bounds.
                 else if(object instanceof Feature)
-                    updateGroupFigure(((Feature) object).getParentGroup(), null);
+                    updateGroupFigure(((Feature) object).getParentGroup());
             }
         }
         
-        public void updateGroupFigure(Group group, Rectangle bounds) {
+        public void updateGroupFigure(Group group) {
             GraphicalEditPart editPart = getEditPartForObject(group);
             if(editPart == null)
                 return;
             
             GroupFigure figure = (GroupFigure) editPart.getFigure();
-            if(bounds != null)
-                figure.updateVisuals(bounds);
-            else
-                figure.updateVisuals();
+            figure.updateVisuals();
             figure.updateState();
+            figure.repaint();
         }
         
         @Override
