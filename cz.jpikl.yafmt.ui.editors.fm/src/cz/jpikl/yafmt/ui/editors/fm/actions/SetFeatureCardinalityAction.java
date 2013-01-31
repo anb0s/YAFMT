@@ -48,9 +48,8 @@ public class SetFeatureCardinalityAction extends SelectionAction {
         setActionProperties(this, mandatory);
     }
 
-    @SuppressWarnings("unchecked")
     private Command getCommand() {
-        List<Object> objects = getSelectedObjects();
+        List<?> objects = getSelectedObjects();
         if(objects.isEmpty() || !(objects.get(0) instanceof EditPart))
             return null;
         

@@ -52,15 +52,14 @@ public class FeatureModelEditorContributor extends ActionBarContributor implemen
     }
         
     @Override
-    @SuppressWarnings("unchecked")
     public void pageChanged(PageChangedEvent event) {
         IEditorPart activePage = (IEditorPart) event.getSelectedPage();
         super.setActiveEditor(activePage);
         
         // Manually update actions when page changes (actions react only to editor part changes).
-        Iterator<Map.Entry<String, IAction>> it = getActionRegistry().getActions();
+        Iterator<?> it = getActionRegistry().getActions();
         while(it.hasNext()) {
-            IAction action = it.next().getValue();
+            IAction action = (IAction) ((Map.Entry<?, ?>) it.next()).getValue();
             if(action instanceof RetargetAction)
                 ((RetargetAction) action).partActivated(activePage);
         }

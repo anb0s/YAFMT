@@ -123,7 +123,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
         }
     }
     
-    private void addEditPartsForObjects(Collection<Object> objects) {
+    private void addEditPartsForObjects(Collection<?> objects) {
         for(Object object: objects)
             addEditPartForObject(object);
     }
@@ -141,7 +141,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
         }
     }
     
-    private void removeEditPartsForObjects(Collection<Object> objects) {
+    private void removeEditPartsForObjects(Collection<?> objects) {
         for(Object object: objects)
             removeEditPartForObject(object);
     }
@@ -149,7 +149,6 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
     class FeatureModelAdapter extends EContentAdapter {
         
         @Override
-        @SuppressWarnings("unchecked")
         public void notifyChanged(Notification notification) {
             super.notifyChanged(notification); // Superclass implementation must be called!
             
@@ -159,7 +158,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
                     break;
                     
                 case Notification.ADD_MANY:
-                    addEditPartsForObjects((Collection<Object>) notification.getNewValue());
+                    addEditPartsForObjects((Collection<?>) notification.getNewValue());
                     break;
                     
                 case Notification.REMOVE:
@@ -167,7 +166,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
                     break;
                     
                 case Notification.REMOVE_MANY:
-                    removeEditPartsForObjects((Collection<Object>) notification.getOldValue());
+                    removeEditPartsForObjects((Collection<?>) notification.getOldValue());
                     break;
             }
             
@@ -177,14 +176,13 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
     
     class LayoutDataAdapter extends EContentAdapter {
                 
-        @SuppressWarnings("unchecked")
         private void updateLayoutConstraint(Object updateValue) {
             if(!(updateValue instanceof Map.Entry<?, ?>))
                 return;
             
-            Map.Entry<EObject, Rectangle> entry = (Map.Entry<EObject, Rectangle>) updateValue;
-            EObject object = entry.getKey();
-            Rectangle bounds = entry.getValue();
+            Map.Entry<?, ?> entry = (Map.Entry<?, ?>) updateValue;
+            EObject object = (EObject) entry.getKey();
+            Rectangle bounds = (Rectangle) entry.getValue();
             GraphicalEditPart editPart = getEditPartForObject(object);
             
             if(editPart != null) {
