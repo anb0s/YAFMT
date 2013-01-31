@@ -2,18 +2,24 @@ package cz.jpikl.yafmt.ui.editors.fm.parts;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
+import org.eclipse.draw2d.TextUtilities;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
+import org.eclipse.gef.requests.SelectionRequest;
 
 import cz.jpikl.yafmt.model.fm.Attribute;
+import cz.jpikl.yafmt.model.fm.AttributeType;
 import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
 import cz.jpikl.yafmt.ui.editors.fm.figures.AttributeFigure;
 import cz.jpikl.yafmt.ui.editors.fm.policies.AttributeDirectEditPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.AttributeEditPolicy;
+import cz.jpikl.yafmt.ui.editors.fm.util.AttributeTypeCellEditor;
+import cz.jpikl.yafmt.ui.editors.fm.util.ComboDirectEditManager;
 import cz.jpikl.yafmt.ui.editors.fm.util.DirectInputValidator;
 import cz.jpikl.yafmt.ui.editors.fm.util.LabelDirectEditManager;
 
@@ -60,11 +66,30 @@ public class AttributeEditPart extends AbstractGraphicalEditPart {
     @Override
     public void performRequest(Request request) {
         if(REQ_OPEN.equals(request.getType())) {
+            String name = attribute.getName();
+            AttributeType type = attribute.getType();
+            
             Label label = ((AttributeFigure) getFigure());
-            String text = attribute.getName();
-            LabelDirectEditManager manager = new LabelDirectEditManager(this, label, text);
-            manager.setValidator(new DirectInputValidator());
-            manager.show();
+            int nameTextWidth = TextUtilities.INSTANCE.getStringExtents(name + ": ", label.getFont()).width;
+            int typeTextX = label.getLocation().x + nameTextWidth;
+            int mouseX = ((SelectionRequest) request).getLocation().x;
+            
+            // Name direct edit
+            if(mouseX <= typeTextX) {
+                LabelDirectEditManager manager = new LabelDirectEditManager(this, label, name);
+                manager.setValidator(new DirectInputValidator());
+                manager.show();
+            }
+            // Type direct edit.
+            else {
+                Rectangle bounds = label.getBounds().getCopy();
+                bounds.x += nameTextWidth;
+                bounds.y -= 2;
+                bounds.width = 80;
+                bounds.height += 2;
+                ComboDirectEditManager manager = new ComboDirectEditManager(this, bounds, AttributeTypeCellEditor.class, type);
+                manager.show();
+            }
         }
     }
     

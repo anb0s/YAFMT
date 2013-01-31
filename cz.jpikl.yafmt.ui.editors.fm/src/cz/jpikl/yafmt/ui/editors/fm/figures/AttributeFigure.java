@@ -11,14 +11,33 @@ public class AttributeFigure extends Label {
     public static int HEIGHT = 18;
     public static int EXTENDED_HEIGHT = 28;
     
+    private String name;
+    private String type;
+    
     public AttributeFigure(Attribute attribute) {
         updateLabel(attribute);
     }
     
-    public void updateLabel(Attribute attribute) {
-        setText(attribute.getName() + ": " + getTypeName(attribute.getType()));
+    public void updateName(String name) {
+        this.name = name;
+        updateLabel();
     }
-   
+    
+    public void updateType(AttributeType type) {
+        this.type = getTypeName(type); 
+        updateLabel();
+    }
+    
+    public void updateLabel(Attribute attribute) {
+        this.name = attribute.getName();
+        this.type = getTypeName(attribute.getType());
+        updateLabel();
+    }
+    
+    private void updateLabel() {
+        setText(name + ": " + type);
+    }
+       
     private static String getTypeName(AttributeType type) {
         switch(type) {
             case BOOLEAN: return "Boolean";
