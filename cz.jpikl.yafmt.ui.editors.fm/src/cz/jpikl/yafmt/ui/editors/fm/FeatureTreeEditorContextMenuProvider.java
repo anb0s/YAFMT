@@ -11,6 +11,7 @@ import org.eclipse.ui.actions.ActionFactory;
 
 import cz.jpikl.yafmt.ui.editors.fm.actions.AddAttributeAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.DeleteAttributeAction;
+import cz.jpikl.yafmt.ui.editors.fm.actions.ExportAsImageAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.GroupFeaturesAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.SetFeatureCardinalityAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.UngroupFeaturesAction;
@@ -68,6 +69,10 @@ public class FeatureTreeEditorContextMenuProvider extends ContextMenuProvider {
         action = registry.getAction(UngroupFeaturesAction.ID);
         if(action.isEnabled())
             menu.appendToGroup(GEFActionConstants.GROUP_REST, action);
+        
+        action = registry.getAction(ExportAsImageAction.ID);
+        if(action.isEnabled())
+            menu.appendToGroup(GEFActionConstants.GROUP_SAVE, action);
         
     }
 

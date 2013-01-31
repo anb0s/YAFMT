@@ -44,6 +44,7 @@ import org.eclipse.ui.views.properties.PropertySheetPage;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.ui.editors.fm.actions.AddAttributeAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.DeleteAttributeAction;
+import cz.jpikl.yafmt.ui.editors.fm.actions.ExportAsImageAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.GroupFeaturesAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.SetFeatureCardinalityAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.UngroupFeaturesAction;
@@ -115,6 +116,10 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
         action = new UngroupFeaturesAction(this);
         registry.registerAction(action);
         selectionActions.add(action.getId());
+        
+        action = new ExportAsImageAction(this);
+        registry.registerAction(action);
+        selectionActions.add(action.getId());
     }
     
     @Override
@@ -134,6 +139,9 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
             if(action instanceof SelectionAction)
                 ((SelectionAction) action).setSelectionProvider(viewer);
         }
+        
+        ExportAsImageAction exportAsImageAction = (ExportAsImageAction) getActionRegistry().getAction(ExportAsImageAction.ID);
+        exportAsImageAction.setGraphicalViewer(viewer);
         
         selectionConverter = new SelectionConverter(viewer.getEditPartRegistry());
     }
@@ -274,6 +282,8 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
     @Override
     @SuppressWarnings("rawtypes")
     public Object getAdapter(Class type) {
+        if(type == FeatureModel.class)
+            return featureModel;
         if(type == IPropertySheetPage.class) {
             if(propertySheetPage == null) {
                 IAction undoAction = getActionRegistry().getAction(ActionFactory.UNDO.getId());
