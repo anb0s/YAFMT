@@ -79,9 +79,10 @@ public class GroupFigure extends RectangleFigure {
     
     public void updateVisuals() {
         Rectangle newBounds = layoutData.get(group);
-        if(newBounds != null)
-            setBounds(newBounds.getCopy());
+        if(newBounds == null)
+            return;
         
+        setBounds(newBounds.getCopy());
         recomputeArcData();
         repositionLabel();
     }
@@ -125,7 +126,7 @@ public class GroupFigure extends RectangleFigure {
         
         // Arc is made between connections outside the found region.
         arcOffset = (int) connectionAngles[maxIndex + 1];
-        arcLength = (int) (360.0 - (connectionAngles[maxIndex + 1] - connectionAngles[maxIndex]) + 1);
+        arcLength = (int) (360.0 - (connectionAngles[maxIndex + 1] - connectionAngles[maxIndex]) + 2);
         arcBounds = getOptimizedBounds();
     }
         
