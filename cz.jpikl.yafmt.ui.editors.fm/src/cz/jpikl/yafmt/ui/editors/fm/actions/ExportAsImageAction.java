@@ -1,13 +1,13 @@
 package cz.jpikl.yafmt.ui.editors.fm.actions;
 
 import org.eclipse.gef.GraphicalViewer;
-import org.eclipse.gef.ui.actions.WorkbenchPartAction;
+import org.eclipse.gef.ui.actions.EditorPartAction;
 import org.eclipse.ui.IEditorPart;
 
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.ui.editors.fm.util.ImageExporter;
 
-public class ExportAsImageAction extends WorkbenchPartAction {
+public class ExportAsImageAction extends EditorPartAction {
 
 public static final String ID = "cz.jpikl.yafmt.ui.editors.fm.actions.ExportAsImageAction";
     
@@ -31,11 +31,11 @@ public static final String ID = "cz.jpikl.yafmt.ui.editors.fm.actions.ExportAsIm
     @Override
     public void run() {
         String fileName = "image";
-        FeatureModel feautureModel = (FeatureModel) getWorkbenchPart().getAdapter(FeatureModel.class);
+        FeatureModel feautureModel = (FeatureModel) getEditorPart().getAdapter(FeatureModel.class);
         if((feautureModel != null) && !feautureModel.getName().trim().isEmpty())
             fileName = feautureModel.getName().trim();
         
-        ImageExporter.save((IEditorPart) getWorkbenchPart(), viewer, fileName);
+        ImageExporter.save(getEditorPart(), viewer, fileName);
     }
     
 }

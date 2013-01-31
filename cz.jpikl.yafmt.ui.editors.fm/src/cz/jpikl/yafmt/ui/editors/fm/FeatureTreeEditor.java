@@ -43,6 +43,7 @@ import org.eclipse.ui.views.properties.PropertySheetPage;
 
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.ui.editors.fm.actions.AddAttributeAction;
+import cz.jpikl.yafmt.ui.editors.fm.actions.AutoLayoutAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.DeleteAttributeAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.ExportAsImageAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.GroupFeaturesAction;
@@ -117,9 +118,11 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
         registry.registerAction(action);
         selectionActions.add(action.getId());
         
+        action = new AutoLayoutAction(this);
+        registry.registerAction(action);
+        
         action = new ExportAsImageAction(this);
         registry.registerAction(action);
-        selectionActions.add(action.getId());
     }
     
     @Override
@@ -140,8 +143,11 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
                 ((SelectionAction) action).setSelectionProvider(viewer);
         }
         
-        ExportAsImageAction exportAsImageAction = (ExportAsImageAction) getActionRegistry().getAction(ExportAsImageAction.ID);
-        exportAsImageAction.setGraphicalViewer(viewer);
+        IAction action = getActionRegistry().getAction(AutoLayoutAction.ID);
+        ((AutoLayoutAction) action).setGraphicalViewer(viewer);
+        
+        action = getActionRegistry().getAction(ExportAsImageAction.ID);
+        ((ExportAsImageAction) action).setGraphicalViewer(viewer);
         
         selectionConverter = new SelectionConverter(viewer.getEditPartRegistry());
     }

@@ -8,6 +8,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.XYLayoutEditPolicy;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
@@ -17,14 +18,31 @@ import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.ui.editors.fm.commands.AddFeatureCommand;
+import cz.jpikl.yafmt.ui.editors.fm.commands.AutoLayoutCommand;
 import cz.jpikl.yafmt.ui.editors.fm.commands.MoveFeatureCommand;
 import cz.jpikl.yafmt.ui.editors.fm.commands.MoveGroupCommand;
 import cz.jpikl.yafmt.ui.editors.fm.commands.ResizeFeatureCommand;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 import cz.jpikl.yafmt.ui.editors.fm.parts.FeatureModelEditPart;
+import cz.jpikl.yafmt.ui.editors.fm.util.RequestConstants;
 
 public class FeatureModelLayoutPolicy extends XYLayoutEditPolicy {
 
+    @Override
+    public Command getCommand(Request request) {
+        if(RequestConstants.REQ_AUTO_LAYOUT.equals(request.getType()))
+            return createAutoLayoutCommand();
+        return super.getCommand(request);
+    }
+    
+    // Auto layout.
+    private Command createAutoLayoutCommand() {
+        FeatureModel featureModel = (FeatureModel) getHost().getModel();
+        LayoutData layoutData = ((FeatureModelEditPart) getHost()).getLayoutData();
+        return new AutoLayoutCommand(featureModel, layoutData);
+    }
+
+    // Add new feature.
     @Override
     protected Command getCreateCommand(CreateRequest request) {
         LayoutData layoutData = ((FeatureModelEditPart) getHost()).getLayoutData();
@@ -34,6 +52,7 @@ public class FeatureModelLayoutPolicy extends XYLayoutEditPolicy {
         return new AddFeatureCommand(layoutData, featureModel, feature, location);
     }
     
+    // Move/resize elements.
     @Override
     protected Command getChangeConstraintCommand(ChangeBoundsRequest request) {
         // Fix move command.
@@ -63,6 +82,7 @@ public class FeatureModelLayoutPolicy extends XYLayoutEditPolicy {
         return super.getChangeConstraintCommand(request);
     }
     
+    // Move/resize feature or group.
     @Override
     protected Command createChangeConstraintCommand(ChangeBoundsRequest request, EditPart child, Object constraint) {
         Dimension sizeDelta = request.getSizeDelta();

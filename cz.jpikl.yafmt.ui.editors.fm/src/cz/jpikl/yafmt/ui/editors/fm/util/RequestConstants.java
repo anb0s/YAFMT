@@ -9,5 +9,6 @@ public interface RequestConstants {
     String REQ_UNGROUP_FEATURES = "cz.jpikl.yafmt.ui.editors.fm.requests.UngroupFeatures";
     String REQ_MAKE_FEATURES_MAN = "cz.jpikl.yafmt.ui.editors.fm.requests.MakeFeaturesMandatory";
     String REQ_MAKE_FEATURES_OPT = "cz.jpikl.yafmt.ui.editors.fm.requests.MakeFeaturesOptional";
+    String REQ_AUTO_LAYOUT = "cz.jpikl.yafmt.ui.editors.fm.requests.AutoLayout";
     
 }

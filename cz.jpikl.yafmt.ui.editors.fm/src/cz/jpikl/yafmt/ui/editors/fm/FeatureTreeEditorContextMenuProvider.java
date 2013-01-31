@@ -10,6 +10,7 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.ui.actions.ActionFactory;
 
 import cz.jpikl.yafmt.ui.editors.fm.actions.AddAttributeAction;
+import cz.jpikl.yafmt.ui.editors.fm.actions.AutoLayoutAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.DeleteAttributeAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.ExportAsImageAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.GroupFeaturesAction;
@@ -56,7 +57,8 @@ public class FeatureTreeEditorContextMenuProvider extends ContextMenuProvider {
         addAction(menu, GEFActionConstants.GROUP_REST, GroupFeaturesAction.ID_XOR);
         addAction(menu, GEFActionConstants.GROUP_REST, GroupFeaturesAction.ID_OR);
         addAction(menu, GEFActionConstants.GROUP_REST, UngroupFeaturesAction.ID);
-        addAction(menu, GEFActionConstants.GROUP_SAVE, ExportAsImageAction.ID);        
+        addAction(menu, GEFActionConstants.GROUP_SAVE, AutoLayoutAction.ID);
+        addAction(menu, GEFActionConstants.GROUP_SAVE, ExportAsImageAction.ID);     
     }
     
 }
