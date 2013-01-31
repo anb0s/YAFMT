@@ -126,6 +126,7 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
                 case Notification.REMOVE:
                 case Notification.REMOVE_MANY:
                     refreshTargetConnections();
+                    ((GroupFigure) getFigure()).updateVisuals();
                     break;
                     
                 case Notification.SET:
@@ -133,6 +134,7 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
                         case FeatureModelPackage.GROUP__LOWER:
                         case FeatureModelPackage.GROUP__UPPER:
                             ((GroupFigure) getFigure()).updateState();
+                            ((GroupFigure) getFigure()).updateVisuals();
                             break;
                     }
                     break;
