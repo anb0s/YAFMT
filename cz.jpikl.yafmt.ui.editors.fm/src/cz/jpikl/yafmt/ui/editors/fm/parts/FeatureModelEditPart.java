@@ -184,28 +184,32 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
             
             Map.Entry<EObject, Rectangle> entry = (Map.Entry<EObject, Rectangle>) updateValue;
             EObject object = entry.getKey();
-            Rectangle constraints = entry.getValue();
+            Rectangle bounds = entry.getValue();
             GraphicalEditPart editPart = getEditPartForObject(object);
             
             if(editPart != null) {
-                setLayoutConstraint(editPart, editPart.getFigure(), constraints);
+                System.out.println(object.toString());
+                setLayoutConstraint(editPart, editPart.getFigure(), bounds);
                 
-                // Update group figure shape when the group or one of its children
-                // features moved.                
-                if(object instanceof Group) {
-                    GroupFigure groupFigure = (GroupFigure) editPart.getFigure();
-                    groupFigure.updateVisuals(constraints); // Propagate the newest bounds.
-                    groupFigure.repaint();
-                }
-                else if(object instanceof Feature) {
-                    editPart = getEditPartForObject(((Feature) object).getParentGroup());
-                    if(editPart != null) {
-                        GroupFigure groupFigure = (GroupFigure) editPart.getFigure();
-                        groupFigure.updateVisuals();
-                        groupFigure.repaint();
-                    }
-                }
+                // Update group figure shape when the group or one of its children features moved.
+                if(object instanceof Group)
+                    updateGroupFigure((Group) object, bounds); // Propagate the newest bounds.
+                else if(object instanceof Feature)
+                    updateGroupFigure(((Feature) object).getParentGroup(), null);
             }
+        }
+        
+        public void updateGroupFigure(Group group, Rectangle bounds) {
+            GraphicalEditPart editPart = getEditPartForObject(group);
+            if(editPart == null)
+                return;
+            
+            GroupFigure figure = (GroupFigure) editPart.getFigure();
+            if(bounds != null)
+                figure.updateVisuals(bounds);
+            else
+                figure.updateVisuals();
+            figure.updateState();
         }
         
         @Override

@@ -78,6 +78,11 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
         }
         layoutData.set(group, bounds);
     }
+    
+    @Override
+    protected void refreshVisuals() {
+        // Ignore this.
+    }
 
     @Override
     protected List<Object> getModelTargetConnections() {
