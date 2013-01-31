@@ -14,12 +14,16 @@ import org.eclipse.swt.widgets.Text;
 
 public class LabelDirectEditManager extends DirectEditManager {
 
-    private Label label;
+    private String text;
     private ICellEditorValidator validator;
     
     public LabelDirectEditManager(GraphicalEditPart source, Label label) {
+        this(source, label, label.getText());
+    }
+    
+    public LabelDirectEditManager(GraphicalEditPart source, Label label, String text) {
         super(source, TextCellEditor.class, new LabelCellEditorLocator(label));
-        this.label = label;
+        this.text = text;
     }
 
     public void setValidator(ICellEditorValidator validator) {
@@ -29,7 +33,7 @@ public class LabelDirectEditManager extends DirectEditManager {
     @Override
     protected void initCellEditor() {
         // Initializes cell editor value from label.
-        getCellEditor().setValue(label.getText());
+        getCellEditor().setValue(text);
         getCellEditor().setValidator(validator);
     }
             
