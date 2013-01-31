@@ -104,7 +104,7 @@ public class GroupFigure extends RectangleFigure {
         
         // Get angle of each group-to-feature connection.
         for(int i = 0; i < size; i++) {
-            Point target = layoutData.getMapping().get(features.get(i)).getCenter();
+            Point target = layoutData.get(features.get(i)).getCenter();
             connectionAngles[i] = getAngle(self, target);
         }
         

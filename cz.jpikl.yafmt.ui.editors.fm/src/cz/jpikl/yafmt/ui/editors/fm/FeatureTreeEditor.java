@@ -197,7 +197,7 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
             resource.getContents().add(layoutData);
             // Set root feature position.
             Rectangle rootBounds = new Rectangle(320, 32, FeatureFigure.WIDTH, FeatureFigure.HEGHT);
-            layoutData.getMapping().put(featureModel.getRoot(), rootBounds);
+            layoutData.set(featureModel.getRoot(), rootBounds);
         }
     }
     

@@ -18,7 +18,7 @@ public class MoveFeatureCommand extends Command {
         setLabel("Move Feature");
         this.layoutData = layoutData;
         this.feature = feature;
-        this.oldBounds = layoutData.getMapping().get(feature);
+        this.oldBounds = layoutData.get(feature);
         this.newBounds = newBounds;
     }
 
@@ -29,13 +29,13 @@ public class MoveFeatureCommand extends Command {
     
     @Override
     public void redo() {
-        layoutData.getMapping().put(feature, newBounds);
+        layoutData.set(feature, newBounds);
         moveGroups(oldBounds, newBounds);
     }
     
     @Override
     public void undo() {
-        layoutData.getMapping().put(feature, oldBounds);
+        layoutData.set(feature, oldBounds);
         moveGroups(newBounds, oldBounds);
     }
     
@@ -44,10 +44,10 @@ public class MoveFeatureCommand extends Command {
         int dy = to.y - from.y;
         
         for(Group group: feature.getGroups()) {
-            Rectangle bounds = layoutData.getMapping().get(group).getCopy();
+            Rectangle bounds = layoutData.get(group).getCopy();
             bounds.x += dx;
             bounds.y += dy;
-            layoutData.getMapping().put(group, bounds);
+            layoutData.set(group, bounds);
         }
     }
             

@@ -21,7 +21,7 @@ public class DeleteFeatureCommand extends RecordingCommand {
         setLabel("Delete Feature " + feature.getName());
         this.layoutData = layoutData;
         this.feature = feature;
-        this.bounds = layoutData.getMapping().get(feature);
+        this.bounds = layoutData.get(feature);
     }
         
     protected void initializeRecording() {
@@ -48,18 +48,18 @@ public class DeleteFeatureCommand extends RecordingCommand {
     @Override
     public void execute() {
         super.execute();
-        layoutData.getMapping().remove(feature);
+        layoutData.remove(feature);
     }
     
     @Override
     public void redo() {
         super.redo();
-        layoutData.getMapping().remove(feature);
+        layoutData.remove(feature);
     }
     
     @Override
     public void undo() {
-        layoutData.getMapping().put(feature, bounds);
+        layoutData.set(feature, bounds);
         super.undo();
     }
     

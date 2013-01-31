@@ -39,18 +39,18 @@ public class ResizeFeatureCommand extends Command {
     
     @Override
     public void redo() {
-        layoutData.getMapping().put(feature, featureNewBounds);
+        layoutData.set(feature, featureNewBounds);
         applyGroupBounds(groupNewBounds);
     }
     
     @Override
     public void undo() {
-        layoutData.getMapping().put(feature, featureOldBounds);
+        layoutData.set(feature, featureOldBounds);
         applyGroupBounds(groupOldBounds);
     }
     
     private void computeFeatureBounds() {
-        featureOldBounds = layoutData.getMapping().get(feature);
+        featureOldBounds = layoutData.get(feature);
         featureNewBounds = featureOldBounds.getCopy();
         featureNewBounds.x += deltas.x;
         featureNewBounds.y += deltas.y;
@@ -62,7 +62,7 @@ public class ResizeFeatureCommand extends Command {
         if(groupBounds == null)
             return;
         for(Map.Entry<Group, Rectangle> entry: groupBounds.entrySet())
-            layoutData.getMapping().put(entry.getKey(), entry.getValue());
+            layoutData.set(entry.getKey(), entry.getValue());
     }
     
     private void computeGroupBounds() {
@@ -73,13 +73,13 @@ public class ResizeFeatureCommand extends Command {
         groupNewBounds = new HashMap<Group, Rectangle>(feature.getGroups().size());
         
         for(Group group: feature.getGroups())
-            groupOldBounds.put(group, layoutData.getMapping().get(group));
+            groupOldBounds.put(group, layoutData.get(group));
         
         double dwRatio = featureNewBounds.width / ((double) featureOldBounds.width);
         double dhRatio = featureNewBounds.height / ((double) featureOldBounds.height);
         
         for(Group group: feature.getGroups()) {
-            Rectangle groupBounds = layoutData.getMapping().get(group).getCopy();
+            Rectangle groupBounds = layoutData.get(group).getCopy();
             
             // Change coordinates according to the ratio. 
             Point groupCenter = groupBounds.getCenter();

@@ -74,6 +74,33 @@ public class LayoutDataImpl extends EObjectImpl implements LayoutData {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    public void set(EObject object, Rectangle bounds) {
+        getMapping().put(object, bounds);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    public Rectangle get(EObject object) {
+        return getMapping().get(object);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    public Rectangle remove(EObject object) {
+        return getMapping().removeKey(object);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     @Override

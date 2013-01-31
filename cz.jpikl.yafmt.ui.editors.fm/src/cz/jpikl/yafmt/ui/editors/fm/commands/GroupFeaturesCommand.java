@@ -51,12 +51,12 @@ public class GroupFeaturesCommand extends RecordingCommand {
     }
     
     private void computeGroupBounds() {
-        Rectangle parentBounds = layoutData.getMapping().get(group.getParent());
+        Rectangle parentBounds = layoutData.get(group.getParent());
         
         int cx = 0;
         int cy = 0;
         for(Feature feature: features) {
-            Point center = layoutData.getMapping().get(feature).getCenter();
+            Point center = layoutData.get(feature).getCenter();
             cx += center.x;
             cy += center.y;
         }
@@ -68,21 +68,21 @@ public class GroupFeaturesCommand extends RecordingCommand {
     
     @Override
     public void execute() {
-        layoutData.getMapping().put(group, bounds);
+        layoutData.set(group, bounds);
         super.execute();
         
     }
     
     @Override
     public void redo() {
-        layoutData.getMapping().put(group, bounds);
+        layoutData.set(group, bounds);
         super.redo();
     }
     
     @Override
     public void undo() {
         super.undo();
-        layoutData.getMapping().remove(group);
+        layoutData.remove(group);
     }
     
 }

@@ -69,10 +69,10 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
     }
     
     private void refresLayoutData() {
-        Rectangle bounds = layoutData.getMapping().get(feature);
+        Rectangle bounds = layoutData.get(feature);
         if(bounds == null)
             bounds = new Rectangle(0, 0, FeatureFigure.WIDTH, FeatureFigure.HEGHT);
-        layoutData.getMapping().put(feature, bounds);
+        layoutData.set(feature, bounds);
     }
     
     @Override

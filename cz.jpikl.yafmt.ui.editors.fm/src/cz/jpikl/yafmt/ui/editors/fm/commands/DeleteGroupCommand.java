@@ -15,7 +15,7 @@ public class DeleteGroupCommand extends RecordingCommand {
         setLabel("Delete Group");
         this.layoutData = layoutData;
         this.group = group;
-        this.bounds = layoutData.getMapping().get(group);
+        this.bounds = layoutData.get(group);
     }
     
     @Override
@@ -33,18 +33,18 @@ public class DeleteGroupCommand extends RecordingCommand {
     @Override
     public void execute() {
         super.execute();
-        layoutData.getMapping().remove(group);
+        layoutData.remove(group);
     }
     
     @Override
     public void redo() {
         super.redo();
-        layoutData.getMapping().remove(group);
+        layoutData.remove(group);
     }
     
     @Override
     public void undo() {
-        layoutData.getMapping().put(group, bounds);
+        layoutData.set(group, bounds);
         super.undo();
     }
 
