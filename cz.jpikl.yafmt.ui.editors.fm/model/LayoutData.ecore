@@ -3,6 +3,16 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="layout" nsURI="https://bitbucket.org/jpikl/yafmt/ui/editors/fm/layout"
     nsPrefix="layout">
   <eClassifiers xsi:type="ecore:EClass" name="LayoutData">
+    <eOperations name="set">
+      <eParameters name="object" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+      <eParameters name="bounds" eType="#//Rectangle"/>
+    </eOperations>
+    <eOperations name="get" eType="#//Rectangle">
+      <eParameters name="object" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+    </eOperations>
+    <eOperations name="remove" eType="#//Rectangle">
+      <eParameters name="object" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" upperBound="-1"
         eType="#//EObjectToRectangle" changeable="false" containment="true"/>
   </eClassifiers>

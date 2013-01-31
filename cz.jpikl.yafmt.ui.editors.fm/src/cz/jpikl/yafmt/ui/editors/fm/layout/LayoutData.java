@@ -42,4 +42,28 @@ public interface LayoutData extends EObject {
      */
     EMap<EObject, Rectangle> getMapping();
 
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @model boundsDataType="cz.jpikl.yafmt.ui.editors.fm.layout.Rectangle"
+     * @generated
+     */
+    void set(EObject object, Rectangle bounds);
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @model dataType="cz.jpikl.yafmt.ui.editors.fm.layout.Rectangle"
+     * @generated
+     */
+    Rectangle get(EObject object);
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @model dataType="cz.jpikl.yafmt.ui.editors.fm.layout.Rectangle"
+     * @generated
+     */
+    Rectangle remove(EObject object);
+
 } // LayoutData

@@ -18,7 +18,7 @@ public class MoveGroupCommand extends Command {
         setLabel("Move Group");
         this.layoutData = layoutData;
         this.group = group;
-        this.oldBounds = layoutData.getMapping().get(group);
+        this.oldBounds = layoutData.get(group);
         this.newBounds = newBounds;
     }
     
@@ -30,16 +30,16 @@ public class MoveGroupCommand extends Command {
     
     @Override
     public void redo() {
-        layoutData.getMapping().put(group, newBounds);
+        layoutData.set(group, newBounds);
     }
     
     @Override
     public void undo() {
-        layoutData.getMapping().put(group, oldBounds);
+        layoutData.set(group, oldBounds);
     }
     
     private void computeNewBounds() {
-        Rectangle parentBounds = layoutData.getMapping().get(group.getParent());
+        Rectangle parentBounds = layoutData.get(group.getParent());
         int cx = newBounds.x + newBounds.width / 2;
         int cy = newBounds.y + newBounds.height / 2;
         newBounds = computeGroupBounds(parentBounds, cx, cy);

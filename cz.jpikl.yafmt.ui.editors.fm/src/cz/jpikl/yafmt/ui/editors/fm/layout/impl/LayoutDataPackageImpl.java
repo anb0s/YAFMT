@@ -13,6 +13,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -232,6 +233,16 @@ public class LayoutDataPackageImpl extends EPackageImpl implements LayoutDataPac
         // Initialize classes and features; add operations and parameters
         initEClass(layoutDataEClass, LayoutData.class, "LayoutData", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getLayoutData_Mapping(), this.getEObjectToRectangle(), null, "mapping", null, 0, -1, LayoutData.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        EOperation op = addEOperation(layoutDataEClass, null, "set", 0, 1, IS_UNIQUE, IS_ORDERED);
+        addEParameter(op, ecorePackage.getEObject(), "object", 0, 1, IS_UNIQUE, IS_ORDERED);
+        addEParameter(op, this.getRectangle(), "bounds", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+        op = addEOperation(layoutDataEClass, this.getRectangle(), "get", 0, 1, IS_UNIQUE, IS_ORDERED);
+        addEParameter(op, ecorePackage.getEObject(), "object", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+        op = addEOperation(layoutDataEClass, this.getRectangle(), "remove", 0, 1, IS_UNIQUE, IS_ORDERED);
+        addEParameter(op, ecorePackage.getEObject(), "object", 0, 1, IS_UNIQUE, IS_ORDERED);
 
         initEClass(eObjectToRectangleEClass, Map.Entry.class, "EObjectToRectangle", !IS_ABSTRACT, !IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
         initEReference(getEObjectToRectangle_Key(), ecorePackage.getEObject(), null, "key", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

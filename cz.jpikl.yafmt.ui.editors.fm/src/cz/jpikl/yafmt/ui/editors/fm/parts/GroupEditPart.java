@@ -61,9 +61,9 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
     }
                 
     private void refreshLayoutData() {
-        Rectangle bounds = layoutData.getMapping().get(group);
+        Rectangle bounds = layoutData.get(group);
         if(bounds == null) {
-            Rectangle parentBounds = layoutData.getMapping().get(group.getParent());
+            Rectangle parentBounds = layoutData.get(group.getParent());
             int x, y, w, h;
             if(parentBounds == null) {
                 x = y = 0;
@@ -76,7 +76,12 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
             }
             bounds = new Rectangle(x, y, w, h);
         }
-        layoutData.getMapping().put(group, bounds);
+        layoutData.set(group, bounds);
+    }
+    
+    @Override
+    protected void refreshVisuals() {
+        // Ignore this.
     }
 
     @Override
