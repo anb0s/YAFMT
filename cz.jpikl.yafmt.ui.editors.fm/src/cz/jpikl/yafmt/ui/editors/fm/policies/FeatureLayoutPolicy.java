@@ -6,6 +6,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.editpolicies.OrderedLayoutEditPolicy;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gef.requests.CreateRequest;
@@ -13,6 +14,7 @@ import org.eclipse.gef.requests.CreateRequest;
 import cz.jpikl.yafmt.model.fm.Attribute;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.ui.editors.fm.commands.AddAttributeCommand;
+import cz.jpikl.yafmt.ui.editors.fm.commands.DeleteAttributeCommand;
 import cz.jpikl.yafmt.ui.editors.fm.commands.MoveAttributeCommand;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 import cz.jpikl.yafmt.ui.editors.fm.parts.FeatureEditPart;
@@ -40,6 +42,7 @@ public class FeatureLayoutPolicy extends OrderedLayoutEditPolicy {
         return editPartAfter;
     }
 
+    // Moved attribute within the same feature (change its position).
     @Override
     protected Command createMoveChildCommand(EditPart editPart, EditPart editPartAfter) {
         List<Attribute> attributes = ((Feature) getHost().getModel()).getAttributes();
@@ -60,11 +63,25 @@ public class FeatureLayoutPolicy extends OrderedLayoutEditPolicy {
         return new MoveAttributeCommand(attribute, targetIndex);
     }
     
+    // Moving attribute from another feature.
     @Override
     protected Command createAddCommand(EditPart editPart, EditPart editPartAfter) {
-        return null;
+        LayoutData layoutData = ((FeatureEditPart) getHost()).getLayoutData();
+        Feature feature = (Feature) getHost().getModel();
+        List<Attribute> attributes = feature.getAttributes();
+        Attribute attribute = (Attribute) editPart.getModel();
+        
+        int targetIndex = attributes.size();
+        if(editPartAfter != null)
+            targetIndex = attributes.indexOf(editPartAfter.getModel());
+                
+        CompoundCommand command = new CompoundCommand("Move attribute " + attribute.getName() + " to " + feature.getName());
+        command.add(new DeleteAttributeCommand(layoutData, attribute));
+        command.add(new AddAttributeCommand(layoutData, feature, attribute, targetIndex));
+        return command;
     }
 
+    // A new attribute added to the feature.
     @Override
     protected Command getCreateCommand(CreateRequest request) {
         Object object = request.getNewObject();

@@ -13,12 +13,18 @@ public class AddAttributeCommand extends RecordingCommand {
     private LayoutData layoutData;
     private Feature feature;
     private Attribute attribute;
+    private int index;
     
     public AddAttributeCommand(LayoutData layoutData, Feature feature, Attribute attribute) {
+        this(layoutData, feature, attribute, feature.getAttributes().size());
+    }
+    
+    public AddAttributeCommand(LayoutData layoutData, Feature feature, Attribute attribute, int index) {
         setLabel("Add Attribute");
         this.layoutData = layoutData;
         this.feature = feature;
         this.attribute = attribute;
+        this.index = index;
     }
     
     private void initializeResizeCommand() {
@@ -37,7 +43,7 @@ public class AddAttributeCommand extends RecordingCommand {
 
     @Override
     protected void performRecording() {
-        feature.getAttributes().add(attribute);
+        feature.getAttributes().add(index, attribute);
     }
     
     @Override
