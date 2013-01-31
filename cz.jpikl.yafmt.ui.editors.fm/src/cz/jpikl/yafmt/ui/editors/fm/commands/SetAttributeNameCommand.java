@@ -2,12 +2,12 @@ package cz.jpikl.yafmt.ui.editors.fm.commands;
 
 import cz.jpikl.yafmt.model.fm.Attribute;
 
-public class RenameAttributeCommand extends RecordingCommand {
+public class SetAttributeNameCommand extends RecordingCommand {
 
     private Attribute attribute;
     private String newName;
 
-    public RenameAttributeCommand(Attribute attribute, String newName) {
+    public SetAttributeNameCommand(Attribute attribute, String newName) {
         setLabel("Rename Attribute " + attribute.getName() + " to " + newName);
         this.attribute = attribute;
         this.newName = newName;

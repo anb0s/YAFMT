@@ -6,7 +6,7 @@ import org.eclipse.gef.requests.DirectEditRequest;
 
 import cz.jpikl.yafmt.model.fm.Attribute;
 import cz.jpikl.yafmt.model.fm.AttributeType;
-import cz.jpikl.yafmt.ui.editors.fm.commands.RenameAttributeCommand;
+import cz.jpikl.yafmt.ui.editors.fm.commands.SetAttributeNameCommand;
 import cz.jpikl.yafmt.ui.editors.fm.commands.SetAttributeTypeCommand;
 import cz.jpikl.yafmt.ui.editors.fm.figures.AttributeFigure;
 
@@ -22,7 +22,7 @@ public class AttributeDirectEditPolicy extends DirectEditPolicy {
             String name = (String) value;
             if(name.isEmpty())
                 return null;
-            return new RenameAttributeCommand(attribute, name);
+            return new SetAttributeNameCommand(attribute, name);
         }
         
         // Type input.
