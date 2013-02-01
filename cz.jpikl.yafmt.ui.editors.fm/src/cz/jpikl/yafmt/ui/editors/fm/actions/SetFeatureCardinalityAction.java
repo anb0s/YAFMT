@@ -29,12 +29,12 @@ public class SetFeatureCardinalityAction extends SelectionAction {
     private static void setActionProperties(IAction action, boolean mandatory) {
         if(mandatory) {
             action.setId(ID_MANDATORY);
-            action.setText("Make Features Mandatory");
+            action.setText("Make Feature Mandatory");
             action.setImageDescriptor(FeatureModelEditorPlugin.getImageDescriptor("icons/feature-man.png"));
         }
         else {
             action.setId(ID_OPTIONAL);
-            action.setText("Make Features Optional");
+            action.setText("Make Feature Optional");
             action.setImageDescriptor(FeatureModelEditorPlugin.getImageDescriptor("icons/feature-opt.png"));
         }
     }
@@ -53,18 +53,14 @@ public class SetFeatureCardinalityAction extends SelectionAction {
         if(objects.isEmpty() || !(objects.get(0) instanceof EditPart))
             return null;
         
-        String type = mandatory ? RequestConstants.REQ_MAKE_FEATURES_MAN :RequestConstants.REQ_MAKE_FEATURES_OPT; 
+        String type = mandatory ? RequestConstants.REQ_MAKE_FEATURE_MAN :RequestConstants.REQ_MAKE_FEATURE_OPT; 
         GroupRequest request = new GroupRequest(type);
         request.setEditParts(objects);
 
-        String name = "Make Features " + (mandatory ? "Mandatory" : "Optional");
-        CompoundCommand compoundCommand = new CompoundCommand(name);
-        for (Object object: objects) {
-            Command command = ((EditPart) object).getCommand(request);
-            if(command != null)
-                compoundCommand.add(command);
-        }
-        return compoundCommand;
+        CompoundCommand command = new CompoundCommand();
+        for (Object object: objects)
+            command.add(((EditPart) object).getCommand(request));
+        return command;
     }
     
     @Override

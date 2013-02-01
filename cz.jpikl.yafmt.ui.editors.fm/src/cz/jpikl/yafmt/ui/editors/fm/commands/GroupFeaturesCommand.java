@@ -1,5 +1,6 @@
 package cz.jpikl.yafmt.ui.editors.fm.commands;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.draw2d.geometry.Point;
@@ -44,7 +45,9 @@ public class GroupFeaturesCommand extends RecordingCommand {
         group.getFeatures().addAll(features);
         group.setXor(xorGroup); // Must be called after adding features.
         
-        for(Group group: ((Feature) parent).getGroups())
+        // Do not iterate on the original group list (ConcurrentModificationException).
+        List<Group> groups = new ArrayList<Group>(((Feature) parent).getGroups());
+        for(Group group: groups)
             FeatureModelUtil.removeUnneededGroup(group);
         
         computeGroupBounds();

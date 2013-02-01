@@ -35,6 +35,7 @@ public class UngroupFeaturesCommand extends RecordingCommand {
             }
         }
         
+        // Do not iterate on the original group list (ConcurrentModificationException).
         for(Group group: previousParents)
             FeatureModelUtil.removeUnneededGroup(group);
     }

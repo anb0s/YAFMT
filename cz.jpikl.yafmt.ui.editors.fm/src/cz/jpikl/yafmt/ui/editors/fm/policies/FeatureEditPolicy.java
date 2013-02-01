@@ -17,11 +17,11 @@ public class FeatureEditPolicy extends ComponentEditPolicy {
     @Override
     public Command getCommand(Request request) {
         Object type = request.getType();
-        if(RequestConstants.REQ_MAKE_FEATURES_MAN.equals(type)) {
+        if(RequestConstants.REQ_MAKE_FEATURE_MAN.equals(type)) {
             Feature feature = (Feature) getHost().getModel();
             return createSetFeatureCardinalityCommand(feature, true);
         }
-        else if(RequestConstants.REQ_MAKE_FEATURES_OPT.equals(type)) {
+        else if(RequestConstants.REQ_MAKE_FEATURE_OPT.equals(type)) {
             Feature feature = (Feature) getHost().getModel();
             return createSetFeatureCardinalityCommand(feature, false);
         }

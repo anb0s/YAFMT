@@ -3,7 +3,9 @@ package cz.jpikl.yafmt.ui.editors.fm.actions;
 import java.util.List;
 
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.requests.GroupRequest;
 import org.eclipse.gef.ui.actions.SelectionAction;
 import org.eclipse.jface.action.IAction;
@@ -49,17 +51,27 @@ public class GroupFeaturesAction extends SelectionAction {
         
     private Command getCommand() {
         List<?> objects = getSelectedObjects();
-        if((objects.size() < 2) || !(objects.get(0) instanceof EditPart))
+        if(objects.isEmpty() || !(objects.get(0) instanceof EditPart))
             return null;
         
+        CompoundCommand command = new CompoundCommand();
+        
+        // Get command to create new group from selected features.
         EditPart parentEditPart = ((EditPart) objects.get(0)).getParent();
-        if(parentEditPart == null)
-            return null;
+        if(parentEditPart != null) {
+            String type = xorGroup ? RequestConstants.REQ_GROUP_FEATURES_XOR : RequestConstants.REQ_GROUP_FEATURES_OR;
+            GroupRequest request = new GroupRequest(type);
+            request.setEditParts(objects);
+            command.add(parentEditPart.getCommand(request));
+        }
+
+        // Get commands to change selected group cardinality.
+        String type = xorGroup ? RequestConstants.REQ_MAKE_GROUP_XOR : RequestConstants.REQ_MAKE_GROUP_OR;
+        Request request = new Request(type);
+        for(Object object: objects)
+            command.add(((EditPart) object).getCommand(request));
         
-        String type = xorGroup ? RequestConstants.REQ_GROUP_FEATURES_XOR : RequestConstants.REQ_GROUP_FEATURES_OR;
-        GroupRequest request = new GroupRequest(type);
-        request.setEditParts(objects);
-        return parentEditPart.getCommand(request);
+        return command;
     }
     
     @Override
