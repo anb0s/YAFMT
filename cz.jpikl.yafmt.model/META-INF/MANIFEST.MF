@@ -12,7 +12,8 @@ Require-Bundle: org.eclipse.core.runtime,
 Export-Package: cz.jpikl.yafmt.model.fc,
  cz.jpikl.yafmt.model.fc.util,
  cz.jpikl.yafmt.model.fm,
- cz.jpikl.yafmt.model.fm.util
+ cz.jpikl.yafmt.model.fm.util,
+ cz.jpikl.yafmt.model.util
 Bundle-Vendor: %providerName
 Bundle-Activator: cz.jpikl.yafmt.model.FeatureModelPlugin$Implementation
 Bundle-ActivationPolicy: lazy

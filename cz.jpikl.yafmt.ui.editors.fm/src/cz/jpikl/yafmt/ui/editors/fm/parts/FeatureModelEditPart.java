@@ -108,7 +108,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
             // This order is used for rendering objects.
             addChild(createChild(object), 0);
             // When ChangeRecorder does undo, it merge all changes, so previously deleted
-            // group can be added together with previously deleted feature.
+            // group can be added together with previously deleted features.
             Group group = (Group) object;
             for(Feature feature: group.getFeatures())
                 addEditPartForObject(feature);
@@ -118,6 +118,8 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
             addChild(createChild(object), getChildren().size());
             // Same case as mentioned above.
             Feature feature = (Feature) object;
+            for(Feature child: feature.getFeatures())
+                addEditPartForObject(child);
             for(Group group: feature.getGroups())
                 addEditPartForObject(group);
         }

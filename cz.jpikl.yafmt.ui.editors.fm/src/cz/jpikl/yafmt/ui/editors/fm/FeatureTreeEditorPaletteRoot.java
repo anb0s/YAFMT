@@ -69,7 +69,7 @@ public class FeatureTreeEditorPaletteRoot extends PaletteRoot {
     
     private ToolEntry createConnectionCreationEntry() {
         ImageDescriptor img = FeatureModelEditorPlugin.getImageDescriptor("icons/connection.png");
-        return new ConnectionCreationToolEntry("Connection", "Create connection.", null, img, null);
+        return new ConnectionCreationToolEntry("Connection", "Create connection (from feature to sub-feature).", null, img, null);
     }
     
     private static class FeatureFactory extends SimpleFactory {

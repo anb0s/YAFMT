@@ -24,7 +24,7 @@
             class="cz.jpikl.yafmt.ui.editors.fm.wizards.NewFeatureModelWizard"
             icon="icons/fm-file-new.png"
             id="cz.jpikl.yafmt.ui.editors.fm.wizards.NewFeatureModelWizard"
-            name="New Feature Model Wizard">
+            name="New Feature Model">
       </wizard>
    </extension>
 
