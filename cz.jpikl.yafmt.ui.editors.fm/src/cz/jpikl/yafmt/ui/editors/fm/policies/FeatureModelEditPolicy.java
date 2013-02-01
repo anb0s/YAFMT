@@ -47,10 +47,10 @@ public class FeatureModelEditPolicy extends ComponentEditPolicy {
         EObject commonParent = null;
         for(Feature feature: features) {
             EObject parent = feature.getParent();
-            if(parent == null)
-                return null;
             if(parent instanceof Group)
                 parent = ((Group) parent).getParent();
+            if(!(parent instanceof Feature))
+                return null;
             if(commonParent == null)
                 commonParent = parent;
             else if(parent != commonParent)
