@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.EventObject;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -23,7 +22,6 @@ import org.eclipse.gef.dnd.TemplateTransferDragSourceListener;
 import org.eclipse.gef.dnd.TemplateTransferDropTargetListener;
 import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
 import org.eclipse.gef.palette.PaletteRoot;
-import org.eclipse.gef.ui.actions.ActionRegistry;
 import org.eclipse.gef.ui.actions.SelectionAction;
 import org.eclipse.gef.ui.palette.PaletteViewer;
 import org.eclipse.gef.ui.parts.GraphicalEditorWithPalette;
@@ -42,7 +40,6 @@ import org.eclipse.ui.views.properties.PropertySheet;
 import org.eclipse.ui.views.properties.PropertySheetPage;
 
 import cz.jpikl.yafmt.model.fm.FeatureModel;
-
 import cz.jpikl.yafmt.ui.editors.fm.actions.AutoLayoutAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.ExportAsImageAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.GroupFeaturesAction;
@@ -81,39 +78,33 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
     }
         
     @Override
-    @SuppressWarnings("unchecked")
     protected void createActions() {
-        super.createActions();
+        super.createActions();        
+        createAction(new SetFeatureCardinalityAction(this, false), true);
+        createAction(new SetFeatureCardinalityAction(this, true), true);
+        createAction(new GroupFeaturesAction(this, true), true);
+        createAction(new GroupFeaturesAction(this, false), true);
+        createAction(new UngroupFeaturesAction(this), true);
+    }
+    
+    protected void createActionsLate() {
+        // These actions need initialized graphical viewer.
+        createAction(new AutoLayoutAction(this, getGraphicalViewer()), false);
+        createAction(new ExportAsImageAction(this, getGraphicalViewer()), false);
         
-        ActionRegistry registry = getActionRegistry();
-        List<Object> selectionActions = (List<Object>) getSelectionActions();
-        IAction action; 
-        
-        action = new SetFeatureCardinalityAction(this, false);
-        registry.registerAction(action);
-        selectionActions.add(action.getId());
-        
-        action = new SetFeatureCardinalityAction(this, true);
-        registry.registerAction(action);
-        selectionActions.add(action.getId());
-        
-        action = new GroupFeaturesAction(this, true);
-        registry.registerAction(action);
-        selectionActions.add(action.getId());
-        
-        action = new GroupFeaturesAction(this, false);
-        registry.registerAction(action);
-        selectionActions.add(action.getId());
-        
-        action = new UngroupFeaturesAction(this);
-        registry.registerAction(action);
-        selectionActions.add(action.getId());
-        
-        action = new AutoLayoutAction(this);
-        registry.registerAction(action);
-        
-        action = new ExportAsImageAction(this);
-        registry.registerAction(action);
+        // Actions need original selection provider.
+        for(Iterator<?> it = getActionRegistry().getActions(); it.hasNext(); ) {
+            IAction action = (IAction) it.next();
+            if(action instanceof SelectionAction)
+                ((SelectionAction) action).setSelectionProvider(getGraphicalViewer());
+        }
+    }
+    
+    @SuppressWarnings("unchecked")
+    private void createAction(IAction action, boolean selectionAction) {
+        getActionRegistry().registerAction(action);
+        if(selectionAction)
+            getSelectionActions().add(action.getId());
     }
     
     @Override
@@ -127,20 +118,8 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
         viewer.setContextMenu(new FeatureTreeEditorContextMenuProvider(viewer, getActionRegistry()));
         viewer.addDropTargetListener(new TemplateTransferDropTargetListener(viewer));
         
-        // Actions need original selection provider.
-        for(Iterator<?> it = getActionRegistry().getActions(); it.hasNext(); ) {
-            IAction action = (IAction) it.next();
-            if(action instanceof SelectionAction)
-                ((SelectionAction) action).setSelectionProvider(viewer);
-        }
-        
-        IAction action = getActionRegistry().getAction(AutoLayoutAction.ID);
-        ((AutoLayoutAction) action).setGraphicalViewer(viewer);
-        
-        action = getActionRegistry().getAction(ExportAsImageAction.ID);
-        ((ExportAsImageAction) action).setGraphicalViewer(viewer);
-        
         selectionConverter = new SelectionConverter(viewer.getEditPartRegistry());
+        createActionsLate();
     }
     
     @Override

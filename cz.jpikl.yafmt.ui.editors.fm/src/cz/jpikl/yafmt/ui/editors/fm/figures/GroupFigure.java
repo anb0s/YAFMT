@@ -23,7 +23,7 @@ public class GroupFigure extends RectangleFigure {
     
     private Group group;
     private LayoutData layoutData;
-    private Label label;
+    private Label label = new NonInteractiveLabel();
     
     private double[] connectionAngles;
     private int arcOffset = 0;
@@ -33,11 +33,12 @@ public class GroupFigure extends RectangleFigure {
     public GroupFigure(Group group, LayoutData layoutData) {
         this.group = group;
         this.layoutData = layoutData;
-        this.label = new NonInteractiveLabel();
         
+        label.setForegroundColor(ColorConstants.black);
         setOpaque(true);
         setForegroundColor(ColorConstants.black);
         addAncestorListener(new AncestorRemover(label));
+        
         updateState();
         updateVisuals();
     }
@@ -54,7 +55,7 @@ public class GroupFigure extends RectangleFigure {
     
     @Override
     protected void fillShape(Graphics graphics) {
-        graphics.fillArc(arcBounds, arcOffset, arcLength);
+        graphics.fillArc(arcBounds.getTranslated(1, 1), arcOffset, arcLength);
     }
     
     @Override
@@ -126,7 +127,7 @@ public class GroupFigure extends RectangleFigure {
         
         // Arc is made between connections outside the found region.
         arcOffset = (int) connectionAngles[maxIndex + 1];
-        arcLength = (int) (360.0 - (connectionAngles[maxIndex + 1] - connectionAngles[maxIndex]) + 2);
+        arcLength = (int) (360.0 - (connectionAngles[maxIndex + 1] - connectionAngles[maxIndex]) + 1);
         arcBounds = getOptimizedBounds();
     }
         

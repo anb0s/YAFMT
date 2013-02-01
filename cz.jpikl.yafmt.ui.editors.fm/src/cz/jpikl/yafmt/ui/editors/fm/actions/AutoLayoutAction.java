@@ -15,16 +15,14 @@ public class AutoLayoutAction extends EditorPartAction {
     
     private GraphicalViewer viewer;
     
-    public AutoLayoutAction(IEditorPart editorPart) {
+    public AutoLayoutAction(IEditorPart editorPart, GraphicalViewer viewer) {
         super(editorPart);
+        this.viewer = viewer;
+        
         setId(ID);
         setText("Apply Auto Layout");
     }
     
-    public void setGraphicalViewer(GraphicalViewer viewer) {
-        this.viewer = viewer;
-    }
-
     @Override
     protected boolean calculateEnabled() {
         Command command = getCommand();

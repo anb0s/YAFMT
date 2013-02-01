@@ -13,16 +13,14 @@ public static final String ID = "cz.jpikl.yafmt.ui.editors.fm.actions.ExportAsIm
     
     private GraphicalViewer viewer;
 
-    public ExportAsImageAction(IEditorPart editorPart) {
+    public ExportAsImageAction(IEditorPart editorPart, GraphicalViewer viewer) {
         super(editorPart);
+        this.viewer = viewer;
+        
         setId(ID);
         setText("Export As Image");
     }
-    
-    public void setGraphicalViewer(GraphicalViewer viewer) {
-        this.viewer = viewer;
-    }
-    
+        
     @Override
     protected boolean calculateEnabled() {
         return true;

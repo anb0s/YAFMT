@@ -9,33 +9,17 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.RoundedRectangle;
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Pattern;
 import org.eclipse.swt.widgets.Display;
 
-import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.ui.editors.fm.util.DrawConstantans;
 
 public class FeatureFigure extends RoundedRectangle {
     
     public static final int WIDTH = 100;
     public static final int HEGHT = 25;
-
-    public static Rectangle computeBoundsDeltaAddAttribute(Feature feature, Rectangle bounds) {
-        Rectangle deltas = new Rectangle();
-        deltas.height = (feature.getAttributes().isEmpty()) ? AttributeFigure.EXTENDED_HEIGHT : AttributeFigure.HEIGHT;
-        if(bounds.width < AttributeFigure.WIDTH)
-            deltas.width = AttributeFigure.WIDTH - bounds.width;
-        return deltas;
-    }
-    
-    public static Rectangle computeBoundsDeltaDeleteAttribute(Feature feature) {
-        Rectangle deltas = new Rectangle();
-        deltas.height = -((feature.getAttributes().size() == 1) ? AttributeFigure.EXTENDED_HEIGHT : AttributeFigure.HEIGHT);
-        return deltas;
-    }
     
     private Label label = new Label();
     private SeparatorFigure separator;
@@ -43,8 +27,12 @@ public class FeatureFigure extends RoundedRectangle {
     
     public FeatureFigure(String featureName) {
         label.setFont(DrawConstantans.getBoldFont());
+        label.setForegroundColor(ColorConstants.black);
+        
         setLayoutManager(new GridLayout());
         add(label, new GridData(SWT.FILL, SWT.FILL, true, true));
+        
+        setForegroundColor(ColorConstants.black);
         updateLabel(featureName);
     }
     
@@ -95,17 +83,25 @@ public class FeatureFigure extends RoundedRectangle {
         
     @Override
     protected void fillShape(Graphics graphics) {
-        Point top = bounds.getTop();
-        Point bottom = bounds.getBottom();
-        
-        Color bgColor = DrawConstantans.getBackgroundColor();
-        Pattern pattern = new Pattern(Display.getCurrent(), top.x, top.y, bottom.x, bottom.y, bgColor, ColorConstants.white);
-        
+        Pattern pattern = createPattern(graphics, DrawConstantans.getBackgroundColor(), ColorConstants.white);
         graphics.setBackgroundPattern(pattern);
         super.fillShape(graphics);
         graphics.setBackgroundPattern(null);
-        
         pattern.dispose();
+    }
+    
+    private Pattern createPattern(Graphics graphics, Color topColor, Color bottomColor) {
+        Point top = bounds.getTop();
+        Point bottom = bounds.getBottom();
+        double scale = graphics.getAbsoluteScale();
+        
+        // Apply scale.
+        int topX = (int) (scale * top.x);
+        int topY = (int) (scale * top.y);
+        int bottomX = (int) (scale * bottom.x);
+        int bottomY = (int) (scale * bottom.y);
+        
+        return new Pattern(Display.getCurrent(), topX, topY, bottomX, bottomY, topColor, bottomColor);
     }
 
 }

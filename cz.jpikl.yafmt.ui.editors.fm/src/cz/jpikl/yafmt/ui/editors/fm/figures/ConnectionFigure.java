@@ -1,5 +1,6 @@
 package cz.jpikl.yafmt.ui.editors.fm.figures;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.ConnectionEndpointLocator;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.PolylineConnection;
@@ -16,7 +17,11 @@ public class ConnectionFigure extends PolylineConnection {
         ConnectionEndpointLocator locator = new ConnectionEndpointLocator(this, false);
         locator.setUDistance(4);
         locator.setVDistance(16);
+        
         add(label, locator);
+        label.setForegroundColor(ColorConstants.black);
+        
+        setForegroundColor(ColorConstants.black);
         updateTargetDecoration(target);
     }
         

@@ -1,5 +1,6 @@
 package cz.jpikl.yafmt.ui.editors.fm.figures;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Label;
 
 import cz.jpikl.yafmt.model.fm.Attribute;
@@ -15,6 +16,7 @@ public class AttributeFigure extends Label {
     private String type;
     
     public AttributeFigure(Attribute attribute) {
+        setForegroundColor(ColorConstants.black);
         updateLabel(attribute);
     }
     
