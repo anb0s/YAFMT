@@ -55,7 +55,10 @@ public class GroupFigure extends RectangleFigure {
     
     @Override
     protected void fillShape(Graphics graphics) {
-        graphics.fillArc(arcBounds.getTranslated(1, 1), arcOffset, arcLength);
+        Rectangle fillBounds = arcBounds.getCopy();
+        fillBounds.width++;
+        fillBounds.height++;
+        graphics.fillArc(fillBounds, arcOffset, arcLength);
     }
     
     @Override

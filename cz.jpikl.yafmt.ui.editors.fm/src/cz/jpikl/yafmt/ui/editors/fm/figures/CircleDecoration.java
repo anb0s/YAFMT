@@ -2,6 +2,7 @@ package cz.jpikl.yafmt.ui.editors.fm.figures;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Ellipse;
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.RotatableDecoration;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PrecisionPoint;
@@ -17,6 +18,11 @@ class CircleDecoration extends Ellipse implements RotatableDecoration {
     
     public void setFilled(boolean filled) {
         setBackgroundColor(filled ? ColorConstants.black : ColorConstants.white);
+    }
+    
+    @Override
+    protected void fillShape(Graphics graphics) {
+        graphics.fillOval(getBounds());
     }
     
     @Override

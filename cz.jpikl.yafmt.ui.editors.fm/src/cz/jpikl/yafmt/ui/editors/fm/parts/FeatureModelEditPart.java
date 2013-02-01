@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.draw2d.ConnectionLayer;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.notify.Adapter;
@@ -15,7 +16,9 @@ import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
+import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
+import org.eclipse.swt.SWT;
 
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
@@ -59,6 +62,13 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
     @Override
     protected IFigure createFigure() {
         return new FeatureModelFigure();
+    }
+
+    @Override
+    protected void refreshVisuals() {
+        // Enable antialiasing for connection layer.
+        // Antialiasing for other layers is enabled in FeatureModelFigure.
+        ((ConnectionLayer) getLayer(LayerConstants.CONNECTION_LAYER)).setAntialias(SWT.ON);
     }
 
     @Override
