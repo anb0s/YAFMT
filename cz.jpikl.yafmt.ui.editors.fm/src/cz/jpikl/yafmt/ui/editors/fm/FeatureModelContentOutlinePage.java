@@ -1,8 +1,18 @@
 package cz.jpikl.yafmt.ui.editors.fm;
 
+import org.eclipse.draw2d.LightweightSystem;
+import org.eclipse.draw2d.Viewport;
+import org.eclipse.draw2d.parts.ScrollableThumbnail;
+import org.eclipse.gef.LayerConstants;
+import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.TabFolder;
+import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.part.IPageSite;
@@ -15,10 +25,15 @@ import cz.jpikl.yafmt.model.fm.provider.util.FeatureModelProviderUtil;
 
 public class FeatureModelContentOutlinePage extends ContentOutlinePage implements ISelectionListener {
 
+    private TabFolder tabFolder;
+    private ScrollableThumbnail thumbmail;
+    private Canvas thumbmailCanvas;
     private FeatureModel featureModel;
+    private ScalableFreeformRootEditPart rootEditPart;
     
-    public FeatureModelContentOutlinePage(FeatureModel featureModel) {
+    public FeatureModelContentOutlinePage(FeatureModel featureModel, ScalableFreeformRootEditPart rootEditPart) {
         this.featureModel = featureModel;
+        this.rootEditPart = rootEditPart;
     }
     
     @Override
@@ -30,17 +45,51 @@ public class FeatureModelContentOutlinePage extends ContentOutlinePage implement
     @Override
     public void dispose() {
         getSite().getPage().removeSelectionListener(this);
+        thumbmail.deactivate();
+        thumbmailCanvas.dispose();
+        getTreeViewer().getControl().dispose();
         super.dispose();
     }
     
     @Override
+    public Control getControl() {
+        return tabFolder;
+    }
+    
+    @Override
     public void createControl(Composite parent) {
-        super.createControl(parent);
+        tabFolder = new TabFolder(parent, SWT.BOTTOM);
+        createTreeView();
+        createMinimap();
+    }
+    
+    protected void addTabControll(Control control, String title) {
+        TabItem tabItem = new TabItem(tabFolder, SWT.NONE);
+        tabItem.setText(title);
+        tabItem.setControl(control);
+    }
+    
+    private void createTreeView() {
+        super.createControl(tabFolder); // Creates TreeViewer.
         
-        TreeViewer viewer = getTreeViewer();
-        viewer.setContentProvider(FeatureModelProviderUtil.getContentProvider());
-        viewer.setLabelProvider(FeatureModelProviderUtil.getLabelProvider());
-        viewer.setInput(featureModel);
+        TreeViewer treeViewer = getTreeViewer();
+        treeViewer.setContentProvider(FeatureModelProviderUtil.getContentProvider());
+        treeViewer.setLabelProvider(FeatureModelProviderUtil.getLabelProvider());
+        treeViewer.setInput(featureModel);
+        
+        addTabControll(treeViewer.getControl(), "Tree View");
+    }
+    
+    private void createMinimap() {
+        thumbmail = new ScrollableThumbnail();
+        thumbmail.setViewport((Viewport) rootEditPart.getFigure());
+        thumbmail.setSource(rootEditPart.getLayer(LayerConstants.PRINTABLE_LAYERS));
+        
+        thumbmailCanvas = new Canvas(tabFolder, SWT.NONE);
+        LightweightSystem lightweightSystem = new LightweightSystem(thumbmailCanvas);
+        lightweightSystem.setContents(thumbmail);
+        
+        addTabControll(thumbmailCanvas, "Minimap");
     }
 
     @Override
@@ -51,7 +100,7 @@ public class FeatureModelContentOutlinePage extends ContentOutlinePage implement
         if((part instanceof ContentOutline) || (part instanceof PropertySheet))
             return;
                 
-        setSelection(selection);
+        setSelection(selection); // Forward selection to the TreeViewer.
     }
 
 }

@@ -12,6 +12,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
@@ -132,8 +133,10 @@ public class FeatureModelEditor extends MultiPageEditorPart implements IResource
 	    if(type == FeatureModel.class)
 	        return featureModel;
 	    if(type == IContentOutlinePage.class) {
-	        if(contentOutlinePage == null)
-	            contentOutlinePage = new FeatureModelContentOutlinePage(featureModel);
+	        if(contentOutlinePage == null) {
+	            ScalableFreeformRootEditPart rootEditPart = featureTreeEditor.getRootEditPart();
+	            contentOutlinePage = new FeatureModelContentOutlinePage(featureModel, rootEditPart);
+	        }
 	        return contentOutlinePage;
 	    }
 	    return super.getAdapter(type);

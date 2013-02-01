@@ -21,7 +21,7 @@ import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.dnd.TemplateTransferDragSourceListener;
 import org.eclipse.gef.dnd.TemplateTransferDropTargetListener;
-import org.eclipse.gef.editparts.FreeformGraphicalRootEditPart;
+import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.ui.actions.ActionRegistry;
 import org.eclipse.gef.ui.actions.SelectionAction;
@@ -122,7 +122,7 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
         
         GraphicalViewer viewer = getGraphicalViewer();
         viewer.setEditPartFactory(new FeatureModelEditPartFactory(layoutData));
-        viewer.setRootEditPart(new FreeformGraphicalRootEditPart());
+        viewer.setRootEditPart(new ScalableFreeformRootEditPart());
         viewer.addDropTargetListener(new TemplateTransferDropTargetListener(viewer));
         viewer.setContextMenu(new FeatureTreeEditorContextMenuProvider(viewer, getActionRegistry()));
         viewer.addDropTargetListener(new TemplateTransferDropTargetListener(viewer));
@@ -161,6 +161,10 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
         // Add drag and drop support for palette.
         PaletteViewer palleteViewer = getPaletteViewer();
         palleteViewer.addDragSourceListener(new TemplateTransferDragSourceListener(palleteViewer));
+    }
+    
+    protected ScalableFreeformRootEditPart getRootEditPart() {
+        return (ScalableFreeformRootEditPart) getGraphicalViewer().getRootEditPart();
     }
     
     @Override
@@ -268,8 +272,7 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
     }
     
     private void centerViewportToEditPart(GraphicalEditPart editPart) {
-        FreeformGraphicalRootEditPart rootEditPart = (FreeformGraphicalRootEditPart) getGraphicalViewer().getRootEditPart();
-        Viewport viewport = (Viewport) rootEditPart.getFigure();
+        Viewport viewport = (Viewport) getRootEditPart().getFigure();
         Point point = editPart.getFigure().getBounds().getCenter();
         int x = point.x - viewport.getSize().width / 2;
         int y = point.y - viewport.getSize().height / 2;
