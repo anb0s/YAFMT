@@ -66,10 +66,14 @@ public class FeatureLayoutPolicy extends OrderedLayoutEditPolicy {
     // Moving attribute from another feature.
     @Override
     protected Command createAddCommand(EditPart editPart, EditPart editPartAfter) {
+        Object model = editPart.getModel();
+        if(!(model instanceof Attribute))
+            return null;
+        
+        Attribute attribute = (Attribute) model;
         LayoutData layoutData = ((FeatureEditPart) getHost()).getLayoutData();
         Feature feature = (Feature) getHost().getModel();
         List<Attribute> attributes = feature.getAttributes();
-        Attribute attribute = (Attribute) editPart.getModel();
         
         int targetIndex = attributes.size();
         if(editPartAfter != null)
