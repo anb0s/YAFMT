@@ -70,8 +70,10 @@ public class AttributeEditPart extends AbstractGraphicalEditPart {
             AttributeType type = attribute.getType();
             
             Label label = ((AttributeFigure) getFigure());
+            Rectangle labelBounds = label.getBounds().getCopy();
+            label.translateToAbsolute(labelBounds);
             int nameTextWidth = TextUtilities.INSTANCE.getStringExtents(name + ": ", label.getFont()).width;
-            int typeTextX = label.getLocation().x + nameTextWidth;
+            int typeTextX = labelBounds.x + nameTextWidth;
             int mouseX = ((SelectionRequest) request).getLocation().x;
             
             // Name direct edit
@@ -82,7 +84,7 @@ public class AttributeEditPart extends AbstractGraphicalEditPart {
             }
             // Type direct edit.
             else {
-                Rectangle bounds = label.getBounds().getCopy();
+                Rectangle bounds = labelBounds.getCopy();
                 bounds.x += nameTextWidth;
                 bounds.y -= 2;
                 bounds.width = 80;
