@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.Viewport;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -23,8 +24,11 @@ import org.eclipse.gef.dnd.TemplateTransferDropTargetListener;
 import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.ui.actions.SelectionAction;
+import org.eclipse.gef.ui.palette.FlyoutPaletteComposite;
 import org.eclipse.gef.ui.palette.PaletteViewer;
-import org.eclipse.gef.ui.parts.GraphicalEditorWithPalette;
+import org.eclipse.gef.ui.palette.PaletteViewerProvider;
+import org.eclipse.gef.ui.palette.FlyoutPaletteComposite.FlyoutPreferences;
+import org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -54,7 +58,7 @@ import cz.jpikl.yafmt.ui.editors.fm.parts.FeatureModelEditPartFactory;
 import cz.jpikl.yafmt.ui.editors.fm.util.SelectionConverter;
 import cz.jpikl.yafmt.ui.editors.fm.util.UnwrappingSelectionProvider;
 
-public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISelectionListener {
+public class FeatureTreeEditor extends GraphicalEditorWithFlyoutPalette implements ISelectionListener {
 
     private MultiPageEditorPart parentEditor;
     private FeatureModel featureModel;
@@ -133,15 +137,7 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
     protected void initializeGraphicalViewer() {
         getGraphicalViewer().setContents(featureModel);
     }
-    
-    @Override
-    protected void configurePaletteViewer() {
-        super.configurePaletteViewer();
-        // Add drag and drop support for palette.
-        PaletteViewer palleteViewer = getPaletteViewer();
-        palleteViewer.addDragSourceListener(new TemplateTransferDragSourceListener(palleteViewer));
-    }
-    
+       
     protected ScalableFreeformRootEditPart getRootEditPart() {
         return (ScalableFreeformRootEditPart) getGraphicalViewer().getRootEditPart();
     }
@@ -149,6 +145,27 @@ public class FeatureTreeEditor extends GraphicalEditorWithPalette implements ISe
     @Override
     protected PaletteRoot getPaletteRoot() {
         return new FeatureTreeEditorPaletteRoot();
+    }
+    
+    @Override
+    protected PaletteViewerProvider createPaletteViewerProvider() {
+        return new PaletteViewerProvider(getEditDomain()) {
+            @Override
+            protected void configurePaletteViewer(PaletteViewer viewer) {
+                super.configurePaletteViewer(viewer);
+                // Add drag and drop support for palette.
+                viewer.addDragSourceListener(new TemplateTransferDragSourceListener(viewer));
+            }
+        };
+    }
+    
+    @Override
+    protected FlyoutPreferences getPalettePreferences() {
+        FlyoutPreferences preferences = super.getPalettePreferences();
+        preferences.setDockLocation(PositionConstants.WEST);
+        preferences.setPaletteState(FlyoutPaletteComposite.STATE_PINNED_OPEN);
+        preferences.setPaletteWidth(150);
+        return preferences;
     }
     
     @Override
