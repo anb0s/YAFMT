@@ -3,6 +3,7 @@ package cz.jpikl.yafmt.ui.views.fm;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.ISelectionListener;
@@ -15,15 +16,20 @@ import org.eclipse.zest.core.viewers.GraphViewer;
 import org.eclipse.zest.core.widgets.ZestStyles;
 
 import cz.jpikl.yafmt.model.fm.FeatureModel;
+import cz.jpikl.yafmt.ui.views.fm.filters.ConstraintFilter;
+import cz.jpikl.yafmt.ui.views.fm.filters.GroupFilter;
+import cz.jpikl.yafmt.ui.views.fm.filters.SelectionBasedTypedFilter;
 
 public class FeatureModelView extends ViewPart implements ISelectionListener, IPartListener {
 
 	public static final String ID = "cz.jpikl.yafmt.ui.views.fm.FeatureModelView";
 
-	private IWorkbenchPart sourcePart;
-	private GraphViewer viewer;
 	private FeatureModel featureModel;
 	private FeatureModelAdapter featureModelAdapter;
+	private IWorkbenchPart sourcePart;
+    private GraphViewer viewer;
+    private SelectionBasedTypedFilter groupFilter;
+    private SelectionBasedTypedFilter constraintFilter;
 	
 	@Override
     public void init(IViewSite site) throws PartInitException {
@@ -43,6 +49,10 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, IP
     @Override
     public void createPartControl(Composite parent) {
         viewer = new GraphViewer(parent, ZestStyles.NONE);
+        
+        groupFilter = new GroupFilter(viewer);
+        constraintFilter = new ConstraintFilter(viewer);
+        viewer.setFilters(new ViewerFilter[] { groupFilter, constraintFilter });
         
         setSourcePart(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart());
     }
@@ -84,6 +94,14 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, IP
     @Override
     public void selectionChanged(IWorkbenchPart part, ISelection selection) {
         setSourcePart(part);
+        
+        // TODO check if process selection
+        if(true)
+            return;
+        
+        viewer.setSelection(selection);
+        groupFilter.update();
+        constraintFilter.update();
     }
     
     @Override
