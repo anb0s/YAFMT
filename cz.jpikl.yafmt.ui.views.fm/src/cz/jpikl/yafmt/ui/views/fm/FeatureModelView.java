@@ -14,6 +14,8 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.zest.core.viewers.GraphViewer;
 import org.eclipse.zest.core.widgets.ZestStyles;
+import org.eclipse.zest.layouts.LayoutStyles;
+import org.eclipse.zest.layouts.algorithms.RadialLayoutAlgorithm;
 
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.ui.views.fm.filters.ConstraintFilter;
@@ -49,12 +51,16 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, IP
     @Override
     public void createPartControl(Composite parent) {
         viewer = new GraphViewer(parent, ZestStyles.NONE);
+        viewer.setContentProvider(new FeatureModelContentProvider());
+        viewer.setLabelProvider(new FeatureModelLabelProvider());
+        viewer.setLayoutAlgorithm(new RadialLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING));
+        getSite().setSelectionProvider(viewer);
         
         groupFilter = new GroupFilter(viewer);
         constraintFilter = new ConstraintFilter(viewer);
         viewer.setFilters(new ViewerFilter[] { groupFilter, constraintFilter });
         
-        setSourcePart(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart());
+        setSourcePart(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor());
     }
     
     @Override
@@ -79,9 +85,8 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, IP
             featureModel.eAdapters().remove(featureModelAdapter);
         
         featureModel = newFeatureModel;
-        //enable after setting content provider
-        //if(!viewer.getControl().isDisposed())
-        //    viewer.setInput(featureModel);
+        if(!viewer.getControl().isDisposed())
+            viewer.setInput(featureModel);
         
         if(featureModel == null)
             return;
@@ -95,13 +100,14 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, IP
     public void selectionChanged(IWorkbenchPart part, ISelection selection) {
         setSourcePart(part);
         
-        // TODO check if process selection
-        if(true)
-            return;
-        
-        viewer.setSelection(selection);
-        groupFilter.update();
-        constraintFilter.update();
+        // TODO check selection from other parts
+        if(part == this) {
+            // viewer.setSelection(selection);
+            groupFilter.update();
+            constraintFilter.update();
+            viewer.refresh();
+            viewer.applyLayout();
+        }
     }
     
     @Override

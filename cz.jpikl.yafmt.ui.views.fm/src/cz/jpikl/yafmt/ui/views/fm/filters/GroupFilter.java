@@ -8,9 +8,14 @@ import cz.jpikl.yafmt.model.fm.Group;
 public class GroupFilter extends SelectionBasedTypedFilter {
 
     public GroupFilter(Viewer viewer) {
-        super(viewer, Group.class);
+        super(viewer);
     }
 
+    @Override
+    protected boolean isTargetType(Object element) {
+        return element instanceof Group;
+    }
+    
     @Override
     protected void processSelectedElement(Object element) {
         if(element instanceof Group) {

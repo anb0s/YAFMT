@@ -13,15 +13,11 @@ import org.eclipse.jface.viewers.ViewerFilter;
 public abstract class SelectionBasedTypedFilter extends ViewerFilter {
 
     private Viewer viewer;
-    private Class<?> filteredType;
-    protected Set<Object> visibleElements;
-    private boolean hideAll;
+    protected Set<Object> visibleElements = new HashSet<Object>();
+    private boolean hideAll = false;
     
-    public SelectionBasedTypedFilter(Viewer viewer, Class<?> filteredType) {
+    public SelectionBasedTypedFilter(Viewer viewer) {
         this.viewer = viewer;
-        this.filteredType = filteredType;
-        this.visibleElements = new HashSet<Object>();
-        this.hideAll = false;
         update();
     }
     
@@ -42,9 +38,11 @@ public abstract class SelectionBasedTypedFilter extends ViewerFilter {
     
     protected abstract void processSelectedElement(Object element);
     
+    protected abstract boolean isTargetType(Object element);
+    
     @Override
     public boolean select(Viewer viewer, Object parentElement, Object element) {
-        if((element == null) || (element.getClass() != filteredType))
+        if(!isTargetType(element))
             return true;
         return hideAll ? false : visibleElements.contains(element);
     }

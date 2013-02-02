@@ -8,7 +8,12 @@ import cz.jpikl.yafmt.model.fm.Feature;
 public class ConstraintFilter extends SelectionBasedTypedFilter {
 
     public ConstraintFilter(Viewer viewer) {
-        super(viewer, Constraint.class);
+        super(viewer);
+    }
+    
+    @Override
+    protected boolean isTargetType(Object element) {
+        return element instanceof Constraint;
     }
 
     @Override
