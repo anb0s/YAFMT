@@ -5,25 +5,33 @@ import org.eclipse.jface.viewers.Viewer;
 import cz.jpikl.yafmt.model.fm.Constraint;
 import cz.jpikl.yafmt.model.fm.Feature;
 
-public class ConstraintFilter extends SelectionBasedTypedFilter {
+public class ConstraintFilter extends SelectionBasedFilter {
 
+    private boolean enabled = true;
+    
     public ConstraintFilter(Viewer viewer) {
         super(viewer);
     }
     
-    @Override
-    protected boolean isTargetType(Object element) {
-        return element instanceof Constraint;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
-
+    
     @Override
-    protected void processSelectedElement(Object element) {
+    protected void processSelectionElement(Object element) {
         if(element instanceof Constraint) {
             visibleElements.add(element);
         }
         else if(element instanceof Feature) {
-            // TODO implement visible constraints selection.
+            // TODO Add constraints that affect that feature.
         }
+    }
+    
+    @Override
+    public boolean select(Viewer viewer, Object parentElement, Object element) {
+        if(!(element instanceof Constraint))
+            return true;
+        return enabled ? super.select(viewer, parentElement, element) : false;
     }
 
 }
