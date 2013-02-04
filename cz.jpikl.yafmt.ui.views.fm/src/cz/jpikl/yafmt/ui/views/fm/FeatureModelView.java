@@ -74,8 +74,8 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, IP
     }
         
     private void createGraphViewerControl(Composite parent) {
+        // Do not enable hash lookup. It causes invalidation of current selection during graph refresh.
         viewer = new GraphViewer(parent, ZestStyles.NONE);
-        viewer.setUseHashlookup(true);
         viewer.setContentProvider(new FeatureModelContentProvider());
         viewer.setLabelProvider(new FeatureModelLabelProvider());
         viewer.setLayoutAlgorithm(new RadialLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING));
