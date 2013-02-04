@@ -143,4 +143,30 @@ public class FeatureModelUtil {
         return "<" + lower + "-" + ((upper == -1) ? "*" : upper) + ">";
     }
     
+    public static int getTreeHeight(FeatureModel featureModel) {
+        if((featureModel == null) || (featureModel.getRoot() == null))
+            return 0;
+        return getTreeHeight(featureModel.getRoot());
+    }
+    
+    public static int getTreeHeight(Feature feature) {
+        int maxHeight = 0;
+        
+        for(Feature child: feature.getFeatures()) {
+            int height = getTreeHeight(child);
+            if(height > maxHeight)
+                height = maxHeight;
+        }
+
+        for(Group group: feature.getGroups()) {
+            for(Feature child: group.getFeatures()) {
+                int height = getTreeHeight(child);
+                if(height > maxHeight)
+                    height = maxHeight;
+            }
+        }
+        
+        return maxHeight + 1;
+    }
+    
 }

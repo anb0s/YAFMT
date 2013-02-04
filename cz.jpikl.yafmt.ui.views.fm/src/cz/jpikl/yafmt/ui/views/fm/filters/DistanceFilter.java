@@ -22,6 +22,10 @@ public class DistanceFilter extends SelectionBasedFilter {
         this.distance = distance;
     }
     
+    public int getDistance() {
+        return distance;
+    }
+    
     @Override
     protected void updateVisibleElements() {
         if(distance == INFINITE_DISTACE)

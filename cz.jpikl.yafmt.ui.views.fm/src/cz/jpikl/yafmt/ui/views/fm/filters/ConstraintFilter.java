@@ -17,6 +17,10 @@ public class ConstraintFilter extends SelectionBasedFilter {
         this.enabled = enabled;
     }
     
+    public boolean isEnabled() {
+        return enabled;
+    }
+    
     @Override
     protected void processSelectionElement(Object element) {
         if(element instanceof Constraint) {
