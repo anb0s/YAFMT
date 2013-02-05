@@ -9,8 +9,8 @@ public class ConstraintFilter extends SelectionBasedFilter {
 
     private boolean enabled = true;
     
-    public ConstraintFilter(Viewer viewer) {
-        super(viewer);
+    public ConstraintFilter(boolean enabled) {
+        setEnabled(enabled);
     }
     
     public void setEnabled(boolean enabled) {

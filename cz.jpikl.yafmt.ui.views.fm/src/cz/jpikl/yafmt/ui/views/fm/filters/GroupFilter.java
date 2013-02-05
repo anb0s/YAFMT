@@ -9,8 +9,8 @@ public class GroupFilter extends SelectionBasedFilter {
 
     private boolean enabled = true;
     
-    public GroupFilter(Viewer viewer) {
-        super(viewer);
+    public GroupFilter(boolean enabled) {
+        setEnabled(enabled);
     }
     
     public void setEnabled(boolean enabled) {

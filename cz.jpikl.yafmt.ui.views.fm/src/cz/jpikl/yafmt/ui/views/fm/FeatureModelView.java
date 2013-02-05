@@ -2,6 +2,7 @@ package cz.jpikl.yafmt.ui.views.fm;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.util.EContentAdapter;
+import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ViewerFilter;
@@ -34,36 +35,59 @@ import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
 import cz.jpikl.yafmt.ui.views.fm.filters.ConstraintFilter;
 import cz.jpikl.yafmt.ui.views.fm.filters.DistanceFilter;
 import cz.jpikl.yafmt.ui.views.fm.filters.GroupFilter;
+import cz.jpikl.yafmt.ui.views.fm.util.SettingsUtil;
 
 public class FeatureModelView extends ViewPart implements ISelectionListener, IPartListener {
 
 	public static final String ID = "cz.jpikl.yafmt.ui.views.fm.FeatureModelView";
 
+	private IWorkbenchPart sourcePart;
 	private FeatureModel featureModel;
 	private FeatureModelAdapter featureModelAdapter;
-	private IWorkbenchPart sourcePart;
+	
     private GraphViewer viewer;
     private DistanceFilter distanceFilter;
     private GroupFilter groupFilter;
     private ConstraintFilter constraintFilter;
+    
+    private int visibleDistance;
+    private boolean showGroups;
+    private boolean showConstraints;
+    private boolean enableAnimation;
     private int treeHeight = 1;
 	
-	@Override
+    @Override
     public void init(IViewSite site) throws PartInitException {
         super.init(site);
         site.getPage().addPartListener(this);
         site.getPage().addSelectionListener(this);
+        initState(FeatureModelViewPlugin.getDefault().getDialogSettings());
     }
-	
-	@Override
+        
+    @Override
     public void dispose() {
-	    setFeatureModel(null);
-	    getSite().getPage().removeSelectionListener(this);
-	    getSite().getPage().removePartListener(this);
-	    getSite().setSelectionProvider(null);
+        saveState(FeatureModelViewPlugin.getDefault().getDialogSettings());
+        setFeatureModel(null);
+        getSite().getPage().removeSelectionListener(this);
+        getSite().getPage().removePartListener(this);
+        getSite().setSelectionProvider(null);
         super.dispose();
     }
-	
+    
+    private void initState(IDialogSettings settings) {
+        visibleDistance = SettingsUtil.getInteger(settings, "visibleDistance", DistanceFilter.INFINITE_DISTACE);
+        showGroups = SettingsUtil.getBoolean(settings, "showGroups", true);
+        showConstraints = SettingsUtil.getBoolean(settings, "showConstraints", true);
+        enableAnimation = SettingsUtil.getBoolean(settings, "enableAnimation", true);
+    }
+    
+    public void saveState(IDialogSettings settings) {
+        settings.put("visibleDistance", visibleDistance);
+        settings.put("showGroups", showGroups);
+        settings.put("showConstraints", showConstraints);
+        settings.put("enableAnimation", enableAnimation);
+    }
+    	
     @Override
     public void createPartControl(Composite parent) {
         parent.setLayout(new GridLayout(1, false));
@@ -71,21 +95,27 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, IP
         createOptionsControl(parent);
         
         setSourcePart(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor());
+        distanceFilter.update(null, featureModel);
+        groupFilter.update(null);
+        constraintFilter.update(null);
+        viewer.refresh();
+        viewer.applyLayout();
     }
         
     private void createGraphViewerControl(Composite parent) {
+        distanceFilter = new DistanceFilter(visibleDistance);
+        groupFilter = new GroupFilter(showGroups);
+        constraintFilter = new ConstraintFilter(showConstraints);
+        
         // Do not enable hash lookup. It causes invalidation of current selection during graph refresh.
         viewer = new GraphViewer(parent, ZestStyles.NONE);
         viewer.setContentProvider(new FeatureModelContentProvider());
         viewer.setLabelProvider(new FeatureModelLabelProvider());
         viewer.setLayoutAlgorithm(new RadialLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING));
         viewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-        getSite().setSelectionProvider(viewer);
-        
-        distanceFilter = new DistanceFilter(viewer);
-        groupFilter = new GroupFilter(viewer);
-        constraintFilter = new ConstraintFilter(viewer);
+        viewer.setNodeStyle(enableAnimation ? ZestStyles.NONE : ZestStyles.NODES_NO_ANIMATION);
         viewer.setFilters(new ViewerFilter[] { distanceFilter, groupFilter, constraintFilter });
+        getSite().setSelectionProvider(viewer);
     }
     
     private void createOptionsControl(Composite parent) {
@@ -101,13 +131,14 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, IP
         
         Combo distanceComboBox = new Combo(distancePanel, SWT.READ_ONLY);
         distanceComboBox.setItems(new String[] { "infinite", "1", "2" });
-        distanceComboBox.setText(distanceComboBox.getItem(0));
+        distanceComboBox.setText(distanceComboBox.getItem(Math.max(0, visibleDistance)));
         distanceComboBox.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent event) {
                 int index = ((Combo) event.getSource()).getSelectionIndex();
-                distanceFilter.setDistance((index == 0) ? DistanceFilter.INFINITE_DISTACE : index);
-                distanceFilter.update();
+                visibleDistance = (index > 0) ? index : DistanceFilter.INFINITE_DISTACE;
+                distanceFilter.setDistance(visibleDistance);
+                distanceFilter.update(viewer.getSelection(), featureModel);
                 resizeGraphView();
                 viewer.refresh();
                 viewer.applyLayout();
@@ -116,12 +147,13 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, IP
         
         Button showGroupsButton = new Button(panel, SWT.CHECK);
         showGroupsButton.setText("Show Groups");
-        showGroupsButton.setSelection(true);
+        showGroupsButton.setSelection(showGroups);
         showGroupsButton.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent event) {
-                groupFilter.setEnabled(((Button) event.getSource()).getSelection());
-                groupFilter.update();
+                showGroups = ((Button) event.getSource()).getSelection();
+                groupFilter.setEnabled(showGroups);
+                groupFilter.update(viewer.getSelection());
                 viewer.refresh();
                 viewer.applyLayout();
             }
@@ -129,12 +161,13 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, IP
         
         Button showConstraintsButton = new Button(panel, SWT.CHECK);
         showConstraintsButton.setText("Show Constraints");
-        showConstraintsButton.setSelection(true);
+        showConstraintsButton.setSelection(showConstraints);
         showConstraintsButton.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent event) {
-                constraintFilter.setEnabled(((Button) event.getSource()).getSelection());
-                constraintFilter.update();
+                showConstraints = ((Button) event.getSource()).getSelection();
+                constraintFilter.setEnabled(showConstraints);
+                constraintFilter.update(viewer.getSelection());
                 viewer.refresh();
                 viewer.applyLayout();
             }
@@ -142,15 +175,13 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, IP
         
         Button enableAnimationButton = new Button(panel, SWT.CHECK);
         enableAnimationButton.setText("Enable animation");
-        enableAnimationButton.setSelection(true);
+        enableAnimationButton.setSelection(enableAnimation);
         enableAnimationButton.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent event) {
+                enableAnimation = ((Button) event.getSource()).getSelection();
                 viewer.setInput(null); // Style can be only changed when input is not set.
-                if(Boolean.TRUE.equals(((Button) event.getSource()).getSelection()))
-                    viewer.setNodeStyle(ZestStyles.NONE);
-                else
-                    viewer.setNodeStyle(ZestStyles.NODES_NO_ANIMATION);
+                viewer.setNodeStyle(enableAnimation ? ZestStyles.NONE : ZestStyles.NODES_NO_ANIMATION);
                 viewer.setInput(featureModel);
             }
         });
@@ -161,9 +192,7 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, IP
     }
     
     void resizeGraphView() {
-        int size = 2 * treeHeight;
-        if(distanceFilter.getDistance() != DistanceFilter.INFINITE_DISTACE)
-            size = distanceFilter.getDistance();
+        int size = (visibleDistance == DistanceFilter.INFINITE_DISTACE) ? 2 * treeHeight : visibleDistance;
         viewer.getGraphControl().setPreferredSize(200 * size, 200 * size);
     }
     
@@ -206,78 +235,84 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, IP
     }
     
     private boolean isValidSelection(ISelection selection) {
+        if(selection == null)
+            return false;
+        if(selection.isEmpty())
+            return true;
         if(!(selection instanceof IStructuredSelection))
             return false;
         
         Object firstElement = ((IStructuredSelection) selection).getFirstElement();
-        if(firstElement == null)
-            return true; // Empty selection.
-        
-        return (firstElement instanceof Feature) || 
+        return (firstElement instanceof FeatureModel) ||
+               (firstElement instanceof Feature) || 
                (firstElement instanceof Group) || 
                (firstElement instanceof Constraint);
     }
     
     @Override
     public void selectionChanged(IWorkbenchPart part, ISelection selection) {
-        setSourcePart(part);
-        
-        if(viewer.getSelection().isEmpty() && selection.isEmpty())
-            return;
-        
         if(part != this) {
+            setSourcePart(part);
+            if(viewer.getSelection().isEmpty() && selection.isEmpty())
+                return;
             if(!isValidSelection(selection))
                 return;
-            viewer.setSelection(selection);
         }
-        
-        distanceFilter.update();
-        groupFilter.update();
-        constraintFilter.update();
+                
+        distanceFilter.update(selection, featureModel);
+        groupFilter.update(selection);
+        constraintFilter.update(selection);
         viewer.refresh();
         viewer.applyLayout();
-    }
-    
-    @Override
-    public void partOpened(IWorkbenchPart part) {
-        // Called when part is created and opened.
-    }
-    
-    @Override
-    public void partBroughtToTop(IWorkbenchPart part) {
-        // Called when part is made visible.
+        
+        if(part != this)
+            viewer.setSelection(selection);
     }
     
     @Override
     public void partClosed(IWorkbenchPart part) {
-        // Called when part is closed and destroyed.
         if(part == sourcePart) {
             sourcePart = null;
             setFeatureModel(null);
         }
     }
-    
-    @Override
-    public void partActivated(IWorkbenchPart part) {
-        // Called when user select part (usually go together with selection changed event).
-    }
-    
-    @Override
-    public void partDeactivated(IWorkbenchPart part) {
-        // Called when user select other part than the current.
-    }
-    
+        
     class FeatureModelAdapter extends EContentAdapter {
         
         @Override
         public void notifyChanged(Notification notification) {
             super.notifyChanged(notification);
-            recomputeTreeHeight();
-            resizeGraphView();
-            viewer.refresh();
-            viewer.applyLayout();
+            
+            switch(notification.getEventType()) {
+                case Notification.ADD:
+                case Notification.ADD_MANY:
+                case Notification.REMOVE:
+                case Notification.REMOVE_MANY:
+                case Notification.SET:
+                    recomputeTreeHeight();
+                    resizeGraphView();
+                    viewer.refresh();
+                    viewer.applyLayout();
+                    break;
+            }
         }
         
+    }
+    
+    @Override
+    public void partOpened(IWorkbenchPart part) {
+    }
+    
+    @Override
+    public void partBroughtToTop(IWorkbenchPart part) {
+    }
+    
+    @Override
+    public void partActivated(IWorkbenchPart part) {
+    }
+    
+    @Override
+    public void partDeactivated(IWorkbenchPart part) {
     }
 	
 }

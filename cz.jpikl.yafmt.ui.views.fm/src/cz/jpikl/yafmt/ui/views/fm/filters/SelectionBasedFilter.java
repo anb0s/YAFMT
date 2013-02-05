@@ -11,28 +11,17 @@ import org.eclipse.jface.viewers.ViewerFilter;
 // Filtering is based on viewer selection.
 public abstract class SelectionBasedFilter extends ViewerFilter {
 
-    private Viewer viewer;
     protected Set<Object> visibleElements = new HashSet<Object>();
-    
-    public SelectionBasedFilter(Viewer viewer) {
-        this.viewer = viewer;
-        update();
-    }
-    
-    protected Viewer getViewer() {
-        return viewer;
-    }
-            
-    public void update() {
+               
+    public void update(ISelection selection) {
         visibleElements.clear();
-        updateVisibleElements();
+        updateVisibleElements(selection);
     }
-    
-    protected void updateVisibleElements() {
-        ISelection selection = viewer.getSelection();
+        
+    public void updateVisibleElements(ISelection selection) {
         if(!(selection instanceof IStructuredSelection))
             return;
-                
+
         for(Object element: ((IStructuredSelection) selection).toArray())
             processSelectionElement(element);
     }
