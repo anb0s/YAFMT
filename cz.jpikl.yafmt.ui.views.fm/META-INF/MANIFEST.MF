@@ -1,6 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
+Bundle-Localization: plugin
 Bundle-SymbolicName: cz.jpikl.yafmt.ui.views.fm; singleton:=true
 Bundle-Version: 0.1.0.qualifier
 Bundle-Activator: cz.jpikl.yafmt.ui.views.fm.FeatureModelVisualizerPlugin
