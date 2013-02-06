@@ -1,6 +1,7 @@
 package cz.jpikl.yafmt.ui.views.fm;
 
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -58,4 +59,13 @@ public class FeatureModelVisualizerPlugin extends AbstractUIPlugin {
 	public static ImageDescriptor getImageDescriptor(String path) {
 		return imageDescriptorFromPlugin(PLUGIN_ID, path);
 	}
+	
+	@Override
+	protected void initializeImageRegistry(ImageRegistry registry) {
+	    registry.put("group", getImageDescriptor("icons/group.png").createImage());
+	    registry.put("constraint", getImageDescriptor("icons/constraint.png").createImage());
+	    registry.put("animation", getImageDescriptor("icons/animation.png").createImage());
+	    registry.put("lock", getImageDescriptor("icons/lock.png").createImage());
+	}
+	
 }

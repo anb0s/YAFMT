@@ -78,7 +78,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         showGroups = SettingsUtil.getBoolean(settings, "showGroups", true);
         showConstraints = SettingsUtil.getBoolean(settings, "showConstraints", true);
         enableAnimation = SettingsUtil.getBoolean(settings, "enableAnimation", true);
-        locked = SettingsUtil.getBoolean(settings, "locked", true);
+        locked = SettingsUtil.getBoolean(settings, "locked", false);
     }
     
     public void saveState(IDialogSettings settings) {
@@ -124,6 +124,61 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         panel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
         panel.setLayout(new GridLayout(5, false));
         
+        Button showGroupsButton = new Button(panel, SWT.TOGGLE);
+        showGroupsButton.setImage(FeatureModelVisualizerPlugin.getDefault().getImageRegistry().get("group"));
+        showGroupsButton.setToolTipText("Show Groups");
+        showGroupsButton.setSelection(showGroups);
+        showGroupsButton.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent event) {
+                showGroups = ((Button) event.getSource()).getSelection();
+                groupFilter.setEnabled(showGroups);
+                groupFilter.update(viewer.getSelection());
+                viewer.refresh();
+                viewer.applyLayout();
+            }
+        });
+        
+        Button showConstraintsButton = new Button(panel, SWT.TOGGLE);
+        showConstraintsButton.setImage(FeatureModelVisualizerPlugin.getDefault().getImageRegistry().get("constraint"));
+        showConstraintsButton.setToolTipText("Show Constraints");
+        showConstraintsButton.setSelection(showConstraints);
+        showConstraintsButton.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent event) {
+                showConstraints = ((Button) event.getSource()).getSelection();
+                constraintFilter.setEnabled(showConstraints);
+                constraintFilter.update(viewer.getSelection());
+                viewer.refresh();
+                viewer.applyLayout();
+            }
+        });
+        
+        Button enableAnimationButton = new Button(panel, SWT.TOGGLE);
+        enableAnimationButton.setImage(FeatureModelVisualizerPlugin.getDefault().getImageRegistry().get("animation"));
+        enableAnimationButton.setToolTipText("Enable animation");
+        enableAnimationButton.setSelection(enableAnimation);
+        enableAnimationButton.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent event) {
+                enableAnimation = ((Button) event.getSource()).getSelection();
+                viewer.setInput(null); // Style can be only changed when input is not set.
+                viewer.setNodeStyle(enableAnimation ? ZestStyles.NONE : ZestStyles.NODES_NO_ANIMATION);
+                viewer.setInput(featureModel);
+            }
+        });
+        
+        Button lockButton = new Button(panel, SWT.TOGGLE);
+        lockButton.setImage(FeatureModelVisualizerPlugin.getDefault().getImageRegistry().get("lock"));
+        lockButton.setToolTipText("Lock View");
+        lockButton.setSelection(locked);
+        lockButton.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent event) {
+                locked = ((Button) event.getSource()).getSelection();
+            }
+        });
+        
         Composite distancePanel = new Composite(panel, SWT.NONE);
         distancePanel.setLayout(new GridLayout(2, false));
         
@@ -143,57 +198,6 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
                 resizeGraphView();
                 viewer.refresh();
                 viewer.applyLayout();
-            }
-        });
-        
-        Button showGroupsButton = new Button(panel, SWT.CHECK);
-        showGroupsButton.setText("Show Groups");
-        showGroupsButton.setSelection(showGroups);
-        showGroupsButton.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent event) {
-                showGroups = ((Button) event.getSource()).getSelection();
-                groupFilter.setEnabled(showGroups);
-                groupFilter.update(viewer.getSelection());
-                viewer.refresh();
-                viewer.applyLayout();
-            }
-        });
-        
-        Button showConstraintsButton = new Button(panel, SWT.CHECK);
-        showConstraintsButton.setText("Show Constraints");
-        showConstraintsButton.setSelection(showConstraints);
-        showConstraintsButton.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent event) {
-                showConstraints = ((Button) event.getSource()).getSelection();
-                constraintFilter.setEnabled(showConstraints);
-                constraintFilter.update(viewer.getSelection());
-                viewer.refresh();
-                viewer.applyLayout();
-            }
-        });
-        
-        Button enableAnimationButton = new Button(panel, SWT.CHECK);
-        enableAnimationButton.setText("Enable animation");
-        enableAnimationButton.setSelection(enableAnimation);
-        enableAnimationButton.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent event) {
-                enableAnimation = ((Button) event.getSource()).getSelection();
-                viewer.setInput(null); // Style can be only changed when input is not set.
-                viewer.setNodeStyle(enableAnimation ? ZestStyles.NONE : ZestStyles.NODES_NO_ANIMATION);
-                viewer.setInput(featureModel);
-            }
-        });
-        
-        Button lockButton = new Button(panel, SWT.CHECK);
-        lockButton.setText("Lock View");
-        lockButton.setSelection(locked);
-        lockButton.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent event) {
-                locked = ((Button) event.getSource()).getSelection();
             }
         });
     }
