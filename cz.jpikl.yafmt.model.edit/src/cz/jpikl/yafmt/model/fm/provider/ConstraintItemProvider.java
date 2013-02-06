@@ -114,11 +114,11 @@ public class ConstraintItemProvider
      * This returns Constraint.gif.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     @Override
     public Object getImage(Object object) {
-        return overlayImage(object, getResourceLocator().getImage("full/obj16/Constraint"));
+        return getResourceLocator().getImage("constraint.png");
     }
 
     /**
