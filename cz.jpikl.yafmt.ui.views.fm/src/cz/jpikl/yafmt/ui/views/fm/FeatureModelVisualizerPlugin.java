@@ -7,18 +7,18 @@ import org.osgi.framework.BundleContext;
 /**
  * The activator class controls the plug-in life cycle
  */
-public class FeatureModelViewPlugin extends AbstractUIPlugin {
+public class FeatureModelVisualizerPlugin extends AbstractUIPlugin {
 
 	// The plug-in ID
 	public static final String PLUGIN_ID = "cz.jpikl.yafmt.ui.views.fm"; //$NON-NLS-1$
 
 	// The shared instance
-	private static FeatureModelViewPlugin plugin;
+	private static FeatureModelVisualizerPlugin plugin;
 	
 	/**
 	 * The constructor
 	 */
-	public FeatureModelViewPlugin() {
+	public FeatureModelVisualizerPlugin() {
 	}
 
 	/*
@@ -44,7 +44,7 @@ public class FeatureModelViewPlugin extends AbstractUIPlugin {
 	 *
 	 * @return the shared instance
 	 */
-	public static FeatureModelViewPlugin getDefault() {
+	public static FeatureModelVisualizerPlugin getDefault() {
 		return plugin;
 	}
 

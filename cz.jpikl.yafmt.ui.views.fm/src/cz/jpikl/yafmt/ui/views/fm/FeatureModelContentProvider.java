@@ -9,12 +9,13 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.zest.core.viewers.IGraphEntityContentProvider;
 
 import cz.jpikl.yafmt.model.fm.Attribute;
+import cz.jpikl.yafmt.model.fm.Constraint;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.Group;
 
 public class FeatureModelContentProvider implements IGraphEntityContentProvider {
-
+    
     @Override
     public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
     }
@@ -27,18 +28,19 @@ public class FeatureModelContentProvider implements IGraphEntityContentProvider 
     public Object[] getElements(Object input) {
         if(input == null)
             return null;
-        
-        Feature rootFeature =  ((FeatureModel) input).getRoot();
+
+        FeatureModel featureModel = (FeatureModel) input;
         List<Object> objects = new ArrayList<Object>();
-        objects.add(rootFeature);
+        objects.add(featureModel.getRoot());
         
-        Iterator<EObject> it = rootFeature.eAllContents();
+        Iterator<EObject> it = featureModel.getRoot().eAllContents();
         while(it.hasNext()) {
             EObject object = it.next();
             if(!(object instanceof Attribute))
                 objects.add(object);
         }
-        
+
+        objects.addAll(featureModel.getConstraints());
         return objects.toArray();
     }
 
@@ -58,6 +60,10 @@ public class FeatureModelContentProvider implements IGraphEntityContentProvider 
         
         if(element instanceof Group) {
             return ((Group) element).getFeatures().toArray();
+        }
+        
+        if(element instanceof Constraint) {
+            // TODO Add features affected by that constraint.
         }
         
         return null;

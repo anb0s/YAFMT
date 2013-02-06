@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: cz.jpikl.yafmt.ui.views.fm; singleton:=true
 Bundle-Version: 0.1.0.qualifier
-Bundle-Activator: cz.jpikl.yafmt.ui.views.fm.FeatureModelViewPlugin
+Bundle-Activator: cz.jpikl.yafmt.ui.views.fm.FeatureModelVisualizerPlugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  cz.jpikl.yafmt.model;bundle-version="0.1.0",

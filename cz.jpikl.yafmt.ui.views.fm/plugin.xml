@@ -9,30 +9,12 @@
             id="cz.jpikl.yafmt.ui.views.fm">
       </category>
       <view
-            name="Feature Model View"
-            icon="icons/sample.gif"
+            name="Feature Model Visualizer"
+            icon="icons/fm-visualizer.png"
             category="cz.jpikl.yafmt.ui.views.fm"
-            class="cz.jpikl.yafmt.ui.views.fm.FeatureModelView"
-            id="cz.jpikl.yafmt.ui.views.fm.FeatureModelView">
+            class="cz.jpikl.yafmt.ui.views.fm.FeatureModelVisualizer"
+            id="cz.jpikl.yafmt.ui.views.fm.FeatureModelVisualizer">
       </view>
-   </extension>
-   <extension
-         point="org.eclipse.ui.perspectiveExtensions">
-      <perspectiveExtension
-            targetID="org.eclipse.jdt.ui.JavaPerspective">
-         <view
-               ratio="0.5"
-               relative="org.eclipse.ui.views.ProblemView"
-               relationship="right"
-               id="cz.jpikl.yafmt.ui.views.fm.FeatureModelView">
-         </view>
-      </perspectiveExtension>
-   </extension>
-   <extension
-         point="org.eclipse.help.contexts">
-      <contexts
-            file="contexts.xml">
-      </contexts>
    </extension>
 
 </plugin>

@@ -35,9 +35,9 @@ import cz.jpikl.yafmt.ui.views.fm.filters.DistanceFilter;
 import cz.jpikl.yafmt.ui.views.fm.filters.GroupFilter;
 import cz.jpikl.yafmt.ui.views.fm.util.SettingsUtil;
 
-public class FeatureModelView extends ViewPart implements ISelectionListener, IPartListener {
+public class FeatureModelVisualizer extends ViewPart implements ISelectionListener, IPartListener {
 
-	public static final String ID = "cz.jpikl.yafmt.ui.views.fm.FeatureModelView";
+	public static final String ID = "cz.jpikl.yafmt.ui.views.fm.FeatureModelVisualizer";
 
 	private IWorkbenchPart sourcePart;
 	private FeatureModel featureModel;
@@ -59,12 +59,12 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, IP
         super.init(site);
         site.getPage().addPartListener(this);
         site.getPage().addSelectionListener(this);
-        initState(FeatureModelViewPlugin.getDefault().getDialogSettings());
+        initState(FeatureModelVisualizerPlugin.getDefault().getDialogSettings());
     }
         
     @Override
     public void dispose() {
-        saveState(FeatureModelViewPlugin.getDefault().getDialogSettings());
+        saveState(FeatureModelVisualizerPlugin.getDefault().getDialogSettings());
         setFeatureModel(null);
         getSite().getPage().removeSelectionListener(this);
         getSite().getPage().removePartListener(this);
