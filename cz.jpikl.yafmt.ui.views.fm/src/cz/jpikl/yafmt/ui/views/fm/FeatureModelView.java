@@ -24,8 +24,6 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.zest.core.viewers.GraphViewer;
 import org.eclipse.zest.core.widgets.ZestStyles;
-import org.eclipse.zest.layouts.LayoutStyles;
-import org.eclipse.zest.layouts.algorithms.RadialLayoutAlgorithm;
 
 import cz.jpikl.yafmt.model.fm.Constraint;
 import cz.jpikl.yafmt.model.fm.Feature;
@@ -111,7 +109,7 @@ public class FeatureModelView extends ViewPart implements ISelectionListener, IP
         viewer = new GraphViewer(parent, ZestStyles.NONE);
         viewer.setContentProvider(new FeatureModelContentProvider());
         viewer.setLabelProvider(new FeatureModelLabelProvider());
-        viewer.setLayoutAlgorithm(new RadialLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING));
+        viewer.setLayoutAlgorithm(new FeatureGraphLayoutAlgorithm());
         viewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         viewer.setNodeStyle(enableAnimation ? ZestStyles.NONE : ZestStyles.NODES_NO_ANIMATION);
         viewer.setFilters(new ViewerFilter[] { distanceFilter, groupFilter, constraintFilter });

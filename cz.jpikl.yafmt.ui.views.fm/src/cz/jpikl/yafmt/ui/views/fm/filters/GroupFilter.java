@@ -30,7 +30,6 @@ public class GroupFilter extends SelectionBasedFilter {
             Feature feature = (Feature) element;
             if(feature.getParentGroup() != null)
                 visibleElements.add(feature.getParentGroup());
-            visibleElements.addAll(feature.getGroups());
         }
     }
     
