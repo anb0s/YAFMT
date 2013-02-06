@@ -52,6 +52,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
     private boolean showGroups;
     private boolean showConstraints;
     private boolean enableAnimation;
+    private boolean locked;
     private int treeHeight = 1;
 	
     @Override
@@ -77,6 +78,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         showGroups = SettingsUtil.getBoolean(settings, "showGroups", true);
         showConstraints = SettingsUtil.getBoolean(settings, "showConstraints", true);
         enableAnimation = SettingsUtil.getBoolean(settings, "enableAnimation", true);
+        locked = SettingsUtil.getBoolean(settings, "locked", true);
     }
     
     public void saveState(IDialogSettings settings) {
@@ -84,6 +86,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         settings.put("showGroups", showGroups);
         settings.put("showConstraints", showConstraints);
         settings.put("enableAnimation", enableAnimation);
+        settings.put("locked", locked);
     }
     	
     @Override
@@ -119,7 +122,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
     private void createOptionsControl(Composite parent) {
         Composite panel = new Composite(parent, SWT.NONE);
         panel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-        panel.setLayout(new GridLayout(4, false));
+        panel.setLayout(new GridLayout(5, false));
         
         Composite distancePanel = new Composite(panel, SWT.NONE);
         distancePanel.setLayout(new GridLayout(2, false));
@@ -181,6 +184,16 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
                 viewer.setInput(null); // Style can be only changed when input is not set.
                 viewer.setNodeStyle(enableAnimation ? ZestStyles.NONE : ZestStyles.NODES_NO_ANIMATION);
                 viewer.setInput(featureModel);
+            }
+        });
+        
+        Button lockButton = new Button(panel, SWT.CHECK);
+        lockButton.setText("Lock View");
+        lockButton.setSelection(locked);
+        lockButton.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent event) {
+                locked = ((Button) event.getSource()).getSelection();
             }
         });
     }
@@ -256,12 +269,14 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
             if(!isValidSelection(selection))
                 return;
         }
-                
-        distanceFilter.update(selection, featureModel);
-        groupFilter.update(selection);
-        constraintFilter.update(selection);
-        viewer.refresh();
-        viewer.applyLayout();
+
+        if(!locked) {
+            distanceFilter.update(selection, featureModel);
+            groupFilter.update(selection);
+            constraintFilter.update(selection);
+            viewer.refresh();
+            viewer.applyLayout();
+        }
         
         if(part != this)
             viewer.setSelection(selection);
