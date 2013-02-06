@@ -1,12 +1,19 @@
 package cz.jpikl.yafmt.ui.views.fm.filters;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerFilter;
 
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.Group;
 
-public class GroupFilter extends SelectionBasedFilter {
-
+public class GroupFilter extends ViewerFilter {
+    
+    private Set<Group> visibleGroups = new HashSet<Group>();
     private boolean enabled = true;
     
     public GroupFilter(boolean enabled) {
@@ -21,15 +28,21 @@ public class GroupFilter extends SelectionBasedFilter {
         return enabled;
     }
     
-    @Override
-    protected void processSelectionElement(Object element) {
-        if(element instanceof Group) {
-            visibleElements.add(element);
-        }
-        else if(element instanceof Feature) {
-            Feature feature = (Feature) element;
-            if(feature.getParentGroup() != null)
-                visibleElements.add(feature.getParentGroup());
+    public void update(ISelection selection) {
+        visibleGroups.clear();
+        
+        if(!(selection instanceof IStructuredSelection))
+            return;
+
+        for(Object element: ((IStructuredSelection) selection).toArray()) {
+            if(element instanceof Group) {
+                visibleGroups.add((Group) element);
+            }
+            else if(element instanceof Feature) {
+                Feature feature = (Feature) element;
+                if(feature.getParentGroup() != null)
+                    visibleGroups.add(feature.getParentGroup());
+            }
         }
     }
     
@@ -37,7 +50,7 @@ public class GroupFilter extends SelectionBasedFilter {
     public boolean select(Viewer viewer, Object parentElement, Object element) {
         if(!(element instanceof Group))
             return true;
-        return enabled ? super.select(viewer, parentElement, element) : false;
+        return enabled ? visibleGroups.contains(element) : false;
     }
    
 }

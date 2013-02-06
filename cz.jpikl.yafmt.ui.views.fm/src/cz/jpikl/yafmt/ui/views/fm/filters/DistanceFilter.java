@@ -1,18 +1,24 @@
 package cz.jpikl.yafmt.ui.views.fm.filters;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerFilter;
 
 import cz.jpikl.yafmt.model.fm.Constraint;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.Group;
 
-public class DistanceFilter extends SelectionBasedFilter {
+public class DistanceFilter extends ViewerFilter {
 
     public static final int INFINITE_DISTACE = -1;
     
+    private Set<Feature> visibleFeatures = new HashSet<Feature>();
     private int distance = INFINITE_DISTACE;
     
     public DistanceFilter(int distance) {
@@ -28,33 +34,30 @@ public class DistanceFilter extends SelectionBasedFilter {
     }
     
     public void update(ISelection selection, FeatureModel featureModel) {
-        update(selection);
-        if(visibleElements.isEmpty() && (featureModel != null))
-            processFeature(featureModel.getRoot(), 0, true);
-    }
-    
-    @Override
-    public void updateVisibleElements(ISelection selection) {
-        if(distance == INFINITE_DISTACE)
-            return;
-        super.updateVisibleElements(selection);
-    }
-    
-    @Override
-    protected void processSelectionElement(Object element) {
-        if(element instanceof Feature)
-            processFeature((Feature) element, 0, true);
-        else if(element instanceof Group)            
-            processGroup((Group) element, 0);
-        else if(element instanceof Constraint)
-            ;// TODO Add features affected by that constraint.
-    }
-    
-    private void processFeature(Feature feature, int level, boolean forceUpdate) {
-        if((level > distance) || (visibleElements.contains(feature) && !forceUpdate))
+        visibleFeatures.clear();
+        
+        if((distance == INFINITE_DISTACE) || !(selection instanceof IStructuredSelection))
             return;
         
-        visibleElements.add(feature);
+        for(Object element: ((IStructuredSelection) selection).toArray()) {
+            if(element instanceof Feature)
+                processFeature((Feature) element, 0, true);
+            else if(element instanceof Group)            
+                processGroup((Group) element, 0);
+            else if(element instanceof Constraint)
+                ;// TODO Add features affected by that constraint.
+        }
+        
+        if(visibleFeatures.isEmpty() && (featureModel != null))
+            processFeature(featureModel.getRoot(), 0, true);
+            
+    }
+        
+    private void processFeature(Feature feature, int level, boolean forceAdd) {
+        if((level > distance) || (visibleFeatures.contains(feature) && !forceAdd))
+            return;
+        
+        visibleFeatures.add(feature);
         
         EObject parent = feature.getParent();
         if(parent instanceof Feature)
@@ -77,7 +80,7 @@ public class DistanceFilter extends SelectionBasedFilter {
     public boolean select(Viewer viewer, Object parentElement, Object element) {
         if((distance == INFINITE_DISTACE) || !(element instanceof Feature))
             return true;
-        return super.select(viewer, parentElement, element);
+        return visibleFeatures.contains(element);
     }
 
 }
