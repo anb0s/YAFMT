@@ -7,9 +7,9 @@ import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.model.fm.provider.FeatureModelEditPlugin;
-import cz.jpikl.yafmt.model.provider.util.PropertySourceValidator;
+import cz.jpikl.yafmt.model.provider.util.IPropertySourceValidator;
 
-public class FeatureModelPropertySourceValidator implements PropertySourceValidator {
+public class FeatureModelPropertySourceValidator implements IPropertySourceValidator {
         
     @Override
     public String validate(Object object, String property, String value) {

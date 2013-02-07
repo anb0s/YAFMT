@@ -6,13 +6,13 @@ import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.ui.views.properties.IPropertySource;
 
 import cz.jpikl.yafmt.model.fm.provider.FeatureModelItemProviderAdapterFactory;
-import cz.jpikl.yafmt.model.provider.util.PropertySourceValidator;
+import cz.jpikl.yafmt.model.provider.util.IPropertySourceValidator;
 import cz.jpikl.yafmt.model.provider.util.ValidatingPropertySource;
 
 public class FeatureModelProviderUtil {
 
     private static FeatureModelItemProviderAdapterFactory adapterFactory;
-    private static PropertySourceValidator propertySourceValidator;
+    private static IPropertySourceValidator propertySourceValidator;
 
     public static FeatureModelItemProviderAdapterFactory getAdapterFactory() {
         if(adapterFactory == null)
@@ -20,7 +20,7 @@ public class FeatureModelProviderUtil {
         return adapterFactory;
     }
     
-    private static PropertySourceValidator getPropertySourceValidator() {
+    private static IPropertySourceValidator getPropertySourceValidator() {
         if(propertySourceValidator == null)
             propertySourceValidator = new FeatureModelPropertySourceValidator();
         return propertySourceValidator;
