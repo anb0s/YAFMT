@@ -102,13 +102,13 @@ public interface FeatureConfigurationPackage extends EPackage {
     int FEATURE_CONFIGURATION__FEATURE_MODEL = 3;
 
     /**
-     * The feature id for the '<em><b>Selections</b></em>' containment reference list.
+     * The feature id for the '<em><b>Root</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int FEATURE_CONFIGURATION__SELECTIONS = 4;
+    int FEATURE_CONFIGURATION__ROOT = 4;
 
     /**
      * The number of structural features of the '<em>Feature Configuration</em>' class.
@@ -139,13 +139,31 @@ public interface FeatureConfigurationPackage extends EPackage {
     int SELECTION__ID = 0;
 
     /**
+     * The feature id for the '<em><b>Parent</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SELECTION__PARENT = 1;
+
+    /**
+     * The feature id for the '<em><b>Selections</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SELECTION__SELECTIONS = 2;
+
+    /**
      * The feature id for the '<em><b>Values</b></em>' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int SELECTION__VALUES = 1;
+    int SELECTION__VALUES = 3;
 
     /**
      * The number of structural features of the '<em>Selection</em>' class.
@@ -154,7 +172,7 @@ public interface FeatureConfigurationPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SELECTION_FEATURE_COUNT = 2;
+    int SELECTION_FEATURE_COUNT = 4;
 
     /**
      * The meta object id for the '{@link cz.jpikl.yafmt.model.fc.AttributeValue <em>Attribute Value</em>}' class.
@@ -388,15 +406,15 @@ public interface FeatureConfigurationPackage extends EPackage {
     EReference getFeatureConfiguration_FeatureModel();
 
     /**
-     * Returns the meta object for the containment reference list '{@link cz.jpikl.yafmt.model.fc.FeatureConfiguration#getSelections <em>Selections</em>}'.
+     * Returns the meta object for the containment reference '{@link cz.jpikl.yafmt.model.fc.FeatureConfiguration#getRoot <em>Root</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the containment reference list '<em>Selections</em>'.
-     * @see cz.jpikl.yafmt.model.fc.FeatureConfiguration#getSelections()
+     * @return the meta object for the containment reference '<em>Root</em>'.
+     * @see cz.jpikl.yafmt.model.fc.FeatureConfiguration#getRoot()
      * @see #getFeatureConfiguration()
      * @generated
      */
-    EReference getFeatureConfiguration_Selections();
+    EReference getFeatureConfiguration_Root();
 
     /**
      * Returns the meta object for class '{@link cz.jpikl.yafmt.model.fc.Selection <em>Selection</em>}'.
@@ -418,6 +436,28 @@ public interface FeatureConfigurationPackage extends EPackage {
      * @generated
      */
     EAttribute getSelection_Id();
+
+    /**
+     * Returns the meta object for the container reference '{@link cz.jpikl.yafmt.model.fc.Selection#getParent <em>Parent</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the container reference '<em>Parent</em>'.
+     * @see cz.jpikl.yafmt.model.fc.Selection#getParent()
+     * @see #getSelection()
+     * @generated
+     */
+    EReference getSelection_Parent();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link cz.jpikl.yafmt.model.fc.Selection#getSelections <em>Selections</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Selections</em>'.
+     * @see cz.jpikl.yafmt.model.fc.Selection#getSelections()
+     * @see #getSelection()
+     * @generated
+     */
+    EReference getSelection_Selections();
 
     /**
      * Returns the meta object for the containment reference list '{@link cz.jpikl.yafmt.model.fc.Selection#getValues <em>Values</em>}'.
@@ -600,12 +640,12 @@ public interface FeatureConfigurationPackage extends EPackage {
         EReference FEATURE_CONFIGURATION__FEATURE_MODEL = eINSTANCE.getFeatureConfiguration_FeatureModel();
 
         /**
-         * The meta object literal for the '<em><b>Selections</b></em>' containment reference list feature.
+         * The meta object literal for the '<em><b>Root</b></em>' containment reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EReference FEATURE_CONFIGURATION__SELECTIONS = eINSTANCE.getFeatureConfiguration_Selections();
+        EReference FEATURE_CONFIGURATION__ROOT = eINSTANCE.getFeatureConfiguration_Root();
 
         /**
          * The meta object literal for the '{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl <em>Selection</em>}' class.
@@ -624,6 +664,22 @@ public interface FeatureConfigurationPackage extends EPackage {
          * @generated
          */
         EAttribute SELECTION__ID = eINSTANCE.getSelection_Id();
+
+        /**
+         * The meta object literal for the '<em><b>Parent</b></em>' container reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference SELECTION__PARENT = eINSTANCE.getSelection_Parent();
+
+        /**
+         * The meta object literal for the '<em><b>Selections</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference SELECTION__SELECTIONS = eINSTANCE.getSelection_Selections();
 
         /**
          * The meta object literal for the '<em><b>Values</b></em>' containment reference list feature.

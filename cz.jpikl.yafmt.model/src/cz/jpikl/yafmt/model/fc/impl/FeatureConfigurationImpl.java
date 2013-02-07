@@ -35,7 +35,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.FeatureConfigurationImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.FeatureConfigurationImpl#getVersion <em>Version</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.FeatureConfigurationImpl#getFeatureModel <em>Feature Model</em>}</li>
- *   <li>{@link cz.jpikl.yafmt.model.fc.impl.FeatureConfigurationImpl#getSelections <em>Selections</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fc.impl.FeatureConfigurationImpl#getRoot <em>Root</em>}</li>
  * </ul>
  * </p>
  *
@@ -113,14 +113,14 @@ public class FeatureConfigurationImpl extends EObjectImpl implements FeatureConf
     protected FeatureModel featureModel;
 
     /**
-     * The cached value of the '{@link #getSelections() <em>Selections</em>}' containment reference list.
+     * The cached value of the '{@link #getRoot() <em>Root</em>}' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getSelections()
+     * @see #getRoot()
      * @generated
      * @ordered
      */
-    protected EList<Selection> selections;
+    protected Selection root;
 
     /**
      * <!-- begin-user-doc -->
@@ -247,11 +247,42 @@ public class FeatureConfigurationImpl extends EObjectImpl implements FeatureConf
      * <!-- end-user-doc -->
      * @generated
      */
-    public EList<Selection> getSelections() {
-        if (selections == null) {
-            selections = new EObjectContainmentEList<Selection>(Selection.class, this, FeatureConfigurationPackage.FEATURE_CONFIGURATION__SELECTIONS);
+    public Selection getRoot() {
+        return root;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetRoot(Selection newRoot, NotificationChain msgs) {
+        Selection oldRoot = root;
+        root = newRoot;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, FeatureConfigurationPackage.FEATURE_CONFIGURATION__ROOT, oldRoot, newRoot);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
         }
-        return selections;
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setRoot(Selection newRoot) {
+        if (newRoot != root) {
+            NotificationChain msgs = null;
+            if (root != null)
+                msgs = ((InternalEObject)root).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - FeatureConfigurationPackage.FEATURE_CONFIGURATION__ROOT, null, msgs);
+            if (newRoot != null)
+                msgs = ((InternalEObject)newRoot).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - FeatureConfigurationPackage.FEATURE_CONFIGURATION__ROOT, null, msgs);
+            msgs = basicSetRoot(newRoot, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, FeatureConfigurationPackage.FEATURE_CONFIGURATION__ROOT, newRoot, newRoot));
     }
 
     /**
@@ -262,8 +293,8 @@ public class FeatureConfigurationImpl extends EObjectImpl implements FeatureConf
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case FeatureConfigurationPackage.FEATURE_CONFIGURATION__SELECTIONS:
-                return ((InternalEList<?>)getSelections()).basicRemove(otherEnd, msgs);
+            case FeatureConfigurationPackage.FEATURE_CONFIGURATION__ROOT:
+                return basicSetRoot(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -285,8 +316,8 @@ public class FeatureConfigurationImpl extends EObjectImpl implements FeatureConf
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__FEATURE_MODEL:
                 if (resolve) return getFeatureModel();
                 return basicGetFeatureModel();
-            case FeatureConfigurationPackage.FEATURE_CONFIGURATION__SELECTIONS:
-                return getSelections();
+            case FeatureConfigurationPackage.FEATURE_CONFIGURATION__ROOT:
+                return getRoot();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -312,9 +343,8 @@ public class FeatureConfigurationImpl extends EObjectImpl implements FeatureConf
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__FEATURE_MODEL:
                 setFeatureModel((FeatureModel)newValue);
                 return;
-            case FeatureConfigurationPackage.FEATURE_CONFIGURATION__SELECTIONS:
-                getSelections().clear();
-                getSelections().addAll((Collection<? extends Selection>)newValue);
+            case FeatureConfigurationPackage.FEATURE_CONFIGURATION__ROOT:
+                setRoot((Selection)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -340,8 +370,8 @@ public class FeatureConfigurationImpl extends EObjectImpl implements FeatureConf
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__FEATURE_MODEL:
                 setFeatureModel((FeatureModel)null);
                 return;
-            case FeatureConfigurationPackage.FEATURE_CONFIGURATION__SELECTIONS:
-                getSelections().clear();
+            case FeatureConfigurationPackage.FEATURE_CONFIGURATION__ROOT:
+                setRoot((Selection)null);
                 return;
         }
         super.eUnset(featureID);
@@ -363,8 +393,8 @@ public class FeatureConfigurationImpl extends EObjectImpl implements FeatureConf
                 return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__FEATURE_MODEL:
                 return featureModel != null;
-            case FeatureConfigurationPackage.FEATURE_CONFIGURATION__SELECTIONS:
-                return selections != null && !selections.isEmpty();
+            case FeatureConfigurationPackage.FEATURE_CONFIGURATION__ROOT:
+                return root != null;
         }
         return super.eIsSet(featureID);
     }

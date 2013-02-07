@@ -188,7 +188,7 @@ public class FeatureItemProvider
      * This adds a property descriptor for the Root feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated 
+     * @generated
      */
     protected void addRootPropertyDescriptor(Object object) {
         itemPropertyDescriptors.add
@@ -220,6 +220,72 @@ public class FeatureItemProvider
                  getString("_UI_Feature_orphan_feature"),
                  getString("_UI_PropertyDescriptor_description", "_UI_Feature_orphan_feature", "_UI_Feature_type"),
                  FeatureModelPackage.Literals.FEATURE__ORPHAN,
+                 false,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
+     * This adds a property descriptor for the Optional feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addOptionalPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_Feature_optional_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_Feature_optional_feature", "_UI_Feature_type"),
+                 FeatureModelPackage.Literals.FEATURE__OPTIONAL,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
+     * This adds a property descriptor for the Mandatory feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addMandatoryPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_Feature_mandatory_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_Feature_mandatory_feature", "_UI_Feature_type"),
+                 FeatureModelPackage.Literals.FEATURE__MANDATORY,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
+     * This adds a property descriptor for the Clonable feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addClonablePropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_Feature_clonable_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_Feature_clonable_feature", "_UI_Feature_type"),
+                 FeatureModelPackage.Literals.FEATURE__CLONABLE,
                  false,
                  false,
                  false,
@@ -357,6 +423,9 @@ public class FeatureItemProvider
             case FeatureModelPackage.FEATURE__UPPER:
             case FeatureModelPackage.FEATURE__ROOT:
             case FeatureModelPackage.FEATURE__ORPHAN:
+            case FeatureModelPackage.FEATURE__OPTIONAL:
+            case FeatureModelPackage.FEATURE__MANDATORY:
+            case FeatureModelPackage.FEATURE__CLONABLE:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
                 return;
             case FeatureModelPackage.FEATURE__ATTRIBUTES:

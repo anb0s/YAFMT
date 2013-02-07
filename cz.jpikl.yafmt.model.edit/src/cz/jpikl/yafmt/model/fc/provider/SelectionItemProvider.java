@@ -104,6 +104,7 @@ public class SelectionItemProvider
     public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
         if (childrenFeatures == null) {
             super.getChildrenFeatures(object);
+            childrenFeatures.add(FeatureConfigurationPackage.Literals.SELECTION__SELECTIONS);
             childrenFeatures.add(FeatureConfigurationPackage.Literals.SELECTION__VALUES);
         }
         return childrenFeatures;
@@ -162,6 +163,7 @@ public class SelectionItemProvider
             case FeatureConfigurationPackage.SELECTION__ID:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
                 return;
+            case FeatureConfigurationPackage.SELECTION__SELECTIONS:
             case FeatureConfigurationPackage.SELECTION__VALUES:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
                 return;
@@ -179,6 +181,11 @@ public class SelectionItemProvider
     @Override
     protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
         super.collectNewChildDescriptors(newChildDescriptors, object);
+
+        newChildDescriptors.add
+            (createChildParameter
+                (FeatureConfigurationPackage.Literals.SELECTION__SELECTIONS,
+                 FeatureConfigurationFactory.eINSTANCE.createSelection()));
 
         newChildDescriptors.add
             (createChildParameter

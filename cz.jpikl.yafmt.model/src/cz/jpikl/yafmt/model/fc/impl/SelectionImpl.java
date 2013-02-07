@@ -20,6 +20,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -30,6 +32,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * <ul>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#getId <em>Id</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#getParent <em>Parent</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#getSelections <em>Selections</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#getValues <em>Values</em>}</li>
  * </ul>
  * </p>
@@ -56,6 +60,16 @@ public class SelectionImpl extends EObjectImpl implements Selection {
      * @ordered
      */
     protected String id = ID_EDEFAULT;
+
+    /**
+     * The cached value of the '{@link #getSelections() <em>Selections</em>}' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getSelections()
+     * @generated
+     * @ordered
+     */
+    protected EList<Selection> selections;
 
     /**
      * The cached value of the '{@link #getValues() <em>Values</em>}' containment reference list.
@@ -112,6 +126,59 @@ public class SelectionImpl extends EObjectImpl implements Selection {
      * <!-- end-user-doc -->
      * @generated
      */
+    public Selection getParent() {
+        if (eContainerFeatureID() != FeatureConfigurationPackage.SELECTION__PARENT) return null;
+        return (Selection)eContainer();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetParent(Selection newParent, NotificationChain msgs) {
+        msgs = eBasicSetContainer((InternalEObject)newParent, FeatureConfigurationPackage.SELECTION__PARENT, msgs);
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setParent(Selection newParent) {
+        if (newParent != eInternalContainer() || (eContainerFeatureID() != FeatureConfigurationPackage.SELECTION__PARENT && newParent != null)) {
+            if (EcoreUtil.isAncestor(this, newParent))
+                throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+            NotificationChain msgs = null;
+            if (eInternalContainer() != null)
+                msgs = eBasicRemoveFromContainer(msgs);
+            if (newParent != null)
+                msgs = ((InternalEObject)newParent).eInverseAdd(this, FeatureConfigurationPackage.SELECTION__SELECTIONS, Selection.class, msgs);
+            msgs = basicSetParent(newParent, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, FeatureConfigurationPackage.SELECTION__PARENT, newParent, newParent));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EList<Selection> getSelections() {
+        if (selections == null) {
+            selections = new EObjectContainmentWithInverseEList<Selection>(Selection.class, this, FeatureConfigurationPackage.SELECTION__SELECTIONS, FeatureConfigurationPackage.SELECTION__PARENT);
+        }
+        return selections;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EList<AttributeValue> getValues() {
         if (values == null) {
             values = new EObjectContainmentEList<AttributeValue>(AttributeValue.class, this, FeatureConfigurationPackage.SELECTION__VALUES);
@@ -124,9 +191,32 @@ public class SelectionImpl extends EObjectImpl implements Selection {
      * <!-- end-user-doc -->
      * @generated
      */
+    @SuppressWarnings("unchecked")
+    @Override
+    public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+            case FeatureConfigurationPackage.SELECTION__PARENT:
+                if (eInternalContainer() != null)
+                    msgs = eBasicRemoveFromContainer(msgs);
+                return basicSetParent((Selection)otherEnd, msgs);
+            case FeatureConfigurationPackage.SELECTION__SELECTIONS:
+                return ((InternalEList<InternalEObject>)(InternalEList<?>)getSelections()).basicAdd(otherEnd, msgs);
+        }
+        return super.eInverseAdd(otherEnd, featureID, msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
+            case FeatureConfigurationPackage.SELECTION__PARENT:
+                return basicSetParent(null, msgs);
+            case FeatureConfigurationPackage.SELECTION__SELECTIONS:
+                return ((InternalEList<?>)getSelections()).basicRemove(otherEnd, msgs);
             case FeatureConfigurationPackage.SELECTION__VALUES:
                 return ((InternalEList<?>)getValues()).basicRemove(otherEnd, msgs);
         }
@@ -139,10 +229,28 @@ public class SelectionImpl extends EObjectImpl implements Selection {
      * @generated
      */
     @Override
+    public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+        switch (eContainerFeatureID()) {
+            case FeatureConfigurationPackage.SELECTION__PARENT:
+                return eInternalContainer().eInverseRemove(this, FeatureConfigurationPackage.SELECTION__SELECTIONS, Selection.class, msgs);
+        }
+        return super.eBasicRemoveFromContainerFeature(msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case FeatureConfigurationPackage.SELECTION__ID:
                 return getId();
+            case FeatureConfigurationPackage.SELECTION__PARENT:
+                return getParent();
+            case FeatureConfigurationPackage.SELECTION__SELECTIONS:
+                return getSelections();
             case FeatureConfigurationPackage.SELECTION__VALUES:
                 return getValues();
         }
@@ -160,6 +268,13 @@ public class SelectionImpl extends EObjectImpl implements Selection {
         switch (featureID) {
             case FeatureConfigurationPackage.SELECTION__ID:
                 setId((String)newValue);
+                return;
+            case FeatureConfigurationPackage.SELECTION__PARENT:
+                setParent((Selection)newValue);
+                return;
+            case FeatureConfigurationPackage.SELECTION__SELECTIONS:
+                getSelections().clear();
+                getSelections().addAll((Collection<? extends Selection>)newValue);
                 return;
             case FeatureConfigurationPackage.SELECTION__VALUES:
                 getValues().clear();
@@ -180,6 +295,12 @@ public class SelectionImpl extends EObjectImpl implements Selection {
             case FeatureConfigurationPackage.SELECTION__ID:
                 setId(ID_EDEFAULT);
                 return;
+            case FeatureConfigurationPackage.SELECTION__PARENT:
+                setParent((Selection)null);
+                return;
+            case FeatureConfigurationPackage.SELECTION__SELECTIONS:
+                getSelections().clear();
+                return;
             case FeatureConfigurationPackage.SELECTION__VALUES:
                 getValues().clear();
                 return;
@@ -197,6 +318,10 @@ public class SelectionImpl extends EObjectImpl implements Selection {
         switch (featureID) {
             case FeatureConfigurationPackage.SELECTION__ID:
                 return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
+            case FeatureConfigurationPackage.SELECTION__PARENT:
+                return getParent() != null;
+            case FeatureConfigurationPackage.SELECTION__SELECTIONS:
+                return selections != null && !selections.isEmpty();
             case FeatureConfigurationPackage.SELECTION__VALUES:
                 return values != null && !values.isEmpty();
         }

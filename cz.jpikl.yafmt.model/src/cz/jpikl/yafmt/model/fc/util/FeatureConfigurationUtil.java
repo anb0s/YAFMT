@@ -22,7 +22,8 @@ public class FeatureConfigurationUtil {
         ExtendedMetaData emd = new BasicExtendedMetaData();
         emd.setName(Literals.FEATURE_CONFIGURATION, "feature-configuration");
         emd.setName(Literals.FEATURE_CONFIGURATION__FEATURE_MODEL, "feature-model");
-        emd.setName(Literals.FEATURE_CONFIGURATION__SELECTIONS, "feature");
+        emd.setName(Literals.FEATURE_CONFIGURATION__ROOT, "root-feature");
+        emd.setName(Literals.SELECTION__SELECTIONS, "feature");
         emd.setName(Literals.SELECTION__VALUES, "attribute");
         emd.setName(Literals.BOOLEAN_VALUE, "boolean");
         emd.setName(Literals.INTEGER_VALUE, "integer");

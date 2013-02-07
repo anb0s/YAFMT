@@ -195,7 +195,7 @@ public class FeatureConfigurationPackageImpl extends EPackageImpl implements Fea
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getFeatureConfiguration_Selections() {
+    public EReference getFeatureConfiguration_Root() {
         return (EReference)featureConfigurationEClass.getEStructuralFeatures().get(4);
     }
 
@@ -222,8 +222,26 @@ public class FeatureConfigurationPackageImpl extends EPackageImpl implements Fea
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getSelection_Values() {
+    public EReference getSelection_Parent() {
         return (EReference)selectionEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getSelection_Selections() {
+        return (EReference)selectionEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getSelection_Values() {
+        return (EReference)selectionEClass.getEStructuralFeatures().get(3);
     }
 
     /**
@@ -349,10 +367,12 @@ public class FeatureConfigurationPackageImpl extends EPackageImpl implements Fea
         createEAttribute(featureConfigurationEClass, FEATURE_CONFIGURATION__DESCRIPTION);
         createEAttribute(featureConfigurationEClass, FEATURE_CONFIGURATION__VERSION);
         createEReference(featureConfigurationEClass, FEATURE_CONFIGURATION__FEATURE_MODEL);
-        createEReference(featureConfigurationEClass, FEATURE_CONFIGURATION__SELECTIONS);
+        createEReference(featureConfigurationEClass, FEATURE_CONFIGURATION__ROOT);
 
         selectionEClass = createEClass(SELECTION);
         createEAttribute(selectionEClass, SELECTION__ID);
+        createEReference(selectionEClass, SELECTION__PARENT);
+        createEReference(selectionEClass, SELECTION__SELECTIONS);
         createEReference(selectionEClass, SELECTION__VALUES);
 
         attributeValueEClass = createEClass(ATTRIBUTE_VALUE);
@@ -413,10 +433,12 @@ public class FeatureConfigurationPackageImpl extends EPackageImpl implements Fea
         initEAttribute(getFeatureConfiguration_Description(), ecorePackage.getEString(), "description", null, 0, 1, FeatureConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getFeatureConfiguration_Version(), ecorePackage.getEString(), "version", null, 0, 1, FeatureConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getFeatureConfiguration_FeatureModel(), theFeatureModelPackage.getFeatureModel(), null, "featureModel", null, 0, 1, FeatureConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getFeatureConfiguration_Selections(), this.getSelection(), null, "selections", null, 0, -1, FeatureConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getFeatureConfiguration_Root(), this.getSelection(), null, "root", null, 1, 1, FeatureConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(selectionEClass, Selection.class, "Selection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getSelection_Id(), ecorePackage.getEString(), "id", null, 1, 1, Selection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getSelection_Parent(), this.getSelection(), this.getSelection_Selections(), "parent", null, 0, 1, Selection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getSelection_Selections(), this.getSelection(), this.getSelection_Parent(), "selections", null, 0, -1, Selection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getSelection_Values(), this.getAttributeValue(), null, "values", null, 0, -1, Selection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(attributeValueEClass, AttributeValue.class, "AttributeValue", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

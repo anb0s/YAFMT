@@ -17,7 +17,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link cz.jpikl.yafmt.model.fm.FeatureModel#getName <em>Name</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.FeatureModel#getDescription <em>Description</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.FeatureModel#getVersion <em>Version</em>}</li>
- *   <li>{@link cz.jpikl.yafmt.model.fm.FeatureModel#getConstraintLanguage <em>Constraint Language</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.FeatureModel#getRoot <em>Root</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.FeatureModel#getOrphans <em>Orphans</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.FeatureModel#getConstraints <em>Constraints</em>}</li>
@@ -106,32 +105,6 @@ public interface FeatureModel extends EObject {
      * @generated
      */
     void setVersion(String value);
-
-    /**
-     * Returns the value of the '<em><b>Constraint Language</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Constraint Language</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Constraint Language</em>' attribute.
-     * @see #setConstraintLanguage(String)
-     * @see cz.jpikl.yafmt.model.fm.FeatureModelPackage#getFeatureModel_ConstraintLanguage()
-     * @model
-     * @generated
-     */
-    String getConstraintLanguage();
-
-    /**
-     * Sets the value of the '{@link cz.jpikl.yafmt.model.fm.FeatureModel#getConstraintLanguage <em>Constraint Language</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Constraint Language</em>' attribute.
-     * @see #getConstraintLanguage()
-     * @generated
-     */
-    void setConstraintLanguage(String value);
 
     /**
      * Returns the value of the '<em><b>Root</b></em>' containment reference.

@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * The following features are implemented:
  * <ul>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.ConstraintImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fm.impl.ConstraintImpl#getLanguage <em>Language</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.ConstraintImpl#getDescription <em>Description</em>}</li>
  * </ul>
  * </p>
@@ -46,6 +47,26 @@ public class ConstraintImpl extends EObjectImpl implements Constraint {
      * @ordered
      */
     protected String value = VALUE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getLanguage() <em>Language</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getLanguage()
+     * @generated
+     * @ordered
+     */
+    protected static final String LANGUAGE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getLanguage() <em>Language</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getLanguage()
+     * @generated
+     * @ordered
+     */
+    protected String language = LANGUAGE_EDEFAULT;
 
     /**
      * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
@@ -112,6 +133,27 @@ public class ConstraintImpl extends EObjectImpl implements Constraint {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getLanguage() {
+        return language;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setLanguage(String newLanguage) {
+        String oldLanguage = language;
+        language = newLanguage;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, FeatureModelPackage.CONSTRAINT__LANGUAGE, oldLanguage, language));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getDescription() {
         return description;
     }
@@ -138,6 +180,8 @@ public class ConstraintImpl extends EObjectImpl implements Constraint {
         switch (featureID) {
             case FeatureModelPackage.CONSTRAINT__VALUE:
                 return getValue();
+            case FeatureModelPackage.CONSTRAINT__LANGUAGE:
+                return getLanguage();
             case FeatureModelPackage.CONSTRAINT__DESCRIPTION:
                 return getDescription();
         }
@@ -154,6 +198,9 @@ public class ConstraintImpl extends EObjectImpl implements Constraint {
         switch (featureID) {
             case FeatureModelPackage.CONSTRAINT__VALUE:
                 setValue((String)newValue);
+                return;
+            case FeatureModelPackage.CONSTRAINT__LANGUAGE:
+                setLanguage((String)newValue);
                 return;
             case FeatureModelPackage.CONSTRAINT__DESCRIPTION:
                 setDescription((String)newValue);
@@ -173,6 +220,9 @@ public class ConstraintImpl extends EObjectImpl implements Constraint {
             case FeatureModelPackage.CONSTRAINT__VALUE:
                 setValue(VALUE_EDEFAULT);
                 return;
+            case FeatureModelPackage.CONSTRAINT__LANGUAGE:
+                setLanguage(LANGUAGE_EDEFAULT);
+                return;
             case FeatureModelPackage.CONSTRAINT__DESCRIPTION:
                 setDescription(DESCRIPTION_EDEFAULT);
                 return;
@@ -190,6 +240,8 @@ public class ConstraintImpl extends EObjectImpl implements Constraint {
         switch (featureID) {
             case FeatureModelPackage.CONSTRAINT__VALUE:
                 return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
+            case FeatureModelPackage.CONSTRAINT__LANGUAGE:
+                return LANGUAGE_EDEFAULT == null ? language != null : !LANGUAGE_EDEFAULT.equals(language);
             case FeatureModelPackage.CONSTRAINT__DESCRIPTION:
                 return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
         }
@@ -208,6 +260,8 @@ public class ConstraintImpl extends EObjectImpl implements Constraint {
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (value: ");
         result.append(value);
+        result.append(", language: ");
+        result.append(language);
         result.append(", description: ");
         result.append(description);
         result.append(')');

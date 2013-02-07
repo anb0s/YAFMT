@@ -173,7 +173,7 @@ public class FeatureConfigurationItemProvider
     public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
         if (childrenFeatures == null) {
             super.getChildrenFeatures(object);
-            childrenFeatures.add(FeatureConfigurationPackage.Literals.FEATURE_CONFIGURATION__SELECTIONS);
+            childrenFeatures.add(FeatureConfigurationPackage.Literals.FEATURE_CONFIGURATION__ROOT);
         }
         return childrenFeatures;
     }
@@ -233,7 +233,7 @@ public class FeatureConfigurationItemProvider
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__VERSION:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
                 return;
-            case FeatureConfigurationPackage.FEATURE_CONFIGURATION__SELECTIONS:
+            case FeatureConfigurationPackage.FEATURE_CONFIGURATION__ROOT:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
                 return;
         }
@@ -253,7 +253,7 @@ public class FeatureConfigurationItemProvider
 
         newChildDescriptors.add
             (createChildParameter
-                (FeatureConfigurationPackage.Literals.FEATURE_CONFIGURATION__SELECTIONS,
+                (FeatureConfigurationPackage.Literals.FEATURE_CONFIGURATION__ROOT,
                  FeatureConfigurationFactory.eINSTANCE.createSelection()));
     }
 

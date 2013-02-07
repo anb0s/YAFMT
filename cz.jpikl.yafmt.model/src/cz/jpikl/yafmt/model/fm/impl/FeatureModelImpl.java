@@ -34,7 +34,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureModelImpl#getName <em>Name</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureModelImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureModelImpl#getVersion <em>Version</em>}</li>
- *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureModelImpl#getConstraintLanguage <em>Constraint Language</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureModelImpl#getRoot <em>Root</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureModelImpl#getOrphans <em>Orphans</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureModelImpl#getConstraints <em>Constraints</em>}</li>
@@ -103,26 +102,6 @@ public class FeatureModelImpl extends EObjectImpl implements FeatureModel {
      * @ordered
      */
     protected String version = VERSION_EDEFAULT;
-
-    /**
-     * The default value of the '{@link #getConstraintLanguage() <em>Constraint Language</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getConstraintLanguage()
-     * @generated
-     * @ordered
-     */
-    protected static final String CONSTRAINT_LANGUAGE_EDEFAULT = null;
-
-    /**
-     * The cached value of the '{@link #getConstraintLanguage() <em>Constraint Language</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getConstraintLanguage()
-     * @generated
-     * @ordered
-     */
-    protected String constraintLanguage = CONSTRAINT_LANGUAGE_EDEFAULT;
 
     /**
      * The cached value of the '{@link #getRoot() <em>Root</em>}' containment reference.
@@ -246,27 +225,6 @@ public class FeatureModelImpl extends EObjectImpl implements FeatureModel {
      * <!-- end-user-doc -->
      * @generated
      */
-    public String getConstraintLanguage() {
-        return constraintLanguage;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setConstraintLanguage(String newConstraintLanguage) {
-        String oldConstraintLanguage = constraintLanguage;
-        constraintLanguage = newConstraintLanguage;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, FeatureModelPackage.FEATURE_MODEL__CONSTRAINT_LANGUAGE, oldConstraintLanguage, constraintLanguage));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public Feature getRoot() {
         return root;
     }
@@ -372,8 +330,6 @@ public class FeatureModelImpl extends EObjectImpl implements FeatureModel {
                 return getDescription();
             case FeatureModelPackage.FEATURE_MODEL__VERSION:
                 return getVersion();
-            case FeatureModelPackage.FEATURE_MODEL__CONSTRAINT_LANGUAGE:
-                return getConstraintLanguage();
             case FeatureModelPackage.FEATURE_MODEL__ROOT:
                 return getRoot();
             case FeatureModelPackage.FEATURE_MODEL__ORPHANS:
@@ -401,9 +357,6 @@ public class FeatureModelImpl extends EObjectImpl implements FeatureModel {
                 return;
             case FeatureModelPackage.FEATURE_MODEL__VERSION:
                 setVersion((String)newValue);
-                return;
-            case FeatureModelPackage.FEATURE_MODEL__CONSTRAINT_LANGUAGE:
-                setConstraintLanguage((String)newValue);
                 return;
             case FeatureModelPackage.FEATURE_MODEL__ROOT:
                 setRoot((Feature)newValue);
@@ -437,9 +390,6 @@ public class FeatureModelImpl extends EObjectImpl implements FeatureModel {
             case FeatureModelPackage.FEATURE_MODEL__VERSION:
                 setVersion(VERSION_EDEFAULT);
                 return;
-            case FeatureModelPackage.FEATURE_MODEL__CONSTRAINT_LANGUAGE:
-                setConstraintLanguage(CONSTRAINT_LANGUAGE_EDEFAULT);
-                return;
             case FeatureModelPackage.FEATURE_MODEL__ROOT:
                 setRoot((Feature)null);
                 return;
@@ -467,8 +417,6 @@ public class FeatureModelImpl extends EObjectImpl implements FeatureModel {
                 return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
             case FeatureModelPackage.FEATURE_MODEL__VERSION:
                 return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
-            case FeatureModelPackage.FEATURE_MODEL__CONSTRAINT_LANGUAGE:
-                return CONSTRAINT_LANGUAGE_EDEFAULT == null ? constraintLanguage != null : !CONSTRAINT_LANGUAGE_EDEFAULT.equals(constraintLanguage);
             case FeatureModelPackage.FEATURE_MODEL__ROOT:
                 return root != null;
             case FeatureModelPackage.FEATURE_MODEL__ORPHANS:
@@ -495,8 +443,6 @@ public class FeatureModelImpl extends EObjectImpl implements FeatureModel {
         result.append(description);
         result.append(", version: ");
         result.append(version);
-        result.append(", constraintLanguage: ");
-        result.append(constraintLanguage);
         result.append(')');
         return result.toString();
     }

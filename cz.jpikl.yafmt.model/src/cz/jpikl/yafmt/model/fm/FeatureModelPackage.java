@@ -94,22 +94,13 @@ public interface FeatureModelPackage extends EPackage {
     int FEATURE_MODEL__VERSION = 2;
 
     /**
-     * The feature id for the '<em><b>Constraint Language</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FEATURE_MODEL__CONSTRAINT_LANGUAGE = 3;
-
-    /**
      * The feature id for the '<em><b>Root</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int FEATURE_MODEL__ROOT = 4;
+    int FEATURE_MODEL__ROOT = 3;
 
     /**
      * The feature id for the '<em><b>Orphans</b></em>' containment reference list.
@@ -118,7 +109,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FEATURE_MODEL__ORPHANS = 5;
+    int FEATURE_MODEL__ORPHANS = 4;
 
     /**
      * The feature id for the '<em><b>Constraints</b></em>' containment reference list.
@@ -127,7 +118,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FEATURE_MODEL__CONSTRAINTS = 6;
+    int FEATURE_MODEL__CONSTRAINTS = 5;
 
     /**
      * The number of structural features of the '<em>Feature Model</em>' class.
@@ -136,7 +127,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FEATURE_MODEL_FEATURE_COUNT = 7;
+    int FEATURE_MODEL_FEATURE_COUNT = 6;
 
     /**
      * The meta object id for the '{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl <em>Feature</em>}' class.
@@ -458,13 +449,22 @@ public interface FeatureModelPackage extends EPackage {
     int CONSTRAINT__VALUE = 0;
 
     /**
+     * The feature id for the '<em><b>Language</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONSTRAINT__LANGUAGE = 1;
+
+    /**
      * The feature id for the '<em><b>Description</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int CONSTRAINT__DESCRIPTION = 1;
+    int CONSTRAINT__DESCRIPTION = 2;
 
     /**
      * The number of structural features of the '<em>Constraint</em>' class.
@@ -473,7 +473,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONSTRAINT_FEATURE_COUNT = 2;
+    int CONSTRAINT_FEATURE_COUNT = 3;
 
     /**
      * The meta object id for the '{@link cz.jpikl.yafmt.model.fm.AttributeType <em>Attribute Type</em>}' enum.
@@ -528,17 +528,6 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      */
     EAttribute getFeatureModel_Version();
-
-    /**
-     * Returns the meta object for the attribute '{@link cz.jpikl.yafmt.model.fm.FeatureModel#getConstraintLanguage <em>Constraint Language</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Constraint Language</em>'.
-     * @see cz.jpikl.yafmt.model.fm.FeatureModel#getConstraintLanguage()
-     * @see #getFeatureModel()
-     * @generated
-     */
-    EAttribute getFeatureModel_ConstraintLanguage();
 
     /**
      * Returns the meta object for the containment reference '{@link cz.jpikl.yafmt.model.fm.FeatureModel#getRoot <em>Root</em>}'.
@@ -922,6 +911,17 @@ public interface FeatureModelPackage extends EPackage {
     EAttribute getConstraint_Value();
 
     /**
+     * Returns the meta object for the attribute '{@link cz.jpikl.yafmt.model.fm.Constraint#getLanguage <em>Language</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Language</em>'.
+     * @see cz.jpikl.yafmt.model.fm.Constraint#getLanguage()
+     * @see #getConstraint()
+     * @generated
+     */
+    EAttribute getConstraint_Language();
+
+    /**
      * Returns the meta object for the attribute '{@link cz.jpikl.yafmt.model.fm.Constraint#getDescription <em>Description</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -997,14 +997,6 @@ public interface FeatureModelPackage extends EPackage {
          * @generated
          */
         EAttribute FEATURE_MODEL__VERSION = eINSTANCE.getFeatureModel_Version();
-
-        /**
-         * The meta object literal for the '<em><b>Constraint Language</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute FEATURE_MODEL__CONSTRAINT_LANGUAGE = eINSTANCE.getFeatureModel_ConstraintLanguage();
 
         /**
          * The meta object literal for the '<em><b>Root</b></em>' containment reference feature.
@@ -1293,6 +1285,14 @@ public interface FeatureModelPackage extends EPackage {
          * @generated
          */
         EAttribute CONSTRAINT__VALUE = eINSTANCE.getConstraint_Value();
+
+        /**
+         * The meta object literal for the '<em><b>Language</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CONSTRAINT__LANGUAGE = eINSTANCE.getConstraint_Language();
 
         /**
          * The meta object literal for the '<em><b>Description</b></em>' attribute feature.

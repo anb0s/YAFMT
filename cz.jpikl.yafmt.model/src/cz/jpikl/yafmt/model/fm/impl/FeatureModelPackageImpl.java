@@ -180,17 +180,8 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getFeatureModel_ConstraintLanguage() {
-        return (EAttribute)featureModelEClass.getEStructuralFeatures().get(3);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public EReference getFeatureModel_Root() {
-        return (EReference)featureModelEClass.getEStructuralFeatures().get(4);
+        return (EReference)featureModelEClass.getEStructuralFeatures().get(3);
     }
 
     /**
@@ -199,7 +190,7 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
      * @generated
      */
     public EReference getFeatureModel_Orphans() {
-        return (EReference)featureModelEClass.getEStructuralFeatures().get(5);
+        return (EReference)featureModelEClass.getEStructuralFeatures().get(4);
     }
 
     /**
@@ -208,7 +199,7 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
      * @generated
      */
     public EReference getFeatureModel_Constraints() {
-        return (EReference)featureModelEClass.getEStructuralFeatures().get(6);
+        return (EReference)featureModelEClass.getEStructuralFeatures().get(5);
     }
 
     /**
@@ -504,8 +495,17 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getConstraint_Description() {
+    public EAttribute getConstraint_Language() {
         return (EAttribute)constraintEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getConstraint_Description() {
+        return (EAttribute)constraintEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -549,7 +549,6 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
         createEAttribute(featureModelEClass, FEATURE_MODEL__NAME);
         createEAttribute(featureModelEClass, FEATURE_MODEL__DESCRIPTION);
         createEAttribute(featureModelEClass, FEATURE_MODEL__VERSION);
-        createEAttribute(featureModelEClass, FEATURE_MODEL__CONSTRAINT_LANGUAGE);
         createEReference(featureModelEClass, FEATURE_MODEL__ROOT);
         createEReference(featureModelEClass, FEATURE_MODEL__ORPHANS);
         createEReference(featureModelEClass, FEATURE_MODEL__CONSTRAINTS);
@@ -589,6 +588,7 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
 
         constraintEClass = createEClass(CONSTRAINT);
         createEAttribute(constraintEClass, CONSTRAINT__VALUE);
+        createEAttribute(constraintEClass, CONSTRAINT__LANGUAGE);
         createEAttribute(constraintEClass, CONSTRAINT__DESCRIPTION);
 
         // Create enums
@@ -629,7 +629,6 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
         initEAttribute(getFeatureModel_Name(), ecorePackage.getEString(), "name", null, 1, 1, FeatureModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getFeatureModel_Description(), ecorePackage.getEString(), "description", null, 0, 1, FeatureModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getFeatureModel_Version(), ecorePackage.getEString(), "version", null, 0, 1, FeatureModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getFeatureModel_ConstraintLanguage(), ecorePackage.getEString(), "constraintLanguage", null, 0, 1, FeatureModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getFeatureModel_Root(), this.getFeature(), null, "root", null, 1, 1, FeatureModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getFeatureModel_Orphans(), this.getFeature(), null, "orphans", null, 0, -1, FeatureModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getFeatureModel_Constraints(), this.getConstraint(), null, "constraints", null, 0, -1, FeatureModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -672,6 +671,7 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
 
         initEClass(constraintEClass, Constraint.class, "Constraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getConstraint_Value(), ecorePackage.getEString(), "value", null, 1, 1, Constraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getConstraint_Language(), ecorePackage.getEString(), "language", null, 1, 1, Constraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getConstraint_Description(), ecorePackage.getEString(), "description", null, 0, 1, Constraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals

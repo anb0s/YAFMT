@@ -28,7 +28,6 @@ public class FeatureModelUtil {
     private static ExtendedMetaData createExtendedMetadata() {
         ExtendedMetaData emd = new BasicExtendedMetaData();
         emd.setName(Literals.FEATURE_MODEL, "feature-model");
-        emd.setName(Literals.FEATURE_MODEL__CONSTRAINT_LANGUAGE, "constraint-language");
         emd.setName(Literals.FEATURE_MODEL__CONSTRAINTS, "constraint");
         emd.setName(Literals.FEATURE_MODEL__ORPHANS, "orphaned-feature");
         emd.setName(Literals.FEATURE_MODEL__ROOT, "root-feature");

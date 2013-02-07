@@ -61,6 +61,7 @@ public class ConstraintItemProvider
             super.getPropertyDescriptors(object);
 
             addValuePropertyDescriptor(object);
+            addLanguagePropertyDescriptor(object);
             addDescriptionPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
@@ -80,6 +81,28 @@ public class ConstraintItemProvider
                  getString("_UI_Constraint_value_feature"),
                  getString("_UI_PropertyDescriptor_description", "_UI_Constraint_value_feature", "_UI_Constraint_type"),
                  FeatureModelPackage.Literals.CONSTRAINT__VALUE,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
+     * This adds a property descriptor for the Language feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addLanguagePropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_Constraint_language_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_Constraint_language_feature", "_UI_Constraint_type"),
+                 FeatureModelPackage.Literals.CONSTRAINT__LANGUAGE,
                  true,
                  false,
                  false,
@@ -145,6 +168,7 @@ public class ConstraintItemProvider
 
         switch (notification.getFeatureID(Constraint.class)) {
             case FeatureModelPackage.CONSTRAINT__VALUE:
+            case FeatureModelPackage.CONSTRAINT__LANGUAGE:
             case FeatureModelPackage.CONSTRAINT__DESCRIPTION:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
                 return;

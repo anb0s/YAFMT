@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link cz.jpikl.yafmt.model.fc.FeatureConfiguration#getDescription <em>Description</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.FeatureConfiguration#getVersion <em>Version</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.FeatureConfiguration#getFeatureModel <em>Feature Model</em>}</li>
- *   <li>{@link cz.jpikl.yafmt.model.fc.FeatureConfiguration#getSelections <em>Selections</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fc.FeatureConfiguration#getRoot <em>Root</em>}</li>
  * </ul>
  * </p>
  *
@@ -134,19 +134,29 @@ public interface FeatureConfiguration extends EObject {
     void setFeatureModel(FeatureModel value);
 
     /**
-     * Returns the value of the '<em><b>Selections</b></em>' containment reference list.
-     * The list contents are of type {@link cz.jpikl.yafmt.model.fc.Selection}.
+     * Returns the value of the '<em><b>Root</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Selections</em>' containment reference list isn't clear,
+     * If the meaning of the '<em>Root</em>' containment reference isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Selections</em>' containment reference list.
-     * @see cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage#getFeatureConfiguration_Selections()
-     * @model containment="true"
+     * @return the value of the '<em>Root</em>' containment reference.
+     * @see #setRoot(Selection)
+     * @see cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage#getFeatureConfiguration_Root()
+     * @model containment="true" required="true"
      * @generated
      */
-    EList<Selection> getSelections();
+    Selection getRoot();
+
+    /**
+     * Sets the value of the '{@link cz.jpikl.yafmt.model.fc.FeatureConfiguration#getRoot <em>Root</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Root</em>' containment reference.
+     * @see #getRoot()
+     * @generated
+     */
+    void setRoot(Selection value);
 
 } // FeatureConfiguration

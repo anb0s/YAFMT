@@ -65,7 +65,6 @@ public class FeatureModelItemProvider
 
             addNamePropertyDescriptor(object);
             addVersionPropertyDescriptor(object);
-            addConstraintLanguagePropertyDescriptor(object);
             addDescriptionPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
@@ -129,28 +128,6 @@ public class FeatureModelItemProvider
                  getString("_UI_FeatureModel_version_feature"),
                  getString("_UI_PropertyDescriptor_description", "_UI_FeatureModel_version_feature", "_UI_FeatureModel_type"),
                  FeatureModelPackage.Literals.FEATURE_MODEL__VERSION,
-                 true,
-                 false,
-                 false,
-                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-                 null,
-                 null));
-    }
-
-    /**
-     * This adds a property descriptor for the Constraint Language feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected void addConstraintLanguagePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_FeatureModel_constraintLanguage_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_FeatureModel_constraintLanguage_feature", "_UI_FeatureModel_type"),
-                 FeatureModelPackage.Literals.FEATURE_MODEL__CONSTRAINT_LANGUAGE,
                  true,
                  false,
                  false,
@@ -228,7 +205,6 @@ public class FeatureModelItemProvider
             case FeatureModelPackage.FEATURE_MODEL__NAME:
             case FeatureModelPackage.FEATURE_MODEL__DESCRIPTION:
             case FeatureModelPackage.FEATURE_MODEL__VERSION:
-            case FeatureModelPackage.FEATURE_MODEL__CONSTRAINT_LANGUAGE:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
                 return;
             case FeatureModelPackage.FEATURE_MODEL__ROOT:
