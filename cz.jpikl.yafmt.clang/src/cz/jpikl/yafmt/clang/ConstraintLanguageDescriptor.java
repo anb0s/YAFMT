@@ -1,0 +1,50 @@
+package cz.jpikl.yafmt.clang;
+
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IConfigurationElement;
+
+public class ConstraintLanguageDescriptor {
+    
+    private IConfigurationElement element;
+    
+    private String id;
+    private String name;
+    private ConstraintLanguage language;
+    
+    
+    public ConstraintLanguageDescriptor(IConfigurationElement element) {
+        this.element = element;
+        
+        id = element.getAttribute("id");
+        if(id == null)
+            throw new IllegalArgumentException("Id attribute is missing.");
+        
+        name = element.getAttribute("name");
+        if(name == null)
+            throw new IllegalArgumentException("Name attribute is missing.");
+        
+        if(element.getAttribute("class") == null)
+            throw new IllegalArgumentException("Class attribute is missing.");
+    }
+    
+    public String getId() {
+        return id;
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public ConstraintLanguage getLanguage() {
+        try {
+            if(language == null)            
+                language = (ConstraintLanguage) element.createExecutableExtension("class");
+        } catch (CoreException ex) {
+            ConstraintLanguagePlugin.getDefault().logError("Unable to instantiate constraint language class for " + id + ".", ex);
+        }
+        
+        return language;
+    }
+    
+
+}
