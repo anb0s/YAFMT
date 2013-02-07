@@ -9,6 +9,7 @@ public class ConstraintLanguageDescriptor {
     
     private String id;
     private String name;
+    private String shortName;
     private ConstraintLanguage language;
     
     
@@ -23,6 +24,10 @@ public class ConstraintLanguageDescriptor {
         if(name == null)
             throw new IllegalArgumentException("Name attribute is missing.");
         
+        shortName = element.getAttribute("shortName");
+        if(shortName == null)
+            shortName = name;
+        
         if(element.getAttribute("class") == null)
             throw new IllegalArgumentException("Class attribute is missing.");
     }
@@ -33,6 +38,10 @@ public class ConstraintLanguageDescriptor {
     
     public String getName() {
         return name;
+    }
+    
+    public String getShortName() {
+        return shortName;
     }
     
     public ConstraintLanguage getLanguage() {

@@ -66,6 +66,13 @@
                </appinfo>
             </annotation>
          </attribute>
+         <attribute name="shortName" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
          <attribute name="class" type="string" use="required">
             <annotation>
                <documentation>
