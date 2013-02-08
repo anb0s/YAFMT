@@ -1,9 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: %pluginName
+Bundle-Name: YAFMT Feature Model Editor
 Bundle-SymbolicName: cz.jpikl.yafmt.ui.editors.fm; singleton:=true
-Bundle-Version: 0.1.0.qualifier
-Bundle-Localization: plugin
+Bundle-Version: 0.2.0.qualifier
 Bundle-Activator: cz.jpikl.yafmt.ui.editors.fm.FeatureModelEditorPlugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
@@ -17,4 +16,3 @@ Require-Bundle: org.eclipse.ui,
  cz.jpikl.yafmt.model.edit;bundle-version="0.1.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Bundle-Vendor: %providerName

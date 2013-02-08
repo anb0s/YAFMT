@@ -1,9 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: %pluginName
-Bundle-Localization: plugin
+Bundle-Name: YAFMT Feature Model Visualizer
 Bundle-SymbolicName: cz.jpikl.yafmt.ui.views.fm; singleton:=true
-Bundle-Version: 0.1.0.qualifier
+Bundle-Version: 0.2.0.qualifier
 Bundle-Activator: cz.jpikl.yafmt.ui.views.fm.FeatureModelVisualizerPlugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
@@ -12,4 +11,3 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.zest.layouts;bundle-version="1.1.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Bundle-Vendor: %providerName
