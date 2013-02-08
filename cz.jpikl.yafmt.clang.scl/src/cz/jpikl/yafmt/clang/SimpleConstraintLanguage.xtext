@@ -1,0 +1,10 @@
+grammar cz.jpikl.yafmt.clang.SimpleConstraintLanguage 
+   with org.eclipse.xtext.common.Terminals
+
+generate model "https://bitbucket.org/jpikl/yafmt/clang/scl"
+
+Model:
+	greetings+=Greeting*;
+	
+Greeting:
+	'Hello' name=ID '!';
