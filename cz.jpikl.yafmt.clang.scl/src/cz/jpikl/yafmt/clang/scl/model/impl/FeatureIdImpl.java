@@ -2,8 +2,11 @@
  */
 package cz.jpikl.yafmt.clang.scl.model.impl;
 
+import java.util.Set;
+
 import cz.jpikl.yafmt.clang.scl.model.FeatureId;
 import cz.jpikl.yafmt.clang.scl.model.ModelPackage;
+import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -157,6 +160,17 @@ public class FeatureIdImpl extends ExpressionImpl implements FeatureId {
         result.append(value);
         result.append(')');
         return result.toString();
+    }
+    
+    @Override
+    public void retrieveFeatureIds(Set<String> ids) {
+        ids.add(getValue());
+    }
+    
+    @Override
+    public boolean evaluate(FeatureConfiguration featureConfig, String context) {
+        // TODO check if feature is selected in configuration within given context
+        return false;
     }
 
 } //FeatureIdImpl

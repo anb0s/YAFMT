@@ -1,7 +1,9 @@
 package cz.jpikl.yafmt.clang.scl;
 
+import java.util.HashSet;
 import java.util.Set;
 
+import cz.jpikl.yafmt.clang.EvaluationResult;
 import cz.jpikl.yafmt.clang.Evaluator;
 import cz.jpikl.yafmt.clang.IEvaluationResult;
 import cz.jpikl.yafmt.clang.scl.model.Expression;
@@ -17,12 +19,16 @@ public class SimpleConstraintLanguageEvaluator extends Evaluator {
     
     @Override
     protected Set<String> getAffectedFeatureIds() {
-        return null;
+        Set<String> ids = new HashSet<String>();
+        expression.retrieveFeatureIds(ids);
+        return ids;
     }
     
     @Override
     public IEvaluationResult evaluate(FeatureConfiguration featureConfig) {
-        return null;
+        if(expression.evaluate(featureConfig, null))
+            return EvaluationResult.SUCCESS_RESULT;
+        return EvaluationResult.FAIL_RESULT;
     }
 
 }

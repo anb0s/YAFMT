@@ -15,6 +15,8 @@ Workflow {
     bean = StandaloneSetup {
         scanClassPath = true
         platformUri = "${runtimeProject}/.."
+        // Specify new genmodel location since we have changed it in EcoreGeneratorFragment.
+        registerGenModelFile = "${runtimeProject}/model/SimpleConstraintLanguage.genmodel"
     }
     
     component = DirectoryCleaner {
@@ -32,11 +34,9 @@ Workflow {
         projectNameUi = "${projectName}.ui"
         
         language = {
+            
             uri = grammarURI
             fileExtensions = fileExtension
-
-            // Java API to access grammar elements (required by several other fragments)
-            //fragment = grammarAccess.GrammarAccessFragment {}
 
             // generates Java API for the generated EPackages
             fragment = ecore.EcoreGeneratorFragment {
@@ -45,10 +45,16 @@ Workflow {
                 skipGenerate = true // Do not rewrite generated java classes (they contain modifications).
             }
 
+            // Java API to access grammar elements (required by several other fragments)
+            fragment = grammarAccess.GrammarAccessFragment {}
+
+            // The antlr parser generator fragment.
+            fragment = parser.antlr.XtextAntlrGeneratorFragment {}
+
             // Serializer 2.0
-            //fragment = serializer.SerializerFragment {
-            //	generateStub = false
-            //}
+            fragment = serializer.SerializerFragment {
+            	generateStub = false
+            }
             
             // the serialization component (1.0)
             // fragment = parseTreeConstructor.ParseTreeConstructorFragment {}
@@ -56,13 +62,6 @@ Workflow {
             // a custom ResourceFactory for use with EMF
             //fragment = resourceFactory.ResourceFactoryFragment {
             //    fileExtensions = fileExtension
-            //}
-
-            // The antlr parser generator fragment.
-            //fragment = parser.antlr.XtextAntlrGeneratorFragment {
-            //  options = {
-            //      backtrack = true
-            //  }
             //}
 
             // java-based API for validation

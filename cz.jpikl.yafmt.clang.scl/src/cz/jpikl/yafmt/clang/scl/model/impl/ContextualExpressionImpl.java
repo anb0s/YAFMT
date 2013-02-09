@@ -2,33 +2,56 @@
  */
 package cz.jpikl.yafmt.clang.scl.model.impl;
 
-import cz.jpikl.yafmt.clang.scl.model.Expression;
 import java.util.Set;
 
+import cz.jpikl.yafmt.clang.scl.model.ContextualExpression;
+import cz.jpikl.yafmt.clang.scl.model.Expression;
 import cz.jpikl.yafmt.clang.scl.model.ModelPackage;
-import cz.jpikl.yafmt.clang.scl.model.Negation;
+import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Negation</b></em>'.
+ * An implementation of the model object '<em><b>Contextual Expression</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link cz.jpikl.yafmt.clang.scl.model.impl.NegationImpl#getExpression <em>Expression</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.clang.scl.model.impl.ContextualExpressionImpl#getContext <em>Context</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.clang.scl.model.impl.ContextualExpressionImpl#getExpression <em>Expression</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class NegationImpl extends ExpressionImpl implements Negation {
+public class ContextualExpressionImpl extends ExpressionImpl implements ContextualExpression {
+    /**
+     * The default value of the '{@link #getContext() <em>Context</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getContext()
+     * @generated
+     * @ordered
+     */
+    protected static final String CONTEXT_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getContext() <em>Context</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getContext()
+     * @generated
+     * @ordered
+     */
+    protected String context = CONTEXT_EDEFAULT;
+
     /**
      * The cached value of the '{@link #getExpression() <em>Expression</em>}' containment reference.
      * <!-- begin-user-doc -->
@@ -44,7 +67,7 @@ public class NegationImpl extends ExpressionImpl implements Negation {
      * <!-- end-user-doc -->
      * @generated
      */
-    protected NegationImpl() {
+    protected ContextualExpressionImpl() {
         super();
     }
 
@@ -55,9 +78,30 @@ public class NegationImpl extends ExpressionImpl implements Negation {
      */
     @Override
     protected EClass eStaticClass() {
-        return ModelPackage.Literals.NEGATION;
+        return ModelPackage.Literals.CONTEXTUAL_EXPRESSION;
     }
-    
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getContext() {
+        return context;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setContext(String newContext) {
+        String oldContext = context;
+        context = newContext;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.CONTEXTUAL_EXPRESSION__CONTEXT, oldContext, context));
+    }
+
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -76,7 +120,7 @@ public class NegationImpl extends ExpressionImpl implements Negation {
         Expression oldExpression = expression;
         expression = newExpression;
         if (eNotificationRequired()) {
-            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.NEGATION__EXPRESSION, oldExpression, newExpression);
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.CONTEXTUAL_EXPRESSION__EXPRESSION, oldExpression, newExpression);
             if (msgs == null) msgs = notification; else msgs.add(notification);
         }
         return msgs;
@@ -91,14 +135,14 @@ public class NegationImpl extends ExpressionImpl implements Negation {
         if (newExpression != expression) {
             NotificationChain msgs = null;
             if (expression != null)
-                msgs = ((InternalEObject)expression).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.NEGATION__EXPRESSION, null, msgs);
+                msgs = ((InternalEObject)expression).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.CONTEXTUAL_EXPRESSION__EXPRESSION, null, msgs);
             if (newExpression != null)
-                msgs = ((InternalEObject)newExpression).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.NEGATION__EXPRESSION, null, msgs);
+                msgs = ((InternalEObject)newExpression).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.CONTEXTUAL_EXPRESSION__EXPRESSION, null, msgs);
             msgs = basicSetExpression(newExpression, msgs);
             if (msgs != null) msgs.dispatch();
         }
         else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.NEGATION__EXPRESSION, newExpression, newExpression));
+            eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.CONTEXTUAL_EXPRESSION__EXPRESSION, newExpression, newExpression));
     }
 
     /**
@@ -109,7 +153,7 @@ public class NegationImpl extends ExpressionImpl implements Negation {
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case ModelPackage.NEGATION__EXPRESSION:
+            case ModelPackage.CONTEXTUAL_EXPRESSION__EXPRESSION:
                 return basicSetExpression(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -123,7 +167,9 @@ public class NegationImpl extends ExpressionImpl implements Negation {
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ModelPackage.NEGATION__EXPRESSION:
+            case ModelPackage.CONTEXTUAL_EXPRESSION__CONTEXT:
+                return getContext();
+            case ModelPackage.CONTEXTUAL_EXPRESSION__EXPRESSION:
                 return getExpression();
         }
         return super.eGet(featureID, resolve, coreType);
@@ -137,7 +183,10 @@ public class NegationImpl extends ExpressionImpl implements Negation {
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ModelPackage.NEGATION__EXPRESSION:
+            case ModelPackage.CONTEXTUAL_EXPRESSION__CONTEXT:
+                setContext((String)newValue);
+                return;
+            case ModelPackage.CONTEXTUAL_EXPRESSION__EXPRESSION:
                 setExpression((Expression)newValue);
                 return;
         }
@@ -152,7 +201,10 @@ public class NegationImpl extends ExpressionImpl implements Negation {
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ModelPackage.NEGATION__EXPRESSION:
+            case ModelPackage.CONTEXTUAL_EXPRESSION__CONTEXT:
+                setContext(CONTEXT_EDEFAULT);
+                return;
+            case ModelPackage.CONTEXTUAL_EXPRESSION__EXPRESSION:
                 setExpression((Expression)null);
                 return;
         }
@@ -167,20 +219,38 @@ public class NegationImpl extends ExpressionImpl implements Negation {
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ModelPackage.NEGATION__EXPRESSION:
+            case ModelPackage.CONTEXTUAL_EXPRESSION__CONTEXT:
+                return CONTEXT_EDEFAULT == null ? context != null : !CONTEXT_EDEFAULT.equals(context);
+            case ModelPackage.CONTEXTUAL_EXPRESSION__EXPRESSION:
                 return expression != null;
         }
         return super.eIsSet(featureID);
     }
 
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public String toString() {
+        if (eIsProxy()) return super.toString();
+
+        StringBuffer result = new StringBuffer(super.toString());
+        result.append(" (context: ");
+        result.append(context);
+        result.append(')');
+        return result.toString();
+    }
+    
     @Override
     public void retrieveFeatureIds(Set<String> ids) {
         expression.retrieveFeatureIds(ids);
     }
     
     @Override
-    public boolean evaluate(FeatureConfiguration featureConfig, String context) {
-        return !expression.evaluate(featureConfig, context);
+    public boolean evaluate(FeatureConfiguration featureConfig, String dummy) {
+        return expression.evaluate(featureConfig, context);
     }
 
-} //NegationImpl
+} //ContextualExpressionImpl

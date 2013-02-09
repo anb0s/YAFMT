@@ -27,7 +27,7 @@ public abstract class Evaluator implements IEvaluator {
         return features;
     }
     
-    protected List<String> getMissingFeatures(FeatureModel featureModel) {
+    public List<String> getMissingFeatures(FeatureModel featureModel) {
         if(featureModel == null)
             return null;
         

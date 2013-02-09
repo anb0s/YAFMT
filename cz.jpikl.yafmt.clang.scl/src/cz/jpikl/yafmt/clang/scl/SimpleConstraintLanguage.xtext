@@ -15,7 +15,7 @@ generate model "https://bitbucket.org/jpikl/yafmt/clang/scl"
 Expression:
     ContextualExpression | Implication;	
     
-ContextualExpression returns Expression:
+ContextualExpression:
     'context' context=ID ':' expression=Implication;
 
 Implication returns Expression:

@@ -66,13 +66,32 @@ public interface ModelPackage extends EPackage {
     int EXPRESSION = 0;
 
     /**
+     * The number of structural features of the '<em>Expression</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXPRESSION_FEATURE_COUNT = 0;
+
+    /**
+     * The meta object id for the '{@link cz.jpikl.yafmt.clang.scl.model.impl.ContextualExpressionImpl <em>Contextual Expression</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see cz.jpikl.yafmt.clang.scl.model.impl.ContextualExpressionImpl
+     * @see cz.jpikl.yafmt.clang.scl.model.impl.ModelPackageImpl#getContextualExpression()
+     * @generated
+     */
+    int CONTEXTUAL_EXPRESSION = 1;
+
+    /**
      * The feature id for the '<em><b>Context</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXPRESSION__CONTEXT = 0;
+    int CONTEXTUAL_EXPRESSION__CONTEXT = EXPRESSION_FEATURE_COUNT + 0;
 
     /**
      * The feature id for the '<em><b>Expression</b></em>' containment reference.
@@ -81,16 +100,16 @@ public interface ModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXPRESSION__EXPRESSION = 1;
+    int CONTEXTUAL_EXPRESSION__EXPRESSION = EXPRESSION_FEATURE_COUNT + 1;
 
     /**
-     * The number of structural features of the '<em>Expression</em>' class.
+     * The number of structural features of the '<em>Contextual Expression</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXPRESSION_FEATURE_COUNT = 2;
+    int CONTEXTUAL_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
 
     /**
      * The meta object id for the '{@link cz.jpikl.yafmt.clang.scl.model.impl.ImplicationImpl <em>Implication</em>}' class.
@@ -100,25 +119,7 @@ public interface ModelPackage extends EPackage {
      * @see cz.jpikl.yafmt.clang.scl.model.impl.ModelPackageImpl#getImplication()
      * @generated
      */
-    int IMPLICATION = 1;
-
-    /**
-     * The feature id for the '<em><b>Context</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int IMPLICATION__CONTEXT = EXPRESSION__CONTEXT;
-
-    /**
-     * The feature id for the '<em><b>Expression</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int IMPLICATION__EXPRESSION = EXPRESSION__EXPRESSION;
+    int IMPLICATION = 2;
 
     /**
      * The feature id for the '<em><b>Left Part</b></em>' containment reference.
@@ -155,25 +156,7 @@ public interface ModelPackage extends EPackage {
      * @see cz.jpikl.yafmt.clang.scl.model.impl.ModelPackageImpl#getDisjunction()
      * @generated
      */
-    int DISJUNCTION = 2;
-
-    /**
-     * The feature id for the '<em><b>Context</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DISJUNCTION__CONTEXT = EXPRESSION__CONTEXT;
-
-    /**
-     * The feature id for the '<em><b>Expression</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DISJUNCTION__EXPRESSION = EXPRESSION__EXPRESSION;
+    int DISJUNCTION = 3;
 
     /**
      * The feature id for the '<em><b>Parts</b></em>' containment reference list.
@@ -201,25 +184,7 @@ public interface ModelPackage extends EPackage {
      * @see cz.jpikl.yafmt.clang.scl.model.impl.ModelPackageImpl#getExclusiveDisjunction()
      * @generated
      */
-    int EXCLUSIVE_DISJUNCTION = 3;
-
-    /**
-     * The feature id for the '<em><b>Context</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EXCLUSIVE_DISJUNCTION__CONTEXT = EXPRESSION__CONTEXT;
-
-    /**
-     * The feature id for the '<em><b>Expression</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EXCLUSIVE_DISJUNCTION__EXPRESSION = EXPRESSION__EXPRESSION;
+    int EXCLUSIVE_DISJUNCTION = 4;
 
     /**
      * The feature id for the '<em><b>Parts</b></em>' containment reference list.
@@ -247,25 +212,7 @@ public interface ModelPackage extends EPackage {
      * @see cz.jpikl.yafmt.clang.scl.model.impl.ModelPackageImpl#getConjunction()
      * @generated
      */
-    int CONJUNCTION = 4;
-
-    /**
-     * The feature id for the '<em><b>Context</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CONJUNCTION__CONTEXT = EXPRESSION__CONTEXT;
-
-    /**
-     * The feature id for the '<em><b>Expression</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CONJUNCTION__EXPRESSION = EXPRESSION__EXPRESSION;
+    int CONJUNCTION = 5;
 
     /**
      * The feature id for the '<em><b>Parts</b></em>' containment reference list.
@@ -293,16 +240,7 @@ public interface ModelPackage extends EPackage {
      * @see cz.jpikl.yafmt.clang.scl.model.impl.ModelPackageImpl#getNegation()
      * @generated
      */
-    int NEGATION = 5;
-
-    /**
-     * The feature id for the '<em><b>Context</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int NEGATION__CONTEXT = EXPRESSION__CONTEXT;
+    int NEGATION = 6;
 
     /**
      * The feature id for the '<em><b>Expression</b></em>' containment reference.
@@ -311,7 +249,7 @@ public interface ModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int NEGATION__EXPRESSION = EXPRESSION__EXPRESSION;
+    int NEGATION__EXPRESSION = EXPRESSION_FEATURE_COUNT + 0;
 
     /**
      * The number of structural features of the '<em>Negation</em>' class.
@@ -320,7 +258,7 @@ public interface ModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int NEGATION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 0;
+    int NEGATION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
 
     /**
      * The meta object id for the '{@link cz.jpikl.yafmt.clang.scl.model.impl.FeatureIdImpl <em>Feature Id</em>}' class.
@@ -330,25 +268,7 @@ public interface ModelPackage extends EPackage {
      * @see cz.jpikl.yafmt.clang.scl.model.impl.ModelPackageImpl#getFeatureId()
      * @generated
      */
-    int FEATURE_ID = 6;
-
-    /**
-     * The feature id for the '<em><b>Context</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FEATURE_ID__CONTEXT = EXPRESSION__CONTEXT;
-
-    /**
-     * The feature id for the '<em><b>Expression</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FEATURE_ID__EXPRESSION = EXPRESSION__EXPRESSION;
+    int FEATURE_ID = 7;
 
     /**
      * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -380,26 +300,36 @@ public interface ModelPackage extends EPackage {
     EClass getExpression();
 
     /**
-     * Returns the meta object for the attribute '{@link cz.jpikl.yafmt.clang.scl.model.Expression#getContext <em>Context</em>}'.
+     * Returns the meta object for class '{@link cz.jpikl.yafmt.clang.scl.model.ContextualExpression <em>Contextual Expression</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Contextual Expression</em>'.
+     * @see cz.jpikl.yafmt.clang.scl.model.ContextualExpression
+     * @generated
+     */
+    EClass getContextualExpression();
+
+    /**
+     * Returns the meta object for the attribute '{@link cz.jpikl.yafmt.clang.scl.model.ContextualExpression#getContext <em>Context</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Context</em>'.
-     * @see cz.jpikl.yafmt.clang.scl.model.Expression#getContext()
-     * @see #getExpression()
+     * @see cz.jpikl.yafmt.clang.scl.model.ContextualExpression#getContext()
+     * @see #getContextualExpression()
      * @generated
      */
-    EAttribute getExpression_Context();
+    EAttribute getContextualExpression_Context();
 
     /**
-     * Returns the meta object for the containment reference '{@link cz.jpikl.yafmt.clang.scl.model.Expression#getExpression <em>Expression</em>}'.
+     * Returns the meta object for the containment reference '{@link cz.jpikl.yafmt.clang.scl.model.ContextualExpression#getExpression <em>Expression</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @return the meta object for the containment reference '<em>Expression</em>'.
-     * @see cz.jpikl.yafmt.clang.scl.model.Expression#getExpression()
-     * @see #getExpression()
+     * @see cz.jpikl.yafmt.clang.scl.model.ContextualExpression#getExpression()
+     * @see #getContextualExpression()
      * @generated
      */
-    EReference getExpression_Expression();
+    EReference getContextualExpression_Expression();
 
     /**
      * Returns the meta object for class '{@link cz.jpikl.yafmt.clang.scl.model.Implication <em>Implication</em>}'.
@@ -507,6 +437,17 @@ public interface ModelPackage extends EPackage {
     EClass getNegation();
 
     /**
+     * Returns the meta object for the containment reference '{@link cz.jpikl.yafmt.clang.scl.model.Negation#getExpression <em>Expression</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Expression</em>'.
+     * @see cz.jpikl.yafmt.clang.scl.model.Negation#getExpression()
+     * @see #getNegation()
+     * @generated
+     */
+    EReference getNegation_Expression();
+
+    /**
      * Returns the meta object for class '{@link cz.jpikl.yafmt.clang.scl.model.FeatureId <em>Feature Id</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -560,12 +501,22 @@ public interface ModelPackage extends EPackage {
         EClass EXPRESSION = eINSTANCE.getExpression();
 
         /**
+         * The meta object literal for the '{@link cz.jpikl.yafmt.clang.scl.model.impl.ContextualExpressionImpl <em>Contextual Expression</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see cz.jpikl.yafmt.clang.scl.model.impl.ContextualExpressionImpl
+         * @see cz.jpikl.yafmt.clang.scl.model.impl.ModelPackageImpl#getContextualExpression()
+         * @generated
+         */
+        EClass CONTEXTUAL_EXPRESSION = eINSTANCE.getContextualExpression();
+
+        /**
          * The meta object literal for the '<em><b>Context</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EAttribute EXPRESSION__CONTEXT = eINSTANCE.getExpression_Context();
+        EAttribute CONTEXTUAL_EXPRESSION__CONTEXT = eINSTANCE.getContextualExpression_Context();
 
         /**
          * The meta object literal for the '<em><b>Expression</b></em>' containment reference feature.
@@ -573,7 +524,7 @@ public interface ModelPackage extends EPackage {
          * <!-- end-user-doc -->
          * @generated
          */
-        EReference EXPRESSION__EXPRESSION = eINSTANCE.getExpression_Expression();
+        EReference CONTEXTUAL_EXPRESSION__EXPRESSION = eINSTANCE.getContextualExpression_Expression();
 
         /**
          * The meta object literal for the '{@link cz.jpikl.yafmt.clang.scl.model.impl.ImplicationImpl <em>Implication</em>}' class.
@@ -664,6 +615,14 @@ public interface ModelPackage extends EPackage {
          * @generated
          */
         EClass NEGATION = eINSTANCE.getNegation();
+
+        /**
+         * The meta object literal for the '<em><b>Expression</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference NEGATION__EXPRESSION = eINSTANCE.getNegation_Expression();
 
         /**
          * The meta object literal for the '{@link cz.jpikl.yafmt.clang.scl.model.impl.FeatureIdImpl <em>Feature Id</em>}' class.

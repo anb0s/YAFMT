@@ -467,13 +467,22 @@ public interface FeatureModelPackage extends EPackage {
     int CONSTRAINT__DESCRIPTION = 2;
 
     /**
+     * The feature id for the '<em><b>Feature Model</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONSTRAINT__FEATURE_MODEL = 3;
+
+    /**
      * The number of structural features of the '<em>Constraint</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int CONSTRAINT_FEATURE_COUNT = 3;
+    int CONSTRAINT_FEATURE_COUNT = 4;
 
     /**
      * The meta object id for the '{@link cz.jpikl.yafmt.model.fm.AttributeType <em>Attribute Type</em>}' enum.
@@ -933,6 +942,17 @@ public interface FeatureModelPackage extends EPackage {
     EAttribute getConstraint_Description();
 
     /**
+     * Returns the meta object for the reference '{@link cz.jpikl.yafmt.model.fm.Constraint#getFeatureModel <em>Feature Model</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Feature Model</em>'.
+     * @see cz.jpikl.yafmt.model.fm.Constraint#getFeatureModel()
+     * @see #getConstraint()
+     * @generated
+     */
+    EReference getConstraint_FeatureModel();
+
+    /**
      * Returns the meta object for enum '{@link cz.jpikl.yafmt.model.fm.AttributeType <em>Attribute Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1301,6 +1321,14 @@ public interface FeatureModelPackage extends EPackage {
          * @generated
          */
         EAttribute CONSTRAINT__DESCRIPTION = eINSTANCE.getConstraint_Description();
+
+        /**
+         * The meta object literal for the '<em><b>Feature Model</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference CONSTRAINT__FEATURE_MODEL = eINSTANCE.getConstraint_FeatureModel();
 
         /**
          * The meta object literal for the '{@link cz.jpikl.yafmt.model.fm.AttributeType <em>Attribute Type</em>}' enum.

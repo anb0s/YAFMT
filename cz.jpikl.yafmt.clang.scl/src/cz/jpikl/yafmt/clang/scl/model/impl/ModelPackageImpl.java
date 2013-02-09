@@ -3,6 +3,7 @@
 package cz.jpikl.yafmt.clang.scl.model.impl;
 
 import cz.jpikl.yafmt.clang.scl.model.Conjunction;
+import cz.jpikl.yafmt.clang.scl.model.ContextualExpression;
 import cz.jpikl.yafmt.clang.scl.model.Disjunction;
 import cz.jpikl.yafmt.clang.scl.model.ExclusiveDisjunction;
 import cz.jpikl.yafmt.clang.scl.model.Expression;
@@ -32,6 +33,13 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
      * @generated
      */
     private EClass expressionEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass contextualExpressionEClass = null;
 
     /**
      * <!-- begin-user-doc -->
@@ -150,8 +158,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getExpression_Context() {
-        return (EAttribute)expressionEClass.getEStructuralFeatures().get(0);
+    public EClass getContextualExpression() {
+        return contextualExpressionEClass;
     }
 
     /**
@@ -159,8 +167,17 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getExpression_Expression() {
-        return (EReference)expressionEClass.getEStructuralFeatures().get(1);
+    public EAttribute getContextualExpression_Context() {
+        return (EAttribute)contextualExpressionEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getContextualExpression_Expression() {
+        return (EReference)contextualExpressionEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -258,6 +275,15 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
      * <!-- end-user-doc -->
      * @generated
      */
+    public EReference getNegation_Expression() {
+        return (EReference)negationEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getFeatureId() {
         return featureIdEClass;
     }
@@ -300,8 +326,10 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
         // Create classes and their features
         expressionEClass = createEClass(EXPRESSION);
-        createEAttribute(expressionEClass, EXPRESSION__CONTEXT);
-        createEReference(expressionEClass, EXPRESSION__EXPRESSION);
+
+        contextualExpressionEClass = createEClass(CONTEXTUAL_EXPRESSION);
+        createEAttribute(contextualExpressionEClass, CONTEXTUAL_EXPRESSION__CONTEXT);
+        createEReference(contextualExpressionEClass, CONTEXTUAL_EXPRESSION__EXPRESSION);
 
         implicationEClass = createEClass(IMPLICATION);
         createEReference(implicationEClass, IMPLICATION__LEFT_PART);
@@ -317,6 +345,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
         createEReference(conjunctionEClass, CONJUNCTION__PARTS);
 
         negationEClass = createEClass(NEGATION);
+        createEReference(negationEClass, NEGATION__EXPRESSION);
 
         featureIdEClass = createEClass(FEATURE_ID);
         createEAttribute(featureIdEClass, FEATURE_ID__VALUE);
@@ -350,6 +379,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
         // Set bounds for type parameters
 
         // Add supertypes to classes
+        contextualExpressionEClass.getESuperTypes().add(this.getExpression());
         implicationEClass.getESuperTypes().add(this.getExpression());
         disjunctionEClass.getESuperTypes().add(this.getExpression());
         exclusiveDisjunctionEClass.getESuperTypes().add(this.getExpression());
@@ -359,8 +389,10 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
         // Initialize classes and features; add operations and parameters
         initEClass(expressionEClass, Expression.class, "Expression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getExpression_Context(), ecorePackage.getEString(), "context", null, 0, 1, Expression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getExpression_Expression(), this.getExpression(), null, "expression", null, 0, 1, Expression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(contextualExpressionEClass, ContextualExpression.class, "ContextualExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getContextualExpression_Context(), ecorePackage.getEString(), "context", null, 0, 1, ContextualExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getContextualExpression_Expression(), this.getExpression(), null, "expression", null, 0, 1, ContextualExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(implicationEClass, Implication.class, "Implication", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getImplication_LeftPart(), this.getExpression(), null, "leftPart", null, 0, 1, Implication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -376,6 +408,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
         initEReference(getConjunction_Parts(), this.getExpression(), null, "parts", null, 0, -1, Conjunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(negationEClass, Negation.class, "Negation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getNegation_Expression(), this.getExpression(), null, "expression", null, 0, 1, Negation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(featureIdEClass, FeatureId.class, "FeatureId", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getFeatureId_Value(), ecorePackage.getEString(), "value", null, 0, 1, FeatureId.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

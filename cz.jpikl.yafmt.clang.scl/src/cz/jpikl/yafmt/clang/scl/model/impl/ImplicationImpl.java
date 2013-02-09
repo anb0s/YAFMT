@@ -2,9 +2,12 @@
  */
 package cz.jpikl.yafmt.clang.scl.model.impl;
 
+import java.util.Set;
+
 import cz.jpikl.yafmt.clang.scl.model.Expression;
 import cz.jpikl.yafmt.clang.scl.model.Implication;
 import cz.jpikl.yafmt.clang.scl.model.ModelPackage;
+import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -236,6 +239,19 @@ public class ImplicationImpl extends ExpressionImpl implements Implication {
                 return rightPart != null;
         }
         return super.eIsSet(featureID);
+    }
+    
+    @Override
+    public void retrieveFeatureIds(Set<String> ids) {
+        leftPart.retrieveFeatureIds(ids);
+        rightPart.retrieveFeatureIds(ids);
+    }
+    
+    @Override
+    public boolean evaluate(FeatureConfiguration featureConfig, String context) {
+        if(!leftPart.evaluate(featureConfig, context))
+            return true;
+        return rightPart.evaluate(featureConfig, context);
     }
 
 } //ImplicationImpl

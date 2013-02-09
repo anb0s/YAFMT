@@ -57,6 +57,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
     public EObject create(EClass eClass) {
         switch (eClass.getClassifierID()) {
             case ModelPackage.EXPRESSION: return createExpression();
+            case ModelPackage.CONTEXTUAL_EXPRESSION: return createContextualExpression();
             case ModelPackage.IMPLICATION: return createImplication();
             case ModelPackage.DISJUNCTION: return createDisjunction();
             case ModelPackage.EXCLUSIVE_DISJUNCTION: return createExclusiveDisjunction();
@@ -76,6 +77,16 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
     public Expression createExpression() {
         ExpressionImpl expression = new ExpressionImpl();
         return expression;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ContextualExpression createContextualExpression() {
+        ContextualExpressionImpl contextualExpression = new ContextualExpressionImpl();
+        return contextualExpression;
     }
 
     /**

@@ -5,8 +5,10 @@ package cz.jpikl.yafmt.clang.scl.model.impl;
 import cz.jpikl.yafmt.clang.scl.model.Conjunction;
 import cz.jpikl.yafmt.clang.scl.model.Expression;
 import cz.jpikl.yafmt.clang.scl.model.ModelPackage;
+import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
 
 import java.util.Collection;
+import java.util.Set;
 
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -145,6 +147,23 @@ public class ConjunctionImpl extends ExpressionImpl implements Conjunction {
                 return parts != null && !parts.isEmpty();
         }
         return super.eIsSet(featureID);
+    }
+    
+    @Override
+    public void retrieveFeatureIds(Set<String> ids) {
+        // Parts should not be empty or null.
+        for(Expression part: parts)
+            part.retrieveFeatureIds(ids);
+    }
+    
+    @Override
+    public boolean evaluate(FeatureConfiguration featureConfig, String context) {
+        // Parts should not be empty or null.
+        for(Expression part: parts) {
+            if(!part.evaluate(featureConfig, context))
+                return false;
+        }
+        return true;
     }
 
 } //ConjunctionImpl

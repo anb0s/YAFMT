@@ -55,5 +55,9 @@ public class ConstraintLanguageDescriptor {
         return language;
     }
     
-
+    @Override
+    public String toString() {
+        return shortName;
+    }
+        
 }

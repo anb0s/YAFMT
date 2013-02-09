@@ -72,6 +72,10 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
                 return createExpressionAdapter();
             }
             @Override
+            public Adapter caseContextualExpression(ContextualExpression object) {
+                return createContextualExpressionAdapter();
+            }
+            @Override
             public Adapter caseImplication(Implication object) {
                 return createImplicationAdapter();
             }
@@ -126,6 +130,20 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createExpressionAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link cz.jpikl.yafmt.clang.scl.model.ContextualExpression <em>Contextual Expression</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see cz.jpikl.yafmt.clang.scl.model.ContextualExpression
+     * @generated
+     */
+    public Adapter createContextualExpressionAdapter() {
         return null;
     }
 

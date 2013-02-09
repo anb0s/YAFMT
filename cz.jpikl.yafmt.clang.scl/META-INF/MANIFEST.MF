@@ -15,10 +15,15 @@ Require-Bundle: org.eclipse.xtext;visibility:=reexport,
  org.eclipse.emf.ecore,
  org.eclipse.emf.common,
  cz.jpikl.yafmt.model;bundle-version="0.2.0",
- cz.jpikl.yafmt.clang;bundle-version="0.2.0"
+ cz.jpikl.yafmt.clang;bundle-version="0.2.0",
+ org.antlr.runtime
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: cz.jpikl.yafmt.clang.scl,
  cz.jpikl.yafmt.clang.scl.model,
  cz.jpikl.yafmt.clang.scl.model.impl,
- cz.jpikl.yafmt.clang.scl.model.util
+ cz.jpikl.yafmt.clang.scl.model.util,
+ cz.jpikl.yafmt.clang.scl.parser.antlr,
+ cz.jpikl.yafmt.clang.scl.parser.antlr.internal,
+ cz.jpikl.yafmt.clang.scl.services,
+ cz.jpikl.yafmt.clang.scl.serializer

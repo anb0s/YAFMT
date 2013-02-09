@@ -3,12 +3,14 @@
 package cz.jpikl.yafmt.model.fm.impl;
 
 import cz.jpikl.yafmt.model.fm.Constraint;
+import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
 
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
@@ -22,6 +24,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.ConstraintImpl#getValue <em>Value</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.ConstraintImpl#getLanguage <em>Language</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.ConstraintImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fm.impl.ConstraintImpl#getFeatureModel <em>Feature Model</em>}</li>
  * </ul>
  * </p>
  *
@@ -175,6 +178,25 @@ public class ConstraintImpl extends EObjectImpl implements Constraint {
      * <!-- end-user-doc -->
      * @generated
      */
+    public FeatureModel getFeatureModel() {
+        FeatureModel featureModel = basicGetFeatureModel();
+        return featureModel != null && featureModel.eIsProxy() ? (FeatureModel)eResolveProxy((InternalEObject)featureModel) : featureModel;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    public FeatureModel basicGetFeatureModel() {
+        return (FeatureModel) eContainer();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
@@ -184,6 +206,9 @@ public class ConstraintImpl extends EObjectImpl implements Constraint {
                 return getLanguage();
             case FeatureModelPackage.CONSTRAINT__DESCRIPTION:
                 return getDescription();
+            case FeatureModelPackage.CONSTRAINT__FEATURE_MODEL:
+                if (resolve) return getFeatureModel();
+                return basicGetFeatureModel();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -244,6 +269,8 @@ public class ConstraintImpl extends EObjectImpl implements Constraint {
                 return LANGUAGE_EDEFAULT == null ? language != null : !LANGUAGE_EDEFAULT.equals(language);
             case FeatureModelPackage.CONSTRAINT__DESCRIPTION:
                 return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+            case FeatureModelPackage.CONSTRAINT__FEATURE_MODEL:
+                return basicGetFeatureModel() != null;
         }
         return super.eIsSet(featureID);
     }

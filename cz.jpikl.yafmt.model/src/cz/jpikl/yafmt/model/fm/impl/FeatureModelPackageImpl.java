@@ -513,6 +513,15 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
      * <!-- end-user-doc -->
      * @generated
      */
+    public EReference getConstraint_FeatureModel() {
+        return (EReference)constraintEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EEnum getAttributeType() {
         return attributeTypeEEnum;
     }
@@ -590,6 +599,7 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
         createEAttribute(constraintEClass, CONSTRAINT__VALUE);
         createEAttribute(constraintEClass, CONSTRAINT__LANGUAGE);
         createEAttribute(constraintEClass, CONSTRAINT__DESCRIPTION);
+        createEReference(constraintEClass, CONSTRAINT__FEATURE_MODEL);
 
         // Create enums
         attributeTypeEEnum = createEEnum(ATTRIBUTE_TYPE);
@@ -673,6 +683,7 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
         initEAttribute(getConstraint_Value(), ecorePackage.getEString(), "value", null, 1, 1, Constraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getConstraint_Language(), ecorePackage.getEString(), "language", null, 1, 1, Constraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getConstraint_Description(), ecorePackage.getEString(), "description", null, 0, 1, Constraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getConstraint_FeatureModel(), this.getFeatureModel(), null, "featureModel", null, 0, 1, Constraint.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(attributeTypeEEnum, AttributeType.class, "AttributeType");

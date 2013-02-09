@@ -31,6 +31,15 @@ public interface ModelFactory extends EFactory {
     Expression createExpression();
 
     /**
+     * Returns a new object of class '<em>Contextual Expression</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Contextual Expression</em>'.
+     * @generated
+     */
+    ContextualExpression createContextualExpression();
+
+    /**
      * Returns a new object of class '<em>Implication</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
