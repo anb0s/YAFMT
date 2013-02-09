@@ -11,39 +11,42 @@ generate ast "https://bitbucket.org/jpikl/yafmt/clang/scl"
 // Uses unassigned rule call.
 //
 // The return type is Expression (abstract class for all kinds of expressions).
-// It is returned the result of ImplExpression rule. 
+// It is returned the result of ContextualExpression or Implication rule. 
 Expression:
-    ImplExpression;	
+    ContextualExpression | Implication;	
+    
+ContextualExpression returns Expression:
+    'context' context=ID ':' expression=Implication;
 
-ImplExpression returns Expression:
-    OrExpression ({ImplExpression.leftPart=current} ('implies' | 'requires' | '->' | '=>') rightPart=OrExpression)?;
+Implication returns Expression:
+    Disjunction ({Implication.leftPart=current} ('implies' | 'requires' | '->' | '=>') rightPart=Disjunction)?;
     
 // Uses assigned action: {ExplicitReturnType.memberVariable=value}.
 // This particular case is also called tree rewrite action.
 //
-// If there is no 'or' token, the rule simply returns result of the only one XorExpression rule.
+// If there is no 'or' token, the rule simply returns result of the only one ExclusiveDisjunction rule.
 //
-// Otherwise, instance of OrExpression is returned. Parts array contains results of parsed XorExpression rules.
-// The result of the first one XorExpression (current keyword) was in that case added to the parts array.
-// Current then became the resulting OrExpression.
-//    OrExpression orExpression = new OrExpression()
-//    orExpression.getParts().add(current)
-//    current = orExpression
-OrExpression returns Expression:
-    XorExpression ({XorExpression.parts+=current} ('or' | '|') parts+=XorExpression)*;
+// Otherwise, instance of Disjunction is returned. Parts array contains results of parsed ExclusiveDisjunction 
+// rules. The result of the first one ExclusiveDisjunction (current keyword) was in that case added 
+// to the parts array. Current then became the resulting Disjunction.
+//    Disjunction disjunction = new Disjunction();
+//    disjunction.getParts().add(current);
+//    current = disjunction;
+Disjunction returns Expression:
+    ExclusiveDisjunction ({Disjunction.parts+=current} ('or' | '|') parts+=ExclusiveDisjunction)*;
 
-XorExpression returns Expression:
-    AndExpression ({XorExpression.parts+=current} ('xor' | '^') parts+=AndExpression)*;
+ExclusiveDisjunction returns Expression:
+    Conjunction ({ExclusiveDisjunction.parts+=current} ('xor' | '^') parts+=Conjunction)*;
 	
-AndExpression returns Expression:
-    NegatedExpresion ({AndExpression.parts+=current} ('and' | '&') parts+=NegatedExpresion)*;	
+Conjunction returns Expression:
+    Negation ({Conjunction.parts+=current} ('and' | '&') parts+=Negation)*;	
 
-NegatedExpresion returns Expression:
-    PrimaryExpression | ('not' | '!') {NegatedExpression} part=PrimaryExpression;
+Negation returns Expression:
+    PrimaryExpression | ('not' | '!') {Negation} expression=PrimaryExpression;
 	
 // Uses simple action: {ExplicitReturnType} memberVariable=value.
 //
 // If there is an ID token, instance of FeatureId is returned. Value member contains the parsed ID.
-// Otherwise (there is an expression inside brackets), the result of Expression rule is returned. 
+// Otherwise (there is an expression inside brackets), the result of Implication rule is returned. 
 PrimaryExpression returns Expression:
-    {FeatureId} value=ID | '(' Expression ')';
+    {FeatureId} value=ID | '(' Implication ')';
