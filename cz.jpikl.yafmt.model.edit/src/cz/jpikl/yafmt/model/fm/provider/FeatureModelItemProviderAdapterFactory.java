@@ -14,6 +14,7 @@ import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.edit.provider.ChangeNotifier;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
+import org.eclipse.emf.edit.provider.Disposable;
 import org.eclipse.emf.edit.provider.IChangeNotifier;
 import org.eclipse.emf.edit.provider.IDisposable;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
@@ -48,6 +49,14 @@ public class FeatureModelItemProviderAdapterFactory extends FeatureModelAdapterF
      * @generated
      */
     protected IChangeNotifier changeNotifier = new ChangeNotifier();
+
+    /**
+     * This keeps track of all the item providers created, so that they can be {@link #dispose disposed}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected Disposable disposable = new Disposable();
 
     /**
      * This keeps track of all the supported types checked by {@link #isFactoryForType isFactoryForType}.
@@ -95,14 +104,6 @@ public class FeatureModelItemProviderAdapterFactory extends FeatureModelAdapterF
     }
 
     /**
-     * This keeps track of the one adapter used for all {@link cz.jpikl.yafmt.model.fm.Feature} instances.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected FeatureItemProvider featureItemProvider;
-
-    /**
      * This creates an adapter for a {@link cz.jpikl.yafmt.model.fm.Feature}.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -110,11 +111,7 @@ public class FeatureModelItemProviderAdapterFactory extends FeatureModelAdapterF
      */
     @Override
     public Adapter createFeatureAdapter() {
-        if (featureItemProvider == null) {
-            featureItemProvider = new FeatureItemProvider(this);
-        }
-
-        return featureItemProvider;
+        return new FeatureItemProvider(this);
     }
 
     /**
@@ -245,6 +242,20 @@ public class FeatureModelItemProviderAdapterFactory extends FeatureModelAdapterF
     }
 
     /**
+     * Associates an adapter with a notifier via the base implementation, then records it to ensure it will be disposed.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    protected void associate(Adapter adapter, Notifier target) {
+        super.associate(adapter, target);
+        if (adapter != null) {
+            disposable.add(adapter);
+        }
+    }
+
+    /**
      * This adds a listener.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -285,11 +296,7 @@ public class FeatureModelItemProviderAdapterFactory extends FeatureModelAdapterF
      * @generated
      */
     public void dispose() {
-        if (featureModelItemProvider != null) featureModelItemProvider.dispose();
-        if (featureItemProvider != null) featureItemProvider.dispose();
-        if (groupItemProvider != null) groupItemProvider.dispose();
-        if (attributeItemProvider != null) attributeItemProvider.dispose();
-        if (constraintItemProvider != null) constraintItemProvider.dispose();
+        disposable.dispose();
     }
 
 }

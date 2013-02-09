@@ -1,6 +1,7 @@
 package cz.jpikl.yafmt.clang;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,7 +14,11 @@ public class ConstraintLanguageRegistry {
     }
     
     public Collection<ConstraintLanguageDescriptor> getDescriptors() {
-        return registry.values();
+        return Collections.unmodifiableCollection(registry.values());
+    }
+    
+    public ConstraintLanguageDescriptor getDescriptor(String id) {
+        return registry.get(id);
     }
     
     public ConstraintLanguage getLanguage(String id) {

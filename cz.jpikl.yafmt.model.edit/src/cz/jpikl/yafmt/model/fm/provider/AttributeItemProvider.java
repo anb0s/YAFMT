@@ -53,7 +53,7 @@ public class AttributeItemProvider
      * This returns the property descriptors for the adapted class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated NOT
+     * @generated
      */
     @Override
     public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
@@ -192,8 +192,8 @@ public class AttributeItemProvider
         switch (notification.getFeatureID(Attribute.class)) {
             case FeatureModelPackage.ATTRIBUTE__ID:
             case FeatureModelPackage.ATTRIBUTE__NAME:
-            case FeatureModelPackage.ATTRIBUTE__DESCRIPTION:
             case FeatureModelPackage.ATTRIBUTE__TYPE:
+            case FeatureModelPackage.ATTRIBUTE__DESCRIPTION:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
                 return;
         }

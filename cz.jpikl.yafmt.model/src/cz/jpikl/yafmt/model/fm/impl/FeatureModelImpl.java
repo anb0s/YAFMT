@@ -32,8 +32,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * <ul>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureModelImpl#getName <em>Name</em>}</li>
- *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureModelImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureModelImpl#getVersion <em>Version</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureModelImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureModelImpl#getRoot <em>Root</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureModelImpl#getOrphans <em>Orphans</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureModelImpl#getConstraints <em>Constraints</em>}</li>
@@ -64,26 +64,6 @@ public class FeatureModelImpl extends EObjectImpl implements FeatureModel {
     protected String name = NAME_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getDescription()
-     * @generated
-     * @ordered
-     */
-    protected static final String DESCRIPTION_EDEFAULT = null;
-
-    /**
-     * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getDescription()
-     * @generated
-     * @ordered
-     */
-    protected String description = DESCRIPTION_EDEFAULT;
-
-    /**
      * The default value of the '{@link #getVersion() <em>Version</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -102,6 +82,26 @@ public class FeatureModelImpl extends EObjectImpl implements FeatureModel {
      * @ordered
      */
     protected String version = VERSION_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDescription()
+     * @generated
+     * @ordered
+     */
+    protected static final String DESCRIPTION_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDescription()
+     * @generated
+     * @ordered
+     */
+    protected String description = DESCRIPTION_EDEFAULT;
 
     /**
      * The cached value of the '{@link #getRoot() <em>Root</em>}' containment reference.
@@ -326,10 +326,10 @@ public class FeatureModelImpl extends EObjectImpl implements FeatureModel {
         switch (featureID) {
             case FeatureModelPackage.FEATURE_MODEL__NAME:
                 return getName();
-            case FeatureModelPackage.FEATURE_MODEL__DESCRIPTION:
-                return getDescription();
             case FeatureModelPackage.FEATURE_MODEL__VERSION:
                 return getVersion();
+            case FeatureModelPackage.FEATURE_MODEL__DESCRIPTION:
+                return getDescription();
             case FeatureModelPackage.FEATURE_MODEL__ROOT:
                 return getRoot();
             case FeatureModelPackage.FEATURE_MODEL__ORPHANS:
@@ -352,11 +352,11 @@ public class FeatureModelImpl extends EObjectImpl implements FeatureModel {
             case FeatureModelPackage.FEATURE_MODEL__NAME:
                 setName((String)newValue);
                 return;
-            case FeatureModelPackage.FEATURE_MODEL__DESCRIPTION:
-                setDescription((String)newValue);
-                return;
             case FeatureModelPackage.FEATURE_MODEL__VERSION:
                 setVersion((String)newValue);
+                return;
+            case FeatureModelPackage.FEATURE_MODEL__DESCRIPTION:
+                setDescription((String)newValue);
                 return;
             case FeatureModelPackage.FEATURE_MODEL__ROOT:
                 setRoot((Feature)newValue);
@@ -384,11 +384,11 @@ public class FeatureModelImpl extends EObjectImpl implements FeatureModel {
             case FeatureModelPackage.FEATURE_MODEL__NAME:
                 setName(NAME_EDEFAULT);
                 return;
-            case FeatureModelPackage.FEATURE_MODEL__DESCRIPTION:
-                setDescription(DESCRIPTION_EDEFAULT);
-                return;
             case FeatureModelPackage.FEATURE_MODEL__VERSION:
                 setVersion(VERSION_EDEFAULT);
+                return;
+            case FeatureModelPackage.FEATURE_MODEL__DESCRIPTION:
+                setDescription(DESCRIPTION_EDEFAULT);
                 return;
             case FeatureModelPackage.FEATURE_MODEL__ROOT:
                 setRoot((Feature)null);
@@ -413,10 +413,10 @@ public class FeatureModelImpl extends EObjectImpl implements FeatureModel {
         switch (featureID) {
             case FeatureModelPackage.FEATURE_MODEL__NAME:
                 return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-            case FeatureModelPackage.FEATURE_MODEL__DESCRIPTION:
-                return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
             case FeatureModelPackage.FEATURE_MODEL__VERSION:
                 return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
+            case FeatureModelPackage.FEATURE_MODEL__DESCRIPTION:
+                return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
             case FeatureModelPackage.FEATURE_MODEL__ROOT:
                 return root != null;
             case FeatureModelPackage.FEATURE_MODEL__ORPHANS:
@@ -439,10 +439,10 @@ public class FeatureModelImpl extends EObjectImpl implements FeatureModel {
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (name: ");
         result.append(name);
-        result.append(", description: ");
-        result.append(description);
         result.append(", version: ");
         result.append(version);
+        result.append(", description: ");
+        result.append(description);
         result.append(')');
         return result.toString();
     }

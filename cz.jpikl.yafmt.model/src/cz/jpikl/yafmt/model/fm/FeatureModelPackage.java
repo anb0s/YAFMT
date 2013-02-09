@@ -76,22 +76,22 @@ public interface FeatureModelPackage extends EPackage {
     int FEATURE_MODEL__NAME = 0;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FEATURE_MODEL__DESCRIPTION = 1;
-
-    /**
      * The feature id for the '<em><b>Version</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int FEATURE_MODEL__VERSION = 2;
+    int FEATURE_MODEL__VERSION = 1;
+
+    /**
+     * The feature id for the '<em><b>Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FEATURE_MODEL__DESCRIPTION = 2;
 
     /**
      * The feature id for the '<em><b>Root</b></em>' containment reference.
@@ -403,22 +403,22 @@ public interface FeatureModelPackage extends EPackage {
     int ATTRIBUTE__NAME = 1;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ATTRIBUTE__DESCRIPTION = 2;
-
-    /**
      * The feature id for the '<em><b>Type</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int ATTRIBUTE__TYPE = 3;
+    int ATTRIBUTE__TYPE = 2;
+
+    /**
+     * The feature id for the '<em><b>Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE__DESCRIPTION = 3;
 
     /**
      * The number of structural features of the '<em>Attribute</em>' class.

@@ -56,7 +56,7 @@ public class FeatureModelItemProvider
      * This returns the property descriptors for the adapted class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated NOT
+     * @generated
      */
     @Override
     public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
@@ -96,7 +96,7 @@ public class FeatureModelItemProvider
      * This adds a property descriptor for the Description feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated NOT
+     * @generated
      */
     protected void addDescriptionPropertyDescriptor(Object object) {
         itemPropertyDescriptors.add
@@ -187,7 +187,7 @@ public class FeatureModelItemProvider
      */
     @Override
     public String getText(Object object) {
-        return ((FeatureModel)object).getName();
+        return ((FeatureModel) object).getName();
     }
 
     /**
@@ -203,8 +203,8 @@ public class FeatureModelItemProvider
 
         switch (notification.getFeatureID(FeatureModel.class)) {
             case FeatureModelPackage.FEATURE_MODEL__NAME:
-            case FeatureModelPackage.FEATURE_MODEL__DESCRIPTION:
             case FeatureModelPackage.FEATURE_MODEL__VERSION:
+            case FeatureModelPackage.FEATURE_MODEL__DESCRIPTION:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
                 return;
             case FeatureModelPackage.FEATURE_MODEL__ROOT:

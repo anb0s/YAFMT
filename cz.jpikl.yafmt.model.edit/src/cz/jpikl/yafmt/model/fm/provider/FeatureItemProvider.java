@@ -1,12 +1,13 @@
-/**
- */
 package cz.jpikl.yafmt.model.fm.provider;
 
 
-import java.util.ArrayList;
+import cz.jpikl.yafmt.model.fm.Feature;
+import cz.jpikl.yafmt.model.fm.FeatureModelFactory;
+import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
+import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
+
 import java.util.Collection;
 import java.util.List;
-
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
@@ -21,11 +22,6 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-
-import cz.jpikl.yafmt.model.fm.Feature;
-import cz.jpikl.yafmt.model.fm.FeatureModelFactory;
-import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
-import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
 
 /**
  * This is the item provider adapter for a {@link cz.jpikl.yafmt.model.fm.Feature} object.
@@ -50,7 +46,7 @@ public class FeatureItemProvider
     public FeatureItemProvider(AdapterFactory adapterFactory) {
         super(adapterFactory);
     }
-   
+
     /**
      * This returns the property descriptors for the adapted class.
      * <!-- begin-user-doc -->
@@ -59,18 +55,18 @@ public class FeatureItemProvider
      */
     @Override
     public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
-        itemPropertyDescriptors = new ArrayList<IItemPropertyDescriptor>();
+        if (itemPropertyDescriptors == null) {
+            super.getPropertyDescriptors(object);
 
-        addIdPropertyDescriptor(object);
-        addNamePropertyDescriptor(object);
-        addDescriptionPropertyDescriptor(object);
-        
-        Feature feature = (Feature) object;
-        if(!feature.isRoot()) {
-            addLowerPropertyDescriptor(object);
-            addUpperPropertyDescriptor(object);
+            addIdPropertyDescriptor(object);
+            addNamePropertyDescriptor(object);
+            addDescriptionPropertyDescriptor(object);
+            
+            if(!((Feature) object).isRoot()) {
+                addLowerPropertyDescriptor(object);
+                addUpperPropertyDescriptor(object);
+            }
         }
-        
         return itemPropertyDescriptors;
     }
 
@@ -185,166 +181,12 @@ public class FeatureItemProvider
     }
 
     /**
-     * This adds a property descriptor for the Root feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected void addRootPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_Feature_root_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_Feature_root_feature", "_UI_Feature_type"),
-                 FeatureModelPackage.Literals.FEATURE__ROOT,
-                 false,
-                 false,
-                 false,
-                 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-                 null,
-                 null));
-    }
-
-    /**
-     * This adds a property descriptor for the Orphan feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected void addOrphanPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_Feature_orphan_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_Feature_orphan_feature", "_UI_Feature_type"),
-                 FeatureModelPackage.Literals.FEATURE__ORPHAN,
-                 false,
-                 false,
-                 false,
-                 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-                 null,
-                 null));
-    }
-
-    /**
-     * This adds a property descriptor for the Optional feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected void addOptionalPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_Feature_optional_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_Feature_optional_feature", "_UI_Feature_type"),
-                 FeatureModelPackage.Literals.FEATURE__OPTIONAL,
-                 true,
-                 false,
-                 false,
-                 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-                 null,
-                 null));
-    }
-
-    /**
-     * This adds a property descriptor for the Mandatory feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected void addMandatoryPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_Feature_mandatory_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_Feature_mandatory_feature", "_UI_Feature_type"),
-                 FeatureModelPackage.Literals.FEATURE__MANDATORY,
-                 true,
-                 false,
-                 false,
-                 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-                 null,
-                 null));
-    }
-
-    /**
-     * This adds a property descriptor for the Clonable feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected void addClonablePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_Feature_clonable_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_Feature_clonable_feature", "_UI_Feature_type"),
-                 FeatureModelPackage.Literals.FEATURE__CLONABLE,
-                 false,
-                 false,
-                 false,
-                 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-                 null,
-                 null));
-    }
-
-    /**
-     * This adds a property descriptor for the Parent feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected void addParentPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_Feature_parent_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_Feature_parent_feature", "_UI_Feature_type"),
-                 FeatureModelPackage.Literals.FEATURE__PARENT,
-                 false,
-                 false,
-                 false,
-                 null,
-                 null,
-                 null));
-    }
-
-    /**
-     * This adds a property descriptor for the Feature Model feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected void addFeatureModelPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_Feature_featureModel_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_Feature_featureModel_feature", "_UI_Feature_type"),
-                 FeatureModelPackage.Literals.FEATURE__FEATURE_MODEL,
-                 false,
-                 false,
-                 false,
-                 null,
-                 null,
-                 null));
-    }
-
-    /**
      * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
      * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
      * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated NOT
+     * @generated
      */
     @Override
     public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {

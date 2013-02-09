@@ -35,6 +35,7 @@ public class ConstraintLanguagePlugin extends Plugin {
 	
 	public ConstraintLanguageRegistry getConstraintLanguageRegistry() {
 	    if(registry == null) {
+	        registry = new ConstraintLanguageRegistry();
 	        IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
 	        for(IConfigurationElement element: extensionRegistry.getConfigurationElementsFor(EXTENSION_POINT_ID)) {
 	            try {

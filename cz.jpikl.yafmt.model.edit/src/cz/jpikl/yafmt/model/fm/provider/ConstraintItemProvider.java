@@ -3,6 +3,8 @@
 package cz.jpikl.yafmt.model.fm.provider;
 
 
+import cz.jpikl.yafmt.clang.ConstraintLanguageDescriptor;
+import cz.jpikl.yafmt.clang.ConstraintLanguagePlugin;
 import cz.jpikl.yafmt.model.fm.Constraint;
 import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
 
@@ -93,11 +95,11 @@ public class ConstraintItemProvider
      * This adds a property descriptor for the Language feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     protected void addLanguagePropertyDescriptor(Object object) {
         itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
+            (new ItemPropertyDescriptor
                 (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
                  getResourceLocator(),
                  getString("_UI_Constraint_language_feature"),
@@ -108,7 +110,46 @@ public class ConstraintItemProvider
                  false,
                  ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
                  null,
-                 null));
+                 null) {
+                
+                @Override
+                protected Collection<?> getComboBoxObjects(Object object) {
+                    return ConstraintLanguagePlugin.getDefault().getConstraintLanguageRegistry().getDescriptors();
+                }
+                
+                @Override
+                public IItemLabelProvider getLabelProvider(Object object) {
+                    return new IItemLabelProvider() {
+                        @Override
+                        public String getText(Object object) {
+                            if(object instanceof ConstraintLanguageDescriptor)
+                                return ((ConstraintLanguageDescriptor) object).getName();
+                            return null;
+                        }
+                        
+                        @Override
+                        public Object getImage(Object object) {
+                            return ItemPropertyDescriptor.GENERIC_VALUE_IMAGE;
+                        }
+                    };
+                }
+                
+                @Override
+                public void setPropertyValue(Object object, Object value) {
+                    Constraint constraint = (Constraint) object;
+                    if(value instanceof ConstraintLanguageDescriptor)
+                        constraint.setLanguage(((ConstraintLanguageDescriptor) value).getId());
+                    else
+                        constraint.setLanguage(null);
+                }
+                
+                @Override
+                public Object getPropertyValue(Object object) {
+                    String id = ((Constraint) object).getLanguage();
+                    return ConstraintLanguagePlugin.getDefault().getConstraintLanguageRegistry().getDescriptor(id);
+                }
+                
+            });
     }
 
     /**

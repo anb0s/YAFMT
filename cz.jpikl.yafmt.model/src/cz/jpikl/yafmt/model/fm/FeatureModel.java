@@ -15,8 +15,8 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link cz.jpikl.yafmt.model.fm.FeatureModel#getName <em>Name</em>}</li>
- *   <li>{@link cz.jpikl.yafmt.model.fm.FeatureModel#getDescription <em>Description</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.FeatureModel#getVersion <em>Version</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fm.FeatureModel#getDescription <em>Description</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.FeatureModel#getRoot <em>Root</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.FeatureModel#getOrphans <em>Orphans</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.FeatureModel#getConstraints <em>Constraints</em>}</li>

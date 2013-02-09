@@ -22,8 +22,8 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <ul>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.AttributeImpl#getId <em>Id</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.AttributeImpl#getName <em>Name</em>}</li>
- *   <li>{@link cz.jpikl.yafmt.model.fm.impl.AttributeImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.AttributeImpl#getType <em>Type</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fm.impl.AttributeImpl#getDescription <em>Description</em>}</li>
  * </ul>
  * </p>
  *
@@ -71,26 +71,6 @@ public class AttributeImpl extends EObjectImpl implements Attribute {
     protected String name = NAME_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getDescription()
-     * @generated
-     * @ordered
-     */
-    protected static final String DESCRIPTION_EDEFAULT = null;
-
-    /**
-     * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getDescription()
-     * @generated
-     * @ordered
-     */
-    protected String description = DESCRIPTION_EDEFAULT;
-
-    /**
      * The default value of the '{@link #getType() <em>Type</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -109,6 +89,26 @@ public class AttributeImpl extends EObjectImpl implements Attribute {
      * @ordered
      */
     protected AttributeType type = TYPE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDescription()
+     * @generated
+     * @ordered
+     */
+    protected static final String DESCRIPTION_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDescription()
+     * @generated
+     * @ordered
+     */
+    protected String description = DESCRIPTION_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -225,10 +225,10 @@ public class AttributeImpl extends EObjectImpl implements Attribute {
                 return getId();
             case FeatureModelPackage.ATTRIBUTE__NAME:
                 return getName();
-            case FeatureModelPackage.ATTRIBUTE__DESCRIPTION:
-                return getDescription();
             case FeatureModelPackage.ATTRIBUTE__TYPE:
                 return getType();
+            case FeatureModelPackage.ATTRIBUTE__DESCRIPTION:
+                return getDescription();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -247,11 +247,11 @@ public class AttributeImpl extends EObjectImpl implements Attribute {
             case FeatureModelPackage.ATTRIBUTE__NAME:
                 setName((String)newValue);
                 return;
-            case FeatureModelPackage.ATTRIBUTE__DESCRIPTION:
-                setDescription((String)newValue);
-                return;
             case FeatureModelPackage.ATTRIBUTE__TYPE:
                 setType((AttributeType)newValue);
+                return;
+            case FeatureModelPackage.ATTRIBUTE__DESCRIPTION:
+                setDescription((String)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -271,11 +271,11 @@ public class AttributeImpl extends EObjectImpl implements Attribute {
             case FeatureModelPackage.ATTRIBUTE__NAME:
                 setName(NAME_EDEFAULT);
                 return;
-            case FeatureModelPackage.ATTRIBUTE__DESCRIPTION:
-                setDescription(DESCRIPTION_EDEFAULT);
-                return;
             case FeatureModelPackage.ATTRIBUTE__TYPE:
                 setType(TYPE_EDEFAULT);
+                return;
+            case FeatureModelPackage.ATTRIBUTE__DESCRIPTION:
+                setDescription(DESCRIPTION_EDEFAULT);
                 return;
         }
         super.eUnset(featureID);
@@ -293,10 +293,10 @@ public class AttributeImpl extends EObjectImpl implements Attribute {
                 return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
             case FeatureModelPackage.ATTRIBUTE__NAME:
                 return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-            case FeatureModelPackage.ATTRIBUTE__DESCRIPTION:
-                return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
             case FeatureModelPackage.ATTRIBUTE__TYPE:
                 return type != TYPE_EDEFAULT;
+            case FeatureModelPackage.ATTRIBUTE__DESCRIPTION:
+                return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
         }
         return super.eIsSet(featureID);
     }
@@ -315,10 +315,10 @@ public class AttributeImpl extends EObjectImpl implements Attribute {
         result.append(id);
         result.append(", name: ");
         result.append(name);
-        result.append(", description: ");
-        result.append(description);
         result.append(", type: ");
         result.append(type);
+        result.append(", description: ");
+        result.append(description);
         result.append(')');
         return result.toString();
     }

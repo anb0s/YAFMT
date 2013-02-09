@@ -14,8 +14,8 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link cz.jpikl.yafmt.model.fm.Attribute#getId <em>Id</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.Attribute#getName <em>Name</em>}</li>
- *   <li>{@link cz.jpikl.yafmt.model.fm.Attribute#getDescription <em>Description</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.Attribute#getType <em>Type</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fm.Attribute#getDescription <em>Description</em>}</li>
  * </ul>
  * </p>
  *

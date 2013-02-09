@@ -66,8 +66,6 @@ public class GroupItemProvider
 
             addLowerPropertyDescriptor(object);
             addUpperPropertyDescriptor(object);
-            addXorPropertyDescriptor(object);
-            addOrPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
@@ -112,50 +110,6 @@ public class GroupItemProvider
                  false,
                  false,
                  ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
-                 null,
-                 null));
-    }
-
-    /**
-     * This adds a property descriptor for the Xor feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected void addXorPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_Group_xor_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_Group_xor_feature", "_UI_Group_type"),
-                 FeatureModelPackage.Literals.GROUP__XOR,
-                 true,
-                 false,
-                 false,
-                 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-                 null,
-                 null));
-    }
-
-    /**
-     * This adds a property descriptor for the Or feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected void addOrPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_Group_or_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_Group_or_feature", "_UI_Group_type"),
-                 FeatureModelPackage.Literals.GROUP__OR,
-                 true,
-                 false,
-                 false,
-                 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
                  null,
                  null));
     }
@@ -211,12 +165,15 @@ public class GroupItemProvider
      * This returns the label text for the adapted class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     @Override
     public String getText(Object object) {
-        Group group = (Group)object;
-        return getString("_UI_Group_type") + " " + group.getLower();
+        Group group = (Group) object;
+        String label = getString("_UI_Group_type");
+        if(!group.isOr() && !group.isXor())
+            label += " " + FeatureModelUtil.getCardinality(group);
+        return label;
     }
 
     /**
