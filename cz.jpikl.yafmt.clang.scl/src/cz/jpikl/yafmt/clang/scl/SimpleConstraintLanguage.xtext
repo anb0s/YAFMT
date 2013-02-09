@@ -1,7 +1,7 @@
 // Name of the main class and its containing package.
 // org.eclipse.xtext.common.Terminals contains definition of basic terminal
 // symbols (like ID) and hidden tokens (white-spaces).
-grammar cz.jpikl.yafmt.clang.SimpleConstraintLanguage 
+grammar cz.jpikl.yafmt.clang.scl.SimpleConstraintLanguage 
    with org.eclipse.xtext.common.Terminals
 
 // Ast (Abstract Syntax Tree) is the name of the generated package (cz.jpikl.yafmt.clang.scl.ast)
