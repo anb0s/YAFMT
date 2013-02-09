@@ -103,6 +103,7 @@
          &lt;extension point=&quot;cz.jpikl.yafmt.clang&quot;&gt;
   &lt;language id=&quot;com.example.myclang&quot; 
             name=&quot;My Constraint Language&quot;
+            shortName=&quot;MyCL&quot;
             class=&quot;com.example.myclang.MyConstraintLanguageProvider.java&quot;/&gt;
 &lt;/extension&gt;
       </documentation>

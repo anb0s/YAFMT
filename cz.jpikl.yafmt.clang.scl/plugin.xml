@@ -10,6 +10,15 @@
        genModel = "cz/jpikl/yafmt/clang/scl/SimpleConstraintLanguage.genmodel" /> 
 	
   </extension>
+  <extension
+        point="cz.jpikl.yafmt.clang">
+     <language
+           class="cz.jpikl.yafmt.clang.scl.SimpleConstraintLanguage"
+           id="cz.jpikl.yafmt.clang.scl"
+           name="Simple Constraint Language"
+           shortName="SCL">
+     </language>
+  </extension>
 
 
 </plugin>
