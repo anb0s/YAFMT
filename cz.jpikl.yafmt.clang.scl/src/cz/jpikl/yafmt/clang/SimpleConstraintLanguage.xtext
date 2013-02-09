@@ -1,35 +1,48 @@
+// Name of the main class and its containing package.
+// org.eclipse.xtext.common.Terminals contains definition of basic terminal
+// symbols (like ID) and hidden tokens (white-spaces).
 grammar cz.jpikl.yafmt.clang.SimpleConstraintLanguage 
    with org.eclipse.xtext.common.Terminals
 
+// Ast (Abstract Syntax Tree) is the name of the generated package (cz.jpikl.yafmt.clang.scl.ast)
+// It is also prefix for generated EMF model factory and model package.   
 generate ast "https://bitbucket.org/jpikl/yafmt/clang/scl"
 
 // Uses unassigned rule call.
+//
 // The return type is Expression (abstract class for all kinds of expressions).
-// The result of ImplExpression rule is returned. 
+// It is returned the result of ImplExpression rule. 
 Expression:
     ImplExpression;	
 
 ImplExpression returns Expression:
-    OrExpression ({ImplExpression.leftPart=current} ('implies' | 'requires') rightPart=OrExpression)?;
+    OrExpression ({ImplExpression.leftPart=current} ('implies' | 'requires' | '->' | '=>') rightPart=OrExpression)?;
     
-// Uses assigned action: {ExplicitReturnType.memberVariable=curentResultOfParsing}.
+// Uses assigned action: {ExplicitReturnType.memberVariable=value}.
+// This particular case is also called tree rewrite action.
+//
 // If there is no 'or' token, the rule simply returns result of the only one XorExpression rule.
+//
 // Otherwise, instance of OrExpression is returned. Parts array contains results of parsed XorExpression rules.
 // The result of the first one XorExpression (current keyword) was in that case added to the parts array.
 // Current then became the resulting OrExpression.
+//    OrExpression orExpression = new OrExpression()
+//    orExpression.getParts().add(current)
+//    current = orExpression
 OrExpression returns Expression:
-    XorExpression ({XorExpression.parts+=current} 'or' parts+=XorExpression)*;
+    XorExpression ({XorExpression.parts+=current} ('or' | '|') parts+=XorExpression)*;
 
 XorExpression returns Expression:
-    AndExpression ({XorExpression.parts+=current} 'xor' parts+=AndExpression)*;
+    AndExpression ({XorExpression.parts+=current} ('xor' | '^') parts+=AndExpression)*;
 	
 AndExpression returns Expression:
-    NegatedExpresion ({AndExpression.parts+=current} 'and' parts+=NegatedExpresion)*;	
+    NegatedExpresion ({AndExpression.parts+=current} ('and' | '&') parts+=NegatedExpresion)*;	
 
 NegatedExpresion returns Expression:
-    PrimaryExpression | 'not' {NegatedExpression} part=PrimaryExpression;
+    PrimaryExpression | ('not' | '!') {NegatedExpression} part=PrimaryExpression;
 	
 // Uses simple action: {ExplicitReturnType} memberVariable=value.
+//
 // If there is an ID token, instance of FeatureId is returned. Value member contains the parsed ID.
 // Otherwise (there is an expression inside brackets), the result of Expression rule is returned. 
 PrimaryExpression returns Expression:
