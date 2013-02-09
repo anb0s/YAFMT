@@ -24,6 +24,7 @@ Workflow {
 
     component = DirectoryCleaner {
         directory = "${runtimeProject}.ui/src-gen"
+        // exclude ast package directory
     }
     
     component = Generator {
