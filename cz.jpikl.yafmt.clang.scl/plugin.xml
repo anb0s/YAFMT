@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<plugin>
+
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <package 
+       uri = "https://bitbucket.org/jpikl/yafmt/clang/scl" 
+       class = "cz.jpikl.yafmt.clang.model.ModelPackage"
+       genModel = "cz/jpikl/yafmt/clang/SimpleConstraintLanguage.genmodel" /> 
+	
+  </extension>
+
+
+
+
+</plugin>
