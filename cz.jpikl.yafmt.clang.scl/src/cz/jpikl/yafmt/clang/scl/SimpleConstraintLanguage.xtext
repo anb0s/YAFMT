@@ -4,9 +4,9 @@
 grammar cz.jpikl.yafmt.clang.scl.SimpleConstraintLanguage 
    with org.eclipse.xtext.common.Terminals
 
-// Ast (Abstract Syntax Tree) is the name of the generated package (cz.jpikl.yafmt.clang.scl.ast)
-// It is also prefix for generated EMF model factory and model package.   
-generate ast "https://bitbucket.org/jpikl/yafmt/clang/scl"
+// model is the name of the generated package (cz.jpikl.yafmt.clang.scl.model)
+// It is also prefix for generated EMF model factory and model package.
+generate model "https://bitbucket.org/jpikl/yafmt/clang/scl"
 
 // Uses unassigned rule call.
 //
