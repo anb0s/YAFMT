@@ -1,10 +1,36 @@
 grammar cz.jpikl.yafmt.clang.SimpleConstraintLanguage 
    with org.eclipse.xtext.common.Terminals
 
-generate model "https://bitbucket.org/jpikl/yafmt/clang/scl"
+generate ast "https://bitbucket.org/jpikl/yafmt/clang/scl"
 
-Model:
-	greetings+=Greeting*;
+// Uses unassigned rule call.
+// The return type is Expression (abstract class for all kinds of expressions).
+// The result of ImplExpression rule is returned. 
+Expression:
+    ImplExpression;	
+
+ImplExpression returns Expression:
+    OrExpression ({ImplExpression.leftPart=current} ('implies' | 'requires') rightPart=OrExpression)?;
+    
+// Uses assigned action: {ExplicitReturnType.memberVariable=curentResultOfParsing}.
+// If there is no 'or' token, the rule simply returns result of the only one XorExpression rule.
+// Otherwise, instance of OrExpression is returned. Parts array contains results of parsed XorExpression rules.
+// The result of the first one XorExpression (current keyword) was in that case added to the parts array.
+// Current then became the resulting OrExpression.
+OrExpression returns Expression:
+    XorExpression ({XorExpression.parts+=current} 'or' parts+=XorExpression)*;
+
+XorExpression returns Expression:
+    AndExpression ({XorExpression.parts+=current} 'xor' parts+=AndExpression)*;
 	
-Greeting:
-	'Hello' name=ID '!';
+AndExpression returns Expression:
+    NegatedExpresion ({AndExpression.parts+=current} 'and' parts+=NegatedExpresion)*;	
+
+NegatedExpresion returns Expression:
+    PrimaryExpression | 'not' {NegatedExpression} part=PrimaryExpression;
+	
+// Uses simple action: {ExplicitReturnType} memberVariable=value.
+// If there is an ID token, instance of FeatureId is returned. Value member contains the parsed ID.
+// Otherwise (there is an expression inside brackets), the result of Expression rule is returned. 
+PrimaryExpression returns Expression:
+    {FeatureId} value=ID | '(' Expression ')';
