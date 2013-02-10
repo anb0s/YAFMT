@@ -10,7 +10,7 @@ public class ConstraintLanguageDescriptor {
     private String id;
     private String name;
     private String shortName;
-    private ConstraintLanguage language;
+    private IConstraintLanguage language;
     
     
     public ConstraintLanguageDescriptor(IConfigurationElement element) {
@@ -44,12 +44,13 @@ public class ConstraintLanguageDescriptor {
         return shortName;
     }
     
-    public ConstraintLanguage getLanguage() {
-        try {
-            if(language == null)            
-                language = (ConstraintLanguage) element.createExecutableExtension("class");
-        } catch (CoreException ex) {
-            ConstraintLanguagePlugin.getDefault().logError("Unable to instantiate constraint language class for " + id + ".", ex);
+    public IConstraintLanguage getLanguage() {
+        if(language == null) {
+            try {                            
+                language = (IConstraintLanguage) element.createExecutableExtension("class");
+            } catch (CoreException ex) {
+                ConstraintLanguagePlugin.getDefault().logError("Unable to instantiate constraint language class for " + id + ".", ex);
+            }
         }
         
         return language;

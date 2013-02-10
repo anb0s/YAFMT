@@ -1,23 +1,22 @@
 package cz.jpikl.yafmt.clang;
 
-import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.core.runtime.IExtensionRegistry;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.Status;
 import org.osgi.framework.BundleContext;
 
+import cz.jpikl.yafmt.clang.ui.EditingSupportRegistry;
+
 public class ConstraintLanguagePlugin extends Plugin {
 
     public static final String ID = "cz.jpikl.yafmt.clang";
-    private static final String EXTENSION_POINT_ID = "cz.jpikl.yafmt.clang";
-	private static ConstraintLanguagePlugin instance;
+    private static ConstraintLanguagePlugin instance;
 	
 	public static ConstraintLanguagePlugin getDefault() {
         return instance;
     }
     
-	private ConstraintLanguageRegistry registry;
+	private ConstraintLanguageRegistry constraintLanguageRegistry;
+	private EditingSupportRegistry editingSupportRegistry;
     
 	public void start(BundleContext bundleContext) throws Exception {
 		super.start(bundleContext);
@@ -29,25 +28,20 @@ public class ConstraintLanguagePlugin extends Plugin {
 		super.stop(bundleContext);
 	}
 	
+	public ConstraintLanguageRegistry getConstraintLanguageRegistry() {
+	    if(constraintLanguageRegistry == null)
+	        constraintLanguageRegistry = new ConstraintLanguageRegistry();
+	    return constraintLanguageRegistry;
+	}
+	
+	public EditingSupportRegistry getEditingSupportRegistry() {
+	    if(editingSupportRegistry == null)
+	        editingSupportRegistry = new EditingSupportRegistry();
+	    return editingSupportRegistry;
+	}
+	
 	public void logError(String message, Exception ex) {
         getLog().log(new Status(Status.ERROR, ID, message, ex));
     }
-	
-	public ConstraintLanguageRegistry getConstraintLanguageRegistry() {
-	    if(registry == null) {
-	        registry = new ConstraintLanguageRegistry();
-	        IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
-	        for(IConfigurationElement element: extensionRegistry.getConfigurationElementsFor(EXTENSION_POINT_ID)) {
-	            try {
-	                registry.putDescriptor(new ConstraintLanguageDescriptor(element));
-	            }
-	            catch(Exception ex) {
-	                logError("Invalid " + EXTENSION_POINT_ID + " extension point element.", ex);
-	            }
-	        }
-	    }
-	    
-	    return registry;
-	}
 
 }

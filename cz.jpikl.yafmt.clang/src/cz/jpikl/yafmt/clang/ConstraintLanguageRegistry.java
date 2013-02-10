@@ -5,12 +5,25 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.Platform;
+
 public class ConstraintLanguageRegistry {
 
+    private static final String EXTENSION_POINT_ID = "cz.jpikl.yafmt.clang";
+    
     private Map<String, ConstraintLanguageDescriptor> registry = new HashMap<String, ConstraintLanguageDescriptor>();
     
-    protected void putDescriptor(ConstraintLanguageDescriptor descriptor) {
-        registry.put(descriptor.getId(), descriptor);
+    public ConstraintLanguageRegistry() {
+        for(IConfigurationElement element: Platform.getExtensionRegistry().getConfigurationElementsFor(EXTENSION_POINT_ID)) {
+            try {
+                ConstraintLanguageDescriptor descriptor = new ConstraintLanguageDescriptor(element);
+                registry.put(descriptor.getId(), descriptor);
+            }
+            catch(Exception ex) {
+                ConstraintLanguagePlugin.getDefault().logError("Invalid " + EXTENSION_POINT_ID + " extension point element.", ex);
+            }
+        }
     }
     
     public Collection<ConstraintLanguageDescriptor> getDescriptors() {
@@ -21,7 +34,7 @@ public class ConstraintLanguageRegistry {
         return registry.get(id);
     }
     
-    public ConstraintLanguage getLanguage(String id) {
+    public IConstraintLanguage getLanguage(String id) {
         ConstraintLanguageDescriptor descriptor = registry.get(id);
         return (descriptor == null) ? null : descriptor.getLanguage();
     }
