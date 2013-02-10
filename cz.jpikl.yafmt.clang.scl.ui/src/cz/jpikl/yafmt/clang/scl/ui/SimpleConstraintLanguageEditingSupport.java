@@ -2,6 +2,7 @@ package cz.jpikl.yafmt.clang.scl.ui;
 
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.widgets.Composite;
 
 import com.google.inject.Injector;
@@ -13,12 +14,36 @@ import de.itemis.xtext.utils.jface.viewers.XtextStyledTextCellEditor;
 public class SimpleConstraintLanguageEditingSupport extends EditingSupport {
         
     @Override
-    public CellEditor createCellEditor(Composite parent) {
+    public CellEditor createCellEditor(Composite composite) {
         String languageId = SimpleConstraintLanguageActivator.CZ_JPIKL_YAFMT_CLANG_SCL_SIMPLECONSTRAINTLANGUAGE;
         Injector injector = SimpleConstraintLanguageActivator.getInstance().getInjector(languageId);
         
-        XtextStyledTextCellEditor cellEditor = new XtextStyledTextCellEditor(SWT.NONE, injector);
-        cellEditor.create(parent);
+        XtextStyledTextCellEditor cellEditor = new XtextStyledTextCellEditor(SWT.SINGLE, injector) {
+            @Override
+            protected StyledText createStyledText(Composite parent) {
+                // Very ugly hack that blocks throwing of SWTException
+                // when StyledText.handleKey() is called on disposed widget
+                // after pressing ENTER key.
+                return new StyledText(parent, getStyle()) {
+                    // Called inside handleKey().
+                    @Override
+                    public int getKeyBinding(int key) {
+                        if(isDisposed())
+                            return 123456; // This action code should not exist.
+                        return super.getKeyBinding(key);
+                    }
+                    
+                    // Called inside handleKey() after getKeyBinding() returns 123456.
+                    @Override
+                    public void invokeAction(int action) {
+                        if(isDisposed())
+                            return;
+                        super.invokeAction(action);
+                    }
+                };
+            }
+        };
+        cellEditor.create(composite);
         return cellEditor;
     }
 

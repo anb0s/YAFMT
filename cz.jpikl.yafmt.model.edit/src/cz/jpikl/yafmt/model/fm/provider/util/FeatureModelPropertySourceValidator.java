@@ -2,7 +2,12 @@ package cz.jpikl.yafmt.model.fm.provider.util;
 
 import java.util.regex.Pattern;
 
+import cz.jpikl.yafmt.clang.ConstraintLanguageException;
+import cz.jpikl.yafmt.clang.ConstraintLanguagePlugin;
+import cz.jpikl.yafmt.clang.ConstraintLanguageRegistry;
+import cz.jpikl.yafmt.clang.IConstraintLanguage;
 import cz.jpikl.yafmt.model.fm.Attribute;
+import cz.jpikl.yafmt.model.fm.Constraint;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.Group;
@@ -21,6 +26,8 @@ public class FeatureModelPropertySourceValidator implements IPropertySourceValid
                 return validateGroup((Group) object, property, (String) value);
             if(object instanceof Attribute)
                 return validateAttribute((Attribute) object, property, (String) value);
+            if(object instanceof Constraint)
+                return validateConstraint((Constraint) object, property, value);
             if(object instanceof FeatureModel)
                 return validateFeatureModel((FeatureModel) object, property, (String) value);
         }
@@ -29,7 +36,7 @@ public class FeatureModelPropertySourceValidator implements IPropertySourceValid
         }
         return null;
     }
-    
+   
     private String validateFeature(Feature feature, Object property, String value) {
         if(property == FEATURE__ID) {
             String result = checkIdValue(value, "_UI_Feature_id_feature");
@@ -70,6 +77,31 @@ public class FeatureModelPropertySourceValidator implements IPropertySourceValid
         }
         if(property == ATTRIBUTE__NAME)
             return checkEmptyValue(value, "_UI_Attribute_name_feature");
+        return null;
+    }
+    
+    private String validateConstraint(Constraint constraint, Object property, Object value) {
+        if(property == CONSTRAINT__VALUE) {
+            ConstraintLanguageRegistry registry = ConstraintLanguagePlugin.getDefault().getConstraintLanguageRegistry();
+            IConstraintLanguage language = registry.getLanguage(constraint.getLanguage());
+            if(language == null)
+                return null;
+            
+            String oldValue = constraint.getValue();
+            constraint.eSetDeliver(false);
+            constraint.setValue((String) value);
+            
+            try {
+                language.createEvaluator(constraint);
+            }
+            catch(ConstraintLanguageException ex) {
+                return ex.getMessage();
+            }
+            finally {
+                constraint.setValue(oldValue);
+                constraint.eSetDeliver(true);
+            }
+        }
         return null;
     }
     

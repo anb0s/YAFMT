@@ -78,7 +78,7 @@ public class SimpleConstraintLanguageSyntacticSequencer extends AbstractSyntacti
 	
 	/**
 	 * Syntax:
-	 *     'or' | '|'
+	 *     '|' | 'or'
 	 */
 	protected void emit_Disjunction_OrKeyword_1_1_0_or_VerticalLineKeyword_1_1_1(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -102,7 +102,7 @@ public class SimpleConstraintLanguageSyntacticSequencer extends AbstractSyntacti
 	
 	/**
 	 * Syntax:
-	 *     '!' | 'not'
+	 *     'not' | '!'
 	 */
 	protected void emit_Negation_ExclamationMarkKeyword_1_0_1_or_NotKeyword_1_0_0(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);

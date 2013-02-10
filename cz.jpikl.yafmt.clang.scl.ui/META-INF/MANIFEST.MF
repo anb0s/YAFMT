@@ -11,7 +11,10 @@ Require-Bundle: cz.jpikl.yafmt.clang.scl;visibility:=reexport,
  org.eclipse.xtext.ui.shared,
  org.eclipse.ui,
  cz.jpikl.yafmt.clang;bundle-version="0.2.0",
- de.itemis.xtext.utils.jface;bundle-version="1.0.0"
+ de.itemis.xtext.utils.jface;bundle-version="1.0.0",
+ org.antlr.runtime
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-Activator: cz.jpikl.yafmt.clang.scl.ui.internal.SimpleConstraintLanguageActivator
+Export-Package: cz.jpikl.yafmt.clang.scl.ui.contentassist,
+ cz.jpikl.yafmt.clang.scl.ui.contentassist.antlr

@@ -15,7 +15,6 @@ import cz.jpikl.yafmt.clang.scl.model.Expression;
 import cz.jpikl.yafmt.clang.scl.parser.antlr.SimpleConstraintLanguageParser;
 import cz.jpikl.yafmt.model.fm.Constraint;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
-import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
 
 public class SimpleConstraintLanguage extends ConstraintLanguage {
 
@@ -60,6 +59,9 @@ public class SimpleConstraintLanguage extends ConstraintLanguage {
         if((ids == null) || ids.isEmpty())
             return null;
         
+        if(ids.size() == 1)
+            return "Nonexistent feature ID: " + ids.get(0);
+        
         StringBuilder builder = new StringBuilder("Nonexistent feature IDs: ");
         for(int i = 0; i < ids.size(); i++) {
             if(i != 0)
@@ -82,24 +84,6 @@ public class SimpleConstraintLanguage extends ConstraintLanguage {
             throw new ConstraintLanguageException(constraint, error);
         
         return evaluator;
-    }
-    
-    // Just test.
-    public static void main(String[] args) {
-        SimpleConstraintLanguageStandaloneSetup.doSetup();
-        SimpleConstraintLanguage lang = new SimpleConstraintLanguage();
-        
-        try {
-            FeatureModel model = FeatureModelPackage.eINSTANCE.getFeatureModelFactory().createFeatureModel();
-            Constraint constraint = FeatureModelPackage.eINSTANCE.getFeatureModelFactory().createConstraint();
-            constraint.setValue("a or b and not c");
-            model.getConstraints().add(constraint);
-            lang.createEvaluator(constraint);
-        }
-        catch(ConstraintLanguageException ex) {
-            System.out.println("Error in '" + ex.getConstraint().getValue() + "': " + ex.getMessage());
-        }
-        
     }
 
 }

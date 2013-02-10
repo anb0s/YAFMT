@@ -99,10 +99,10 @@ Workflow {
             //fragment = quickfix.QuickfixProviderFragment {}
 
             // content assist API
-            //fragment = contentAssist.JavaBasedContentAssistFragment {}
+            fragment = contentAssist.JavaBasedContentAssistFragment {}
 
             // generates a more lightweight Antlr parser and lexer tailored for content assist
-            //fragment = parser.antlr.XtextAntlrUiGeneratorFragment {}
+            fragment = parser.antlr.XtextAntlrUiGeneratorFragment {}
 
             // generates junit test support classes into Generator#pathTestProject
             //fragment = junit.Junit4Fragment {}

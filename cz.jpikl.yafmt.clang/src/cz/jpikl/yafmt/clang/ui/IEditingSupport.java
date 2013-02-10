@@ -5,6 +5,6 @@ import org.eclipse.swt.widgets.Composite;
 
 public interface IEditingSupport {
 
-    CellEditor createCellEditor(Composite parent);
+    CellEditor createCellEditor(Composite composite);
     
 }

@@ -38,5 +38,30 @@ public abstract class AbstractSimpleConstraintLanguageUiModule extends DefaultUi
 		binder.bind(org.eclipse.xtext.parser.antlr.ITokenDefProvider.class).annotatedWith(com.google.inject.name.Names.named(org.eclipse.xtext.ui.LexerUIBindings.HIGHLIGHTING)).to(org.eclipse.xtext.parser.antlr.AntlrTokenDefProvider.class);
 	}
 
+	// contributed by org.eclipse.xtext.ui.generator.contentAssist.JavaBasedContentAssistFragment
+	public Class<? extends org.eclipse.xtext.ui.editor.contentassist.IContentProposalProvider> bindIContentProposalProvider() {
+		return cz.jpikl.yafmt.clang.scl.ui.contentassist.SimpleConstraintLanguageProposalProvider.class;
+	}
+
+	// contributed by org.eclipse.xtext.generator.parser.antlr.XtextAntlrUiGeneratorFragment
+	public Class<? extends org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext.Factory> bindContentAssistContext$Factory() {
+		return org.eclipse.xtext.ui.editor.contentassist.antlr.ParserBasedContentAssistContextFactory.class;
+	}
+
+	// contributed by org.eclipse.xtext.generator.parser.antlr.XtextAntlrUiGeneratorFragment
+	public Class<? extends org.eclipse.xtext.ui.editor.contentassist.antlr.IContentAssistParser> bindIContentAssistParser() {
+		return cz.jpikl.yafmt.clang.scl.ui.contentassist.antlr.SimpleConstraintLanguageParser.class;
+	}
+
+	// contributed by org.eclipse.xtext.generator.parser.antlr.XtextAntlrUiGeneratorFragment
+	public void configureContentAssistLexerProvider(com.google.inject.Binder binder) {
+		binder.bind(cz.jpikl.yafmt.clang.scl.ui.contentassist.antlr.internal.InternalSimpleConstraintLanguageLexer.class).toProvider(org.eclipse.xtext.parser.antlr.LexerProvider.create(cz.jpikl.yafmt.clang.scl.ui.contentassist.antlr.internal.InternalSimpleConstraintLanguageLexer.class));
+	}
+
+	// contributed by org.eclipse.xtext.generator.parser.antlr.XtextAntlrUiGeneratorFragment
+	public void configureContentAssistLexer(com.google.inject.Binder binder) {
+		binder.bind(org.eclipse.xtext.ui.editor.contentassist.antlr.internal.Lexer.class).annotatedWith(com.google.inject.name.Names.named(org.eclipse.xtext.ui.LexerUIBindings.CONTENT_ASSIST)).to(cz.jpikl.yafmt.clang.scl.ui.contentassist.antlr.internal.InternalSimpleConstraintLanguageLexer.class);
+	}
+
 
 }
