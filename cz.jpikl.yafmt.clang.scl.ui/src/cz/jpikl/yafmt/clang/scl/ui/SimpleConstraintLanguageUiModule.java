@@ -4,6 +4,11 @@
 package cz.jpikl.yafmt.clang.scl.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.xtext.ui.editor.contentassist.IContentProposalPriorities;
+import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration;
+
+import cz.jpikl.yafmt.clang.scl.ui.contentassist.SimpleConstraintLanguageProposalPriorities;
+import cz.jpikl.yafmt.clang.scl.ui.highlight.SimpleConstraintLanguageHighlighting;
 
 /**
  * Use this class to register components to be used within the IDE.
@@ -12,4 +17,13 @@ public class SimpleConstraintLanguageUiModule extends cz.jpikl.yafmt.clang.scl.u
 	public SimpleConstraintLanguageUiModule(AbstractUIPlugin plugin) {
 		super(plugin);
 	}
+	
+    public Class<? extends IContentProposalPriorities> bindIContentProposalPriorities() {
+        return SimpleConstraintLanguageProposalPriorities.class;
+    }
+    
+    public Class<? extends IHighlightingConfiguration> bindIHighlightingConfiguration() {
+        return SimpleConstraintLanguageHighlighting.class;
+    }
+    
 }
