@@ -1,5 +1,10 @@
 package cz.jpikl.yafmt.clang.scl.ui;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.eclipse.emf.common.util.TreeIterator;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
@@ -8,13 +13,40 @@ import org.eclipse.swt.widgets.Composite;
 import com.google.inject.Injector;
 
 import cz.jpikl.yafmt.clang.scl.ui.internal.SimpleConstraintLanguageActivator;
+import cz.jpikl.yafmt.clang.ui.EditingContext;
 import cz.jpikl.yafmt.clang.ui.EditingSupport;
+import cz.jpikl.yafmt.model.fm.Feature;
+import cz.jpikl.yafmt.model.fm.FeatureModel;
 import de.itemis.xtext.utils.jface.viewers.XtextStyledTextCellEditor;
 
 public class SimpleConstraintLanguageEditingSupport extends EditingSupport {
         
+    private static Map<String, String> editedFeatureModelIds = new HashMap<String, String>();
+    
+    public static Map<String, String> getEditedFeatureModelIds() {
+        return editedFeatureModelIds;
+    }
+    
+    private static void initializeEditedFeatureModelIds(FeatureModel featureModel) {
+        editedFeatureModelIds.clear();
+        
+        Feature rootFeature = featureModel.getRoot();
+        editedFeatureModelIds.put(rootFeature.getId(), rootFeature.getName());
+        
+        TreeIterator<EObject> it = featureModel.getRoot().eAllContents();
+        while(it.hasNext()) {
+            EObject object = it.next();
+            if(object instanceof Feature) {
+                Feature feature = (Feature) object;
+                editedFeatureModelIds.put(feature.getId(), feature.getName());
+            }
+        }
+    }
+    
     @Override
-    public CellEditor createCellEditor(Composite composite) {
+    public CellEditor createCellEditor(Composite composite, EditingContext context) {
+        initializeEditedFeatureModelIds(context.getFeatureModel());
+        
         String languageId = SimpleConstraintLanguageActivator.CZ_JPIKL_YAFMT_CLANG_SCL_SIMPLECONSTRAINTLANGUAGE;
         Injector injector = SimpleConstraintLanguageActivator.getInstance().getInjector(languageId);
         

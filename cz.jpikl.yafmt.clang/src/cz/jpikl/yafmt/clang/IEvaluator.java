@@ -10,6 +10,8 @@ public interface IEvaluator {
 
     List<Feature> getAffectedFeatures(FeatureModel featureModel);
     
+    IValidationResult validate(FeatureModel featureModel);
+    
     IEvaluationResult evaluate(FeatureConfiguration featureConfig);
     
 }

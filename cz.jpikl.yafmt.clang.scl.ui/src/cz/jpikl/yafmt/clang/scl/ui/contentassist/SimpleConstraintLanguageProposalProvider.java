@@ -3,10 +3,26 @@
 */
 package cz.jpikl.yafmt.clang.scl.ui.contentassist;
 
+import java.util.Map;
+
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.RuleCall;
+import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
+import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
+
+import cz.jpikl.yafmt.clang.scl.ui.SimpleConstraintLanguageEditingSupport;
 import cz.jpikl.yafmt.clang.scl.ui.contentassist.AbstractSimpleConstraintLanguageProposalProvider;
 /**
  * see http://www.eclipse.org/Xtext/documentation/latest/xtext.html#contentAssist on how to customize content assistant
  */
 public class SimpleConstraintLanguageProposalProvider extends AbstractSimpleConstraintLanguageProposalProvider {
 
+    @Override
+    public void complete_ID(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+        super.complete_ID(model, ruleCall, context, acceptor);
+        
+        for(Map.Entry<String, String> entry: SimpleConstraintLanguageEditingSupport.getEditedFeatureModelIds().entrySet())
+            acceptor.accept(createCompletionProposal(entry.getKey(), entry.getKey() + " - " + entry.getValue(), null, context));
+    }
+    
 }

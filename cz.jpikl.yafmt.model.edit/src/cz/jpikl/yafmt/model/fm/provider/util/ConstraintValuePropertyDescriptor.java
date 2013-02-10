@@ -5,6 +5,7 @@ import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.swt.widgets.Composite;
 
 import cz.jpikl.yafmt.clang.ConstraintLanguagePlugin;
+import cz.jpikl.yafmt.clang.ui.EditingContext;
 import cz.jpikl.yafmt.clang.ui.EditingSupportRegistry;
 import cz.jpikl.yafmt.clang.ui.IEditingSupport;
 import cz.jpikl.yafmt.model.fm.Constraint;
@@ -19,10 +20,15 @@ public class ConstraintValuePropertyDescriptor extends ValidatingPropertyDescrip
 
     @Override
     public CellEditor createPropertyEditor(Composite composite) {
+        Constraint constraint = (Constraint) object;
+        
         EditingSupportRegistry registry = ConstraintLanguagePlugin.getDefault().getEditingSupportRegistry();
-        IEditingSupport editingSupport = registry.getEditingSupport(((Constraint) object).getLanguage());
-        if(editingSupport != null)
-            return attachValidator(editingSupport.createCellEditor(composite));
+        IEditingSupport editingSupport = registry.getEditingSupport(constraint.getLanguage());
+        if(editingSupport != null) {
+            EditingContext context = new EditingContext(constraint.getFeatureModel());
+            return attachValidator(editingSupport.createCellEditor(composite, context));
+        }
+        
         return super.createPropertyEditor(composite);
     }
 

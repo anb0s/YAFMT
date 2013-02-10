@@ -1,17 +1,17 @@
 package cz.jpikl.yafmt.clang;
 
-public class EvaluationResult implements IEvaluationResult {
+public class ValidationResult implements IValidationResult {
 
- public static final IEvaluationResult SUCCESS_RESULT = new EvaluationResult(true, null);
+    public static final IValidationResult SUCCESS_RESULT = new ValidationResult(true, null);
     
-    public static IEvaluationResult createFailureResult(String errorMessage) {
-        return new EvaluationResult(false, errorMessage);
+    public static IValidationResult createFailureResult(String errorMessage) {
+        return new ValidationResult(false, errorMessage);
     }
     
     private boolean success;
     private String errorMessage;
     
-    private EvaluationResult(boolean success, String errorMessage) {
+    private ValidationResult(boolean success, String errorMessage) {
         this.success = success;
         this.errorMessage = errorMessage;
     }
@@ -25,5 +25,5 @@ public class EvaluationResult implements IEvaluationResult {
     public String getErrorMessage() {
         return errorMessage;
     }
-    
+
 }

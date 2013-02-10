@@ -28,7 +28,7 @@ public class SimpleConstraintLanguageEvaluator extends Evaluator {
     public IEvaluationResult evaluate(FeatureConfiguration featureConfig) {
         if(expression.evaluate(featureConfig, null))
             return EvaluationResult.SUCCESS_RESULT;
-        return EvaluationResult.FAIL_RESULT;
+        return EvaluationResult.createFailureResult(null);
     }
 
 }

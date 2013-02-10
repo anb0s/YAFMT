@@ -27,7 +27,7 @@ public abstract class Evaluator implements IEvaluator {
         return features;
     }
     
-    public List<String> getMissingFeatures(FeatureModel featureModel) {
+    public List<String> getMissingFeatureIds(FeatureModel featureModel) {
         if(featureModel == null)
             return null;
         
@@ -44,6 +44,25 @@ public abstract class Evaluator implements IEvaluator {
             }
         }
         return features;
+    }
+    
+    @Override
+    public IValidationResult validate(FeatureModel featureModel) {
+        List<String> missingFeatureIds = getMissingFeatureIds(featureModel);
+        if((missingFeatureIds == null) || missingFeatureIds.isEmpty())
+            return ValidationResult.SUCCESS_RESULT;
+        
+        if(missingFeatureIds.size() == 1)
+            return ValidationResult.createFailureResult("Nonexistent feature ID: " + missingFeatureIds.get(0));
+        
+        StringBuilder builder = new StringBuilder("Nonexistent feature IDs: ");
+        for(int i = 0; i < missingFeatureIds.size(); i++) {
+            if(i != 0)
+                builder.append(", ");
+            builder.append(missingFeatureIds.get(i));
+        }
+        
+        return ValidationResult.createFailureResult(builder.toString());
     }
     
     protected abstract Set<String> getAffectedFeatureIds();

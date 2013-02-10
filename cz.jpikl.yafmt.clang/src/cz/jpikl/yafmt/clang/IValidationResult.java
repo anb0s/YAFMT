@@ -1,9 +1,9 @@
 package cz.jpikl.yafmt.clang;
 
-public interface IEvaluationResult {
-    
+public interface IValidationResult {
+
     boolean isSuccess();
     
     String getErrorMessage();
-
+    
 }

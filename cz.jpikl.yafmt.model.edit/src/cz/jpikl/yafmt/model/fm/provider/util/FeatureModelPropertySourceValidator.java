@@ -6,6 +6,8 @@ import cz.jpikl.yafmt.clang.ConstraintLanguageException;
 import cz.jpikl.yafmt.clang.ConstraintLanguagePlugin;
 import cz.jpikl.yafmt.clang.ConstraintLanguageRegistry;
 import cz.jpikl.yafmt.clang.IConstraintLanguage;
+import cz.jpikl.yafmt.clang.IEvaluator;
+import cz.jpikl.yafmt.clang.IValidationResult;
 import cz.jpikl.yafmt.model.fm.Attribute;
 import cz.jpikl.yafmt.model.fm.Constraint;
 import cz.jpikl.yafmt.model.fm.Feature;
@@ -86,20 +88,16 @@ public class FeatureModelPropertySourceValidator implements IPropertySourceValid
             IConstraintLanguage language = registry.getLanguage(constraint.getLanguage());
             if(language == null)
                 return null;
-            
-            String oldValue = constraint.getValue();
-            constraint.eSetDeliver(false);
-            constraint.setValue((String) value);
-            
+                        
             try {
-                language.createEvaluator(constraint);
+                IEvaluator evaluator = language.createEvaluator((String) value);
+                IValidationResult result = evaluator.validate(constraint.getFeatureModel());
+                if(!result.isSuccess())
+                    return result.getErrorMessage();
+                return null;
             }
             catch(ConstraintLanguageException ex) {
                 return ex.getMessage();
-            }
-            finally {
-                constraint.setValue(oldValue);
-                constraint.eSetDeliver(true);
             }
         }
         return null;
