@@ -8,75 +8,57 @@ import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.model.fm.provider.FeatureModelEditPlugin;
 import cz.jpikl.yafmt.model.provider.util.IPropertySourceValidator;
+import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.Literals.*;
 
 public class FeatureModelPropertySourceValidator implements IPropertySourceValidator {
         
     @Override
-    public String validate(Object object, String property, String value) {
-        if(object instanceof Feature)
-            return validateFeature((Feature) object, property, value);
-        if(object instanceof Group)
-            return validateGroup((Group) object, property, value);
-        if(object instanceof Attribute)
-            return validateAttribute((Attribute) object, property, value);
-        if(object instanceof FeatureModel)
-            return validateFeatureModel((FeatureModel) object, property, value);
+    public String validate(Object object, Object property, Object value) {
+        try {
+            if(object instanceof Feature)
+                return validateFeature((Feature) object, property, (String) value);
+            if(object instanceof Group)
+                return validateGroup((Group) object, property, (String) value);
+            if(object instanceof Attribute)
+                return validateAttribute((Attribute) object, property, (String) value);
+            if(object instanceof FeatureModel)
+                return validateFeatureModel((FeatureModel) object, property, (String) value);
+        }
+        catch(NumberFormatException ex) {
+            return getString("_UI_Errors_NotANumber");
+        }
         return null;
     }
     
-    private String validateFeature(Feature feature, String property, String value) {
-        if("id".equals(property)) {
+    private String validateFeature(Feature feature, Object property, String value) {
+        if(property == FEATURE__ID) {
             String result = checkIdValue(value, "_UI_Feature_id_feature");
             if(result != null)
                 return result;
             Feature otherFeature = feature.getFeatureModel().getFeatureById(value);
             if((otherFeature != null) && (otherFeature != feature))
                 return getString("_UI_Errors_IdNotUnique", getString("_UI_FeatureModel_type"));
+            return null;
         }
-        else if("name".equals(property)) {
+        if(property == FEATURE__NAME)
             return checkEmptyValue(value, "_UI_Feature_name_feature");
-        }
-        else if("lower".equals(property)) {
-            try {
-                return checkBounds(Integer.parseInt(value), feature.getUpper());
-            }
-            catch(NumberFormatException ex) {
-                return getString("_UI_Errors_NotANumber");
-            }
-        }
-        else if("upper".equals(property)) {
-            try {
-                return checkBounds(feature.getLower(), Integer.parseInt(value));
-            }
-            catch(NumberFormatException ex) {
-                return getString("_UI_Errors_NotANumber");
-            }
-        }
+        if(property == FEATURE__LOWER)
+            return checkBounds(Integer.parseInt(value), feature.getUpper());
+        if(property == FEATURE__UPPER)
+            return checkBounds(feature.getLower(), Integer.parseInt(value));        
         return null;
     }
     
-    private String validateGroup(Group group, String property, String value) {
-        if("lower".equals(property)) {
-            try {
-                return checkBounds(Integer.parseInt(value), group.getUpper());
-            }
-            catch(NumberFormatException ex) {
-                return getString("_UI_Errors_NotANumber");
-            }
-        }
-        else if("upper".equals(property)) {
-            try {
-                return checkBounds(group.getLower(), Integer.parseInt(value));
-            }
-            catch(NumberFormatException ex) {
-                return getString("_UI_Errors_NotANumber");
-            }
-        }
+    private String validateGroup(Group group, Object property, String value) {
+        if(property == GROUP__LOWER)
+            return checkBounds(Integer.parseInt(value), group.getUpper());
+        if(property == GROUP__UPPER)
+            return checkBounds(group.getLower(), Integer.parseInt(value));
         return null;
     }
     
-    private String validateAttribute(Attribute attribute, String property, String value) {
-        if("id".equals(property)) {
+    private String validateAttribute(Attribute attribute, Object property, String value) {
+        if(property == ATTRIBUTE__ID) {
             String result = checkIdValue(value, "_UI_Attribute_id_feature");
             if(result != null)
                 return result;
@@ -84,15 +66,15 @@ public class FeatureModelPropertySourceValidator implements IPropertySourceValid
                 if((otherAttribute != attribute) && (otherAttribute.getId().equals(value)))
                     return getString("_UI_Errors_IdNotUnique", getString("_UI_Feature_type"));
             }
+            return null;
         }
-        else if("name".equals(property)) {
+        if(property == ATTRIBUTE__NAME)
             return checkEmptyValue(value, "_UI_Attribute_name_feature");
-        }
         return null;
     }
     
-    private String validateFeatureModel(FeatureModel featureModel, String property, String value) {
-        if("name".equals(property))
+    private String validateFeatureModel(FeatureModel featureModel, Object property, String value) {
+        if(property == FEATURE_MODEL__NAME)
             return checkEmptyValue(value, "_UI_FeatureModel_name_feature");
         return null;
     }
