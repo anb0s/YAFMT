@@ -9,4 +9,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.jface;bundle-version="3.8.101"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: cz.jpikl.yafmt.clang
+Export-Package: cz.jpikl.yafmt.clang,
+ cz.jpikl.yafmt.clang.ui

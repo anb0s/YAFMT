@@ -132,6 +132,13 @@
                 </reference>
             </activeWhen>
         </handler>
-    </extension>   
+    </extension>
+ <extension
+       point="cz.jpikl.yafmt.clang.ui">
+    <editingSupport
+          class="cz.jpikl.yafmt.clang.scl.ui.SimpleConstraintLanguageEditingSupport"
+          languageId="cz.jpikl.yafmt.clang.scl">
+    </editingSupport>
+ </extension>   
 
 </plugin>
