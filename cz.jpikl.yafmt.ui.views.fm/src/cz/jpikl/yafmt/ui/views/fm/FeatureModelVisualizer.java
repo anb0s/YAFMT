@@ -7,6 +7,8 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ControlAdapter;
+import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
@@ -38,7 +40,10 @@ import cz.jpikl.yafmt.ui.views.fm.util.SettingsUtil;
 public class FeatureModelVisualizer extends ViewPart implements ISelectionListener, IPartListener {
 
 	public static final String ID = "cz.jpikl.yafmt.ui.views.fm.FeatureModelVisualizer";
-
+	
+	private static final int CONNECTION_LENGHT = 200;
+	private static final int MAX_SIZE_MULTIPLIER = 5; 
+	
 	private IWorkbenchPart sourcePart;
 	private FeatureModel featureModel;
 	private FeatureModelAdapter featureModelAdapter;
@@ -48,13 +53,15 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
     private GroupFilter groupFilter;
     private ConstraintFilter constraintFilter;
     
-    private int visibleDistance;
-    private boolean showGroups;
-    private boolean showConstraints;
-    private boolean enableAnimation;
-    private boolean locked;
-    private int treeHeight = 1;
-	
+    private int visibleDistance;     // Visible distance from selected graph nodes.
+    private int sizeMultiplier;      // Size multiplier, used when size of graph canvas is adjusted manually.
+    private boolean sizeSpecified;   // Is size of graph canvas is manually adjusted?
+    private boolean showGroups;      // Are groups shown?
+    private boolean showConstraints; // Are constraints shown?
+    private boolean enableAnimation; // Is graph animation enabled?
+    private boolean locked;          // Is graph layout locked?
+    private int treeHeight = 1;      // Height of the current feature model tree.
+    
     @Override
     public void init(IViewSite site) throws PartInitException {
         super.init(site);
@@ -75,6 +82,8 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
     
     private void initState(IDialogSettings settings) {
         visibleDistance = SettingsUtil.getInteger(settings, "visibleDistance", DistanceFilter.INFINITE_DISTACE);
+        sizeMultiplier = SettingsUtil.getInteger(settings, "sizeMultiplier", 1);
+        sizeSpecified = SettingsUtil.getBoolean(settings, "sizeSpecified", true);
         showGroups = SettingsUtil.getBoolean(settings, "showGroups", true);
         showConstraints = SettingsUtil.getBoolean(settings, "showConstraints", true);
         enableAnimation = SettingsUtil.getBoolean(settings, "enableAnimation", true);
@@ -83,6 +92,8 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
     
     public void saveState(IDialogSettings settings) {
         settings.put("visibleDistance", visibleDistance);
+        settings.put("sizeMultiplier", sizeMultiplier);
+        settings.put("sizeSpecified", sizeSpecified);
         settings.put("showGroups", showGroups);
         settings.put("showConstraints", showConstraints);
         settings.put("enableAnimation", enableAnimation);
@@ -101,6 +112,16 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         constraintFilter.update(null, featureModel);
         viewer.refresh();
         viewer.applyLayout();
+        
+        parent.addControlListener(new ControlAdapter() {
+            @Override
+            public void controlResized(ControlEvent event) {
+                if(!sizeSpecified) {
+                    resizeGraphView();
+                    viewer.applyLayout();
+                }
+            }
+        });
     }
         
     private void createGraphViewerControl(Composite parent) {
@@ -122,7 +143,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
     private void createOptionsControl(Composite parent) {
         Composite panel = new Composite(parent, SWT.NONE);
         panel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-        panel.setLayout(new GridLayout(5, false));
+        panel.setLayout(new GridLayout(6, false));
         
         Button showGroupsButton = new Button(panel, SWT.TOGGLE);
         showGroupsButton.setImage(FeatureModelVisualizerPlugin.getDefault().getImageRegistry().get("group"));
@@ -195,20 +216,55 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
                 visibleDistance = (index > 0) ? index : DistanceFilter.INFINITE_DISTACE;
                 distanceFilter.setDistance(visibleDistance);
                 distanceFilter.update(viewer.getSelection(), featureModel);
-                resizeGraphView();
                 viewer.refresh();
+                viewer.applyLayout();
+            }
+        });
+        
+        Composite sizePanel = new Composite(panel, SWT.NONE);
+        sizePanel.setLayout(new GridLayout(2, false));
+        
+        Button sizeButton = new Button(sizePanel, SWT.CHECK);
+        final Combo sizeComboBox = new Combo(sizePanel, SWT.READ_ONLY);
+                
+        sizeButton.setText("Adjust size:");
+        sizeButton.setSelection(sizeSpecified);
+        sizeButton.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent event) {
+                sizeSpecified = ((Button) event.getSource()).getSelection();
+                sizeComboBox.setEnabled(sizeSpecified);
+                resizeGraphView();
+                viewer.applyLayout();
+            }
+        });
+        
+        for(int i = 1; i <= MAX_SIZE_MULTIPLIER; i++)
+            sizeComboBox.add(i + "x");
+        sizeComboBox.setText(sizeComboBox.getItem(sizeMultiplier - 1));
+        sizeComboBox.setEnabled(sizeSpecified);
+        sizeComboBox.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent event) {
+                sizeMultiplier = ((Combo) event.getSource()).getSelectionIndex() + 1;
+                resizeGraphView();
                 viewer.applyLayout();
             }
         });
     }
     
-    void recomputeTreeHeight() {
+    private void recomputeTreeHeight() {
         treeHeight = FeatureModelUtil.getTreeHeight(featureModel);
     }
     
-    void resizeGraphView() {
-        int size = (visibleDistance == DistanceFilter.INFINITE_DISTACE) ? 2 * treeHeight : visibleDistance;
-        viewer.getGraphControl().setPreferredSize(200 * size, 200 * size);
+    private void resizeGraphView() {
+        if(sizeSpecified) {
+            int size = 2 * treeHeight * CONNECTION_LENGHT * sizeMultiplier;
+            viewer.getGraphControl().setPreferredSize(size, size);
+        }
+        else {
+            viewer.getGraphControl().setPreferredSize(-1, -1);
+        }
     }
     
     @Override
