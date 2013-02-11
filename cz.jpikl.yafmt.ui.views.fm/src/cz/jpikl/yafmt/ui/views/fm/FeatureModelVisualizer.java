@@ -98,7 +98,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         setSourcePart(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor());
         distanceFilter.update(null, featureModel);
         groupFilter.update(null);
-        constraintFilter.update(null);
+        constraintFilter.update(null, featureModel);
         viewer.refresh();
         viewer.applyLayout();
     }
@@ -148,7 +148,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
             public void widgetSelected(SelectionEvent event) {
                 showConstraints = ((Button) event.getSource()).getSelection();
                 constraintFilter.setEnabled(showConstraints);
-                constraintFilter.update(viewer.getSelection());
+                constraintFilter.update(viewer.getSelection(), featureModel);
                 viewer.refresh();
                 viewer.applyLayout();
             }
@@ -277,7 +277,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         if(!locked) {
             distanceFilter.update(selection, featureModel);
             groupFilter.update(selection);
-            constraintFilter.update(selection);
+            constraintFilter.update(selection, featureModel);
             viewer.refresh();
             viewer.applyLayout();
         }

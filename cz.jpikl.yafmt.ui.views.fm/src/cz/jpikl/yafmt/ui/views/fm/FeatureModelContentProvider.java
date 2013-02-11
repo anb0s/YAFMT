@@ -8,6 +8,11 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.zest.core.viewers.IGraphEntityContentProvider;
 
+import cz.jpikl.yafmt.clang.ConstraintLanguageException;
+import cz.jpikl.yafmt.clang.ConstraintLanguagePlugin;
+import cz.jpikl.yafmt.clang.ConstraintLanguageRegistry;
+import cz.jpikl.yafmt.clang.IConstraintLanguage;
+import cz.jpikl.yafmt.clang.IEvaluator;
 import cz.jpikl.yafmt.model.fm.Attribute;
 import cz.jpikl.yafmt.model.fm.Constraint;
 import cz.jpikl.yafmt.model.fm.Feature;
@@ -63,7 +68,21 @@ public class FeatureModelContentProvider implements IGraphEntityContentProvider 
         }
         
         if(element instanceof Constraint) {
-            // TODO Add features affected by that constraint.
+            Constraint constraint = (Constraint) element;
+            
+            ConstraintLanguageRegistry registry = ConstraintLanguagePlugin.getDefault().getConstraintLanguageRegistry();
+            IConstraintLanguage language = registry.getLanguage(constraint.getLanguage());
+            if(language == null)
+                return null;
+            
+            try {
+                // Return all features affected by the selected constraint.
+                IEvaluator evaluator = language.createEvaluator(constraint.getValue());
+                return evaluator.getAffectedFeatures(constraint.getFeatureModel()).toArray();
+            }
+            catch(ConstraintLanguageException ex) {
+                // Just ignore problematic constraint.
+            }
         }
         
         return null;

@@ -9,6 +9,11 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 
+import cz.jpikl.yafmt.clang.ConstraintLanguageException;
+import cz.jpikl.yafmt.clang.ConstraintLanguagePlugin;
+import cz.jpikl.yafmt.clang.ConstraintLanguageRegistry;
+import cz.jpikl.yafmt.clang.IConstraintLanguage;
+import cz.jpikl.yafmt.clang.IEvaluator;
 import cz.jpikl.yafmt.model.fm.Constraint;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
@@ -45,7 +50,7 @@ public class DistanceFilter extends ViewerFilter {
             else if(element instanceof Group)            
                 processGroup((Group) element, 0);
             else if(element instanceof Constraint)
-                ;// TODO Add features affected by that constraint.
+                processConstraint((Constraint) element);
         }
         
         if(visibleFeatures.isEmpty() && (featureModel != null))
@@ -74,6 +79,23 @@ public class DistanceFilter extends ViewerFilter {
     private void processGroup(Group group, int level) {
         for(Feature feature: group.getFeatures())
             processFeature(feature, level, false);
+    }
+    
+    private void processConstraint(Constraint constraint) {
+        ConstraintLanguageRegistry registry = ConstraintLanguagePlugin.getDefault().getConstraintLanguageRegistry();
+        IConstraintLanguage language = registry.getLanguage(constraint.getLanguage());
+        if(language == null)
+            return;
+        
+        try {
+            // Process all features affected by the selected constraint.
+            IEvaluator evaluator = language.createEvaluator(constraint.getValue());
+            for(Feature feature: evaluator.getAffectedFeatures(constraint.getFeatureModel()))
+                processFeature(feature, 0, false);
+        }
+        catch(ConstraintLanguageException ex) {
+            // Just ignore problematic constraint.
+        }
     }
     
     @Override
