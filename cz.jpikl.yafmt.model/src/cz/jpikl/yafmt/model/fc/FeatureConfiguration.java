@@ -17,8 +17,8 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link cz.jpikl.yafmt.model.fc.FeatureConfiguration#getName <em>Name</em>}</li>
- *   <li>{@link cz.jpikl.yafmt.model.fc.FeatureConfiguration#getDescription <em>Description</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.FeatureConfiguration#getVersion <em>Version</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fc.FeatureConfiguration#getDescription <em>Description</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.FeatureConfiguration#getFeatureModel <em>Feature Model</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.FeatureConfiguration#getRoot <em>Root</em>}</li>
  * </ul>
@@ -158,5 +158,13 @@ public interface FeatureConfiguration extends EObject {
      * @generated
      */
     void setRoot(Selection value);
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @model many="false"
+     * @generated
+     */
+    EList<Selection> getSelectionsById(String id);
 
 } // FeatureConfiguration

@@ -66,9 +66,8 @@ public class FeatureConfigurationItemProvider
             super.getPropertyDescriptors(object);
 
             addNamePropertyDescriptor(object);
-            addDescriptionPropertyDescriptor(object);
             addVersionPropertyDescriptor(object);
-            addFeatureModelPropertyDescriptor(object);
+            addDescriptionPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
@@ -110,7 +109,7 @@ public class FeatureConfigurationItemProvider
                  getString("_UI_PropertyDescriptor_description", "_UI_FeatureConfiguration_description_feature", "_UI_FeatureConfiguration_type"),
                  FeatureConfigurationPackage.Literals.FEATURE_CONFIGURATION__DESCRIPTION,
                  true,
-                 false,
+                 true,
                  false,
                  ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
                  null,
@@ -135,28 +134,6 @@ public class FeatureConfigurationItemProvider
                  false,
                  false,
                  ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-                 null,
-                 null));
-    }
-
-    /**
-     * This adds a property descriptor for the Feature Model feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected void addFeatureModelPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_FeatureConfiguration_featureModel_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_FeatureConfiguration_featureModel_feature", "_UI_FeatureConfiguration_type"),
-                 FeatureConfigurationPackage.Literals.FEATURE_CONFIGURATION__FEATURE_MODEL,
-                 true,
-                 false,
-                 true,
-                 null,
                  null,
                  null));
     }
@@ -229,8 +206,8 @@ public class FeatureConfigurationItemProvider
 
         switch (notification.getFeatureID(FeatureConfiguration.class)) {
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__NAME:
-            case FeatureConfigurationPackage.FEATURE_CONFIGURATION__DESCRIPTION:
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__VERSION:
+            case FeatureConfigurationPackage.FEATURE_CONFIGURATION__DESCRIPTION:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
                 return;
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__ROOT:

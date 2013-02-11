@@ -3,8 +3,12 @@
 package cz.jpikl.yafmt.model.fc.impl;
 
 import cz.jpikl.yafmt.model.fc.AttributeValue;
+import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
 import cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage;
 import cz.jpikl.yafmt.model.fc.Selection;
+
+import cz.jpikl.yafmt.model.fm.Feature;
+import cz.jpikl.yafmt.model.fm.FeatureModel;
 
 import java.util.Collection;
 
@@ -14,11 +18,13 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -35,6 +41,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#getParent <em>Parent</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#getSelections <em>Selections</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#getValues <em>Values</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#getFeatureConfiguration <em>Feature Configuration</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#getFeature <em>Feature</em>}</li>
  * </ul>
  * </p>
  *
@@ -191,6 +199,56 @@ public class SelectionImpl extends EObjectImpl implements Selection {
      * <!-- end-user-doc -->
      * @generated
      */
+    public FeatureConfiguration getFeatureConfiguration() {
+        FeatureConfiguration featureConfiguration = basicGetFeatureConfiguration();
+        return featureConfiguration != null && featureConfiguration.eIsProxy() ? (FeatureConfiguration)eResolveProxy((InternalEObject)featureConfiguration) : featureConfiguration;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public FeatureConfiguration basicGetFeatureConfiguration() {
+        Resource resource = eResource();
+        if(resource == null)
+            return null;
+        EObject target = resource.getContents().get(0);
+        return (target instanceof FeatureConfiguration) ? (FeatureConfiguration) target : null;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Feature getFeature() {
+        Feature feature = basicGetFeature();
+        return feature != null && feature.eIsProxy() ? (Feature)eResolveProxy((InternalEObject)feature) : feature;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Feature basicGetFeature() {
+        FeatureConfiguration featureConfig = getFeatureConfiguration();
+        if(featureConfig == null)
+            return null;
+        
+        FeatureModel featureModel = featureConfig.getFeatureModel();
+        if(featureModel == null)
+            return null;
+        
+        return featureModel.getFeatureById(getId());
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -253,6 +311,12 @@ public class SelectionImpl extends EObjectImpl implements Selection {
                 return getSelections();
             case FeatureConfigurationPackage.SELECTION__VALUES:
                 return getValues();
+            case FeatureConfigurationPackage.SELECTION__FEATURE_CONFIGURATION:
+                if (resolve) return getFeatureConfiguration();
+                return basicGetFeatureConfiguration();
+            case FeatureConfigurationPackage.SELECTION__FEATURE:
+                if (resolve) return getFeature();
+                return basicGetFeature();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -324,6 +388,10 @@ public class SelectionImpl extends EObjectImpl implements Selection {
                 return selections != null && !selections.isEmpty();
             case FeatureConfigurationPackage.SELECTION__VALUES:
                 return values != null && !values.isEmpty();
+            case FeatureConfigurationPackage.SELECTION__FEATURE_CONFIGURATION:
+                return basicGetFeatureConfiguration() != null;
+            case FeatureConfigurationPackage.SELECTION__FEATURE:
+                return basicGetFeature() != null;
         }
         return super.eIsSet(featureID);
     }

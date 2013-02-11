@@ -75,22 +75,22 @@ public interface FeatureConfigurationPackage extends EPackage {
     int FEATURE_CONFIGURATION__NAME = 0;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FEATURE_CONFIGURATION__DESCRIPTION = 1;
-
-    /**
      * The feature id for the '<em><b>Version</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int FEATURE_CONFIGURATION__VERSION = 2;
+    int FEATURE_CONFIGURATION__VERSION = 1;
+
+    /**
+     * The feature id for the '<em><b>Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FEATURE_CONFIGURATION__DESCRIPTION = 2;
 
     /**
      * The feature id for the '<em><b>Feature Model</b></em>' reference.
@@ -166,13 +166,31 @@ public interface FeatureConfigurationPackage extends EPackage {
     int SELECTION__VALUES = 3;
 
     /**
+     * The feature id for the '<em><b>Feature Configuration</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SELECTION__FEATURE_CONFIGURATION = 4;
+
+    /**
+     * The feature id for the '<em><b>Feature</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SELECTION__FEATURE = 5;
+
+    /**
      * The number of structural features of the '<em>Selection</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int SELECTION_FEATURE_COUNT = 4;
+    int SELECTION_FEATURE_COUNT = 6;
 
     /**
      * The meta object id for the '{@link cz.jpikl.yafmt.model.fc.AttributeValue <em>Attribute Value</em>}' class.
@@ -471,6 +489,28 @@ public interface FeatureConfigurationPackage extends EPackage {
     EReference getSelection_Values();
 
     /**
+     * Returns the meta object for the reference '{@link cz.jpikl.yafmt.model.fc.Selection#getFeatureConfiguration <em>Feature Configuration</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Feature Configuration</em>'.
+     * @see cz.jpikl.yafmt.model.fc.Selection#getFeatureConfiguration()
+     * @see #getSelection()
+     * @generated
+     */
+    EReference getSelection_FeatureConfiguration();
+
+    /**
+     * Returns the meta object for the reference '{@link cz.jpikl.yafmt.model.fc.Selection#getFeature <em>Feature</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Feature</em>'.
+     * @see cz.jpikl.yafmt.model.fc.Selection#getFeature()
+     * @see #getSelection()
+     * @generated
+     */
+    EReference getSelection_Feature();
+
+    /**
      * Returns the meta object for class '{@link cz.jpikl.yafmt.model.fc.AttributeValue <em>Attribute Value</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -688,6 +728,22 @@ public interface FeatureConfigurationPackage extends EPackage {
          * @generated
          */
         EReference SELECTION__VALUES = eINSTANCE.getSelection_Values();
+
+        /**
+         * The meta object literal for the '<em><b>Feature Configuration</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference SELECTION__FEATURE_CONFIGURATION = eINSTANCE.getSelection_FeatureConfiguration();
+
+        /**
+         * The meta object literal for the '<em><b>Feature</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference SELECTION__FEATURE = eINSTANCE.getSelection_Feature();
 
         /**
          * The meta object literal for the '{@link cz.jpikl.yafmt.model.fc.AttributeValue <em>Attribute Value</em>}' class.

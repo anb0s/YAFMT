@@ -2,6 +2,7 @@
  */
 package cz.jpikl.yafmt.model.fc;
 
+import cz.jpikl.yafmt.model.fm.Feature;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
@@ -18,6 +19,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link cz.jpikl.yafmt.model.fc.Selection#getParent <em>Parent</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.Selection#getSelections <em>Selections</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.Selection#getValues <em>Values</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fc.Selection#getFeatureConfiguration <em>Feature Configuration</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fc.Selection#getFeature <em>Feature</em>}</li>
  * </ul>
  * </p>
  *
@@ -113,5 +116,35 @@ public interface Selection extends EObject {
      * @generated
      */
     EList<AttributeValue> getValues();
+
+    /**
+     * Returns the value of the '<em><b>Feature Configuration</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Feature Configuration</em>' reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Feature Configuration</em>' reference.
+     * @see cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage#getSelection_FeatureConfiguration()
+     * @model required="true" transient="true" changeable="false" volatile="true" derived="true"
+     * @generated
+     */
+    FeatureConfiguration getFeatureConfiguration();
+
+    /**
+     * Returns the value of the '<em><b>Feature</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Feature</em>' reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Feature</em>' reference.
+     * @see cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage#getSelection_Feature()
+     * @model required="true" transient="true" changeable="false" volatile="true" derived="true"
+     * @generated
+     */
+    Feature getFeature();
 
 } // Selection

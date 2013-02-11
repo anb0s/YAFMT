@@ -2,27 +2,19 @@
  */
 package cz.jpikl.yafmt.model.fc.impl;
 
-import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
-import cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage;
-import cz.jpikl.yafmt.model.fc.Selection;
-
-import cz.jpikl.yafmt.model.fm.FeatureModel;
-
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
+import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
+import cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage;
+import cz.jpikl.yafmt.model.fc.Selection;
+import cz.jpikl.yafmt.model.fc.util.SelectionCache;
+import cz.jpikl.yafmt.model.fm.FeatureModel;
 
 /**
  * <!-- begin-user-doc -->
@@ -32,8 +24,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * <ul>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.FeatureConfigurationImpl#getName <em>Name</em>}</li>
- *   <li>{@link cz.jpikl.yafmt.model.fc.impl.FeatureConfigurationImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.FeatureConfigurationImpl#getVersion <em>Version</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fc.impl.FeatureConfigurationImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.FeatureConfigurationImpl#getFeatureModel <em>Feature Model</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.FeatureConfigurationImpl#getRoot <em>Root</em>}</li>
  * </ul>
@@ -63,26 +55,6 @@ public class FeatureConfigurationImpl extends EObjectImpl implements FeatureConf
     protected String name = NAME_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getDescription()
-     * @generated
-     * @ordered
-     */
-    protected static final String DESCRIPTION_EDEFAULT = null;
-
-    /**
-     * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getDescription()
-     * @generated
-     * @ordered
-     */
-    protected String description = DESCRIPTION_EDEFAULT;
-
-    /**
      * The default value of the '{@link #getVersion() <em>Version</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -103,6 +75,26 @@ public class FeatureConfigurationImpl extends EObjectImpl implements FeatureConf
     protected String version = VERSION_EDEFAULT;
 
     /**
+     * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDescription()
+     * @generated
+     * @ordered
+     */
+    protected static final String DESCRIPTION_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDescription()
+     * @generated
+     * @ordered
+     */
+    protected String description = DESCRIPTION_EDEFAULT;
+
+    /**
      * The cached value of the '{@link #getFeatureModel() <em>Feature Model</em>}' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -121,6 +113,8 @@ public class FeatureConfigurationImpl extends EObjectImpl implements FeatureConf
      * @ordered
      */
     protected Selection root;
+    
+    private SelectionCache selectionCache;
 
     /**
      * <!-- begin-user-doc -->
@@ -290,6 +284,17 @@ public class FeatureConfigurationImpl extends EObjectImpl implements FeatureConf
      * <!-- end-user-doc -->
      * @generated
      */
+    public EList<Selection> getSelectionsById(String id) {
+        if(selectionCache == null)
+            selectionCache = new SelectionCache(this);
+        return selectionCache.getSelectionsById(id);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
@@ -309,10 +314,10 @@ public class FeatureConfigurationImpl extends EObjectImpl implements FeatureConf
         switch (featureID) {
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__NAME:
                 return getName();
-            case FeatureConfigurationPackage.FEATURE_CONFIGURATION__DESCRIPTION:
-                return getDescription();
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__VERSION:
                 return getVersion();
+            case FeatureConfigurationPackage.FEATURE_CONFIGURATION__DESCRIPTION:
+                return getDescription();
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__FEATURE_MODEL:
                 if (resolve) return getFeatureModel();
                 return basicGetFeatureModel();
@@ -334,11 +339,11 @@ public class FeatureConfigurationImpl extends EObjectImpl implements FeatureConf
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__NAME:
                 setName((String)newValue);
                 return;
-            case FeatureConfigurationPackage.FEATURE_CONFIGURATION__DESCRIPTION:
-                setDescription((String)newValue);
-                return;
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__VERSION:
                 setVersion((String)newValue);
+                return;
+            case FeatureConfigurationPackage.FEATURE_CONFIGURATION__DESCRIPTION:
+                setDescription((String)newValue);
                 return;
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__FEATURE_MODEL:
                 setFeatureModel((FeatureModel)newValue);
@@ -361,11 +366,11 @@ public class FeatureConfigurationImpl extends EObjectImpl implements FeatureConf
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__NAME:
                 setName(NAME_EDEFAULT);
                 return;
-            case FeatureConfigurationPackage.FEATURE_CONFIGURATION__DESCRIPTION:
-                setDescription(DESCRIPTION_EDEFAULT);
-                return;
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__VERSION:
                 setVersion(VERSION_EDEFAULT);
+                return;
+            case FeatureConfigurationPackage.FEATURE_CONFIGURATION__DESCRIPTION:
+                setDescription(DESCRIPTION_EDEFAULT);
                 return;
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__FEATURE_MODEL:
                 setFeatureModel((FeatureModel)null);
@@ -387,10 +392,10 @@ public class FeatureConfigurationImpl extends EObjectImpl implements FeatureConf
         switch (featureID) {
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__NAME:
                 return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-            case FeatureConfigurationPackage.FEATURE_CONFIGURATION__DESCRIPTION:
-                return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__VERSION:
                 return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
+            case FeatureConfigurationPackage.FEATURE_CONFIGURATION__DESCRIPTION:
+                return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__FEATURE_MODEL:
                 return featureModel != null;
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__ROOT:
@@ -411,10 +416,10 @@ public class FeatureConfigurationImpl extends EObjectImpl implements FeatureConf
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (name: ");
         result.append(name);
-        result.append(", description: ");
-        result.append(description);
         result.append(", version: ");
         result.append(version);
+        result.append(", description: ");
+        result.append(description);
         result.append(')');
         return result.toString();
     }

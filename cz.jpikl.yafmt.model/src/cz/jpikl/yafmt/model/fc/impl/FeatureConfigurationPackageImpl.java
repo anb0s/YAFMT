@@ -18,6 +18,8 @@ import cz.jpikl.yafmt.model.fm.impl.FeatureModelPackageImpl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EGenericType;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -169,7 +171,7 @@ public class FeatureConfigurationPackageImpl extends EPackageImpl implements Fea
      * @generated
      */
     public EAttribute getFeatureConfiguration_Description() {
-        return (EAttribute)featureConfigurationEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)featureConfigurationEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -178,7 +180,7 @@ public class FeatureConfigurationPackageImpl extends EPackageImpl implements Fea
      * @generated
      */
     public EAttribute getFeatureConfiguration_Version() {
-        return (EAttribute)featureConfigurationEClass.getEStructuralFeatures().get(2);
+        return (EAttribute)featureConfigurationEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -242,6 +244,24 @@ public class FeatureConfigurationPackageImpl extends EPackageImpl implements Fea
      */
     public EReference getSelection_Values() {
         return (EReference)selectionEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getSelection_FeatureConfiguration() {
+        return (EReference)selectionEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getSelection_Feature() {
+        return (EReference)selectionEClass.getEStructuralFeatures().get(5);
     }
 
     /**
@@ -364,8 +384,8 @@ public class FeatureConfigurationPackageImpl extends EPackageImpl implements Fea
         // Create classes and their features
         featureConfigurationEClass = createEClass(FEATURE_CONFIGURATION);
         createEAttribute(featureConfigurationEClass, FEATURE_CONFIGURATION__NAME);
-        createEAttribute(featureConfigurationEClass, FEATURE_CONFIGURATION__DESCRIPTION);
         createEAttribute(featureConfigurationEClass, FEATURE_CONFIGURATION__VERSION);
+        createEAttribute(featureConfigurationEClass, FEATURE_CONFIGURATION__DESCRIPTION);
         createEReference(featureConfigurationEClass, FEATURE_CONFIGURATION__FEATURE_MODEL);
         createEReference(featureConfigurationEClass, FEATURE_CONFIGURATION__ROOT);
 
@@ -374,6 +394,8 @@ public class FeatureConfigurationPackageImpl extends EPackageImpl implements Fea
         createEReference(selectionEClass, SELECTION__PARENT);
         createEReference(selectionEClass, SELECTION__SELECTIONS);
         createEReference(selectionEClass, SELECTION__VALUES);
+        createEReference(selectionEClass, SELECTION__FEATURE_CONFIGURATION);
+        createEReference(selectionEClass, SELECTION__FEATURE);
 
         attributeValueEClass = createEClass(ATTRIBUTE_VALUE);
         createEAttribute(attributeValueEClass, ATTRIBUTE_VALUE__ID);
@@ -430,16 +452,25 @@ public class FeatureConfigurationPackageImpl extends EPackageImpl implements Fea
         // Initialize classes and features; add operations and parameters
         initEClass(featureConfigurationEClass, FeatureConfiguration.class, "FeatureConfiguration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getFeatureConfiguration_Name(), ecorePackage.getEString(), "name", null, 1, 1, FeatureConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getFeatureConfiguration_Description(), ecorePackage.getEString(), "description", null, 0, 1, FeatureConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getFeatureConfiguration_Version(), ecorePackage.getEString(), "version", null, 0, 1, FeatureConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFeatureConfiguration_Description(), ecorePackage.getEString(), "description", null, 0, 1, FeatureConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getFeatureConfiguration_FeatureModel(), theFeatureModelPackage.getFeatureModel(), null, "featureModel", null, 0, 1, FeatureConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getFeatureConfiguration_Root(), this.getSelection(), null, "root", null, 1, 1, FeatureConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        EOperation op = addEOperation(featureConfigurationEClass, null, "getSelectionsById", 0, 1, IS_UNIQUE, IS_ORDERED);
+        addEParameter(op, ecorePackage.getEString(), "id", 0, 1, IS_UNIQUE, IS_ORDERED);
+        EGenericType g1 = createEGenericType(ecorePackage.getEEList());
+        EGenericType g2 = createEGenericType(this.getSelection());
+        g1.getETypeArguments().add(g2);
+        initEOperation(op, g1);
 
         initEClass(selectionEClass, Selection.class, "Selection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getSelection_Id(), ecorePackage.getEString(), "id", null, 1, 1, Selection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getSelection_Parent(), this.getSelection(), this.getSelection_Selections(), "parent", null, 0, 1, Selection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getSelection_Selections(), this.getSelection(), this.getSelection_Parent(), "selections", null, 0, -1, Selection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getSelection_Values(), this.getAttributeValue(), null, "values", null, 0, -1, Selection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getSelection_FeatureConfiguration(), this.getFeatureConfiguration(), null, "featureConfiguration", null, 1, 1, Selection.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+        initEReference(getSelection_Feature(), theFeatureModelPackage.getFeature(), null, "feature", null, 1, 1, Selection.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
         initEClass(attributeValueEClass, AttributeValue.class, "AttributeValue", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getAttributeValue_Id(), ecorePackage.getEString(), "id", null, 1, 1, AttributeValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
