@@ -7,8 +7,10 @@ import java.util.Set;
 import cz.jpikl.yafmt.clang.scl.model.FeatureId;
 import cz.jpikl.yafmt.clang.scl.model.ModelPackage;
 import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
+import cz.jpikl.yafmt.model.fc.Selection;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 
@@ -169,7 +171,18 @@ public class FeatureIdImpl extends ExpressionImpl implements FeatureId {
     
     @Override
     public boolean evaluate(FeatureConfiguration featureConfig, String context) {
-        // TODO check if feature is selected in configuration within given context
+        EList<Selection> selections = featureConfig.getSelectionsById(value);        
+        
+        // No context specified. Just check if there is a selected feature with that ID.
+        if(context == null)
+            return (selections != null) && !selections.isEmpty();
+        
+        // Context is set. Check if there is at least one feature with given context.
+        for(Selection selection: selections) {
+            if(selection.hasContext(context))
+                return true;
+        }
+        
         return false;
     }
 

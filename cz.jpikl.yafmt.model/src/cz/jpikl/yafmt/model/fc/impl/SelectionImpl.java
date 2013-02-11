@@ -207,7 +207,7 @@ public class SelectionImpl extends EObjectImpl implements Selection {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     public FeatureConfiguration basicGetFeatureConfiguration() {
         Resource resource = eResource();
@@ -230,7 +230,7 @@ public class SelectionImpl extends EObjectImpl implements Selection {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     public Feature basicGetFeature() {
         FeatureConfiguration featureConfig = getFeatureConfiguration();
@@ -242,6 +242,20 @@ public class SelectionImpl extends EObjectImpl implements Selection {
             return null;
         
         return featureModel.getFeatureById(getId());
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    public boolean hasContext(String context) {
+        // Check if there is an ancestor with given ID.
+        for(Selection ancestor = this; ancestor != null; ancestor = ancestor.getParent()) {
+            if(context.equals(ancestor.getId()))
+                return true;
+        }
+        return false;
     }
 
     /**

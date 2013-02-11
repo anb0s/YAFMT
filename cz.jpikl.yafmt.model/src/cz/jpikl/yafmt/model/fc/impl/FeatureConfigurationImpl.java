@@ -282,7 +282,7 @@ public class FeatureConfigurationImpl extends EObjectImpl implements FeatureConf
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     public EList<Selection> getSelectionsById(String id) {
         if(selectionCache == null)

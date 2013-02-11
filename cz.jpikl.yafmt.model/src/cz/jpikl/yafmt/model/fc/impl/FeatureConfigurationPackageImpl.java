@@ -472,6 +472,9 @@ public class FeatureConfigurationPackageImpl extends EPackageImpl implements Fea
         initEReference(getSelection_FeatureConfiguration(), this.getFeatureConfiguration(), null, "featureConfiguration", null, 1, 1, Selection.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
         initEReference(getSelection_Feature(), theFeatureModelPackage.getFeature(), null, "feature", null, 1, 1, Selection.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
+        op = addEOperation(selectionEClass, ecorePackage.getEBoolean(), "hasContext", 0, 1, IS_UNIQUE, IS_ORDERED);
+        addEParameter(op, ecorePackage.getEString(), "context", 0, 1, IS_UNIQUE, IS_ORDERED);
+
         initEClass(attributeValueEClass, AttributeValue.class, "AttributeValue", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getAttributeValue_Id(), ecorePackage.getEString(), "id", null, 1, 1, AttributeValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

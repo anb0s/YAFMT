@@ -147,4 +147,12 @@ public interface Selection extends EObject {
      */
     Feature getFeature();
 
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @model
+     * @generated
+     */
+    boolean hasContext(String context);
+
 } // Selection
