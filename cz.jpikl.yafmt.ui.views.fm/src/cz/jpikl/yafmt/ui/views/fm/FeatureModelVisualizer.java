@@ -1,5 +1,7 @@
 package cz.jpikl.yafmt.ui.views.fm;
 
+import org.eclipse.draw2d.Viewport;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.jface.dialogs.IDialogSettings;
@@ -25,6 +27,8 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.zest.core.viewers.GraphViewer;
+import org.eclipse.zest.core.widgets.GraphItem;
+import org.eclipse.zest.core.widgets.GraphNode;
 import org.eclipse.zest.core.widgets.ZestStyles;
 
 import cz.jpikl.yafmt.model.fm.Constraint;
@@ -338,8 +342,28 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
             viewer.applyLayout();
         }
         
-        if(part != this)
+        if(part != this) {
             viewer.setSelection(selection);
+            // TODO should be applied after layout animation finishes.
+            // moveViewportToSelection(selection);
+        }
+    }
+    
+    private void moveViewportToSelection(ISelection selection) {
+        if(!(selection instanceof IStructuredSelection))
+            return;
+        
+        Object[] objects = ((IStructuredSelection) selection).toArray();
+        if((objects == null) || (objects.length == 0))
+            return;
+        
+        // Zoom to the last selected object
+        GraphItem item = viewer.findGraphItem(objects[objects.length - 1]);
+        if(item instanceof GraphNode) {
+            Point p = ((GraphNode) item).getLocation();
+            Viewport vp = viewer.getGraphControl().getViewport();
+            vp.setViewLocation(p.x - vp.getSize().width / 2, p.y - vp.getSize().height / 2);
+        }
     }
     
     @Override
