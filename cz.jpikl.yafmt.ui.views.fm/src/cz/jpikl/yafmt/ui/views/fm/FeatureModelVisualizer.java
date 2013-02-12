@@ -26,6 +26,7 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
+import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.zest.core.viewers.GraphViewer;
 import org.eclipse.zest.core.widgets.GraphItem;
 import org.eclipse.zest.core.widgets.GraphNode;
@@ -394,6 +395,15 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
             }
         }
         
+    }
+    
+    @Override
+    @SuppressWarnings("rawtypes")
+    public Object getAdapter(Class type) {
+        // Reuse property sheet from editor.
+        if((type == IPropertySheetPage.class) && (sourcePart != null))
+            return sourcePart.getAdapter(type);
+        return super.getAdapter(type);
     }
     
     @Override
