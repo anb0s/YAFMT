@@ -7,9 +7,10 @@ import java.util.Set;
 
 import cz.jpikl.yafmt.clang.scl.model.ModelPackage;
 import cz.jpikl.yafmt.clang.scl.model.Negation;
+import cz.jpikl.yafmt.clang.scl.util.SelectionHelper;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -179,8 +180,8 @@ public class NegationImpl extends ExpressionImpl implements Negation {
     }
     
     @Override
-    public boolean evaluate(FeatureConfiguration featureConfig, String context) {
-        return !expression.evaluate(featureConfig, context);
+    public boolean evaluate(SelectionHelper selectionHelper, String contextId) {
+        return !expression.evaluate(selectionHelper, contextId);
     }
 
 } //NegationImpl

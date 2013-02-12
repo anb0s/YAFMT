@@ -7,7 +7,7 @@ import java.util.Set;
 import cz.jpikl.yafmt.clang.scl.model.ContextualExpression;
 import cz.jpikl.yafmt.clang.scl.model.Expression;
 import cz.jpikl.yafmt.clang.scl.model.ModelPackage;
-import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
+import cz.jpikl.yafmt.clang.scl.util.SelectionHelper;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -250,8 +250,8 @@ public class ContextualExpressionImpl extends ExpressionImpl implements Contextu
     }
     
     @Override
-    public boolean evaluate(FeatureConfiguration featureConfig, String dummy) {
-        return expression.evaluate(featureConfig, context);
+    public boolean evaluate(SelectionHelper selectionHelper, String dymmyContextId) {
+        return expression.evaluate(selectionHelper, context); // Use with given context from contextual expression.
     }
 
 } //ContextualExpressionImpl

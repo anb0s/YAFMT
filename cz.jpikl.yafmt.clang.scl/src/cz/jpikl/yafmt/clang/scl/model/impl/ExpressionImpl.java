@@ -9,7 +9,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import cz.jpikl.yafmt.clang.scl.model.Expression;
 import cz.jpikl.yafmt.clang.scl.model.ModelPackage;
-import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
+import cz.jpikl.yafmt.clang.scl.util.SelectionHelper;
 
 /**
  * <!-- begin-user-doc -->
@@ -45,8 +45,8 @@ public class ExpressionImpl extends MinimalEObjectImpl.Container implements Expr
     }
     
     @Override
-    public boolean evaluate(FeatureConfiguration featureConfig, String context) {
-        return false;
+    public boolean evaluate(SelectionHelper selectionHelper, String contextId) {
+        return false; // This is not called at all.
     }
 
 } //ExpressionImpl

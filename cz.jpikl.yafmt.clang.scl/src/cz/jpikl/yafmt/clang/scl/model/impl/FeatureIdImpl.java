@@ -4,17 +4,13 @@ package cz.jpikl.yafmt.clang.scl.model.impl;
 
 import java.util.Set;
 
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
 import cz.jpikl.yafmt.clang.scl.model.FeatureId;
 import cz.jpikl.yafmt.clang.scl.model.ModelPackage;
-import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
-import cz.jpikl.yafmt.model.fc.Selection;
-
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.util.EList;
-
-import org.eclipse.emf.ecore.EClass;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import cz.jpikl.yafmt.clang.scl.util.SelectionHelper;
 
 /**
  * <!-- begin-user-doc -->
@@ -170,20 +166,8 @@ public class FeatureIdImpl extends ExpressionImpl implements FeatureId {
     }
     
     @Override
-    public boolean evaluate(FeatureConfiguration featureConfig, String context) {
-        EList<Selection> selections = featureConfig.getSelectionsById(value);        
-        
-        // No context specified. Just check if there is a selected feature with that ID.
-        if(context == null)
-            return (selections != null) && !selections.isEmpty();
-        
-        // Context is set. Check if there is at least one feature with given context.
-        for(Selection selection: selections) {
-            if(selection.hasContext(context))
-                return true;
-        }
-        
-        return false;
+    public boolean evaluate(SelectionHelper selectionHelper, String contextId) {
+        return selectionHelper.isFeatureSelected(contextId, value);
     }
 
 } //FeatureIdImpl

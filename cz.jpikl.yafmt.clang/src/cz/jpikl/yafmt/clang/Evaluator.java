@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 
@@ -63,6 +64,11 @@ public abstract class Evaluator implements IEvaluator {
         }
         
         return ValidationResult.createFailureResult(builder.toString());
+    }
+    
+    @Override
+    public IEvaluationResult evaluate(FeatureConfiguration featureConfig) {
+        return evaluate(featureConfig, null);
     }
     
     protected abstract Set<String> getAffectedFeatureIds();

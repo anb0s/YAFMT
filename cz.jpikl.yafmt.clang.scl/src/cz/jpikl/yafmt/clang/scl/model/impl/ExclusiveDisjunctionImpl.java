@@ -5,7 +5,7 @@ package cz.jpikl.yafmt.clang.scl.model.impl;
 import cz.jpikl.yafmt.clang.scl.model.ExclusiveDisjunction;
 import cz.jpikl.yafmt.clang.scl.model.Expression;
 import cz.jpikl.yafmt.clang.scl.model.ModelPackage;
-import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
+import cz.jpikl.yafmt.clang.scl.util.SelectionHelper;
 
 import java.util.Collection;
 import java.util.Set;
@@ -157,11 +157,11 @@ public class ExclusiveDisjunctionImpl extends ExpressionImpl implements Exclusiv
     }
     
     @Override
-    public boolean evaluate(FeatureConfiguration featureConfig, String context) {
+    public boolean evaluate(SelectionHelper selectionHelper, String contextId) {
         // Parts should not be empty or null.
-        boolean result = parts.get(0).evaluate(featureConfig, context);
+        boolean result = parts.get(0).evaluate(selectionHelper, contextId);
         for(int i = 1; i < parts.size(); i++)
-            result ^= parts.get(i).evaluate(featureConfig, context);
+            result ^= parts.get(i).evaluate(selectionHelper, contextId);
         return result;
     }
 

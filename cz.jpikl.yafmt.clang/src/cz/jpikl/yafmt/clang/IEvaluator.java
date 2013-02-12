@@ -14,4 +14,6 @@ public interface IEvaluator {
     
     IEvaluationResult evaluate(FeatureConfiguration featureConfig);
     
+    IEvaluationResult evaluate(FeatureConfiguration featureConfig, List<Feature> featuresToSelect);
+    
 }

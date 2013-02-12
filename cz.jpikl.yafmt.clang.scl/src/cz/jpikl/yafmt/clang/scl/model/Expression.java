@@ -6,7 +6,7 @@ import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
 
-import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
+import cz.jpikl.yafmt.clang.scl.util.SelectionHelper;
 
 /**
  * <!-- begin-user-doc -->
@@ -22,6 +22,6 @@ public interface Expression extends EObject {
     
     void retrieveFeatureIds(Set<String> ids);
     
-    boolean evaluate(FeatureConfiguration featureConfig, String context);
+    boolean evaluate(SelectionHelper selectionHelper, String contextId);
 
 } // Expression

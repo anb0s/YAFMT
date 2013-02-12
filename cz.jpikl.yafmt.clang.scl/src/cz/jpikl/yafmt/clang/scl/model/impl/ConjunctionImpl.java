@@ -2,23 +2,20 @@
  */
 package cz.jpikl.yafmt.clang.scl.model.impl;
 
-import cz.jpikl.yafmt.clang.scl.model.Conjunction;
-import cz.jpikl.yafmt.clang.scl.model.Expression;
-import cz.jpikl.yafmt.clang.scl.model.ModelPackage;
-import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
-
 import java.util.Collection;
 import java.util.Set;
 
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+
+import cz.jpikl.yafmt.clang.scl.model.Conjunction;
+import cz.jpikl.yafmt.clang.scl.model.Expression;
+import cz.jpikl.yafmt.clang.scl.model.ModelPackage;
+import cz.jpikl.yafmt.clang.scl.util.SelectionHelper;
 
 /**
  * <!-- begin-user-doc -->
@@ -157,10 +154,10 @@ public class ConjunctionImpl extends ExpressionImpl implements Conjunction {
     }
     
     @Override
-    public boolean evaluate(FeatureConfiguration featureConfig, String context) {
+    public boolean evaluate(SelectionHelper selectionHelper, String contextId) {
         // Parts should not be empty or null.
         for(Expression part: parts) {
-            if(!part.evaluate(featureConfig, context))
+            if(!part.evaluate(selectionHelper, contextId))
                 return false;
         }
         return true;
