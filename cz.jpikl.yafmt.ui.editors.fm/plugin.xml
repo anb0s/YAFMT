@@ -9,7 +9,7 @@
             contributorClass="cz.jpikl.yafmt.ui.editors.fm.FeatureModelEditorContributor"
             extensions="yafm"
             icon="icons/fm-file.png"
-            id="cz.jpikl.yafmt.ui.editors.fm.editors.FeatureModelEditor"
+            id="cz.jpikl.yafmt.ui.editors.fm"
             name="Feature Model Editor">
       </editor>
    </extension>
