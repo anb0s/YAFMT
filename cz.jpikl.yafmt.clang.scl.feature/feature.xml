@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="cz.jpikl.yafmt.clang.scl.feature"
+      label="Simle Constraint Language"
+      version="0.2.0.qualifier"
+      plugin="cz.jpikl.yafmt.clang.scl">
+
+   <description url="https://bitbucket.org/jpikl/yafmt">
+      Simple constraint language for YAFMT.
+   </description>
+
+   <license url="http://www.eclipse.org/legal/epl-v10.html">
+      Eclipse Public License 1.0
+   </license>
+
+   <requires>
+      <import plugin="org.eclipse.xtext"/>
+      <import plugin="cz.jpikl.yafmt.clang" version="0.2.0" match="greaterOrEqual"/>
+      <import plugin="cz.jpikl.yafmt.model" version="0.2.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.xtext.ui"/>
+      <import plugin="org.eclipse.xtext.ui.shared"/>
+      <import plugin="de.itemis.xtext.utils.jface" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.apache.log4j"/>
+   </requires>
+
+   <plugin
+         id="cz.jpikl.yafmt.clang.scl"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="cz.jpikl.yafmt.clang.scl.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

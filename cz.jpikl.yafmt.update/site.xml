@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/cz.jpikl.yafmt.clang.scl.feature_0.2.0.201302132319.jar" id="cz.jpikl.yafmt.clang.scl.feature" version="0.2.0.201302132319">
+      <category name="yafmt"/>
+   </feature>
+   <feature url="features/cz.jpikl.yafmt.ui.editors.fc.feature_0.2.0.201302132319.jar" id="cz.jpikl.yafmt.ui.editors.fc.feature" version="0.2.0.201302132319">
+      <category name="yafmt"/>
+   </feature>
+   <feature url="features/cz.jpikl.yafmt.ui.editors.fm.feature_0.2.0.201302132319.jar" id="cz.jpikl.yafmt.ui.editors.fm.feature" version="0.2.0.201302132319">
+      <category name="yafmt"/>
+   </feature>
+   <feature url="features/cz.jpikl.yafmt.ui.views.fm.feature_0.2.0.201302132319.jar" id="cz.jpikl.yafmt.ui.views.fm.feature" version="0.2.0.201302132319">
+      <category name="yafmt"/>
+   </feature>
+   <category-def name="yafmt" label="YAFMT">
+      <description>
+         Yet Another Feature Modeling Tool. Eclipse plug-in for feature modeling.
+      </description>
+   </category-def>
+</site>

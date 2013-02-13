@@ -1,5 +1,7 @@
 /.metadata
 /*/bin/
 /*/*.jar
+/cz.jpikl.yafmt.update/features
+/cz.jpikl.yafmt.update/plugins
 /prototype/*/bin
 /runtime

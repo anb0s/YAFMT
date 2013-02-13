@@ -1,12 +1,12 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: YAFMT Constraint Language
+Bundle-Name: Constraint Language
 Bundle-SymbolicName: cz.jpikl.yafmt.clang;singleton:=true
 Bundle-Version: 0.2.0.qualifier
 Bundle-Activator: cz.jpikl.yafmt.clang.ConstraintLanguagePlugin
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.jface;bundle-version="3.8.101",
- cz.jpikl.yafmt.model;bundle-version="0.1.0"
+ cz.jpikl.yafmt.model;bundle-version="0.2.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: cz.jpikl.yafmt.clang;
