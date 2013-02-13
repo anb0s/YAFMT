@@ -1,7 +1,5 @@
 package cz.jpikl.yafmt.ui.views.fm;
 
-import org.eclipse.draw2d.Viewport;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.jface.dialogs.IDialogSettings;
@@ -28,8 +26,6 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.zest.core.viewers.GraphViewer;
-import org.eclipse.zest.core.widgets.GraphItem;
-import org.eclipse.zest.core.widgets.GraphNode;
 import org.eclipse.zest.core.widgets.ZestStyles;
 
 import cz.jpikl.yafmt.model.fm.Constraint;
@@ -350,6 +346,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         }
     }
     
+    /*
     private void moveViewportToSelection(ISelection selection) {
         if(!(selection instanceof IStructuredSelection))
             return;
@@ -366,6 +363,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
             vp.setViewLocation(p.x - vp.getSize().width / 2, p.y - vp.getSize().height / 2);
         }
     }
+    */
     
     @Override
     public void partClosed(IWorkbenchPart part) {

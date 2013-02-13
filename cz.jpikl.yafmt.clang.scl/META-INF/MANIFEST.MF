@@ -7,7 +7,7 @@ Require-Bundle: org.eclipse.xtext;visibility:=reexport,
  org.eclipse.xtext.generator;resolution:=optional,
  cz.jpikl.yafmt.clang;bundle-version="0.2.0",
  cz.jpikl.yafmt.model;bundle-version="0.2.0"
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: cz.jpikl.yafmt.clang.scl;uses:="org.eclipse.xtext,org.eclipse.xtext.service,com.google.inject",
  cz.jpikl.yafmt.clang.scl.parser.antlr.internal;x-internal:=true,
  cz.jpikl.yafmt.clang.scl.services;uses:="org.eclipse.xtext,org.eclipse.xtext.common.services,org.eclipse.xtext.service"
