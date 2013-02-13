@@ -332,7 +332,6 @@ public class FeatureConfigurationImpl extends EObjectImpl implements FeatureConf
      * <!-- end-user-doc -->
      * @generated
      */
-    @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
