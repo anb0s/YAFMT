@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: YAFMT Feature Configuration Editor
+Bundle-SymbolicName: cz.jpikl.yafmt.ui.editors.fc;singleton:=true
+Bundle-Version: 0.2.0.qualifier
+Bundle-Activator: cz.jpikl.yafmt.ui.editors.fc.FeatureConfigurationEditorPlugin
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.ui,
+ org.eclipse.ui.ide;bundle-version="3.8.1",
+ org.eclipse.gef;bundle-version="3.8.1",
+ cz.jpikl.yafmt.model;bundle-version="0.2.0",
+ cz.jpikl.yafmt.clang;bundle-version="0.2.0"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="cz.jpikl.yafmt.ui.editors.fc.FeatureConfigurationEditor"
+            contributorClass="cz.jpikl.yafmt.ui.editors.fc.FeatureConfigurationEditorContributor"
+            extensions="yafc"
+            icon="icons/fc-file.png"
+            id="cz.jpikl.yafmt.ui.editors.fc"
+            name="Feature Configuration Editor">
+      </editor>
+   </extension>
+
+</plugin>
