@@ -63,7 +63,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
             case ModelPackage.EXCLUSIVE_DISJUNCTION: return createExclusiveDisjunction();
             case ModelPackage.CONJUNCTION: return createConjunction();
             case ModelPackage.NEGATION: return createNegation();
-            case ModelPackage.FEATURE_ID: return createFeatureId();
+            case ModelPackage.PRIMARY_EXPRESSION: return createPrimaryExpression();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -144,9 +144,9 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
      * <!-- end-user-doc -->
      * @generated
      */
-    public FeatureId createFeatureId() {
-        FeatureIdImpl featureId = new FeatureIdImpl();
-        return featureId;
+    public PrimaryExpression createPrimaryExpression() {
+        PrimaryExpressionImpl primaryExpression = new PrimaryExpressionImpl();
+        return primaryExpression;
     }
 
     /**

@@ -7,7 +7,8 @@ import java.util.Set;
 import cz.jpikl.yafmt.clang.scl.model.Expression;
 import cz.jpikl.yafmt.clang.scl.model.Implication;
 import cz.jpikl.yafmt.clang.scl.model.ModelPackage;
-import cz.jpikl.yafmt.clang.scl.util.SelectionHelper;
+import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
+import cz.jpikl.yafmt.model.fc.Selection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -248,10 +249,10 @@ public class ImplicationImpl extends ExpressionImpl implements Implication {
     }
     
     @Override
-    public boolean evaluate(SelectionHelper selectionHelper, String contextId) {
-        if(!leftPart.evaluate(selectionHelper, contextId))
+    public boolean evaluate(FeatureConfiguration featureConfig, Selection context) {
+        if(!leftPart.evaluate(featureConfig, context))
             return true;
-        return rightPart.evaluate(selectionHelper, contextId);
+        return rightPart.evaluate(featureConfig, context);
     }
 
 } //ImplicationImpl

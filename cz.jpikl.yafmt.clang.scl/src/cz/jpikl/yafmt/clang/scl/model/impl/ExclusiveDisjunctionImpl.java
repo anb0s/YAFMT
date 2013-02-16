@@ -5,7 +5,8 @@ package cz.jpikl.yafmt.clang.scl.model.impl;
 import cz.jpikl.yafmt.clang.scl.model.ExclusiveDisjunction;
 import cz.jpikl.yafmt.clang.scl.model.Expression;
 import cz.jpikl.yafmt.clang.scl.model.ModelPackage;
-import cz.jpikl.yafmt.clang.scl.util.SelectionHelper;
+import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
+import cz.jpikl.yafmt.model.fc.Selection;
 
 import java.util.Collection;
 import java.util.Set;
@@ -157,12 +158,19 @@ public class ExclusiveDisjunctionImpl extends ExpressionImpl implements Exclusiv
     }
     
     @Override
-    public boolean evaluate(SelectionHelper selectionHelper, String contextId) {
+    public boolean evaluate(FeatureConfiguration featureConfig, Selection context) {
         // Parts should not be empty or null.
-        boolean result = parts.get(0).evaluate(selectionHelper, contextId);
-        for(int i = 1; i < parts.size(); i++)
-            result ^= parts.get(i).evaluate(selectionHelper, contextId);
-        return result;
+        // This is actually not the same as the XOR logic function, but it uses
+        // semantic of XOR group. This means that expression A1 xor A2 xor ... xor An
+        // if true only if exactly one of A1, A2, ..., An is true.
+        int count = 0;
+        for(Expression part: parts) {
+            if(part.evaluate(featureConfig, context))
+                count++;
+            if(count > 1)
+                return false;
+        }
+        return count == 1;
     }
 
 } //ExclusiveDisjunctionImpl

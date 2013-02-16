@@ -85,13 +85,13 @@ public interface ModelPackage extends EPackage {
     int CONTEXTUAL_EXPRESSION = 1;
 
     /**
-     * The feature id for the '<em><b>Context</b></em>' attribute.
+     * The feature id for the '<em><b>Context Id</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int CONTEXTUAL_EXPRESSION__CONTEXT = EXPRESSION_FEATURE_COUNT + 0;
+    int CONTEXTUAL_EXPRESSION__CONTEXT_ID = EXPRESSION_FEATURE_COUNT + 0;
 
     /**
      * The feature id for the '<em><b>Expression</b></em>' containment reference.
@@ -261,33 +261,32 @@ public interface ModelPackage extends EPackage {
     int NEGATION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
 
     /**
-     * The meta object id for the '{@link cz.jpikl.yafmt.clang.scl.model.impl.FeatureIdImpl <em>Feature Id</em>}' class.
+     * The meta object id for the '{@link cz.jpikl.yafmt.clang.scl.model.impl.PrimaryExpressionImpl <em>Primary Expression</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see cz.jpikl.yafmt.clang.scl.model.impl.FeatureIdImpl
-     * @see cz.jpikl.yafmt.clang.scl.model.impl.ModelPackageImpl#getFeatureId()
+     * @see cz.jpikl.yafmt.clang.scl.model.impl.PrimaryExpressionImpl
+     * @see cz.jpikl.yafmt.clang.scl.model.impl.ModelPackageImpl#getPrimaryExpression()
      * @generated
      */
-    int FEATURE_ID = 7;
+    int PRIMARY_EXPRESSION = 7;
 
     /**
-     * The feature id for the '<em><b>Value</b></em>' attribute.
+     * The feature id for the '<em><b>Feature Id</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int FEATURE_ID__VALUE = EXPRESSION_FEATURE_COUNT + 0;
+    int PRIMARY_EXPRESSION__FEATURE_ID = EXPRESSION_FEATURE_COUNT + 0;
 
     /**
-     * The number of structural features of the '<em>Feature Id</em>' class.
+     * The number of structural features of the '<em>Primary Expression</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int FEATURE_ID_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
-
+    int PRIMARY_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
 
     /**
      * Returns the meta object for class '{@link cz.jpikl.yafmt.clang.scl.model.Expression <em>Expression</em>}'.
@@ -310,15 +309,15 @@ public interface ModelPackage extends EPackage {
     EClass getContextualExpression();
 
     /**
-     * Returns the meta object for the attribute '{@link cz.jpikl.yafmt.clang.scl.model.ContextualExpression#getContext <em>Context</em>}'.
+     * Returns the meta object for the attribute '{@link cz.jpikl.yafmt.clang.scl.model.ContextualExpression#getContextId <em>Context Id</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Context</em>'.
-     * @see cz.jpikl.yafmt.clang.scl.model.ContextualExpression#getContext()
+     * @return the meta object for the attribute '<em>Context Id</em>'.
+     * @see cz.jpikl.yafmt.clang.scl.model.ContextualExpression#getContextId()
      * @see #getContextualExpression()
      * @generated
      */
-    EAttribute getContextualExpression_Context();
+    EAttribute getContextualExpression_ContextId();
 
     /**
      * Returns the meta object for the containment reference '{@link cz.jpikl.yafmt.clang.scl.model.ContextualExpression#getExpression <em>Expression</em>}'.
@@ -448,25 +447,25 @@ public interface ModelPackage extends EPackage {
     EReference getNegation_Expression();
 
     /**
-     * Returns the meta object for class '{@link cz.jpikl.yafmt.clang.scl.model.FeatureId <em>Feature Id</em>}'.
+     * Returns the meta object for class '{@link cz.jpikl.yafmt.clang.scl.model.PrimaryExpression <em>Primary Expression</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for class '<em>Feature Id</em>'.
-     * @see cz.jpikl.yafmt.clang.scl.model.FeatureId
+     * @return the meta object for class '<em>Primary Expression</em>'.
+     * @see cz.jpikl.yafmt.clang.scl.model.PrimaryExpression
      * @generated
      */
-    EClass getFeatureId();
+    EClass getPrimaryExpression();
 
     /**
-     * Returns the meta object for the attribute '{@link cz.jpikl.yafmt.clang.scl.model.FeatureId#getValue <em>Value</em>}'.
+     * Returns the meta object for the attribute '{@link cz.jpikl.yafmt.clang.scl.model.PrimaryExpression#getFeatureId <em>Feature Id</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Value</em>'.
-     * @see cz.jpikl.yafmt.clang.scl.model.FeatureId#getValue()
-     * @see #getFeatureId()
+     * @return the meta object for the attribute '<em>Feature Id</em>'.
+     * @see cz.jpikl.yafmt.clang.scl.model.PrimaryExpression#getFeatureId()
+     * @see #getPrimaryExpression()
      * @generated
      */
-    EAttribute getFeatureId_Value();
+    EAttribute getPrimaryExpression_FeatureId();
 
     /**
      * Returns the factory that creates the instances of the model.
@@ -511,12 +510,12 @@ public interface ModelPackage extends EPackage {
         EClass CONTEXTUAL_EXPRESSION = eINSTANCE.getContextualExpression();
 
         /**
-         * The meta object literal for the '<em><b>Context</b></em>' attribute feature.
+         * The meta object literal for the '<em><b>Context Id</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EAttribute CONTEXTUAL_EXPRESSION__CONTEXT = eINSTANCE.getContextualExpression_Context();
+        EAttribute CONTEXTUAL_EXPRESSION__CONTEXT_ID = eINSTANCE.getContextualExpression_ContextId();
 
         /**
          * The meta object literal for the '<em><b>Expression</b></em>' containment reference feature.
@@ -625,22 +624,22 @@ public interface ModelPackage extends EPackage {
         EReference NEGATION__EXPRESSION = eINSTANCE.getNegation_Expression();
 
         /**
-         * The meta object literal for the '{@link cz.jpikl.yafmt.clang.scl.model.impl.FeatureIdImpl <em>Feature Id</em>}' class.
+         * The meta object literal for the '{@link cz.jpikl.yafmt.clang.scl.model.impl.PrimaryExpressionImpl <em>Primary Expression</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @see cz.jpikl.yafmt.clang.scl.model.impl.FeatureIdImpl
-         * @see cz.jpikl.yafmt.clang.scl.model.impl.ModelPackageImpl#getFeatureId()
+         * @see cz.jpikl.yafmt.clang.scl.model.impl.PrimaryExpressionImpl
+         * @see cz.jpikl.yafmt.clang.scl.model.impl.ModelPackageImpl#getPrimaryExpression()
          * @generated
          */
-        EClass FEATURE_ID = eINSTANCE.getFeatureId();
+        EClass PRIMARY_EXPRESSION = eINSTANCE.getPrimaryExpression();
 
         /**
-         * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+         * The meta object literal for the '<em><b>Feature Id</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EAttribute FEATURE_ID__VALUE = eINSTANCE.getFeatureId_Value();
+        EAttribute PRIMARY_EXPRESSION__FEATURE_ID = eINSTANCE.getPrimaryExpression_FeatureId();
 
     }
 

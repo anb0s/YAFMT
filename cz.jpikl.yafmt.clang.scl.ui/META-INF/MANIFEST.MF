@@ -4,7 +4,10 @@ Bundle-Name: Simple Constraint Language UI
 Bundle-Version: 0.2.0.qualifier
 Bundle-SymbolicName: cz.jpikl.yafmt.clang.scl.ui; singleton:=true
 Bundle-ActivationPolicy: lazy
-Require-Bundle: org.eclipse.xtext.ui,
+Require-Bundle: org.antlr.runtime,
+ org.eclipse.ui,
+ org.eclipse.ui.editors,
+ org.eclipse.xtext.ui,
  org.eclipse.xtext.ui.shared,
  de.itemis.xtext.utils.jface;bundle-version="1.0.0",
  cz.jpikl.yafmt.clang;bundle-version="0.2.0",
@@ -13,3 +16,5 @@ Require-Bundle: org.eclipse.xtext.ui,
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Activator: cz.jpikl.yafmt.clang.scl.ui.SimpleConstraintLanguageEditingSupportPlugin
+Export-Package: cz.jpikl.yafmt.clang.scl.ui.contentassist,
+ cz.jpikl.yafmt.clang.scl.ui.contentassist.antlr

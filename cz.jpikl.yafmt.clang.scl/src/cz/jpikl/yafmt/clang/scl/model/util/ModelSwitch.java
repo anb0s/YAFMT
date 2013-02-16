@@ -114,10 +114,10 @@ public class ModelSwitch<T> extends Switch<T> {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
-            case ModelPackage.FEATURE_ID: {
-                FeatureId featureId = (FeatureId)theEObject;
-                T result = caseFeatureId(featureId);
-                if (result == null) result = caseExpression(featureId);
+            case ModelPackage.PRIMARY_EXPRESSION: {
+                PrimaryExpression primaryExpression = (PrimaryExpression)theEObject;
+                T result = casePrimaryExpression(primaryExpression);
+                if (result == null) result = caseExpression(primaryExpression);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -231,17 +231,17 @@ public class ModelSwitch<T> extends Switch<T> {
     }
 
     /**
-     * Returns the result of interpreting the object as an instance of '<em>Feature Id</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Primary Expression</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>Feature Id</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Primary Expression</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public T caseFeatureId(FeatureId object) {
+    public T casePrimaryExpression(PrimaryExpression object) {
         return null;
     }
 

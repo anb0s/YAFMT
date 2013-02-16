@@ -8,24 +8,29 @@
       <type metamodel="/0/@metamodelDeclarations.0">
         <classifier xsi:type="ecore:EClass" href="https://bitbucket.org/jpikl/yafmt/clang/scl#//Expression"/>
       </type>
-      <alternatives xsi:type="xtext:Alternatives">
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.1"/>
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.2"/>
-      </alternatives>
+      <alternatives xsi:type="xtext:RuleCall" rule="/0/@rules.1"/>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="ContextualExpression">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="https://bitbucket.org/jpikl/yafmt/clang/scl#//ContextualExpression"/>
+        <classifier xsi:type="ecore:EClass" href="https://bitbucket.org/jpikl/yafmt/clang/scl#//Expression"/>
       </type>
-      <alternatives xsi:type="xtext:Group">
-        <elements xsi:type="xtext:Keyword" value="context"/>
-        <elements xsi:type="xtext:Assignment" feature="context" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.0"/>
+      <alternatives xsi:type="xtext:Alternatives">
+        <elements xsi:type="xtext:Group">
+          <elements xsi:type="xtext:Keyword" value="context"/>
+          <elements xsi:type="xtext:Action">
+            <type metamodel="/0/@metamodelDeclarations.0">
+              <classifier xsi:type="ecore:EClass" href="https://bitbucket.org/jpikl/yafmt/clang/scl#//ContextualExpression"/>
+            </type>
+          </elements>
+          <elements xsi:type="xtext:Assignment" feature="contextId" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.0"/>
+          </elements>
+          <elements xsi:type="xtext:Keyword" value=":"/>
+          <elements xsi:type="xtext:Assignment" feature="expression" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.2"/>
+          </elements>
         </elements>
-        <elements xsi:type="xtext:Keyword" value=":"/>
-        <elements xsi:type="xtext:Assignment" feature="expression" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.2"/>
-        </elements>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.2"/>
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="Implication">
@@ -148,16 +153,16 @@
         <elements xsi:type="xtext:Group">
           <elements xsi:type="xtext:Action">
             <type metamodel="/0/@metamodelDeclarations.0">
-              <classifier xsi:type="ecore:EClass" href="https://bitbucket.org/jpikl/yafmt/clang/scl#//FeatureId"/>
+              <classifier xsi:type="ecore:EClass" href="https://bitbucket.org/jpikl/yafmt/clang/scl#//PrimaryExpression"/>
             </type>
           </elements>
-          <elements xsi:type="xtext:Assignment" feature="value" operator="=">
+          <elements xsi:type="xtext:Assignment" feature="featureId" operator="=">
             <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.0"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Group">
           <elements xsi:type="xtext:Keyword" value="("/>
-          <elements xsi:type="xtext:RuleCall" rule="/0/@rules.2"/>
+          <elements xsi:type="xtext:RuleCall" rule="/0/@rules.0"/>
           <elements xsi:type="xtext:Keyword" value=")"/>
         </elements>
       </alternatives>

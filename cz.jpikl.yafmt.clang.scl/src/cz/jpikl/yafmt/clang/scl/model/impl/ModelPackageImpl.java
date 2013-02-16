@@ -2,23 +2,22 @@
  */
 package cz.jpikl.yafmt.clang.scl.model.impl;
 
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.impl.EPackageImpl;
+
 import cz.jpikl.yafmt.clang.scl.model.Conjunction;
 import cz.jpikl.yafmt.clang.scl.model.ContextualExpression;
 import cz.jpikl.yafmt.clang.scl.model.Disjunction;
 import cz.jpikl.yafmt.clang.scl.model.ExclusiveDisjunction;
 import cz.jpikl.yafmt.clang.scl.model.Expression;
-import cz.jpikl.yafmt.clang.scl.model.FeatureId;
 import cz.jpikl.yafmt.clang.scl.model.Implication;
 import cz.jpikl.yafmt.clang.scl.model.ModelFactory;
 import cz.jpikl.yafmt.clang.scl.model.ModelPackage;
 import cz.jpikl.yafmt.clang.scl.model.Negation;
-
-import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EReference;
-
-import org.eclipse.emf.ecore.impl.EPackageImpl;
+import cz.jpikl.yafmt.clang.scl.model.PrimaryExpression;
 
 /**
  * <!-- begin-user-doc -->
@@ -81,7 +80,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    private EClass featureIdEClass = null;
+    private EClass primaryExpressionEClass = null;
 
     /**
      * Creates an instance of the model <b>Package</b>, registered with
@@ -167,7 +166,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getContextualExpression_Context() {
+    public EAttribute getContextualExpression_ContextId() {
         return (EAttribute)contextualExpressionEClass.getEStructuralFeatures().get(0);
     }
 
@@ -284,8 +283,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EClass getFeatureId() {
-        return featureIdEClass;
+    public EClass getPrimaryExpression() {
+        return primaryExpressionEClass;
     }
 
     /**
@@ -293,8 +292,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getFeatureId_Value() {
-        return (EAttribute)featureIdEClass.getEStructuralFeatures().get(0);
+    public EAttribute getPrimaryExpression_FeatureId() {
+        return (EAttribute)primaryExpressionEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -328,7 +327,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
         expressionEClass = createEClass(EXPRESSION);
 
         contextualExpressionEClass = createEClass(CONTEXTUAL_EXPRESSION);
-        createEAttribute(contextualExpressionEClass, CONTEXTUAL_EXPRESSION__CONTEXT);
+        createEAttribute(contextualExpressionEClass, CONTEXTUAL_EXPRESSION__CONTEXT_ID);
         createEReference(contextualExpressionEClass, CONTEXTUAL_EXPRESSION__EXPRESSION);
 
         implicationEClass = createEClass(IMPLICATION);
@@ -347,8 +346,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
         negationEClass = createEClass(NEGATION);
         createEReference(negationEClass, NEGATION__EXPRESSION);
 
-        featureIdEClass = createEClass(FEATURE_ID);
-        createEAttribute(featureIdEClass, FEATURE_ID__VALUE);
+        primaryExpressionEClass = createEClass(PRIMARY_EXPRESSION);
+        createEAttribute(primaryExpressionEClass, PRIMARY_EXPRESSION__FEATURE_ID);
     }
 
     /**
@@ -385,13 +384,13 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
         exclusiveDisjunctionEClass.getESuperTypes().add(this.getExpression());
         conjunctionEClass.getESuperTypes().add(this.getExpression());
         negationEClass.getESuperTypes().add(this.getExpression());
-        featureIdEClass.getESuperTypes().add(this.getExpression());
+        primaryExpressionEClass.getESuperTypes().add(this.getExpression());
 
         // Initialize classes and features; add operations and parameters
         initEClass(expressionEClass, Expression.class, "Expression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(contextualExpressionEClass, ContextualExpression.class, "ContextualExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getContextualExpression_Context(), ecorePackage.getEString(), "context", null, 0, 1, ContextualExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getContextualExpression_ContextId(), ecorePackage.getEString(), "contextId", null, 0, 1, ContextualExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getContextualExpression_Expression(), this.getExpression(), null, "expression", null, 0, 1, ContextualExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(implicationEClass, Implication.class, "Implication", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -410,8 +409,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
         initEClass(negationEClass, Negation.class, "Negation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getNegation_Expression(), this.getExpression(), null, "expression", null, 0, 1, Negation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(featureIdEClass, FeatureId.class, "FeatureId", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getFeatureId_Value(), ecorePackage.getEString(), "value", null, 0, 1, FeatureId.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(primaryExpressionEClass, PrimaryExpression.class, "PrimaryExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getPrimaryExpression_FeatureId(), ecorePackage.getEString(), "featureId", null, 0, 1, PrimaryExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Create resource
         createResource(eNS_URI);

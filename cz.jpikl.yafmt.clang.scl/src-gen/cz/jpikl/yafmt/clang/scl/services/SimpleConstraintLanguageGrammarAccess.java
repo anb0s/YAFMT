@@ -21,62 +21,71 @@ public class SimpleConstraintLanguageGrammarAccess extends AbstractGrammarElemen
 	
 	public class ExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Expression");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cContextualExpressionParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cImplicationParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cContextualExpressionParserRuleCall = (RuleCall)rule.eContents().get(1);
 		
-		//// Uses unassigned rule call.
-		////
+		//// Unassigned rule call
+		//// 
+		//// It simply call ContextualExpression rule.
 		//// The return type is Expression (abstract class for all kinds of expressions).
-		//// It is returned the result of ContextualExpression or Implication rule. 
 		//Expression:
-		//	ContextualExpression | Implication;
+		//	ContextualExpression;
 		public ParserRule getRule() { return rule; }
 
-		//ContextualExpression | Implication
-		public Alternatives getAlternatives() { return cAlternatives; }
-
 		//ContextualExpression
-		public RuleCall getContextualExpressionParserRuleCall_0() { return cContextualExpressionParserRuleCall_0; }
-
-		//Implication
-		public RuleCall getImplicationParserRuleCall_1() { return cImplicationParserRuleCall_1; }
+		public RuleCall getContextualExpressionParserRuleCall() { return cContextualExpressionParserRuleCall; }
 	}
 
 	public class ContextualExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ContextualExpression");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cContextKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cContextAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cContextIDTerminalRuleCall_1_0 = (RuleCall)cContextAssignment_1.eContents().get(0);
-		private final Keyword cColonKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cExpressionAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cExpressionImplicationParserRuleCall_3_0 = (RuleCall)cExpressionAssignment_3.eContents().get(0);
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
+		private final Keyword cContextKeyword_0_0 = (Keyword)cGroup_0.eContents().get(0);
+		private final Action cContextualExpressionAction_0_1 = (Action)cGroup_0.eContents().get(1);
+		private final Assignment cContextIdAssignment_0_2 = (Assignment)cGroup_0.eContents().get(2);
+		private final RuleCall cContextIdIDTerminalRuleCall_0_2_0 = (RuleCall)cContextIdAssignment_0_2.eContents().get(0);
+		private final Keyword cColonKeyword_0_3 = (Keyword)cGroup_0.eContents().get(3);
+		private final Assignment cExpressionAssignment_0_4 = (Assignment)cGroup_0.eContents().get(4);
+		private final RuleCall cExpressionImplicationParserRuleCall_0_4_0 = (RuleCall)cExpressionAssignment_0_4.eContents().get(0);
+		private final RuleCall cImplicationParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
-		//ContextualExpression:
-		//	"context" context=ID ":" expression=Implication;
+		//// Uses simple action: {ExplicitReturnType} memberVariable=value.
+		////
+		//// If there is 'context' token at input, instance of ContextualExpression is returned. 
+		//// Value contains the parsed ID and expression contains the result of Implication rule.
+		//// Otherwise (no 'context' found), the result of Implication rule is returned. 
+		//ContextualExpression returns Expression:
+		//	"context" {ContextualExpression} contextId=ID ":" expression=Implication | Implication;
 		public ParserRule getRule() { return rule; }
 
-		//"context" context=ID ":" expression=Implication
-		public Group getGroup() { return cGroup; }
+		//"context" {ContextualExpression} contextId=ID ":" expression=Implication | Implication
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//"context" {ContextualExpression} contextId=ID ":" expression=Implication
+		public Group getGroup_0() { return cGroup_0; }
 
 		//"context"
-		public Keyword getContextKeyword_0() { return cContextKeyword_0; }
+		public Keyword getContextKeyword_0_0() { return cContextKeyword_0_0; }
 
-		//context=ID
-		public Assignment getContextAssignment_1() { return cContextAssignment_1; }
+		//{ContextualExpression}
+		public Action getContextualExpressionAction_0_1() { return cContextualExpressionAction_0_1; }
+
+		//contextId=ID
+		public Assignment getContextIdAssignment_0_2() { return cContextIdAssignment_0_2; }
 
 		//ID
-		public RuleCall getContextIDTerminalRuleCall_1_0() { return cContextIDTerminalRuleCall_1_0; }
+		public RuleCall getContextIdIDTerminalRuleCall_0_2_0() { return cContextIdIDTerminalRuleCall_0_2_0; }
 
 		//":"
-		public Keyword getColonKeyword_2() { return cColonKeyword_2; }
+		public Keyword getColonKeyword_0_3() { return cColonKeyword_0_3; }
 
 		//expression=Implication
-		public Assignment getExpressionAssignment_3() { return cExpressionAssignment_3; }
+		public Assignment getExpressionAssignment_0_4() { return cExpressionAssignment_0_4; }
 
 		//Implication
-		public RuleCall getExpressionImplicationParserRuleCall_3_0() { return cExpressionImplicationParserRuleCall_3_0; }
+		public RuleCall getExpressionImplicationParserRuleCall_0_4_0() { return cExpressionImplicationParserRuleCall_0_4_0; }
+
+		//Implication
+		public RuleCall getImplicationParserRuleCall_1() { return cImplicationParserRuleCall_1; }
 	}
 
 	public class ImplicationElements extends AbstractParserRuleElementFinder {
@@ -322,45 +331,41 @@ public class SimpleConstraintLanguageGrammarAccess extends AbstractGrammarElemen
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PrimaryExpression");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
-		private final Action cFeatureIdAction_0_0 = (Action)cGroup_0.eContents().get(0);
-		private final Assignment cValueAssignment_0_1 = (Assignment)cGroup_0.eContents().get(1);
-		private final RuleCall cValueIDTerminalRuleCall_0_1_0 = (RuleCall)cValueAssignment_0_1.eContents().get(0);
+		private final Action cPrimaryExpressionAction_0_0 = (Action)cGroup_0.eContents().get(0);
+		private final Assignment cFeatureIdAssignment_0_1 = (Assignment)cGroup_0.eContents().get(1);
+		private final RuleCall cFeatureIdIDTerminalRuleCall_0_1_0 = (RuleCall)cFeatureIdAssignment_0_1.eContents().get(0);
 		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
 		private final Keyword cLeftParenthesisKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
-		private final RuleCall cImplicationParserRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
+		private final RuleCall cExpressionParserRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
 		private final Keyword cRightParenthesisKeyword_1_2 = (Keyword)cGroup_1.eContents().get(2);
 		
-		//// Uses simple action: {ExplicitReturnType} memberVariable=value.
-		////
-		//// If there is an ID token, instance of FeatureId is returned. Value member contains the parsed ID.
-		//// Otherwise (there is an expression inside brackets), the result of Implication rule is returned. 
 		//PrimaryExpression returns Expression:
-		//	{FeatureId} value=ID | "(" Implication ")";
+		//	{PrimaryExpression} featureId=ID | "(" Expression ")";
 		public ParserRule getRule() { return rule; }
 
-		//{FeatureId} value=ID | "(" Implication ")"
+		//{PrimaryExpression} featureId=ID | "(" Expression ")"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//{FeatureId} value=ID
+		//{PrimaryExpression} featureId=ID
 		public Group getGroup_0() { return cGroup_0; }
 
-		//{FeatureId}
-		public Action getFeatureIdAction_0_0() { return cFeatureIdAction_0_0; }
+		//{PrimaryExpression}
+		public Action getPrimaryExpressionAction_0_0() { return cPrimaryExpressionAction_0_0; }
 
-		//value=ID
-		public Assignment getValueAssignment_0_1() { return cValueAssignment_0_1; }
+		//featureId=ID
+		public Assignment getFeatureIdAssignment_0_1() { return cFeatureIdAssignment_0_1; }
 
 		//ID
-		public RuleCall getValueIDTerminalRuleCall_0_1_0() { return cValueIDTerminalRuleCall_0_1_0; }
+		public RuleCall getFeatureIdIDTerminalRuleCall_0_1_0() { return cFeatureIdIDTerminalRuleCall_0_1_0; }
 
-		//"(" Implication ")"
+		//"(" Expression ")"
 		public Group getGroup_1() { return cGroup_1; }
 
 		//"("
 		public Keyword getLeftParenthesisKeyword_1_0() { return cLeftParenthesisKeyword_1_0; }
 
-		//Implication
-		public RuleCall getImplicationParserRuleCall_1_1() { return cImplicationParserRuleCall_1_1; }
+		//Expression
+		public RuleCall getExpressionParserRuleCall_1_1() { return cExpressionParserRuleCall_1_1; }
 
 		//")"
 		public Keyword getRightParenthesisKeyword_1_2() { return cRightParenthesisKeyword_1_2; }
@@ -414,12 +419,12 @@ public class SimpleConstraintLanguageGrammarAccess extends AbstractGrammarElemen
 	}
 
 	
-	//// Uses unassigned rule call.
-	////
+	//// Unassigned rule call
+	//// 
+	//// It simply call ContextualExpression rule.
 	//// The return type is Expression (abstract class for all kinds of expressions).
-	//// It is returned the result of ContextualExpression or Implication rule. 
 	//Expression:
-	//	ContextualExpression | Implication;
+	//	ContextualExpression;
 	public ExpressionElements getExpressionAccess() {
 		return (pExpression != null) ? pExpression : (pExpression = new ExpressionElements());
 	}
@@ -428,8 +433,13 @@ public class SimpleConstraintLanguageGrammarAccess extends AbstractGrammarElemen
 		return getExpressionAccess().getRule();
 	}
 
-	//ContextualExpression:
-	//	"context" context=ID ":" expression=Implication;
+	//// Uses simple action: {ExplicitReturnType} memberVariable=value.
+	////
+	//// If there is 'context' token at input, instance of ContextualExpression is returned. 
+	//// Value contains the parsed ID and expression contains the result of Implication rule.
+	//// Otherwise (no 'context' found), the result of Implication rule is returned. 
+	//ContextualExpression returns Expression:
+	//	"context" {ContextualExpression} contextId=ID ":" expression=Implication | Implication;
 	public ContextualExpressionElements getContextualExpressionAccess() {
 		return (pContextualExpression != null) ? pContextualExpression : (pContextualExpression = new ContextualExpressionElements());
 	}
@@ -499,12 +509,8 @@ public class SimpleConstraintLanguageGrammarAccess extends AbstractGrammarElemen
 		return getNegationAccess().getRule();
 	}
 
-	//// Uses simple action: {ExplicitReturnType} memberVariable=value.
-	////
-	//// If there is an ID token, instance of FeatureId is returned. Value member contains the parsed ID.
-	//// Otherwise (there is an expression inside brackets), the result of Implication rule is returned. 
 	//PrimaryExpression returns Expression:
-	//	{FeatureId} value=ID | "(" Implication ")";
+	//	{PrimaryExpression} featureId=ID | "(" Expression ")";
 	public PrimaryExpressionElements getPrimaryExpressionAccess() {
 		return (pPrimaryExpression != null) ? pPrimaryExpression : (pPrimaryExpression = new PrimaryExpressionElements());
 	}

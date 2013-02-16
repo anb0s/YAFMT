@@ -384,10 +384,10 @@ public class InternalSimpleConstraintLanguageLexer extends Lexer {
         try {
             int _type = RULE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1620:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1620:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1653:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1653:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1620:11: ( '^' )?
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1653:11: ( '^' )?
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -396,7 +396,7 @@ public class InternalSimpleConstraintLanguageLexer extends Lexer {
             }
             switch (alt1) {
                 case 1 :
-                    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1620:11: '^'
+                    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1653:11: '^'
                     {
                     match('^'); 
 
@@ -414,7 +414,7 @@ public class InternalSimpleConstraintLanguageLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1620:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1653:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             loop2:
             do {
                 int alt2=2;
@@ -463,10 +463,10 @@ public class InternalSimpleConstraintLanguageLexer extends Lexer {
         try {
             int _type = RULE_INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1622:10: ( ( '0' .. '9' )+ )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1622:12: ( '0' .. '9' )+
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1655:10: ( ( '0' .. '9' )+ )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1655:12: ( '0' .. '9' )+
             {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1622:12: ( '0' .. '9' )+
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1655:12: ( '0' .. '9' )+
             int cnt3=0;
             loop3:
             do {
@@ -480,7 +480,7 @@ public class InternalSimpleConstraintLanguageLexer extends Lexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1622:13: '0' .. '9'
+            	    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1655:13: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -512,10 +512,10 @@ public class InternalSimpleConstraintLanguageLexer extends Lexer {
         try {
             int _type = RULE_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1624:13: ( ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1624:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1657:13: ( ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1657:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1624:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1657:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -533,10 +533,10 @@ public class InternalSimpleConstraintLanguageLexer extends Lexer {
             }
             switch (alt6) {
                 case 1 :
-                    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1624:16: '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
+                    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1657:16: '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
                     {
                     match('\"'); 
-                    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1624:20: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )*
+                    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1657:20: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )*
                     loop4:
                     do {
                         int alt4=3;
@@ -552,7 +552,7 @@ public class InternalSimpleConstraintLanguageLexer extends Lexer {
 
                         switch (alt4) {
                     	case 1 :
-                    	    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1624:21: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
+                    	    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1657:21: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
                     	    {
                     	    match('\\'); 
                     	    if ( input.LA(1)=='\"'||input.LA(1)=='\''||input.LA(1)=='\\'||input.LA(1)=='b'||input.LA(1)=='f'||input.LA(1)=='n'||input.LA(1)=='r'||(input.LA(1)>='t' && input.LA(1)<='u') ) {
@@ -568,7 +568,7 @@ public class InternalSimpleConstraintLanguageLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1624:66: ~ ( ( '\\\\' | '\"' ) )
+                    	    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1657:66: ~ ( ( '\\\\' | '\"' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -593,10 +593,10 @@ public class InternalSimpleConstraintLanguageLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1624:86: '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
+                    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1657:86: '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
                     {
                     match('\''); 
-                    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1624:91: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )*
+                    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1657:91: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )*
                     loop5:
                     do {
                         int alt5=3;
@@ -612,7 +612,7 @@ public class InternalSimpleConstraintLanguageLexer extends Lexer {
 
                         switch (alt5) {
                     	case 1 :
-                    	    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1624:92: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
+                    	    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1657:92: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
                     	    {
                     	    match('\\'); 
                     	    if ( input.LA(1)=='\"'||input.LA(1)=='\''||input.LA(1)=='\\'||input.LA(1)=='b'||input.LA(1)=='f'||input.LA(1)=='n'||input.LA(1)=='r'||(input.LA(1)>='t' && input.LA(1)<='u') ) {
@@ -628,7 +628,7 @@ public class InternalSimpleConstraintLanguageLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1624:137: ~ ( ( '\\\\' | '\\'' ) )
+                    	    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1657:137: ~ ( ( '\\\\' | '\\'' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -671,12 +671,12 @@ public class InternalSimpleConstraintLanguageLexer extends Lexer {
         try {
             int _type = RULE_ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1626:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1626:19: '/*' ( options {greedy=false; } : . )* '*/'
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1659:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1659:19: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1626:24: ( options {greedy=false; } : . )*
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1659:24: ( options {greedy=false; } : . )*
             loop7:
             do {
                 int alt7=2;
@@ -701,7 +701,7 @@ public class InternalSimpleConstraintLanguageLexer extends Lexer {
 
                 switch (alt7) {
             	case 1 :
-            	    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1626:52: .
+            	    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1659:52: .
             	    {
             	    matchAny(); 
 
@@ -731,12 +731,12 @@ public class InternalSimpleConstraintLanguageLexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1628:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1628:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1661:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1661:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
             {
             match("//"); 
 
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1628:24: (~ ( ( '\\n' | '\\r' ) ) )*
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1661:24: (~ ( ( '\\n' | '\\r' ) ) )*
             loop8:
             do {
                 int alt8=2;
@@ -749,7 +749,7 @@ public class InternalSimpleConstraintLanguageLexer extends Lexer {
 
                 switch (alt8) {
             	case 1 :
-            	    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1628:24: ~ ( ( '\\n' | '\\r' ) )
+            	    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1661:24: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -769,7 +769,7 @@ public class InternalSimpleConstraintLanguageLexer extends Lexer {
                 }
             } while (true);
 
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1628:40: ( ( '\\r' )? '\\n' )?
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1661:40: ( ( '\\r' )? '\\n' )?
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -778,9 +778,9 @@ public class InternalSimpleConstraintLanguageLexer extends Lexer {
             }
             switch (alt10) {
                 case 1 :
-                    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1628:41: ( '\\r' )? '\\n'
+                    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1661:41: ( '\\r' )? '\\n'
                     {
-                    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1628:41: ( '\\r' )?
+                    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1661:41: ( '\\r' )?
                     int alt9=2;
                     int LA9_0 = input.LA(1);
 
@@ -789,7 +789,7 @@ public class InternalSimpleConstraintLanguageLexer extends Lexer {
                     }
                     switch (alt9) {
                         case 1 :
-                            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1628:41: '\\r'
+                            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1661:41: '\\r'
                             {
                             match('\r'); 
 
@@ -821,10 +821,10 @@ public class InternalSimpleConstraintLanguageLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1630:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1630:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1663:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1663:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1630:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1663:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             int cnt11=0;
             loop11:
             do {
@@ -878,8 +878,8 @@ public class InternalSimpleConstraintLanguageLexer extends Lexer {
         try {
             int _type = RULE_ANY_OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1632:16: ( . )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1632:18: .
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1665:16: ( . )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1665:18: .
             {
             matchAny(); 
 

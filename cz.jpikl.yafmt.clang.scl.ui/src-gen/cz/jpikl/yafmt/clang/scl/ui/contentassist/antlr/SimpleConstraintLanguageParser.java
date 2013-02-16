@@ -37,7 +37,7 @@ public class SimpleConstraintLanguageParser extends AbstractContentAssistParser 
 			nameMappings = new HashMap<AbstractElement, String>() {
 				private static final long serialVersionUID = 1L;
 				{
-					put(grammarAccess.getExpressionAccess().getAlternatives(), "rule__Expression__Alternatives");
+					put(grammarAccess.getContextualExpressionAccess().getAlternatives(), "rule__ContextualExpression__Alternatives");
 					put(grammarAccess.getImplicationAccess().getAlternatives_1_1(), "rule__Implication__Alternatives_1_1");
 					put(grammarAccess.getDisjunctionAccess().getAlternatives_1_1(), "rule__Disjunction__Alternatives_1_1");
 					put(grammarAccess.getExclusiveDisjunctionAccess().getAlternatives_1_1(), "rule__ExclusiveDisjunction__Alternatives_1_1");
@@ -45,7 +45,7 @@ public class SimpleConstraintLanguageParser extends AbstractContentAssistParser 
 					put(grammarAccess.getNegationAccess().getAlternatives(), "rule__Negation__Alternatives");
 					put(grammarAccess.getNegationAccess().getAlternatives_1_0(), "rule__Negation__Alternatives_1_0");
 					put(grammarAccess.getPrimaryExpressionAccess().getAlternatives(), "rule__PrimaryExpression__Alternatives");
-					put(grammarAccess.getContextualExpressionAccess().getGroup(), "rule__ContextualExpression__Group__0");
+					put(grammarAccess.getContextualExpressionAccess().getGroup_0(), "rule__ContextualExpression__Group_0__0");
 					put(grammarAccess.getImplicationAccess().getGroup(), "rule__Implication__Group__0");
 					put(grammarAccess.getImplicationAccess().getGroup_1(), "rule__Implication__Group_1__0");
 					put(grammarAccess.getDisjunctionAccess().getGroup(), "rule__Disjunction__Group__0");
@@ -57,14 +57,14 @@ public class SimpleConstraintLanguageParser extends AbstractContentAssistParser 
 					put(grammarAccess.getNegationAccess().getGroup_1(), "rule__Negation__Group_1__0");
 					put(grammarAccess.getPrimaryExpressionAccess().getGroup_0(), "rule__PrimaryExpression__Group_0__0");
 					put(grammarAccess.getPrimaryExpressionAccess().getGroup_1(), "rule__PrimaryExpression__Group_1__0");
-					put(grammarAccess.getContextualExpressionAccess().getContextAssignment_1(), "rule__ContextualExpression__ContextAssignment_1");
-					put(grammarAccess.getContextualExpressionAccess().getExpressionAssignment_3(), "rule__ContextualExpression__ExpressionAssignment_3");
+					put(grammarAccess.getContextualExpressionAccess().getContextIdAssignment_0_2(), "rule__ContextualExpression__ContextIdAssignment_0_2");
+					put(grammarAccess.getContextualExpressionAccess().getExpressionAssignment_0_4(), "rule__ContextualExpression__ExpressionAssignment_0_4");
 					put(grammarAccess.getImplicationAccess().getRightPartAssignment_1_2(), "rule__Implication__RightPartAssignment_1_2");
 					put(grammarAccess.getDisjunctionAccess().getPartsAssignment_1_2(), "rule__Disjunction__PartsAssignment_1_2");
 					put(grammarAccess.getExclusiveDisjunctionAccess().getPartsAssignment_1_2(), "rule__ExclusiveDisjunction__PartsAssignment_1_2");
 					put(grammarAccess.getConjunctionAccess().getPartsAssignment_1_2(), "rule__Conjunction__PartsAssignment_1_2");
 					put(grammarAccess.getNegationAccess().getExpressionAssignment_1_2(), "rule__Negation__ExpressionAssignment_1_2");
-					put(grammarAccess.getPrimaryExpressionAccess().getValueAssignment_0_1(), "rule__PrimaryExpression__ValueAssignment_0_1");
+					put(grammarAccess.getPrimaryExpressionAccess().getFeatureIdAssignment_0_1(), "rule__PrimaryExpression__FeatureIdAssignment_0_1");
 				}
 			};
 		}

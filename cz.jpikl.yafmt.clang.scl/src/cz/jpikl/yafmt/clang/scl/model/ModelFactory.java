@@ -85,13 +85,13 @@ public interface ModelFactory extends EFactory {
     Negation createNegation();
 
     /**
-     * Returns a new object of class '<em>Feature Id</em>'.
+     * Returns a new object of class '<em>Primary Expression</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return a new object of class '<em>Feature Id</em>'.
+     * @return a new object of class '<em>Primary Expression</em>'.
      * @generated
      */
-    FeatureId createFeatureId();
+    PrimaryExpression createPrimaryExpression();
 
     /**
      * Returns the package supported by this factory.

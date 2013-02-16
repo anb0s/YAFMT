@@ -5,7 +5,8 @@ package cz.jpikl.yafmt.clang.scl.model.impl;
 import cz.jpikl.yafmt.clang.scl.model.Disjunction;
 import cz.jpikl.yafmt.clang.scl.model.Expression;
 import cz.jpikl.yafmt.clang.scl.model.ModelPackage;
-import cz.jpikl.yafmt.clang.scl.util.SelectionHelper;
+import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
+import cz.jpikl.yafmt.model.fc.Selection;
 
 import java.util.Collection;
 import java.util.Set;
@@ -157,10 +158,10 @@ public class DisjunctionImpl extends ExpressionImpl implements Disjunction {
     }
     
     @Override
-    public boolean evaluate(SelectionHelper selectionHelper, String contextId) {
+    public boolean evaluate(FeatureConfiguration featureConfig, Selection context) {
         // Parts should not be empty or null.
         for(Expression part: parts) {
-            if(part.evaluate(selectionHelper, contextId))
+            if(part.evaluate(featureConfig, context))
                 return true;
         }
         return false;

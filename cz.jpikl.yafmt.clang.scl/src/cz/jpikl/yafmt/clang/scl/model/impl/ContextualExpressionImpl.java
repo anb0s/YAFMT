@@ -2,12 +2,14 @@
  */
 package cz.jpikl.yafmt.clang.scl.model.impl;
 
+import java.util.List;
 import java.util.Set;
 
 import cz.jpikl.yafmt.clang.scl.model.ContextualExpression;
 import cz.jpikl.yafmt.clang.scl.model.Expression;
 import cz.jpikl.yafmt.clang.scl.model.ModelPackage;
-import cz.jpikl.yafmt.clang.scl.util.SelectionHelper;
+import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
+import cz.jpikl.yafmt.model.fc.Selection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -24,7 +26,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link cz.jpikl.yafmt.clang.scl.model.impl.ContextualExpressionImpl#getContext <em>Context</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.clang.scl.model.impl.ContextualExpressionImpl#getContextId <em>Context Id</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.clang.scl.model.impl.ContextualExpressionImpl#getExpression <em>Expression</em>}</li>
  * </ul>
  * </p>
@@ -33,24 +35,24 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public class ContextualExpressionImpl extends ExpressionImpl implements ContextualExpression {
     /**
-     * The default value of the '{@link #getContext() <em>Context</em>}' attribute.
+     * The default value of the '{@link #getContextId() <em>Context Id</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getContext()
+     * @see #getContextId()
      * @generated
      * @ordered
      */
-    protected static final String CONTEXT_EDEFAULT = null;
+    protected static final String CONTEXT_ID_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getContext() <em>Context</em>}' attribute.
+     * The cached value of the '{@link #getContextId() <em>Context Id</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getContext()
+     * @see #getContextId()
      * @generated
      * @ordered
      */
-    protected String context = CONTEXT_EDEFAULT;
+    protected String contextId = CONTEXT_ID_EDEFAULT;
 
     /**
      * The cached value of the '{@link #getExpression() <em>Expression</em>}' containment reference.
@@ -86,8 +88,8 @@ public class ContextualExpressionImpl extends ExpressionImpl implements Contextu
      * <!-- end-user-doc -->
      * @generated
      */
-    public String getContext() {
-        return context;
+    public String getContextId() {
+        return contextId;
     }
 
     /**
@@ -95,11 +97,11 @@ public class ContextualExpressionImpl extends ExpressionImpl implements Contextu
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setContext(String newContext) {
-        String oldContext = context;
-        context = newContext;
+    public void setContextId(String newContextId) {
+        String oldContextId = contextId;
+        contextId = newContextId;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.CONTEXTUAL_EXPRESSION__CONTEXT, oldContext, context));
+            eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.CONTEXTUAL_EXPRESSION__CONTEXT_ID, oldContextId, contextId));
     }
 
     /**
@@ -167,8 +169,8 @@ public class ContextualExpressionImpl extends ExpressionImpl implements Contextu
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ModelPackage.CONTEXTUAL_EXPRESSION__CONTEXT:
-                return getContext();
+            case ModelPackage.CONTEXTUAL_EXPRESSION__CONTEXT_ID:
+                return getContextId();
             case ModelPackage.CONTEXTUAL_EXPRESSION__EXPRESSION:
                 return getExpression();
         }
@@ -183,8 +185,8 @@ public class ContextualExpressionImpl extends ExpressionImpl implements Contextu
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ModelPackage.CONTEXTUAL_EXPRESSION__CONTEXT:
-                setContext((String)newValue);
+            case ModelPackage.CONTEXTUAL_EXPRESSION__CONTEXT_ID:
+                setContextId((String)newValue);
                 return;
             case ModelPackage.CONTEXTUAL_EXPRESSION__EXPRESSION:
                 setExpression((Expression)newValue);
@@ -201,8 +203,8 @@ public class ContextualExpressionImpl extends ExpressionImpl implements Contextu
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ModelPackage.CONTEXTUAL_EXPRESSION__CONTEXT:
-                setContext(CONTEXT_EDEFAULT);
+            case ModelPackage.CONTEXTUAL_EXPRESSION__CONTEXT_ID:
+                setContextId(CONTEXT_ID_EDEFAULT);
                 return;
             case ModelPackage.CONTEXTUAL_EXPRESSION__EXPRESSION:
                 setExpression((Expression)null);
@@ -219,8 +221,8 @@ public class ContextualExpressionImpl extends ExpressionImpl implements Contextu
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ModelPackage.CONTEXTUAL_EXPRESSION__CONTEXT:
-                return CONTEXT_EDEFAULT == null ? context != null : !CONTEXT_EDEFAULT.equals(context);
+            case ModelPackage.CONTEXTUAL_EXPRESSION__CONTEXT_ID:
+                return CONTEXT_ID_EDEFAULT == null ? contextId != null : !CONTEXT_ID_EDEFAULT.equals(contextId);
             case ModelPackage.CONTEXTUAL_EXPRESSION__EXPRESSION:
                 return expression != null;
         }
@@ -237,21 +239,49 @@ public class ContextualExpressionImpl extends ExpressionImpl implements Contextu
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (context: ");
-        result.append(context);
+        result.append(" (contextId: ");
+        result.append(contextId);
         result.append(')');
         return result.toString();
     }
     
     @Override
     public void retrieveFeatureIds(Set<String> ids) {
-        ids.add(context);
         expression.retrieveFeatureIds(ids);
     }
     
     @Override
-    public boolean evaluate(SelectionHelper selectionHelper, String dymmyContextId) {
-        return expression.evaluate(selectionHelper, context); // Use with given context from contextual expression.
+    public boolean evaluate(FeatureConfiguration featureConfig, Selection parentContext) {
+        // Get all context instances.
+        List<Selection> contexts = featureConfig.getSelectionsById(contextId);
+        
+        // Expression must be true for each context instance. If there is no context,
+        // the expression is automatically true.
+        if((contexts == null) || !contexts.isEmpty())
+            return true;
+        
+        // Evaluate expression for each context.
+        for(Selection context: contexts) {
+            // Evaluate expression only if we are under the parent context.
+            if(parentContext != null) {
+                boolean underParentContext = false;
+                for(Selection ancestor = context; ancestor != null; ancestor = ancestor.getParent()) {
+                    if(ancestor == parentContext) {
+                        underParentContext = true;
+                        break;
+                    }
+                }
+                if(!underParentContext)
+                    continue;
+            }
+            
+            // Expression must be true for each context.
+            if(!expression.evaluate(featureConfig, context))
+                return false;
+        }
+        
+        // Expression was true for each valid context.
+        return true;
     }
 
 } //ContextualExpressionImpl

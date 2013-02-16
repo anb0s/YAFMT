@@ -28,14 +28,15 @@ public class SimpleConstraintLanguageProposalProvider extends AbstractSimpleCons
     }
     
     @Override
-    public void completeContextualExpression_Context(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+    public void completeContextualExpression_ContextId(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
         completeFeatureIdsProposal(context, acceptor);
     }
     
-    public void completePrimaryExpression_Value(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+    @Override
+    public void completePrimaryExpression_FeatureId(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
         completeFeatureIdsProposal(context, acceptor);
     }
-
+        
     private void completeFeatureIdsProposal(ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
         Image image = SimpleConstraintLanguageEditingSupportPlugin.getInstance().getImageRegistry().get("id");
         

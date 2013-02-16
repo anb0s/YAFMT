@@ -6,10 +6,10 @@ import cz.jpikl.yafmt.clang.scl.model.Conjunction;
 import cz.jpikl.yafmt.clang.scl.model.ContextualExpression;
 import cz.jpikl.yafmt.clang.scl.model.Disjunction;
 import cz.jpikl.yafmt.clang.scl.model.ExclusiveDisjunction;
-import cz.jpikl.yafmt.clang.scl.model.FeatureId;
 import cz.jpikl.yafmt.clang.scl.model.Implication;
 import cz.jpikl.yafmt.clang.scl.model.ModelPackage;
 import cz.jpikl.yafmt.clang.scl.model.Negation;
+import cz.jpikl.yafmt.clang.scl.model.PrimaryExpression;
 import cz.jpikl.yafmt.clang.scl.services.SimpleConstraintLanguageGrammarAccess;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor;
@@ -34,6 +34,7 @@ public class SimpleConstraintLanguageSemanticSequencer extends AbstractDelegatin
 			case ModelPackage.CONJUNCTION:
 				if(context == grammarAccess.getConjunctionRule() ||
 				   context == grammarAccess.getConjunctionAccess().getConjunctionPartsAction_1_0() ||
+				   context == grammarAccess.getContextualExpressionRule() ||
 				   context == grammarAccess.getDisjunctionRule() ||
 				   context == grammarAccess.getDisjunctionAccess().getDisjunctionPartsAction_1_0() ||
 				   context == grammarAccess.getExclusiveDisjunctionRule() ||
@@ -48,8 +49,18 @@ public class SimpleConstraintLanguageSemanticSequencer extends AbstractDelegatin
 				}
 				else break;
 			case ModelPackage.CONTEXTUAL_EXPRESSION:
-				if(context == grammarAccess.getContextualExpressionRule() ||
-				   context == grammarAccess.getExpressionRule()) {
+				if(context == grammarAccess.getConjunctionRule() ||
+				   context == grammarAccess.getConjunctionAccess().getConjunctionPartsAction_1_0() ||
+				   context == grammarAccess.getContextualExpressionRule() ||
+				   context == grammarAccess.getDisjunctionRule() ||
+				   context == grammarAccess.getDisjunctionAccess().getDisjunctionPartsAction_1_0() ||
+				   context == grammarAccess.getExclusiveDisjunctionRule() ||
+				   context == grammarAccess.getExclusiveDisjunctionAccess().getExclusiveDisjunctionPartsAction_1_0() ||
+				   context == grammarAccess.getExpressionRule() ||
+				   context == grammarAccess.getImplicationRule() ||
+				   context == grammarAccess.getImplicationAccess().getImplicationLeftPartAction_1_0() ||
+				   context == grammarAccess.getNegationRule() ||
+				   context == grammarAccess.getPrimaryExpressionRule()) {
 					sequence_ContextualExpression(context, (ContextualExpression) semanticObject); 
 					return; 
 				}
@@ -57,6 +68,7 @@ public class SimpleConstraintLanguageSemanticSequencer extends AbstractDelegatin
 			case ModelPackage.DISJUNCTION:
 				if(context == grammarAccess.getConjunctionRule() ||
 				   context == grammarAccess.getConjunctionAccess().getConjunctionPartsAction_1_0() ||
+				   context == grammarAccess.getContextualExpressionRule() ||
 				   context == grammarAccess.getDisjunctionRule() ||
 				   context == grammarAccess.getDisjunctionAccess().getDisjunctionPartsAction_1_0() ||
 				   context == grammarAccess.getExclusiveDisjunctionRule() ||
@@ -73,6 +85,7 @@ public class SimpleConstraintLanguageSemanticSequencer extends AbstractDelegatin
 			case ModelPackage.EXCLUSIVE_DISJUNCTION:
 				if(context == grammarAccess.getConjunctionRule() ||
 				   context == grammarAccess.getConjunctionAccess().getConjunctionPartsAction_1_0() ||
+				   context == grammarAccess.getContextualExpressionRule() ||
 				   context == grammarAccess.getDisjunctionRule() ||
 				   context == grammarAccess.getDisjunctionAccess().getDisjunctionPartsAction_1_0() ||
 				   context == grammarAccess.getExclusiveDisjunctionRule() ||
@@ -86,25 +99,10 @@ public class SimpleConstraintLanguageSemanticSequencer extends AbstractDelegatin
 					return; 
 				}
 				else break;
-			case ModelPackage.FEATURE_ID:
-				if(context == grammarAccess.getConjunctionRule() ||
-				   context == grammarAccess.getConjunctionAccess().getConjunctionPartsAction_1_0() ||
-				   context == grammarAccess.getDisjunctionRule() ||
-				   context == grammarAccess.getDisjunctionAccess().getDisjunctionPartsAction_1_0() ||
-				   context == grammarAccess.getExclusiveDisjunctionRule() ||
-				   context == grammarAccess.getExclusiveDisjunctionAccess().getExclusiveDisjunctionPartsAction_1_0() ||
-				   context == grammarAccess.getExpressionRule() ||
-				   context == grammarAccess.getImplicationRule() ||
-				   context == grammarAccess.getImplicationAccess().getImplicationLeftPartAction_1_0() ||
-				   context == grammarAccess.getNegationRule() ||
-				   context == grammarAccess.getPrimaryExpressionRule()) {
-					sequence_PrimaryExpression(context, (FeatureId) semanticObject); 
-					return; 
-				}
-				else break;
 			case ModelPackage.IMPLICATION:
 				if(context == grammarAccess.getConjunctionRule() ||
 				   context == grammarAccess.getConjunctionAccess().getConjunctionPartsAction_1_0() ||
+				   context == grammarAccess.getContextualExpressionRule() ||
 				   context == grammarAccess.getDisjunctionRule() ||
 				   context == grammarAccess.getDisjunctionAccess().getDisjunctionPartsAction_1_0() ||
 				   context == grammarAccess.getExclusiveDisjunctionRule() ||
@@ -121,6 +119,7 @@ public class SimpleConstraintLanguageSemanticSequencer extends AbstractDelegatin
 			case ModelPackage.NEGATION:
 				if(context == grammarAccess.getConjunctionRule() ||
 				   context == grammarAccess.getConjunctionAccess().getConjunctionPartsAction_1_0() ||
+				   context == grammarAccess.getContextualExpressionRule() ||
 				   context == grammarAccess.getDisjunctionRule() ||
 				   context == grammarAccess.getDisjunctionAccess().getDisjunctionPartsAction_1_0() ||
 				   context == grammarAccess.getExclusiveDisjunctionRule() ||
@@ -131,6 +130,23 @@ public class SimpleConstraintLanguageSemanticSequencer extends AbstractDelegatin
 				   context == grammarAccess.getNegationRule() ||
 				   context == grammarAccess.getPrimaryExpressionRule()) {
 					sequence_Negation(context, (Negation) semanticObject); 
+					return; 
+				}
+				else break;
+			case ModelPackage.PRIMARY_EXPRESSION:
+				if(context == grammarAccess.getConjunctionRule() ||
+				   context == grammarAccess.getConjunctionAccess().getConjunctionPartsAction_1_0() ||
+				   context == grammarAccess.getContextualExpressionRule() ||
+				   context == grammarAccess.getDisjunctionRule() ||
+				   context == grammarAccess.getDisjunctionAccess().getDisjunctionPartsAction_1_0() ||
+				   context == grammarAccess.getExclusiveDisjunctionRule() ||
+				   context == grammarAccess.getExclusiveDisjunctionAccess().getExclusiveDisjunctionPartsAction_1_0() ||
+				   context == grammarAccess.getExpressionRule() ||
+				   context == grammarAccess.getImplicationRule() ||
+				   context == grammarAccess.getImplicationAccess().getImplicationLeftPartAction_1_0() ||
+				   context == grammarAccess.getNegationRule() ||
+				   context == grammarAccess.getPrimaryExpressionRule()) {
+					sequence_PrimaryExpression(context, (PrimaryExpression) semanticObject); 
 					return; 
 				}
 				else break;
@@ -149,19 +165,19 @@ public class SimpleConstraintLanguageSemanticSequencer extends AbstractDelegatin
 	
 	/**
 	 * Constraint:
-	 *     (context=ID expression=Implication)
+	 *     (contextId=ID expression=Implication)
 	 */
 	protected void sequence_ContextualExpression(EObject context, ContextualExpression semanticObject) {
 		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, ModelPackage.Literals.CONTEXTUAL_EXPRESSION__CONTEXT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.CONTEXTUAL_EXPRESSION__CONTEXT));
+			if(transientValues.isValueTransient(semanticObject, ModelPackage.Literals.CONTEXTUAL_EXPRESSION__CONTEXT_ID) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.CONTEXTUAL_EXPRESSION__CONTEXT_ID));
 			if(transientValues.isValueTransient(semanticObject, ModelPackage.Literals.CONTEXTUAL_EXPRESSION__EXPRESSION) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.CONTEXTUAL_EXPRESSION__EXPRESSION));
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getContextualExpressionAccess().getContextIDTerminalRuleCall_1_0(), semanticObject.getContext());
-		feeder.accept(grammarAccess.getContextualExpressionAccess().getExpressionImplicationParserRuleCall_3_0(), semanticObject.getExpression());
+		feeder.accept(grammarAccess.getContextualExpressionAccess().getContextIdIDTerminalRuleCall_0_2_0(), semanticObject.getContextId());
+		feeder.accept(grammarAccess.getContextualExpressionAccess().getExpressionImplicationParserRuleCall_0_4_0(), semanticObject.getExpression());
 		feeder.finish();
 	}
 	
@@ -221,16 +237,16 @@ public class SimpleConstraintLanguageSemanticSequencer extends AbstractDelegatin
 	
 	/**
 	 * Constraint:
-	 *     value=ID
+	 *     featureId=ID
 	 */
-	protected void sequence_PrimaryExpression(EObject context, FeatureId semanticObject) {
+	protected void sequence_PrimaryExpression(EObject context, PrimaryExpression semanticObject) {
 		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, ModelPackage.Literals.FEATURE_ID__VALUE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.FEATURE_ID__VALUE));
+			if(transientValues.isValueTransient(semanticObject, ModelPackage.Literals.PRIMARY_EXPRESSION__FEATURE_ID) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.PRIMARY_EXPRESSION__FEATURE_ID));
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getPrimaryExpressionAccess().getValueIDTerminalRuleCall_0_1_0(), semanticObject.getValue());
+		feeder.accept(grammarAccess.getPrimaryExpressionAccess().getFeatureIdIDTerminalRuleCall_0_1_0(), semanticObject.getFeatureId());
 		feeder.finish();
 	}
 }

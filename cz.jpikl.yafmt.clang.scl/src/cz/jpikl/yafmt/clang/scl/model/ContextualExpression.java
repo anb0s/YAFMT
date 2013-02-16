@@ -11,7 +11,7 @@ package cz.jpikl.yafmt.clang.scl.model;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link cz.jpikl.yafmt.clang.scl.model.ContextualExpression#getContext <em>Context</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.clang.scl.model.ContextualExpression#getContextId <em>Context Id</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.clang.scl.model.ContextualExpression#getExpression <em>Expression</em>}</li>
  * </ul>
  * </p>
@@ -22,30 +22,30 @@ package cz.jpikl.yafmt.clang.scl.model;
  */
 public interface ContextualExpression extends Expression {
     /**
-     * Returns the value of the '<em><b>Context</b></em>' attribute.
+     * Returns the value of the '<em><b>Context Id</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Context</em>' attribute isn't clear,
+     * If the meaning of the '<em>Context Id</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Context</em>' attribute.
-     * @see #setContext(String)
-     * @see cz.jpikl.yafmt.clang.scl.model.ModelPackage#getContextualExpression_Context()
+     * @return the value of the '<em>Context Id</em>' attribute.
+     * @see #setContextId(String)
+     * @see cz.jpikl.yafmt.clang.scl.model.ModelPackage#getContextualExpression_ContextId()
      * @model
      * @generated
      */
-    String getContext();
+    String getContextId();
 
     /**
-     * Sets the value of the '{@link cz.jpikl.yafmt.clang.scl.model.ContextualExpression#getContext <em>Context</em>}' attribute.
+     * Sets the value of the '{@link cz.jpikl.yafmt.clang.scl.model.ContextualExpression#getContextId <em>Context Id</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Context</em>' attribute.
-     * @see #getContext()
+     * @param value the new value of the '<em>Context Id</em>' attribute.
+     * @see #getContextId()
      * @generated
      */
-    void setContext(String value);
+    void setContextId(String value);
 
     /**
      * Returns the value of the '<em><b>Expression</b></em>' containment reference.

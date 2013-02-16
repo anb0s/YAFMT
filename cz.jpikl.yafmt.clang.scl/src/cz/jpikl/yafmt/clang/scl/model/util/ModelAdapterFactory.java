@@ -96,8 +96,8 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
                 return createNegationAdapter();
             }
             @Override
-            public Adapter caseFeatureId(FeatureId object) {
-                return createFeatureIdAdapter();
+            public Adapter casePrimaryExpression(PrimaryExpression object) {
+                return createPrimaryExpressionAdapter();
             }
             @Override
             public Adapter defaultCase(EObject object) {
@@ -218,16 +218,16 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link cz.jpikl.yafmt.clang.scl.model.FeatureId <em>Feature Id</em>}'.
+     * Creates a new adapter for an object of class '{@link cz.jpikl.yafmt.clang.scl.model.PrimaryExpression <em>Primary Expression</em>}'.
      * <!-- begin-user-doc -->
      * This default implementation returns null so that we can easily ignore cases;
      * it's useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
      * @return the new adapter.
-     * @see cz.jpikl.yafmt.clang.scl.model.FeatureId
+     * @see cz.jpikl.yafmt.clang.scl.model.PrimaryExpression
      * @generated
      */
-    public Adapter createFeatureIdAdapter() {
+    public Adapter createPrimaryExpressionAdapter() {
         return null;
     }
 

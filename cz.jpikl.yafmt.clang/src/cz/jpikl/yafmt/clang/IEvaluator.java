@@ -13,7 +13,5 @@ public interface IEvaluator {
     IValidationResult validate(FeatureModel featureModel);
     
     IEvaluationResult evaluate(FeatureConfiguration featureConfig);
-    
-    IEvaluationResult evaluate(FeatureConfiguration featureConfig, List<Feature> featuresToSelect);
-    
+        
 }

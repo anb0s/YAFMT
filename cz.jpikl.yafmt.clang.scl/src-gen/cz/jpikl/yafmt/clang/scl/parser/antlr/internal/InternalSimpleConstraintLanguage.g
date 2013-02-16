@@ -77,9 +77,9 @@ ruleExpression returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-(
+
     { 
-        newCompositeNode(grammarAccess.getExpressionAccess().getContextualExpressionParserRuleCall_0()); 
+        newCompositeNode(grammarAccess.getExpressionAccess().getContextualExpressionParserRuleCall()); 
     }
     this_ContextualExpression_0=ruleContextualExpression
     { 
@@ -87,16 +87,6 @@ ruleExpression returns [EObject current=null]
         afterParserOrEnumRuleCall();
     }
 
-    |
-    { 
-        newCompositeNode(grammarAccess.getExpressionAccess().getImplicationParserRuleCall_1()); 
-    }
-    this_Implication_1=ruleImplication
-    { 
-        $current = $this_Implication_1.current; 
-        afterParserOrEnumRuleCall();
-    }
-)
 ;
 
 
@@ -117,15 +107,21 @@ ruleContextualExpression returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-(	otherlv_0='context' 
+((	otherlv_0='context' 
     {
-    	newLeafNode(otherlv_0, grammarAccess.getContextualExpressionAccess().getContextKeyword_0());
+    	newLeafNode(otherlv_0, grammarAccess.getContextualExpressionAccess().getContextKeyword_0_0());
     }
 (
+    {
+        $current = forceCreateModelElement(
+            grammarAccess.getContextualExpressionAccess().getContextualExpressionAction_0_1(),
+            $current);
+    }
+)(
 (
-		lv_context_1_0=RULE_ID
+		lv_contextId_2_0=RULE_ID
 		{
-			newLeafNode(lv_context_1_0, grammarAccess.getContextualExpressionAccess().getContextIDTerminalRuleCall_1_0()); 
+			newLeafNode(lv_contextId_2_0, grammarAccess.getContextualExpressionAccess().getContextIdIDTerminalRuleCall_0_2_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -133,35 +129,45 @@ ruleContextualExpression returns [EObject current=null]
 	        }
        		setWithLastConsumed(
        			$current, 
-       			"context",
-        		lv_context_1_0, 
+       			"contextId",
+        		lv_contextId_2_0, 
         		"ID");
 	    }
 
 )
-)	otherlv_2=':' 
+)	otherlv_3=':' 
     {
-    	newLeafNode(otherlv_2, grammarAccess.getContextualExpressionAccess().getColonKeyword_2());
+    	newLeafNode(otherlv_3, grammarAccess.getContextualExpressionAccess().getColonKeyword_0_3());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getContextualExpressionAccess().getExpressionImplicationParserRuleCall_3_0()); 
+	        newCompositeNode(grammarAccess.getContextualExpressionAccess().getExpressionImplicationParserRuleCall_0_4_0()); 
 	    }
-		lv_expression_3_0=ruleImplication		{
+		lv_expression_4_0=ruleImplication		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getContextualExpressionRule());
 	        }
        		set(
        			$current, 
        			"expression",
-        		lv_expression_3_0, 
+        		lv_expression_4_0, 
         		"Implication");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
 ))
+    |
+    { 
+        newCompositeNode(grammarAccess.getContextualExpressionAccess().getImplicationParserRuleCall_1()); 
+    }
+    this_Implication_5=ruleImplication
+    { 
+        $current = $this_Implication_5.current; 
+        afterParserOrEnumRuleCall();
+    }
+)
 ;
 
 
@@ -511,14 +517,14 @@ rulePrimaryExpression returns [EObject current=null]
 (((
     {
         $current = forceCreateModelElement(
-            grammarAccess.getPrimaryExpressionAccess().getFeatureIdAction_0_0(),
+            grammarAccess.getPrimaryExpressionAccess().getPrimaryExpressionAction_0_0(),
             $current);
     }
 )(
 (
-		lv_value_1_0=RULE_ID
+		lv_featureId_1_0=RULE_ID
 		{
-			newLeafNode(lv_value_1_0, grammarAccess.getPrimaryExpressionAccess().getValueIDTerminalRuleCall_0_1_0()); 
+			newLeafNode(lv_featureId_1_0, grammarAccess.getPrimaryExpressionAccess().getFeatureIdIDTerminalRuleCall_0_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -526,8 +532,8 @@ rulePrimaryExpression returns [EObject current=null]
 	        }
        		setWithLastConsumed(
        			$current, 
-       			"value",
-        		lv_value_1_0, 
+       			"featureId",
+        		lv_featureId_1_0, 
         		"ID");
 	    }
 
@@ -539,11 +545,11 @@ rulePrimaryExpression returns [EObject current=null]
     }
 
     { 
-        newCompositeNode(grammarAccess.getPrimaryExpressionAccess().getImplicationParserRuleCall_1_1()); 
+        newCompositeNode(grammarAccess.getPrimaryExpressionAccess().getExpressionParserRuleCall_1_1()); 
     }
-    this_Implication_3=ruleImplication
+    this_Expression_3=ruleExpression
     { 
-        $current = $this_Implication_3.current; 
+        $current = $this_Expression_3.current; 
         afterParserOrEnumRuleCall();
     }
 	otherlv_4=')' 

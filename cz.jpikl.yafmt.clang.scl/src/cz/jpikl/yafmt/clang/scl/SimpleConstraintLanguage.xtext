@@ -8,15 +8,20 @@ grammar cz.jpikl.yafmt.clang.scl.SimpleConstraintLanguage
 // It is also prefix for generated EMF model factory and model package.
 generate model "https://bitbucket.org/jpikl/yafmt/clang/scl"
 
-// Uses unassigned rule call.
-//
+// Unassigned rule call
+// 
+// It simply call ContextualExpression rule.
 // The return type is Expression (abstract class for all kinds of expressions).
-// It is returned the result of ContextualExpression or Implication rule. 
 Expression:
-    ContextualExpression | Implication;	
+    ContextualExpression;	
     
-ContextualExpression:
-    'context' context=ID ':' expression=Implication;
+// Uses simple action: {ExplicitReturnType} memberVariable=value.
+//
+// If there is 'context' token at input, instance of ContextualExpression is returned. 
+// Value contains the parsed ID and expression contains the result of Implication rule.
+// Otherwise (no 'context' found), the result of Implication rule is returned. 
+ContextualExpression returns Expression:
+    'context' {ContextualExpression} contextId=ID ':' expression=Implication | Implication;
 
 Implication returns Expression:
     Disjunction ({Implication.leftPart=current} ('implies' | 'requires' | '->' | '=>') rightPart=Disjunction)?;
@@ -44,9 +49,5 @@ Conjunction returns Expression:
 Negation returns Expression:
     PrimaryExpression | ('not' | '!') {Negation} expression=PrimaryExpression;
 	
-// Uses simple action: {ExplicitReturnType} memberVariable=value.
-//
-// If there is an ID token, instance of FeatureId is returned. Value member contains the parsed ID.
-// Otherwise (there is an expression inside brackets), the result of Implication rule is returned. 
 PrimaryExpression returns Expression:
-    {FeatureId} value=ID | '(' Implication ')';
+    {PrimaryExpression} featureId=ID | '(' Expression ')';
