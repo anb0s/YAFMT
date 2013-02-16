@@ -17,9 +17,9 @@ import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModelFactory;
 import cz.jpikl.yafmt.ui.editors.fm.tools.CreationToolWithDirectEdit;
 
-public class FeatureTreeEditorPaletteRoot extends PaletteRoot {
+public class FeatureModelEditorPaletteRoot extends PaletteRoot {
 
-    public FeatureTreeEditorPaletteRoot() {
+    public FeatureModelEditorPaletteRoot() {
         ToolEntry selectionEntry = new PanningSelectionToolEntry();
         ToolEntry marqueeEntry = new MarqueeToolEntry();
         ToolEntry optionalFeatureCreationEntry = createOptionalFeatureCreationEntry();

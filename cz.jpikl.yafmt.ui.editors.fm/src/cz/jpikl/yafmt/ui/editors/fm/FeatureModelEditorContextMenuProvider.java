@@ -14,11 +14,11 @@ import cz.jpikl.yafmt.ui.editors.fm.actions.GroupFeaturesAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.SetFeatureCardinalityAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.UngroupFeaturesAction;
 
-public class FeatureTreeEditorContextMenuProvider extends ContextMenuProvider {
+public class FeatureModelEditorContextMenuProvider extends ContextMenuProvider {
 
     private ActionRegistry registry;
     
-    public FeatureTreeEditorContextMenuProvider(EditPartViewer viewer, ActionRegistry registry) {
+    public FeatureModelEditorContextMenuProvider(EditPartViewer viewer, ActionRegistry registry) {
         super(viewer);
         this.registry = registry;
     } 
