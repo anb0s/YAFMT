@@ -38,6 +38,8 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
@@ -70,6 +72,7 @@ import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutDataPackage;
 import cz.jpikl.yafmt.ui.editors.fm.operations.ResourceSaveOperation;
 import cz.jpikl.yafmt.ui.editors.fm.parts.FeatureModelEditPartFactory;
 import cz.jpikl.yafmt.ui.editors.fm.util.SelectionConverter;
+import cz.jpikl.yafmt.ui.editors.fm.util.Splitter;
 import cz.jpikl.yafmt.ui.editors.fm.util.UnwrappingSelectionProvider;
 
 public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette implements IResourceChangeListener, 
@@ -82,6 +85,7 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
     private ContentOutlinePage contentOutlinePage;
     private PropertySheetPage propertySheetPage;
     private SelectionConverter selectionConverter;
+    private ConstraintsEditor constraintsEditor;
 	
     // ==================================================================================
     //  Basic initialization and dispose operations
@@ -111,6 +115,13 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
     // ==================================================================================
     
     @Override
+    public void createPartControl(Composite parent) {
+        Splitter splitter = new Splitter(parent, SWT.HORIZONTAL);
+        super.createPartControl(splitter);
+        constraintsEditor = new ConstraintsEditor(splitter);
+    }
+        
+    @Override
     protected void configureGraphicalViewer() {
         super.configureGraphicalViewer();
         
@@ -136,7 +147,7 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
     protected void initializeGraphicalViewer() {
         getGraphicalViewer().setContents(featureModel);
     }
-    
+        
     private ScalableFreeformRootEditPart getRootEditPart() {
         return (ScalableFreeformRootEditPart) getGraphicalViewer().getRootEditPart();
     }
@@ -235,7 +246,10 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
         if(part == this)
             handleSelectionFromItself(selection);
         else
-            handleSelectionFromOthers(selection);       
+            handleSelectionFromOthers(selection);
+        
+        // Update constraints editor.
+        constraintsEditor.setSelection(selection);
     }
     
     private void handleSelectionFromItself(ISelection selection) {
