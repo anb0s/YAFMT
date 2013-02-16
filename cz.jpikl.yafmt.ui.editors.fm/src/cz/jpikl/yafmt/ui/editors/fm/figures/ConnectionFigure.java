@@ -10,7 +10,8 @@ import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
 
 public class ConnectionFigure extends PolylineConnection {
     
-    private CircleDecoration decoration = new CircleDecoration();;
+    private CircleDecoration circleDecoration = new CircleDecoration();
+    private SquareDecoration squareDecoration = new SquareDecoration();
     private Label label = new Label();
     
     public ConnectionFigure(Feature target) {
@@ -31,8 +32,14 @@ public class ConnectionFigure extends PolylineConnection {
             label.setText(FeatureModelUtil.getCardinality(target));
         }
         else {
-            setSourceDecoration(decoration);
-            decoration.setFilled(target.isMandatory());
+            if(target.getParentGroup() != null) {
+                squareDecoration.setFilled(target.isMandatory());
+                setSourceDecoration(squareDecoration);
+            }
+            else {
+                circleDecoration.setFilled(target.isMandatory());
+                setSourceDecoration(circleDecoration);
+            }
             label.setText(null);
         }
     }

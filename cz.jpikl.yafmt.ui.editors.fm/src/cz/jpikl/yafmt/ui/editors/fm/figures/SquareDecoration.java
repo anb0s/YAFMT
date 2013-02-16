@@ -1,18 +1,17 @@
 package cz.jpikl.yafmt.ui.editors.fm.figures;
 
 import org.eclipse.draw2d.ColorConstants;
-import org.eclipse.draw2d.Ellipse;
-import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.RotatableDecoration;
 import org.eclipse.draw2d.geometry.Point;
 
-class CircleDecoration extends Ellipse implements RotatableDecoration {
+public class SquareDecoration extends RectangleFigure implements RotatableDecoration {
 
-    private static final int RADIUS = 5;
+    private static final int SIDE = 10;
     
-    public CircleDecoration() {
+    public SquareDecoration() {
         setForegroundColor(ColorConstants.black);
-        setSize(2 * RADIUS, 2 * RADIUS);
+        setSize(SIDE, SIDE);
     }
     
     public void setFilled(boolean filled) {
@@ -20,13 +19,8 @@ class CircleDecoration extends Ellipse implements RotatableDecoration {
     }
     
     @Override
-    protected void fillShape(Graphics graphics) {
-        graphics.fillOval(getBounds());
-    }
-    
-    @Override
     public void setReferencePoint(Point ref) {
-        translate(- RADIUS, - RADIUS);
+        translate(- SIDE / 2, - SIDE / 2);
     }
 
 }
