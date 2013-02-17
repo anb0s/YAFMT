@@ -60,6 +60,9 @@ public class SelectionCache {
         
         @Override
         protected void addAdapter(Notifier notifier) {
+            if(!(notifier instanceof Selection) && !(notifier instanceof FeatureConfiguration))
+                return;
+            
             super.addAdapter(notifier);
             if(notifier instanceof Selection)
                 addSelection((Selection) notifier);
@@ -75,6 +78,9 @@ public class SelectionCache {
         @Override
         public void notifyChanged(Notification notification) {
             super.notifyChanged(notification);
+            
+            if(!(notification.getNotifier() instanceof Selection))
+                return;
             if(notification.getFeatureID(Selection.class) == FeatureConfigurationPackage.SELECTION__ID) {
                 Selection selection = (Selection) notification.getNotifier();
                 removeSelection(selection, notification.getOldStringValue());
