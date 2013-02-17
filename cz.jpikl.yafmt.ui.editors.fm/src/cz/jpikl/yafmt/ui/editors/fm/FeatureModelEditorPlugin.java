@@ -1,6 +1,7 @@
 package cz.jpikl.yafmt.ui.editors.fm;
 
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -55,4 +56,13 @@ public class FeatureModelEditorPlugin extends AbstractUIPlugin {
 	public static ImageDescriptor getImageDescriptor(String path) {
 		return imageDescriptorFromPlugin(PLUGIN_ID, path);
 	}
+	
+	@Override
+    protected void initializeImageRegistry(ImageRegistry registry) {
+        registry.put("constraint", getImageDescriptor("icons/constraint.png").createImage());
+        registry.put("left", getImageDescriptor("icons/left.png").createImage());
+        registry.put("right", getImageDescriptor("icons/right.png").createImage());
+        registry.put("dock-bg", getImageDescriptor("icons/dock-bg.png").createImage());
+    }
+	
 }

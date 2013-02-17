@@ -18,7 +18,7 @@ import org.eclipse.swt.widgets.Sash;
 // Copied from GEF (org.eclipse.gef.ui.parts).
 public class Splitter extends Composite {
 
-    public static final int DEFAULT_SASH_WIDTH = 5;
+    public static final int DEFAULT_SASH_WIDTH = 3;
     private static final int DRAG_MINIMUM = 62;
     private static final String MAINTAIN_SIZE = "maintain size"; //$NON-NLS-1$
 
@@ -34,7 +34,7 @@ public class Splitter extends Composite {
     public void setResizeEnabled(boolean value) {
         // Hide all sashes do disable their move.
         for(Sash sash: sashes)
-            sash.setVisible(value);
+            sash.setEnabled(value);
     }
     
     /**
@@ -266,9 +266,11 @@ public class Splitter extends Composite {
         Point size = sash.getSize();
         if (getOrientation() == SWT.HORIZONTAL) {
             gc.setForeground(ColorConstants.buttonDarker);
-            gc.drawLine(getSashWidth() - 1, 0, getSashWidth() - 1, size.y);
-            gc.setForeground(ColorConstants.buttonLightest);
             gc.drawLine(0, 0, 0, size.y);
+            gc.setForeground(ColorConstants.button);
+            gc.drawLine(1, 0, 1, size.y);
+            gc.setForeground(ColorConstants.buttonLightest);
+            gc.drawLine(2, 0, 2, size.y);
         } else {
             gc.setForeground(ColorConstants.buttonDarker);
             gc.drawLine(0, 0, size.x, 0);
