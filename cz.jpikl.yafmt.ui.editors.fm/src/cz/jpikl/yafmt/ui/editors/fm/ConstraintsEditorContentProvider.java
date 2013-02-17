@@ -13,8 +13,10 @@ import cz.jpikl.yafmt.model.fm.Constraint;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
 
-public class ConstraintsEditorProvider implements IStructuredContentProvider {
+public class ConstraintsEditorContentProvider implements IStructuredContentProvider {
 
+    public static final Object ADD_CONSTRAINT_OBJECT = new Object();
+    
     private TableViewer viewer;
     private FeatureModel featureModel;
     private Adapter featureModelAdapter = new Adapter();
@@ -43,7 +45,7 @@ public class ConstraintsEditorProvider implements IStructuredContentProvider {
         
         List<Constraint> constraints = featureModel.getConstraints();
         Object[] elements = constraints.toArray(new Object[constraints.size() + 1]);
-        elements[elements.length - 1] = new Object(); // Empty object for the last entry used as a add button.
+        elements[elements.length - 1] = ADD_CONSTRAINT_OBJECT; // Used as add button.
         return elements;
     }
     

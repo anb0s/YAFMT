@@ -8,6 +8,7 @@ public class SetConstraintValueCommand extends RecordingCommand {
     private String newValue;
         
     public SetConstraintValueCommand(Constraint constraint, String newValue) {
+        setLabel("Change constraint value");
         this.constraint = constraint;
         this.newValue = newValue;
     }

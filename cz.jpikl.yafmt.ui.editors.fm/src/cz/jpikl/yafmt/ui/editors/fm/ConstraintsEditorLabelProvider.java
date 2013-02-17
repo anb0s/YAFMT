@@ -14,16 +14,17 @@ public class ConstraintsEditorLabelProvider extends ColumnLabelProvider {
     
     @Override
     public Image getImage(Object element) {
-        if(element instanceof Constraint)
-            return constraintImage;
-        return addImage;
+        if(element == ConstraintsEditorContentProvider.ADD_CONSTRAINT_OBJECT)
+            return addImage;
+        return constraintImage;
     }
 
     @Override
     public String getText(Object element) {
-        if(element instanceof Constraint)
-            return ((Constraint) element).getValue();
-        return "Add new constraint";
+        if(element == ConstraintsEditorContentProvider.ADD_CONSTRAINT_OBJECT)
+            return "Add new constraint";
+        return ((Constraint) element).getValue();
+        
     }
     
 }
