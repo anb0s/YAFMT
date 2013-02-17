@@ -91,7 +91,7 @@ public class ConstraintsEditor extends DockWidget {
         // Execute command to add new constraint.
         Constraint constraint = FeatureModelFactory.eINSTANCE.createConstraint();
         constraint.setLanguage(langaugeId);
-        constraint.setValue("<new constraint>");
+        constraint.setValue("");
         Command command = new AddConstraintCommand(featureModel, constraint);
         editDomain.getCommandStack().execute(command);
         

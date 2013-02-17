@@ -64,10 +64,13 @@ public class ConstraintsEditorContentProvider implements IStructuredContentProvi
         
         @Override
         public void notifyChanged(Notification notification) {
-            if(notification.getFeatureID(FeatureModel.class) == FeatureModelPackage.FEATURE_MODEL__CONSTRAINTS) {
+            super.notifyChanged(notification);
+            
+            Object notifier = notification.getNotifier();
+            if((notifier instanceof FeatureModel) && (notification.getFeatureID(FeatureModel.class) == FeatureModelPackage.FEATURE_MODEL__CONSTRAINTS)) {
                 viewer.refresh();
             }
-            else if(notification.getFeatureID(Constraint.class) == FeatureModelPackage.CONSTRAINT__VALUE) {
+            else if((notifier instanceof Constraint) && (notification.getFeatureID(Constraint.class) == FeatureModelPackage.CONSTRAINT__VALUE)) {
                 viewer.update(notification.getNotifier(), null);
             }
         }

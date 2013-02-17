@@ -40,6 +40,7 @@ public class FeatureCache {
         @Override
         protected void addAdapter(Notifier notifier) {
             super.addAdapter(notifier);
+            
             if(notifier instanceof Feature)
                 idToFeature.put(((Feature) notifier).getId(), (Feature) notifier);
         }
@@ -47,6 +48,7 @@ public class FeatureCache {
         @Override
         protected void removeAdapter(Notifier notifier) {
             super.removeAdapter(notifier);
+            
             if(notifier instanceof Feature)
                 idToFeature.remove(((Feature) notifier).getId());
         }
@@ -54,6 +56,10 @@ public class FeatureCache {
         @Override
         public void notifyChanged(Notification notification) {
             super.notifyChanged(notification);
+            
+            if(!(notification.getNotifier() instanceof Feature))
+                return;
+            
             if(notification.getFeatureID(Feature.class) == FeatureModelPackage.FEATURE__ID) {
                 Feature feature = idToFeature.remove(notification.getOldStringValue());
                 idToFeature.put(notification.getNewStringValue(), feature);
