@@ -117,8 +117,18 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
     @Override
     public void createPartControl(Composite parent) {
         Splitter splitter = new Splitter(parent, SWT.HORIZONTAL);
-        super.createPartControl(splitter);
+        createFeatureTreeEditor(splitter);
+        createConstraintsEditor(splitter);
+    }
+    
+    private void createFeatureTreeEditor(Composite parent) {
+        super.createPartControl(parent); // Calls configureGraphicalViewer and others bellow.
+    }
+    
+    private void createConstraintsEditor(Splitter splitter) {
         constraintsEditor = new ConstraintsEditor(splitter);
+        constraintsEditor.setEditDomain(getEditDomain());
+        constraintsEditor.setContents(featureModel);
     }
         
     @Override
