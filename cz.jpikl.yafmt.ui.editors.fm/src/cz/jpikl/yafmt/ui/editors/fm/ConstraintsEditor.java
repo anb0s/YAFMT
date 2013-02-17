@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import org.eclipse.gef.EditDomain;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.TableViewerEditor;
@@ -47,6 +48,14 @@ public class ConstraintsEditor extends DockWidget {
         column.getColumn().setWidth(100);
         column.setEditingSupport(editingSupport);
         column.setLabelProvider(new ConstraintsEditorLabelProvider());
+    }
+    
+    public void addSelectionChangedListener(ISelectionChangedListener listener) {
+        viewer.addSelectionChangedListener(listener);
+    }
+    
+    public void removeSelectionChangedListener(ISelectionChangedListener listener) {
+        viewer.removeSelectionChangedListener(listener);
     }
     
     public void setEditDomain(EditDomain editDomain) {

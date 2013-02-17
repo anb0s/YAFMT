@@ -45,8 +45,8 @@ public class SelectionConverter {
         Object[] unwrappedValues = new Object[values.length];
         
         for(int i = 0; i < values.length; i++) {
-            if(values[i] instanceof EditPart){
-                unwrappedValues[i] = ((EditPart) values[i]).getModel();}
+            if(values[i] instanceof EditPart)
+                unwrappedValues[i] = ((EditPart) values[i]).getModel();
             else
                 unwrappedValues[i] = values[i];
         }

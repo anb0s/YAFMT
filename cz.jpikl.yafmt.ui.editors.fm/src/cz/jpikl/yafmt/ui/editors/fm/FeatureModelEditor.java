@@ -37,7 +37,9 @@ import org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
@@ -76,7 +78,8 @@ import cz.jpikl.yafmt.ui.editors.fm.util.Splitter;
 import cz.jpikl.yafmt.ui.editors.fm.util.UnwrappingSelectionProvider;
 
 public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette implements IResourceChangeListener, 
-                                                                                    ISelectionListener {
+                                                                                    ISelectionListener, 
+                                                                                    ISelectionChangedListener {
 
     private static final String LAYOUT_DATA_EXTENSION = ".layout";
     
@@ -129,6 +132,7 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
         constraintsEditor = new ConstraintsEditor(splitter);
         constraintsEditor.setEditDomain(getEditDomain());
         constraintsEditor.setContents(featureModel);
+        constraintsEditor.addSelectionChangedListener(this);
     }
         
     @Override
@@ -240,6 +244,13 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
         super.commandStackChanged(event);
         firePropertyChange(PROP_DIRTY);
         updateSelectionActions();
+    }
+    
+    @Override
+    public void selectionChanged(SelectionChangedEvent event) {
+        // This events comes only from the constraints editor.
+        // Forward it the to the rest of the world;
+        getSite().getSelectionProvider().setSelection(event.getSelection());
     }
     
     @Override

@@ -33,8 +33,8 @@ public class UnwrappingSelectionProvider implements ISelectionProvider, ISelecti
     
     @Override
     public void setSelection(ISelection selection) {
-        // Ignore that.
-        System.out.println("UnwrappingSelectionProvider:setSelection() ... THIS SHOULD NEVER HAPPEN!");
+        // This currently uses only Constraints Editor (called explicitly inside Feature Model Editor).
+        fireSelectionChangedEvent(new SelectionChangedEvent(this, selection));
     }
     
     @Override
