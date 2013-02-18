@@ -19,23 +19,23 @@ public class ConstraintsEditorContentProvider implements IStructuredContentProvi
     
     private TableViewer viewer;
     private FeatureModel featureModel;
-    private Adapter featureModelAdapter = new Adapter();
+    private ConstraintsAdapter constraintsAdapter = new ConstraintsAdapter();
     
     @Override
     public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
         this.viewer = (TableViewer) viewer;
         if(featureModel != null)
-            featureModel.getConstraints().remove(featureModelAdapter);
+            featureModel.getConstraints().remove(constraintsAdapter);
         if(newInput instanceof FeatureModel) {
             featureModel = (FeatureModel) newInput;
-            featureModel.eAdapters().add(featureModelAdapter);
+            featureModel.eAdapters().add(constraintsAdapter);
         }
     }
     
     @Override
     public void dispose() {
         if(featureModel != null)
-            featureModel.eAdapters().remove(featureModelAdapter);
+            featureModel.eAdapters().remove(constraintsAdapter);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class ConstraintsEditorContentProvider implements IStructuredContentProvi
         return elements;
     }
     
-    private class Adapter extends EContentAdapter {
+    private class ConstraintsAdapter extends EContentAdapter {
         
         @Override
         protected void addAdapter(Notifier notifier) {

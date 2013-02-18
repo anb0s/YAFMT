@@ -89,6 +89,7 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
     private PropertySheetPage propertySheetPage;
     private SelectionConverter selectionConverter;
     private ConstraintsEditor constraintsEditor;
+    private ISelection selectionFromConstraintsEditor;
 	
     // ==================================================================================
     //  Basic initialization and dispose operations
@@ -250,7 +251,8 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
     public void selectionChanged(SelectionChangedEvent event) {
         // This events comes only from the constraints editor.
         // Forward it the to the rest of the world;
-        getSite().getSelectionProvider().setSelection(event.getSelection());
+        selectionFromConstraintsEditor = event.getSelection();
+        getSite().getSelectionProvider().setSelection(selectionFromConstraintsEditor);
     }
     
     @Override
@@ -270,7 +272,8 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
             handleSelectionFromOthers(selection);
         
         // Update constraints editor.
-        constraintsEditor.setSelection(selection);
+        if(selection != selectionFromConstraintsEditor)
+            constraintsEditor.setSelection(selection);
     }
     
     private void handleSelectionFromItself(ISelection selection) {

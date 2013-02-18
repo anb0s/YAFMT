@@ -1,9 +1,13 @@
 package cz.jpikl.yafmt.ui.editors.fm;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.gef.EditDomain;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.viewers.ISelection;
@@ -12,6 +16,8 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.TableViewerEditor;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
@@ -21,6 +27,7 @@ import org.eclipse.swt.widgets.Control;
 import cz.jpikl.yafmt.clang.ConstraintLanguageDescriptor;
 import cz.jpikl.yafmt.clang.ConstraintLanguagePlugin;
 import cz.jpikl.yafmt.clang.ConstraintLanguageRegistry;
+import cz.jpikl.yafmt.clang.util.ConstraintCache;
 import cz.jpikl.yafmt.model.fm.Constraint;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
@@ -32,6 +39,11 @@ import cz.jpikl.yafmt.ui.editors.fm.util.Splitter;
 public class ConstraintsEditor extends DockWidget {
         
     private FeatureModel featureModel;
+    private FeatureModelAdapter featureModelAdapter;
+    private ConstraintCache constraintCache;
+    private IStructuredSelection outerSelection;
+    private Set<Constraint> visibleConstraints;
+    
     private TableViewer viewer;
     private EditDomain editDomain;
     private ConstraintsEditorEditingSupport editingSupport;
@@ -44,6 +56,16 @@ public class ConstraintsEditor extends DockWidget {
         setImage(FeatureModelEditorPlugin.getDefault().getImageRegistry().get("constraint"));
         setOpenToolTipText("Show Constraints");
         setCollapseToolTipText("Hide Constraints");
+        
+        constraintCache = new ConstraintCache();
+        visibleConstraints = new HashSet<Constraint>();
+    }
+    
+    @Override
+    public void dispose() {
+        if(featureModel != null)
+            featureModel.eAdapters().remove(featureModelAdapter);
+        super.dispose();
     }
     
     @Override
@@ -52,6 +74,7 @@ public class ConstraintsEditor extends DockWidget {
         createTableViewerColumn(viewer);        
         TableViewerEditor.create(viewer, new ConstraintsEditorActiovationStrategy(viewer), SWT.NONE);
         viewer.setContentProvider(new ConstraintsEditorContentProvider());
+        viewer.addFilter(new ConstraintsFilter());
         
         viewer.getTable().addMouseListener(new MouseAdapter() {
             @Override
@@ -92,6 +115,8 @@ public class ConstraintsEditor extends DockWidget {
         Constraint constraint = FeatureModelFactory.eINSTANCE.createConstraint();
         constraint.setLanguage(langaugeId);
         constraint.setValue("");
+        visibleConstraints.add(constraint); // Make the new constraint visible.
+        
         Command command = new AddConstraintCommand(featureModel, constraint);
         editDomain.getCommandStack().execute(command);
         
@@ -119,14 +144,72 @@ public class ConstraintsEditor extends DockWidget {
     
     public void setContents(FeatureModel featureModel) {
         this.featureModel = featureModel;
+        constraintCache.setFeatureModel(featureModel);
         viewer.setInput(featureModel);
+        
+        if(featureModel != null) {
+            featureModelAdapter = new FeatureModelAdapter();
+            featureModel.eAdapters().add(featureModelAdapter);
+        }
     }
     
-    public void filterContents(Collection<Feature> selectedFeatures) {
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        refresh();
+    }
+    
+    public void refresh() {
+        if(!isVisible())
+            return;
         
+        visibleConstraints.clear();
+        for(Object object: ((IStructuredSelection) outerSelection).toArray()) {
+            if(object instanceof Constraint) {
+                visibleConstraints.add((Constraint) object);
+            }
+            else if(object instanceof Feature) {
+                Collection<Constraint> constraints = constraintCache.getConstraintsAffectingFeature((Feature) object);
+                if(constraints != null)
+                    visibleConstraints.addAll(constraints);
+            }
+            else if(object instanceof FeatureModel) {
+                visibleConstraints.addAll(featureModel.getConstraints());
+            }
+        }
+        
+        viewer.refresh();
     }
     
     public void setSelection(ISelection selection) {
+        if(isFocusControl())
+            return;
+        
+        if(!(selection instanceof IStructuredSelection))
+            return;
+        
+        outerSelection = (IStructuredSelection) selection; 
+        refresh();
+    }
+    
+    private class ConstraintsFilter extends ViewerFilter {
+
+        @Override
+        public boolean select(Viewer viewer, Object parentElement, Object element) {
+            if(element == ConstraintsEditorContentProvider.ADD_CONSTRAINT_OBJECT)
+                return true;
+            return visibleConstraints.contains(element);
+        }
+        
+    }
+    
+    private class FeatureModelAdapter extends EContentAdapter {
+        
+        @Override
+        public void notifyChanged(Notification notification) {
+            super.notifyChanged(notification);
+            constraintCache.invalidate();
+        }
         
     }
 
