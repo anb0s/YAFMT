@@ -35,7 +35,8 @@ public abstract class DockWidget extends Composite {
     private Splitter splitter;
     private Control mainControl;
     
-    private ToolItem button;
+    private ToolBar customToolbar;
+    private ToolItem collapseButton;
     private Composite title;
     private Label titleImage;
     private Label titleText;
@@ -53,29 +54,37 @@ public abstract class DockWidget extends Composite {
         this.opened = true;
         this.size = DEFAULT_SIZE;
         
+        splitter.maintainSize(this);
+    }
+    
+    public void createControl() {
         setLayout(createGridLayout());
         createTopControl(this);
+        
         mainControl = createMainControl(this);
         mainControl.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         
-        splitter.maintainSize(this);
+        initializeControl();
         updateState();
     }
     
     private void createTopControl(Composite parent) {
         Composite panel = new Composite(parent, SWT.NONE);
         panel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-        panel.setLayout(createGridLayout(2));
+        panel.setLayout(createGridLayout(3));
         panel.setBackgroundImage(FeatureModelEditorPlugin.getDefault().getImageRegistry().get("dock-bg"));
         panel.setSize(1, DEFAULT_HEIGHT);
         
         createTitle(panel);
         
-        ToolBar buttonBar = new ToolBar(panel, SWT.FLAT);
-        buttonBar.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, true));
+        customToolbar = new  ToolBar(panel, SWT.FLAT);
+        customToolbar.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, true));
+        contributeToToolbar(customToolbar);
         
-        button = new ToolItem(buttonBar, SWT.NONE);
-        button.addSelectionListener(new SelectionAdapter() {
+        ToolBar toolBar = new ToolBar(panel, SWT.FLAT);
+        toolBar.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, true));
+        collapseButton = new ToolItem(toolBar, SWT.NONE);
+        collapseButton.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
                 switchState();
@@ -84,6 +93,12 @@ public abstract class DockWidget extends Composite {
     }
     
     protected abstract Control createMainControl(Composite parent);
+    
+    protected void initializeControl() {        
+    }
+    
+    protected void contributeToToolbar(ToolBar toolBar) {
+    }
     
     private void createTitle(Composite parent) {
         title = new Composite(parent, SWT.NONE);
@@ -104,19 +119,20 @@ public abstract class DockWidget extends Composite {
     
     private void updateState() {
         if(opened) {
-            button.setImage(FeatureModelEditorPlugin.getDefault().getImageRegistry().get("right"));
-            button.setToolTipText(collapseToolTipText);
+            collapseButton.setImage(FeatureModelEditorPlugin.getDefault().getImageRegistry().get("right"));
+            collapseButton.setToolTipText(collapseToolTipText);
             splitter.setFixedSize(size);
             
         }
         else {
             size = splitter.getFixedSize();
-            button.setImage(FeatureModelEditorPlugin.getDefault().getImageRegistry().get("left"));
-            button.setToolTipText(openToolTipText);
+            collapseButton.setImage(FeatureModelEditorPlugin.getDefault().getImageRegistry().get("left"));
+            collapseButton.setToolTipText(openToolTipText);
             splitter.setFixedSize(COLLAPSED_SIZE);
         }
         
         ((GridData) title.getLayoutData()).exclude = !opened;
+        ((GridData) customToolbar.getLayoutData()).exclude = !opened;
         ((GridData) mainControl.getLayoutData()).exclude = !opened;
         title.setVisible(opened);
         mainControl.setVisible(opened);

@@ -21,8 +21,13 @@ import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.ToolBar;
+import org.eclipse.swt.widgets.ToolItem;
 
 import cz.jpikl.yafmt.clang.ConstraintLanguageDescriptor;
 import cz.jpikl.yafmt.clang.ConstraintLanguagePlugin;
@@ -40,9 +45,15 @@ public class ConstraintsEditor extends DockWidget {
         
     private FeatureModel featureModel;
     private FeatureModelAdapter featureModelAdapter;
+    
     private ConstraintCache constraintCache;
     private IStructuredSelection outerSelection;
     private Set<Constraint> visibleConstraints;
+    
+    private ToolItem filterButton;
+    private boolean filterEnabled;
+    private Image filerEnabledImage;
+    private Image filerDisabledImage;
     
     private TableViewer viewer;
     private EditDomain editDomain;
@@ -50,15 +61,13 @@ public class ConstraintsEditor extends DockWidget {
     
     public ConstraintsEditor(Splitter splitter) {
         super(splitter, SWT.NONE);
-        
-        // This is called after createMainControl which is called in superclass constructor.
-        setName("Constraints");
-        setImage(FeatureModelEditorPlugin.getDefault().getImageRegistry().get("constraint"));
-        setOpenToolTipText("Show Constraints");
-        setCollapseToolTipText("Hide Constraints");
-        
+                
         constraintCache = new ConstraintCache();
         visibleConstraints = new HashSet<Constraint>();
+        
+        filterEnabled = true;
+        filerEnabledImage = FeatureModelEditorPlugin.getDefault().getImageRegistry().get("filter-enabled");
+        filerDisabledImage = FeatureModelEditorPlugin.getDefault().getImageRegistry().get("filter-disabled");
     }
     
     @Override
@@ -69,13 +78,22 @@ public class ConstraintsEditor extends DockWidget {
     }
     
     @Override
+    protected void initializeControl() {
+        setName("Constraints");
+        setImage(FeatureModelEditorPlugin.getDefault().getImageRegistry().get("constraint"));
+        setOpenToolTipText("Show Constraints");
+        setCollapseToolTipText("Hide Constraints");
+    }
+    
+    @Override
     protected Control createMainControl(Composite parent) {        
         viewer = new TableViewer(parent);
+        
         createTableViewerColumn(viewer);        
         TableViewerEditor.create(viewer, new ConstraintsEditorActiovationStrategy(viewer), SWT.NONE);
+        
         viewer.setContentProvider(new ConstraintsEditorContentProvider());
         viewer.addFilter(new ConstraintsFilter());
-        
         viewer.getTable().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseDoubleClick(MouseEvent event) {
@@ -95,6 +113,31 @@ public class ConstraintsEditor extends DockWidget {
         column.getColumn().setWidth(100);
         column.setEditingSupport(editingSupport);
         column.setLabelProvider(new ConstraintsEditorLabelProvider());
+    }
+    
+    @Override
+    protected void contributeToToolbar(ToolBar toolBar) {
+        filterButton = new ToolItem(toolBar, SWT.NONE);
+        filterButton.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent event) {
+                filterEnabled = !filterEnabled;
+                updateFilterButton();
+                refresh();
+            }
+        });
+        updateFilterButton();
+    }
+    
+    private void updateFilterButton() {
+        if(filterEnabled) {
+            filterButton.setImage(filerEnabledImage);
+            filterButton.setToolTipText("Disable filter");
+        }
+        else {
+            filterButton.setImage(filerDisabledImage);
+            filterButton.setToolTipText("Enable filter");
+        }
     }
         
     private void addNewConstraint() {
@@ -163,28 +206,28 @@ public class ConstraintsEditor extends DockWidget {
         if(!isVisible())
             return;
         
-        visibleConstraints.clear();
-        for(Object object: ((IStructuredSelection) outerSelection).toArray()) {
-            if(object instanceof Constraint) {
-                visibleConstraints.add((Constraint) object);
-            }
-            else if(object instanceof Feature) {
-                Collection<Constraint> constraints = constraintCache.getConstraintsAffectingFeature((Feature) object);
-                if(constraints != null)
-                    visibleConstraints.addAll(constraints);
-            }
-            else if(object instanceof FeatureModel) {
-                visibleConstraints.addAll(featureModel.getConstraints());
+        if(filterEnabled) {
+            visibleConstraints.clear();
+            
+            for(Object object: ((IStructuredSelection) outerSelection).toArray()) {
+                if(object instanceof Constraint) {
+                    visibleConstraints.add((Constraint) object);
+                }
+                else if(object instanceof Feature) {
+                    Collection<Constraint> constraints = constraintCache.getConstraintsAffectingFeature((Feature) object);
+                    if(constraints != null)
+                        visibleConstraints.addAll(constraints);
+                }
+                else if(object instanceof FeatureModel) {
+                    visibleConstraints.addAll(featureModel.getConstraints());
+                }
             }
         }
         
         viewer.refresh();
     }
     
-    public void setSelection(ISelection selection) {
-        if(isFocusControl())
-            return;
-        
+    public void setSelection(ISelection selection) {        
         if(!(selection instanceof IStructuredSelection))
             return;
         
@@ -196,6 +239,8 @@ public class ConstraintsEditor extends DockWidget {
 
         @Override
         public boolean select(Viewer viewer, Object parentElement, Object element) {
+            if(!filterEnabled)
+                return true;
             if(element == ConstraintsEditorContentProvider.ADD_CONSTRAINT_OBJECT)
                 return true;
             return visibleConstraints.contains(element);

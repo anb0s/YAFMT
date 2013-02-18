@@ -131,6 +131,7 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
     
     private void createConstraintsEditor(Splitter splitter) {
         constraintsEditor = new ConstraintsEditor(splitter);
+        constraintsEditor.createControl();
         constraintsEditor.setEditDomain(getEditDomain());
         constraintsEditor.setContents(featureModel);
         constraintsEditor.addSelectionChangedListener(this);

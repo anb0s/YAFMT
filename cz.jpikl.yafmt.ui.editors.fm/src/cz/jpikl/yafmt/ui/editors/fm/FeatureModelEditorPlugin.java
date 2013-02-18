@@ -63,6 +63,8 @@ public class FeatureModelEditorPlugin extends AbstractUIPlugin {
         registry.put("left", getImageDescriptor("icons/left.png").createImage());
         registry.put("right", getImageDescriptor("icons/right.png").createImage());
         registry.put("dock-bg", getImageDescriptor("icons/dock-bg.png").createImage());
+        registry.put("filter-enabled", getImageDescriptor("icons/filter-enabled.png").createImage());
+        registry.put("filter-disabled", getImageDescriptor("icons/filter-disabled.png").createImage());
     }
 	
 }
