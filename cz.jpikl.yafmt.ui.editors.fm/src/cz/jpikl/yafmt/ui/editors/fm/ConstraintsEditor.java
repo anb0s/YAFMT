@@ -10,6 +10,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.gef.EditDomain;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -23,7 +24,6 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.ToolBar;
@@ -49,12 +49,10 @@ public class ConstraintsEditor extends DockWidget {
     private ConstraintCache constraintCache;
     private IStructuredSelection outerSelection;
     private Set<Constraint> visibleConstraints;
-    
     private ToolItem filterButton;
     private boolean filterEnabled;
-    private Image filerEnabledImage;
-    private Image filerDisabledImage;
     
+    private ImageRegistry imageRegistry;
     private TableViewer viewer;
     private EditDomain editDomain;
     private ConstraintsEditorEditingSupport editingSupport;
@@ -64,10 +62,8 @@ public class ConstraintsEditor extends DockWidget {
                 
         constraintCache = new ConstraintCache();
         visibleConstraints = new HashSet<Constraint>();
-        
         filterEnabled = true;
-        filerEnabledImage = FeatureModelEditorPlugin.getDefault().getImageRegistry().get("filter-enabled");
-        filerDisabledImage = FeatureModelEditorPlugin.getDefault().getImageRegistry().get("filter-disabled");
+        imageRegistry = FeatureModelEditorPlugin.getDefault().getImageRegistry();
     }
     
     @Override
@@ -80,7 +76,7 @@ public class ConstraintsEditor extends DockWidget {
     @Override
     protected void initializeControl() {
         setName("Constraints");
-        setImage(FeatureModelEditorPlugin.getDefault().getImageRegistry().get("constraint"));
+        setImage(imageRegistry.get("constraint"));
         setOpenToolTipText("Show Constraints");
         setCollapseToolTipText("Hide Constraints");
     }
@@ -131,12 +127,12 @@ public class ConstraintsEditor extends DockWidget {
     
     private void updateFilterButton() {
         if(filterEnabled) {
-            filterButton.setImage(filerEnabledImage);
-            filterButton.setToolTipText("Disable filter");
+            filterButton.setImage(imageRegistry.get("filter-enabled"));
+            filterButton.setToolTipText("Disable Filter");
         }
         else {
-            filterButton.setImage(filerDisabledImage);
-            filterButton.setToolTipText("Enable filter");
+            filterButton.setImage(imageRegistry.get("filter-disabled"));
+            filterButton.setToolTipText("Enable Filter");
         }
     }
         

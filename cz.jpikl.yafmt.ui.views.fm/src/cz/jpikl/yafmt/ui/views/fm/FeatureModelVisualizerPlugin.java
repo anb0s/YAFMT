@@ -60,12 +60,20 @@ public class FeatureModelVisualizerPlugin extends AbstractUIPlugin {
 		return imageDescriptorFromPlugin(PLUGIN_ID, path);
 	}
 	
+	private void registerImage(ImageRegistry registry, String key) {
+	    registry.put(key, getImageDescriptor("icons/" + key + ".png").createImage());
+	}
+	
 	@Override
 	protected void initializeImageRegistry(ImageRegistry registry) {
-	    registry.put("group", getImageDescriptor("icons/group.png").createImage());
-	    registry.put("constraint", getImageDescriptor("icons/constraint.png").createImage());
-	    registry.put("animation", getImageDescriptor("icons/animation.png").createImage());
-	    registry.put("lock", getImageDescriptor("icons/lock.png").createImage());
+	    registerImage(registry, "constraints-enabled");
+	    registerImage(registry, "constraints-disabled");
+	    registerImage(registry, "groups-enabled");
+	    registerImage(registry, "groups-disabled");
+	    registerImage(registry, "animation-enabled");
+	    registerImage(registry, "animation-disabled");
+	    registerImage(registry, "locked");
+	    registerImage(registry, "unlocked");
 	}
 	
 }

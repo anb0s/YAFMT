@@ -57,14 +57,18 @@ public class FeatureModelEditorPlugin extends AbstractUIPlugin {
 		return imageDescriptorFromPlugin(PLUGIN_ID, path);
 	}
 	
+	private void registerImage(ImageRegistry registry, String key) {
+        registry.put(key, getImageDescriptor("icons/" + key + ".png").createImage());
+    }
+	
 	@Override
     protected void initializeImageRegistry(ImageRegistry registry) {
-        registry.put("constraint", getImageDescriptor("icons/constraint.png").createImage());
-        registry.put("left", getImageDescriptor("icons/left.png").createImage());
-        registry.put("right", getImageDescriptor("icons/right.png").createImage());
-        registry.put("dock-bg", getImageDescriptor("icons/dock-bg.png").createImage());
-        registry.put("filter-enabled", getImageDescriptor("icons/filter-enabled.png").createImage());
-        registry.put("filter-disabled", getImageDescriptor("icons/filter-disabled.png").createImage());
+	    registerImage(registry, "constraint");
+	    registerImage(registry, "left");
+	    registerImage(registry, "right");
+	    registerImage(registry, "dock-bg");
+	    registerImage(registry, "filter-enabled");
+	    registerImage(registry, "filter-disabled");
     }
 	
 }

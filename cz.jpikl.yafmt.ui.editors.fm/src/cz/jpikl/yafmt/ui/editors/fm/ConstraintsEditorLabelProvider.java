@@ -24,7 +24,6 @@ public class ConstraintsEditorLabelProvider extends ColumnLabelProvider {
         if(element == ConstraintsEditorContentProvider.ADD_CONSTRAINT_OBJECT)
             return "Add new constraint";
         return ((Constraint) element).getValue();
-        
     }
-    
+        
 }
