@@ -19,4 +19,5 @@ Export-Package: cz.jpikl.yafmt.clang;
   uses:="org.eclipse.core.runtime,
    org.eclipse.jface.viewers,
    org.eclipse.swt.widgets,
-   cz.jpikl.yafmt.model.fm"
+   cz.jpikl.yafmt.model.fm",
+ cz.jpikl.yafmt.clang.util

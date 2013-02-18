@@ -16,10 +16,10 @@ Require-Bundle: org.antlr.runtime,
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: cz.jpikl.yafmt.clang.scl;uses:="org.eclipse.xtext,org.eclipse.xtext.service,com.google.inject",
- cz.jpikl.yafmt.clang.scl.parser.antlr.internal;x-internal:=true,
- cz.jpikl.yafmt.clang.scl.services;uses:="org.eclipse.xtext,org.eclipse.xtext.common.services,org.eclipse.xtext.service",
  cz.jpikl.yafmt.clang.scl.model,
  cz.jpikl.yafmt.clang.scl.model.impl,
  cz.jpikl.yafmt.clang.scl.model.util,
  cz.jpikl.yafmt.clang.scl.parser.antlr,
- cz.jpikl.yafmt.clang.scl.serializer
+ cz.jpikl.yafmt.clang.scl.parser.antlr.internal;x-internal:=true,
+ cz.jpikl.yafmt.clang.scl.serializer,
+ cz.jpikl.yafmt.clang.scl.services;uses:="org.eclipse.xtext,org.eclipse.xtext.common.services,org.eclipse.xtext.service"

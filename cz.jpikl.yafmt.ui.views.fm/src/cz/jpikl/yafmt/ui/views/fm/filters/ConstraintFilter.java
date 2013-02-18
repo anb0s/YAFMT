@@ -1,6 +1,6 @@
 package cz.jpikl.yafmt.ui.views.fm.filters;
 
-import java.util.Collections;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,11 +9,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 
-import cz.jpikl.yafmt.clang.ConstraintLanguageException;
-import cz.jpikl.yafmt.clang.ConstraintLanguagePlugin;
-import cz.jpikl.yafmt.clang.ConstraintLanguageRegistry;
-import cz.jpikl.yafmt.clang.IConstraintLanguage;
-import cz.jpikl.yafmt.clang.IEvaluator;
+import cz.jpikl.yafmt.clang.util.ConstraintCache;
 import cz.jpikl.yafmt.model.fm.Constraint;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
@@ -21,9 +17,11 @@ import cz.jpikl.yafmt.model.fm.FeatureModel;
 public class ConstraintFilter extends ViewerFilter {
     
     private Set<Constraint> visibleConstraints = new HashSet<Constraint>();
+    private ConstraintCache constraintCache;
     private boolean enabled = true;
     
-    public ConstraintFilter(boolean enabled) {
+    public ConstraintFilter(ConstraintCache constraintCache, boolean enabled) {
+        this.constraintCache = constraintCache;
         setEnabled(enabled);
     }
         
@@ -41,33 +39,14 @@ public class ConstraintFilter extends ViewerFilter {
         if(!(selection instanceof IStructuredSelection))
             return;
 
-        Set<Feature> selectedFeatures = new HashSet<Feature>();
         for(Object element: ((IStructuredSelection) selection).toArray()) {
-            if(element instanceof Constraint)
+            if(element instanceof Constraint) {
                 visibleConstraints.add((Constraint) element);
-            else if(element instanceof Feature)
-                selectedFeatures.add((Feature) element);
-        }
-        
-        ConstraintLanguageRegistry registry = ConstraintLanguagePlugin.getDefault().getConstraintLanguageRegistry();
-        for(Constraint constraint: featureModel.getConstraints()) {
-            // No need to check already selected constraint.
-            if(visibleConstraints.contains(constraint))
-                continue;
-            
-            // Get constraint language.
-            IConstraintLanguage langauge = registry.getLanguage(constraint.getLanguage());
-            if(langauge == null)
-                continue;
-            
-            try {
-                // Check if constraint affects one of selected features.
-                IEvaluator evaluator = langauge.createEvaluator(constraint.getValue());
-                if(!Collections.disjoint(selectedFeatures, evaluator.getAffectedFeatures(featureModel)))
-                    visibleConstraints.add(constraint);
             }
-            catch(ConstraintLanguageException ex) {
-                // Do nothing, just ignore the problematic constraint.
+            else if(element instanceof Feature) {
+                Collection<Constraint> constraints = constraintCache.getConstraintsAffectingFeature((Feature) element);
+                if(constraints != null)
+                    visibleConstraints.addAll(constraints);
             }
         }
     }

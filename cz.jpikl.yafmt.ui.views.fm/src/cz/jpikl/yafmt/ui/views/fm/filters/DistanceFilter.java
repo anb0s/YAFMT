@@ -1,5 +1,6 @@
 package cz.jpikl.yafmt.ui.views.fm.filters;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,11 +10,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 
-import cz.jpikl.yafmt.clang.ConstraintLanguageException;
-import cz.jpikl.yafmt.clang.ConstraintLanguagePlugin;
-import cz.jpikl.yafmt.clang.ConstraintLanguageRegistry;
-import cz.jpikl.yafmt.clang.IConstraintLanguage;
-import cz.jpikl.yafmt.clang.IEvaluator;
+import cz.jpikl.yafmt.clang.util.ConstraintCache;
 import cz.jpikl.yafmt.model.fm.Constraint;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
@@ -24,9 +21,11 @@ public class DistanceFilter extends ViewerFilter {
     public static final int INFINITE_DISTACE = -1;
     
     private Set<Feature> visibleFeatures = new HashSet<Feature>();
+    private ConstraintCache constraintCache;
     private int distance = INFINITE_DISTACE;
     
-    public DistanceFilter(int distance) {
+    public DistanceFilter(ConstraintCache constraintCache, int distance) {
+        this.constraintCache = constraintCache;
         setDistance(distance);
     }
     
@@ -82,20 +81,12 @@ public class DistanceFilter extends ViewerFilter {
     }
     
     private void processConstraint(Constraint constraint) {
-        ConstraintLanguageRegistry registry = ConstraintLanguagePlugin.getDefault().getConstraintLanguageRegistry();
-        IConstraintLanguage language = registry.getLanguage(constraint.getLanguage());
-        if(language == null)
+        Collection<Feature> features = constraintCache.getFeaturesAffectedByConstraint(constraint);
+        if(features == null)
             return;
         
-        try {
-            // Process all features affected by the selected constraint.
-            IEvaluator evaluator = language.createEvaluator(constraint.getValue());
-            for(Feature feature: evaluator.getAffectedFeatures(constraint.getFeatureModel()))
-                processFeature(feature, 0, false);
-        }
-        catch(ConstraintLanguageException ex) {
-            // Just ignore problematic constraint.
-        }
+        for(Feature feature: features)
+            processFeature(feature, 0, false);
     }
     
     @Override

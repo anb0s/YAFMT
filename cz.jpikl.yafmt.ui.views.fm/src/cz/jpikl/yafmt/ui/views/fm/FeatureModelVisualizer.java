@@ -28,6 +28,7 @@ import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.zest.core.viewers.GraphViewer;
 import org.eclipse.zest.core.widgets.ZestStyles;
 
+import cz.jpikl.yafmt.clang.util.ConstraintCache;
 import cz.jpikl.yafmt.model.fm.Constraint;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
@@ -48,6 +49,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
 	private IWorkbenchPart sourcePart;
 	private FeatureModel featureModel;
 	private FeatureModelAdapter featureModelAdapter;
+	private ConstraintCache constraintCache;
 	
     private GraphViewer viewer;
     private DistanceFilter distanceFilter;
@@ -62,6 +64,10 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
     private boolean enableAnimation; // Is graph animation enabled?
     private boolean locked;          // Is graph layout locked?
     private int treeHeight = 1;      // Height of the current feature model tree.
+    
+    public FeatureModelVisualizer() {
+        constraintCache = new ConstraintCache();
+    }
     
     @Override
     public void init(IViewSite site) throws PartInitException {
@@ -126,9 +132,9 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
     }
         
     private void createGraphViewerControl(Composite parent) {
-        distanceFilter = new DistanceFilter(visibleDistance);
+        distanceFilter = new DistanceFilter(constraintCache, visibleDistance);
         groupFilter = new GroupFilter(showGroups);
-        constraintFilter = new ConstraintFilter(showConstraints);
+        constraintFilter = new ConstraintFilter(constraintCache, showConstraints);
         
         // Do not enable hash lookup. It causes invalidation of current selection during graph refresh.
         viewer = new GraphViewer(parent, ZestStyles.NONE);
@@ -289,8 +295,10 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         if(featureModel == newFeatureModel)
             return;
         
-        if(featureModel != null)
+        if(featureModel != null) {
             featureModel.eAdapters().remove(featureModelAdapter);
+            constraintCache.dispose();
+        }
         
         featureModel = newFeatureModel;
         if(!viewer.getControl().isDisposed()) {
@@ -303,6 +311,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
             if(featureModelAdapter == null)
                 featureModelAdapter = new FeatureModelAdapter();
             featureModel.eAdapters().add(featureModelAdapter);
+            constraintCache.setFeatureModel(newFeatureModel);
         }
     }
     
@@ -385,6 +394,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
                 case Notification.REMOVE:
                 case Notification.REMOVE_MANY:
                 case Notification.SET:
+                    constraintCache.invalidate();
                     recomputeTreeHeight();
                     resizeGraphView();
                     viewer.refresh();

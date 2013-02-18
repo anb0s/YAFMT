@@ -107,6 +107,11 @@ public class ConstraintsEditor extends DockWidget {
         viewer.removeSelectionChangedListener(listener);
     }
     
+    @Override
+    public boolean setFocus() {
+        return viewer.getControl().setFocus();
+    }
+    
     public void setEditDomain(EditDomain editDomain) {
         this.editDomain = editDomain;
         editingSupport.setEditDomain(editDomain);
