@@ -2,24 +2,15 @@ package cz.jpikl.yafmt.ui.views.fm;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.util.EContentAdapter;
-import org.eclipse.jface.dialogs.IDialogSettings;
-import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.ToolBar;
-import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IViewSite;
@@ -40,43 +31,31 @@ import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
 import cz.jpikl.yafmt.ui.views.fm.filters.ConstraintFilter;
 import cz.jpikl.yafmt.ui.views.fm.filters.DistanceFilter;
 import cz.jpikl.yafmt.ui.views.fm.filters.GroupFilter;
-import cz.jpikl.yafmt.ui.views.fm.util.SettingsUtil;
 
-public class FeatureModelVisualizer extends ViewPart implements ISelectionListener, IPartListener {
+public class FeatureModelVisualizer extends ViewPart implements ISelectionListener, 
+                                                                IPartListener, 
+                                                                ISettingsListener {
 
 	public static final String ID = "cz.jpikl.yafmt.ui.views.fm.FeatureModelVisualizer";
-	
 	private static final int CONNECTION_LENGHT = 200;
-	private static final int MAX_SIZE_MULTIPLIER = 5; 
 	
 	private IWorkbenchPart sourcePart;
 	private FeatureModel featureModel;
 	private FeatureModelAdapter featureModelAdapter;
 	private ConstraintCache constraintCache;
 	
+	private Settings settings;
     private GraphViewer viewer;
     private DistanceFilter distanceFilter;
     private GroupFilter groupFilter;
     private ConstraintFilter constraintFilter;
-    private ImageRegistry imageRegistry;
-    
-    private ToolItem groupsButton;
-    private ToolItem constraintsButton;
-    private ToolItem animationButton;
-    private ToolItem lockButton;
-    
-    private int visibleDistance;     // Visible distance from selected graph nodes.
-    private int sizeMultiplier;      // Size multiplier, used when size of graph canvas is adjusted manually.
-    private boolean sizeSpecified;   // Is size of graph canvas is manually adjusted?
-    private boolean showGroups;      // Are groups shown?
-    private boolean showConstraints; // Are constraints shown?
-    private boolean enableAnimation; // Is graph animation enabled?
-    private boolean locked;          // Is graph layout locked?
-    private int treeHeight = 1;      // Height of the current feature model tree.
+    private int treeHeight; // Height of the current feature model tree.
     
     public FeatureModelVisualizer() {
         constraintCache = new ConstraintCache();
-        imageRegistry = FeatureModelVisualizerPlugin.getDefault().getImageRegistry();
+        treeHeight = 1;
+        settings = new Settings();
+        settings.addSettingsListener(this);
     }
     
     @Override
@@ -84,12 +63,12 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         super.init(site);
         site.getPage().addPartListener(this);
         site.getPage().addSelectionListener(this);
-        initState(FeatureModelVisualizerPlugin.getDefault().getDialogSettings());
+        settings.init(FeatureModelVisualizerPlugin.getDefault().getDialogSettings());
     }
         
     @Override
     public void dispose() {
-        saveState(FeatureModelVisualizerPlugin.getDefault().getDialogSettings());
+        settings.save(FeatureModelVisualizerPlugin.getDefault().getDialogSettings());
         setFeatureModel(null);
         getSite().getPage().removeSelectionListener(this);
         getSite().getPage().removePartListener(this);
@@ -97,33 +76,14 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         super.dispose();
     }
     
-    private void initState(IDialogSettings settings) {
-        visibleDistance = SettingsUtil.getInteger(settings, "visibleDistance", DistanceFilter.INFINITE_DISTACE);
-        sizeMultiplier = SettingsUtil.getInteger(settings, "sizeMultiplier", 1);
-        sizeSpecified = SettingsUtil.getBoolean(settings, "sizeSpecified", true);
-        showGroups = SettingsUtil.getBoolean(settings, "showGroups", true);
-        showConstraints = SettingsUtil.getBoolean(settings, "showConstraints", true);
-        enableAnimation = SettingsUtil.getBoolean(settings, "enableAnimation", true);
-        locked = SettingsUtil.getBoolean(settings, "locked", false);
-    }
-    
-    public void saveState(IDialogSettings settings) {
-        settings.put("visibleDistance", visibleDistance);
-        settings.put("sizeMultiplier", sizeMultiplier);
-        settings.put("sizeSpecified", sizeSpecified);
-        settings.put("showGroups", showGroups);
-        settings.put("showConstraints", showConstraints);
-        settings.put("enableAnimation", enableAnimation);
-        settings.put("locked", locked);
-    }
-    	
     @Override
     public void createPartControl(Composite parent) {
         parent.setLayout(new GridLayout(1, false));
         createGraphViewerControl(parent);
-        createOptionsControl(parent);
+        settings.createControl(parent);
         
         setSourcePart(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor());
+        
         distanceFilter.update(null, featureModel);
         groupFilter.update(null);
         constraintFilter.update(null, featureModel);
@@ -133,7 +93,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         parent.addControlListener(new ControlAdapter() {
             @Override
             public void controlResized(ControlEvent event) {
-                if(!sizeSpecified) {
+                if(!settings.isFixedSize()) {
                     resizeGraphView();
                     viewer.applyLayout();
                 }
@@ -142,9 +102,9 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
     }
         
     private void createGraphViewerControl(Composite parent) {
-        distanceFilter = new DistanceFilter(constraintCache, visibleDistance);
-        groupFilter = new GroupFilter(showGroups);
-        constraintFilter = new ConstraintFilter(constraintCache, showConstraints);
+        distanceFilter = new DistanceFilter(constraintCache, settings.getVisibleDistance());
+        groupFilter = new GroupFilter(settings.areGroupsVisible());
+        constraintFilter = new ConstraintFilter(constraintCache, settings.areConstraintsVisible());
         
         // Do not enable hash lookup. It causes invalidation of current selection during graph refresh.
         viewer = new GraphViewer(parent, ZestStyles.NONE);
@@ -152,165 +112,50 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         viewer.setLabelProvider(new FeatureModelLabelProvider());
         viewer.setLayoutAlgorithm(new FeatureGraphLayoutAlgorithm());
         viewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-        viewer.setNodeStyle(enableAnimation ? ZestStyles.NONE : ZestStyles.NODES_NO_ANIMATION);
+        viewer.setNodeStyle(settings.isAnimationEnabled() ? ZestStyles.NONE : ZestStyles.NODES_NO_ANIMATION);
         viewer.setFilters(new ViewerFilter[] { distanceFilter, groupFilter, constraintFilter });
         getSite().setSelectionProvider(viewer);
     }
-        
-    private void createOptionsControl(Composite parent) {
-        Composite panel = new Composite(parent, SWT.NONE);
-        panel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-        panel.setLayout(new GridLayout(3, false));
-        
-        ToolBar toolBar = new ToolBar(panel, SWT.FLAT);
-        
-        groupsButton = new ToolItem(toolBar, SWT.NONE);
-        groupsButton.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent event) {
-                showGroups = !showGroups;
-                groupFilter.setEnabled(showGroups);
-                groupFilter.update(viewer.getSelection());
-                viewer.refresh();
-                viewer.applyLayout();
-                updateGroupsButton();
-            }
-        });
-        
-        constraintsButton = new ToolItem(toolBar, SWT.NONE);
-        constraintsButton.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent event) {
-                showConstraints = !showConstraints;
-                constraintFilter.setEnabled(showConstraints);
-                constraintFilter.update(viewer.getSelection(), featureModel);
-                viewer.refresh();
-                viewer.applyLayout();
-                updateConstraintsButton();
-            }
-        });
-        
-        animationButton = new ToolItem(toolBar, SWT.NONE);
-        animationButton.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent event) {
-                enableAnimation = !enableAnimation;
-                viewer.setInput(null); // Style can be only changed when input is not set.
-                viewer.setNodeStyle(enableAnimation ? ZestStyles.NONE : ZestStyles.NODES_NO_ANIMATION);
-                viewer.setInput(featureModel);
-                updateAnimationButton();
-            }
-        });
-        
-        lockButton = new ToolItem(toolBar, SWT.NONE);
-        lockButton.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent event) {
-                locked = !locked;
-                updateLockButton();
-            }
-        });
-        
-        updateGroupsButton();
-        updateConstraintsButton();
-        updateAnimationButton();
-        updateLockButton();
-        
-        Composite distancePanel = new Composite(panel, SWT.NONE);
-        distancePanel.setLayout(new GridLayout(2, false));
-        
-        Text distanceText = new Text(distancePanel, SWT.NONE);
-        distanceText.setText("Visible distance:");
-        
-        Combo distanceComboBox = new Combo(distancePanel, SWT.READ_ONLY);
-        distanceComboBox.setItems(new String[] { "infinite", "1", "2" });
-        distanceComboBox.setText(distanceComboBox.getItem(Math.max(0, visibleDistance)));
-        distanceComboBox.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent event) {
-                int index = ((Combo) event.getSource()).getSelectionIndex();
-                visibleDistance = (index > 0) ? index : DistanceFilter.INFINITE_DISTACE;
-                distanceFilter.setDistance(visibleDistance);
-                distanceFilter.update(viewer.getSelection(), featureModel);
-                viewer.refresh();
-                viewer.applyLayout();
-            }
-        });
-        
-        Composite sizePanel = new Composite(panel, SWT.NONE);
-        sizePanel.setLayout(new GridLayout(2, false));
-        
-        Button sizeButton = new Button(sizePanel, SWT.CHECK);
-        final Combo sizeComboBox = new Combo(sizePanel, SWT.READ_ONLY);
-                
-        sizeButton.setText("Adjust size:");
-        sizeButton.setSelection(sizeSpecified);
-        sizeButton.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent event) {
-                sizeSpecified = ((Button) event.getSource()).getSelection();
-                sizeComboBox.setEnabled(sizeSpecified);
-                resizeGraphView();
-                viewer.applyLayout();
-            }
-        });
-        
-        for(int i = 1; i <= MAX_SIZE_MULTIPLIER; i++)
-            sizeComboBox.add(i + "x");
-        sizeComboBox.setText(sizeComboBox.getItem(sizeMultiplier - 1));
-        sizeComboBox.setEnabled(sizeSpecified);
-        sizeComboBox.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent event) {
-                sizeMultiplier = ((Combo) event.getSource()).getSelectionIndex() + 1;
-                resizeGraphView();
-                viewer.applyLayout();
-            }
-        });
+    
+    @Override
+    public void groupsVisibilityChanged(boolean groupsVisible) {
+        groupFilter.setEnabled(groupsVisible);
+        groupFilter.update(viewer.getSelection());
+        viewer.refresh();
+        viewer.applyLayout();
+    }
+
+    @Override
+    public void constraintsVisibilityChanged(boolean constraintsVisible) {
+        constraintFilter.setEnabled(constraintsVisible);
+        constraintFilter.update(viewer.getSelection(), featureModel);
+        viewer.refresh();
+        viewer.applyLayout();
+    }
+
+    @Override
+    public void animationStateChanged(boolean animationEnabled) {
+        viewer.setInput(null); // Style can be only changed when input is not set.
+        viewer.setNodeStyle(animationEnabled ? ZestStyles.NONE : ZestStyles.NODES_NO_ANIMATION);
+        viewer.setInput(featureModel);
+    }
+
+    @Override
+    public void lockedStateChanged(boolean viewLocked) {
     }
     
-    private void updateGroupsButton() {
-        if(showGroups) {
-            groupsButton.setImage(imageRegistry.get("groups-enabled"));
-            groupsButton.setToolTipText("Hide Groups");
-        }
-        else {
-            groupsButton.setImage(imageRegistry.get("groups-disabled"));
-            groupsButton.setToolTipText("Show Groups");
-        }
+    @Override
+    public void visibleDistanceChanged(int visibleDistance) {
+        distanceFilter.setDistance(visibleDistance);
+        distanceFilter.update(viewer.getSelection(), featureModel);
+        viewer.refresh();
+        viewer.applyLayout();
     }
-    
-    private void updateConstraintsButton() {
-        if(showConstraints) {
-            constraintsButton.setImage(imageRegistry.get("constraints-enabled"));
-            constraintsButton.setToolTipText("Hide Constraints");
-        }
-        else {
-            constraintsButton.setImage(imageRegistry.get("constraints-disabled"));
-            constraintsButton.setToolTipText("Show Constraints");
-        }
-    }
-    
-    private void updateAnimationButton() {
-        if(enableAnimation) {
-            animationButton.setImage(imageRegistry.get("animation-enabled"));
-            animationButton.setToolTipText("Disable Animation");
-        }
-        else {
-            animationButton.setImage(imageRegistry.get("animation-disabled"));
-            animationButton.setToolTipText("Enable Animation");
-        }
-    }
-    
-    private void updateLockButton() {
-        if(locked) {
-            lockButton.setImage(imageRegistry.get("locked"));
-            lockButton.setToolTipText("Unlock View");
-        }
-        else {
-            lockButton.setImage(imageRegistry.get("unlocked"));
-            lockButton.setToolTipText("Lock View");
-        }
+
+    @Override
+    public void viewSizeChanged(boolean fixedSize, int sizeMultiplier) {
+        resizeGraphView();
+        viewer.applyLayout();
     }
     
     private void recomputeTreeHeight() {
@@ -318,8 +163,8 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
     }
     
     private void resizeGraphView() {
-        if(sizeSpecified) {
-            int size = 2 * treeHeight * CONNECTION_LENGHT * sizeMultiplier;
+        if(settings.isFixedSize()) {
+            int size = 2 * treeHeight * CONNECTION_LENGHT * settings.getSizeMultiplier();
             viewer.getGraphControl().setPreferredSize(size, size);
         }
         else {
@@ -393,7 +238,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
                 return;
         }
 
-        if(!locked) {
+        if(!settings.isViewLocked()) {
             distanceFilter.update(selection, featureModel);
             groupFilter.update(selection);
             constraintFilter.update(selection, featureModel);
