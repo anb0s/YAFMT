@@ -8,9 +8,9 @@ public class DeleteConstraintCommand extends RecordingCommand {
     private FeatureModel featureModel;
     private Constraint constraint;
 
-    public DeleteConstraintCommand(FeatureModel featureModel, Constraint constraint) {
+    public DeleteConstraintCommand(Constraint constraint) {
         setLabel("Delete constraint");
-        this.featureModel = featureModel;
+        this.featureModel = constraint.getFeatureModel();
         this.constraint = constraint;
     }
 

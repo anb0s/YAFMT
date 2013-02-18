@@ -63,6 +63,7 @@ import org.eclipse.ui.views.properties.PropertySheetPage;
 
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.ui.editors.fm.actions.AutoLayoutAction;
+import cz.jpikl.yafmt.ui.editors.fm.actions.DeleteAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.ExportAsImageAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.GroupFeaturesAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.SetFeatureCardinalityAction;
@@ -181,7 +182,8 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
     
     @Override
     protected void createActions() {
-        super.createActions();        
+        super.createActions();
+        createAction(new DeleteAction(this), true);
         createAction(new SetFeatureCardinalityAction(this, false), true);
         createAction(new SetFeatureCardinalityAction(this, true), true);
         createAction(new GroupFeaturesAction(this, true), true);
