@@ -41,6 +41,8 @@ import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
@@ -136,6 +138,14 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
         constraintsEditor.setEditDomain(getEditDomain());
         constraintsEditor.setContents(featureModel);
         constraintsEditor.addSelectionChangedListener(this);
+        constraintsEditor.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent event) {
+                if(event.keyCode == SWT.DEL) {
+                    getActionRegistry().getAction(ActionFactory.DELETE.getId()).run();
+                }
+            }
+        });
     }
         
     @Override
@@ -183,7 +193,7 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
     @Override
     protected void createActions() {
         super.createActions();
-        createAction(new DeleteAction(this), true);
+        createAction(new DeleteAction(this), true); // Custom delete action.
         createAction(new SetFeatureCardinalityAction(this, false), true);
         createAction(new SetFeatureCardinalityAction(this, true), true);
         createAction(new GroupFeaturesAction(this, true), true);

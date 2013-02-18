@@ -20,6 +20,7 @@ import org.eclipse.jface.viewers.TableViewerEditor;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -169,6 +170,10 @@ public class ConstraintsEditor extends DockWidget {
     
     public void removeSelectionChangedListener(ISelectionChangedListener listener) {
         viewer.removeSelectionChangedListener(listener);
+    }
+    
+    public void addKeyListener(final KeyListener listener) {
+        viewer.getTable().addKeyListener(listener);
     }
     
     @Override
