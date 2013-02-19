@@ -11,7 +11,9 @@ import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.gef.EditDomain;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.ui.actions.ActionRegistry;
+import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.jface.viewers.ISelection;
@@ -44,6 +46,7 @@ import cz.jpikl.yafmt.model.fm.Constraint;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.FeatureModelFactory;
+import cz.jpikl.yafmt.ui.editors.fm.actions.SetConstraintLanguageAction;
 import cz.jpikl.yafmt.ui.editors.fm.commands.AddConstraintCommand;
 import cz.jpikl.yafmt.ui.editors.fm.util.DockWidget;
 import cz.jpikl.yafmt.ui.editors.fm.util.Splitter;
@@ -64,6 +67,7 @@ public class ConstraintsEditor extends DockWidget {
     private EditDomain editDomain;
     private TableViewer viewer;
     private ConstraintsEditorEditingSupport editingSupport;
+    private IContributionItem setLanguageAction;
     
     public ConstraintsEditor(Splitter splitter) {
         super(splitter, SWT.NONE);
@@ -132,6 +136,8 @@ public class ConstraintsEditor extends DockWidget {
         IAction deleteAction = actionRegistry.getAction(ActionFactory.DELETE.getId());
         if(deleteAction.isEnabled())
             manager.add(deleteAction);
+        if(setLanguageAction.isEnabled())
+            manager.add(setLanguageAction);
     }
     
     @Override
@@ -210,6 +216,12 @@ public class ConstraintsEditor extends DockWidget {
     public void setEditDomain(EditDomain editDomain) {
         this.editDomain = editDomain;
         editingSupport.setEditDomain(editDomain);
+        setLanguageAction = new ActionContributionItem(new SetConstraintLanguageAction(viewer, editDomain)) {
+            @Override
+            public boolean isDynamic() {
+                return true; // Recreate language menu when show.
+            }
+        };
     }
     
     public void setContents(FeatureModel featureModel) {
