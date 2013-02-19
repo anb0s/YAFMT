@@ -24,8 +24,8 @@
       <import plugin="cz.jpikl.yafmt.clang" version="0.2.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.core.resources"/>
       <import plugin="org.eclipse.ui.ide"/>
-      <import plugin="org.eclipse.gef" version="3.8.1" match="greaterOrEqual"/>
       <import plugin="cz.jpikl.yafmt.model.edit" version="0.2.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.gef" version="3.9.0" match="greaterOrEqual"/>
    </requires>
 
    <plugin
