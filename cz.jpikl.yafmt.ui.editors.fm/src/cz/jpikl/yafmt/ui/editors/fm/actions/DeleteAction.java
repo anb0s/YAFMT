@@ -1,5 +1,6 @@
 package cz.jpikl.yafmt.ui.editors.fm.actions;
 
+import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
@@ -16,20 +17,23 @@ public class DeleteAction extends org.eclipse.gef.ui.actions.DeleteAction {
         super(part);
     }
     
+    private Command getDeleteConstrainsCommand(Table table) {
+        CompoundCommand command = new CompoundCommand();
+        for(TableItem item: table.getSelection()) {
+            Object object = item.getData();
+            if(object instanceof Constraint)
+                command.add(new DeleteConstraintCommand((Constraint) object));
+        }
+        return command;
+    }
+    
     @Override
     protected boolean calculateEnabled() {
         Control controlWithFocus = Display.getCurrent().getFocusControl();
         if(controlWithFocus instanceof Table) {
             // Constraints editor has focus.
-            Table constraintsTable = (Table) controlWithFocus;
-            TableItem[] items = constraintsTable.getSelection();
-            if(items == null)
-                return false;
-            for(TableItem item: items) {
-                if(item.getData() instanceof Constraint)
-                    return true;
-            }
-            return false;
+            Command command = getDeleteConstrainsCommand((Table) controlWithFocus);
+            return (command != null) && command.canExecute();
         }
         else {
             // GEF editor has focus.
@@ -42,14 +46,7 @@ public class DeleteAction extends org.eclipse.gef.ui.actions.DeleteAction {
         Control controlWithFocus = Display.getCurrent().getFocusControl();
         if(controlWithFocus instanceof Table) {
             // Constraints editor has focus.
-            CompoundCommand command = new CompoundCommand();
-            Table constraintsTable = (Table) controlWithFocus;
-            for(TableItem item: constraintsTable.getSelection()) {
-                Object data = item.getData();
-                if(data instanceof Constraint)
-                    command.add(new DeleteConstraintCommand((Constraint) data));
-            }
-            execute(command);
+            execute(getDeleteConstrainsCommand((Table) controlWithFocus));
         }
         else {
             // GEF editor has focus.

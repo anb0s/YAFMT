@@ -10,6 +10,9 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.gef.EditDomain;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.ui.actions.ActionRegistry;
+import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -20,6 +23,8 @@ import org.eclipse.jface.viewers.TableViewerEditor;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
@@ -29,6 +34,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
+import org.eclipse.ui.actions.ActionFactory;
 
 import cz.jpikl.yafmt.clang.ConstraintLanguageDescriptor;
 import cz.jpikl.yafmt.clang.ConstraintLanguagePlugin;
@@ -54,8 +60,9 @@ public class ConstraintsEditor extends DockWidget {
     private boolean filterEnabled;
     
     private ImageRegistry imageRegistry;
-    private TableViewer viewer;
+    private ActionRegistry actionRegistry;
     private EditDomain editDomain;
+    private TableViewer viewer;
     private ConstraintsEditorEditingSupport editingSupport;
     
     public ConstraintsEditor(Splitter splitter) {
@@ -99,7 +106,15 @@ public class ConstraintsEditor extends DockWidget {
                     addNewConstraint();
             }
         });
-        
+        viewer.getTable().addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent event) {
+                if(event.keyCode == SWT.DEL) {
+                    actionRegistry.getAction(ActionFactory.DELETE.getId()).run();
+                }
+            }
+        });
+                
         return viewer.getControl();
     }
     
@@ -110,6 +125,13 @@ public class ConstraintsEditor extends DockWidget {
         column.getColumn().setWidth(100);
         column.setEditingSupport(editingSupport);
         column.setLabelProvider(new ConstraintsEditorLabelProvider());
+    }
+    
+    @Override
+    protected void contributeToContextMenu(IMenuManager manager) {
+        IAction deleteAction = actionRegistry.getAction(ActionFactory.DELETE.getId());
+        if(deleteAction.isEnabled())
+            manager.add(deleteAction);
     }
     
     @Override
@@ -179,6 +201,10 @@ public class ConstraintsEditor extends DockWidget {
     @Override
     public boolean setFocus() {
         return viewer.getControl().setFocus();
+    }
+    
+    public void setActionRegistry(ActionRegistry actionRegistry) {
+        this.actionRegistry = actionRegistry;
     }
     
     public void setEditDomain(EditDomain editDomain) {

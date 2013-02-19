@@ -1,5 +1,8 @@
 package cz.jpikl.yafmt.ui.editors.fm.util;
 
+import org.eclipse.jface.action.IMenuListener;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -10,6 +13,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Layout;
+import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 
@@ -63,9 +67,22 @@ public abstract class DockWidget extends Composite {
         
         mainControl = createMainControl(this);
         mainControl.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+        mainControl.setMenu(createContextMenu());
         
         initializeControl();
         updateState();
+    }
+    
+    private Menu createContextMenu() {
+        MenuManager manager = new MenuManager();
+        manager.setRemoveAllWhenShown(true);
+        manager.addMenuListener(new IMenuListener() {
+            @Override
+            public void menuAboutToShow(IMenuManager manager) {
+                contributeToContextMenu(manager);
+            }
+        });
+        return manager.createContextMenu(mainControl);
     }
     
     private void createTopControl(Composite parent) {
@@ -98,6 +115,9 @@ public abstract class DockWidget extends Composite {
     }
     
     protected void contributeToToolbar(ToolBar toolBar) {
+    }
+    
+    protected void contributeToContextMenu(IMenuManager manager) {
     }
     
     private void createTitle(Composite parent) {

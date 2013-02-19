@@ -41,8 +41,6 @@ import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.KeyAdapter;
-import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
@@ -136,16 +134,9 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
         constraintsEditor = new ConstraintsEditor(splitter);
         constraintsEditor.createControl();
         constraintsEditor.setEditDomain(getEditDomain());
+        constraintsEditor.setActionRegistry(getActionRegistry());
         constraintsEditor.setContents(featureModel);
         constraintsEditor.addSelectionChangedListener(this);
-        constraintsEditor.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent event) {
-                if(event.keyCode == SWT.DEL) {
-                    getActionRegistry().getAction(ActionFactory.DELETE.getId()).run();
-                }
-            }
-        });
     }
         
     @Override
