@@ -271,7 +271,11 @@ public class ConstraintsEditor extends DockWidget {
             return;
         
         outerSelection = (IStructuredSelection) selection; 
-        refresh();
+       
+        if(filterEnabled)
+            refresh();
+        else
+            viewer.setSelection(selection);
     }
     
     private class ConstraintsFilter extends ViewerFilter {
