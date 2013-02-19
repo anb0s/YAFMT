@@ -25,7 +25,7 @@ public class SelectAllAction extends org.eclipse.gef.ui.actions.SelectAllAction 
             Table table = ((Table) controlWithFocus); 
             table.selectAll();
             
-            // Forward selection to the site editor provider.
+            // Forward selection to the site selection provider.
             TableItem[] selectedItems = table.getSelection();
             Object[] objects = new Object[selectedItems.length];
             for(int i = 0; i < objects.length; i++)

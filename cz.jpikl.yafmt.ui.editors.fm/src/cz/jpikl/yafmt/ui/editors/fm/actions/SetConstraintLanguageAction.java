@@ -103,7 +103,6 @@ public class SetConstraintLanguageAction extends Action {
             }
         }
 
-
         @Override
         public void widgetSelected(SelectionEvent event) {
             Command command = (Command) ((MenuItem) event.getSource()).getData();
