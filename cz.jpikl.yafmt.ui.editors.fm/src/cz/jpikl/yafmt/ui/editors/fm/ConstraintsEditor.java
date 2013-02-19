@@ -74,7 +74,7 @@ public class ConstraintsEditor extends DockWidget {
                 
         constraintCache = new ConstraintCache();
         visibleConstraints = new HashSet<Constraint>();
-        filterEnabled = true;
+        filterEnabled = false;
         imageRegistry = FeatureModelEditorPlugin.getDefault().getImageRegistry();
     }
     
