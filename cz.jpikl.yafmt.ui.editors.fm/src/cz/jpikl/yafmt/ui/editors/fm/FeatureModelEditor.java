@@ -66,6 +66,7 @@ import cz.jpikl.yafmt.ui.editors.fm.actions.AutoLayoutAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.DeleteAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.ExportAsImageAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.GroupFeaturesAction;
+import cz.jpikl.yafmt.ui.editors.fm.actions.SelectAllAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.SetFeatureCardinalityAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.UngroupFeaturesAction;
 import cz.jpikl.yafmt.ui.editors.fm.figures.FeatureFigure;
@@ -175,27 +176,28 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
     // ==================================================================================
     
     @SuppressWarnings("unchecked")
-    private void createAction(IAction action, boolean selectionAction) {
+    private void createAction(IAction action) {
         getActionRegistry().registerAction(action);
-        if(selectionAction)
+        if(action instanceof SelectionAction)
             getSelectionActions().add(action.getId());
     }
     
     @Override
     protected void createActions() {
         super.createActions();
-        createAction(new DeleteAction(this), true); // Custom delete action.
-        createAction(new SetFeatureCardinalityAction(this, false), true);
-        createAction(new SetFeatureCardinalityAction(this, true), true);
-        createAction(new GroupFeaturesAction(this, true), true);
-        createAction(new GroupFeaturesAction(this, false), true);
-        createAction(new UngroupFeaturesAction(this), true);
+        createAction(new DeleteAction(this));    // Custom delete action.
+        createAction(new SelectAllAction(this)); // Custom select all action.
+        createAction(new SetFeatureCardinalityAction(this, false));
+        createAction(new SetFeatureCardinalityAction(this, true));
+        createAction(new GroupFeaturesAction(this, true));
+        createAction(new GroupFeaturesAction(this, false));
+        createAction(new UngroupFeaturesAction(this));
     }
     
     protected void createActionsLate() {
         // These actions need initialized graphical viewer.
-        createAction(new AutoLayoutAction(this, getGraphicalViewer()), false);
-        createAction(new ExportAsImageAction(this, getGraphicalViewer()), false);
+        createAction(new AutoLayoutAction(this, getGraphicalViewer()));
+        createAction(new ExportAsImageAction(this, getGraphicalViewer()));
         
         // Actions need original selection provider.
         for(Iterator<?> it = getActionRegistry().getActions(); it.hasNext(); ) {
