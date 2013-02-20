@@ -31,6 +31,7 @@ import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
 import cz.jpikl.yafmt.ui.views.fm.filters.ConstraintFilter;
 import cz.jpikl.yafmt.ui.views.fm.filters.DistanceFilter;
 import cz.jpikl.yafmt.ui.views.fm.filters.GroupFilter;
+import cz.jpikl.yafmt.ui.views.fm.util.GraphDecorator;
 
 public class FeatureModelVisualizer extends ViewPart implements ISelectionListener, 
                                                                 IPartListener, 
@@ -46,6 +47,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
 	
 	private Settings settings;
     private GraphViewer viewer;
+    private GraphDecorator decorator;
     private DistanceFilter distanceFilter;
     private GroupFilter groupFilter;
     private ConstraintFilter constraintFilter;
@@ -56,6 +58,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         treeHeight = 1;
         settings = new Settings();
         settings.addSettingsListener(this);
+        decorator = new FeatureModelDecorator();
     }
     
     @Override
@@ -68,6 +71,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         
     @Override
     public void dispose() {
+        decorator.dispose();
         settings.save(FeatureModelVisualizerPlugin.getDefault().getDialogSettings());
         setFeatureModel(null);
         getSite().getPage().removeSelectionListener(this);
@@ -84,6 +88,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         
         setSourcePart(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor());
         
+        decorator.hook(viewer.getGraphControl());
         distanceFilter.update(null, featureModel);
         groupFilter.update(null);
         constraintFilter.update(null, featureModel);

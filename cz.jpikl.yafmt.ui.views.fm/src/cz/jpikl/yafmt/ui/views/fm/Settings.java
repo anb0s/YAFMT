@@ -79,7 +79,6 @@ public class Settings {
     }
     
     public int getAnimationTime() {
-        System.out.println(animationType.getDuration());
         return animationType.getDuration();
     }
     

@@ -11,9 +11,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.zest.core.viewers.IEntityConnectionStyleProvider;
 import org.eclipse.zest.core.viewers.IEntityStyleProvider;
 import org.eclipse.zest.core.viewers.IFigureProvider;
-import org.eclipse.zest.core.viewers.ISelfStyleProvider;
-import org.eclipse.zest.core.widgets.GraphConnection;
-import org.eclipse.zest.core.widgets.GraphNode;
 import org.eclipse.zest.core.widgets.ZestStyles;
 
 import cz.jpikl.yafmt.model.fm.Constraint;
@@ -24,8 +21,7 @@ import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
 public class FeatureModelLabelProvider implements IFigureProvider, 
                                                   ILabelProvider, 
                                                   IEntityStyleProvider, 
-                                                  IEntityConnectionStyleProvider,
-                                                  ISelfStyleProvider {
+                                                  IEntityConnectionStyleProvider {
 
     private Color lightRedColor;
 
@@ -38,34 +34,10 @@ public class FeatureModelLabelProvider implements IFigureProvider,
     // =============================================================
 
     @Override
-    public IFigure getFigure(Object element) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-    
-    @Override
-    public void addListener(ILabelProviderListener listener) {
-    }
-
-    @Override
     public void dispose() {
         lightRedColor.dispose();
     }
-
-    @Override
-    public boolean isLabelProperty(Object element, String property) {
-        return false;
-    }
-
-    @Override
-    public void removeListener(ILabelProviderListener listener) {
-    }
-
-    @Override
-    public Image getImage(Object element) {
-        return null;
-    }
-
+    
     @Override
     public String getText(Object element) {
         if(element instanceof Feature) {
@@ -83,6 +55,31 @@ public class FeatureModelLabelProvider implements IFigureProvider,
             return ((Constraint) element).getValue();
         }
         return null;
+    }
+    
+    @Override
+    public IFigure getFigure(Object element) {
+        return null;
+    }
+    
+    @Override
+    public Image getImage(Object element) {
+        return null;
+    }
+    
+    @Override
+    public boolean isLabelProperty(Object element, String property) {
+        return false;
+    }
+    
+    @Override
+    public void addListener(ILabelProviderListener listener) {
+    }
+
+    
+
+    @Override
+    public void removeListener(ILabelProviderListener listener) {
     }
 
     // =============================================================
@@ -177,20 +174,6 @@ public class FeatureModelLabelProvider implements IFigureProvider,
     @Override
     public IFigure getTooltip(Object entity) {
         return null;
-    }
-
-    // =============================================================
-    //  ISelfStyleProvider
-    // =============================================================
-    
-    @Override
-    public void selfStyleConnection(Object element, GraphConnection connection) {
-        //System.out.println("conn: " + connection.getConnectionFigure().getClass().getName());
-    }
-
-    @Override
-    public void selfStyleNode(Object element, GraphNode node) {
-        //System.out.println("node: " + node.getNodeFigure().getClass().getName());
     }
 
 }
