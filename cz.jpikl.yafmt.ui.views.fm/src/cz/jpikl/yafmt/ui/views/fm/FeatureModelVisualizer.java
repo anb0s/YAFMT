@@ -110,7 +110,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         viewer = new GraphViewer(parent, ZestStyles.NONE);
         viewer.setContentProvider(new FeatureModelContentProvider());
         viewer.setLabelProvider(new FeatureModelLabelProvider());
-        viewer.setLayoutAlgorithm(new FeatureGraphLayoutAlgorithm());
+        viewer.setLayoutAlgorithm(new FeatureGraphLayoutAlgorithm(settings));
         viewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         viewer.setNodeStyle(settings.isAnimationEnabled() ? ZestStyles.NONE : ZestStyles.NODES_NO_ANIMATION);
         viewer.setFilters(new ViewerFilter[] { distanceFilter, groupFilter, constraintFilter });
@@ -134,7 +134,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
     }
 
     @Override
-    public void animationStateChanged(boolean animationEnabled) {
+    public void animationStateChanged(boolean animationEnabled, int animationTime) {
         viewer.setInput(null); // Style can be only changed when input is not set.
         viewer.setNodeStyle(animationEnabled ? ZestStyles.NONE : ZestStyles.NODES_NO_ANIMATION);
         viewer.setInput(featureModel);

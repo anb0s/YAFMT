@@ -21,7 +21,7 @@ import cz.jpikl.yafmt.ui.views.fm.filters.DistanceFilter;
 import cz.jpikl.yafmt.ui.views.fm.util.SettingsUtil;
 
 public class Settings {
-
+    
     private static final int MAX_SIZE_MULTIPLIER = 5;
     
     private List<ISettingsListener> listeners;
@@ -29,35 +29,25 @@ public class Settings {
     
     private ToolItem groupsButton;
     private ToolItem constraintsButton;
-    private ToolItem animationButton;
     private ToolItem lockButton;
-    private Combo distanceComboBox;
-    private Combo sizeComboBox;
+    private Combo distanceCombo;
     private Button sizeButton;
+    private Combo sizeCombo;
+    private Button animationButton;
+    private Combo animationCombo;
     
-    private int visibleDistance;        // Visible distance from selected graph nodes.
-    private int sizeMultiplier;         // Size multiplier, used when size of graph canvas is adjusted manually.
-    private boolean fixedSize;          // Is size of graph canvas is manually adjusted?
-    private boolean groupsVisible;      // Are groups visible?
-    private boolean constraintsVisible; // Are constraints visible?
-    private boolean animationEnabled;   // Is graph animation enabled?
-    private boolean viewLocked;         // Is graph layout locked?
+    private boolean groupsVisible;       // Are groups visible?
+    private boolean constraintsVisible;  // Are constraints visible?
+    private boolean viewLocked;          // Is graph layout locked?
+    private int visibleDistance;         // Visible distance from selected graph nodes.
+    private boolean fixedSize;           // Is size of graph canvas is manually adjusted?
+    private int sizeMultiplier;          // Size multiplier, used when size of graph canvas is adjusted manually.
+    private boolean animationEnabled;    // Is graph animation enabled?
+    private AnimationType animationType; // Animation duration.
     
     public Settings() {        
         listeners = new ArrayList<ISettingsListener>();
         imageRegistry = FeatureModelVisualizerPlugin.getDefault().getImageRegistry();
-    }
-    
-    public int getVisibleDistance() {
-        return visibleDistance;
-    }
-    
-    public int getSizeMultiplier() {
-        return sizeMultiplier;
-    }
-    
-    public boolean isFixedSize() {
-        return fixedSize;
     }
     
     public boolean areGroupsVisible() {
@@ -68,12 +58,29 @@ public class Settings {
         return constraintsVisible;
     }
     
+    public boolean isViewLocked() {
+        return viewLocked;
+    }
+    
+    public int getVisibleDistance() {
+        return visibleDistance;
+    }
+    
+    public boolean isFixedSize() {
+        return fixedSize;
+    }
+    
+    public int getSizeMultiplier() {
+        return sizeMultiplier;
+    }
+    
     public boolean isAnimationEnabled() {
         return animationEnabled;
     }
     
-    public boolean isViewLocked() {
-        return viewLocked;
+    public int getAnimationTime() {
+        System.out.println(animationType.getDuration());
+        return animationType.getDuration();
     }
     
     public void addSettingsListener(ISettingsListener listener) {
@@ -85,29 +92,32 @@ public class Settings {
     }
         
     public void init(IDialogSettings settings) {
-        visibleDistance = SettingsUtil.getInteger(settings, "visibleDistance", DistanceFilter.INFINITE_DISTACE);
-        sizeMultiplier = SettingsUtil.getInteger(settings, "sizeMultiplier", 1);
-        fixedSize = SettingsUtil.getBoolean(settings, "fixedSize", true);
         groupsVisible = SettingsUtil.getBoolean(settings, "groupsVisible", true);
         constraintsVisible = SettingsUtil.getBoolean(settings, "constraintsVisible", true);
-        animationEnabled = SettingsUtil.getBoolean(settings, "animationEnabled", true);
         viewLocked = SettingsUtil.getBoolean(settings, "viewLocked", false);
+        visibleDistance = SettingsUtil.getInteger(settings, "visibleDistance", DistanceFilter.INFINITE_DISTACE);
+        fixedSize = SettingsUtil.getBoolean(settings, "fixedSize", true);
+        sizeMultiplier = SettingsUtil.getInteger(settings, "sizeMultiplier", 1);
+        animationEnabled = SettingsUtil.getBoolean(settings, "animationEnabled", true);
+        animationType = AnimationType.valueOf(SettingsUtil.getString(settings, "animationType", AnimationType.NORMAL.toString()));
     }
     
     public void save(IDialogSettings settings) {
-        settings.put("visibleDistance", visibleDistance);
-        settings.put("sizeMultiplier", sizeMultiplier);
-        settings.put("fixedSize", fixedSize);
         settings.put("groupsVisible", groupsVisible);
         settings.put("constraintsVisible", constraintsVisible);
-        settings.put("animationEnabled", animationEnabled);
         settings.put("viewLocked", viewLocked);
+        settings.put("visibleDistance", visibleDistance);
+        settings.put("fixedSize", fixedSize);
+        settings.put("sizeMultiplier", sizeMultiplier);
+        settings.put("animationEnabled", animationEnabled);
+        settings.put("animationType", animationType.toString());
+        
     }
     
     public void createControl(Composite parent) {
         Composite panel = new Composite(parent, SWT.NONE);
         panel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-        panel.setLayout(new GridLayout(3, false));
+        panel.setLayout(new GridLayout(4, false));
         
         ToolBar toolBar = new ToolBar(panel, SWT.FLAT);
         
@@ -133,17 +143,6 @@ public class Settings {
             }
         });
         
-        animationButton = new ToolItem(toolBar, SWT.NONE);
-        animationButton.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent event) {
-                animationEnabled = !animationEnabled;
-                updateAnimationButton();
-                for(ISettingsListener listener: listeners)
-                    listener.animationStateChanged(animationEnabled);
-            }
-        });
-        
         lockButton = new ToolItem(toolBar, SWT.NONE);
         lockButton.addSelectionListener(new SelectionAdapter() {
             @Override
@@ -157,15 +156,16 @@ public class Settings {
                 
         Composite distancePanel = new Composite(panel, SWT.NONE);
         distancePanel.setLayout(new GridLayout(2, false));
+        
         Text distanceText = new Text(distancePanel, SWT.NONE);
         distanceText.setText("Visible distance:");
         
-        distanceComboBox = new Combo(distancePanel, SWT.READ_ONLY);
-        distanceComboBox.setItems(new String[] { "infinite", "1", "2" });
-        distanceComboBox.addSelectionListener(new SelectionAdapter() {
+        distanceCombo = new Combo(distancePanel, SWT.READ_ONLY);
+        distanceCombo.setItems(new String[] { "infinite", "1", "2" });
+        distanceCombo.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent event) {
-                int index = distanceComboBox.getSelectionIndex();
+                int index = distanceCombo.getSelectionIndex();
                 visibleDistance = (index > 0) ? index : DistanceFilter.INFINITE_DISTACE;
                 for(ISettingsListener listener: listeners)
                     listener.visibleDistanceChanged(visibleDistance);
@@ -181,31 +181,62 @@ public class Settings {
             @Override
             public void widgetSelected(SelectionEvent event) {
                 fixedSize = sizeButton.getSelection();
-                updateSizeComboBox();
+                updateSizeCombo();
                 for(ISettingsListener listener: listeners)
                     listener.viewSizeChanged(fixedSize, sizeMultiplier);
             }
         });
         
-        sizeComboBox = new Combo(sizePanel, SWT.READ_ONLY);
+        sizeCombo = new Combo(sizePanel, SWT.READ_ONLY);
         for(int i = 1; i <= MAX_SIZE_MULTIPLIER; i++)
-            sizeComboBox.add(i + "x");
-        sizeComboBox.addSelectionListener(new SelectionAdapter() {
+            sizeCombo.add(i + "x");
+        sizeCombo.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent event) {
-                sizeMultiplier = sizeComboBox.getSelectionIndex() + 1;
+                sizeMultiplier = sizeCombo.getSelectionIndex() + 1;
                 for(ISettingsListener listener: listeners)
                     listener.viewSizeChanged(fixedSize, sizeMultiplier);
             }
         });
         
+        Composite animationPanel = new Composite(panel, SWT.NONE);
+        animationPanel.setLayout(new GridLayout(2, false));
+        
+        animationButton = new Button(animationPanel, SWT.CHECK);
+        animationButton.setText("Use Animation");
+        animationButton.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent event) {
+                animationEnabled = !animationEnabled;
+                updateAnimationCombo();
+                for(ISettingsListener listener: listeners)
+                    listener.animationStateChanged(animationEnabled, animationType.getDuration());
+            }
+        });
+        
+        animationCombo = new Combo(animationPanel, SWT.READ_ONLY);
+        for(AnimationType type: AnimationType.values())
+            animationCombo.add(type.getName());
+        animationCombo.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                int index = animationCombo.getSelectionIndex();
+                if(animationType == AnimationType.values()[index])
+                    return;
+                animationType = AnimationType.values()[index];
+                for(ISettingsListener listener: listeners)
+                    listener.animationStateChanged(animationEnabled, animationType.getDuration());
+            }
+        });
+            
         updateGroupsButton();
         updateConstraintsButton();
-        updateAnimationButton();
         updateLockButton();
-        updateDistanceComboBox();
+        updateDistanceCombo();
         updateSizeButton();
-        updateSizeComboBox();
+        updateSizeCombo();
+        updateAnimationButton();
+        updateAnimationCombo();
     }
     
     private void updateGroupsButton() {
@@ -229,18 +260,7 @@ public class Settings {
             constraintsButton.setToolTipText("Show Constraints");
         }
     }
-    
-    private void updateAnimationButton() {
-        if(animationEnabled) {
-            animationButton.setImage(imageRegistry.get("animation-enabled"));
-            animationButton.setToolTipText("Disable Animation");
-        }
-        else {
-            animationButton.setImage(imageRegistry.get("animation-disabled"));
-            animationButton.setToolTipText("Enable Animation");
-        }
-    }
-    
+        
     private void updateLockButton() {
         if(viewLocked) {
             lockButton.setImage(imageRegistry.get("locked"));
@@ -252,17 +272,51 @@ public class Settings {
         }
     }
     
-    private void updateDistanceComboBox() {
-        distanceComboBox.setText(distanceComboBox.getItem(Math.max(0, visibleDistance)));
+    private void updateDistanceCombo() {
+        distanceCombo.setText(distanceCombo.getItem(Math.max(0, visibleDistance)));
     }
     
     private void updateSizeButton() {
         sizeButton.setSelection(fixedSize);
     }
     
-    private void updateSizeComboBox() {
-        sizeComboBox.setText(sizeComboBox.getItem(sizeMultiplier - 1));
-        sizeComboBox.setEnabled(fixedSize);
+    private void updateSizeCombo() {
+        sizeCombo.setText(sizeCombo.getItem(sizeMultiplier - 1));
+        sizeCombo.setEnabled(fixedSize);
+    }
+    
+    private void updateAnimationButton() {
+        animationButton.setSelection(animationEnabled);
+    }
+    
+    private void updateAnimationCombo() {
+        animationCombo.setEnabled(animationEnabled);
+        animationCombo.setText(animationType.getName());
+    }
+    
+    private static enum AnimationType {
+        
+        FAST("Fast", 250),
+        NORMAL("Normal", 500),
+        SLOW("Slow", 1000),
+        VERY_SLOW("Very Slow", 2000);
+        
+        private String name;
+        private int duration;
+        
+        private AnimationType(String name, int duration) {
+            this.name = name;
+            this.duration = duration;
+        }
+        
+        public int getDuration() {
+            return duration;
+        }
+        
+        public String getName() {
+            return name;
+        }
+        
     }
 
 }

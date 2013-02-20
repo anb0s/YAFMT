@@ -6,7 +6,7 @@ public interface ISettingsListener {
     
     void constraintsVisibilityChanged(boolean constraintsVisible);
     
-    void animationStateChanged(boolean animationEnabled);
+    void animationStateChanged(boolean animationEnabled, int animationTime);
     
     void lockedStateChanged(boolean viewLocked);
     

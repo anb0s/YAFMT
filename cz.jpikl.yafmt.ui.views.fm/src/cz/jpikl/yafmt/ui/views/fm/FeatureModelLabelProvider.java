@@ -10,6 +10,10 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.zest.core.viewers.IEntityConnectionStyleProvider;
 import org.eclipse.zest.core.viewers.IEntityStyleProvider;
+import org.eclipse.zest.core.viewers.IFigureProvider;
+import org.eclipse.zest.core.viewers.ISelfStyleProvider;
+import org.eclipse.zest.core.widgets.GraphConnection;
+import org.eclipse.zest.core.widgets.GraphNode;
 import org.eclipse.zest.core.widgets.ZestStyles;
 
 import cz.jpikl.yafmt.model.fm.Constraint;
@@ -17,7 +21,11 @@ import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
 
-public class FeatureModelLabelProvider implements ILabelProvider, IEntityStyleProvider, IEntityConnectionStyleProvider {
+public class FeatureModelLabelProvider implements IFigureProvider, 
+                                                  ILabelProvider, 
+                                                  IEntityStyleProvider, 
+                                                  IEntityConnectionStyleProvider,
+                                                  ISelfStyleProvider {
 
     private Color lightRedColor;
 
@@ -29,6 +37,12 @@ public class FeatureModelLabelProvider implements ILabelProvider, IEntityStylePr
     // ILabelProvider
     // =============================================================
 
+    @Override
+    public IFigure getFigure(Object element) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    
     @Override
     public void addListener(ILabelProviderListener listener) {
     }
@@ -163,6 +177,20 @@ public class FeatureModelLabelProvider implements ILabelProvider, IEntityStylePr
     @Override
     public IFigure getTooltip(Object entity) {
         return null;
+    }
+
+    // =============================================================
+    //  ISelfStyleProvider
+    // =============================================================
+    
+    @Override
+    public void selfStyleConnection(Object element, GraphConnection connection) {
+        //System.out.println("conn: " + connection.getConnectionFigure().getClass().getName());
+    }
+
+    @Override
+    public void selfStyleNode(Object element, GraphNode node) {
+        //System.out.println("node: " + node.getNodeFigure().getClass().getName());
     }
 
 }

@@ -19,4 +19,9 @@ public class SettingsUtil {
         }
     }
     
+    public static String getString(IDialogSettings settings, String key, String defaultValue) {
+        String value = settings.get(key);
+        return (value != null) ? value : defaultValue;
+    }
+    
 }
