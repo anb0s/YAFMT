@@ -4,20 +4,24 @@ import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.ImageFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.draw2d.ToolbarLayout;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
 
 import cz.jpikl.yafmt.ui.views.fm.util.GraphDecorator;
 
 public class FeatureModelDecorator extends GraphDecorator {
     
-    private static Font smallFont;
-    
-    private static Font getSmallFont() {
+    private Font smallFont;
+    private Image constraintImage;
+    private Image groupImage;
+        
+    private Font getSmallFont() {
         if(smallFont == null) {
             Display display = Display.getDefault();
             Font systemFont = display.getSystemFont();
@@ -29,6 +33,11 @@ public class FeatureModelDecorator extends GraphDecorator {
         return smallFont;
     }
     
+    public FeatureModelDecorator() {
+        constraintImage = FeatureModelVisualizerPlugin.getDefault().getImageRegistry().get("constraint-decoration");
+        groupImage = FeatureModelVisualizerPlugin.getDefault().getImageRegistry().get("group-decoration");
+    }
+    
     @Override
     public void dispose() {
         if(smallFont != null)
@@ -38,10 +47,19 @@ public class FeatureModelDecorator extends GraphDecorator {
     
     @Override
     protected IFigure[] getDecorations(Object element) {
-        return new IFigure[] { new NumberDecoration(3) };
+        return new IFigure[] { new NumberDecoration(3), new ImageDecoration(constraintImage), new ImageDecoration(groupImage) };
     }
     
-    private static class NumberDecoration extends Figure {
+    private class ImageDecoration extends ImageFigure {
+        
+        public ImageDecoration(Image image) {
+            super(image);
+            setSize(16, 16);
+        }
+        
+    }
+    
+    private class NumberDecoration extends Figure {
              
         public NumberDecoration(int number) {
             ToolbarLayout layout = new ToolbarLayout();

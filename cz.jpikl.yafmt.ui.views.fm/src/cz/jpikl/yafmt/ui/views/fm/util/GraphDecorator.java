@@ -16,7 +16,7 @@ import org.eclipse.zest.core.widgets.GraphNode;
 
 public abstract class GraphDecorator {
 
-    private static final int DECORATION_SPACE = 3;
+    private static final int DECORATION_SPACE = 1;
     
     private Graph graph;
     private IFigure rootLayer;
