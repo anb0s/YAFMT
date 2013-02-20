@@ -15,7 +15,6 @@ import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
-import cz.jpikl.yafmt.ui.editors.fm.util.AncestorRemover;
 
 public class GroupFigure extends RectangleFigure {
 
@@ -37,20 +36,29 @@ public class GroupFigure extends RectangleFigure {
         label.setForegroundColor(ColorConstants.black);
         setOpaque(true);
         setForegroundColor(ColorConstants.black);
-        addAncestorListener(new AncestorRemover(label));
         
         updateState();
         updateVisuals();
     }
-    
+        
     @Override
     public void paintFigure(Graphics graphics) {
+        // Add label to parent when possible.
         if(label.getParent() == null) {
             getParent().add(label);
             updateVisuals();
         }
         
         super.paintFigure(graphics);
+    }
+    
+    @Override
+    public void removeNotify() {
+        // Remove label from parent.
+        if(label.getParent() != null)
+            label.getParent().remove(label);
+        
+        super.removeNotify();
     }
     
     @Override
