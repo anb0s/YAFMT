@@ -34,8 +34,12 @@ public class HiddenNeighborsDecoration extends Label {
         super(Integer.toString(hiddenNeighborsCount));
         setFont(getTinyFont());
         setForegroundColor(ColorConstants.white);
-        setToolTip(new Label("This feature has " + hiddenNeighborsCount + " hidden neighbors."));
         setSize(16, 16);
+        
+        if(hiddenNeighborsCount > 1)
+            setToolTip(new Label("This feature has " + hiddenNeighborsCount + " hidden neighbors."));
+        else
+            setToolTip(new Label("This feature has a hidden neighbor."));
     }
     
     @Override

@@ -17,21 +17,25 @@ public abstract class GraphDecorator {
     
     private IFigure rootLayer;
     private Map<IFigure, IFigure[]> figureDecorations = new HashMap<IFigure, IFigure[]>();
-    private InternalListener interlanListener = new InternalListener();
+    private InternalListener internalListener = new InternalListener();
         
     public void hook(Graph graph) {
-        dispose();
+        unhook();
         rootLayer = (IFigure) graph.getContents().getChildren().get(0); 
-        rootLayer.addLayoutListener(interlanListener);
+        rootLayer.addLayoutListener(internalListener);
     }
     
-    public void dispose() {
+    private void unhook() {
         if(rootLayer == null)
             return;
 
         removeDecorations();
-        rootLayer.removeLayoutListener(interlanListener);
+        rootLayer.removeLayoutListener(internalListener);
         rootLayer = null;
+    }
+    
+    public void dispose() {
+        unhook();
     }
             
     protected abstract IFigure[] getDecorations(Object element);
@@ -44,7 +48,7 @@ public abstract class GraphDecorator {
         if((decorations == null) || (decorations.length == 0))
             return;
         
-        figure.addFigureListener(interlanListener);
+        figure.addFigureListener(internalListener);
         figureDecorations.put(figure, decorations);
         for(IFigure decoration: decorations)
             rootLayer.add(decoration);
@@ -54,7 +58,7 @@ public abstract class GraphDecorator {
     
     private void removeDecorations() {
         for(Map.Entry<IFigure, IFigure[]> entry: figureDecorations.entrySet()) {
-            entry.getKey().removeFigureListener(interlanListener);
+            entry.getKey().removeFigureListener(internalListener);
             for(IFigure decoration: entry.getValue())
                 rootLayer.remove(decoration);
         }
@@ -66,7 +70,7 @@ public abstract class GraphDecorator {
         if(decorations == null)
             return;
         
-        figure.removeFigureListener(interlanListener);
+        figure.removeFigureListener(internalListener);
         for(IFigure decoration: decorations)
             rootLayer.remove(decoration);
     }

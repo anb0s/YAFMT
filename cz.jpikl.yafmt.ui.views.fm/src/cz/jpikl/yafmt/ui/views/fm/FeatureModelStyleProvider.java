@@ -43,6 +43,7 @@ public class FeatureModelStyleProvider extends GraphStyleProvider {
     public void dispose() {
         HiddenNeighborsDecoration.disposeFonts();
         lightRedColor.dispose();
+        super.dispose();
     }
         
     // =============================================================
