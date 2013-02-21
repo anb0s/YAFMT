@@ -40,7 +40,6 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
@@ -76,8 +75,8 @@ import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutDataPackage;
 import cz.jpikl.yafmt.ui.editors.fm.operations.ResourceSaveOperation;
 import cz.jpikl.yafmt.ui.editors.fm.parts.FeatureModelEditPartFactory;
 import cz.jpikl.yafmt.ui.editors.fm.util.SelectionConverter;
-import cz.jpikl.yafmt.ui.editors.fm.util.Splitter;
 import cz.jpikl.yafmt.ui.editors.fm.util.UnwrappingSelectionProvider;
+import cz.jpikl.yafmt.ui.editors.fm.widgets.Splitter;
 
 public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette implements IResourceChangeListener, 
                                                                                     ISelectionListener, 
@@ -122,7 +121,7 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
     
     @Override
     public void createPartControl(Composite parent) {
-        Splitter splitter = new Splitter(parent, SWT.HORIZONTAL);
+        Splitter splitter = new Splitter(parent);
         createFeatureTreeEditor(splitter);
         createConstraintsEditor(splitter);
     }
@@ -132,12 +131,8 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
     }
     
     private void createConstraintsEditor(Splitter splitter) {
-        constraintsEditor = new ConstraintsEditor(splitter);
-        constraintsEditor.createControl();
-        constraintsEditor.setEditDomain(getEditDomain());
-        constraintsEditor.setActionRegistry(getActionRegistry());
-        constraintsEditor.setContents(featureModel);
-        constraintsEditor.addSelectionChangedListener(this);
+        constraintsEditor = new ConstraintsEditor(splitter, this);
+        constraintsEditor.addSelectionChangeListener(this);
     }
         
     @Override

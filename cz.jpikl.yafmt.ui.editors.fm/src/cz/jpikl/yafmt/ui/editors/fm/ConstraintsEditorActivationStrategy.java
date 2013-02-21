@@ -4,9 +4,9 @@ import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.ColumnViewerEditorActivationEvent;
 import org.eclipse.jface.viewers.ColumnViewerEditorActivationStrategy;
 
-public class ConstraintsEditorActiovationStrategy extends ColumnViewerEditorActivationStrategy {
+public class ConstraintsEditorActivationStrategy extends ColumnViewerEditorActivationStrategy {
 
-    public ConstraintsEditorActiovationStrategy(ColumnViewer viewer) {
+    public ConstraintsEditorActivationStrategy(ColumnViewer viewer) {
         super(viewer);
     }
     

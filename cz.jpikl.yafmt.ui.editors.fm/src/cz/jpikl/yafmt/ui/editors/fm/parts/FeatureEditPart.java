@@ -19,6 +19,8 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
+import cz.jpikl.yafmt.ui.editors.fm.directediting.DirectInputValidator;
+import cz.jpikl.yafmt.ui.editors.fm.directediting.LabelDirectEditManager;
 import cz.jpikl.yafmt.ui.editors.fm.figures.FeatureFigure;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 import cz.jpikl.yafmt.ui.editors.fm.model.Connection;
@@ -26,8 +28,6 @@ import cz.jpikl.yafmt.ui.editors.fm.policies.ConnectionCreationPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureDirectEditPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureEditPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureLayoutPolicy;
-import cz.jpikl.yafmt.ui.editors.fm.util.DirectInputValidator;
-import cz.jpikl.yafmt.ui.editors.fm.util.LabelDirectEditManager;
 
 public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEditPart {
 

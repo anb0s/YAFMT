@@ -1,7 +1,7 @@
 package cz.jpikl.yafmt.ui.editors.fm.actions;
 
-import org.eclipse.gef.EditDomain;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuCreator;
@@ -26,11 +26,11 @@ public class SetConstraintLanguageAction extends Action {
     public static final String ID = "cz.jpikl.yafmt.ui.editors.fm.actions.SetConstraintLanguageAction";
     
     private Viewer viewer;
-    private EditDomain editDomain;
+    private CommandStack commandStack;
     
-    public SetConstraintLanguageAction(Viewer viewer, EditDomain editDomain) {
+    public SetConstraintLanguageAction(Viewer viewer, CommandStack commandStack) {
         this.viewer = viewer;
-        this.editDomain = editDomain;
+        this.commandStack = commandStack;
         
         setId(ID);
         setText("Set Language");
@@ -106,7 +106,7 @@ public class SetConstraintLanguageAction extends Action {
         @Override
         public void widgetSelected(SelectionEvent event) {
             Command command = (Command) ((MenuItem) event.getSource()).getData();
-            editDomain.getCommandStack().execute(command);
+            commandStack.execute(command);
         }
 
         @Override

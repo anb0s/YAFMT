@@ -15,13 +15,13 @@ import org.eclipse.gef.requests.SelectionRequest;
 import cz.jpikl.yafmt.model.fm.Attribute;
 import cz.jpikl.yafmt.model.fm.AttributeType;
 import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
+import cz.jpikl.yafmt.ui.editors.fm.directediting.AttributeTypeCellEditor;
+import cz.jpikl.yafmt.ui.editors.fm.directediting.ComboDirectEditManager;
+import cz.jpikl.yafmt.ui.editors.fm.directediting.DirectInputValidator;
+import cz.jpikl.yafmt.ui.editors.fm.directediting.LabelDirectEditManager;
 import cz.jpikl.yafmt.ui.editors.fm.figures.AttributeFigure;
 import cz.jpikl.yafmt.ui.editors.fm.policies.AttributeDirectEditPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.AttributeEditPolicy;
-import cz.jpikl.yafmt.ui.editors.fm.util.AttributeTypeCellEditor;
-import cz.jpikl.yafmt.ui.editors.fm.util.ComboDirectEditManager;
-import cz.jpikl.yafmt.ui.editors.fm.util.DirectInputValidator;
-import cz.jpikl.yafmt.ui.editors.fm.util.LabelDirectEditManager;
 
 public class AttributeEditPart extends AbstractGraphicalEditPart {
 

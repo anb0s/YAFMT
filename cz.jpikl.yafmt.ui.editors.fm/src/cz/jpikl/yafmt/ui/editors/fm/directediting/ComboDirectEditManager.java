@@ -1,4 +1,4 @@
-package cz.jpikl.yafmt.ui.editors.fm.util;
+package cz.jpikl.yafmt.ui.editors.fm.directediting;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.GraphicalEditPart;

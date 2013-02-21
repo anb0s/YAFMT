@@ -8,10 +8,10 @@ import java.util.Set;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.util.EContentAdapter;
-import org.eclipse.gef.EditDomain;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.ui.actions.ActionRegistry;
-import org.eclipse.jface.action.ActionContributionItem;
+import org.eclipse.gef.ui.parts.GraphicalEditor;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuManager;
@@ -27,11 +27,11 @@ import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.ToolBar;
@@ -46,47 +46,48 @@ import cz.jpikl.yafmt.model.fm.Constraint;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.FeatureModelFactory;
+import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
 import cz.jpikl.yafmt.ui.editors.fm.actions.SetConstraintLanguageAction;
 import cz.jpikl.yafmt.ui.editors.fm.commands.AddConstraintCommand;
-import cz.jpikl.yafmt.ui.editors.fm.util.DockWidget;
-import cz.jpikl.yafmt.ui.editors.fm.util.Splitter;
+import cz.jpikl.yafmt.ui.editors.fm.util.DynamicContributionItem;
+import cz.jpikl.yafmt.ui.editors.fm.widgets.Splitter;
+import cz.jpikl.yafmt.ui.editors.fm.widgets.SplitterDock;
 
-public class ConstraintsEditor extends DockWidget {
+public class ConstraintsEditor extends SplitterDock {
         
     private FeatureModel featureModel;
-    private FeatureModelAdapter featureModelAdapter;
+    private FeatureModelAdapter featureModelAdapter = new FeatureModelAdapter();
     
-    private ConstraintCache constraintCache;
+    private ConstraintCache constraintCache = new ConstraintCache();
+    private Set<Constraint> visibleConstraints = new HashSet<Constraint>();
     private IStructuredSelection outerSelection;
-    private Set<Constraint> visibleConstraints;
-    private ToolItem filterButton;
-    private boolean filterEnabled;
     
-    private ImageRegistry imageRegistry;
-    private ActionRegistry actionRegistry;
-    private EditDomain editDomain;
+    private boolean filterEnabled = false;
+    private ToolItem filterButton;
+    private Image filterEnabledImage;
+    private Image filterDisabledImage;
+    
     private TableViewer viewer;
-    private ConstraintsEditorEditingSupport editingSupport;
+    private CommandStack commandStack;
+    private ActionRegistry actionRegistry;
     private IContributionItem setLanguageAction;
     
-    public ConstraintsEditor(Splitter splitter) {
+    public ConstraintsEditor(Splitter splitter, GraphicalEditor editor) {
         super(splitter, SWT.NONE);
                 
-        constraintCache = new ConstraintCache();
-        visibleConstraints = new HashSet<Constraint>();
-        filterEnabled = false;
-        imageRegistry = FeatureModelEditorPlugin.getDefault().getImageRegistry();
-    }
-    
-    @Override
-    public void dispose() {
-        if(featureModel != null)
-            featureModel.eAdapters().remove(featureModelAdapter);
-        super.dispose();
-    }
-    
-    @Override
-    protected void initializeControl() {
+        ImageRegistry imageRegistry = FeatureModelEditorPlugin.getDefault().getImageRegistry(); 
+        filterEnabledImage = imageRegistry.get("filter-enabled");
+        filterDisabledImage = imageRegistry.get("filter-disabled");
+        
+        commandStack = (CommandStack) editor.getAdapter(CommandStack.class);
+        actionRegistry = (ActionRegistry) editor.getAdapter(ActionRegistry.class);
+        
+        featureModel = (FeatureModel) editor.getAdapter(FeatureModel.class);
+        featureModel.eAdapters().add(featureModelAdapter);
+        constraintCache.setFeatureModel(featureModel);
+        
+        buildControl();
+        
         setName("Constraints");
         setImage(imageRegistry.get("constraint"));
         setOpenToolTipText("Show Constraints");
@@ -94,14 +95,41 @@ public class ConstraintsEditor extends DockWidget {
     }
     
     @Override
-    protected Control createMainControl(Composite parent) {        
+    public void dispose() {
+        featureModel.eAdapters().remove(featureModelAdapter);
+        super.dispose();
+    }
+    
+    @Override
+    protected Control createControl(Composite parent) {
         viewer = new TableViewer(parent);
-        
-        createTableViewerColumn(viewer);        
-        TableViewerEditor.create(viewer, new ConstraintsEditorActiovationStrategy(viewer), SWT.NONE);
-        
+        createViewerColumn();        
+        createViewerActivationStrategy();
+        createViewerActions();
+        configureViewer();
+        return viewer.getControl();
+    }
+    
+    private void createViewerColumn() {
+        TableViewerColumn column = new TableViewerColumn(viewer, SWT.NONE);
+        column.getColumn().setWidth(100); // Number does not matter.
+        column.setEditingSupport(new ConstraintsEditorEditingSupport(viewer, commandStack));
+        column.setLabelProvider(new ConstraintsEditorLabelProvider());
+    }
+    
+    private void createViewerActivationStrategy() {
+        TableViewerEditor.create(viewer, new ConstraintsEditorActivationStrategy(viewer), SWT.NONE);
+    }
+    
+    private void createViewerActions() {
+        setLanguageAction = new DynamicContributionItem(new SetConstraintLanguageAction(viewer, commandStack));
+    }
+    
+    private void configureViewer() {
         viewer.setContentProvider(new ConstraintsEditorContentProvider());
         viewer.addFilter(new ConstraintsFilter());
+        viewer.setInput(featureModel);
+        
         viewer.getTable().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseDoubleClick(MouseEvent event) {
@@ -110,6 +138,7 @@ public class ConstraintsEditor extends DockWidget {
                     addNewConstraint();
             }
         });
+        
         viewer.getTable().addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent event) {
@@ -118,17 +147,6 @@ public class ConstraintsEditor extends DockWidget {
                 }
             }
         });
-                
-        return viewer.getControl();
-    }
-    
-    private void createTableViewerColumn(TableViewer viewer) {
-        editingSupport = new ConstraintsEditorEditingSupport(viewer);
-        
-        TableViewerColumn column = new TableViewerColumn(viewer, SWT.NONE);
-        column.getColumn().setWidth(100);
-        column.setEditingSupport(editingSupport);
-        column.setLabelProvider(new ConstraintsEditorLabelProvider());
     }
     
     @Override
@@ -147,123 +165,60 @@ public class ConstraintsEditor extends DockWidget {
             @Override
             public void widgetSelected(SelectionEvent event) {
                 filterEnabled = !filterEnabled;
-                updateFilterButton();
+                refreshFilterButton();
                 refresh();
             }
         });
-        updateFilterButton();
+        refreshFilterButton();
     }
     
-    private void updateFilterButton() {
+    private void refreshFilterButton() {
         if(filterEnabled) {
-            filterButton.setImage(imageRegistry.get("filter-enabled"));
+            filterButton.setImage(filterEnabledImage);
             filterButton.setToolTipText("Disable Filter");
         }
         else {
-            filterButton.setImage(imageRegistry.get("filter-disabled"));
+            filterButton.setImage(filterDisabledImage);
             filterButton.setToolTipText("Enable Filter");
         }
     }
         
     private void addNewConstraint() {
-        // Get last used language for constraint or find first available if no constraint exists yet.
-        String langaugeId = null;
-        List<Constraint> constraints = featureModel.getConstraints(); 
-        if(!constraints.isEmpty()) {
-            langaugeId = constraints.get(constraints.size() - 1).getLanguage();
-        }
-        else {
-            ConstraintLanguageRegistry registry = ConstraintLanguagePlugin.getDefault().getConstraintLanguageRegistry();
-            Iterator<ConstraintLanguageDescriptor> iterator = registry.getDescriptors().iterator();
-            if(iterator.hasNext())
-                langaugeId = iterator.next().getId();
-        }
-        
-        // Execute command to add new constraint.
         Constraint constraint = FeatureModelFactory.eINSTANCE.createConstraint();
-        constraint.setLanguage(langaugeId);
+        constraint.setLanguage(getDefaultConstraintLanguage());
         constraint.setValue("");
         visibleConstraints.add(constraint); // Make the new constraint visible.
         
+        // Execute command to add new constraint.
         Command command = new AddConstraintCommand(featureModel, constraint);
-        editDomain.getCommandStack().execute(command);
+        commandStack.execute(command);
         
         // Start constraint editing.
         viewer.editElement(constraint, 0);
     }
     
-    public void addSelectionChangedListener(ISelectionChangedListener listener) {
-        viewer.addSelectionChangedListener(listener);
+    private String getDefaultConstraintLanguage() {
+        // Get last used language for constraint or find first available if no constraint exists yet.
+        List<Constraint> constraints = featureModel.getConstraints(); 
+        if(!constraints.isEmpty())
+            return constraints.get(constraints.size() - 1).getLanguage();
+        
+        ConstraintLanguageRegistry registry = ConstraintLanguagePlugin.getDefault().getConstraintLanguageRegistry();
+        Iterator<ConstraintLanguageDescriptor> iterator = registry.getDescriptors().iterator();
+        if(iterator.hasNext())
+            return iterator.next().getId();
+        return null;
     }
-    
-    public void removeSelectionChangedListener(ISelectionChangedListener listener) {
-        viewer.removeSelectionChangedListener(listener);
-    }
-    
-    public void addKeyListener(final KeyListener listener) {
-        viewer.getTable().addKeyListener(listener);
-    }
-    
+            
     @Override
     public boolean setFocus() {
         return viewer.getControl().setFocus();
     }
-    
-    public void setActionRegistry(ActionRegistry actionRegistry) {
-        this.actionRegistry = actionRegistry;
-    }
-    
-    public void setEditDomain(EditDomain editDomain) {
-        this.editDomain = editDomain;
-        editingSupport.setEditDomain(editDomain);
-        setLanguageAction = new ActionContributionItem(new SetConstraintLanguageAction(viewer, editDomain)) {
-            @Override
-            public boolean isDynamic() {
-                return true; // Recreate language menu when show.
-            }
-        };
-    }
-    
-    public void setContents(FeatureModel featureModel) {
-        this.featureModel = featureModel;
-        constraintCache.setFeatureModel(featureModel);
-        viewer.setInput(featureModel);
         
-        if(featureModel != null) {
-            featureModelAdapter = new FeatureModelAdapter();
-            featureModel.eAdapters().add(featureModelAdapter);
-        }
-    }
-    
     @Override
     public void setVisible(boolean visible) {
         super.setVisible(visible);
         refresh();
-    }
-    
-    public void refresh() {
-        if(!isVisible())
-            return;
-        
-        if(filterEnabled) {
-            visibleConstraints.clear();
-            
-            for(Object object: ((IStructuredSelection) outerSelection).toArray()) {
-                if(object instanceof Constraint) {
-                    visibleConstraints.add((Constraint) object);
-                }
-                else if(object instanceof Feature) {
-                    Collection<Constraint> constraints = constraintCache.getConstraintsAffectingFeature((Feature) object);
-                    if(constraints != null)
-                        visibleConstraints.addAll(constraints);
-                }
-                else if(object instanceof FeatureModel) {
-                    visibleConstraints.addAll(featureModel.getConstraints());
-                }
-            }
-        }
-        
-        viewer.refresh();
     }
     
     public void setSelection(ISelection selection) {        
@@ -271,20 +226,53 @@ public class ConstraintsEditor extends DockWidget {
             return;
         
         outerSelection = (IStructuredSelection) selection; 
-       
+        
         if(filterEnabled)
             refresh();
         else
             viewer.setSelection(selection);
     }
     
+    public void addSelectionChangeListener(ISelectionChangedListener listener) {
+        viewer.addSelectionChangedListener(listener);
+    }
+    
+    public void removeSelectionChangeListener(ISelectionChangedListener listener) {
+        viewer.removeSelectionChangedListener(listener);
+    }
+    
+    public void refresh() {
+        if(!isVisible())
+            return;
+        
+        if(filterEnabled)
+            refreshFilter();
+        viewer.refresh();
+    }
+    
+    private void refreshFilter() {
+        visibleConstraints.clear();
+        
+        for(Object object: outerSelection.toArray()) {
+            if(object instanceof Constraint) {
+                visibleConstraints.add((Constraint) object);
+            }
+            else if(object instanceof Feature) {
+                Collection<Constraint> constraints = constraintCache.getConstraintsAffectingFeature((Feature) object);
+                if(constraints != null)
+                    visibleConstraints.addAll(constraints);
+            }
+            else if(object instanceof FeatureModel) {
+                visibleConstraints.addAll(featureModel.getConstraints());
+            }
+        }
+    }
+       
     private class ConstraintsFilter extends ViewerFilter {
 
         @Override
         public boolean select(Viewer viewer, Object parentElement, Object element) {
-            if(!filterEnabled)
-                return true;
-            if(element == ConstraintsEditorContentProvider.ADD_CONSTRAINT_OBJECT)
+            if(!filterEnabled || (element == ConstraintsEditorContentProvider.ADD_CONSTRAINT_OBJECT))
                 return true;
             return visibleConstraints.contains(element);
         }
@@ -296,7 +284,13 @@ public class ConstraintsEditor extends DockWidget {
         @Override
         public void notifyChanged(Notification notification) {
             super.notifyChanged(notification);
+            
             constraintCache.invalidate();
+            Object notifier = notification.getNotifier();
+            if((notifier instanceof FeatureModel) && (notification.getFeatureID(FeatureModel.class) == FeatureModelPackage.FEATURE_MODEL__CONSTRAINTS))
+                viewer.refresh();
+            else if((notifier instanceof Constraint) && (notification.getFeatureID(Constraint.class) == FeatureModelPackage.CONSTRAINT__VALUE))
+                viewer.refresh(notification.getNotifier());
         }
         
     }

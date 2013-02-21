@@ -1,4 +1,4 @@
-package cz.jpikl.yafmt.ui.editors.fm.util;
+package cz.jpikl.yafmt.ui.editors.fm.widgets;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -15,7 +15,7 @@ import org.eclipse.swt.widgets.Layout;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Sash;
 
-// Copied from GEF (org.eclipse.gef.ui.parts).
+// Copied from GEF (org.eclipse.gef.ui.parts.Splitter).
 public class Splitter extends Composite {
 
     public static final int DEFAULT_SASH_WIDTH = 3;
@@ -72,6 +72,10 @@ public class Splitter extends Composite {
         }
     }
 
+    public Splitter(Composite parent) {
+        this(parent, SWT.HORIZONTAL);
+    }
+    
     public Splitter(Composite parent, int style) {
         super(parent, checkStyle(style));
 

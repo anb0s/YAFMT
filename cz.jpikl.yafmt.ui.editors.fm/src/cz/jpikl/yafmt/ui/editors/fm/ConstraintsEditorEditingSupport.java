@@ -1,7 +1,7 @@
 package cz.jpikl.yafmt.ui.editors.fm;
 
-import org.eclipse.gef.EditDomain;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnViewer;
@@ -29,16 +29,13 @@ import cz.jpikl.yafmt.ui.editors.fm.commands.SetConstraintValueCommand;
 public class ConstraintsEditorEditingSupport extends EditingSupport {
 
     private IStatusLineManager statusLineManager;
-    private EditDomain editDomain;
+    private CommandStack commandStack;
     
-    public ConstraintsEditorEditingSupport(ColumnViewer viewer) {
+    public ConstraintsEditorEditingSupport(ColumnViewer viewer, CommandStack commandStack) {
         super(viewer);
+        this.commandStack = commandStack;
     }
-    
-    public void setEditDomain(EditDomain editDomain) {
-        this.editDomain = editDomain;
-    }
-    
+        
     private Table getTable() {
         return ((TableViewer) getViewer()).getTable();
     }
@@ -101,7 +98,7 @@ public class ConstraintsEditorEditingSupport extends EditingSupport {
             return;
         
         Command command = new SetConstraintValueCommand(constraint, (String) value);
-        editDomain.getCommandStack().execute(command);
+        commandStack.execute(command);
     }
     
     // ================================================================================
