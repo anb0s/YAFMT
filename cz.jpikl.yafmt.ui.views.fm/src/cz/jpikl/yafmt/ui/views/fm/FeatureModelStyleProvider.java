@@ -2,6 +2,7 @@ package cz.jpikl.yafmt.ui.views.fm;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Label;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
@@ -11,6 +12,9 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.zest.core.viewers.IEntityConnectionStyleProvider;
 import org.eclipse.zest.core.viewers.IEntityStyleProvider;
 import org.eclipse.zest.core.viewers.IFigureProvider;
+import org.eclipse.zest.core.viewers.ISelfStyleProvider;
+import org.eclipse.zest.core.widgets.GraphConnection;
+import org.eclipse.zest.core.widgets.GraphNode;
 import org.eclipse.zest.core.widgets.ZestStyles;
 
 import cz.jpikl.yafmt.model.fm.Constraint;
@@ -18,14 +22,15 @@ import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
 
-public class FeatureModelLabelProvider implements IFigureProvider, 
+public class FeatureModelStyleProvider implements IFigureProvider, 
                                                   ILabelProvider, 
                                                   IEntityStyleProvider, 
-                                                  IEntityConnectionStyleProvider {
+                                                  IEntityConnectionStyleProvider,
+                                                  ISelfStyleProvider {
 
     private Color lightRedColor;
 
-    public FeatureModelLabelProvider() {
+    public FeatureModelStyleProvider() {
         lightRedColor = new Color(Display.getCurrent(), 255, 192, 192);
     }
     
@@ -173,7 +178,34 @@ public class FeatureModelLabelProvider implements IFigureProvider,
 
     @Override
     public IFigure getTooltip(Object entity) {
+        if(entity instanceof Feature) {
+            Feature feature = (Feature) entity;
+            String id = feature.getId();
+            String description = feature.getDescription();
+            if((description != null) && !description.isEmpty())
+                return new Label(id + " - " + description);
+            else
+                return new Label(id);
+        }
+        
+        if(entity instanceof Constraint) {
+            return new Label(((Constraint) entity).getDescription());
+        }
+        
         return null;
     }
+    
+    // =============================================================
+    // ISelfStyleProvider
+    // =============================================================
 
+    @Override
+    public void selfStyleNode(Object element, GraphNode node) {
+        
+    }
+    
+    @Override
+    public void selfStyleConnection(Object element, GraphConnection connection) {
+    }
+    
 }

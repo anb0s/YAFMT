@@ -73,15 +73,15 @@ public class FeatureModelDecorator extends GraphDecorator {
         Feature feature = (Feature) element;
         List<IFigure> decorations = new ArrayList<IFigure>(3);
         
-        int hiddenNeightbors = countHiddenNeighbors(feature);
-        if(hiddenNeightbors > 0)
-            decorations.add(new NumberDecoration(hiddenNeightbors));
+        int hiddenNeighbors = countHiddenNeighbors(feature);
+        if(hiddenNeighbors > 0)
+            decorations.add(new NumberDecoration(hiddenNeighbors));
         
         if(isHiddenGroup(feature))
-            decorations.add(new ImageDecoration(groupImage));
+            decorations.add(new GroupDecoration());
         
         if(isHiddenConstraint(feature))
-            decorations.add(new ImageDecoration(constraintImage));
+            decorations.add(new ConstraintDecoration());
         
         return decorations.isEmpty() ? null : decorations.toArray(new Figure[decorations.size()]);
     }
@@ -154,6 +154,7 @@ public class FeatureModelDecorator extends GraphDecorator {
             
             setForegroundColor(ColorConstants.white);
             setSize(16, 16);
+            setToolTip(new Label("There are " + number + " hidden neighbor features."));
         }
         
         @Override
@@ -165,11 +166,29 @@ public class FeatureModelDecorator extends GraphDecorator {
         
     }
     
-    private static class ImageDecoration extends ImageFigure {
+    private class ImageDecoration extends ImageFigure {
         
         public ImageDecoration(Image image) {
             super(image);
             setSize(16, 16);
+        }
+        
+    }
+    
+    private class ConstraintDecoration extends ImageDecoration {
+
+        public ConstraintDecoration() {
+            super(constraintImage);
+            setToolTip(new Label("There is a constraint affecting this feature."));
+        }
+        
+    }
+    
+    private class GroupDecoration extends ImageDecoration {
+
+        public GroupDecoration() {
+            super(groupImage);
+            setToolTip(new Label("This feature is part of a group."));
         }
         
     }

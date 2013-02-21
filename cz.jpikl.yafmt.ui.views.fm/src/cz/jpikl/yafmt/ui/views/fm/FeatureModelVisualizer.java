@@ -119,7 +119,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         // Do not enable hash lookup. It causes invalidation of current selection during graph refresh.
         viewer = new GraphViewer(parent, ZestStyles.NONE);
         viewer.setContentProvider(new FeatureModelContentProvider());
-        viewer.setLabelProvider(new FeatureModelLabelProvider());
+        viewer.setLabelProvider(new FeatureModelStyleProvider());
         viewer.setLayoutAlgorithm(new FeatureGraphLayoutAlgorithm(settings));
         viewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         viewer.setNodeStyle(settings.isAnimationEnabled() ? ZestStyles.NONE : ZestStyles.NODES_NO_ANIMATION);
