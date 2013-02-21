@@ -31,7 +31,6 @@ import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
 import cz.jpikl.yafmt.ui.views.fm.filters.ConstraintFilter;
 import cz.jpikl.yafmt.ui.views.fm.filters.DistanceFilter;
 import cz.jpikl.yafmt.ui.views.fm.filters.GroupFilter;
-import cz.jpikl.yafmt.ui.views.fm.util.GraphDecorator;
 
 public class FeatureModelVisualizer extends ViewPart implements ISelectionListener, 
                                                                 IPartListener, 
@@ -47,7 +46,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
 	
 	private Settings settings;
     private GraphViewer viewer;
-    private GraphDecorator decorator;
+    private FeatureModelDecorator decorator;
     private DistanceFilter distanceFilter;
     private GroupFilter groupFilter;
     private ConstraintFilter constraintFilter;
@@ -88,10 +87,16 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         
         setSourcePart(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor());
         
-        decorator.hook(viewer.getGraphControl());
         distanceFilter.update(null, featureModel);
         groupFilter.update(null);
         constraintFilter.update(null, featureModel);
+        
+        decorator.setDistanceFilter(distanceFilter);
+        decorator.setGroupFilter(groupFilter);
+        decorator.setConstraintFilter(constraintFilter);
+        decorator.setConstraintCache(constraintCache);
+        decorator.hook(viewer.getGraphControl());
+        
         viewer.refresh();
         viewer.applyLayout();
         
