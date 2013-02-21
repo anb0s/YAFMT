@@ -9,83 +9,52 @@ import org.eclipse.draw2d.LayoutListener;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.swt.events.PaintEvent;
-import org.eclipse.swt.events.PaintListener;
 import org.eclipse.zest.core.widgets.Graph;
-import org.eclipse.zest.core.widgets.GraphNode;
 
 public abstract class GraphDecorator {
 
     private static final int DECORATION_SPACE = 1;
     
-    private Graph graph;
     private IFigure rootLayer;
-    private Map<IFigure, IFigure[]> figureDecorations;
-    private InternalListener listener;
-    private boolean movingDecorations = false;
-    
-    
-    public GraphDecorator() {
-        figureDecorations = new HashMap<IFigure, IFigure[]>();
-        listener = new InternalListener();
-    }
-    
+    private Map<IFigure, IFigure[]> figureDecorations = new HashMap<IFigure, IFigure[]>();
+    private InternalListener interlanListener = new InternalListener();
+        
     public void hook(Graph graph) {
         dispose();
-        
-        this.graph = graph;
-        this.graph.addPaintListener(listener);
         rootLayer = (IFigure) graph.getContents().getChildren().get(0); 
-        rootLayer.addLayoutListener(listener);
+        rootLayer.addLayoutListener(interlanListener);
     }
     
     public void dispose() {
-        if((graph == null) || graph.isDisposed())
+        if(rootLayer == null)
             return;
-                
+
         removeDecorations();
-        rootLayer.removeLayoutListener(listener);
+        rootLayer.removeLayoutListener(interlanListener);
         rootLayer = null;
-        graph.removePaintListener(listener);
-        graph = null;
     }
-    
-    public void refresh() {
-        removeDecorations();
-    }
-        
+            
     protected abstract IFigure[] getDecorations(Object element);
     
-    private Object findElementForFigure(IFigure figure) {
-        for(Object node: graph.getNodes()) {
-            if(((GraphNode) node).getNodeFigure() == figure)
-                return ((GraphNode) node).getData();
-        }
-        return null;
-    }
-    
-    private void addDecorations(IFigure figure) {
-        if(movingDecorations || figureDecorations.containsKey(figure))
+    protected void addDecorations(Object element, IFigure figure) {
+        if(figureDecorations.containsKey(figure))
             return;
-        
-        Object element = findElementForFigure(figure);
-        if(element == null)
-            return;
-        
+                
         IFigure[] decorations = getDecorations(element);
         if((decorations == null) || (decorations.length == 0))
             return;
         
-        figure.addFigureListener(listener);
+        figure.addFigureListener(interlanListener);
         figureDecorations.put(figure, decorations);
         for(IFigure decoration: decorations)
             rootLayer.add(decoration);
+        
         moveDecorations(figure);
     }
     
     private void removeDecorations() {
         for(Map.Entry<IFigure, IFigure[]> entry: figureDecorations.entrySet()) {
-            entry.getKey().removeFigureListener(listener);
+            entry.getKey().removeFigureListener(interlanListener);
             for(IFigure decoration: entry.getValue())
                 rootLayer.remove(decoration);
         }
@@ -97,14 +66,12 @@ public abstract class GraphDecorator {
         if(decorations == null)
             return;
         
-        figure.removeFigureListener(listener);
+        figure.removeFigureListener(interlanListener);
         for(IFigure decoration: decorations)
             rootLayer.remove(decoration);
     }
     
     private void moveDecorations(IFigure figure) {
-        movingDecorations = true;
-        
         IFigure[] decorations = figureDecorations.get(figure);
         if(decorations == null)
             return;
@@ -119,16 +86,9 @@ public abstract class GraphDecorator {
             rootLayer.setConstraint(decoration, new Rectangle(position, size));
             x += size.width + DECORATION_SPACE;
         }
-        
-        movingDecorations = false;
     }
         
-    private class InternalListener implements PaintListener, FigureListener, LayoutListener {
-
-        @Override
-        public void paintControl(PaintEvent event) {
-            //refreshDecorations();
-        }
+    private class InternalListener implements FigureListener, LayoutListener {
 
         @Override
         public void figureMoved(IFigure source) {
@@ -155,7 +115,6 @@ public abstract class GraphDecorator {
 
         @Override
         public void setConstraint(IFigure child, Object constraint) {
-            addDecorations(child);
         }
         
     }

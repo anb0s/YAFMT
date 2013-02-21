@@ -14,8 +14,9 @@ import org.eclipse.zest.layouts.algorithms.RadialLayoutAlgorithm;
 import org.eclipse.zest.layouts.algorithms.SpringLayoutAlgorithm;
 
 import cz.jpikl.yafmt.model.fm.Feature;
+import cz.jpikl.yafmt.ui.views.fm.settings.Settings;
 
-public class FeatureGraphLayoutAlgorithm extends CompositeLayoutAlgorithm {
+public class FeatureModelLayoutAlgorithm extends CompositeLayoutAlgorithm {
 
     private static LayoutAlgorithm[] createAlgorithms() {
         // First algorithm layouts the basic radial tree structure made from feature nodes. 
@@ -34,7 +35,7 @@ public class FeatureGraphLayoutAlgorithm extends CompositeLayoutAlgorithm {
     
     private Settings settings;
     
-    public FeatureGraphLayoutAlgorithm(Settings settings) {
+    public FeatureModelLayoutAlgorithm(Settings settings) {
         super(LayoutStyles.NO_LAYOUT_NODE_RESIZING, createAlgorithms());
         this.settings = settings;
     }

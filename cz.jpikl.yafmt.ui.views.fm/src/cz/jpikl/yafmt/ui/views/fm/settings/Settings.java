@@ -1,4 +1,4 @@
-package cz.jpikl.yafmt.ui.views.fm;
+package cz.jpikl.yafmt.ui.views.fm.settings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +17,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 
+import cz.jpikl.yafmt.ui.views.fm.FeatureModelVisualizerPlugin;
 import cz.jpikl.yafmt.ui.views.fm.filters.DistanceFilter;
 import cz.jpikl.yafmt.ui.views.fm.util.SettingsUtil;
 

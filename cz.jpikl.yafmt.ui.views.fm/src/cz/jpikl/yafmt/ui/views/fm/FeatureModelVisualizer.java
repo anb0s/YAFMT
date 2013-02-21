@@ -31,6 +31,8 @@ import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
 import cz.jpikl.yafmt.ui.views.fm.filters.ConstraintFilter;
 import cz.jpikl.yafmt.ui.views.fm.filters.DistanceFilter;
 import cz.jpikl.yafmt.ui.views.fm.filters.GroupFilter;
+import cz.jpikl.yafmt.ui.views.fm.settings.ISettingsListener;
+import cz.jpikl.yafmt.ui.views.fm.settings.Settings;
 
 public class FeatureModelVisualizer extends ViewPart implements ISelectionListener, 
                                                                 IPartListener, 
@@ -42,40 +44,40 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
 	private IWorkbenchPart sourcePart;
 	private FeatureModel featureModel;
 	private FeatureModelAdapter featureModelAdapter;
-	private ConstraintCache constraintCache;
 	
 	private Settings settings;
-    private GraphViewer viewer;
-    private FeatureModelDecorator decorator;
+	private ConstraintCache constraintCache;
+	private int treeHeight; // Height of the current feature model tree.
+	
+	private GraphViewer viewer;
     private DistanceFilter distanceFilter;
     private GroupFilter groupFilter;
     private ConstraintFilter constraintFilter;
-    private int treeHeight; // Height of the current feature model tree.
-    
-    public FeatureModelVisualizer() {
+            
+    @Override
+    public void init(IViewSite site) throws PartInitException {
+        super.init(site);
+        
         constraintCache = new ConstraintCache();
         treeHeight = 1;
         settings = new Settings();
         settings.addSettingsListener(this);
-        decorator = new FeatureModelDecorator();
-    }
-    
-    @Override
-    public void init(IViewSite site) throws PartInitException {
-        super.init(site);
+        settings.init(FeatureModelVisualizerPlugin.getDefault().getDialogSettings());
+        
         site.getPage().addPartListener(this);
         site.getPage().addSelectionListener(this);
-        settings.init(FeatureModelVisualizerPlugin.getDefault().getDialogSettings());
     }
         
     @Override
     public void dispose() {
-        decorator.dispose();
         settings.save(FeatureModelVisualizerPlugin.getDefault().getDialogSettings());
+        settings.removeSettingsListener(this);
         setFeatureModel(null);
+        
         getSite().getPage().removeSelectionListener(this);
         getSite().getPage().removePartListener(this);
         getSite().setSelectionProvider(null);
+        
         super.dispose();
     }
     
@@ -85,17 +87,12 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         createGraphViewerControl(parent);
         settings.createControl(parent);
         
+        // Try to load active editor input.
         setSourcePart(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor());
         
         distanceFilter.update(null, featureModel);
         groupFilter.update(null);
         constraintFilter.update(null, featureModel);
-        
-        decorator.setDistanceFilter(distanceFilter);
-        decorator.setGroupFilter(groupFilter);
-        decorator.setConstraintFilter(constraintFilter);
-        decorator.setConstraintCache(constraintCache);
-        decorator.hook(viewer.getGraphControl());
         
         viewer.refresh();
         viewer.applyLayout();
@@ -110,7 +107,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
             }
         });
     }
-        
+     
     private void createGraphViewerControl(Composite parent) {
         distanceFilter = new DistanceFilter(constraintCache, settings.getVisibleDistance());
         groupFilter = new GroupFilter(settings.areGroupsVisible());
@@ -119,11 +116,12 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         // Do not enable hash lookup. It causes invalidation of current selection during graph refresh.
         viewer = new GraphViewer(parent, ZestStyles.NONE);
         viewer.setContentProvider(new FeatureModelContentProvider());
-        viewer.setLabelProvider(new FeatureModelStyleProvider());
-        viewer.setLayoutAlgorithm(new FeatureGraphLayoutAlgorithm(settings));
+        viewer.setLabelProvider(new FeatureModelStyleProvider(viewer, constraintCache));
+        viewer.setLayoutAlgorithm(new FeatureModelLayoutAlgorithm(settings));
         viewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         viewer.setNodeStyle(settings.isAnimationEnabled() ? ZestStyles.NONE : ZestStyles.NODES_NO_ANIMATION);
         viewer.setFilters(new ViewerFilter[] { distanceFilter, groupFilter, constraintFilter });
+        
         getSite().setSelectionProvider(viewer);
     }
     

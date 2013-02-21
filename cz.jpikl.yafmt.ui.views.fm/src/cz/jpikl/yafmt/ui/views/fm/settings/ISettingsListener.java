@@ -1,4 +1,4 @@
-package cz.jpikl.yafmt.ui.views.fm;
+package cz.jpikl.yafmt.ui.views.fm.settings;
 
 public interface ISettingsListener {
 
