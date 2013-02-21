@@ -14,7 +14,7 @@ import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.model.fm.provider.FeatureModelEditPlugin;
-import cz.jpikl.yafmt.model.provider.util.IPropertySourceValidator;
+import cz.jpikl.yafmt.model.validation.IPropertySourceValidator;
 import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.Literals.*;
 
 public class FeatureModelPropertySourceValidator implements IPropertySourceValidator {

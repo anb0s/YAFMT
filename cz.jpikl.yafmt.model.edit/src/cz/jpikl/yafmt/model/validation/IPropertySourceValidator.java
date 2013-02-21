@@ -1,4 +1,4 @@
-package cz.jpikl.yafmt.model.provider.util;
+package cz.jpikl.yafmt.model.validation;
 
 public interface IPropertySourceValidator {
 
