@@ -33,6 +33,8 @@ public class FeatureFigure extends RoundedRectangle {
         this.feature = feature;
         
         setLayoutManager(new GridLayout());
+        setToolTip(toolTip);
+        
         label.setFont(DrawConstantans.getBoldFont());
         label.setForegroundColor(ColorConstants.black);
         add(label, new GridData(SWT.FILL, SWT.FILL, true, true));
