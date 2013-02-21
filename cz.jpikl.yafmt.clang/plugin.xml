@@ -6,10 +6,10 @@
    <extension
          point="cz.jpikl.yafmt.clang">
       <language
-            class="cz.jpikl.yafmt.clang.dummy.DummyLanguage"
-            id="cz.jpikl.yafmt.clang.dummy"
-            name="Dummy Language"
-            shortName="Dummy">
+            class="cz.jpikl.yafmt.clang.xor.XorLanguage"
+            id="cz.jpikl.yafmt.clang.xor"
+            name="XOR Language"
+            shortName="XOR">
       </language>
    </extension>
 

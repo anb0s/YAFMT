@@ -1,4 +1,4 @@
-package cz.jpikl.yafmt.clang.dummy;
+package cz.jpikl.yafmt.clang.xor;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -11,11 +11,11 @@ import cz.jpikl.yafmt.clang.IEvaluationResult;
 import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
 import cz.jpikl.yafmt.model.fc.Selection;
 
-public class DummyEvaluator extends Evaluator {
+public class XorEvaluator extends Evaluator {
 
     private Set<String> featureIds;
     
-    public DummyEvaluator(String[] ids) {
+    public XorEvaluator(String[] ids) {
         featureIds = new HashSet<String>(Arrays.asList(ids));
     }
     
