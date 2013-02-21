@@ -20,9 +20,9 @@ public class GroupFigure extends RectangleFigure {
 
     public static final int SIZE = 40;
     
+    private Label label = new NonInteractiveLabel();
     private Group group;
     private LayoutData layoutData;
-    private Label label = new NonInteractiveLabel();
     
     private double[] connectionAngles;
     private int arcOffset = 0;
@@ -36,19 +36,14 @@ public class GroupFigure extends RectangleFigure {
         label.setForegroundColor(ColorConstants.black);
         setOpaque(true);
         setForegroundColor(ColorConstants.black);
-        
-        updateState();
-        updateVisuals();
+        refresh();
     }
         
     @Override
     public void paintFigure(Graphics graphics) {
         // Add label to parent when possible.
-        if(label.getParent() == null) {
+        if(label.getParent() == null)
             getParent().add(label);
-            updateVisuals();
-        }
-        
         super.paintFigure(graphics);
     }
     
@@ -57,7 +52,6 @@ public class GroupFigure extends RectangleFigure {
         // Remove label from parent.
         if(label.getParent() != null)
             label.getParent().remove(label);
-        
         super.removeNotify();
     }
     
@@ -74,7 +68,18 @@ public class GroupFigure extends RectangleFigure {
         graphics.drawArc(arcBounds, arcOffset, arcLength);
     }
     
-    public void updateState() {
+    public void refresh() {
+        refreshCardinality();
+        
+        Rectangle newBounds = layoutData.get(group);
+        if(newBounds != null) {
+            setBounds(newBounds.getCopy());
+            recomputeArcData();
+            repositionLabel();
+        }
+    }
+    
+    private void refreshCardinality() {
         if(group.isOr()) {
             setBackgroundColor(ColorConstants.black);
             label.setText(null);
@@ -88,17 +93,7 @@ public class GroupFigure extends RectangleFigure {
             label.setText(FeatureModelUtil.getCardinality(group));
         }
     }
-    
-    public void updateVisuals() {
-        Rectangle newBounds = layoutData.get(group);
-        if(newBounds == null)
-            return;
-        
-        setBounds(newBounds.getCopy());
-        recomputeArcData();
-        repositionLabel();
-    }
-        
+            
     private void recomputeArcData() {
         List<Feature> features = group.getFeatures();
         int size = features.size();

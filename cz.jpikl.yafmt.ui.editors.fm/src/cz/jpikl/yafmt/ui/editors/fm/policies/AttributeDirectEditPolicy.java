@@ -41,7 +41,7 @@ public class AttributeDirectEditPolicy extends DirectEditPolicy {
         if(value == null)
             value = "";
         if(value instanceof String)
-            ((AttributeFigure) getHostFigure()).updateName((String) value);
+            ((AttributeFigure) getHostFigure()).setName((String) value);
     }
     
 }

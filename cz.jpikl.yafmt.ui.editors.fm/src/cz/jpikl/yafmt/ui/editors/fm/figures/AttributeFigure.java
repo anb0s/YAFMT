@@ -12,32 +12,25 @@ public class AttributeFigure extends Label {
     public static int HEIGHT = 18;
     public static int EXTENDED_HEIGHT = 28;
     
-    private String name;
-    private String type;
+    private Attribute attribute;
     
     public AttributeFigure(Attribute attribute) {
+        this.attribute = attribute;
+        
         setForegroundColor(ColorConstants.black);
-        updateLabel(attribute);
+        refresh();
     }
     
-    public void updateName(String name) {
-        this.name = name;
-        updateLabel();
+    public void refresh() {
+        setNameAndType(attribute.getName(), attribute.getType());
+    }
+        
+    public void setName(String name) {
+        setNameAndType(name, attribute.getType());
     }
     
-    public void updateType(AttributeType type) {
-        this.type = getTypeName(type); 
-        updateLabel();
-    }
-    
-    public void updateLabel(Attribute attribute) {
-        this.name = attribute.getName();
-        this.type = getTypeName(attribute.getType());
-        updateLabel();
-    }
-    
-    private void updateLabel() {
-        setText(name + ": " + type);
+    private void setNameAndType(String name, AttributeType type) {
+        setText(name + ": " + getTypeName(type));
     }
        
     private static String getTypeName(AttributeType type) {

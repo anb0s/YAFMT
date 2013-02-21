@@ -40,7 +40,12 @@ public class ConnectionEditPart extends AbstractConnectionEditPart {
     
     @Override
     protected IFigure createFigure() {
-        return new ConnectionFigure(connection.getTarget());
+        return new ConnectionFigure(connection);
+    }
+    
+    @Override
+    protected void refreshVisuals() {
+        ((ConnectionFigure) getFigure()).refresh();
     }
                 
     @Override
@@ -56,7 +61,7 @@ public class ConnectionEditPart extends AbstractConnectionEditPart {
             switch(notification.getFeatureID(Feature.class)) {
                 case FeatureModelPackage.FEATURE__LOWER:
                 case FeatureModelPackage.FEATURE__UPPER:
-                    ((ConnectionFigure) getFigure()).updateTargetDecoration(connection.getTarget());
+                    refreshVisuals();
                     break;
             }
         }

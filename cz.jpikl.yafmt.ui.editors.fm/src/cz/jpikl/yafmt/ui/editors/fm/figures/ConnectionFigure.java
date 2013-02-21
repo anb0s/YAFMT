@@ -3,10 +3,12 @@ package cz.jpikl.yafmt.ui.editors.fm.figures;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.ConnectionEndpointLocator;
 import org.eclipse.draw2d.Label;
+import org.eclipse.draw2d.Locator;
 import org.eclipse.draw2d.PolylineConnection;
 
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
+import cz.jpikl.yafmt.ui.editors.fm.model.Connection;
 
 public class ConnectionFigure extends PolylineConnection {
     
@@ -14,19 +16,27 @@ public class ConnectionFigure extends PolylineConnection {
     private SquareDecoration squareDecoration = new SquareDecoration();
     private Label label = new Label();
     
-    public ConnectionFigure(Feature target) {
+    private Connection connection;
+    
+    public ConnectionFigure(Connection connection) {
+        this.connection = connection;
+        
+        label.setForegroundColor(ColorConstants.black);
+        add(label, createLabelLocator());
+        setForegroundColor(ColorConstants.black);
+        refresh();
+    }
+    
+    private Locator createLabelLocator() {
         ConnectionEndpointLocator locator = new ConnectionEndpointLocator(this, false);
         locator.setUDistance(4);
         locator.setVDistance(16);
-        
-        add(label, locator);
-        label.setForegroundColor(ColorConstants.black);
-        
-        setForegroundColor(ColorConstants.black);
-        updateTargetDecoration(target);
+        return locator;
     }
         
-    public void updateTargetDecoration(Feature target) {
+    public void refresh() {
+        Feature target = connection.getTarget();
+        
         if(target.isClonable()) {
             setSourceDecoration(null);
             label.setText(FeatureModelUtil.getCardinality(target));
@@ -44,8 +54,8 @@ public class ConnectionFigure extends PolylineConnection {
         }
     }
     
-    public void setHighlighted(boolean value) {
-        setLineWidth(value ? 2 : 1);
+    public void setHighlighted(boolean highlighted) {
+        setLineWidth(highlighted ? 2 : 1);
     }
 
 }

@@ -46,35 +46,13 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
     public void activate() {
         super.activate();
         feature.eAdapters().add(featureAdapter);
-        refresLayoutData();
+        refreshLayoutData();
     }
     
     @Override
     public void deactivate() {
         feature.eAdapters().remove(featureAdapter);
         super.deactivate();
-    }
-
-    @Override
-    protected IFigure createFigure() {
-        return new FeatureFigure(feature.getName());
-    }
-    
-    @Override
-    protected void refreshVisuals() {
-        // Called when direct edit input is cancelled.
-        ((FeatureFigure) getFigure()).getLabel().setText(feature.getName());
-    }
-    
-    public LayoutData getLayoutData() {
-        return layoutData;
-    }
-    
-    private void refresLayoutData() {
-        Rectangle bounds = layoutData.get(feature);
-        if(bounds == null)
-            bounds = new Rectangle(0, 0, FeatureFigure.WIDTH, FeatureFigure.HEGHT);
-        layoutData.set(feature, bounds);
     }
     
     @Override
@@ -102,7 +80,28 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
             connections.add(new Connection(feature, child));
         return connections;
     }
+
+    @Override
+    protected IFigure createFigure() {
+        return new FeatureFigure(feature);
+    }
     
+    @Override
+    protected void refreshVisuals() {
+        ((FeatureFigure) getFigure()).refresh(); // Called when direct edit input is cancelled.
+    }
+    
+    public LayoutData getLayoutData() {
+        return layoutData;
+    }
+    
+    private void refreshLayoutData() {
+        Rectangle bounds = layoutData.get(feature);
+        if(bounds == null)
+            bounds = new Rectangle(0, 0, FeatureFigure.WIDTH, FeatureFigure.HEGHT);
+        layoutData.set(feature, bounds);
+    }
+        
     @Override
     public ConnectionAnchor getSourceConnectionAnchor(ConnectionEditPart connection) {
         return new ChopboxAnchor(getFigure());
@@ -148,7 +147,9 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
 
             switch(notification.getFeatureID(Feature.class)) {
                 case FeatureModelPackage.FEATURE__NAME:
-                    ((FeatureFigure) getFigure()).getLabel().setText(notification.getNewStringValue());
+                case FeatureModelPackage.FEATURE__ID:
+                case FeatureModelPackage.FEATURE__DESCRIPTION:
+                    refreshVisuals();
                     break;
                     
                 case FeatureModelPackage.FEATURE__PARENT_FEATURE:

@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.eclipse.draw2d.ConnectionLayer;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.TreeIterator;
@@ -58,24 +57,6 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
         layoutData.eAdapters().remove(layoutDataAdapter);
         super.deactivate();
     }
-
-    @Override
-    protected IFigure createFigure() {
-        return new FeatureModelFigure();
-    }
-
-    @Override
-    protected void refreshVisuals() {
-        // Enable antialiasing for connection layer.
-        // Antialiasing for other layers is enabled in FeatureModelFigure.
-        ((ConnectionLayer) getLayer(LayerConstants.CONNECTION_LAYER)).setAntialias(SWT.ON);
-    }
-
-    @Override
-    protected void createEditPolicies() {
-        installEditPolicy(EditPolicy.LAYOUT_ROLE, new FeatureModelLayoutPolicy());
-        installEditPolicy(EditPolicy.COMPONENT_ROLE, new FeatureModelEditPolicy());
-    }
     
     @Override
     protected List<Object> getModelChildren() {
@@ -101,8 +82,26 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
         return modelChildren;
     }
 
+    @Override
+    protected IFigure createFigure() {
+        return new FeatureModelFigure();
+    }
+
+    @Override
+    protected void refreshVisuals() {
+        // Enable antialiasing for connection layer.
+        // Antialiasing for other layers is enabled in FeatureModelFigure.
+        ((ConnectionLayer) getLayer(LayerConstants.CONNECTION_LAYER)).setAntialias(SWT.ON);
+    }
+    
     public LayoutData getLayoutData() {
         return layoutData;
+    }
+    
+    @Override
+    protected void createEditPolicies() {
+        installEditPolicy(EditPolicy.LAYOUT_ROLE, new FeatureModelLayoutPolicy());
+        installEditPolicy(EditPolicy.COMPONENT_ROLE, new FeatureModelEditPolicy());
     }
     
     private GraphicalEditPart getEditPartForObject(Object object) {
@@ -157,6 +156,34 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
         for(Object object: objects)
             removeEditPartForObject(object);
     }
+    
+    private void updateLayoutConstraint(Object updateValue) {
+        if(!(updateValue instanceof Map.Entry<?, ?>))
+            return;
+        
+        Map.Entry<?, ?> entry = (Map.Entry<?, ?>) updateValue;
+        Object object = entry.getKey();
+        Object constraint = entry.getValue();
+        
+        GraphicalEditPart editPart = getEditPartForObject(object);        
+        if(editPart != null) {
+            setLayoutConstraint(editPart, editPart.getFigure(), constraint);
+            // Update group figure shape when the group or one of its children features moved.
+            if(object instanceof Group)
+                updateGroupFigure((Group) object);
+            else if(object instanceof Feature)
+                updateGroupFigure(((Feature) object).getParentGroup());
+        }
+    }
+    
+    public void updateGroupFigure(Group group) {
+        GraphicalEditPart editPart = getEditPartForObject(group);
+        if(editPart != null) {
+            GroupFigure figure = (GroupFigure) editPart.getFigure();
+            figure.refresh();
+            figure.repaint();
+        }
+    }
 
     class FeatureModelAdapter extends EContentAdapter {
         
@@ -185,38 +212,8 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
         }
         
     }
-    
-    class LayoutDataAdapter extends EContentAdapter {
-                
-        private void updateLayoutConstraint(Object updateValue) {
-            if(!(updateValue instanceof Map.Entry<?, ?>))
-                return;
-            
-            Map.Entry<?, ?> entry = (Map.Entry<?, ?>) updateValue;
-            EObject object = (EObject) entry.getKey();
-            Rectangle bounds = (Rectangle) entry.getValue();
-            GraphicalEditPart editPart = getEditPartForObject(object);
-            
-            if(editPart != null) {
-                setLayoutConstraint(editPart, editPart.getFigure(), bounds);
-                // Update group figure shape when the group or one of its children features moved.
-                if(object instanceof Group)
-                    updateGroupFigure((Group) object); // Propagate the newest bounds.
-                else if(object instanceof Feature)
-                    updateGroupFigure(((Feature) object).getParentGroup());
-            }
-        }
         
-        public void updateGroupFigure(Group group) {
-            GraphicalEditPart editPart = getEditPartForObject(group);
-            if(editPart == null)
-                return;
-            
-            GroupFigure figure = (GroupFigure) editPart.getFigure();
-            figure.updateVisuals();
-            figure.updateState();
-            figure.repaint();
-        }
+    class LayoutDataAdapter extends EContentAdapter {
         
         @Override
         public void notifyChanged(Notification notification) {

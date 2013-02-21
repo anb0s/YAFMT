@@ -52,6 +52,17 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
     }
     
     @Override
+    protected List<Object> getModelTargetConnections() {
+        if(group.getFeatures().isEmpty())
+            return null;
+        
+        List<Object> connections = new ArrayList<Object>();
+        for(Feature child: group.getFeatures())
+            connections.add(new Connection(group, child));
+        return connections;
+    }
+    
+    @Override
     protected IFigure createFigure() {
         return new GroupFigure(group, layoutData);
     }
@@ -81,18 +92,7 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
     
     @Override
     protected void refreshVisuals() {
-        // Ignore this.
-    }
-
-    @Override
-    protected List<Object> getModelTargetConnections() {
-        if(group.getFeatures().isEmpty())
-            return null;
-        
-        List<Object> connections = new ArrayList<Object>();
-        for(Feature child: group.getFeatures())
-            connections.add(new Connection(group, child));
-        return connections;
+        ((GroupFigure) getFigure()).refresh();
     }
     
     @Override
@@ -131,15 +131,14 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
                 case Notification.REMOVE:
                 case Notification.REMOVE_MANY:
                     refreshTargetConnections();
-                    ((GroupFigure) getFigure()).updateVisuals();
+                    refreshVisuals();
                     break;
                     
                 case Notification.SET:
                     switch(notification.getFeatureID(Group.class)) {
                         case FeatureModelPackage.GROUP__LOWER:
                         case FeatureModelPackage.GROUP__UPPER:
-                            ((GroupFigure) getFigure()).updateState();
-                            ((GroupFigure) getFigure()).updateVisuals();
+                            refreshVisuals();
                             break;
                     }
                     break;

@@ -50,11 +50,10 @@ public class AttributeEditPart extends AbstractGraphicalEditPart {
     protected IFigure createFigure() {
         return new AttributeFigure(attribute);
     }
-    
+        
     @Override
     protected void refreshVisuals() {
-        // Called when direct edit input is cancelled.
-        ((AttributeFigure) getFigure()).updateLabel(attribute);
+        ((AttributeFigure) getFigure()).refresh(); // Called when direct edit input is cancelled.
     }
 
     @Override
@@ -102,7 +101,7 @@ public class AttributeEditPart extends AbstractGraphicalEditPart {
             switch(notification.getFeatureID(Attribute.class)) {
                 case FeatureModelPackage.ATTRIBUTE__NAME:
                 case FeatureModelPackage.ATTRIBUTE__TYPE:
-                    ((AttributeFigure) getFigure()).updateLabel(attribute);
+                    refreshVisuals();
             }
         }
         

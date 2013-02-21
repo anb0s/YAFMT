@@ -14,11 +14,9 @@ public class MiddlePointAnchor extends AbstractConnectionAnchor {
     public Point getLocation(Point reference) {
         IFigure owner = getOwner();
         Point center = owner.getBounds().getCenter();
-        
         // Important!!!
         // It computes the right position when viewport is scrolling.
         owner.translateToAbsolute(center);
-        
         return center;
     }
     
