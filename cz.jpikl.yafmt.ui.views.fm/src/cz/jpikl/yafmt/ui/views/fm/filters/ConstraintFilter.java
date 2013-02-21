@@ -41,7 +41,9 @@ public class ConstraintFilter extends ViewerFilter {
 
         for(Object element: ((IStructuredSelection) selection).toArray()) {
             if(element instanceof Constraint) {
-                visibleConstraints.add((Constraint) element);
+                Collection<Feature> feautures = constraintCache.getFeaturesAffectedByConstraint((Constraint) element);
+                if((feautures != null) && !feautures.isEmpty())
+                    visibleConstraints.add((Constraint) element);
             }
             else if(element instanceof Feature) {
                 Collection<Constraint> constraints = constraintCache.getConstraintsAffectingFeature((Feature) element);
