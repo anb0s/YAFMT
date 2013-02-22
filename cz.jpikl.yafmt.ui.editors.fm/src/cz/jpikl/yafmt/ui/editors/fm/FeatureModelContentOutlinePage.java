@@ -8,11 +8,11 @@ import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.TabFolder;
-import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.part.IPageSite;
@@ -25,7 +25,7 @@ import cz.jpikl.yafmt.model.fm.provider.util.FeatureModelProviderUtil;
 
 public class FeatureModelContentOutlinePage extends ContentOutlinePage implements ISelectionListener {
 
-    private TabFolder tabFolder;
+    private CTabFolder tabFolder;
     private ScrollableThumbnail thumbmail;
     private Canvas thumbmailCanvas;
     private FeatureModel featureModel;
@@ -58,13 +58,13 @@ public class FeatureModelContentOutlinePage extends ContentOutlinePage implement
     
     @Override
     public void createControl(Composite parent) {
-        tabFolder = new TabFolder(parent, SWT.BOTTOM);
+        tabFolder = new CTabFolder(parent, SWT.BOTTOM); // Use CTabFolder, because TabFolder looks ugly.
         createTreeView();
         createMinimap();
     }
     
     protected void addTabControll(Control control, String title) {
-        TabItem tabItem = new TabItem(tabFolder, SWT.NONE);
+        CTabItem tabItem = new CTabItem(tabFolder, SWT.NONE);
         tabItem.setText(title);
         tabItem.setControl(control);
     }
