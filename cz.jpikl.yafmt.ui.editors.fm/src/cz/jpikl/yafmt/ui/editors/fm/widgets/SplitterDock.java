@@ -21,7 +21,7 @@ import cz.jpikl.yafmt.ui.editors.fm.FeatureModelEditorPlugin;
 
 public abstract class SplitterDock extends Composite {
 
-    private static final int HEADER_HEIGHT = 27;
+    private static final int HEADER_HEIGHT = 26;
     private static final int DEFAULT_WIDTH = 200;
     private static final int COLLAPSED_WIDTH = 13;
     
@@ -89,11 +89,13 @@ public abstract class SplitterDock extends Composite {
     }
     
     private Composite createHeader(Composite parent) {
+        GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, false);
+        gridData.heightHint = HEADER_HEIGHT;
+        
         Composite header = new Composite(parent, SWT.NONE);
-        header.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+        header.setLayoutData(gridData);
         header.setLayout(createGridLayout(3));
         header.setBackgroundImage(FeatureModelEditorPlugin.getDefault().getImageRegistry().get("dock-header"));
-        header.setSize(1, HEADER_HEIGHT);
         return header;
     }
     

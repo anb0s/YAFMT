@@ -102,7 +102,7 @@ public class ConstraintsEditor extends SplitterDock {
     
     @Override
     protected Control createControl(Composite parent) {
-        viewer = new TableViewer(parent);
+        viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
         createViewerColumn();        
         createViewerActivationStrategy();
         createViewerActions();
