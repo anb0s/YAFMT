@@ -15,7 +15,9 @@ import org.eclipse.gef.ui.parts.GraphicalEditor;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.layout.TableColumnLayout;
 import org.eclipse.jface.resource.ImageRegistry;
+import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -102,19 +104,25 @@ public class ConstraintsEditor extends SplitterDock {
     
     @Override
     protected Control createControl(Composite parent) {
-        viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
+        Composite panel = new Composite(parent, SWT.NONE);
+        viewer = new TableViewer(panel, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
+        
         createViewerColumn();        
         createViewerActivationStrategy();
         createViewerActions();
         configureViewer();
-        return viewer.getControl();
+        
+        return panel;
     }
     
     private void createViewerColumn() {
-        TableViewerColumn column = new TableViewerColumn(viewer, SWT.NONE);
-        column.getColumn().setWidth(100); // Number does not matter.
-        column.setEditingSupport(new ConstraintsEditorEditingSupport(viewer, commandStack));
-        column.setLabelProvider(new ConstraintsEditorLabelProvider());
+        TableViewerColumn viewerColumn = new TableViewerColumn(viewer, SWT.NONE);
+        viewerColumn.setEditingSupport(new ConstraintsEditorEditingSupport(viewer, commandStack));
+        viewerColumn.setLabelProvider(new ConstraintsEditorLabelProvider());
+        
+        TableColumnLayout layout = new TableColumnLayout();
+        layout.setColumnData(viewerColumn.getColumn(), new ColumnWeightData(1));
+        viewer.getTable().getParent().setLayout(layout);
     }
     
     private void createViewerActivationStrategy() {
