@@ -33,6 +33,7 @@ import cz.jpikl.yafmt.ui.views.fm.filters.DistanceFilter;
 import cz.jpikl.yafmt.ui.views.fm.filters.GroupFilter;
 import cz.jpikl.yafmt.ui.views.fm.settings.ISettingsListener;
 import cz.jpikl.yafmt.ui.views.fm.settings.Settings;
+import cz.jpikl.yafmt.ui.views.fm.util.SWTUtil;
 
 public class FeatureModelVisualizer extends ViewPart implements ISelectionListener, 
                                                                 IPartListener, 
@@ -120,11 +121,12 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         viewer.setLayoutAlgorithm(new FeatureModelLayoutAlgorithm(settings));
         viewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         viewer.setNodeStyle(settings.isAnimationEnabled() ? ZestStyles.NONE : ZestStyles.NODES_NO_ANIMATION);
-        viewer.setFilters(new ViewerFilter[] { distanceFilter, groupFilter, constraintFilter });
-        
+        viewer.setFilters(new ViewerFilter[] { distanceFilter, groupFilter, constraintFilter });        
+
+        SWTUtil.enableAntialiasing(viewer.getControl()); // Enable antialiasing on Windows.
         getSite().setSelectionProvider(viewer);
     }
-    
+        
     @Override
     public void groupsVisibilityChanged(boolean groupsVisible) {
         groupFilter.setEnabled(groupsVisible);
