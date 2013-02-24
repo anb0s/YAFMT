@@ -65,7 +65,7 @@ public class EditorContentOutlinePage extends ContentOutlinePage implements ISel
     
     @Override
     public void createControl(Composite parent) {
-        tabFolder = new CTabFolder(parent, SWT.BOTTOM);
+        tabFolder = new CTabFolder(parent, SWT.BOTTOM); // Use CTabFolder, because TabFolder looks ugly.
         createTreeView();
         createMinimap();
         tabFolder.setSelection(0);
