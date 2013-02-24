@@ -1,6 +1,7 @@
 package cz.jpikl.yafmt.ui.editors.fm.commands;
 
 import cz.jpikl.yafmt.model.fm.Group;
+import cz.jpikl.yafmt.ui.commands.RecordingCommand;
 
 public class SetGroupCardinalityCommand extends RecordingCommand {
 

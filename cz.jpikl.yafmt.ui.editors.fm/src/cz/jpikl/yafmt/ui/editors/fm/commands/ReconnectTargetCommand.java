@@ -4,6 +4,7 @@ import org.eclipse.emf.ecore.EObject;
 
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
+import cz.jpikl.yafmt.ui.commands.RecordingCommand;
 import cz.jpikl.yafmt.ui.editors.fm.model.Connection;
 
 public class ReconnectTargetCommand extends RecordingCommand {

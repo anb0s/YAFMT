@@ -11,6 +11,7 @@ import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModelFactory;
 import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
+import cz.jpikl.yafmt.ui.commands.RecordingCommand;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 
 public class GroupFeaturesCommand extends RecordingCommand {

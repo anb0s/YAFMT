@@ -4,6 +4,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 
 import cz.jpikl.yafmt.model.fm.Attribute;
 import cz.jpikl.yafmt.model.fm.Feature;
+import cz.jpikl.yafmt.ui.commands.RecordingCommand;
 import cz.jpikl.yafmt.ui.editors.fm.figures.AttributeFigure;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 

@@ -3,6 +3,7 @@ package cz.jpikl.yafmt.ui.editors.fm.commands;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 import cz.jpikl.yafmt.model.fm.Group;
+import cz.jpikl.yafmt.ui.commands.RecordingCommand;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 
 public class DeleteGroupCommand extends RecordingCommand {

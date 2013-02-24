@@ -1,18 +1,22 @@
-package cz.jpikl.yafmt.ui.editors.fm;
+package cz.jpikl.yafmt.ui.pages;
 
 import org.eclipse.draw2d.LightweightSystem;
 import org.eclipse.draw2d.Viewport;
 import org.eclipse.draw2d.parts.ScrollableThumbnail;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.LayerConstants;
-import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
+import org.eclipse.gef.editparts.FreeformGraphicalRootEditPart;
+import org.eclipse.gef.ui.parts.GraphicalEditor;
+import org.eclipse.jface.viewers.IContentProvider;
+import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.TabFolder;
-import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.part.IPageSite;
@@ -20,20 +24,23 @@ import org.eclipse.ui.views.contentoutline.ContentOutline;
 import org.eclipse.ui.views.contentoutline.ContentOutlinePage;
 import org.eclipse.ui.views.properties.PropertySheet;
 
-import cz.jpikl.yafmt.model.fm.FeatureModel;
-import cz.jpikl.yafmt.model.fm.provider.util.FeatureModelProviderUtil;
 
-public class FeatureModelContentOutlinePage extends ContentOutlinePage implements ISelectionListener {
+public class EditorContentOutlinePage extends ContentOutlinePage implements ISelectionListener {
 
-    private TabFolder tabFolder;
+    private CTabFolder tabFolder;
     private ScrollableThumbnail thumbmail;
     private Canvas thumbmailCanvas;
-    private FeatureModel featureModel;
-    private ScalableFreeformRootEditPart rootEditPart;
+    private FreeformGraphicalRootEditPart rootEditPart;
     
-    public FeatureModelContentOutlinePage(FeatureModel featureModel, ScalableFreeformRootEditPart rootEditPart) {
-        this.featureModel = featureModel;
-        this.rootEditPart = rootEditPart;
+    private Object input;
+    private IContentProvider contentProvider;
+    private ILabelProvider labelProvider;
+    
+    public EditorContentOutlinePage(GraphicalEditor editor, Object input, IContentProvider contentProvider, ILabelProvider labelProvider) {
+        this.rootEditPart = (FreeformGraphicalRootEditPart) editor.getAdapter(EditPart.class);
+        this.input = input;
+        this.contentProvider = contentProvider;
+        this.labelProvider = labelProvider;
     }
     
     @Override
@@ -58,13 +65,14 @@ public class FeatureModelContentOutlinePage extends ContentOutlinePage implement
     
     @Override
     public void createControl(Composite parent) {
-        tabFolder = new TabFolder(parent, SWT.BOTTOM);
+        tabFolder = new CTabFolder(parent, SWT.BOTTOM);
         createTreeView();
         createMinimap();
+        tabFolder.setSelection(0);
     }
     
     protected void addTabControll(Control control, String title) {
-        TabItem tabItem = new TabItem(tabFolder, SWT.NONE);
+        CTabItem tabItem = new CTabItem(tabFolder, SWT.NONE);
         tabItem.setText(title);
         tabItem.setControl(control);
     }
@@ -73,9 +81,9 @@ public class FeatureModelContentOutlinePage extends ContentOutlinePage implement
         super.createControl(tabFolder); // Creates TreeViewer.
         
         TreeViewer treeViewer = getTreeViewer();
-        treeViewer.setContentProvider(FeatureModelProviderUtil.getContentProvider());
-        treeViewer.setLabelProvider(FeatureModelProviderUtil.getLabelProvider());
-        treeViewer.setInput(featureModel);
+        treeViewer.setContentProvider(contentProvider);
+        treeViewer.setLabelProvider(labelProvider);
+        treeViewer.setInput(input);
         
         addTabControll(treeViewer.getControl(), "Tree View");
     }

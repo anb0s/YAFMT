@@ -7,6 +7,7 @@ import java.util.Set;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
+import cz.jpikl.yafmt.ui.commands.RecordingCommand;
 
 public class UngroupFeaturesCommand extends RecordingCommand {
 

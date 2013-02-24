@@ -2,6 +2,7 @@ package cz.jpikl.yafmt.ui.editors.fm.commands;
 
 import cz.jpikl.yafmt.model.fm.Attribute;
 import cz.jpikl.yafmt.model.fm.AttributeType;
+import cz.jpikl.yafmt.ui.commands.RecordingCommand;
 
 public class SetAttributeTypeCommand extends RecordingCommand {
 

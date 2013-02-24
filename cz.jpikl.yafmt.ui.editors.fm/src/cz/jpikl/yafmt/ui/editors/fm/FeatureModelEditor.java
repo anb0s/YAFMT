@@ -51,16 +51,14 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.dialogs.SaveAsDialog;
 import org.eclipse.ui.part.FileEditorInput;
-import org.eclipse.ui.views.contentoutline.ContentOutlinePage;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.PropertySheet;
-import org.eclipse.ui.views.properties.PropertySheetPage;
 
 import cz.jpikl.yafmt.model.fm.FeatureModel;
+import cz.jpikl.yafmt.model.fm.provider.util.FeatureModelProviderUtil;
 import cz.jpikl.yafmt.ui.editors.fm.actions.AutoLayoutAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.DeleteAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.ExportAsImageAction;
@@ -72,11 +70,13 @@ import cz.jpikl.yafmt.ui.editors.fm.figures.FeatureFigure;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutDataFactory;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutDataPackage;
-import cz.jpikl.yafmt.ui.editors.fm.operations.ResourceSaveOperation;
 import cz.jpikl.yafmt.ui.editors.fm.parts.FeatureModelEditPartFactory;
 import cz.jpikl.yafmt.ui.editors.fm.util.SelectionConverter;
 import cz.jpikl.yafmt.ui.editors.fm.util.UnwrappingSelectionProvider;
 import cz.jpikl.yafmt.ui.editors.fm.widgets.Splitter;
+import cz.jpikl.yafmt.ui.operations.ResourceSaveOperation;
+import cz.jpikl.yafmt.ui.pages.EditorContentOutlinePage;
+import cz.jpikl.yafmt.ui.pages.EditorPropertySheetPage;
 
 public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette implements IResourceChangeListener, 
                                                                                     ISelectionListener, 
@@ -86,8 +86,8 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
     
     private FeatureModel featureModel;
     private LayoutData layoutData;
-    private ContentOutlinePage contentOutlinePage;
-    private PropertySheetPage propertySheetPage;
+    private IContentOutlinePage contentOutlinePage;
+    private IPropertySheetPage propertySheetPage;
     private SelectionConverter selectionConverter;
     private ConstraintsEditor constraintsEditor;
     private ISelection selectionFromConstraintsEditor;
@@ -419,17 +419,14 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
 	        return featureModel;
 	    
 	    if(type == IPropertySheetPage.class) {
-            if(propertySheetPage == null) {
-                IAction undoAction = getActionRegistry().getAction(ActionFactory.UNDO.getId());
-                IAction redoAction = getActionRegistry().getAction(ActionFactory.REDO.getId());
-                propertySheetPage = new FeatureModelPropertySheetPage(getCommandStack(), undoAction, redoAction);
-            }
+            if(propertySheetPage == null)
+                propertySheetPage = new EditorPropertySheetPage(this, FeatureModelProviderUtil.getContentProvider());
             return propertySheetPage;
         }
 	    
 	    if(type == IContentOutlinePage.class) {
 	        if(contentOutlinePage == null)
-	            contentOutlinePage = new FeatureModelContentOutlinePage(featureModel, getRootEditPart());
+	            contentOutlinePage = new EditorContentOutlinePage(this, featureModel, FeatureModelProviderUtil.getContentProvider(), FeatureModelProviderUtil.getLabelProvider());
 	        return contentOutlinePage;
 	    }
 	    

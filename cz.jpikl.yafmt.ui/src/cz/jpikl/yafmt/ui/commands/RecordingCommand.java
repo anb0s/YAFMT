@@ -1,4 +1,4 @@
-package cz.jpikl.yafmt.ui.editors.fm.commands;
+package cz.jpikl.yafmt.ui.commands;
 
 import java.util.Collection;
 import java.util.HashSet;
