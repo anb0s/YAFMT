@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.eclipse.core.resources.IResourceChangeEvent;
-import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -41,13 +39,10 @@ import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.ISelectionListener;
-import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
@@ -77,9 +72,9 @@ import cz.jpikl.yafmt.ui.editors.fm.widgets.Splitter;
 import cz.jpikl.yafmt.ui.operations.ResourceSaveOperation;
 import cz.jpikl.yafmt.ui.pages.EditorContentOutlinePage;
 import cz.jpikl.yafmt.ui.pages.EditorPropertySheetPage;
+import cz.jpikl.yafmt.ui.util.EditorAutoCloser;
 
-public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette implements IResourceChangeListener, 
-                                                                                    ISelectionListener, 
+public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette implements ISelectionListener, 
                                                                                     ISelectionChangedListener {
 
     private static final String LAYOUT_DATA_EXTENSION = ".layout";
@@ -91,12 +86,14 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
     private SelectionConverter selectionConverter;
     private ConstraintsEditor constraintsEditor;
     private ISelection selectionFromConstraintsEditor;
+    private EditorAutoCloser editorAutoCloser;
 	
     // ==================================================================================
     //  Basic initialization and dispose operations
     // ==================================================================================
     
     public FeatureModelEditor() {
+        editorAutoCloser = new EditorAutoCloser(this);
         setEditDomain(new DefaultEditDomain(this));
     }
     
@@ -107,11 +104,11 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
         super.init(site, input);
         setPartName(input.getName());
         doLoad((IFileEditorInput) input);
-        ResourcesPlugin.getWorkspace().addResourceChangeListener(this);
+        ResourcesPlugin.getWorkspace().addResourceChangeListener(editorAutoCloser);
     }
     
     public void dispose() {
-        ResourcesPlugin.getWorkspace().removeResourceChangeListener(this);
+        ResourcesPlugin.getWorkspace().removeResourceChangeListener(editorAutoCloser);
         super.dispose();
     }
         
@@ -307,26 +304,7 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
         int y = point.y - viewport.getSize().height / 2;
         viewport.setViewLocation(x, y);
     }
-    
-    public void resourceChanged(final IResourceChangeEvent event) {
-        if(event.getType() != IResourceChangeEvent.PRE_CLOSE)
-            return;
         
-        // Close editor when edited file project is closed.
-        Display.getDefault().asyncExec(new Runnable() {
-            public void run() {
-                IFileEditorInput input = (FileEditorInput) getEditorInput();
-                IWorkbenchPage[] pages = getSite().getWorkbenchWindow().getPages();
-                for(int i = 0; i < pages.length; i++){
-                    if(input.getFile().getProject().equals(event.getResource())) {
-                        IEditorPart editorPart = pages[i].findEditor(input);
-                        pages[i].closeEditor(editorPart, true);
-                    }
-                }
-            }            
-        });
-    }
-    
     // ==================================================================================
     //  Save and Load operations
     // ==================================================================================

@@ -1,4 +1,4 @@
-package cz.jpikl.yafmt.ui.editors.fm.util;
+package cz.jpikl.yafmt.ui.util;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.SWTGraphics;

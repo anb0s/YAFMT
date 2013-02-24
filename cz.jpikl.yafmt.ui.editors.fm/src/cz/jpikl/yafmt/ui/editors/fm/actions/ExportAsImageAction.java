@@ -5,7 +5,7 @@ import org.eclipse.gef.ui.actions.EditorPartAction;
 import org.eclipse.ui.IEditorPart;
 
 import cz.jpikl.yafmt.model.fm.FeatureModel;
-import cz.jpikl.yafmt.ui.editors.fm.util.ImageExporter;
+import cz.jpikl.yafmt.ui.util.ImageExporter;
 
 public class ExportAsImageAction extends EditorPartAction {
 

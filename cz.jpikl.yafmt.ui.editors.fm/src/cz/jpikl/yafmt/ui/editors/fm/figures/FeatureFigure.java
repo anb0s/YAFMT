@@ -15,7 +15,7 @@ import org.eclipse.swt.graphics.Pattern;
 import org.eclipse.swt.widgets.Display;
 
 import cz.jpikl.yafmt.model.fm.Feature;
-import cz.jpikl.yafmt.ui.editors.fm.util.DrawConstantans;
+import cz.jpikl.yafmt.ui.util.DrawConstantans;
 
 public class FeatureFigure extends RoundedRectangle {
     
@@ -35,7 +35,7 @@ public class FeatureFigure extends RoundedRectangle {
         setLayoutManager(new GridLayout());
         setToolTip(toolTip);
         
-        label.setFont(DrawConstantans.getBoldFont());
+        label.setFont(DrawConstantans.BOLD_FONT);
         label.setForegroundColor(ColorConstants.black);
         add(label, new GridData(SWT.FILL, SWT.FILL, true, true));
         
@@ -58,7 +58,7 @@ public class FeatureFigure extends RoundedRectangle {
     
     @Override
     protected void fillShape(Graphics graphics) {
-        Pattern pattern = createPattern(graphics, DrawConstantans.getBackgroundColor(), ColorConstants.white);
+        Pattern pattern = createPattern(graphics, DrawConstantans.LIGHT_BLUE_COLOR, ColorConstants.white);
         graphics.setBackgroundPattern(pattern);
         super.fillShape(graphics);
         graphics.setBackgroundPattern(null);

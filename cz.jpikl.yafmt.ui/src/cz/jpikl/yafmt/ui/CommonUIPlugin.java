@@ -3,6 +3,8 @@ package cz.jpikl.yafmt.ui;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
+import cz.jpikl.yafmt.ui.util.DrawConstantans;
+
 /**
  * The activator class controls the plug-in life cycle
  */
@@ -34,7 +36,9 @@ public class CommonUIPlugin extends AbstractUIPlugin {
 	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
 	 */
 	public void stop(BundleContext context) throws Exception {
-		plugin = null;
+	    DrawConstantans.dispose();
+	    
+	    plugin = null;
 		super.stop(context);
 	}
 

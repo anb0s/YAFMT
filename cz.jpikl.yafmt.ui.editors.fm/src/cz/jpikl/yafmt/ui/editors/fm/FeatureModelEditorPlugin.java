@@ -5,8 +5,6 @@ import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
-import cz.jpikl.yafmt.ui.editors.fm.util.DrawConstantans;
-
 /**
  * The activator class controls the plug-in life cycle.
  */
@@ -21,13 +19,9 @@ public class FeatureModelEditorPlugin extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
-		        
-        DrawConstantans.init();
 	}
 
 	public void stop(BundleContext context) throws Exception {
-	    DrawConstantans.dispose();
-	    
 		plugin = null;
 		super.stop(context);
 	}
