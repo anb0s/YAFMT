@@ -1,17 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/cz.jpikl.yafmt.clang.scl.feature_0.2.0.201302192004.jar" id="cz.jpikl.yafmt.clang.scl.feature" version="0.2.0.201302192004">
-      <category name="yafmt"/>
-   </feature>
-   <feature url="features/cz.jpikl.yafmt.ui.editors.fc.feature_0.2.0.201302192004.jar" id="cz.jpikl.yafmt.ui.editors.fc.feature" version="0.2.0.201302192004">
-      <category name="yafmt"/>
-   </feature>
-   <feature url="features/cz.jpikl.yafmt.ui.editors.fm.feature_0.2.0.201302192004.jar" id="cz.jpikl.yafmt.ui.editors.fm.feature" version="0.2.0.201302192004">
-      <category name="yafmt"/>
-   </feature>
-   <feature url="features/cz.jpikl.yafmt.ui.views.fm.feature_0.2.0.201302192004.jar" id="cz.jpikl.yafmt.ui.views.fm.feature" version="0.2.0.201302192004">
-      <category name="yafmt"/>
-   </feature>
    <feature url="features/org.eclipse.zest_1.5.0.201212170307.jar" id="org.eclipse.zest" version="1.5.0.201212170307">
       <category name="dependencies"/>
    </feature>
@@ -21,6 +9,26 @@
    <feature url="features/de.itemis.xtext.utils.jface_1.0.0.201205141449.jar" id="de.itemis.xtext.utils.jface" version="1.0.0.201205141449">
       <category name="dependencies"/>
    </feature>
-   <category-def name="yafmt" label="YAFMT"/>
-   <category-def name="dependencies" label="Dependencies"/>
+   <feature url="features/cz.jpikl.yafmt.clang.scl.feature_0.2.0.201302242312.jar" id="cz.jpikl.yafmt.clang.scl.feature" version="0.2.0.201302242312">
+      <category name="yafmt"/>
+   </feature>
+   <feature url="features/cz.jpikl.yafmt.ui.editors.fc.feature_0.2.0.201302242312.jar" id="cz.jpikl.yafmt.ui.editors.fc.feature" version="0.2.0.201302242312">
+      <category name="yafmt"/>
+   </feature>
+   <feature url="features/cz.jpikl.yafmt.ui.editors.fm.feature_0.2.0.201302242312.jar" id="cz.jpikl.yafmt.ui.editors.fm.feature" version="0.2.0.201302242312">
+      <category name="yafmt"/>
+   </feature>
+   <feature url="features/cz.jpikl.yafmt.ui.views.fm.feature_0.2.0.201302242312.jar" id="cz.jpikl.yafmt.ui.views.fm.feature" version="0.2.0.201302242312">
+      <category name="yafmt"/>
+   </feature>
+   <category-def name="yafmt" label="YAFMT">
+      <description>
+         Yet Another Feature Modeling Tool. Eclipse plug-in for feature modeling.
+      </description>
+   </category-def>
+   <category-def name="dependencies" label="Dependencies">
+      <description>
+         YAFMT dependencies.
+      </description>
+   </category-def>
 </site>
