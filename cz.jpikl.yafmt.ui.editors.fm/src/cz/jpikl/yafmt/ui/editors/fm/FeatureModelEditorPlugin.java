@@ -5,7 +5,6 @@ import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
-import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
 import cz.jpikl.yafmt.ui.editors.fm.util.DrawConstantans;
 
 /**
@@ -22,11 +21,7 @@ public class FeatureModelEditorPlugin extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
-		
-		// Register packages and custom resource factories.
-        FeatureModelUtil.hookResourceFactoryRegistry();
-        FeatureModelUtil.hookPackageRegistry();
-        
+		        
         DrawConstantans.init();
 	}
 

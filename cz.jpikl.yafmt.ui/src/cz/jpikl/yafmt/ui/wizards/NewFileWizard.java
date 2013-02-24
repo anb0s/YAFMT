@@ -31,11 +31,13 @@ import cz.jpikl.yafmt.ui.operations.ResourceSaveOperation;
 public abstract class NewFileWizard extends Wizard implements INewWizard {
     
     private IWorkbench workbench;
+    private IStructuredSelection selection;
     private NewFileCreationPage newFileCreationPage;
     
     @Override
     public void init(IWorkbench workbench, IStructuredSelection selection) {
         this.workbench = workbench;
+        this.selection = selection;
         this.newFileCreationPage = new NewFileCreationPage(selection);
     }
         
@@ -46,13 +48,17 @@ public abstract class NewFileWizard extends Wizard implements INewWizard {
         initNewFileCreationPage(newFileCreationPage);
         addPage(newFileCreationPage);
     }
+    
+    protected IStructuredSelection getSelection() {
+        return selection;
+    }
         
     protected IFile getFile() {
         IPath path = newFileCreationPage.getContainerFullPath().append(newFileCreationPage.getFileName());
         return ResourcesPlugin.getWorkspace().getRoot().getFile(path);
     }
 
-    protected abstract Resource createNewResource(IFile file);
+    protected abstract Resource getNewResource(IFile file) throws Exception;
     
     @Override
     public boolean performFinish() {
@@ -62,7 +68,7 @@ public abstract class NewFileWizard extends Wizard implements INewWizard {
         IFile file = getFile();
         
         try {
-            Resource resource = createNewResource(file);
+            Resource resource = getNewResource(file);
             getContainer().run(false, false, new ResourceSaveOperation(resource));
         }
         catch(Exception ex) {

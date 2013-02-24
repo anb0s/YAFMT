@@ -7,12 +7,12 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
 
@@ -21,6 +21,8 @@ import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
 import cz.jpikl.yafmt.ui.wizards.NewFileWizard;
 
 public class NewFeatureModelWizard extends NewFileWizard {
+    
+    private static final String FM_FILE_EXTENSION = "yafm";
     
     private FeatureModelPropertiesPage featureModelPropertiesPage = new FeatureModelPropertiesPage();
 
@@ -33,22 +35,22 @@ public class NewFeatureModelWizard extends NewFileWizard {
         page.setTitle("Feature Model");
         page.setDescription("Create a new feature model.");
         page.setFileName("FeatureModel");
-        page.setFileExtension("yafm");
+        page.setFileExtension(FM_FILE_EXTENSION);
     }
     
     @Override
     public void addPages() {
         super.addPages();
         addPage(featureModelPropertiesPage);
-    }    
+    }
     
     @Override
-    protected Resource createNewResource(IFile file) {
+    protected Resource getNewResource(IFile file) throws Exception {
         String name = featureModelPropertiesPage.getFeatureModelName();
         String version = featureModelPropertiesPage.getFeatureModelVersion();
         String description = featureModelPropertiesPage.getFeatureModelDescription();
-        FeatureModel featureModel = FeatureModelUtil.createEmptyFeatureModel(name);
         
+        FeatureModel featureModel = FeatureModelUtil.createEmptyFeatureModel(name);
         if(!version.isEmpty())
             featureModel.setVersion(version);
         if(!description.isEmpty())
@@ -61,7 +63,7 @@ public class NewFeatureModelWizard extends NewFileWizard {
         return resource;
     }
         
-    private class FeatureModelPropertiesPage extends WizardPage implements Listener {
+    private class FeatureModelPropertiesPage extends WizardPage {
         
         private Text nameText;
         private Text versionText;
@@ -75,35 +77,51 @@ public class NewFeatureModelWizard extends NewFileWizard {
 
         @Override
         public void createControl(Composite parent) {
-            Composite composite = new Composite(parent, SWT.NONE);
-            composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL));
+            Composite panel = new Composite(parent, SWT.NONE);
+            panel.setLayoutData(new GridData(SWT.FILL, SWT.FILL));
             
             GridLayout layout = new GridLayout();
             layout.numColumns = 2;
-            composite.setLayout(layout);
+            panel.setLayout(layout);
                         
-            Label nameLabel = new Label(composite, SWT.NONE);
+            createNameRow(panel);
+            createVersionRow(panel);
+            createDescriptionRow(panel);
+            
+            setControl(panel);
+            revalidatePage();
+        }
+        
+        private void createNameRow(Composite parent) {
+            Label nameLabel = new Label(parent, SWT.NONE);
             nameLabel.setText("Name:");
-            nameText = new Text(composite, SWT.SINGLE | SWT.BORDER);
             
+            nameText = new Text(parent, SWT.SINGLE | SWT.BORDER);
             nameText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-            nameText.addListener(SWT.Modify, this);
-            
-            Label versionLabel = new Label(composite, SWT.NONE);
+            nameText.addModifyListener(new ModifyListener() {
+                @Override
+                public void modifyText(ModifyEvent e) {
+                    revalidatePage();
+                }
+            });
+        }
+        
+        private void createVersionRow(Composite parent) {
+            Label versionLabel = new Label(parent, SWT.NONE);
             versionLabel.setText("Version:");
-            versionText = new Text(composite, SWT.SINGLE | SWT.BORDER);
+            
+            versionText = new Text(parent, SWT.SINGLE | SWT.BORDER);
             versionText.setText("1.0.0");
             versionText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-            versionText.addListener(SWT.Modify, this);
-            
-            Label descriptionLabel = new Label(composite, SWT.NONE);
+        }
+        
+        private void createDescriptionRow(Composite parent) {
+            Label descriptionLabel = new Label(parent, SWT.NONE);
             descriptionLabel.setLayoutData(new GridData(SWT.TOP, SWT.LEFT, false, false));
-            descriptionLabel.setText("Description:");
-            descriptionText = new Text(composite, SWT.MULTI | SWT.BORDER);
-            descriptionText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
             
-            setControl(composite);
-            revalidatePage();
+            descriptionLabel.setText("Description:");
+            descriptionText = new Text(parent, SWT.MULTI | SWT.BORDER);
+            descriptionText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         }
         
         @Override
@@ -116,20 +134,14 @@ public class NewFeatureModelWizard extends NewFileWizard {
             
             super.setVisible(visible);
         }        
-        
-        @Override
-        public void handleEvent(Event event) {
-            if(event.widget == nameText)
-                revalidatePage();
-        }
-        
+                
         private void revalidatePage() {
             setPageComplete(validatePage());
         }
         
         private boolean validatePage() {
             if(nameText.getText().trim().isEmpty()) {
-                setErrorMessage("The name of the feature model must be set.");
+                setErrorMessage("Empty feature model name.");
                 return false;
             }
             

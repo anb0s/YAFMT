@@ -4,6 +4,10 @@ package cz.jpikl.yafmt.model;
 
 import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.util.ResourceLocator;
+import org.osgi.framework.BundleContext;
+
+import cz.jpikl.yafmt.model.fc.util.FeatureConfigurationUtil;
+import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
 
 /**
  * This is the central singleton for the FeatureModel model plugin.
@@ -80,6 +84,18 @@ public final class FeatureModelPlugin extends EMFPlugin {
             // Remember the static instance.
             //
             plugin = this;
+            
+            // Register packages and custom resource factories.
+            FeatureModelUtil.hookResourceFactoryRegistry();
+            FeatureModelUtil.hookPackageRegistry();
+            FeatureConfigurationUtil.hookResourceFactoryRegistry();
+            FeatureConfigurationUtil.hookPackageRegistry();
+        }
+        
+        @Override
+        public void start(BundleContext context) throws Exception {
+            // TODO Auto-generated method stub
+            super.start(context);
         }
         
     }

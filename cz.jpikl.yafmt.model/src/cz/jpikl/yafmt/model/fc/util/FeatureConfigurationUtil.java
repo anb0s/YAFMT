@@ -11,8 +11,12 @@ import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
+import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
+import cz.jpikl.yafmt.model.fc.FeatureConfigurationFactory;
 import cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage;
 import cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage.Literals;
+import cz.jpikl.yafmt.model.fc.Selection;
+import cz.jpikl.yafmt.model.fm.FeatureModel;
 
 public class FeatureConfigurationUtil {
 
@@ -59,6 +63,26 @@ public class FeatureConfigurationUtil {
     
     public static void hookPackageRegistry() {
         FeatureConfigurationPackage.eINSTANCE.eClass();
+    }
+    
+    public static FeatureConfiguration createEmptyFeatureConfiguration(FeatureModel featureModel) {
+        return createEmptyFeatureConfiguration(featureModel, (featureModel != null) ? featureModel.getName() : null); 
+    }
+    
+    public static FeatureConfiguration createEmptyFeatureConfiguration(FeatureModel featureModel, String name) {
+        if(featureModel == null)
+            throw new IllegalArgumentException("Feature model cannot be null");
+        
+        FeatureConfigurationFactory factory = FeatureConfigurationFactory.eINSTANCE;
+        
+        Selection rootSelection = factory.createSelection();
+        rootSelection.setId(featureModel.getRoot().getId());
+        
+        FeatureConfiguration featureConfig = factory.createFeatureConfiguration();
+        featureConfig.setFeatureModel(featureModel);
+        featureConfig.setRoot(rootSelection);
+        
+        return featureConfig;
     }
 
 }

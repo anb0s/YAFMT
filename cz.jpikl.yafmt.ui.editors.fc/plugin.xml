@@ -12,5 +12,19 @@
             name="Feature Configuration Editor">
       </editor>
    </extension>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="cz.jpikl.yafmt.ui.wizards"
+            name="YAFMT">
+      </category>
+      <wizard
+            category="cz.jpikl.yafmt.ui.wizards"
+            class="cz.jpikl.yafmt.ui.editors.fc.wizards.NewFeatureConfigurationWizard"
+            icon="icons/fc-file-new.png"
+            id="cz.jpikl.yafmt.ui.editors.fc.wizards.NewFeatureConfigurationWizard"
+            name="New Feature Configuration">
+      </wizard>
+   </extension>
 
 </plugin>
