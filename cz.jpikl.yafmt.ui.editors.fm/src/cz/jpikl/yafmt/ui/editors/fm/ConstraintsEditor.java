@@ -16,7 +16,6 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.layout.TableColumnLayout;
-import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -33,7 +32,6 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.ToolBar;
@@ -66,8 +64,6 @@ public class ConstraintsEditor extends SplitterDock {
     
     private boolean filterEnabled = false;
     private ToolItem filterButton;
-    private Image filterEnabledImage;
-    private Image filterDisabledImage;
     
     private TableViewer viewer;
     private CommandStack commandStack;
@@ -76,10 +72,6 @@ public class ConstraintsEditor extends SplitterDock {
     
     public ConstraintsEditor(Splitter splitter, GraphicalEditor editor) {
         super(splitter, SWT.NONE);
-                
-        ImageRegistry imageRegistry = FeatureModelEditorPlugin.getDefault().getImageRegistry(); 
-        filterEnabledImage = imageRegistry.get("filter-enabled");
-        filterDisabledImage = imageRegistry.get("filter-disabled");
         
         commandStack = (CommandStack) editor.getAdapter(CommandStack.class);
         actionRegistry = (ActionRegistry) editor.getAdapter(ActionRegistry.class);
@@ -91,7 +83,7 @@ public class ConstraintsEditor extends SplitterDock {
         buildControl();
         
         setName("Constraints");
-        setImage(imageRegistry.get("constraint"));
+        setImage(FeatureModelEditorPlugin.getDefault().getImageRegistry().get("constraint"));
         setOpenToolTipText("Show Constraints");
         setCollapseToolTipText("Hide Constraints");
     }
@@ -168,29 +160,19 @@ public class ConstraintsEditor extends SplitterDock {
     
     @Override
     protected void contributeToToolbar(ToolBar toolBar) {
-        filterButton = new ToolItem(toolBar, SWT.NONE);
+        filterButton = new ToolItem(toolBar, SWT.CHECK);
+        filterButton.setSelection(filterEnabled);
+        filterButton.setToolTipText("Filter by Feature Selection");
+        filterButton.setImage(FeatureModelEditorPlugin.getDefault().getImageRegistry().get("filter"));
         filterButton.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent event) {
-                filterEnabled = !filterEnabled;
-                refreshFilterButton();
+                filterEnabled = filterButton.getSelection();
                 refresh();
             }
         });
-        refreshFilterButton();
     }
-    
-    private void refreshFilterButton() {
-        if(filterEnabled) {
-            filterButton.setImage(filterEnabledImage);
-            filterButton.setToolTipText("Disable Filter");
-        }
-        else {
-            filterButton.setImage(filterDisabledImage);
-            filterButton.setToolTipText("Enable Filter");
-        }
-    }
-        
+            
     private void addNewConstraint() {
         Constraint constraint = FeatureModelFactory.eINSTANCE.createConstraint();
         constraint.setLanguage(getDefaultConstraintLanguage());

@@ -66,14 +66,11 @@ public class FeatureModelVisualizerPlugin extends AbstractUIPlugin {
 	
 	@Override
 	protected void initializeImageRegistry(ImageRegistry registry) {
-	    registerImage(registry, "constraints-enabled");
-        registerImage(registry, "constraints-disabled");
-	    registerImage(registry, "groups-enabled");
-	    registerImage(registry, "groups-disabled");
-	    registerImage(registry, "locked");
-	    registerImage(registry, "unlocked");
+	    registerImage(registry, "constraint");
 	    registerImage(registry, "constraint-decoration");
-        registerImage(registry, "group-decoration");
+	    registerImage(registry, "group");
+	    registerImage(registry, "group-decoration");
+	    registerImage(registry, "lock");        
 	}
 	
 }

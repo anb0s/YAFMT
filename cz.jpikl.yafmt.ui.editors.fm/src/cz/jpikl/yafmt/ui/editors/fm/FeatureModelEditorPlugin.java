@@ -56,8 +56,7 @@ public class FeatureModelEditorPlugin extends AbstractUIPlugin {
 	    registerImage(registry, "left");
 	    registerImage(registry, "right");
 	    registerImage(registry, "dock-header");
-	    registerImage(registry, "filter-enabled");
-	    registerImage(registry, "filter-disabled");
+	    registerImage(registry, "filter");
     }
 	
 }
