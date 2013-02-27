@@ -118,7 +118,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         viewer = new GraphViewer(parent, ZestStyles.NONE);
         viewer.setContentProvider(new FeatureModelContentProvider());
         viewer.setLabelProvider(new FeatureModelStyleProvider(viewer, constraintCache));
-        viewer.setLayoutAlgorithm(new FeatureModelLayoutAlgorithm(settings));
+        viewer.setLayoutAlgorithm(new FeatureModelLayoutAlgorithm(viewer, settings));
         viewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         viewer.setNodeStyle(settings.isAnimationEnabled() ? ZestStyles.NONE : ZestStyles.NODES_NO_ANIMATION);
         viewer.setFilters(new ViewerFilter[] { distanceFilter, groupFilter, constraintFilter });        

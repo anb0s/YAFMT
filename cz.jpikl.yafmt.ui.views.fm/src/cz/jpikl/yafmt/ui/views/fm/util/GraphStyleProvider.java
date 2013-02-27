@@ -26,7 +26,7 @@ public class GraphStyleProvider extends GraphDecorator implements IFigureProvide
             node.getNodeFigure().setToolTip(null);
         
         // Add decorations.
-        addDecorations(element, node.getNodeFigure());
+        //addDecorations(element, node.getNodeFigure());
     }
     
     @Override

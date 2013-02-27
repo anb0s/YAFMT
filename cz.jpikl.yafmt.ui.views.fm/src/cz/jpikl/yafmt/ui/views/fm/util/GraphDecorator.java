@@ -3,6 +3,9 @@ package cz.jpikl.yafmt.ui.views.fm.util;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.draw2d.AnchorListener;
+import org.eclipse.draw2d.Connection;
+import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.FigureListener;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LayoutListener;
@@ -23,13 +26,14 @@ public abstract class GraphDecorator {
         unhook();
         rootLayer = (IFigure) graph.getContents().getChildren().get(0); 
         rootLayer.addLayoutListener(internalListener);
+        rootLayer.addLayoutListener(ColorAnimator.getDefault());
     }
     
     private void unhook() {
         if(rootLayer == null)
             return;
 
-        removeDecorations();
+        //removeDecorations();
         rootLayer.removeLayoutListener(internalListener);
         rootLayer = null;
     }
@@ -96,7 +100,7 @@ public abstract class GraphDecorator {
 
         @Override
         public void figureMoved(IFigure source) {
-            moveDecorations(source);
+            //moveDecorations(source);
         }
 
         @Override
@@ -119,6 +123,21 @@ public abstract class GraphDecorator {
 
         @Override
         public void setConstraint(IFigure child, Object constraint) {
+            if(child instanceof Connection) {
+                child.setVisible(false);
+                final Connection connection = (Connection) child;
+                connection.getSourceAnchor().addAnchorListener(new AnchorListener() {
+                    @Override
+                    public void anchorMoved(ConnectionAnchor anchor) {
+                        anchor.removeAnchorListener(this);
+                        connection.setVisible(true);
+                    }
+                });
+            }
+            else if(constraint instanceof Rectangle) {
+                Rectangle rect = (Rectangle) constraint;
+                child.setVisible((rect.x != 0) || (rect.y != 0));
+            }
         }
         
     }

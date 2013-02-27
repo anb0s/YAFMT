@@ -13,6 +13,7 @@ import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.zest.core.viewers.GraphViewer;
+import org.eclipse.zest.core.widgets.GraphConnection;
 import org.eclipse.zest.core.widgets.ZestStyles;
 
 import cz.jpikl.yafmt.clang.util.ConstraintCache;
@@ -23,6 +24,9 @@ import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
 import cz.jpikl.yafmt.ui.views.fm.decorations.HiddenConstraintDecoration;
 import cz.jpikl.yafmt.ui.views.fm.decorations.HiddenGroupDecoration;
 import cz.jpikl.yafmt.ui.views.fm.decorations.HiddenNeighborsDecoration;
+import cz.jpikl.yafmt.ui.views.fm.figures.ConstraintFigure;
+import cz.jpikl.yafmt.ui.views.fm.figures.FeatureFigure;
+import cz.jpikl.yafmt.ui.views.fm.figures.GroupFigure;
 import cz.jpikl.yafmt.ui.views.fm.util.GraphStyleProvider;
 
 public class FeatureModelStyleProvider extends GraphStyleProvider {
@@ -146,6 +150,18 @@ public class FeatureModelStyleProvider extends GraphStyleProvider {
         }
         return ZestStyles.CONNECTIONS_DASH;
     }
+    
+    @Override
+    public IFigure getFigure(Object element) {
+        if(element instanceof Feature)
+            return new FeatureFigure((Feature) element);
+        if(element instanceof Group)
+            return new GroupFigure((Group) element);
+        if(element instanceof Constraint)
+            return new ConstraintFigure((Constraint) element);
+        return super.getFigure(element);
+    }
+    
     
     // =============================================================
     // Connection style

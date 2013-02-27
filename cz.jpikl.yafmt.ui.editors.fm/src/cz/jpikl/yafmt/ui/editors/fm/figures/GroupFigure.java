@@ -38,13 +38,12 @@ public class GroupFigure extends RectangleFigure {
         setForegroundColor(ColorConstants.black);
         refresh();
     }
-        
+    
     @Override
-    public void paintFigure(Graphics graphics) {
-        // Add label to parent when possible.
-        if(label.getParent() == null)
-            getParent().add(label);
-        super.paintFigure(graphics);
+    public void addNotify() {
+        super.addNotify();
+        // Add label to parent.
+        getParent().add(label);
     }
     
     @Override
