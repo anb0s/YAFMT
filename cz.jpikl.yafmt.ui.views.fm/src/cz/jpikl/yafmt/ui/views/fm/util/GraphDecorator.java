@@ -138,6 +138,7 @@ public abstract class GraphDecorator {
                 Rectangle rect = (Rectangle) constraint;
                 child.setVisible((rect.x != 0) || (rect.y != 0));
             }
+            else child.setVisible(false);
         }
         
     }

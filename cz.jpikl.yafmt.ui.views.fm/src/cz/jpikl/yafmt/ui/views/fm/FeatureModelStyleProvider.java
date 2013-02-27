@@ -1,32 +1,28 @@
 package cz.jpikl.yafmt.ui.views.fm;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import org.eclipse.draw2d.ColorConstants;
-import org.eclipse.draw2d.Figure;
+import org.eclipse.draw2d.FreeformLayer;
+import org.eclipse.draw2d.FreeformLayout;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.Label;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.zest.core.viewers.GraphViewer;
-import org.eclipse.zest.core.widgets.GraphConnection;
 import org.eclipse.zest.core.widgets.ZestStyles;
 
 import cz.jpikl.yafmt.clang.util.ConstraintCache;
 import cz.jpikl.yafmt.model.fm.Constraint;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.Group;
-import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
 import cz.jpikl.yafmt.ui.views.fm.decorations.HiddenConstraintDecoration;
 import cz.jpikl.yafmt.ui.views.fm.decorations.HiddenGroupDecoration;
 import cz.jpikl.yafmt.ui.views.fm.decorations.HiddenNeighborsDecoration;
 import cz.jpikl.yafmt.ui.views.fm.figures.ConstraintFigure;
 import cz.jpikl.yafmt.ui.views.fm.figures.FeatureFigure;
 import cz.jpikl.yafmt.ui.views.fm.figures.GroupFigure;
+import cz.jpikl.yafmt.ui.views.fm.util.ColorAnimator;
 import cz.jpikl.yafmt.ui.views.fm.util.GraphStyleProvider;
 
 public class FeatureModelStyleProvider extends GraphStyleProvider {
@@ -34,112 +30,18 @@ public class FeatureModelStyleProvider extends GraphStyleProvider {
     private GraphViewer viewer;
     private ViewerFilter[] filters;
     private ConstraintCache constraintCache;
-    private Color lightRedColor;
 
     public FeatureModelStyleProvider(GraphViewer viewer, ConstraintCache constraintCache) {
         this.viewer = viewer;
         this.constraintCache = constraintCache;
-        this.lightRedColor = new Color(Display.getCurrent(), 255, 192, 192);
-        hook(viewer.getGraphControl());
+        //TODO
+        ((IFigure)viewer.getGraphControl().getRootLayer().getChildren().get(0)).addLayoutListener(ColorAnimator.getDefault());
     }
     
-    @Override
-    public void dispose() {
-        HiddenNeighborsDecoration.disposeFonts();
-        lightRedColor.dispose();
-        super.dispose();
-    }
-        
     // =============================================================
-    // Node style
+    // Connections
     // =============================================================
-
-    @Override
-    public String getText(Object element) {
-        if(element instanceof Feature) {
-            return ((Feature) element).getName();
-        }
-        if(element instanceof Group) {
-            Group group = (Group) element;
-            if(group.isOr())
-                return "OR Group";
-            if(group.isXor())
-                return "XOR Group";
-            return FeatureModelUtil.getCardinality(group) + " Group";
-        }
-        if(element instanceof Constraint) {
-            return ((Constraint) element).getValue();
-        }
-        return null;
-    }
     
-    @Override
-    public IFigure getTooltip(Object entity) {
-        if(entity instanceof Feature) {
-            Feature feature = (Feature) entity;
-            String id = feature.getId();
-            String description = feature.getDescription();
-            if((description != null) && !description.isEmpty())
-                return new Label(id + " - " + description);
-            else
-                return new Label(id);
-        }
-        if(entity instanceof Constraint) {
-            String description = ((Constraint) entity).getDescription();
-            if((description != null) && !description.isEmpty())
-                return new Label(description);
-            else
-                return null;
-        }
-        return null;
-    }
-    
-    @Override
-    public Color getBackgroundColour(Object element) {
-        return ColorConstants.white;
-    }
-    
-    @Override
-    public Color getForegroundColour(Object element) {
-        if(element instanceof Feature)
-            return ColorConstants.darkBlue;
-        if(element instanceof Group)
-            return ColorConstants.darkGray;
-        return ColorConstants.red;
-    }
-
-    @Override
-    public Color getNodeHighlightColor(Object element) {
-        if(element instanceof Feature)
-            return ColorConstants.lightBlue;
-        if(element instanceof Group)
-            return ColorConstants.lightGray;
-        return lightRedColor;
-    }
-    
-    @Override
-    public int getBorderWidth(Object entity) {
-        return 1;
-    }
-
-    @Override
-    public Color getBorderColor(Object element) {
-        if(element instanceof Feature)
-            return ColorConstants.darkBlue;
-        if(element instanceof Group)
-            return ColorConstants.darkGray;
-        return ColorConstants.red;
-    }
-
-    @Override
-    public Color getBorderHighlightColor(Object element) {
-        if(element instanceof Feature)
-            return ColorConstants.darkBlue;
-        if(element instanceof Group)
-            return ColorConstants.darkGray;
-        return ColorConstants.red;
-    }
-  
     @Override
     public int getConnectionStyle(Object src, Object dst) {
         if((src instanceof Feature) && (dst instanceof Feature)) {
@@ -150,22 +52,6 @@ public class FeatureModelStyleProvider extends GraphStyleProvider {
         }
         return ZestStyles.CONNECTIONS_DASH;
     }
-    
-    @Override
-    public IFigure getFigure(Object element) {
-        if(element instanceof Feature)
-            return new FeatureFigure((Feature) element);
-        if(element instanceof Group)
-            return new GroupFigure((Group) element);
-        if(element instanceof Constraint)
-            return new ConstraintFigure((Constraint) element);
-        return super.getFigure(element);
-    }
-    
-    
-    // =============================================================
-    // Connection style
-    // =============================================================
     
     @Override
     public int getLineWidth(Object src, Object dest) {
@@ -185,31 +71,39 @@ public class FeatureModelStyleProvider extends GraphStyleProvider {
     public Color getHighlightColor(Object src, Object dst) {
         return getColor(src, dst);
     }
-
+            
     // =============================================================
-    // Node decorations
+    // Nodes
     // =============================================================
     
     @Override
-    protected IFigure[] getDecorations(Object element) {
-        if(!(element instanceof Feature))
-            return null;
+    public IFigure getFigure(Object element) {
+        if(element instanceof Feature)
+            return createFeatureFigure((Feature) element);
+        if(element instanceof Group)
+            return new GroupFigure((Group) element);
+        if(element instanceof Constraint)
+            return new ConstraintFigure((Constraint) element);
+        return null;
+    }
         
-        Feature feature = (Feature) element;
-        List<IFigure> decorations = new ArrayList<IFigure>(3);
-        
+    protected IFigure createFeatureFigure(Feature feature) {
+        FeatureFigure figure = new FeatureFigure(feature);
+                
         int hiddenNeighbors = countHiddenNeighbors(feature);
         if(hiddenNeighbors > 0)
-            decorations.add(new HiddenNeighborsDecoration(hiddenNeighbors));
-        
+            figure.addDecoration(new HiddenNeighborsDecoration(hiddenNeighbors));
         if(isHiddenGroup(feature))
-            decorations.add(new HiddenGroupDecoration());
-        
+            figure.addDecoration(new HiddenGroupDecoration());
         if(isHiddenConstraint(feature))
-            decorations.add(new HiddenConstraintDecoration());
+            figure.addDecoration(new HiddenConstraintDecoration());
         
-        return decorations.isEmpty() ? null : decorations.toArray(new Figure[decorations.size()]);
+        return figure;
     }
+    
+    // =============================================================
+    // Helpers
+    // =============================================================
     
     private int countHiddenNeighbors(Feature feature) {
         int hiddenNeighbors = 0;

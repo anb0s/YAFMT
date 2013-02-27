@@ -23,6 +23,7 @@ import org.eclipse.zest.layouts.algorithms.SpringLayoutAlgorithm;
 
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.ui.views.fm.figures.DecoratableNodeFigure;
+import cz.jpikl.yafmt.ui.views.fm.figures.NodeFigure;
 import cz.jpikl.yafmt.ui.views.fm.settings.Settings;
 import cz.jpikl.yafmt.ui.views.fm.util.ColorAnimator;
 
@@ -87,22 +88,25 @@ public class FeatureModelLayoutAlgorithm extends CompositeLayoutAlgorithm {
         }
         
         for(Object child: rootLayer.getChildren()) {
-            if(child instanceof DecoratableNodeFigure) {
-                DecoratableNodeFigure figure = (DecoratableNodeFigure) child;
+            if(child instanceof NodeFigure) {
+                NodeFigure figure = (NodeFigure) child;
                 Rectangle src = (Rectangle) initialStates.get(figure);
                 if((src != null) && (src.x == 0) && (src.y == 0)) {
                     Rectangle dest = (Rectangle) rootLayer.getLayoutManager().getConstraint(figure);
                     if(dest != null) {
                         src.x = dest.x;
                         src.y = dest.y;
-                        figure.moveDecorations();
-                        for(IFigure dec: figure.getDecorations()) {
-                            Rectangle r2 = ((Rectangle) rootLayer.getLayoutManager().getConstraint(dec));
-                            Rectangle r1 = (Rectangle) initialStates.get(dec);
-                            if(r1 != null && r2 != null) {
-                                r1.x = r2.x;
-                                r1.y = r2.y;
-                            }
+                        if(figure instanceof DecoratableNodeFigure) {
+                            DecoratableNodeFigure dfigure = (DecoratableNodeFigure) figure;
+                            dfigure.moveDecorations();/*
+                            for(IFigure dec: dfigure.getDecorations()) {
+                                Rectangle r2 = ((Rectangle) rootLayer.getLayoutManager().getConstraint(dec));
+                                Rectangle r1 = (Rectangle) initialStates.get(dec);
+                                if(r1 != null && r2 != null) {
+                                    r1.x = r2.x;
+                                    r1.y = r2.y;
+                                }
+                            }*/
                         }
                     }
                     

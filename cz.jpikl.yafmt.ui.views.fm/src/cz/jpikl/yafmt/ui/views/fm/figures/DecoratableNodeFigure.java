@@ -10,16 +10,13 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 import cz.jpikl.yafmt.ui.views.fm.decorations.IDecoration;
+import cz.jpikl.yafmt.ui.views.fm.util.DecoratableGraphViewer;
 
 public class DecoratableNodeFigure extends NodeFigure {
     
     private List<IDecoration> decorations = new ArrayList<IDecoration>();
     private int decorationSpace = 2;
     
-    public DecoratableNodeFigure() {
-        setVisible(false);
-    }
-        
     public void setDecorationSpace(int decorationSpace) {
         this.decorationSpace = decorationSpace;
     }
@@ -34,27 +31,22 @@ public class DecoratableNodeFigure extends NodeFigure {
     
     public void addDecoration(IDecoration decoration) {
         decorations.add(decoration);
-        addDecorationToParent(decoration);
+        addDecorationToLayer(decoration);
     }
         
     public void removeDecoration(IDecoration decoration) {
         decorations.remove(decoration);
-        removeDecorationFromParent(decoration);  
+        removeDecorationFromLayer(decoration);  
     }
     
-    private void addDecorationToParent(IDecoration decoration) {
-        if(getParent() != null) {        
-            if(decoration.isOnTop())
-                getParent().add(decoration);
-            else
-                getParent().add(decoration, 0);
-        }
-    }
-    
-    private void removeDecorationFromParent(IDecoration decoration) {
+    private void addDecorationToLayer(IDecoration decoration) {
         if(getParent() != null)
-            getParent().remove(decoration);
+            getDecorationLayer(decoration).add(decoration);        
+    }
         
+    private void removeDecorationFromLayer(IDecoration decoration) {
+        if(getParent() != null)
+            getDecorationLayer(decoration).remove(decoration);
     }
     
     public void moveDecorations() {
@@ -70,32 +62,38 @@ public class DecoratableNodeFigure extends NodeFigure {
         int x = -1;
         int y = bottomLeft.y;
         
-        for(IDecoration decoration: decorations) {            
+        for(IDecoration decoration: decorations) {   
+            IFigure layer = getDecorationLayer(decoration);
             if(decoration.isAutoPositioned()) {
                 if(x == -1)
                     x = bottomLeft.x - decoration.getSize().width / 2;
                 Dimension size = decoration.getSize();
                 Point position = new Point(x, y - size.height / 4);
-                parent.setConstraint(decoration, new Rectangle(position, size));
+                layer.setConstraint(decoration, new Rectangle(position, size));
                 x += size.width + decorationSpace;
             }
             else {
-                parent.setConstraint(decoration, decoration.computeNewPosition(rect));
+                layer.setConstraint(decoration, decoration.computeNewPosition(rect));
             }
         }
+    }
+    
+    public IFigure getDecorationLayer(IDecoration decoration) {
+        int index = decoration.isOnTop() ? DecoratableGraphViewer.FRONT_DECORATION_LAYER_INDEX : DecoratableGraphViewer.BACK_DECORATION_LAYER_INDEX;
+        return (IFigure) getParent().getParent().getChildren().get(index);
     }
     
     @Override
     public void addNotify() {
         super.addNotify();
         for(IDecoration decoration: decorations)
-            addDecorationToParent(decoration);
+            addDecorationToLayer(decoration);
     }
     
     @Override
     public void removeNotify() {
         for(IDecoration decoration: decorations)
-            removeDecorationFromParent(decoration);
+            removeDecorationFromLayer(decoration);
         super.removeNotify();
     }
     

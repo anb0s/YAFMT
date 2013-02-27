@@ -5,6 +5,7 @@ import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.zest.core.viewers.EntityConnectionData;
 import org.eclipse.zest.core.viewers.IEntityConnectionStyleProvider;
 import org.eclipse.zest.core.viewers.IEntityStyleProvider;
 import org.eclipse.zest.core.viewers.IFigureProvider;
@@ -13,20 +14,18 @@ import org.eclipse.zest.core.widgets.GraphConnection;
 import org.eclipse.zest.core.widgets.GraphNode;
 import org.eclipse.zest.core.widgets.ZestStyles;
 
-public class GraphStyleProvider extends GraphDecorator implements IFigureProvider, 
-                                                                  ILabelProvider, 
-                                                                  IEntityStyleProvider, 
-                                                                  IEntityConnectionStyleProvider,
-                                                                  ISelfStyleProvider {
+public class GraphStyleProvider implements IFigureProvider, 
+                                           ILabelProvider, 
+                                           IEntityStyleProvider, 
+                                           IEntityConnectionStyleProvider,
+                                           ISelfStyleProvider {
 
     @Override
+    public void dispose() {
+    }
+    
+    @Override
     public void selfStyleNode(Object element, GraphNode node) {
-        // Remove tooltip if it does not exist.
-        if(getTooltip(element) == null)
-            node.getNodeFigure().setToolTip(null);
-        
-        // Add decorations.
-        //addDecorations(element, node.getNodeFigure());
     }
     
     @Override
@@ -40,7 +39,11 @@ public class GraphStyleProvider extends GraphDecorator implements IFigureProvide
 
     @Override
     public String getText(Object element) {
-        return null;
+        if(element instanceof EntityConnectionData)
+            return null;
+        // For some strange reason an unique value must be
+        // returned, otherwise layout algorithm does not work!
+        return "_" + (element.hashCode());
     }
 
     @Override
@@ -53,11 +56,6 @@ public class GraphStyleProvider extends GraphDecorator implements IFigureProvide
         return null;
     }
     
-    @Override
-    protected IFigure[] getDecorations(Object element) {
-        return null;
-    }
-
     @Override
     public Color getBackgroundColour(Object entity) {
         return null;

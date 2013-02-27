@@ -1,4 +1,4 @@
-package cz.jpikl.yafmt.ui.views.fm.util;
+package cz.jpikl.yafmt.ui.util;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Control;

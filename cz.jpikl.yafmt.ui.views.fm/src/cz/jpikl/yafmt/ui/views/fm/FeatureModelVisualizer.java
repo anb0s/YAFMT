@@ -28,12 +28,13 @@ import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
+import cz.jpikl.yafmt.ui.util.SWTUtil;
 import cz.jpikl.yafmt.ui.views.fm.filters.ConstraintFilter;
 import cz.jpikl.yafmt.ui.views.fm.filters.DistanceFilter;
 import cz.jpikl.yafmt.ui.views.fm.filters.GroupFilter;
 import cz.jpikl.yafmt.ui.views.fm.settings.ISettingsListener;
 import cz.jpikl.yafmt.ui.views.fm.settings.Settings;
-import cz.jpikl.yafmt.ui.views.fm.util.SWTUtil;
+import cz.jpikl.yafmt.ui.views.fm.util.DecoratableGraphViewer;
 
 public class FeatureModelVisualizer extends ViewPart implements ISelectionListener, 
                                                                 IPartListener, 
@@ -115,7 +116,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         constraintFilter = new ConstraintFilter(constraintCache, settings.areConstraintsVisible());
         
         // Do not enable hash lookup. It causes invalidation of current selection during graph refresh.
-        viewer = new GraphViewer(parent, ZestStyles.NONE);
+        viewer = new DecoratableGraphViewer(parent, ZestStyles.NONE);
         viewer.setContentProvider(new FeatureModelContentProvider());
         viewer.setLabelProvider(new FeatureModelStyleProvider(viewer, constraintCache));
         viewer.setLayoutAlgorithm(new FeatureModelLayoutAlgorithm(viewer, settings));

@@ -16,9 +16,9 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 
+import cz.jpikl.yafmt.ui.util.SettingsUtil;
 import cz.jpikl.yafmt.ui.views.fm.FeatureModelVisualizerPlugin;
 import cz.jpikl.yafmt.ui.views.fm.filters.DistanceFilter;
-import cz.jpikl.yafmt.ui.views.fm.util.SettingsUtil;
 
 public class Settings {
     
