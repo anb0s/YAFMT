@@ -22,7 +22,7 @@ import org.eclipse.zest.layouts.algorithms.RadialLayoutAlgorithm;
 import org.eclipse.zest.layouts.algorithms.SpringLayoutAlgorithm;
 
 import cz.jpikl.yafmt.model.fm.Feature;
-import cz.jpikl.yafmt.ui.views.fm.figures.NodeFigure;
+import cz.jpikl.yafmt.ui.views.fm.figures.DecoratableNodeFigure;
 import cz.jpikl.yafmt.ui.views.fm.settings.Settings;
 import cz.jpikl.yafmt.ui.views.fm.util.ColorAnimator;
 
@@ -87,8 +87,8 @@ public class FeatureModelLayoutAlgorithm extends CompositeLayoutAlgorithm {
         }
         
         for(Object child: rootLayer.getChildren()) {
-            if(child instanceof NodeFigure) {
-                NodeFigure figure = (NodeFigure) child;
+            if(child instanceof DecoratableNodeFigure) {
+                DecoratableNodeFigure figure = (DecoratableNodeFigure) child;
                 Rectangle src = (Rectangle) initialStates.get(figure);
                 if((src != null) && (src.x == 0) && (src.y == 0)) {
                     Rectangle dest = (Rectangle) rootLayer.getLayoutManager().getConstraint(figure);

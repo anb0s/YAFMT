@@ -6,7 +6,7 @@ import org.eclipse.swt.widgets.Display;
 
 import cz.jpikl.yafmt.model.fm.Constraint;
 
-public class ConstraintFigure extends NodeFigure {
+public class ConstraintFigure extends DecoratableNodeFigure {
 
     private static final Color LIGHT_RED_COLOR = new Color(Display.getCurrent(), 255, 192, 192);
     

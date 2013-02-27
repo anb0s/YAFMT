@@ -11,6 +11,7 @@ import org.eclipse.draw2d.LayoutAnimator;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
 
+import cz.jpikl.yafmt.ui.views.fm.figures.DecoratableNodeFigure;
 import cz.jpikl.yafmt.ui.views.fm.figures.NodeFigure;
 
 public class ColorAnimator extends LayoutAnimator {
@@ -23,11 +24,11 @@ public class ColorAnimator extends LayoutAnimator {
     
     @Override
     protected Object getCurrentState(IFigure container) {
-        Map<NodeFigure, Integer> map = new HashMap<NodeFigure, Integer>();
+        Map<DecoratableNodeFigure, Integer> map = new HashMap<DecoratableNodeFigure, Integer>();
         
         for(Object child: container.getChildren()) {
-            if(child instanceof NodeFigure) {
-                map.put((NodeFigure) child, ((NodeFigure) child).getAlpha());  
+            if(child instanceof DecoratableNodeFigure) {
+                map.put((DecoratableNodeFigure) child, ((NodeFigure) child).getAlpha());  
             }
         }
         
@@ -36,11 +37,11 @@ public class ColorAnimator extends LayoutAnimator {
     
     @Override
     protected boolean playback(IFigure container) {
-        Map<NodeFigure, Integer> mi = (Map<NodeFigure, Integer>) Animation.getInitialState(this, container);
-        Map<NodeFigure, Integer> me = (Map<NodeFigure, Integer>) Animation.getFinalState(this, container);
+        Map<DecoratableNodeFigure, Integer> mi = (Map<DecoratableNodeFigure, Integer>) Animation.getInitialState(this, container);
+        Map<DecoratableNodeFigure, Integer> me = (Map<DecoratableNodeFigure, Integer>) Animation.getFinalState(this, container);
         
         for(Object child: container.getChildren()) {
-            if(child instanceof NodeFigure) {
+            if(child instanceof DecoratableNodeFigure) {
                 int a1 = mi.get(child);
                 int a2 = me.get(child);
                 int a = Math.min(255, (int) (a1 + (a2 - a1) * Animation.getProgress()));

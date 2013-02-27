@@ -13,11 +13,17 @@ public class DrawConstantans {
     public static Color LIGHT_BLUE_COLOR = getColor(175, 201, 235);
     public static Color LIGHT_RED_COLOR = getColor(255, 192, 192);
         
-    private static Font getDefaultFont() {
+    public static void dispose() {
+        BOLD_FONT.dispose();
+        LIGHT_BLUE_COLOR.dispose();
+        LIGHT_RED_COLOR.dispose();
+    }
+    
+    public static Font getDefaultFont() {
         return Display.getDefault().getSystemFont();
     }
     
-    private static Font getModifiedFont(Font originalFont, int height, int style) {
+    public static Font getModifiedFont(Font originalFont, int height, int style) {
         FontData[] fontData = originalFont.getFontData();
         for(FontData data: fontData) {
             if(height != SWT.DEFAULT)
@@ -28,14 +34,24 @@ public class DrawConstantans {
         return new Font(Display.getDefault(), fontData);
     }
     
-    private static Color getColor(int r, int g, int b) {
+    public static Color getColor(int r, int g, int b) {
         return new Color(Display.getDefault(), r, g, b);
     }
     
-    public static void dispose() {
-        BOLD_FONT.dispose();
-        LIGHT_BLUE_COLOR.dispose();
-        LIGHT_RED_COLOR.dispose();
+    public static Color getModifiedColor(Color color, float change) {
+        int r = color.getRed();
+        int g = color.getGreen();
+        int b = color.getBlue();
+        
+        r += (int) (r * change);
+        g += (int) (g * change);
+        b += (int) (b * change);
+        
+        r = (r > 255) ? 255 : ((r < 0) ? 0 : r);
+        g = (g > 255) ? 255 : ((g < 0) ? 0 : r);
+        b = (b > 255) ? 255 : ((b < 0) ? 0 : r);
+        
+        return getColor(r, g, b);
     }
     
 }

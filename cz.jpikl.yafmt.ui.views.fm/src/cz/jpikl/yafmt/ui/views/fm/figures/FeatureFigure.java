@@ -5,7 +5,7 @@ import org.eclipse.draw2d.ColorConstants;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.ui.views.fm.decorations.HiddenConstraintDecoration;
 
-public class FeatureFigure extends NodeFigure {
+public class FeatureFigure extends DecoratableNodeFigure {
 
     public FeatureFigure(Feature feature) {
         setBackgroundColor(ColorConstants.white);

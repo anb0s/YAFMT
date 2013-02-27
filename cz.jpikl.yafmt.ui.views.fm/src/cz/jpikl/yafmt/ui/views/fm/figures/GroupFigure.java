@@ -5,7 +5,7 @@ import org.eclipse.draw2d.ColorConstants;
 import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
 
-public class GroupFigure extends NodeFigure {
+public class GroupFigure extends DecoratableNodeFigure {
 
     public GroupFigure(Group group) {
         setBackgroundColor(ColorConstants.white);
