@@ -185,16 +185,18 @@ public class ConstraintsEditor extends SplitterDock {
     }
     
     private String getDefaultConstraintLanguage() {
-        // Get last used language for constraint or find first available if no constraint exists yet.
+        // Get last used language for constraint if possible.
         List<Constraint> constraints = featureModel.getConstraints(); 
         if(!constraints.isEmpty())
             return constraints.get(constraints.size() - 1).getLanguage();
         
+        // Look for the last language in registry.
         ConstraintLanguageRegistry registry = ConstraintLanguagePlugin.getDefault().getConstraintLanguageRegistry();
+        ConstraintLanguageDescriptor descriptor = null;
         Iterator<ConstraintLanguageDescriptor> iterator = registry.getDescriptors().iterator();
-        if(iterator.hasNext())
-            return iterator.next().getId();
-        return null;
+        while(iterator.hasNext())
+            descriptor = iterator.next();
+        return (descriptor != null) ? descriptor.getId() : null;
     }
             
     @Override
