@@ -24,10 +24,10 @@ public abstract class SplitterDock extends Composite {
     private static final int HEADER_HEIGHT = 26;
     private static final int DEFAULT_WIDTH = 200;
     private static final int COLLAPSED_WIDTH = 13;
-    
-    
+        
     private Splitter splitter;
     private Control control;
+    private Composite controlPanel;
     
     private ToolBar toolbar;
     private ToolItem collapseButton;
@@ -51,8 +51,9 @@ public abstract class SplitterDock extends Composite {
         setLayout(createGridLayout(1));
         createTopControl(this);
         
-        control = createControl(this);
-        control.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+        controlPanel = new Composite(this, SWT.NONE);
+        controlPanel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+        control = createControl(controlPanel);
         control.setMenu(createContextMenu());
         
         refresh();
@@ -165,9 +166,9 @@ public abstract class SplitterDock extends Composite {
         
         ((GridData) title.getLayoutData()).exclude = !opened;
         ((GridData) toolbar.getLayoutData()).exclude = !opened;
-        ((GridData) control.getLayoutData()).exclude = !opened;
+        ((GridData) controlPanel.getLayoutData()).exclude = !opened;
         title.setVisible(opened);
-        control.setVisible(opened);
+        controlPanel.setVisible(opened);
         
         splitter.setResizeEnabled(opened);
         splitter.layout();
