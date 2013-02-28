@@ -12,8 +12,8 @@ public class GroupFigure extends NodeFigure {
     public GroupFigure(Group group) {
         setFont(DrawConstantans.ITALIC_FONT);
         setBackgroundColor(ColorConstants.white);
-        setForegroundColor(ColorConstants.darkGray);
-        setHightlightColor(ColorConstants.lightGray);
+        setForegroundColor(DrawConstantans.GROUP_COLOR);
+        setHightlightColor(DrawConstantans.GROUP_HL_COLOR);
         setBorderStyle(SWT.LINE_CUSTOM);
         setBorderDash(DrawConstantans.LINE_DASH);
         

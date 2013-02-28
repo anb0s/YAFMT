@@ -1,10 +1,11 @@
 package cz.jpikl.yafmt.ui.views.fm.decorations;
 
-import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.RoundedRectangle;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
+
+import cz.jpikl.yafmt.ui.util.DrawConstantans;
 
 public class HiddenNeighborsDecoration extends RoundedRectangle implements IDecoration {
         
@@ -16,13 +17,13 @@ public class HiddenNeighborsDecoration extends RoundedRectangle implements IDeco
         this.hiddenNeighborsCount = hiddenNeighborsCount;
         
         setCornerDimensions(new Dimension(15, 15));
-        setBackgroundColor(ColorConstants.lightBlue);
-        setForegroundColor(ColorConstants.darkBlue);
+        setForegroundColor(DrawConstantans.FEATURE_COLOR);
+        setBackgroundColor(DrawConstantans.FEATURE_HL_COLOR);
         
         if(hiddenNeighborsCount > 1)
-            setToolTip(new Label("This feature has " + hiddenNeighborsCount + " hidden neighbors."));
+            setToolTip(new Label("Feature has " + hiddenNeighborsCount + " hidden neighbors."));
         else
-            setToolTip(new Label("This feature has a hidden neighbor."));
+            setToolTip(new Label("Feature has a hidden neighbor."));
     }
     
     @Override

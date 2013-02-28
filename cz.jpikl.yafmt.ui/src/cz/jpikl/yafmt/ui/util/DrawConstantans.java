@@ -12,15 +12,30 @@ public class DrawConstantans {
     public static final Font BOLD_FONT = getModifiedFont(DEFAULT_FONT, SWT.DEFAULT, SWT.BOLD);
     public static final Font ITALIC_FONT = getModifiedFont(DEFAULT_FONT, SWT.DEFAULT, SWT.ITALIC);
     public static final Font TINY_FONT = getModifiedFont(DEFAULT_FONT, 7, SWT.DEFAULT);
-    public static final Color LIGHT_BLUE_COLOR = getColor(175, 201, 235);
-    public static final Color LIGHT_RED_COLOR = getColor(255, 192, 192);
+    
+    public static final Color FEATURE_GRADIENT_COLOR = getColor(175, 201, 235);
+    public static final Color ERROR_GRADIENT_COLOR = getColor(255, 192, 192);
+        
+    public static final Color FEATURE_COLOR = getColor(0, 0, 127);
+    public static final Color FEATURE_HL_COLOR = getColor(128, 128, 255);
+    public static final Color CONSTRAINT_COLOR = getColor(204, 49, 1);
+    public static final Color CONSTRAINT_HL_COLOR = getColor(255, 158, 128);
+    public static final Color GROUP_COLOR = getColor(30, 92, 52);
+    public static final Color GROUP_HL_COLOR = getColor(102, 204, 138);
+        
     public static final float[] LINE_DASH = { 2, 2 }; 
         
     public static void dispose() {
         BOLD_FONT.dispose();
         ITALIC_FONT.dispose();
-        LIGHT_BLUE_COLOR.dispose();
-        LIGHT_RED_COLOR.dispose();
+        CONSTRAINT_COLOR.dispose();
+        FEATURE_GRADIENT_COLOR.dispose();
+        ERROR_GRADIENT_COLOR.dispose();
+        ERROR_GRADIENT_COLOR.dispose();
+        CONSTRAINT_COLOR.dispose();
+        CONSTRAINT_HL_COLOR.dispose();
+        GROUP_COLOR.dispose();
+        GROUP_HL_COLOR.dispose();
     }
     
     public static Font getDefaultFont() {
@@ -47,9 +62,9 @@ public class DrawConstantans {
         int g = color.getGreen();
         int b = color.getBlue();
         
-        r += (int) (r * change);
-        g += (int) (g * change);
-        b += (int) (b * change);
+        r += (int) (255 * change);
+        g += (int) (255 * change);
+        b += (int) (255 * change);
         
         r = (r > 255) ? 255 : ((r < 0) ? 0 : r);
         g = (g > 255) ? 255 : ((g < 0) ? 0 : r);

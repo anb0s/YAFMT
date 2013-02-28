@@ -130,7 +130,7 @@ public class NodeFigure extends Label implements IFigureWithAlpha {
         graphics.setAlpha(alpha);
         
         Color bgColor1 = highlighted ? hightlightColor : getBackgroundColor();
-        Color bgColor2 = DrawConstantans.getModifiedColor(bgColor1, -0.2f);
+        Color bgColor2 = DrawConstantans.getModifiedColor(bgColor1, highlighted ? 0.2f : -0.2f);
                 
         Rectangle rect = new Rectangle(bounds.x, bounds.y, bounds.width - 1, arcRadius);
         graphics.setBackgroundColor(bgColor1);

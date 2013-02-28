@@ -11,7 +11,10 @@ import cz.jpikl.yafmt.ui.util.DrawConstantans;
 
 public class CardinalityDecoration extends Label implements IDecoration {
 
-    private static final Label TOOL_TIP = new Label("Feature Cardinality.");
+    private static final Label MANDATORY_TOOL_TIP = new Label("Feature is mandatory.");
+    private static final Label MANDATORY_CLONNABLE_TOOL_TIP = new Label("Feature is mandatory and clonnable.");
+    private static final Label OPTIONAL_TOOL_TIP = new Label("Feature is optional.");
+    private static final Label OPTIONAL_CLONNABLE_TOOL_TIP = new Label("Feature is optional and clonnable.");
     
     private int alpha = 255;
     
@@ -21,7 +24,11 @@ public class CardinalityDecoration extends Label implements IDecoration {
         setText(lower + ".." + ((upper == -1) ? "*" : upper));
         setSize(FigureUtilities.getStringExtents(getText(), getFont()).expand(4, 4));
         setBorder(new MarginBorder(2));
-        setToolTip(TOOL_TIP);
+        
+        if(upper > 1)
+            setToolTip((lower == 0) ? OPTIONAL_CLONNABLE_TOOL_TIP : MANDATORY_CLONNABLE_TOOL_TIP);
+        else
+            setToolTip((lower == 0) ? OPTIONAL_TOOL_TIP : MANDATORY_TOOL_TIP);
     }
     
     @Override

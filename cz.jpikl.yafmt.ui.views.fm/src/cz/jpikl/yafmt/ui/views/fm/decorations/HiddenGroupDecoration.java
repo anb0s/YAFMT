@@ -8,7 +8,7 @@ public class HiddenGroupDecoration extends ImageDecoration {
 
     public HiddenGroupDecoration() {
         super(FeatureModelVisualizerPlugin.getDefault().getImageRegistry().get("group-decoration"));
-        setToolTip(new Label("This feature is part of a group."));
+        setToolTip(new Label("Feature is part of a group."));
     }
     
 }

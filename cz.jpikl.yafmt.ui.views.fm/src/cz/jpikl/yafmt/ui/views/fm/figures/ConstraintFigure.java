@@ -11,8 +11,8 @@ public class ConstraintFigure extends NodeFigure {
     public ConstraintFigure(Constraint constraint) {
         setFont(DrawConstantans.ITALIC_FONT);
         setBackgroundColor(ColorConstants.white);
-        setForegroundColor(ColorConstants.red);
-        setHightlightColor(DrawConstantans.LIGHT_RED_COLOR);
+        setForegroundColor(DrawConstantans.CONSTRAINT_COLOR);
+        setHightlightColor(DrawConstantans.CONSTRAINT_HL_COLOR);
         setBorderStyle(SWT.LINE_CUSTOM);
         setBorderDash(DrawConstantans.LINE_DASH);
         setText(constraint.getValue());

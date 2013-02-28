@@ -58,7 +58,7 @@ public class FeatureFigure extends RoundedRectangle {
     
     @Override
     protected void fillShape(Graphics graphics) {
-        Pattern pattern = createPattern(graphics, DrawConstantans.LIGHT_BLUE_COLOR, ColorConstants.white);
+        Pattern pattern = createPattern(graphics, DrawConstantans.FEATURE_GRADIENT_COLOR, ColorConstants.white);
         graphics.setBackgroundPattern(pattern);
         super.fillShape(graphics);
         graphics.setBackgroundPattern(null);

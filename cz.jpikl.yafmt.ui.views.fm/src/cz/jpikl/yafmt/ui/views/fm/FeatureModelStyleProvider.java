@@ -2,7 +2,6 @@ package cz.jpikl.yafmt.ui.views.fm;
 
 import java.util.Collection;
 
-import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PolylineConnection;
@@ -21,6 +20,7 @@ import cz.jpikl.yafmt.model.fm.Constraint;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.ui.util.DrawConstantans;
+import cz.jpikl.yafmt.ui.views.fm.decorations.AttributeDecoration;
 import cz.jpikl.yafmt.ui.views.fm.decorations.CardinalityDecoration;
 import cz.jpikl.yafmt.ui.views.fm.decorations.HiddenConstraintDecoration;
 import cz.jpikl.yafmt.ui.views.fm.decorations.HiddenGroupDecoration;
@@ -84,10 +84,10 @@ public class FeatureModelStyleProvider extends LabelProviderAdapter {
     @Override
     public Color getColor(Object src, Object dst) {
         if((src instanceof Feature) && (dst instanceof Feature))
-            return ColorConstants.darkBlue;
+            return DrawConstantans.FEATURE_COLOR;
         if((src instanceof Group) || (dst instanceof Group))
-            return ColorConstants.darkGray;
-        return ColorConstants.red;
+            return DrawConstantans.GROUP_COLOR;
+        return DrawConstantans.CONSTRAINT_COLOR;
     }
 
     @Override
@@ -113,14 +113,19 @@ public class FeatureModelStyleProvider extends LabelProviderAdapter {
     protected IFigure createFeatureFigure(Feature feature) {
         FeatureFigure figure = new FeatureFigure(feature);
         figure.addDecoration(new CardinalityDecoration(feature.getLower(), feature.getUpper()));
-                
+        
         int hiddenNeighbors = countHiddenNeighbors(feature);
         if(hiddenNeighbors > 0)
             figure.addDecoration(new HiddenNeighborsDecoration(hiddenNeighbors));
+        
         if(isHiddenGroup(feature))
             figure.addDecoration(new HiddenGroupDecoration());
+        
         if(isHiddenConstraint(feature))
             figure.addDecoration(new HiddenConstraintDecoration());
+        
+        if(!feature.getAttributes().isEmpty())
+            figure.addDecoration(new AttributeDecoration(feature.getAttributes().size()));
         
         return figure;
     }

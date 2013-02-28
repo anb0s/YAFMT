@@ -87,12 +87,12 @@ public class SelectionFigure extends RoundedRectangle {
         if(selection.getParent() != null) {
             if(selectionError) {
                 color = ColorConstants.red;
-                pattern = createPattern(graphics, DrawConstantans.LIGHT_RED_COLOR, ColorConstants.white);
+                pattern = createPattern(graphics, DrawConstantans.ERROR_GRADIENT_COLOR, ColorConstants.white);
                  
             }
             else {
                 color = ColorConstants.black;
-                pattern = createPattern(graphics, DrawConstantans.LIGHT_BLUE_COLOR, ColorConstants.white);
+                pattern = createPattern(graphics, DrawConstantans.FEATURE_GRADIENT_COLOR, ColorConstants.white);
             }
         }
          
