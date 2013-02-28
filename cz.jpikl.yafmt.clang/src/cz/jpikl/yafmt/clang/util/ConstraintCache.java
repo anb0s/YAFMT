@@ -16,8 +16,13 @@ import cz.jpikl.yafmt.model.fm.Constraint;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 
+// Write-back cache preserving feature-constraint mapping, indicating which
+// constraints affect which features and vice versa. Cache must be manually
+// invalidated when underlying model is changed. Refresh of invalidated cache
+// is lazily performed later when cached data are requested.
 public class ConstraintCache {
 
+    private ConstraintLanguageRegistry registry = ConstraintLanguagePlugin.getDefault().getConstraintLanguageRegistry();
     private Map<Constraint, List<Feature>> constraintToFeatures = new HashMap<Constraint, List<Feature>>();
     private Map<Feature, Set<Constraint>> featureToConstraints = new HashMap<Feature, Set<Constraint>>();
     
@@ -25,7 +30,11 @@ public class ConstraintCache {
     private boolean valid = false;
     
     public ConstraintCache() {
-        setFeatureModel(null);
+        this(null);
+    }
+    
+    public ConstraintCache(FeatureModel featureModel) {
+        setFeatureModel(featureModel);
     }
     
     public void dispose() {
@@ -63,16 +72,9 @@ public class ConstraintCache {
     }
     
     private void refresh() {
-        ConstraintLanguageRegistry registry = ConstraintLanguagePlugin.getDefault().getConstraintLanguageRegistry();
-        
         for(Constraint constraint: featureModel.getConstraints()) {
-            IConstraintLanguage langauge = registry.getLanguage(constraint.getLanguage());
-            if(langauge == null)
-                continue;
-            
-            try {
-                IEvaluator evaluator = langauge.createEvaluator(constraint.getValue());
-                List<Feature> features = evaluator.getAffectedFeatures(featureModel);
+            List<Feature> features = getAffectedFeatures(constraint);
+            if(features != null) {
                 constraintToFeatures.put(constraint, features);
                 
                 for(Feature feature: features) {
@@ -84,10 +86,21 @@ public class ConstraintCache {
                     set.add(constraint);
                 }
             }
-            catch(ConstraintLanguageException ex) {
-                // Ignore that.
-            }
         }
     }   
+    
+    private List<Feature> getAffectedFeatures(Constraint constraint) {
+        IConstraintLanguage langauge = registry.getLanguage(constraint.getLanguage());
+        if(langauge == null)
+            return null;
+        
+        try {
+            IEvaluator evaluator = langauge.createEvaluator(constraint.getValue());
+            return evaluator.getAffectedFeatures(featureModel);
+        }
+        catch(ConstraintLanguageException ex) {
+            return null; // Ignore that.
+        }
+    }
     
 }

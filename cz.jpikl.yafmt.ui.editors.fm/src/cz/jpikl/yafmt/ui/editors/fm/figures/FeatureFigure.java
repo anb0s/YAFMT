@@ -11,10 +11,12 @@ import org.eclipse.draw2d.RoundedRectangle;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Pattern;
 import org.eclipse.swt.widgets.Display;
 
 import cz.jpikl.yafmt.model.fm.Feature;
+import cz.jpikl.yafmt.ui.editors.fm.FeatureModelEditorPlugin;
 import cz.jpikl.yafmt.ui.util.DrawConstantans;
 
 public class FeatureFigure extends RoundedRectangle {
@@ -26,13 +28,17 @@ public class FeatureFigure extends RoundedRectangle {
     private Label toolTip = new Label();
     private SeparatorFigure separator;
     private Figure attributes;
+    private Image constraintDecoration;
     
     private Feature feature;
-    private boolean orphaned;
+    private boolean orphaned;    // Is feature orphaned?
+    private boolean constrained; // Has feature constraints?
     
     public FeatureFigure(Feature feature) {
         this.feature = feature;
         this.orphaned = feature.isOrphan();
+        this.constrained = false;
+        this.constraintDecoration = FeatureModelEditorPlugin.getDefault().getImageRegistry().get("constraint-decoration");
         
         setLayoutManager(new GridLayout());
         setToolTip(toolTip);
@@ -58,6 +64,13 @@ public class FeatureFigure extends RoundedRectangle {
         return false;
     }
     
+    public void setConstrained(boolean constrained) {
+        if(this.constrained != constrained) {
+            this.constrained = constrained;
+            repaint();
+        }
+    }
+    
     public void refresh() {
         label.setText(feature.getName());
         String description = feature.getDescription();
@@ -65,6 +78,14 @@ public class FeatureFigure extends RoundedRectangle {
             toolTip.setText(feature.getId() + " - " + description);
         else
             toolTip.setText(feature.getId());
+    }
+    
+    @Override
+    public void paint(Graphics graphics) {
+        super.paint(graphics);
+        
+        if(constrained)
+            graphics.drawImage(constraintDecoration, bounds.x + 2, bounds.y + 2);
     }
     
     @Override

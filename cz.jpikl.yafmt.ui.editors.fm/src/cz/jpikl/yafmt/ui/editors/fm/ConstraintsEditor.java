@@ -267,7 +267,7 @@ public class ConstraintsEditor extends SplitterDock {
         }
         
     }
-    
+        
     private class FeatureModelAdapter extends EContentAdapter {
         
         @Override
