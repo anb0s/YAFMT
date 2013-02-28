@@ -16,7 +16,7 @@ public class DecoratableNodeFigure extends NodeFigure {
     
     private List<IDecoration> decorations = new ArrayList<IDecoration>();
     private int decorationSpace = 2;
-    
+     
     public void setDecorationSpace(int decorationSpace) {
         this.decorationSpace = decorationSpace;
     }
@@ -31,6 +31,8 @@ public class DecoratableNodeFigure extends NodeFigure {
     
     public void addDecoration(IDecoration decoration) {
         decorations.add(decoration);
+        if(!decoration.isAutoPositioned())
+            decoration.setBounds(decoration.computeNewPosition(bounds));
         addDecorationToLayer(decoration);
     }
         
@@ -84,6 +86,15 @@ public class DecoratableNodeFigure extends NodeFigure {
     }
     
     @Override
+    public void setAlpha(int alpha) {
+        super.setAlpha(alpha);
+        for(IDecoration decoration: decorations) {
+            if(decoration instanceof IFigureWithAlpha)
+                ((IFigureWithAlpha) decoration).setAlpha(alpha);
+        }
+    }
+        
+    @Override
     public void addNotify() {
         super.addNotify();
         for(IDecoration decoration: decorations)
@@ -102,5 +113,5 @@ public class DecoratableNodeFigure extends NodeFigure {
         super.fireFigureMoved();
         moveDecorations();
     }
-    
+        
 }

@@ -62,7 +62,7 @@ public class NodeFigure extends Label implements IFigureWithAlpha {
     }
 
     @Override
-    public int getAlpha() {
+    public Integer getAlpha() {
         return alpha;
     }
     

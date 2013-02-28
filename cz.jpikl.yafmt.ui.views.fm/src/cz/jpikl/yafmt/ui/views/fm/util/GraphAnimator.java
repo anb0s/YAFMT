@@ -5,10 +5,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.draw2d.AnchorListener;
 import org.eclipse.draw2d.Animation;
 import org.eclipse.draw2d.Connection;
-import org.eclipse.draw2d.ConnectionAnchor;
+import org.eclipse.draw2d.FigureListener;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LayoutAnimator;
 import org.eclipse.draw2d.LayoutListener;
@@ -42,7 +41,7 @@ public class GraphAnimator extends LayoutAnimator {
         // Place newly added node figures immediately to the final position. 
         for(Object child: container.getChildren()) {
             Rectangle initialBounds = (Rectangle) initialState.get(child); 
-            if((initialBounds != null) && (initialBounds.x == 0) && (initialBounds.y == 0)) {
+            if((initialBounds != null) && (initialBounds.x <= 0) && (initialBounds.y <= 0)) {
                 Rectangle finalBounds = (Rectangle) container.getLayoutManager().getConstraint((IFigure) child);
                 if(finalBounds != null) {
                     initialBounds.x = finalBounds.x;
@@ -104,7 +103,7 @@ public class GraphAnimator extends LayoutAnimator {
     }
 
     @Override
-    public void tearDown(IFigure figure) {
+    public void tearDown(IFigure container) {
         if(newlyAddedFigures.isEmpty())
             return;
         
@@ -118,6 +117,12 @@ public class GraphAnimator extends LayoutAnimator {
             connection.setForegroundColor(connectionFinalColors.get(connection));
         }
         
+        // Restore full alpha.
+        for(IFigure figure: newlyAddedFigures) {
+            if(figure instanceof IFigureWithAlpha)
+                ((IFigureWithAlpha) figure).setAlpha(255);
+        }
+        
         newlyAddedFigures.clear();
         connectionCurrentColors.clear();
         connectionFinalColors.clear();
@@ -127,13 +132,13 @@ public class GraphAnimator extends LayoutAnimator {
         // Hide newly created node and connection figures.
         // Otherwise there is ugly effect when figure is displayed in top left corner.
         if(child instanceof Connection) {
-            Connection connection = (Connection) child;
+            final Connection connection = (Connection) child;
             connection.setVisible(false);
-            connection.getSourceAnchor().addAnchorListener(new ConnectionVisibilityEnabler(connection));
+            connection.getSourceAnchor().getOwner().addFigureListener(new ConnectionVisibilityEnabler(connection));
         }
         else {
             Rectangle bounds = (Rectangle) constraint;
-            child.setVisible((bounds != null) && (bounds.x != 0));
+            child.setVisible((bounds != null) && (bounds.x > 0) && (bounds.y > 0));
         }
     }
     
@@ -161,7 +166,7 @@ public class GraphAnimator extends LayoutAnimator {
         
     }
         
-    private static class ConnectionVisibilityEnabler implements AnchorListener {
+    private static class ConnectionVisibilityEnabler implements FigureListener {
 
         private Connection connection;
                 
@@ -170,9 +175,9 @@ public class GraphAnimator extends LayoutAnimator {
         }
 
         @Override
-        public void anchorMoved(ConnectionAnchor anchor) {
+        public void figureMoved(IFigure source) {
             connection.setVisible(true);
-            anchor.removeAnchorListener(this);
+            source.removeFigureListener(this);
         }
         
     }

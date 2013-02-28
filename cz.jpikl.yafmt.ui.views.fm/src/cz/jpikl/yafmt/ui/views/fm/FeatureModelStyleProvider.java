@@ -3,13 +3,15 @@ package cz.jpikl.yafmt.ui.views.fm;
 import java.util.Collection;
 
 import org.eclipse.draw2d.ColorConstants;
-import org.eclipse.draw2d.FreeformLayer;
-import org.eclipse.draw2d.FreeformLayout;
+import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.RoundedRectangleAnchor;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.zest.core.viewers.GraphViewer;
+import org.eclipse.zest.core.widgets.GraphConnection;
 import org.eclipse.zest.core.widgets.ZestStyles;
 
 import cz.jpikl.yafmt.clang.util.ConstraintCache;
@@ -22,7 +24,7 @@ import cz.jpikl.yafmt.ui.views.fm.decorations.HiddenNeighborsDecoration;
 import cz.jpikl.yafmt.ui.views.fm.figures.ConstraintFigure;
 import cz.jpikl.yafmt.ui.views.fm.figures.FeatureFigure;
 import cz.jpikl.yafmt.ui.views.fm.figures.GroupFigure;
-import cz.jpikl.yafmt.ui.views.fm.util.ColorAnimator;
+import cz.jpikl.yafmt.ui.views.fm.figures.NodeFigure;
 import cz.jpikl.yafmt.ui.views.fm.util.GraphStyleProvider;
 
 public class FeatureModelStyleProvider extends GraphStyleProvider {
@@ -34,13 +36,25 @@ public class FeatureModelStyleProvider extends GraphStyleProvider {
     public FeatureModelStyleProvider(GraphViewer viewer, ConstraintCache constraintCache) {
         this.viewer = viewer;
         this.constraintCache = constraintCache;
-        //TODO
-        ((IFigure)viewer.getGraphControl().getRootLayer().getChildren().get(0)).addLayoutListener(ColorAnimator.getDefault());
     }
     
     // =============================================================
     // Connections
     // =============================================================
+    
+    @Override
+    public void selfStyleConnection(Object element, GraphConnection connection) {
+        // Replace connection anchors.
+        Connection figure = connection.getConnectionFigure();
+        
+        NodeFigure source = (NodeFigure) figure.getSourceAnchor().getOwner();
+        Dimension corners = new Dimension(source.getArcRadius(), source.getArcRadius());
+        figure.setSourceAnchor(new RoundedRectangleAnchor(source, corners));
+        
+        NodeFigure target = (NodeFigure) figure.getTargetAnchor().getOwner();
+        corners = new Dimension(target.getArcRadius(), target.getArcRadius());
+        figure.setTargetAnchor(new RoundedRectangleAnchor(target, corners));
+    }
     
     @Override
     public int getConnectionStyle(Object src, Object dst) {

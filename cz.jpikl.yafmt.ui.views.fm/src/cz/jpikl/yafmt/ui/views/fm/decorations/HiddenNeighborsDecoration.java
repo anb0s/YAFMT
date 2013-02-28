@@ -40,5 +40,5 @@ public class HiddenNeighborsDecoration extends RoundedRectangle implements IDeco
         int border = hiddenNeighborsCount * BORDER_SCALE; 
         return parentBounds.getCopy().expand(border, border);
     }
-    
+            
 }

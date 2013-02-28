@@ -6,6 +6,6 @@ public interface IFigureWithAlpha extends IFigure {
 
     void setAlpha(int alpha);
     
-    int getAlpha();
+    Integer getAlpha(); // Returns object because of Compatibility with Shape class.
     
 }
