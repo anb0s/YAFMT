@@ -19,9 +19,9 @@ public class GroupFigure extends NodeFigure {
         
         String cardinality;
         if(group.isOr())
-            cardinality = "OR Group";
+            cardinality = "OR";
         if(group.isXor())
-            cardinality = "XOR Group";
+            cardinality = "XOR";
         else
             cardinality = FeatureModelUtil.getCardinality(group);
             
