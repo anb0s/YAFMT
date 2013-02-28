@@ -1,6 +1,7 @@
 package cz.jpikl.yafmt.ui.views.fm.figures;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.swt.SWT;
 
 import cz.jpikl.yafmt.model.fm.Constraint;
 import cz.jpikl.yafmt.ui.util.DrawConstantans;
@@ -8,9 +9,12 @@ import cz.jpikl.yafmt.ui.util.DrawConstantans;
 public class ConstraintFigure extends NodeFigure {
     
     public ConstraintFigure(Constraint constraint) {
+        setFont(DrawConstantans.ITALIC_FONT);
         setBackgroundColor(ColorConstants.white);
         setForegroundColor(ColorConstants.red);
         setHightlightColor(DrawConstantans.LIGHT_RED_COLOR);
+        setBorderStyle(SWT.LINE_CUSTOM);
+        setBorderDash(DrawConstantans.LINE_DASH);
         setText(constraint.getValue());
         
         String description = constraint.getDescription();

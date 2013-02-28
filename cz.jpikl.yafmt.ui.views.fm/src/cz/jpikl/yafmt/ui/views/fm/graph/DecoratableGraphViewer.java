@@ -60,10 +60,12 @@ public class DecoratableGraphViewer extends GraphViewer {
     
     public void restoreHightlight() {
         for(Object node: graph.getSelection()) {
-            IFigure figure = ((GraphNode) node).getNodeFigure();
-            if(figure instanceof NodeFigure) {
-                ((NodeFigure) figure).setHighlighted(true);
-                highlightedFigures.add((NodeFigure) figure);
+            if(node instanceof GraphNode) {
+                IFigure figure = ((GraphNode) node).getNodeFigure();
+                if(figure instanceof NodeFigure) {
+                    ((NodeFigure) figure).setHighlighted(true);
+                    highlightedFigures.add((NodeFigure) figure);
+                }
             }
         }
     }

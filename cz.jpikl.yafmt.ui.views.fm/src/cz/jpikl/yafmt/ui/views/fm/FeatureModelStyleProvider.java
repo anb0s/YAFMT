@@ -5,10 +5,12 @@ import java.util.Collection;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.RoundedRectangleAnchor;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.viewers.ViewerFilter;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.zest.core.viewers.GraphViewer;
 import org.eclipse.zest.core.widgets.GraphConnection;
@@ -18,6 +20,7 @@ import cz.jpikl.yafmt.clang.util.ConstraintCache;
 import cz.jpikl.yafmt.model.fm.Constraint;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.Group;
+import cz.jpikl.yafmt.ui.util.DrawConstantans;
 import cz.jpikl.yafmt.ui.views.fm.decorations.HiddenConstraintDecoration;
 import cz.jpikl.yafmt.ui.views.fm.decorations.HiddenGroupDecoration;
 import cz.jpikl.yafmt.ui.views.fm.decorations.HiddenNeighborsDecoration;
@@ -44,16 +47,21 @@ public class FeatureModelStyleProvider extends LabelProviderAdapter {
     
     @Override
     public void selfStyleConnection(Object element, GraphConnection connection) {
-        // Replace connection anchors.
         Connection figure = connection.getConnectionFigure();
         
-        NodeFigure source = (NodeFigure) figure.getSourceAnchor().getOwner();
-        Dimension corners = new Dimension(source.getArcRadius(), source.getArcRadius());
-        figure.setSourceAnchor(new RoundedRectangleAnchor(source, corners));
+        // Set better line style
+        if(connection.getLineStyle() == SWT.LINE_DOT) {
+            connection.setLineStyle(SWT.LINE_CUSTOM);
+            ((PolylineConnection) figure).setLineDash(DrawConstantans.LINE_DASH);
+        }
         
+        // Replace connection anchors.
+        NodeFigure source = (NodeFigure) figure.getSourceAnchor().getOwner();
         NodeFigure target = (NodeFigure) figure.getTargetAnchor().getOwner();
-        corners = new Dimension(target.getArcRadius(), target.getArcRadius());
-        figure.setTargetAnchor(new RoundedRectangleAnchor(target, corners));
+        Dimension sourceCorners = new Dimension(source.getArcRadius(), source.getArcRadius());
+        Dimension targetCorners = new Dimension(target.getArcRadius(), target.getArcRadius());
+        figure.setSourceAnchor(new RoundedRectangleAnchor(source, sourceCorners));
+        figure.setTargetAnchor(new RoundedRectangleAnchor(target, targetCorners));
     }
     
     @Override
@@ -64,7 +72,7 @@ public class FeatureModelStyleProvider extends LabelProviderAdapter {
                 dstParent = ((Group) dstParent).getParent();
             return (src == dstParent) ? ZestStyles.CONNECTIONS_DIRECTED : ZestStyles.NONE;
         }
-        return ZestStyles.CONNECTIONS_DASH;
+        return ZestStyles.CONNECTIONS_DOT; // This style is detected and changed in selfStyleConnection().
     }
     
     @Override

@@ -1,16 +1,21 @@
 package cz.jpikl.yafmt.ui.views.fm.figures;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.swt.SWT;
 
 import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
+import cz.jpikl.yafmt.ui.util.DrawConstantans;
 
 public class GroupFigure extends NodeFigure {
 
     public GroupFigure(Group group) {
+        setFont(DrawConstantans.ITALIC_FONT);
         setBackgroundColor(ColorConstants.white);
         setForegroundColor(ColorConstants.darkGray);
         setHightlightColor(ColorConstants.lightGray);
+        setBorderStyle(SWT.LINE_CUSTOM);
+        setBorderDash(DrawConstantans.LINE_DASH);
         
         String cardinality;
         if(group.isOr())

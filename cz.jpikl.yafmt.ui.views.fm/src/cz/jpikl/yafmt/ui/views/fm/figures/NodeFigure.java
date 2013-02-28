@@ -7,6 +7,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.LineAttributes;
 
 import cz.jpikl.yafmt.ui.util.DrawConstantans;
 
@@ -17,6 +18,7 @@ public class NodeFigure extends Label implements IFigureWithAlpha {
     private int margin = 2;
     private int arcRadius = 10;
     private int alpha = 255;
+    private LineAttributes borderAttributes = new LineAttributes(1);
 
     public NodeFigure() {
         setFont(DrawConstantans.DEFAULT_FONT);
@@ -73,6 +75,30 @@ public class NodeFigure extends Label implements IFigureWithAlpha {
         setToolTip(new Label(text));
     }
     
+    public int getBorderWidth() {
+        return (int) borderAttributes.width;
+    }
+
+    public void setBorderWidth(int borderWidth) {
+        borderAttributes.width = borderWidth;
+    }
+
+    public int getBorderStyle() {
+        return borderAttributes.style;
+    }
+
+    public void setBorderStyle(int style) {
+        borderAttributes.style = style;
+    }
+
+    public float[] getBorderDash() {
+        return borderAttributes.dash;
+    }
+
+    public void setBorderDash(float[] dash) {
+        borderAttributes.dash = dash;
+    }
+
     @Override
     public void setFont(Font f) {
         super.setFont(f);
@@ -122,6 +148,7 @@ public class NodeFigure extends Label implements IFigureWithAlpha {
         
         rect.y = bounds.y;
         rect.height = bounds.height - 1;
+        graphics.setLineAttributes(borderAttributes);
         graphics.setForegroundColor(getForegroundColor());
         graphics.drawRoundRectangle(rect, arcRadius, arcRadius);
         
