@@ -10,7 +10,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 import cz.jpikl.yafmt.ui.views.fm.decorations.IDecoration;
-import cz.jpikl.yafmt.ui.views.fm.util.DecoratableGraphViewer;
+import cz.jpikl.yafmt.ui.views.fm.graph.DecoratableGraphViewer;
 
 public class DecoratableNodeFigure extends NodeFigure {
     

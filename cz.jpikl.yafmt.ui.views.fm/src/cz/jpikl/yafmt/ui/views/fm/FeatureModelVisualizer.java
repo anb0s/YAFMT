@@ -32,9 +32,10 @@ import cz.jpikl.yafmt.ui.util.SWTUtil;
 import cz.jpikl.yafmt.ui.views.fm.filters.ConstraintFilter;
 import cz.jpikl.yafmt.ui.views.fm.filters.DistanceFilter;
 import cz.jpikl.yafmt.ui.views.fm.filters.GroupFilter;
+import cz.jpikl.yafmt.ui.views.fm.graph.DecoratableGraphViewer;
+import cz.jpikl.yafmt.ui.views.fm.graph.LayoutAlgorithmAnimator;
 import cz.jpikl.yafmt.ui.views.fm.settings.ISettingsListener;
 import cz.jpikl.yafmt.ui.views.fm.settings.Settings;
-import cz.jpikl.yafmt.ui.views.fm.util.DecoratableGraphViewer;
 
 public class FeatureModelVisualizer extends ViewPart implements ISelectionListener, 
                                                                 IPartListener, 
@@ -119,7 +120,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         viewer = new DecoratableGraphViewer(parent, ZestStyles.NONE);
         viewer.setContentProvider(new FeatureModelContentProvider());
         viewer.setLabelProvider(new FeatureModelStyleProvider(viewer, constraintCache));
-        viewer.setLayoutAlgorithm(new FeatureModelLayoutAlgorithm(viewer, settings));
+        viewer.setLayoutAlgorithm(new LayoutAlgorithmAnimator(viewer, settings, new FeatureModelLayoutAlgorithm()));
         viewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         viewer.setNodeStyle(settings.isAnimationEnabled() ? ZestStyles.NONE : ZestStyles.NODES_NO_ANIMATION);
         viewer.setFilters(new ViewerFilter[] { distanceFilter, groupFilter, constraintFilter });        

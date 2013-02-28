@@ -25,9 +25,9 @@ import cz.jpikl.yafmt.ui.views.fm.figures.ConstraintFigure;
 import cz.jpikl.yafmt.ui.views.fm.figures.FeatureFigure;
 import cz.jpikl.yafmt.ui.views.fm.figures.GroupFigure;
 import cz.jpikl.yafmt.ui.views.fm.figures.NodeFigure;
-import cz.jpikl.yafmt.ui.views.fm.util.GraphStyleProvider;
+import cz.jpikl.yafmt.ui.views.fm.util.LabelProviderAdapter;
 
-public class FeatureModelStyleProvider extends GraphStyleProvider {
+public class FeatureModelStyleProvider extends LabelProviderAdapter {
 
     private GraphViewer viewer;
     private ViewerFilter[] filters;

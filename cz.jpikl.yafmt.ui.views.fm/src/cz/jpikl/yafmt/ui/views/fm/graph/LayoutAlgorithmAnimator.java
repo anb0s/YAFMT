@@ -1,23 +1,26 @@
-package cz.jpikl.yafmt.ui.views.fm.util;
+package cz.jpikl.yafmt.ui.views.fm.graph;
 
 import org.eclipse.draw2d.Animation;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LayoutAnimator;
+import org.eclipse.zest.core.viewers.GraphViewer;
 import org.eclipse.zest.core.widgets.Graph;
 import org.eclipse.zest.layouts.InvalidLayoutConfiguration;
+import org.eclipse.zest.layouts.LayoutAlgorithm;
 import org.eclipse.zest.layouts.LayoutEntity;
 import org.eclipse.zest.layouts.LayoutRelationship;
 
 import cz.jpikl.yafmt.ui.views.fm.settings.Settings;
+import cz.jpikl.yafmt.ui.views.fm.util.LayoutAlgorithmDecorator;
 
-public class LayoutAlgorithmWithAnimation extends LayoutAlgorithmAdapter {
+public class LayoutAlgorithmAnimator extends LayoutAlgorithmDecorator {
 
     private Graph graph;
     private Settings settings;
     
-    public LayoutAlgorithmWithAnimation(Graph graph, Settings settings, int styles) {
-        super(styles);
-        this.graph = graph;
+    public LayoutAlgorithmAnimator(GraphViewer viewer, Settings settings, LayoutAlgorithm algorithm) {
+        super(algorithm);
+        this.graph = viewer.getGraphControl();
         this.settings = settings;
         hookGraph();
     }
@@ -35,6 +38,7 @@ public class LayoutAlgorithmWithAnimation extends LayoutAlgorithmAdapter {
     
     @Override
     public synchronized void applyLayout(LayoutEntity[] entitiesToLayout, LayoutRelationship[] relationshipsToConsider, double x, double y, double width, double height, boolean asynchronous, boolean continuous) throws InvalidLayoutConfiguration {
+        super.applyLayout(entitiesToLayout, relationshipsToConsider, x, y, width, height, asynchronous, continuous);
         if(!settings.isAnimationEnabled())
             return;
             

@@ -1,4 +1,4 @@
-package cz.jpikl.yafmt.ui.views.fm.util;
+package cz.jpikl.yafmt.ui.views.fm.graph;
 
 import java.util.HashMap;
 import java.util.HashSet;

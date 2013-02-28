@@ -1,4 +1,4 @@
-package cz.jpikl.yafmt.ui.views.fm.util;
+package cz.jpikl.yafmt.ui.views.fm.graph;
 
 import org.eclipse.draw2d.FreeformLayer;
 import org.eclipse.draw2d.FreeformLayout;

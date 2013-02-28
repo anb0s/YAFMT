@@ -14,11 +14,11 @@ import org.eclipse.zest.core.widgets.GraphConnection;
 import org.eclipse.zest.core.widgets.GraphNode;
 import org.eclipse.zest.core.widgets.ZestStyles;
 
-public class GraphStyleProvider implements IFigureProvider, 
-                                           ILabelProvider, 
-                                           IEntityStyleProvider, 
-                                           IEntityConnectionStyleProvider,
-                                           ISelfStyleProvider {
+public class LabelProviderAdapter implements IFigureProvider, 
+                                             ILabelProvider, 
+                                             IEntityStyleProvider, 
+                                             IEntityConnectionStyleProvider,
+                                             ISelfStyleProvider {
 
     @Override
     public void dispose() {
