@@ -102,5 +102,5 @@ public class DecoratableNodeFigure extends NodeFigure {
         super.fireFigureMoved();
         moveDecorations();
     }
-        
+    
 }
