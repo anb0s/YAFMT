@@ -11,6 +11,7 @@ public class DrawConstantans {
     public static final Font DEFAULT_FONT = getDefaultFont();
     public static final Font BOLD_FONT = getModifiedFont(DEFAULT_FONT, SWT.DEFAULT, SWT.BOLD);
     public static final Font ITALIC_FONT = getModifiedFont(DEFAULT_FONT, SWT.DEFAULT, SWT.ITALIC);
+    public static final Font TINY_FONT = getModifiedFont(DEFAULT_FONT, 7, SWT.DEFAULT);
     public static final Color LIGHT_BLUE_COLOR = getColor(175, 201, 235);
     public static final Color LIGHT_RED_COLOR = getColor(255, 192, 192);
     public static final float[] LINE_DASH = { 2, 2 }; 

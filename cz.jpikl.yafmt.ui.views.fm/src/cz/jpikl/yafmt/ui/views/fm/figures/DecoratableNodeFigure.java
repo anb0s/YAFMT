@@ -31,8 +31,10 @@ public class DecoratableNodeFigure extends NodeFigure {
     
     public void addDecoration(IDecoration decoration) {
         decorations.add(decoration);
+        // Just resize, do not change position yet!
+        // It would break layout animation.
         if(!decoration.isAutoPositioned())
-            decoration.setBounds(decoration.computeNewPosition(bounds));
+            decoration.setSize(decoration.computeBounds(bounds).getSize());
         addDecorationToLayer(decoration);
     }
         
@@ -75,7 +77,7 @@ public class DecoratableNodeFigure extends NodeFigure {
                 x += size.width + decorationSpace;
             }
             else {
-                layer.setConstraint(decoration, decoration.computeNewPosition(rect));
+                layer.setConstraint(decoration, decoration.computeBounds(rect));
             }
         }
     }

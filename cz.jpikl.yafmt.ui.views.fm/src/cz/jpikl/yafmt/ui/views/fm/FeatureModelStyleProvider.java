@@ -21,6 +21,7 @@ import cz.jpikl.yafmt.model.fm.Constraint;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.ui.util.DrawConstantans;
+import cz.jpikl.yafmt.ui.views.fm.decorations.CardinalityDecoration;
 import cz.jpikl.yafmt.ui.views.fm.decorations.HiddenConstraintDecoration;
 import cz.jpikl.yafmt.ui.views.fm.decorations.HiddenGroupDecoration;
 import cz.jpikl.yafmt.ui.views.fm.decorations.HiddenNeighborsDecoration;
@@ -111,6 +112,7 @@ public class FeatureModelStyleProvider extends LabelProviderAdapter {
         
     protected IFigure createFeatureFigure(Feature feature) {
         FeatureFigure figure = new FeatureFigure(feature);
+        figure.addDecoration(new CardinalityDecoration(feature.getLower(), feature.getUpper()));
                 
         int hiddenNeighbors = countHiddenNeighbors(feature);
         if(hiddenNeighbors > 0)

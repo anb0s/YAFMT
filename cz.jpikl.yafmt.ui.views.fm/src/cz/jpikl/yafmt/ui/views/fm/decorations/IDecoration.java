@@ -10,6 +10,6 @@ public interface IDecoration extends IFigureWithAlpha {
     
     boolean isOnTop();
     
-    Rectangle computeNewPosition(Rectangle parentBounds);
+    Rectangle computeBounds(Rectangle parentBounds);
     
 }

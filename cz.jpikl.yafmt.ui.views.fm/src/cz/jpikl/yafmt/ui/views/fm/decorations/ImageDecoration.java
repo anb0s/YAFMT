@@ -25,7 +25,7 @@ public class ImageDecoration extends ImageFigure implements IDecoration {
     }
 
     @Override
-    public Rectangle computeNewPosition(Rectangle parentBounds) {
+    public Rectangle computeBounds(Rectangle parentBounds) {
         return null;
     }
 

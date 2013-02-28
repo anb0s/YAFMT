@@ -36,7 +36,7 @@ public class HiddenNeighborsDecoration extends RoundedRectangle implements IDeco
     }
 
     @Override
-    public Rectangle computeNewPosition(Rectangle parentBounds) {
+    public Rectangle computeBounds(Rectangle parentBounds) {
         int border = hiddenNeighborsCount * BORDER_SCALE; 
         return parentBounds.getCopy().expand(border, border);
     }
