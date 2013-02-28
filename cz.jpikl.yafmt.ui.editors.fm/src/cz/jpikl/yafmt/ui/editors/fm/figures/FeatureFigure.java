@@ -28,9 +28,11 @@ public class FeatureFigure extends RoundedRectangle {
     private Figure attributes;
     
     private Feature feature;
+    private boolean orphaned;
     
     public FeatureFigure(Feature feature) {
         this.feature = feature;
+        this.orphaned = feature.isOrphan();
         
         setLayoutManager(new GridLayout());
         setToolTip(toolTip);
@@ -46,6 +48,15 @@ public class FeatureFigure extends RoundedRectangle {
     public Label getLabel() {
         return label;
     }
+        
+    public boolean setOrphaned(boolean orphaned) {
+        if(this.orphaned != orphaned) {
+            this.orphaned = orphaned;
+            repaint();
+            return true;
+        }
+        return false;
+    }
     
     public void refresh() {
         label.setText(feature.getName());
@@ -58,11 +69,17 @@ public class FeatureFigure extends RoundedRectangle {
     
     @Override
     protected void fillShape(Graphics graphics) {
-        Pattern pattern = createPattern(graphics, DrawConstantans.FEATURE_GRADIENT_COLOR, ColorConstants.white);
-        graphics.setBackgroundPattern(pattern);
+        Pattern pattern = null;
+        if(!orphaned) {
+            pattern = createPattern(graphics, DrawConstantans.FEATURE_GRADIENT_COLOR, ColorConstants.white);
+            graphics.setBackgroundPattern(pattern);
+        }
+        
         super.fillShape(graphics);
         graphics.setBackgroundPattern(null);
-        pattern.dispose();
+        
+        if(pattern != null)
+            pattern.dispose();
     }
             
     private Pattern createPattern(Graphics graphics, Color topColor, Color bottomColor) {

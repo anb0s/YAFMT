@@ -11,6 +11,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.NodeEditPart;
@@ -18,6 +19,7 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 import cz.jpikl.yafmt.model.fm.Feature;
+import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
 import cz.jpikl.yafmt.ui.editors.fm.directediting.DirectInputValidator;
 import cz.jpikl.yafmt.ui.editors.fm.directediting.LabelDirectEditManager;
@@ -62,7 +64,8 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
     
     @Override
     protected List<Object> getModelSourceConnections() {
-        if(feature.isOrphan() || feature.isRoot())
+        EObject parent = feature.getParent();
+        if((parent == null) || (parent instanceof FeatureModel))
             return null;
         
         List<Object> connections = new ArrayList<Object>();

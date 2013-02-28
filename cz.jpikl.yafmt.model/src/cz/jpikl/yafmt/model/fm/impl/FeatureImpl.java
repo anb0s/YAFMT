@@ -380,10 +380,17 @@ public class FeatureImpl extends EObjectImpl implements Feature {
      * @generated NOT
      */
     public boolean isOrphan() {
-        EObject parent = getParent();
-        if(!(parent instanceof FeatureModel))
-            return false;
-        return ((FeatureModel) parent).getRoot() != this;
+        EObject current = this;
+        EObject parent = eContainer();
+        
+        while(parent != null) {
+            if(parent instanceof FeatureModel)
+                return ((FeatureModel) parent).getRoot() != current;
+            current = parent;
+            parent = parent.eContainer();
+        }
+        
+        return true;
     }
 
     /**

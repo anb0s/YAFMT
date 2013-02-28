@@ -22,6 +22,7 @@ import org.eclipse.swt.SWT;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.Group;
+import cz.jpikl.yafmt.ui.editors.fm.figures.FeatureFigure;
 import cz.jpikl.yafmt.ui.editors.fm.figures.FeatureModelFigure;
 import cz.jpikl.yafmt.ui.editors.fm.figures.GroupFigure;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
@@ -109,29 +110,32 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
     }
 
     private void addEditPartForObject(Object object) {
-        if(getEditPartForObject(object) != null)
-            return;
+        if(getEditPartForObject(object) == null) {
+            if(object instanceof Group) {
+                // Groups go before features.
+                // This order is used for rendering objects.
+                addChild(createChild(object), 0);
+                // When ChangeRecorder does undo, it merge all changes, so previously deleted
+                // group can be added together with previously deleted features.
+                Group group = (Group) object;
+                for(Feature feature: group.getFeatures())
+                    addEditPartForObject(feature);
+            }
+            if(object instanceof Feature) {
+                // Features go after groups.
+                addChild(createChild(object), getChildren().size());
+                // Same case as mentioned above.
+                Feature feature = (Feature) object;
+                for(Feature child: feature.getFeatures())
+                    addEditPartForObject(child);
+                for(Group group: feature.getGroups())
+                    addEditPartForObject(group);
+            }
+        }
         
-        if(object instanceof Group) {
-            // Groups go before features.
-            // This order is used for rendering objects.
-            addChild(createChild(object), 0);
-            // When ChangeRecorder does undo, it merge all changes, so previously deleted
-            // group can be added together with previously deleted features.
-            Group group = (Group) object;
-            for(Feature feature: group.getFeatures())
-                addEditPartForObject(feature);
-        }
-        if(object instanceof Feature) {
-            // Features go after groups.
-            addChild(createChild(object), getChildren().size());
-            // Same case as mentioned above.
-            Feature feature = (Feature) object;
-            for(Feature child: feature.getFeatures())
-                addEditPartForObject(child);
-            for(Group group: feature.getGroups())
-                addEditPartForObject(group);
-        }
+        // Make sure that 'orphaned' state of figure of all added features is refreshed. 
+        if(object instanceof Feature)
+            refreshFeatureFiguresOrphanedState((Feature) object);
     }
     
     private void addEditPartsForObjects(Collection<?> objects) {
@@ -155,6 +159,27 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
     private void removeEditPartsForObjects(Collection<?> objects) {
         for(Object object: objects)
             removeEditPartForObject(object);
+    }
+    
+    private void refreshFeatureFiguresOrphanedState(Feature feature) {
+        boolean orphaned = feature.isOrphan();
+        GraphicalEditPart editPart = getEditPartForObject(feature);
+        if(editPart == null)
+            return;
+        
+        // Quit when state was not changed.
+        if(!((FeatureFigure) editPart.getFigure()).setOrphaned(orphaned))
+            return;
+        
+        TreeIterator<EObject> it = feature.eAllContents();
+        while(it.hasNext()) {
+            Object object = it.next();
+            if(object instanceof Feature) {
+                editPart = getEditPartForObject(object);
+                if(editPart != null)
+                    ((FeatureFigure) editPart.getFigure()).setOrphaned(orphaned);
+            }
+        }
     }
     
     private void updateLayoutConstraint(Object updateValue) {
