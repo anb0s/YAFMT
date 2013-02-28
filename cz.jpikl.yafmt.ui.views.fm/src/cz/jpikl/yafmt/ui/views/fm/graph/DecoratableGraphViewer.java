@@ -1,5 +1,8 @@
 package cz.jpikl.yafmt.ui.views.fm.graph;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.draw2d.FreeformLayer;
 import org.eclipse.draw2d.FreeformLayout;
 import org.eclipse.draw2d.IFigure;
@@ -16,6 +19,8 @@ public class DecoratableGraphViewer extends GraphViewer {
     public static final int ZEST_LAYER_INDEX = 1;
     public static final int FRONT_DECORATION_LAYER_INDEX = 2;
         
+    private List<NodeFigure> highlightedFigures = new ArrayList<NodeFigure>(); 
+    
     public DecoratableGraphViewer(Composite composite, int style) {
         super(composite, style);
         createDecorationLayers();
@@ -34,29 +39,33 @@ public class DecoratableGraphViewer extends GraphViewer {
     
     @Override
     protected void fireSelectionChanged(SelectionChangedEvent event) {
-        setSelectedNodesHighlight(false);
+        hideHightlight();
         super.fireSelectionChanged(event);
-        setSelectedNodesHighlight(true);
+        restoreHightlight();
         
     }
     
     @Override
     protected void firePostSelectionChanged(SelectionChangedEvent event) {
-        setSelectedNodesHighlight(false);
+        hideHightlight();
         super.firePostSelectionChanged(event);
-        setSelectedNodesHighlight(true);
+        restoreHightlight();
     }
-        
-    private void setSelectedNodesHighlight(boolean highlighted) {
-        for(Object node: graph.getSelection()) {
-            IFigure figure = ((GraphNode) node).getNodeFigure();
-            if(figure instanceof NodeFigure)
-                ((NodeFigure) figure).setHighlighted(highlighted);
-        }
+    
+    private void hideHightlight() {
+        for(NodeFigure figure: highlightedFigures)
+            figure.setHighlighted(false);
+        highlightedFigures.clear();
     }
     
     public void restoreHightlight() {
-        setSelectedNodesHighlight(true);
+        for(Object node: graph.getSelection()) {
+            IFigure figure = ((GraphNode) node).getNodeFigure();
+            if(figure instanceof NodeFigure) {
+                ((NodeFigure) figure).setHighlighted(true);
+                highlightedFigures.add((NodeFigure) figure);
+            }
+        }
     }
-            
+
 }
