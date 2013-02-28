@@ -23,7 +23,10 @@ public class NodeFigure extends Label implements IFigureWithAlpha {
     }
 
     public void setHighlighted(boolean highlighted) {
-        this.highlighted = highlighted;
+        if(this.highlighted != highlighted) {
+            this.highlighted = highlighted;
+            repaint();
+        }
     }
 
     public boolean isHighlighted() {

@@ -19,7 +19,6 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
-import org.eclipse.zest.core.viewers.GraphViewer;
 import org.eclipse.zest.core.widgets.ZestStyles;
 
 import cz.jpikl.yafmt.clang.util.ConstraintCache;
@@ -52,7 +51,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
 	private ConstraintCache constraintCache;
 	private int treeHeight; // Height of the current feature model tree.
 	
-	private GraphViewer viewer;
+	private DecoratableGraphViewer viewer;
     private DistanceFilter distanceFilter;
     private GroupFilter groupFilter;
     private ConstraintFilter constraintFilter;
@@ -189,7 +188,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         viewer.getControl().setFocus();
     }
     
-    private void setSourcePart(IWorkbenchPart part) {
+    private void setSourcePart(IWorkbenchPart part) {        
         if(part == sourcePart)
             return;
             
@@ -285,6 +284,12 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
     */
     
     @Override
+    public void partActivated(IWorkbenchPart part) {
+        if(part == this)
+            viewer.restoreHightlight();
+    }
+    
+    @Override
     public void partClosed(IWorkbenchPart part) {
         if(part == sourcePart) {
             sourcePart = null;
@@ -331,11 +336,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
     @Override
     public void partBroughtToTop(IWorkbenchPart part) {
     }
-    
-    @Override
-    public void partActivated(IWorkbenchPart part) {
-    }
-    
+        
     @Override
     public void partDeactivated(IWorkbenchPart part) {
     }
