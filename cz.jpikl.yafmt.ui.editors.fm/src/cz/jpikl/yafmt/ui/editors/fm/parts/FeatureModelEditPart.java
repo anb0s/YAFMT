@@ -33,6 +33,12 @@ import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureModelLayoutPolicy;
 
 public class FeatureModelEditPart extends AbstractGraphicalEditPart {
 
+    // Enabling of constraint decorations may cause slow down when 
+    // editing large feature models with many constraints.
+    // Each time when model modification is performed, constraint cache
+    // and all feature figures must be refreshed.
+    private static final boolean CONSTRAINT_DECORATIONS_ENABLED = true;
+    
     private FeatureModel featureModel;
     private LayoutData layoutData;
     private Adapter featureModelAdapter;
@@ -44,7 +50,6 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
         this.layoutData = layoutData;
         this.featureModelAdapter = new FeatureModelAdapter();
         this.layoutDataAdapter = new LayoutDataAdapter();
-        this.constraintCache = new ConstraintCache(featureModel);
         setModel(featureModel);
     }
     
@@ -66,7 +71,11 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
     @Override
     public void addNotify() {
         super.addNotify();
-        refreshFeatureFiguresConstrainedState();
+        
+        if(CONSTRAINT_DECORATIONS_ENABLED) {
+            constraintCache = new ConstraintCache(featureModel);
+            refreshFeatureFiguresConstrainedState();
+        }
     }
     
     @Override
@@ -120,32 +129,33 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
     }
 
     private void addEditPartForObject(Object object) {
-        if(getEditPartForObject(object) == null)
-            return;
-            
-        if(object instanceof Group) {
-            // Groups go before features.
-            // This order is used for rendering objects.
-            addChild(createChild(object), 0);
-            // When ChangeRecorder does undo, it merge all changes, so previously deleted
-            // group can be added together with previously deleted features.
-            Group group = (Group) object;
-            for(Feature feature: group.getFeatures())
-                addEditPartForObject(feature);
+        // Ignore already existing edit parts.
+        if(getEditPartForObject(object) == null) {
+            if(object instanceof Group) {
+                // Groups go before features.
+                // This order is used for rendering objects.
+                addChild(createChild(object), 0);
+                // When ChangeRecorder does undo, it merge all changes, so previously deleted
+                // group can be added together with previously deleted features.
+                Group group = (Group) object;
+                for(Feature feature: group.getFeatures())
+                    addEditPartForObject(feature);
+            }
+            if(object instanceof Feature) {
+                // Features go after groups.
+                addChild(createChild(object), getChildren().size());
+                // Same case as mentioned above.
+                Feature feature = (Feature) object;
+                for(Feature child: feature.getFeatures())
+                    addEditPartForObject(child);
+                for(Group group: feature.getGroups())
+                    addEditPartForObject(group);
+            }
         }
-        if(object instanceof Feature) {
-            // Features go after groups.
-            addChild(createChild(object), getChildren().size());
-            // Same case as mentioned above.
-            Feature feature = (Feature) object;
-            for(Feature child: feature.getFeatures())
-                addEditPartForObject(child);
-            for(Group group: feature.getGroups())
-                addEditPartForObject(group);
-            
-            // Make sure that 'orphaned' state of all added feature figures is refreshed. 
-            refreshFeatureFiguresOrphanedState(feature);
-        }
+
+        // Make sure that 'orphaned' state of all added feature figures is refreshed.
+        if(object instanceof Feature) 
+            refreshFeatureFiguresOrphanedState((Feature) object);
     }
     
     private void addEditPartsForObjects(Collection<?> objects) {
@@ -154,6 +164,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
     }
     
     private void removeEditPartForObject(Object object) {
+        // Ignore non-existing edit parts.
         EditPart editPart = getEditPartForObject(object);
         if(editPart == null)
             return;
@@ -256,9 +267,10 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
                     break;
             }
             
-            // This may slow down editing of large feature models.
-            constraintCache.invalidate();
-            refreshFeatureFiguresConstrainedState();
+            if(CONSTRAINT_DECORATIONS_ENABLED) {
+                constraintCache.invalidate();
+                refreshFeatureFiguresConstrainedState();
+            }
         }
         
     }
