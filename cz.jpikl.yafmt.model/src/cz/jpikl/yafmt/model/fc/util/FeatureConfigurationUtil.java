@@ -6,6 +6,7 @@ import java.util.Map;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.BasicExtendedMetaData;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.ExtendedMetaData;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.emf.ecore.xmi.XMLResource;
@@ -26,6 +27,7 @@ public class FeatureConfigurationUtil {
         ExtendedMetaData emd = new BasicExtendedMetaData();
         emd.setName(Literals.FEATURE_CONFIGURATION, "feature-configuration");
         emd.setName(Literals.FEATURE_CONFIGURATION__FEATURE_MODEL, "feature-model");
+        emd.setName(Literals.FEATURE_CONFIGURATION__FEATURE_MODEL_COPY, "feature-model-copy");
         emd.setName(Literals.FEATURE_CONFIGURATION__ROOT, "root-feature");
         emd.setName(Literals.SELECTION__SELECTIONS, "feature");
         emd.setName(Literals.SELECTION__VALUES, "attribute");
@@ -80,6 +82,7 @@ public class FeatureConfigurationUtil {
         
         FeatureConfiguration featureConfig = factory.createFeatureConfiguration();
         featureConfig.setFeatureModel(featureModel);
+        featureConfig.setFeatureModelCopy(EcoreUtil.copy(featureModel));
         featureConfig.setRoot(rootSelection);
         
         return featureConfig;

@@ -98,7 +98,7 @@ public class NewFeatureConfigurationWizard extends NewFileWizard {
     
     @Override
     protected Resource getNewResource(IFile file) throws Exception {
-        FeatureModel featureModel = getFeatureModel();
+        FeatureModel featureModel = getFeatureModel();        
         String name = featureConfigurationPropertiesPage.getFeatureConfigurationName();
         String version = featureConfigurationPropertiesPage.getFeatureConfigurationVersion();
         String description = featureConfigurationPropertiesPage.getFeatureConfigurationDescription();
@@ -108,7 +108,7 @@ public class NewFeatureConfigurationWizard extends NewFileWizard {
             featureConfig.setVersion(version);
         if(!description.isEmpty())
             featureConfig.setDescription(description);
-                
+        
         URI uri = URI.createPlatformResourceURI(file.getFullPath().toString(), true);
         Resource resource = featureModel.eResource().getResourceSet().createResource(uri);
         resource.getContents().add(featureConfig);

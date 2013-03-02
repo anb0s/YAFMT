@@ -13,6 +13,7 @@ Export-Package: cz.jpikl.yafmt.model.fc.provider;
    org.eclipse.emf.common.util,
    org.eclipse.emf.edit.provider,
    org.eclipse.emf.common.notify",
+ cz.jpikl.yafmt.model.fc.provider.util,
  cz.jpikl.yafmt.model.fm.provider;
   uses:="org.eclipse.emf.ecore,
    org.eclipse.emf.common.util,
@@ -21,8 +22,8 @@ Export-Package: cz.jpikl.yafmt.model.fc.provider;
    org.eclipse.emf.edit.provider,
    org.eclipse.emf.common.notify",
  cz.jpikl.yafmt.model.fm.provider.util;
-  uses:="cz.jpikl.yafmt.model.provider.util,
-   org.eclipse.emf.edit.ui.provider,
+  uses:="org.eclipse.emf.edit.ui.provider,
+   cz.jpikl.yafmt.model.validation,
    org.eclipse.ui.views.properties,
    org.eclipse.jface.viewers,
    org.eclipse.emf.edit.provider,
