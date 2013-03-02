@@ -181,6 +181,28 @@ public class FeatureItemProvider
     }
 
     /**
+     * This adds a property descriptor for the Cloneable feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addCloneablePropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_Feature_cloneable_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_Feature_cloneable_feature", "_UI_Feature_type"),
+                 FeatureModelPackage.Literals.FEATURE__CLONEABLE,
+                 false,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
      * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
      * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
      * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -241,7 +263,7 @@ public class FeatureItemProvider
     public String getText(Object object) {
         Feature feature = (Feature) object;
         String label = feature.getName();
-        if(feature.isClonable())
+        if(feature.isCloneable())
             label +=  " " + FeatureModelUtil.getCardinality(feature);
         return label;
     }
@@ -267,7 +289,7 @@ public class FeatureItemProvider
             case FeatureModelPackage.FEATURE__ORPHAN:
             case FeatureModelPackage.FEATURE__OPTIONAL:
             case FeatureModelPackage.FEATURE__MANDATORY:
-            case FeatureModelPackage.FEATURE__CLONABLE:
+            case FeatureModelPackage.FEATURE__CLONEABLE:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
                 return;
             case FeatureModelPackage.FEATURE__ATTRIBUTES:

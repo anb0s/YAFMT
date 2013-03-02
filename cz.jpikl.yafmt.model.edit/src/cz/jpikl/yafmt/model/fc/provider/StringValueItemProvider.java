@@ -3,19 +3,11 @@
 package cz.jpikl.yafmt.model.fc.provider;
 
 
-import cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage;
-import cz.jpikl.yafmt.model.fc.StringValue;
-
-import cz.jpikl.yafmt.model.fm.provider.FeatureModelEditPlugin;
-
 import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
-import org.eclipse.emf.common.util.ResourceLocator;
-
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -24,8 +16,10 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+
+import cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage;
+import cz.jpikl.yafmt.model.fc.StringValue;
 
 /**
  * This is the item provider adapter for a {@link cz.jpikl.yafmt.model.fc.StringValue} object.
@@ -34,7 +28,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
  * @generated
  */
 public class StringValueItemProvider
-    extends ItemProviderAdapter
+    extends AttributeValueItemProvider
     implements
         IEditingDomainItemProvider,
         IStructuredItemContentProvider,
@@ -62,32 +56,9 @@ public class StringValueItemProvider
         if (itemPropertyDescriptors == null) {
             super.getPropertyDescriptors(object);
 
-            addIdPropertyDescriptor(object);
             addValuePropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
-    }
-
-    /**
-     * This adds a property descriptor for the Id feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected void addIdPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_AttributeValue_id_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_AttributeValue_id_feature", "_UI_AttributeValue_type"),
-                 FeatureConfigurationPackage.Literals.ATTRIBUTE_VALUE__ID,
-                 false,
-                 false,
-                 false,
-                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-                 null,
-                 null));
     }
 
     /**
@@ -116,11 +87,11 @@ public class StringValueItemProvider
      * This returns StringValue.gif.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     @Override
     public Object getImage(Object object) {
-        return overlayImage(object, getResourceLocator().getImage("full/obj16/StringValue"));
+        return getResourceLocator().getImage("attribute.png");
     }
 
     /**
@@ -131,7 +102,7 @@ public class StringValueItemProvider
      */
     @Override
     public String getText(Object object) {
-        String label = ((StringValue)object).getId();
+        String label = ((StringValue)object).getName();
         return label == null || label.length() == 0 ?
             getString("_UI_StringValue_type") :
             getString("_UI_StringValue_type") + " " + label;
@@ -149,7 +120,6 @@ public class StringValueItemProvider
         updateChildren(notification);
 
         switch (notification.getFeatureID(StringValue.class)) {
-            case FeatureConfigurationPackage.STRING_VALUE__ID:
             case FeatureConfigurationPackage.STRING_VALUE__VALUE:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
                 return;
@@ -167,17 +137,6 @@ public class StringValueItemProvider
     @Override
     protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
         super.collectNewChildDescriptors(newChildDescriptors, object);
-    }
-
-    /**
-     * Return the resource locator for this item provider's resources.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    @Override
-    public ResourceLocator getResourceLocator() {
-        return FeatureModelEditPlugin.INSTANCE;
     }
 
 }

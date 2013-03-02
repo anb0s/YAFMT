@@ -23,7 +23,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#isOrphan <em>Orphan</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#isOptional <em>Optional</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#isMandatory <em>Mandatory</em>}</li>
- *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#isClonable <em>Clonable</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#isCloneable <em>Cloneable</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#getParent <em>Parent</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#getParentFeature <em>Parent Feature</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.Feature#getParentGroup <em>Parent Group</em>}</li>
@@ -254,23 +254,24 @@ public interface Feature extends EObject {
     void setMandatory(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Clonable</b></em>' attribute.
+     * Returns the value of the '<em><b>Cloneable</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Clonable</em>' attribute isn't clear,
+     * If the meaning of the '<em>Cloneable</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Clonable</em>' attribute.
-     * @see cz.jpikl.yafmt.model.fm.FeatureModelPackage#getFeature_Clonable()
+     * @return the value of the '<em>Cloneable</em>' attribute.
+     * @see cz.jpikl.yafmt.model.fm.FeatureModelPackage#getFeature_Cloneable()
      * @model required="true" transient="true" changeable="false" volatile="true" derived="true"
      * @generated
      */
-    boolean isClonable();
+    boolean isCloneable();
 
     /**
      * Returns the value of the '<em><b>Attributes</b></em>' containment reference list.
      * The list contents are of type {@link cz.jpikl.yafmt.model.fm.Attribute}.
+     * It is bidirectional and its opposite is '{@link cz.jpikl.yafmt.model.fm.Attribute#getFeature <em>Feature</em>}'.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Attributes</em>' containment reference list isn't clear,
@@ -279,7 +280,8 @@ public interface Feature extends EObject {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Attributes</em>' containment reference list.
      * @see cz.jpikl.yafmt.model.fm.FeatureModelPackage#getFeature_Attributes()
-     * @model containment="true"
+     * @see cz.jpikl.yafmt.model.fm.Attribute#getFeature
+     * @model opposite="feature" containment="true"
      * @generated
      */
     EList<Attribute> getAttributes();

@@ -148,13 +148,31 @@ public interface FeatureConfigurationPackage extends EPackage {
     int SELECTION__ID = 0;
 
     /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SELECTION__NAME = 1;
+
+    /**
+     * The feature id for the '<em><b>Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SELECTION__DESCRIPTION = 2;
+
+    /**
      * The feature id for the '<em><b>Parent</b></em>' container reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int SELECTION__PARENT = 1;
+    int SELECTION__PARENT = 3;
 
     /**
      * The feature id for the '<em><b>Selections</b></em>' containment reference list.
@@ -163,7 +181,7 @@ public interface FeatureConfigurationPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SELECTION__SELECTIONS = 2;
+    int SELECTION__SELECTIONS = 4;
 
     /**
      * The feature id for the '<em><b>Values</b></em>' containment reference list.
@@ -172,7 +190,7 @@ public interface FeatureConfigurationPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SELECTION__VALUES = 3;
+    int SELECTION__VALUES = 5;
 
     /**
      * The feature id for the '<em><b>Feature Configuration</b></em>' reference.
@@ -181,7 +199,7 @@ public interface FeatureConfigurationPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SELECTION__FEATURE_CONFIGURATION = 4;
+    int SELECTION__FEATURE_CONFIGURATION = 6;
 
     /**
      * The feature id for the '<em><b>Feature</b></em>' reference.
@@ -190,7 +208,7 @@ public interface FeatureConfigurationPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SELECTION__FEATURE = 5;
+    int SELECTION__FEATURE = 7;
 
     /**
      * The number of structural features of the '<em>Selection</em>' class.
@@ -199,13 +217,13 @@ public interface FeatureConfigurationPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SELECTION_FEATURE_COUNT = 6;
+    int SELECTION_FEATURE_COUNT = 8;
 
     /**
-     * The meta object id for the '{@link cz.jpikl.yafmt.model.fc.AttributeValue <em>Attribute Value</em>}' class.
+     * The meta object id for the '{@link cz.jpikl.yafmt.model.fc.impl.AttributeValueImpl <em>Attribute Value</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see cz.jpikl.yafmt.model.fc.AttributeValue
+     * @see cz.jpikl.yafmt.model.fc.impl.AttributeValueImpl
      * @see cz.jpikl.yafmt.model.fc.impl.FeatureConfigurationPackageImpl#getAttributeValue()
      * @generated
      */
@@ -221,13 +239,49 @@ public interface FeatureConfigurationPackage extends EPackage {
     int ATTRIBUTE_VALUE__ID = 0;
 
     /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_VALUE__NAME = 1;
+
+    /**
+     * The feature id for the '<em><b>Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_VALUE__DESCRIPTION = 2;
+
+    /**
+     * The feature id for the '<em><b>Selection</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_VALUE__SELECTION = 3;
+
+    /**
+     * The feature id for the '<em><b>Attribute</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_VALUE__ATTRIBUTE = 4;
+
+    /**
      * The number of structural features of the '<em>Attribute Value</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int ATTRIBUTE_VALUE_FEATURE_COUNT = 1;
+    int ATTRIBUTE_VALUE_FEATURE_COUNT = 5;
 
     /**
      * The meta object id for the '{@link cz.jpikl.yafmt.model.fc.impl.BooleanValueImpl <em>Boolean Value</em>}' class.
@@ -247,6 +301,42 @@ public interface FeatureConfigurationPackage extends EPackage {
      * @ordered
      */
     int BOOLEAN_VALUE__ID = ATTRIBUTE_VALUE__ID;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BOOLEAN_VALUE__NAME = ATTRIBUTE_VALUE__NAME;
+
+    /**
+     * The feature id for the '<em><b>Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BOOLEAN_VALUE__DESCRIPTION = ATTRIBUTE_VALUE__DESCRIPTION;
+
+    /**
+     * The feature id for the '<em><b>Selection</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BOOLEAN_VALUE__SELECTION = ATTRIBUTE_VALUE__SELECTION;
+
+    /**
+     * The feature id for the '<em><b>Attribute</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BOOLEAN_VALUE__ATTRIBUTE = ATTRIBUTE_VALUE__ATTRIBUTE;
 
     /**
      * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -286,6 +376,42 @@ public interface FeatureConfigurationPackage extends EPackage {
     int INTEGER_VALUE__ID = ATTRIBUTE_VALUE__ID;
 
     /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int INTEGER_VALUE__NAME = ATTRIBUTE_VALUE__NAME;
+
+    /**
+     * The feature id for the '<em><b>Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int INTEGER_VALUE__DESCRIPTION = ATTRIBUTE_VALUE__DESCRIPTION;
+
+    /**
+     * The feature id for the '<em><b>Selection</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int INTEGER_VALUE__SELECTION = ATTRIBUTE_VALUE__SELECTION;
+
+    /**
+     * The feature id for the '<em><b>Attribute</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int INTEGER_VALUE__ATTRIBUTE = ATTRIBUTE_VALUE__ATTRIBUTE;
+
+    /**
      * The feature id for the '<em><b>Value</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -323,6 +449,42 @@ public interface FeatureConfigurationPackage extends EPackage {
     int DOUBLE_VALUE__ID = ATTRIBUTE_VALUE__ID;
 
     /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOUBLE_VALUE__NAME = ATTRIBUTE_VALUE__NAME;
+
+    /**
+     * The feature id for the '<em><b>Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOUBLE_VALUE__DESCRIPTION = ATTRIBUTE_VALUE__DESCRIPTION;
+
+    /**
+     * The feature id for the '<em><b>Selection</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOUBLE_VALUE__SELECTION = ATTRIBUTE_VALUE__SELECTION;
+
+    /**
+     * The feature id for the '<em><b>Attribute</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOUBLE_VALUE__ATTRIBUTE = ATTRIBUTE_VALUE__ATTRIBUTE;
+
+    /**
      * The feature id for the '<em><b>Value</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -358,6 +520,42 @@ public interface FeatureConfigurationPackage extends EPackage {
      * @ordered
      */
     int STRING_VALUE__ID = ATTRIBUTE_VALUE__ID;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int STRING_VALUE__NAME = ATTRIBUTE_VALUE__NAME;
+
+    /**
+     * The feature id for the '<em><b>Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int STRING_VALUE__DESCRIPTION = ATTRIBUTE_VALUE__DESCRIPTION;
+
+    /**
+     * The feature id for the '<em><b>Selection</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int STRING_VALUE__SELECTION = ATTRIBUTE_VALUE__SELECTION;
+
+    /**
+     * The feature id for the '<em><b>Attribute</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int STRING_VALUE__ATTRIBUTE = ATTRIBUTE_VALUE__ATTRIBUTE;
 
     /**
      * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -476,6 +674,28 @@ public interface FeatureConfigurationPackage extends EPackage {
     EAttribute getSelection_Id();
 
     /**
+     * Returns the meta object for the attribute '{@link cz.jpikl.yafmt.model.fc.Selection#getName <em>Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Name</em>'.
+     * @see cz.jpikl.yafmt.model.fc.Selection#getName()
+     * @see #getSelection()
+     * @generated
+     */
+    EAttribute getSelection_Name();
+
+    /**
+     * Returns the meta object for the attribute '{@link cz.jpikl.yafmt.model.fc.Selection#getDescription <em>Description</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Description</em>'.
+     * @see cz.jpikl.yafmt.model.fc.Selection#getDescription()
+     * @see #getSelection()
+     * @generated
+     */
+    EAttribute getSelection_Description();
+
+    /**
      * Returns the meta object for the container reference '{@link cz.jpikl.yafmt.model.fc.Selection#getParent <em>Parent</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -550,6 +770,50 @@ public interface FeatureConfigurationPackage extends EPackage {
      * @generated
      */
     EAttribute getAttributeValue_Id();
+
+    /**
+     * Returns the meta object for the attribute '{@link cz.jpikl.yafmt.model.fc.AttributeValue#getName <em>Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Name</em>'.
+     * @see cz.jpikl.yafmt.model.fc.AttributeValue#getName()
+     * @see #getAttributeValue()
+     * @generated
+     */
+    EAttribute getAttributeValue_Name();
+
+    /**
+     * Returns the meta object for the attribute '{@link cz.jpikl.yafmt.model.fc.AttributeValue#getDescription <em>Description</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Description</em>'.
+     * @see cz.jpikl.yafmt.model.fc.AttributeValue#getDescription()
+     * @see #getAttributeValue()
+     * @generated
+     */
+    EAttribute getAttributeValue_Description();
+
+    /**
+     * Returns the meta object for the container reference '{@link cz.jpikl.yafmt.model.fc.AttributeValue#getSelection <em>Selection</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the container reference '<em>Selection</em>'.
+     * @see cz.jpikl.yafmt.model.fc.AttributeValue#getSelection()
+     * @see #getAttributeValue()
+     * @generated
+     */
+    EReference getAttributeValue_Selection();
+
+    /**
+     * Returns the meta object for the reference '{@link cz.jpikl.yafmt.model.fc.AttributeValue#getAttribute <em>Attribute</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Attribute</em>'.
+     * @see cz.jpikl.yafmt.model.fc.AttributeValue#getAttribute()
+     * @see #getAttributeValue()
+     * @generated
+     */
+    EReference getAttributeValue_Attribute();
 
     /**
      * Returns the meta object for class '{@link cz.jpikl.yafmt.model.fc.BooleanValue <em>Boolean Value</em>}'.
@@ -734,6 +998,22 @@ public interface FeatureConfigurationPackage extends EPackage {
         EAttribute SELECTION__ID = eINSTANCE.getSelection_Id();
 
         /**
+         * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SELECTION__NAME = eINSTANCE.getSelection_Name();
+
+        /**
+         * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SELECTION__DESCRIPTION = eINSTANCE.getSelection_Description();
+
+        /**
          * The meta object literal for the '<em><b>Parent</b></em>' container reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -774,10 +1054,10 @@ public interface FeatureConfigurationPackage extends EPackage {
         EReference SELECTION__FEATURE = eINSTANCE.getSelection_Feature();
 
         /**
-         * The meta object literal for the '{@link cz.jpikl.yafmt.model.fc.AttributeValue <em>Attribute Value</em>}' class.
+         * The meta object literal for the '{@link cz.jpikl.yafmt.model.fc.impl.AttributeValueImpl <em>Attribute Value</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @see cz.jpikl.yafmt.model.fc.AttributeValue
+         * @see cz.jpikl.yafmt.model.fc.impl.AttributeValueImpl
          * @see cz.jpikl.yafmt.model.fc.impl.FeatureConfigurationPackageImpl#getAttributeValue()
          * @generated
          */
@@ -790,6 +1070,38 @@ public interface FeatureConfigurationPackage extends EPackage {
          * @generated
          */
         EAttribute ATTRIBUTE_VALUE__ID = eINSTANCE.getAttributeValue_Id();
+
+        /**
+         * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ATTRIBUTE_VALUE__NAME = eINSTANCE.getAttributeValue_Name();
+
+        /**
+         * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ATTRIBUTE_VALUE__DESCRIPTION = eINSTANCE.getAttributeValue_Description();
+
+        /**
+         * The meta object literal for the '<em><b>Selection</b></em>' container reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference ATTRIBUTE_VALUE__SELECTION = eINSTANCE.getAttributeValue_Selection();
+
+        /**
+         * The meta object literal for the '<em><b>Attribute</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference ATTRIBUTE_VALUE__ATTRIBUTE = eINSTANCE.getAttributeValue_Attribute();
 
         /**
          * The meta object literal for the '{@link cz.jpikl.yafmt.model.fc.impl.BooleanValueImpl <em>Boolean Value</em>}' class.

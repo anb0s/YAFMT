@@ -221,13 +221,13 @@ public interface FeatureModelPackage extends EPackage {
     int FEATURE__MANDATORY = 8;
 
     /**
-     * The feature id for the '<em><b>Clonable</b></em>' attribute.
+     * The feature id for the '<em><b>Cloneable</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int FEATURE__CLONABLE = 9;
+    int FEATURE__CLONEABLE = 9;
 
     /**
      * The feature id for the '<em><b>Parent</b></em>' reference.
@@ -421,13 +421,22 @@ public interface FeatureModelPackage extends EPackage {
     int ATTRIBUTE__DESCRIPTION = 3;
 
     /**
+     * The feature id for the '<em><b>Feature</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE__FEATURE = 4;
+
+    /**
      * The number of structural features of the '<em>Attribute</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int ATTRIBUTE_FEATURE_COUNT = 4;
+    int ATTRIBUTE_FEATURE_COUNT = 5;
 
     /**
      * The meta object id for the '{@link cz.jpikl.yafmt.model.fm.impl.ConstraintImpl <em>Constraint</em>}' class.
@@ -681,15 +690,15 @@ public interface FeatureModelPackage extends EPackage {
     EAttribute getFeature_Mandatory();
 
     /**
-     * Returns the meta object for the attribute '{@link cz.jpikl.yafmt.model.fm.Feature#isClonable <em>Clonable</em>}'.
+     * Returns the meta object for the attribute '{@link cz.jpikl.yafmt.model.fm.Feature#isCloneable <em>Cloneable</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Clonable</em>'.
-     * @see cz.jpikl.yafmt.model.fm.Feature#isClonable()
+     * @return the meta object for the attribute '<em>Cloneable</em>'.
+     * @see cz.jpikl.yafmt.model.fm.Feature#isCloneable()
      * @see #getFeature()
      * @generated
      */
-    EAttribute getFeature_Clonable();
+    EAttribute getFeature_Cloneable();
 
     /**
      * Returns the meta object for the containment reference list '{@link cz.jpikl.yafmt.model.fm.Feature#getAttributes <em>Attributes</em>}'.
@@ -886,6 +895,17 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      */
     EAttribute getAttribute_Description();
+
+    /**
+     * Returns the meta object for the container reference '{@link cz.jpikl.yafmt.model.fm.Attribute#getFeature <em>Feature</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the container reference '<em>Feature</em>'.
+     * @see cz.jpikl.yafmt.model.fm.Attribute#getFeature()
+     * @see #getAttribute()
+     * @generated
+     */
+    EReference getAttribute_Feature();
 
     /**
      * Returns the meta object for the attribute '{@link cz.jpikl.yafmt.model.fm.Attribute#getType <em>Type</em>}'.
@@ -1125,12 +1145,12 @@ public interface FeatureModelPackage extends EPackage {
         EAttribute FEATURE__MANDATORY = eINSTANCE.getFeature_Mandatory();
 
         /**
-         * The meta object literal for the '<em><b>Clonable</b></em>' attribute feature.
+         * The meta object literal for the '<em><b>Cloneable</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EAttribute FEATURE__CLONABLE = eINSTANCE.getFeature_Clonable();
+        EAttribute FEATURE__CLONEABLE = eINSTANCE.getFeature_Cloneable();
 
         /**
          * The meta object literal for the '<em><b>Attributes</b></em>' containment reference list feature.
@@ -1279,6 +1299,14 @@ public interface FeatureModelPackage extends EPackage {
          * @generated
          */
         EAttribute ATTRIBUTE__DESCRIPTION = eINSTANCE.getAttribute_Description();
+
+        /**
+         * The meta object literal for the '<em><b>Feature</b></em>' container reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference ATTRIBUTE__FEATURE = eINSTANCE.getAttribute_Feature();
 
         /**
          * The meta object literal for the '<em><b>Type</b></em>' attribute feature.

@@ -4,14 +4,18 @@ package cz.jpikl.yafmt.model.fm.impl;
 
 import cz.jpikl.yafmt.model.fm.Attribute;
 import cz.jpikl.yafmt.model.fm.AttributeType;
+import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
 
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,6 +28,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.AttributeImpl#getName <em>Name</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.AttributeImpl#getType <em>Type</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.AttributeImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fm.impl.AttributeImpl#getFeature <em>Feature</em>}</li>
  * </ul>
  * </p>
  *
@@ -197,6 +202,91 @@ public class AttributeImpl extends EObjectImpl implements Attribute {
      * <!-- end-user-doc -->
      * @generated
      */
+    public Feature getFeature() {
+        if (eContainerFeatureID() != FeatureModelPackage.ATTRIBUTE__FEATURE) return null;
+        return (Feature)eContainer();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetFeature(Feature newFeature, NotificationChain msgs) {
+        msgs = eBasicSetContainer((InternalEObject)newFeature, FeatureModelPackage.ATTRIBUTE__FEATURE, msgs);
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setFeature(Feature newFeature) {
+        if (newFeature != eInternalContainer() || (eContainerFeatureID() != FeatureModelPackage.ATTRIBUTE__FEATURE && newFeature != null)) {
+            if (EcoreUtil.isAncestor(this, newFeature))
+                throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+            NotificationChain msgs = null;
+            if (eInternalContainer() != null)
+                msgs = eBasicRemoveFromContainer(msgs);
+            if (newFeature != null)
+                msgs = ((InternalEObject)newFeature).eInverseAdd(this, FeatureModelPackage.FEATURE__ATTRIBUTES, Feature.class, msgs);
+            msgs = basicSetFeature(newFeature, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, FeatureModelPackage.ATTRIBUTE__FEATURE, newFeature, newFeature));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+            case FeatureModelPackage.ATTRIBUTE__FEATURE:
+                if (eInternalContainer() != null)
+                    msgs = eBasicRemoveFromContainer(msgs);
+                return basicSetFeature((Feature)otherEnd, msgs);
+        }
+        return super.eInverseAdd(otherEnd, featureID, msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+            case FeatureModelPackage.ATTRIBUTE__FEATURE:
+                return basicSetFeature(null, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+        switch (eContainerFeatureID()) {
+            case FeatureModelPackage.ATTRIBUTE__FEATURE:
+                return eInternalContainer().eInverseRemove(this, FeatureModelPackage.FEATURE__ATTRIBUTES, Feature.class, msgs);
+        }
+        return super.eBasicRemoveFromContainerFeature(msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public AttributeType getType() {
         return type;
     }
@@ -229,6 +319,8 @@ public class AttributeImpl extends EObjectImpl implements Attribute {
                 return getType();
             case FeatureModelPackage.ATTRIBUTE__DESCRIPTION:
                 return getDescription();
+            case FeatureModelPackage.ATTRIBUTE__FEATURE:
+                return getFeature();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -252,6 +344,9 @@ public class AttributeImpl extends EObjectImpl implements Attribute {
                 return;
             case FeatureModelPackage.ATTRIBUTE__DESCRIPTION:
                 setDescription((String)newValue);
+                return;
+            case FeatureModelPackage.ATTRIBUTE__FEATURE:
+                setFeature((Feature)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -277,6 +372,9 @@ public class AttributeImpl extends EObjectImpl implements Attribute {
             case FeatureModelPackage.ATTRIBUTE__DESCRIPTION:
                 setDescription(DESCRIPTION_EDEFAULT);
                 return;
+            case FeatureModelPackage.ATTRIBUTE__FEATURE:
+                setFeature((Feature)null);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -297,6 +395,8 @@ public class AttributeImpl extends EObjectImpl implements Attribute {
                 return type != TYPE_EDEFAULT;
             case FeatureModelPackage.ATTRIBUTE__DESCRIPTION:
                 return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+            case FeatureModelPackage.ATTRIBUTE__FEATURE:
+                return getFeature() != null;
         }
         return super.eIsSet(featureID);
     }

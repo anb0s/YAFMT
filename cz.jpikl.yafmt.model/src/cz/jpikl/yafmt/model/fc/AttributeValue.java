@@ -2,6 +2,7 @@
  */
 package cz.jpikl.yafmt.model.fc;
 
+import cz.jpikl.yafmt.model.fm.Attribute;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -13,11 +14,15 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link cz.jpikl.yafmt.model.fc.AttributeValue#getId <em>Id</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fc.AttributeValue#getName <em>Name</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fc.AttributeValue#getDescription <em>Description</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fc.AttributeValue#getSelection <em>Selection</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fc.AttributeValue#getAttribute <em>Attribute</em>}</li>
  * </ul>
  * </p>
  *
  * @see cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage#getAttributeValue()
- * @model interface="true" abstract="true"
+ * @model abstract="true"
  * @generated
  */
 public interface AttributeValue extends EObject {
@@ -46,5 +51,78 @@ public interface AttributeValue extends EObject {
      * @generated
      */
     void setId(String value);
+
+    /**
+     * Returns the value of the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Name</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Name</em>' attribute.
+     * @see cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage#getAttributeValue_Name()
+     * @model required="true" transient="true" changeable="false" volatile="true" derived="true"
+     * @generated
+     */
+    String getName();
+
+    /**
+     * Returns the value of the '<em><b>Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Description</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Description</em>' attribute.
+     * @see cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage#getAttributeValue_Description()
+     * @model transient="true" changeable="false" volatile="true" derived="true"
+     * @generated
+     */
+    String getDescription();
+
+    /**
+     * Returns the value of the '<em><b>Selection</b></em>' container reference.
+     * It is bidirectional and its opposite is '{@link cz.jpikl.yafmt.model.fc.Selection#getValues <em>Values</em>}'.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Selection</em>' container reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Selection</em>' container reference.
+     * @see #setSelection(Selection)
+     * @see cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage#getAttributeValue_Selection()
+     * @see cz.jpikl.yafmt.model.fc.Selection#getValues
+     * @model opposite="values" required="true" transient="false"
+     * @generated
+     */
+    Selection getSelection();
+
+    /**
+     * Sets the value of the '{@link cz.jpikl.yafmt.model.fc.AttributeValue#getSelection <em>Selection</em>}' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Selection</em>' container reference.
+     * @see #getSelection()
+     * @generated
+     */
+    void setSelection(Selection value);
+
+    /**
+     * Returns the value of the '<em><b>Attribute</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Attribute</em>' reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Attribute</em>' reference.
+     * @see cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage#getAttributeValue_Attribute()
+     * @model required="true" transient="true" changeable="false" volatile="true" derived="true"
+     * @generated
+     */
+    Attribute getAttribute();
 
 } // AttributeValue

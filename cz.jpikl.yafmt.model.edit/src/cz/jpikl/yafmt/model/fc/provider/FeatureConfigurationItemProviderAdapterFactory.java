@@ -14,6 +14,7 @@ import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.edit.provider.ChangeNotifier;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
+import org.eclipse.emf.edit.provider.Disposable;
 import org.eclipse.emf.edit.provider.IChangeNotifier;
 import org.eclipse.emf.edit.provider.IDisposable;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
@@ -48,6 +49,14 @@ public class FeatureConfigurationItemProviderAdapterFactory extends FeatureConfi
      * @generated
      */
     protected IChangeNotifier changeNotifier = new ChangeNotifier();
+
+    /**
+     * This keeps track of all the item providers created, so that they can be {@link #dispose disposed}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected Disposable disposable = new Disposable();
 
     /**
      * This keeps track of all the supported types checked by {@link #isFactoryForType isFactoryForType}.
@@ -95,14 +104,6 @@ public class FeatureConfigurationItemProviderAdapterFactory extends FeatureConfi
     }
 
     /**
-     * This keeps track of the one adapter used for all {@link cz.jpikl.yafmt.model.fc.Selection} instances.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected SelectionItemProvider selectionItemProvider;
-
-    /**
      * This creates an adapter for a {@link cz.jpikl.yafmt.model.fc.Selection}.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -110,11 +111,7 @@ public class FeatureConfigurationItemProviderAdapterFactory extends FeatureConfi
      */
     @Override
     public Adapter createSelectionAdapter() {
-        if (selectionItemProvider == null) {
-            selectionItemProvider = new SelectionItemProvider(this);
-        }
-
-        return selectionItemProvider;
+        return new SelectionItemProvider(this);
     }
 
     /**
@@ -268,6 +265,20 @@ public class FeatureConfigurationItemProviderAdapterFactory extends FeatureConfi
     }
 
     /**
+     * Associates an adapter with a notifier via the base implementation, then records it to ensure it will be disposed.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    protected void associate(Adapter adapter, Notifier target) {
+        super.associate(adapter, target);
+        if (adapter != null) {
+            disposable.add(adapter);
+        }
+    }
+
+    /**
      * This adds a listener.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -308,12 +319,7 @@ public class FeatureConfigurationItemProviderAdapterFactory extends FeatureConfi
      * @generated
      */
     public void dispose() {
-        if (featureConfigurationItemProvider != null) featureConfigurationItemProvider.dispose();
-        if (selectionItemProvider != null) selectionItemProvider.dispose();
-        if (booleanValueItemProvider != null) booleanValueItemProvider.dispose();
-        if (integerValueItemProvider != null) integerValueItemProvider.dispose();
-        if (doubleValueItemProvider != null) doubleValueItemProvider.dispose();
-        if (stringValueItemProvider != null) stringValueItemProvider.dispose();
+        disposable.dispose();
     }
 
 }

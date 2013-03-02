@@ -16,7 +16,7 @@ import cz.jpikl.yafmt.model.fc.Selection;
  *
  *
  * @see cz.jpikl.yafmt.clang.scl.model.ModelPackage#getExpression()
- * @model
+ * @model abstract="true"
  * @generated
  */
 public interface Expression extends EObject {

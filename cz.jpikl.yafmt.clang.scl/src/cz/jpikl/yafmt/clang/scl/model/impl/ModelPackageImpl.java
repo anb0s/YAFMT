@@ -387,7 +387,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
         primaryExpressionEClass.getESuperTypes().add(this.getExpression());
 
         // Initialize classes and features; add operations and parameters
-        initEClass(expressionEClass, Expression.class, "Expression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEClass(expressionEClass, Expression.class, "Expression", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(contextualExpressionEClass, ContextualExpression.class, "ContextualExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getContextualExpression_ContextId(), ecorePackage.getEString(), "contextId", null, 0, 1, ContextualExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

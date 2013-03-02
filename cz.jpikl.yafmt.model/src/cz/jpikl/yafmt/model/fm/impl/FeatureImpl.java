@@ -2,31 +2,26 @@
  */
 package cz.jpikl.yafmt.model.fm.impl;
 
+import java.util.Collection;
+
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.util.InternalEList;
+
 import cz.jpikl.yafmt.model.fm.Attribute;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
 import cz.jpikl.yafmt.model.fm.Group;
-
-import java.util.Collection;
-
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
-
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
-
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -44,7 +39,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#isOrphan <em>Orphan</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#isOptional <em>Optional</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#isMandatory <em>Mandatory</em>}</li>
- *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#isClonable <em>Clonable</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#isCloneable <em>Cloneable</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#getParent <em>Parent</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#getParentFeature <em>Parent Feature</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#getParentGroup <em>Parent Group</em>}</li>
@@ -199,14 +194,14 @@ public class FeatureImpl extends EObjectImpl implements Feature {
     protected static final boolean MANDATORY_EDEFAULT = false;
 
     /**
-     * The default value of the '{@link #isClonable() <em>Clonable</em>}' attribute.
+     * The default value of the '{@link #isCloneable() <em>Cloneable</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #isClonable()
+     * @see #isCloneable()
      * @generated
      * @ordered
      */
-    protected static final boolean CLONABLE_EDEFAULT = false;
+    protected static final boolean CLONEABLE_EDEFAULT = false;
 
     /**
      * The cached value of the '{@link #getAttributes() <em>Attributes</em>}' containment reference list.
@@ -446,7 +441,7 @@ public class FeatureImpl extends EObjectImpl implements Feature {
      * <!-- end-user-doc -->
      * @generated NOT
      */
-    public boolean isClonable() {
+    public boolean isCloneable() {
         return (upper > 1) || (upper == -1);
     }
 
@@ -457,7 +452,7 @@ public class FeatureImpl extends EObjectImpl implements Feature {
      */
     public EList<Attribute> getAttributes() {
         if (attributes == null) {
-            attributes = new EObjectContainmentEList<Attribute>(Attribute.class, this, FeatureModelPackage.FEATURE__ATTRIBUTES);
+            attributes = new EObjectContainmentWithInverseEList<Attribute>(Attribute.class, this, FeatureModelPackage.FEATURE__ATTRIBUTES, FeatureModelPackage.ATTRIBUTE__FEATURE);
         }
         return attributes;
     }
@@ -622,8 +617,16 @@ public class FeatureImpl extends EObjectImpl implements Feature {
         Resource resource = eResource();
         if(resource == null)
             return null;
+        
         EObject target = resource.getContents().get(0);
-        return (target instanceof FeatureModel) ? (FeatureModel) target : null;
+        if(target instanceof FeatureModel)
+            return (FeatureModel) target;
+        
+        for(EObject parent = eContainer(); parent != null; parent = parent.eContainer()) {
+            if(parent instanceof FeatureModel)
+                return (FeatureModel) parent;
+        }
+        return null;
     }
 
     /**
@@ -643,6 +646,8 @@ public class FeatureImpl extends EObjectImpl implements Feature {
                 if (eInternalContainer() != null)
                     msgs = eBasicRemoveFromContainer(msgs);
                 return basicSetParentGroup((Group)otherEnd, msgs);
+            case FeatureModelPackage.FEATURE__ATTRIBUTES:
+                return ((InternalEList<InternalEObject>)(InternalEList<?>)getAttributes()).basicAdd(otherEnd, msgs);
             case FeatureModelPackage.FEATURE__FEATURES:
                 return ((InternalEList<InternalEObject>)(InternalEList<?>)getFeatures()).basicAdd(otherEnd, msgs);
             case FeatureModelPackage.FEATURE__GROUPS:
@@ -715,8 +720,8 @@ public class FeatureImpl extends EObjectImpl implements Feature {
                 return isOptional();
             case FeatureModelPackage.FEATURE__MANDATORY:
                 return isMandatory();
-            case FeatureModelPackage.FEATURE__CLONABLE:
-                return isClonable();
+            case FeatureModelPackage.FEATURE__CLONEABLE:
+                return isCloneable();
             case FeatureModelPackage.FEATURE__PARENT:
                 if (resolve) return getParent();
                 return basicGetParent();
@@ -869,8 +874,8 @@ public class FeatureImpl extends EObjectImpl implements Feature {
                 return isOptional() != OPTIONAL_EDEFAULT;
             case FeatureModelPackage.FEATURE__MANDATORY:
                 return isMandatory() != MANDATORY_EDEFAULT;
-            case FeatureModelPackage.FEATURE__CLONABLE:
-                return isClonable() != CLONABLE_EDEFAULT;
+            case FeatureModelPackage.FEATURE__CLONEABLE:
+                return isCloneable() != CLONEABLE_EDEFAULT;
             case FeatureModelPackage.FEATURE__PARENT:
                 return basicGetParent() != null;
             case FeatureModelPackage.FEATURE__PARENT_FEATURE:

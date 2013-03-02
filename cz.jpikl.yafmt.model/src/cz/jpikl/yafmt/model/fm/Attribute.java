@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link cz.jpikl.yafmt.model.fm.Attribute#getName <em>Name</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.Attribute#getType <em>Type</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.Attribute#getDescription <em>Description</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fm.Attribute#getFeature <em>Feature</em>}</li>
  * </ul>
  * </p>
  *
@@ -101,6 +102,34 @@ public interface Attribute extends EObject {
      * @generated
      */
     void setDescription(String value);
+
+    /**
+     * Returns the value of the '<em><b>Feature</b></em>' container reference.
+     * It is bidirectional and its opposite is '{@link cz.jpikl.yafmt.model.fm.Feature#getAttributes <em>Attributes</em>}'.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Feature</em>' reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Feature</em>' container reference.
+     * @see #setFeature(Feature)
+     * @see cz.jpikl.yafmt.model.fm.FeatureModelPackage#getAttribute_Feature()
+     * @see cz.jpikl.yafmt.model.fm.Feature#getAttributes
+     * @model opposite="attributes" required="true" transient="false"
+     * @generated
+     */
+    Feature getFeature();
+
+    /**
+     * Sets the value of the '{@link cz.jpikl.yafmt.model.fm.Attribute#getFeature <em>Feature</em>}' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Feature</em>' container reference.
+     * @see #getFeature()
+     * @generated
+     */
+    void setFeature(Feature value);
 
     /**
      * Returns the value of the '<em><b>Type</b></em>' attribute.

@@ -34,7 +34,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="mandatory" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" volatile="true"
         transient="true" derived="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="clonable" lowerBound="1"
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="cloneable" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" changeable="false"
         volatile="true" transient="true" derived="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"
@@ -44,7 +44,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="parentGroup" eType="#//Group"
         eOpposite="#//Group/features"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="attributes" upperBound="-1"
-        eType="#//Attribute" containment="true"/>
+        eType="#//Attribute" containment="true" eOpposite="#//Attribute/feature"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="features" upperBound="-1"
         eType="#//Feature" containment="true" eOpposite="#//Feature/parentFeature"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="groups" upperBound="-1"
@@ -73,6 +73,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" lowerBound="1" eType="#//AttributeType"
         defaultValueLiteral="BOOLEAN"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="feature" lowerBound="1"
+        eType="#//Feature" eOpposite="#//Feature/attributes"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="AttributeType">
     <eLiterals name="BOOLEAN" literal="boolean"/>

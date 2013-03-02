@@ -37,7 +37,7 @@ public class ConnectionFigure extends PolylineConnection {
     public void refresh() {
         Feature target = connection.getTarget();
         
-        if(target.isClonable()) {
+        if(target.isCloneable()) {
             setSourceDecoration(null);
             label.setText(FeatureModelUtil.getCardinality(target));
         }

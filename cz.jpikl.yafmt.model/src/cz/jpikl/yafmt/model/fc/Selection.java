@@ -16,6 +16,8 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link cz.jpikl.yafmt.model.fc.Selection#getId <em>Id</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fc.Selection#getName <em>Name</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fc.Selection#getDescription <em>Description</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.Selection#getParent <em>Parent</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.Selection#getSelections <em>Selections</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.Selection#getValues <em>Values</em>}</li>
@@ -54,6 +56,36 @@ public interface Selection extends EObject {
      * @generated
      */
     void setId(String value);
+
+    /**
+     * Returns the value of the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Name</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Name</em>' attribute.
+     * @see cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage#getSelection_Name()
+     * @model required="true" transient="true" changeable="false" volatile="true" derived="true"
+     * @generated
+     */
+    String getName();
+
+    /**
+     * Returns the value of the '<em><b>Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Description</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Description</em>' attribute.
+     * @see cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage#getSelection_Description()
+     * @model transient="true" changeable="false" volatile="true" derived="true"
+     * @generated
+     */
+    String getDescription();
 
     /**
      * Returns the value of the '<em><b>Parent</b></em>' container reference.
@@ -104,6 +136,7 @@ public interface Selection extends EObject {
     /**
      * Returns the value of the '<em><b>Values</b></em>' containment reference list.
      * The list contents are of type {@link cz.jpikl.yafmt.model.fc.AttributeValue}.
+     * It is bidirectional and its opposite is '{@link cz.jpikl.yafmt.model.fc.AttributeValue#getSelection <em>Selection</em>}'.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Values</em>' containment reference list isn't clear,
@@ -112,7 +145,8 @@ public interface Selection extends EObject {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Values</em>' containment reference list.
      * @see cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage#getSelection_Values()
-     * @model containment="true"
+     * @see cz.jpikl.yafmt.model.fc.AttributeValue#getSelection
+     * @model opposite="selection" containment="true"
      * @generated
      */
     EList<AttributeValue> getValues();
@@ -146,13 +180,5 @@ public interface Selection extends EObject {
      * @generated
      */
     Feature getFeature();
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @model
-     * @generated
-     */
-    boolean hasContext(String context);
 
 } // Selection

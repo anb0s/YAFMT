@@ -56,7 +56,6 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
     @Override
     public EObject create(EClass eClass) {
         switch (eClass.getClassifierID()) {
-            case ModelPackage.EXPRESSION: return createExpression();
             case ModelPackage.CONTEXTUAL_EXPRESSION: return createContextualExpression();
             case ModelPackage.IMPLICATION: return createImplication();
             case ModelPackage.DISJUNCTION: return createDisjunction();
@@ -67,16 +66,6 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public Expression createExpression() {
-        ExpressionImpl expression = new ExpressionImpl();
-        return expression;
     }
 
     /**

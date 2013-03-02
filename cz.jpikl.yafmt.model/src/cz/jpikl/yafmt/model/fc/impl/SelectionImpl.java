@@ -2,33 +2,26 @@
  */
 package cz.jpikl.yafmt.model.fc.impl;
 
-import cz.jpikl.yafmt.model.fc.AttributeValue;
-import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
-import cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage;
-import cz.jpikl.yafmt.model.fc.Selection;
-
-import cz.jpikl.yafmt.model.fm.Feature;
-import cz.jpikl.yafmt.model.fm.FeatureModel;
-
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
+
+import cz.jpikl.yafmt.model.fc.AttributeValue;
+import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
+import cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage;
+import cz.jpikl.yafmt.model.fc.Selection;
+import cz.jpikl.yafmt.model.fm.Feature;
 
 /**
  * <!-- begin-user-doc -->
@@ -38,6 +31,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * <ul>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#getId <em>Id</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#getName <em>Name</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#getParent <em>Parent</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#getSelections <em>Selections</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#getValues <em>Values</em>}</li>
@@ -68,6 +63,26 @@ public class SelectionImpl extends EObjectImpl implements Selection {
      * @ordered
      */
     protected String id = ID_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getName()
+     * @generated
+     * @ordered
+     */
+    protected static final String NAME_EDEFAULT = null;
+
+    /**
+     * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDescription()
+     * @generated
+     * @ordered
+     */
+    protected static final String DESCRIPTION_EDEFAULT = null;
 
     /**
      * The cached value of the '{@link #getSelections() <em>Selections</em>}' containment reference list.
@@ -132,6 +147,26 @@ public class SelectionImpl extends EObjectImpl implements Selection {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    public String getName() {
+        Feature feature = getFeature();
+        return (feature != null) ? feature.getName() : null;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    public String getDescription() {
+        Feature feature = getFeature();
+        return (feature != null) ? feature.getDescription() : null;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public Selection getParent() {
@@ -189,7 +224,7 @@ public class SelectionImpl extends EObjectImpl implements Selection {
      */
     public EList<AttributeValue> getValues() {
         if (values == null) {
-            values = new EObjectContainmentEList<AttributeValue>(AttributeValue.class, this, FeatureConfigurationPackage.SELECTION__VALUES);
+            values = new EObjectContainmentWithInverseEList<AttributeValue>(AttributeValue.class, this, FeatureConfigurationPackage.SELECTION__VALUES, FeatureConfigurationPackage.ATTRIBUTE_VALUE__SELECTION);
         }
         return values;
     }
@@ -213,8 +248,16 @@ public class SelectionImpl extends EObjectImpl implements Selection {
         Resource resource = eResource();
         if(resource == null)
             return null;
+        
         EObject target = resource.getContents().get(0);
-        return (target instanceof FeatureConfiguration) ? (FeatureConfiguration) target : null;
+        if (target instanceof FeatureConfiguration) 
+            return (FeatureConfiguration) target;
+        
+        for(EObject parent = eContainer(); parent != null; parent = parent.eContainer()) {
+            if(parent instanceof FeatureConfiguration)
+                return (FeatureConfiguration) parent;
+        }
+        return null;
     }
 
     /**
@@ -236,26 +279,7 @@ public class SelectionImpl extends EObjectImpl implements Selection {
         FeatureConfiguration featureConfig = getFeatureConfiguration();
         if(featureConfig == null)
             return null;
-        
-        FeatureModel featureModel = featureConfig.getFeatureModel();
-        if(featureModel == null)
-            return null;
-        
-        return featureModel.getFeatureById(getId());
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated NOT
-     */
-    public boolean hasContext(String context) {
-        // Check if there is an ancestor with given ID.
-        for(Selection ancestor = this; ancestor != null; ancestor = ancestor.getParent()) {
-            if(context.equals(ancestor.getId()))
-                return true;
-        }
-        return false;
+        return featureConfig.getFeatureModelCopy().getFeatureById(getId());
     }
 
     /**
@@ -273,6 +297,8 @@ public class SelectionImpl extends EObjectImpl implements Selection {
                 return basicSetParent((Selection)otherEnd, msgs);
             case FeatureConfigurationPackage.SELECTION__SELECTIONS:
                 return ((InternalEList<InternalEObject>)(InternalEList<?>)getSelections()).basicAdd(otherEnd, msgs);
+            case FeatureConfigurationPackage.SELECTION__VALUES:
+                return ((InternalEList<InternalEObject>)(InternalEList<?>)getValues()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
@@ -319,6 +345,10 @@ public class SelectionImpl extends EObjectImpl implements Selection {
         switch (featureID) {
             case FeatureConfigurationPackage.SELECTION__ID:
                 return getId();
+            case FeatureConfigurationPackage.SELECTION__NAME:
+                return getName();
+            case FeatureConfigurationPackage.SELECTION__DESCRIPTION:
+                return getDescription();
             case FeatureConfigurationPackage.SELECTION__PARENT:
                 return getParent();
             case FeatureConfigurationPackage.SELECTION__SELECTIONS:
@@ -396,6 +426,10 @@ public class SelectionImpl extends EObjectImpl implements Selection {
         switch (featureID) {
             case FeatureConfigurationPackage.SELECTION__ID:
                 return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
+            case FeatureConfigurationPackage.SELECTION__NAME:
+                return NAME_EDEFAULT == null ? getName() != null : !NAME_EDEFAULT.equals(getName());
+            case FeatureConfigurationPackage.SELECTION__DESCRIPTION:
+                return DESCRIPTION_EDEFAULT == null ? getDescription() != null : !DESCRIPTION_EDEFAULT.equals(getDescription());
             case FeatureConfigurationPackage.SELECTION__PARENT:
                 return getParent() != null;
             case FeatureConfigurationPackage.SELECTION__SELECTIONS:

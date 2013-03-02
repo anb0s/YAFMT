@@ -12,11 +12,15 @@ import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
+import cz.jpikl.yafmt.model.fc.AttributeValue;
 import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
 import cz.jpikl.yafmt.model.fc.FeatureConfigurationFactory;
 import cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage;
 import cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage.Literals;
 import cz.jpikl.yafmt.model.fc.Selection;
+import cz.jpikl.yafmt.model.fm.Attribute;
+import cz.jpikl.yafmt.model.fm.AttributeType;
+import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 
 public class FeatureConfigurationUtil {
@@ -75,17 +79,38 @@ public class FeatureConfigurationUtil {
         if(featureModel == null)
             throw new IllegalArgumentException("Feature model cannot be null");
         
-        FeatureConfigurationFactory factory = FeatureConfigurationFactory.eINSTANCE;
-        
-        Selection rootSelection = factory.createSelection();
-        rootSelection.setId(featureModel.getRoot().getId());
-        
-        FeatureConfiguration featureConfig = factory.createFeatureConfiguration();
+        FeatureConfiguration featureConfig = FeatureConfigurationFactory.eINSTANCE.createFeatureConfiguration();
         featureConfig.setFeatureModel(featureModel);
         featureConfig.setFeatureModelCopy(EcoreUtil.copy(featureModel));
-        featureConfig.setRoot(rootSelection);
+        featureConfig.setRoot(createSelection(featureModel.getRoot()));
         
         return featureConfig;
     }
-
+    
+    public static Selection createSelection(Feature feature) {
+        Selection selection = FeatureConfigurationFactory.eINSTANCE.createSelection();
+        selection.setId(feature.getId());
+        
+        for(Attribute attribute: feature.getAttributes())
+            selection.getValues().add(createAttributeValue(attribute));
+        
+        return selection;
+    }
+    
+    public static AttributeValue createAttributeValue(Attribute attribute) {
+        AttributeValue value = createAttributeValue(attribute.getType());
+        value.setId(attribute.getId());
+        return value;
+    }
+    
+    public static AttributeValue createAttributeValue(AttributeType attributeType) {
+        switch (attributeType) {
+            case BOOLEAN: return FeatureConfigurationFactory.eINSTANCE.createBooleanValue();
+            case INTEGER: return FeatureConfigurationFactory.eINSTANCE.createIntegerValue();
+            case DOUBLE: return FeatureConfigurationFactory.eINSTANCE.createDoubleValue();
+            case STRING: return FeatureConfigurationFactory.eINSTANCE.createStringValue();
+            default: return FeatureConfigurationFactory.eINSTANCE.createStringValue();
+        }
+    }
+    
 }

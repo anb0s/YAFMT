@@ -22,15 +22,6 @@ public interface ModelFactory extends EFactory {
     ModelFactory eINSTANCE = cz.jpikl.yafmt.clang.scl.model.impl.ModelFactoryImpl.init();
 
     /**
-     * Returns a new object of class '<em>Expression</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return a new object of class '<em>Expression</em>'.
-     * @generated
-     */
-    Expression createExpression();
-
-    /**
      * Returns a new object of class '<em>Contextual Expression</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

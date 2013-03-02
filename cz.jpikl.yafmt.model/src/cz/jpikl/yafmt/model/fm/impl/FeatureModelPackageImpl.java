@@ -297,7 +297,7 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getFeature_Clonable() {
+    public EAttribute getFeature_Cloneable() {
         return (EAttribute)featureEClass.getEStructuralFeatures().get(9);
     }
 
@@ -468,6 +468,15 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
      * <!-- end-user-doc -->
      * @generated
      */
+    public EReference getAttribute_Feature() {
+        return (EReference)attributeEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EAttribute getAttribute_Type() {
         return (EAttribute)attributeEClass.getEStructuralFeatures().get(2);
     }
@@ -572,7 +581,7 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
         createEAttribute(featureEClass, FEATURE__ORPHAN);
         createEAttribute(featureEClass, FEATURE__OPTIONAL);
         createEAttribute(featureEClass, FEATURE__MANDATORY);
-        createEAttribute(featureEClass, FEATURE__CLONABLE);
+        createEAttribute(featureEClass, FEATURE__CLONEABLE);
         createEReference(featureEClass, FEATURE__PARENT);
         createEReference(featureEClass, FEATURE__PARENT_FEATURE);
         createEReference(featureEClass, FEATURE__PARENT_GROUP);
@@ -594,6 +603,7 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
         createEAttribute(attributeEClass, ATTRIBUTE__NAME);
         createEAttribute(attributeEClass, ATTRIBUTE__TYPE);
         createEAttribute(attributeEClass, ATTRIBUTE__DESCRIPTION);
+        createEReference(attributeEClass, ATTRIBUTE__FEATURE);
 
         constraintEClass = createEClass(CONSTRAINT);
         createEAttribute(constraintEClass, CONSTRAINT__VALUE);
@@ -656,11 +666,11 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
         initEAttribute(getFeature_Orphan(), ecorePackage.getEBoolean(), "orphan", null, 1, 1, Feature.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
         initEAttribute(getFeature_Optional(), ecorePackage.getEBoolean(), "optional", null, 1, 1, Feature.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
         initEAttribute(getFeature_Mandatory(), ecorePackage.getEBoolean(), "mandatory", null, 1, 1, Feature.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-        initEAttribute(getFeature_Clonable(), ecorePackage.getEBoolean(), "clonable", null, 1, 1, Feature.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFeature_Cloneable(), ecorePackage.getEBoolean(), "cloneable", null, 1, 1, Feature.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
         initEReference(getFeature_Parent(), ecorePackage.getEObject(), null, "parent", null, 0, 1, Feature.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
         initEReference(getFeature_ParentFeature(), this.getFeature(), this.getFeature_Features(), "parentFeature", null, 0, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getFeature_ParentGroup(), this.getGroup(), this.getGroup_Features(), "parentGroup", null, 0, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getFeature_Attributes(), this.getAttribute(), null, "attributes", null, 0, -1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getFeature_Attributes(), this.getAttribute(), this.getAttribute_Feature(), "attributes", null, 0, -1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getFeature_Features(), this.getFeature(), this.getFeature_ParentFeature(), "features", null, 0, -1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getFeature_Groups(), this.getGroup(), this.getGroup_Parent(), "groups", null, 0, -1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getFeature_FeatureModel(), this.getFeatureModel(), null, "featureModel", null, 0, 1, Feature.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
@@ -678,6 +688,7 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
         initEAttribute(getAttribute_Name(), ecorePackage.getEString(), "name", null, 1, 1, Attribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getAttribute_Type(), this.getAttributeType(), "type", "BOOLEAN", 1, 1, Attribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getAttribute_Description(), ecorePackage.getEString(), "description", null, 0, 1, Attribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getAttribute_Feature(), this.getFeature(), this.getFeature_Attributes(), "feature", null, 1, 1, Attribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(constraintEClass, Constraint.class, "Constraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getConstraint_Value(), ecorePackage.getEString(), "value", null, 1, 1, Constraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
