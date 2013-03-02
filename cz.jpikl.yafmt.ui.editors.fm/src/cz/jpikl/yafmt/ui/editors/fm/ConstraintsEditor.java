@@ -18,8 +18,8 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.layout.TableColumnLayout;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.TableViewerEditor;
@@ -36,6 +36,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
+import org.eclipse.ui.ISelectionListener;
+import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.actions.ActionFactory;
 
 import cz.jpikl.yafmt.clang.ConstraintLanguageDescriptor;
@@ -53,7 +55,7 @@ import cz.jpikl.yafmt.ui.editors.fm.util.DynamicContributionItem;
 import cz.jpikl.yafmt.ui.editors.fm.widgets.Splitter;
 import cz.jpikl.yafmt.ui.editors.fm.widgets.SplitterDock;
 
-public class ConstraintsEditor extends SplitterDock {
+public class ConstraintsEditor extends SplitterDock implements ISelectionListener {
         
     private FeatureModel featureModel;
     private FeatureModelAdapter featureModelAdapter = new FeatureModelAdapter();
@@ -61,6 +63,7 @@ public class ConstraintsEditor extends SplitterDock {
     private ConstraintCache constraintCache = new ConstraintCache();
     private Set<Constraint> visibleConstraints = new HashSet<Constraint>();
     private IStructuredSelection outerSelection;
+    private boolean blockSelectionEvents = false;
     
     private boolean filterEnabled = false;
     private ToolItem filterButton;
@@ -96,7 +99,7 @@ public class ConstraintsEditor extends SplitterDock {
     
     @Override
     protected Control createControl(Composite parent) {
-        viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
+        viewer = new CustomTableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
         createViewerColumn();        
         createViewerActivationStrategy();
         createViewerActions();
@@ -210,26 +213,25 @@ public class ConstraintsEditor extends SplitterDock {
         refresh();
     }
     
-    public void setSelection(ISelection selection) {        
-        if(!(selection instanceof IStructuredSelection))
-            return;
+    public TableViewer getViewer() {
+        return viewer;
+    }
+    
+    @Override
+    public void selectionChanged(IWorkbenchPart part, ISelection selection) {        
+        outerSelection = (selection instanceof IStructuredSelection) ? (IStructuredSelection) selection : null; 
         
-        outerSelection = (IStructuredSelection) selection; 
-        
-        if(filterEnabled)
+        if(filterEnabled) {
             refresh();
-        else
+        }
+        else if(!viewer.getSelection().equals(selection)) {
+            // Do not generate another selection event.
+            blockSelectionEvents = true;
             viewer.setSelection(selection);
+            blockSelectionEvents = false;
+        }
     }
-    
-    public void addSelectionChangeListener(ISelectionChangedListener listener) {
-        viewer.addSelectionChangedListener(listener);
-    }
-    
-    public void removeSelectionChangeListener(ISelectionChangedListener listener) {
-        viewer.removeSelectionChangedListener(listener);
-    }
-    
+                
     public void refresh() {
         if(!isVisible())
             return;
@@ -280,6 +282,26 @@ public class ConstraintsEditor extends SplitterDock {
                 viewer.refresh();
             else if((notifier instanceof Constraint) && (notification.getFeatureID(Constraint.class) == FeatureModelPackage.CONSTRAINT__VALUE))
                 viewer.refresh(notification.getNotifier());
+        }
+        
+    }
+    
+    private class CustomTableViewer extends TableViewer {
+
+        public CustomTableViewer(Composite parent, int style) {
+            super(parent, style);
+        }
+        
+        @Override
+        protected void fireSelectionChanged(SelectionChangedEvent event) {
+            if(!blockSelectionEvents)
+                super.fireSelectionChanged(event);
+        }
+        
+        @Override
+        protected void firePostSelectionChanged(SelectionChangedEvent event) {
+            if(!blockSelectionEvents)
+                super.firePostSelectionChanged(event);
         }
         
     }

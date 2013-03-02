@@ -4,6 +4,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlAdapter;
@@ -55,6 +56,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
     private DistanceFilter distanceFilter;
     private GroupFilter groupFilter;
     private ConstraintFilter constraintFilter;
+    private ISelection currentSelection; // Viewer may not contain all selected elements, so we have to remember them.
             
     @Override
     public void init(IViewSite site) throws PartInitException {
@@ -62,6 +64,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         
         constraintCache = new ConstraintCache();
         treeHeight = 1;
+        currentSelection = StructuredSelection.EMPTY;
         settings = new Settings();
         settings.addSettingsListener(this);
         settings.init(FeatureModelVisualizerPlugin.getDefault().getDialogSettings());
@@ -212,6 +215,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         featureModel = newFeatureModel;
         if(!viewer.getControl().isDisposed()) {
             viewer.setInput(featureModel);
+            currentSelection = StructuredSelection.EMPTY;
             recomputeTreeHeight();
             resizeGraphView();
         }
@@ -225,13 +229,8 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
     }
     
     private boolean isValidSelection(ISelection selection) {
-        if(selection == null)
-            return false;
         if(selection.isEmpty())
-            return true;
-        if(!(selection instanceof IStructuredSelection))
-            return false;
-        
+            return true;        
         Object firstElement = ((IStructuredSelection) selection).getFirstElement();
         return (firstElement instanceof FeatureModel) ||
                (firstElement instanceof Feature) || 
@@ -241,26 +240,26 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
     
     @Override
     public void selectionChanged(IWorkbenchPart part, ISelection selection) {
-        if(part != this) {
-            setSourcePart(part);
-            if(viewer.getSelection().isEmpty() && selection.isEmpty())
-                return;
-            if(!isValidSelection(selection))
-                return;
-        }
-
-        if(!settings.isViewLocked()) {
-            distanceFilter.update(selection, featureModel);
-            groupFilter.update(selection);
-            constraintFilter.update(selection, featureModel);
-            viewer.refresh();
-            viewer.applyLayout();
-        }
+        // Ignore invalid selections.
+        if((part == this) || !isValidSelection(selection))
+            return;
         
-        if(part != this) {
+        setSourcePart(part);
+        
+        if(!currentSelection.equals(selection)) {
+            currentSelection = selection; // Viewer may not contain all selected elements, so we have to remember them.
+            
+            
+            if(!settings.isViewLocked()) {
+                distanceFilter.update(selection, featureModel);
+                groupFilter.update(selection);
+                constraintFilter.update(selection, featureModel);
+                viewer.refresh();
+                viewer.applyLayout();
+            }
+            
+            // Must be called after. It also restores highlight.
             viewer.setSelection(selection);
-            // TODO should be applied after layout animation finishes.
-            // moveViewportToSelection(selection);
         }
     }
     
@@ -285,8 +284,8 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
     
     @Override
     public void partActivated(IWorkbenchPart part) {
-        if(part == this)
-            viewer.restoreHightlight();
+        //if(part == this)
+            //viewer.refreshHightlight();
     }
     
     @Override

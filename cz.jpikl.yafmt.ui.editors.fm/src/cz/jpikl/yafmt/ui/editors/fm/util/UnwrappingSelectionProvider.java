@@ -26,6 +26,10 @@ public class UnwrappingSelectionProvider implements ISelectionProvider, ISelecti
         viewer = null;
     }
     
+    // ============================================================================
+    //  ISelectionProvider
+    // ============================================================================
+    
     @Override
     public ISelection getSelection() {
         return SelectionConverter.unwrapSelection(viewer.getSelection());
@@ -33,16 +37,9 @@ public class UnwrappingSelectionProvider implements ISelectionProvider, ISelecti
     
     @Override
     public void setSelection(ISelection selection) {
-        // This currently uses only Constraints Editor (called explicitly inside Feature Model Editor).
-        fireSelectionChangedEvent(new SelectionChangedEvent(this, selection));
+        viewer.setSelection(SelectionConverter.wrapSelection(selection, viewer.getEditPartRegistry()));
     }
-    
-    @Override
-    public void selectionChanged(SelectionChangedEvent event) {
-        ISelection selection = SelectionConverter.unwrapSelection(event.getSelection());
-        fireSelectionChangedEvent(new SelectionChangedEvent(this, selection));
-    }
-    
+        
     @Override
     public void addSelectionChangedListener(ISelectionChangedListener listener) {
         listeners.add(listener);
@@ -53,9 +50,19 @@ public class UnwrappingSelectionProvider implements ISelectionProvider, ISelecti
         listeners.remove(listener);
     }
     
-    protected void fireSelectionChangedEvent(SelectionChangedEvent event) {
+    // ============================================================================
+    //  ISelectionChangedListener
+    // ============================================================================
+    
+    @Override
+    public void selectionChanged(SelectionChangedEvent event) {
+        if(event.getSource() == viewer) {
+            ISelection selection = SelectionConverter.unwrapSelection(event.getSelection());
+            event = new SelectionChangedEvent(viewer, selection);
+        }
+        
         for(ISelectionChangedListener listener: listeners)
             listener.selectionChanged(event);
     }
-    
+        
 }

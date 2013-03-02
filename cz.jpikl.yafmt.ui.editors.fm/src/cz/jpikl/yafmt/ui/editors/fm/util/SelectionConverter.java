@@ -10,14 +10,8 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 
 public class SelectionConverter {
-
-    private Map<?, ?> editPartRegistry;
     
-    public SelectionConverter(Map<?, ?> editPartRegistry) {
-        this.editPartRegistry = editPartRegistry;
-    }
-    
-    public ISelection wrapSelection(ISelection selection) {
+    public static ISelection wrapSelection(ISelection selection, Map<?, ?> editPartRegistry) {
         if(!(selection instanceof IStructuredSelection))
             return selection;
         

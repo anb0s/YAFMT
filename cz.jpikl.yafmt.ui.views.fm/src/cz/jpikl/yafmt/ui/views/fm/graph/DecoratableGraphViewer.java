@@ -19,7 +19,7 @@ public class DecoratableGraphViewer extends GraphViewer {
     public static final int ZEST_LAYER_INDEX = 1;
     public static final int FRONT_DECORATION_LAYER_INDEX = 2;
         
-    private List<NodeFigure> highlightedFigures = new ArrayList<NodeFigure>(); 
+    private List<NodeFigure> highlightedFigures = new ArrayList<NodeFigure>();
     
     public DecoratableGraphViewer(Composite composite, int style) {
         super(composite, style);
@@ -38,27 +38,18 @@ public class DecoratableGraphViewer extends GraphViewer {
     }
     
     @Override
-    protected void fireSelectionChanged(SelectionChangedEvent event) {
-        hideHightlight();
-        super.fireSelectionChanged(event);
-        restoreHightlight();
-        
-    }
-    
-    @Override
     protected void firePostSelectionChanged(SelectionChangedEvent event) {
-        hideHightlight();
         super.firePostSelectionChanged(event);
-        restoreHightlight();
+        refreshHightlight();
     }
-    
-    private void hideHightlight() {
+        
+    public void refreshHightlight() {
+        // Hide old selection.
         for(NodeFigure figure: highlightedFigures)
             figure.setHighlighted(false);
         highlightedFigures.clear();
-    }
-    
-    public void restoreHightlight() {
+        
+        // Show new selection.
         for(Object node: graph.getSelection()) {
             if(node instanceof GraphNode) {
                 IFigure figure = ((GraphNode) node).getNodeFigure();

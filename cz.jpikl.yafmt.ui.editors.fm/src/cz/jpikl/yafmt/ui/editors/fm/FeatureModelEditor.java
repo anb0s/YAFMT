@@ -35,14 +35,12 @@ import org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IFileEditorInput;
-import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
@@ -74,8 +72,7 @@ import cz.jpikl.yafmt.ui.pages.EditorContentOutlinePage;
 import cz.jpikl.yafmt.ui.pages.EditorPropertySheetPage;
 import cz.jpikl.yafmt.ui.util.EditorAutoCloser;
 
-public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette implements ISelectionListener, 
-                                                                                    ISelectionChangedListener {
+public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette {
 
     private static final String LAYOUT_DATA_EXTENSION = ".layout";
     
@@ -83,9 +80,7 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
     private LayoutData layoutData;
     private IContentOutlinePage contentOutlinePage;
     private IPropertySheetPage propertySheetPage;
-    private SelectionConverter selectionConverter;
     private ConstraintsEditor constraintsEditor;
-    private ISelection selectionFromConstraintsEditor;
     private EditorAutoCloser editorAutoCloser;
 	
     // ==================================================================================
@@ -108,6 +103,7 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
     }
     
     public void dispose() {
+        getSite().getPage().removeSelectionListener(constraintsEditor);
         ResourcesPlugin.getWorkspace().removeResourceChangeListener(editorAutoCloser);
         super.dispose();
     }
@@ -129,7 +125,8 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
     
     private void createConstraintsEditor(Splitter splitter) {
         constraintsEditor = new ConstraintsEditor(splitter, this);
-        constraintsEditor.addSelectionChangeListener(this);
+        constraintsEditor.getViewer().addSelectionChangedListener((UnwrappingSelectionProvider) getSite().getSelectionProvider());
+        getSite().getPage().addSelectionListener(constraintsEditor);
     }
         
     @Override
@@ -143,7 +140,6 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
         viewer.setContextMenu(new FeatureModelEditorContextMenuProvider(viewer, getActionRegistry()));
         viewer.addDropTargetListener(new TemplateTransferDropTargetListener(viewer));
         
-        selectionConverter = new SelectionConverter(viewer.getEditPartRegistry());
         createActionsLate();
     }
     
@@ -199,11 +195,6 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
         }
     }
     
-    public void updateSelectionActions() {
-        // Update all actions which state depends on selection.
-        updateActions(getSelectionActions());
-    }
-    
     // ==================================================================================
     //  Palette initialization
     // ==================================================================================
@@ -242,45 +233,26 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette impleme
     public void commandStackChanged(EventObject event) {
         super.commandStackChanged(event);
         firePropertyChange(PROP_DIRTY);
-        updateSelectionActions();
+        updateActions(getSelectionActions());
     }
     
     @Override
-    public void selectionChanged(SelectionChangedEvent event) {
-        // This events comes only from the constraints editor.
-        // Forward it the to the rest of the world;
-        selectionFromConstraintsEditor = event.getSelection();
-        getSite().getSelectionProvider().setSelection(selectionFromConstraintsEditor);
-    }
-    
-    @Override
-    public void selectionChanged(IWorkbenchPart part, ISelection selection) {        
-        // Check if this is the active editor.
-        if(this != getSite().getPage().getActiveEditor())
-            return;
+    public void selectionChanged(IWorkbenchPart part, ISelection selection) {
+        super.selectionChanged(part, selection); // Updates all selection actions.
         
         // Ignore invalid selections.
-        if((part != getSite().getPage().getActivePart()) || (part instanceof PropertySheet))
+        IEditorPart activeEditor = getSite().getPage().getActiveEditor();
+        IWorkbenchPart activePart = getSite().getPage().getActivePart();
+        if((this != activeEditor) || (part != activePart) || (part == this) || (part instanceof PropertySheet))
             return;
                 
-        // Handle selection change.
-        if(part == this)
-            handleSelectionFromItself(selection);
-        else
-            handleSelectionFromOthers(selection);
-        
-        // Update constraints editor.
-        if(selection != selectionFromConstraintsEditor)
-            constraintsEditor.setSelection(selection);
+        // Apply selection to the editor if it differs.
+        selection = SelectionConverter.wrapSelection(selection, getGraphicalViewer().getEditPartRegistry());
+        if(!getGraphicalViewer().getSelection().equals(selection))
+            applySelection(selection);
     }
-    
-    private void handleSelectionFromItself(ISelection selection) {
-        updateSelectionActions();
-    }
-    
-    private void handleSelectionFromOthers(ISelection selection) {
-        // Apply selection to the editor.
-        selection = selectionConverter.wrapSelection(selection);
+
+    private void applySelection(ISelection selection) {
         getGraphicalViewer().setSelection(selection);
         if(selection.isEmpty())
             return;

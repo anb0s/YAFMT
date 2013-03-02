@@ -103,12 +103,13 @@ public class EditorContentOutlinePage extends ContentOutlinePage implements ISel
     @Override
     public void selectionChanged(IWorkbenchPart part, ISelection selection) {
         // Ignore invalid selections.
-        if(part != getSite().getPage().getActivePart())
+        IWorkbenchPart activePart = getSite().getPage().getActivePart();
+        if((part != activePart) || (part instanceof ContentOutline) || (part instanceof PropertySheet))
             return;
-        if((part instanceof ContentOutline) || (part instanceof PropertySheet))
-            return;
-                
-        setSelection(selection); // Forward selection to the TreeViewer.
+        
+        // Forward selection to the TreeViewer.
+        if(!getSelection().equals(selection))
+            setSelection(selection);
     }
 
 }
