@@ -9,16 +9,10 @@ import cz.jpikl.yafmt.model.fm.provider.FeatureModelItemProviderAdapterFactory;
 
 public class FeatureModelProviderUtil {
 
-    private static FeatureModelItemProviderAdapterFactory adapterFactory;
-    
-    public static FeatureModelItemProviderAdapterFactory getAdapterFactory() {
-        if(adapterFactory == null)
-            adapterFactory = new FeatureModelItemProviderAdapterFactory();
-        return adapterFactory;
-    }
+    private static FeatureModelItemProviderAdapterFactory adapterFactory = new FeatureModelItemProviderAdapterFactory();
     
     public static AdapterFactoryContentProvider getContentProvider() {
-        return new AdapterFactoryContentProvider(getAdapterFactory()) {
+        return new AdapterFactoryContentProvider(adapterFactory) {
             @Override
             protected IPropertySource createPropertySource(Object object, IItemPropertySource itemPropertySource) {
                 return new FeatureModelPropertySource(object, itemPropertySource);
@@ -27,7 +21,7 @@ public class FeatureModelProviderUtil {
     }
     
     public static AdapterFactoryLabelProvider getLabelProvider() {
-        return new AdapterFactoryLabelProvider(getAdapterFactory());
+        return new AdapterFactoryLabelProvider(adapterFactory);
     }
     
 }

@@ -23,15 +23,15 @@ public class FeatureModelPropertySourceValidator implements IPropertySourceValid
     public String validate(Object object, Object property, Object value) {
         try {
             if(object instanceof Feature)
-                return validateFeature((Feature) object, property, (String) value);
+                return validateFeature((Feature) object, property, value);
             if(object instanceof Group)
-                return validateGroup((Group) object, property, (String) value);
+                return validateGroup((Group) object, property, value);
             if(object instanceof Attribute)
-                return validateAttribute((Attribute) object, property, (String) value);
+                return validateAttribute((Attribute) object, property, value);
             if(object instanceof Constraint)
                 return validateConstraint((Constraint) object, property, value);
             if(object instanceof FeatureModel)
-                return validateFeatureModel((FeatureModel) object, property, (String) value);
+                return validateFeatureModel((FeatureModel) object, property, value);
         }
         catch(NumberFormatException ex) {
             return getString("_UI_Errors_NotANumber");
@@ -39,36 +39,36 @@ public class FeatureModelPropertySourceValidator implements IPropertySourceValid
         return null;
     }
    
-    private String validateFeature(Feature feature, Object property, String value) {
+    private String validateFeature(Feature feature, Object property, Object value) {
         if(property == FEATURE__ID) {
-            String result = checkIdValue(value, "_UI_Feature_id_feature");
+            String result = checkIdValue((String) value, "_UI_Feature_id_feature");
             if(result != null)
                 return result;
-            Feature otherFeature = feature.getFeatureModel().getFeatureById(value);
+            Feature otherFeature = feature.getFeatureModel().getFeatureById((String) value);
             if((otherFeature != null) && (otherFeature != feature))
                 return getString("_UI_Errors_IdNotUnique", getString("_UI_FeatureModel_type"));
             return null;
         }
         if(property == FEATURE__NAME)
-            return checkEmptyValue(value, "_UI_Feature_name_feature");
+            return checkEmptyValue((String) value, "_UI_Feature_name_feature");
         if(property == FEATURE__LOWER)
-            return checkBounds(Integer.parseInt(value), feature.getUpper());
+            return checkBounds(Integer.parseInt((String) value), feature.getUpper());
         if(property == FEATURE__UPPER)
-            return checkBounds(feature.getLower(), Integer.parseInt(value));        
+            return checkBounds(feature.getLower(), Integer.parseInt((String) value));        
         return null;
     }
     
-    private String validateGroup(Group group, Object property, String value) {
+    private String validateGroup(Group group, Object property, Object value) {
         if(property == GROUP__LOWER)
-            return checkBounds(Integer.parseInt(value), group.getUpper());
+            return checkBounds(Integer.parseInt((String) value), group.getUpper());
         if(property == GROUP__UPPER)
-            return checkBounds(group.getLower(), Integer.parseInt(value));
+            return checkBounds(group.getLower(), Integer.parseInt((String) value));
         return null;
     }
     
-    private String validateAttribute(Attribute attribute, Object property, String value) {
+    private String validateAttribute(Attribute attribute, Object property, Object value) {
         if(property == ATTRIBUTE__ID) {
-            String result = checkIdValue(value, "_UI_Attribute_id_feature");
+            String result = checkIdValue((String) value, "_UI_Attribute_id_feature");
             if(result != null)
                 return result;
             for(Attribute otherAttribute: ((Feature) attribute.eContainer()).getAttributes()) {
@@ -78,7 +78,7 @@ public class FeatureModelPropertySourceValidator implements IPropertySourceValid
             return null;
         }
         if(property == ATTRIBUTE__NAME)
-            return checkEmptyValue(value, "_UI_Attribute_name_feature");
+            return checkEmptyValue((String) value, "_UI_Attribute_name_feature");
         return null;
     }
     
@@ -103,9 +103,9 @@ public class FeatureModelPropertySourceValidator implements IPropertySourceValid
         return null;
     }
     
-    private String validateFeatureModel(FeatureModel featureModel, Object property, String value) {
+    private String validateFeatureModel(FeatureModel featureModel, Object property, Object value) {
         if(property == FEATURE_MODEL__NAME)
-            return checkEmptyValue(value, "_UI_FeatureModel_name_feature");
+            return checkEmptyValue((String) value, "_UI_FeatureModel_name_feature");
         return null;
     }
     
