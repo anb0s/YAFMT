@@ -62,9 +62,32 @@ public class IntegerValueItemProvider
         if (itemPropertyDescriptors == null) {
             super.getPropertyDescriptors(object);
 
+            addIdPropertyDescriptor(object);
             addValuePropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
+    }
+
+    /**
+     * This adds a property descriptor for the Id feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addIdPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_AttributeValue_id_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_AttributeValue_id_feature", "_UI_AttributeValue_type"),
+                 FeatureConfigurationPackage.Literals.ATTRIBUTE_VALUE__ID,
+                 false,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+                 null,
+                 null));
     }
 
     /**

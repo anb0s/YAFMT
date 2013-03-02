@@ -27,6 +27,7 @@ import cz.jpikl.yafmt.model.fm.FeatureModel;
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.FeatureConfigurationImpl#getVersion <em>Version</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.FeatureConfigurationImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.FeatureConfigurationImpl#getFeatureModel <em>Feature Model</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fc.impl.FeatureConfigurationImpl#getFeatureModelCopy <em>Feature Model Copy</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.FeatureConfigurationImpl#getRoot <em>Root</em>}</li>
  * </ul>
  * </p>
@@ -103,6 +104,16 @@ public class FeatureConfigurationImpl extends EObjectImpl implements FeatureConf
      * @ordered
      */
     protected FeatureModel featureModel;
+
+    /**
+     * The cached value of the '{@link #getFeatureModelCopy() <em>Feature Model Copy</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getFeatureModelCopy()
+     * @generated
+     * @ordered
+     */
+    protected FeatureModel featureModelCopy;
 
     /**
      * The cached value of the '{@link #getRoot() <em>Root</em>}' containment reference.
@@ -241,6 +252,49 @@ public class FeatureConfigurationImpl extends EObjectImpl implements FeatureConf
      * <!-- end-user-doc -->
      * @generated
      */
+    public FeatureModel getFeatureModelCopy() {
+        return featureModelCopy;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetFeatureModelCopy(FeatureModel newFeatureModelCopy, NotificationChain msgs) {
+        FeatureModel oldFeatureModelCopy = featureModelCopy;
+        featureModelCopy = newFeatureModelCopy;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, FeatureConfigurationPackage.FEATURE_CONFIGURATION__FEATURE_MODEL_COPY, oldFeatureModelCopy, newFeatureModelCopy);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setFeatureModelCopy(FeatureModel newFeatureModelCopy) {
+        if (newFeatureModelCopy != featureModelCopy) {
+            NotificationChain msgs = null;
+            if (featureModelCopy != null)
+                msgs = ((InternalEObject)featureModelCopy).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - FeatureConfigurationPackage.FEATURE_CONFIGURATION__FEATURE_MODEL_COPY, null, msgs);
+            if (newFeatureModelCopy != null)
+                msgs = ((InternalEObject)newFeatureModelCopy).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - FeatureConfigurationPackage.FEATURE_CONFIGURATION__FEATURE_MODEL_COPY, null, msgs);
+            msgs = basicSetFeatureModelCopy(newFeatureModelCopy, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, FeatureConfigurationPackage.FEATURE_CONFIGURATION__FEATURE_MODEL_COPY, newFeatureModelCopy, newFeatureModelCopy));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Selection getRoot() {
         return root;
     }
@@ -298,6 +352,8 @@ public class FeatureConfigurationImpl extends EObjectImpl implements FeatureConf
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
+            case FeatureConfigurationPackage.FEATURE_CONFIGURATION__FEATURE_MODEL_COPY:
+                return basicSetFeatureModelCopy(null, msgs);
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__ROOT:
                 return basicSetRoot(null, msgs);
         }
@@ -321,6 +377,8 @@ public class FeatureConfigurationImpl extends EObjectImpl implements FeatureConf
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__FEATURE_MODEL:
                 if (resolve) return getFeatureModel();
                 return basicGetFeatureModel();
+            case FeatureConfigurationPackage.FEATURE_CONFIGURATION__FEATURE_MODEL_COPY:
+                return getFeatureModelCopy();
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__ROOT:
                 return getRoot();
         }
@@ -346,6 +404,9 @@ public class FeatureConfigurationImpl extends EObjectImpl implements FeatureConf
                 return;
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__FEATURE_MODEL:
                 setFeatureModel((FeatureModel)newValue);
+                return;
+            case FeatureConfigurationPackage.FEATURE_CONFIGURATION__FEATURE_MODEL_COPY:
+                setFeatureModelCopy((FeatureModel)newValue);
                 return;
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__ROOT:
                 setRoot((Selection)newValue);
@@ -374,6 +435,9 @@ public class FeatureConfigurationImpl extends EObjectImpl implements FeatureConf
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__FEATURE_MODEL:
                 setFeatureModel((FeatureModel)null);
                 return;
+            case FeatureConfigurationPackage.FEATURE_CONFIGURATION__FEATURE_MODEL_COPY:
+                setFeatureModelCopy((FeatureModel)null);
+                return;
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__ROOT:
                 setRoot((Selection)null);
                 return;
@@ -397,6 +461,8 @@ public class FeatureConfigurationImpl extends EObjectImpl implements FeatureConf
                 return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__FEATURE_MODEL:
                 return featureModel != null;
+            case FeatureConfigurationPackage.FEATURE_CONFIGURATION__FEATURE_MODEL_COPY:
+                return featureModelCopy != null;
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__ROOT:
                 return root != null;
         }

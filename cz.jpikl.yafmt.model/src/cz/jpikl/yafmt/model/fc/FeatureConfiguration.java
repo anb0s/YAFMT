@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link cz.jpikl.yafmt.model.fc.FeatureConfiguration#getVersion <em>Version</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.FeatureConfiguration#getDescription <em>Description</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.FeatureConfiguration#getFeatureModel <em>Feature Model</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fc.FeatureConfiguration#getFeatureModelCopy <em>Feature Model Copy</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.FeatureConfiguration#getRoot <em>Root</em>}</li>
  * </ul>
  * </p>
@@ -132,6 +133,32 @@ public interface FeatureConfiguration extends EObject {
      * @generated
      */
     void setFeatureModel(FeatureModel value);
+
+    /**
+     * Returns the value of the '<em><b>Feature Model Copy</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Feature Model Copy</em>' containment reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Feature Model Copy</em>' containment reference.
+     * @see #setFeatureModelCopy(FeatureModel)
+     * @see cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage#getFeatureConfiguration_FeatureModelCopy()
+     * @model containment="true" required="true"
+     * @generated
+     */
+    FeatureModel getFeatureModelCopy();
+
+    /**
+     * Sets the value of the '{@link cz.jpikl.yafmt.model.fc.FeatureConfiguration#getFeatureModelCopy <em>Feature Model Copy</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Feature Model Copy</em>' containment reference.
+     * @see #getFeatureModelCopy()
+     * @generated
+     */
+    void setFeatureModelCopy(FeatureModel value);
 
     /**
      * Returns the value of the '<em><b>Root</b></em>' containment reference.

@@ -70,15 +70,15 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//FeatureConfiguration/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//FeatureConfiguration/version"/>
       <genFeatures createChild="false" propertyMultiLine="true" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//FeatureConfiguration/description"/>
-      <genFeatures property="None" notify="false" createChild="false" propertySortChoices="true"
-          ecoreFeature="ecore:EReference FeatureConfiguration.ecore#//FeatureConfiguration/featureModel"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference FeatureConfiguration.ecore#//FeatureConfiguration/featureModel"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference FeatureConfiguration.ecore#//FeatureConfiguration/featureModelCopy"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FeatureConfiguration.ecore#//FeatureConfiguration/root"/>
       <genOperations ecoreOperation="FeatureConfiguration.ecore#//FeatureConfiguration/getSelectionsById">
         <genParameters ecoreParameter="FeatureConfiguration.ecore#//FeatureConfiguration/getSelectionsById/id"/>
       </genOperations>
     </genClasses>
     <genClasses ecoreClass="FeatureConfiguration.ecore#//Selection">
-      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//Selection/id"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//Selection/id"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference FeatureConfiguration.ecore#//Selection/parent"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FeatureConfiguration.ecore#//Selection/selections"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FeatureConfiguration.ecore#//Selection/values"/>
@@ -86,7 +86,7 @@
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference FeatureConfiguration.ecore#//Selection/feature"/>
     </genClasses>
     <genClasses image="false" ecoreClass="FeatureConfiguration.ecore#//AttributeValue">
-      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//AttributeValue/id"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//AttributeValue/id"/>
     </genClasses>
     <genClasses ecoreClass="FeatureConfiguration.ecore#//BooleanValue">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//BooleanValue/value"/>

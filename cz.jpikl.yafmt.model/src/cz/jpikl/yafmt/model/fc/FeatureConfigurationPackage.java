@@ -102,13 +102,22 @@ public interface FeatureConfigurationPackage extends EPackage {
     int FEATURE_CONFIGURATION__FEATURE_MODEL = 3;
 
     /**
+     * The feature id for the '<em><b>Feature Model Copy</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FEATURE_CONFIGURATION__FEATURE_MODEL_COPY = 4;
+
+    /**
      * The feature id for the '<em><b>Root</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int FEATURE_CONFIGURATION__ROOT = 4;
+    int FEATURE_CONFIGURATION__ROOT = 5;
 
     /**
      * The number of structural features of the '<em>Feature Configuration</em>' class.
@@ -117,7 +126,7 @@ public interface FeatureConfigurationPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FEATURE_CONFIGURATION_FEATURE_COUNT = 5;
+    int FEATURE_CONFIGURATION_FEATURE_COUNT = 6;
 
     /**
      * The meta object id for the '{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl <em>Selection</em>}' class.
@@ -424,6 +433,17 @@ public interface FeatureConfigurationPackage extends EPackage {
     EReference getFeatureConfiguration_FeatureModel();
 
     /**
+     * Returns the meta object for the containment reference '{@link cz.jpikl.yafmt.model.fc.FeatureConfiguration#getFeatureModelCopy <em>Feature Model Copy</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Feature Model Copy</em>'.
+     * @see cz.jpikl.yafmt.model.fc.FeatureConfiguration#getFeatureModelCopy()
+     * @see #getFeatureConfiguration()
+     * @generated
+     */
+    EReference getFeatureConfiguration_FeatureModelCopy();
+
+    /**
      * Returns the meta object for the containment reference '{@link cz.jpikl.yafmt.model.fc.FeatureConfiguration#getRoot <em>Root</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -678,6 +698,14 @@ public interface FeatureConfigurationPackage extends EPackage {
          * @generated
          */
         EReference FEATURE_CONFIGURATION__FEATURE_MODEL = eINSTANCE.getFeatureConfiguration_FeatureModel();
+
+        /**
+         * The meta object literal for the '<em><b>Feature Model Copy</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference FEATURE_CONFIGURATION__FEATURE_MODEL_COPY = eINSTANCE.getFeatureConfiguration_FeatureModelCopy();
 
         /**
          * The meta object literal for the '<em><b>Root</b></em>' containment reference feature.

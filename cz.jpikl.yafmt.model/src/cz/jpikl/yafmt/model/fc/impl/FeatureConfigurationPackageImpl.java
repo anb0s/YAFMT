@@ -197,8 +197,17 @@ public class FeatureConfigurationPackageImpl extends EPackageImpl implements Fea
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getFeatureConfiguration_Root() {
+    public EReference getFeatureConfiguration_FeatureModelCopy() {
         return (EReference)featureConfigurationEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getFeatureConfiguration_Root() {
+        return (EReference)featureConfigurationEClass.getEStructuralFeatures().get(5);
     }
 
     /**
@@ -387,6 +396,7 @@ public class FeatureConfigurationPackageImpl extends EPackageImpl implements Fea
         createEAttribute(featureConfigurationEClass, FEATURE_CONFIGURATION__VERSION);
         createEAttribute(featureConfigurationEClass, FEATURE_CONFIGURATION__DESCRIPTION);
         createEReference(featureConfigurationEClass, FEATURE_CONFIGURATION__FEATURE_MODEL);
+        createEReference(featureConfigurationEClass, FEATURE_CONFIGURATION__FEATURE_MODEL_COPY);
         createEReference(featureConfigurationEClass, FEATURE_CONFIGURATION__ROOT);
 
         selectionEClass = createEClass(SELECTION);
@@ -455,6 +465,7 @@ public class FeatureConfigurationPackageImpl extends EPackageImpl implements Fea
         initEAttribute(getFeatureConfiguration_Version(), ecorePackage.getEString(), "version", null, 0, 1, FeatureConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getFeatureConfiguration_Description(), ecorePackage.getEString(), "description", null, 0, 1, FeatureConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getFeatureConfiguration_FeatureModel(), theFeatureModelPackage.getFeatureModel(), null, "featureModel", null, 0, 1, FeatureConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getFeatureConfiguration_FeatureModelCopy(), theFeatureModelPackage.getFeatureModel(), null, "featureModelCopy", null, 1, 1, FeatureConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getFeatureConfiguration_Root(), this.getSelection(), null, "root", null, 1, 1, FeatureConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         EOperation op = addEOperation(featureConfigurationEClass, null, "getSelectionsById", 0, 1, IS_UNIQUE, IS_ORDERED);
