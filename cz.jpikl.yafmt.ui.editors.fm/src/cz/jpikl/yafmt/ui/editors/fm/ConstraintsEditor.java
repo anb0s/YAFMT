@@ -39,6 +39,7 @@ import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.actions.ActionFactory;
+import org.eclipse.ui.views.properties.PropertySheet;
 
 import cz.jpikl.yafmt.clang.ConstraintLanguageDescriptor;
 import cz.jpikl.yafmt.clang.ConstraintLanguagePlugin;
@@ -206,6 +207,11 @@ public class ConstraintsEditor extends SplitterDock implements ISelectionListene
     public boolean setFocus() {
         return viewer.getControl().setFocus();
     }
+    
+    @Override
+    public boolean isFocusControl() {
+        return viewer.getControl().isFocusControl();
+    }
         
     @Override
     public void setVisible(boolean visible) {
@@ -218,13 +224,17 @@ public class ConstraintsEditor extends SplitterDock implements ISelectionListene
     }
     
     @Override
-    public void selectionChanged(IWorkbenchPart part, ISelection selection) {        
+    public void selectionChanged(IWorkbenchPart part, ISelection selection) {
+        // Ignore invalid selections.
+        if((part instanceof PropertySheet) || viewer.getSelection().equals(selection))
+            return;
+        
         outerSelection = (selection instanceof IStructuredSelection) ? (IStructuredSelection) selection : null; 
         
         if(filterEnabled) {
             refresh();
         }
-        else if(!viewer.getSelection().equals(selection)) {
+        else {
             // Do not generate another selection event.
             blockSelectionEvents = true;
             viewer.setSelection(selection);
@@ -252,9 +262,6 @@ public class ConstraintsEditor extends SplitterDock implements ISelectionListene
                 Collection<Constraint> constraints = constraintCache.getConstraintsAffectingFeature((Feature) object);
                 if(constraints != null)
                     visibleConstraints.addAll(constraints);
-            }
-            else if(object instanceof FeatureModel) {
-                visibleConstraints.addAll(featureModel.getConstraints());
             }
         }
     }
