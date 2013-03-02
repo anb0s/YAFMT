@@ -39,8 +39,8 @@ public class DecoratableGraphViewer extends GraphViewer {
     
     @Override
     protected void firePostSelectionChanged(SelectionChangedEvent event) {
-        super.firePostSelectionChanged(event);
         refreshHightlight();
+        super.firePostSelectionChanged(event);
     }
         
     public void refreshHightlight() {

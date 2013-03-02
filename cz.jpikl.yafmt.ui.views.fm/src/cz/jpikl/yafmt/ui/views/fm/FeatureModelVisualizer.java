@@ -249,16 +249,15 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         if(!currentSelection.equals(selection)) {
             currentSelection = selection; // Viewer may not contain all selected elements, so we have to remember them.
             
-            
             if(!settings.isViewLocked()) {
                 distanceFilter.update(selection, featureModel);
                 groupFilter.update(selection);
                 constraintFilter.update(selection, featureModel);
+                ((FeatureModelStyleProvider) viewer.getLabelProvider()).refresh(selection);
                 viewer.refresh();
                 viewer.applyLayout();
             }
             
-            // Must be called after. It also restores highlight.
             viewer.setSelection(selection);
         }
     }

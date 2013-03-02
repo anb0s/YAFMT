@@ -1,6 +1,8 @@
 package cz.jpikl.yafmt.ui.views.fm;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.IFigure;
@@ -8,6 +10,8 @@ import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.RoundedRectangleAnchor;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
@@ -36,10 +40,59 @@ public class FeatureModelStyleProvider extends LabelProviderAdapter {
     private GraphViewer viewer;
     private ViewerFilter[] filters;
     private ConstraintCache constraintCache;
+    private Set<Object> selectedElements = new HashSet<Object>();
 
     public FeatureModelStyleProvider(GraphViewer viewer, ConstraintCache constraintCache) {
         this.viewer = viewer;
         this.constraintCache = constraintCache;
+    }
+    
+    @SuppressWarnings("unchecked")
+    public void refresh(ISelection selection) {
+        selectedElements = new HashSet<Object>(((IStructuredSelection) selection).toList());
+    }
+    
+    // =============================================================
+    // Nodes
+    // =============================================================
+    
+    @Override
+    public IFigure getFigure(Object element) {
+        NodeFigure figure = createFigure(element);
+        // Immediately highlight selected figure.
+        if(selectedElements.contains(element))
+            figure.setHighlighted(true);
+        return figure;
+    }
+    
+    private NodeFigure createFigure(Object element) {
+        if(element instanceof Feature)
+            return createFeatureFigure((Feature) element);
+        if(element instanceof Group)
+            return new GroupFigure((Group) element);
+        if(element instanceof Constraint)
+            return new ConstraintFigure((Constraint) element);
+        return null;
+    }
+        
+    private NodeFigure createFeatureFigure(Feature feature) {
+        FeatureFigure figure = new FeatureFigure(feature);
+        figure.addDecoration(new CardinalityDecoration(feature.getLower(), feature.getUpper()));
+        
+        int hiddenNeighbors = countHiddenNeighbors(feature);
+        if(hiddenNeighbors > 0)
+            figure.addDecoration(new HiddenNeighborsDecoration(hiddenNeighbors));
+        
+        if(isHiddenGroup(feature))
+            figure.addDecoration(new HiddenGroupDecoration());
+        
+        if(isHiddenConstraint(feature))
+            figure.addDecoration(new HiddenConstraintDecoration());
+        
+        if(!feature.getAttributes().isEmpty())
+            figure.addDecoration(new AttributeDecoration(feature.getAttributes().size()));
+        
+        return figure;
     }
     
     // =============================================================
@@ -93,41 +146,6 @@ public class FeatureModelStyleProvider extends LabelProviderAdapter {
     @Override
     public Color getHighlightColor(Object src, Object dst) {
         return getColor(src, dst);
-    }
-            
-    // =============================================================
-    // Nodes
-    // =============================================================
-    
-    @Override
-    public IFigure getFigure(Object element) {
-        if(element instanceof Feature)
-            return createFeatureFigure((Feature) element);
-        if(element instanceof Group)
-            return new GroupFigure((Group) element);
-        if(element instanceof Constraint)
-            return new ConstraintFigure((Constraint) element);
-        return null;
-    }
-        
-    protected IFigure createFeatureFigure(Feature feature) {
-        FeatureFigure figure = new FeatureFigure(feature);
-        figure.addDecoration(new CardinalityDecoration(feature.getLower(), feature.getUpper()));
-        
-        int hiddenNeighbors = countHiddenNeighbors(feature);
-        if(hiddenNeighbors > 0)
-            figure.addDecoration(new HiddenNeighborsDecoration(hiddenNeighbors));
-        
-        if(isHiddenGroup(feature))
-            figure.addDecoration(new HiddenGroupDecoration());
-        
-        if(isHiddenConstraint(feature))
-            figure.addDecoration(new HiddenConstraintDecoration());
-        
-        if(!feature.getAttributes().isEmpty())
-            figure.addDecoration(new AttributeDecoration(feature.getAttributes().size()));
-        
-        return figure;
     }
     
     // =============================================================
