@@ -188,12 +188,7 @@ public class GroupImpl extends EObjectImpl implements Group {
      * @generated NOT
      */
     public void setXor(boolean newXor) {
-        setLower(1);
-        
-        if(newXor)
-            setUpper(1);
-        else
-            setUpper(Math.max(1, getFeatures().size()));
+        setOr(!newXor);
     }
 
     /**
@@ -202,7 +197,7 @@ public class GroupImpl extends EObjectImpl implements Group {
      * @generated NOT
      */
     public boolean isOr() {
-        return (lower == 1) && ((upper > 1) || (upper == -1));
+        return ((lower == 1) && (upper == computeOrUpper()));
     }
 
     /**
@@ -211,7 +206,23 @@ public class GroupImpl extends EObjectImpl implements Group {
      * @generated NOT
      */
     public void setOr(boolean newOr) {
-        setXor(!newOr);
+        setLower(1);
+        
+        if(newOr)
+            setUpper(computeOrUpper());
+        else
+            setUpper(1);
+    }
+    
+    private int computeOrUpper() {
+        int upperSum = 0;
+        for(Feature feature: getFeatures()) {
+            int featureUpper = feature.getUpper();
+            if(featureUpper == -1)
+                return -1;
+            upperSum += featureUpper;
+        }
+        return Math.max(1, upperSum);
     }
 
     /**
