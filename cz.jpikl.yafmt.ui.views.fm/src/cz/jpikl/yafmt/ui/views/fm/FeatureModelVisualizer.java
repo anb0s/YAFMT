@@ -242,7 +242,8 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
     @Override
     public void selectionChanged(IWorkbenchPart part, ISelection selection) {
         // Ignore invalid selections.
-        if((part == this) || (part instanceof PropertySheet) || !isValidSelection(selection))
+        IWorkbenchPart activePart = getSite().getPage().getActivePart();
+        if((part != activePart) || (part == this) || (part instanceof PropertySheet) || !isValidSelection(selection))
             return;
         
         setSourcePart(part);

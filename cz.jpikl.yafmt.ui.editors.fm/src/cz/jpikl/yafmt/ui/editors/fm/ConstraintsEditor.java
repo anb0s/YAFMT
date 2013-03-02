@@ -38,6 +38,7 @@ import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.views.properties.PropertySheet;
 
@@ -226,7 +227,8 @@ public class ConstraintsEditor extends SplitterDock implements ISelectionListene
     @Override
     public void selectionChanged(IWorkbenchPart part, ISelection selection) {
         // Ignore invalid selections.
-        if((part instanceof PropertySheet) || viewer.getSelection().equals(selection))
+        IWorkbenchPart activePart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart();
+        if((part != activePart) || (part instanceof PropertySheet) || viewer.getSelection().equals(selection))
             return;
         
         outerSelection = (selection instanceof IStructuredSelection) ? (IStructuredSelection) selection : null; 
