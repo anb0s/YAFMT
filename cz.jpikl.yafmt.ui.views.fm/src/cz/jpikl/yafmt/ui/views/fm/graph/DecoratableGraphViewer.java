@@ -6,9 +6,14 @@ import java.util.List;
 import org.eclipse.draw2d.FreeformLayer;
 import org.eclipse.draw2d.FreeformLayout;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Viewport;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.zest.core.viewers.GraphViewer;
+import org.eclipse.zest.core.widgets.GraphItem;
 import org.eclipse.zest.core.widgets.GraphNode;
 
 import cz.jpikl.yafmt.ui.views.fm.figures.NodeFigure;
@@ -57,6 +62,23 @@ public class DecoratableGraphViewer extends GraphViewer {
                     ((NodeFigure) figure).setHighlighted(true);
                     highlightedFigures.add((NodeFigure) figure);
                 }
+            }
+        }
+    }
+    
+    public void moveViewportToSelection(ISelection selection) {
+        if(selection.isEmpty())
+            return;
+        
+        // Zoom to the last selected object
+        Object[] objects = ((IStructuredSelection) selection).toArray();
+        for(int i = objects.length - 1; i >= 0 ; i--) {
+            GraphItem item = findGraphItem(objects[i]);
+            if(item instanceof GraphNode) {
+                Point p = ((GraphNode) item).getLocation();
+                Viewport vp = graph.getViewport();
+                vp.setViewLocation(p.x - vp.getSize().width / 2, p.y - vp.getSize().height / 2);
+                return;
             }
         }
     }

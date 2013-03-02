@@ -20,6 +20,7 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
+import org.eclipse.ui.views.properties.PropertySheet;
 import org.eclipse.zest.core.widgets.ZestStyles;
 
 import cz.jpikl.yafmt.clang.util.ConstraintCache;
@@ -241,7 +242,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
     @Override
     public void selectionChanged(IWorkbenchPart part, ISelection selection) {
         // Ignore invalid selections.
-        if((part == this) || !isValidSelection(selection))
+        if((part == this) || (part instanceof PropertySheet) || !isValidSelection(selection))
             return;
         
         setSourcePart(part);
@@ -259,32 +260,9 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
             }
             
             viewer.setSelection(selection);
+            if(settings.isViewLocked())
+                viewer.moveViewportToSelection(selection); // Do not move viewport when layout animation is in progress!
         }
-    }
-    
-    /*
-    private void moveViewportToSelection(ISelection selection) {
-        if(!(selection instanceof IStructuredSelection))
-            return;
-        
-        Object[] objects = ((IStructuredSelection) selection).toArray();
-        if((objects == null) || (objects.length == 0))
-            return;
-        
-        // Zoom to the last selected object
-        GraphItem item = viewer.findGraphItem(objects[objects.length - 1]);
-        if(item instanceof GraphNode) {
-            Point p = ((GraphNode) item).getLocation();
-            Viewport vp = viewer.getGraphControl().getViewport();
-            vp.setViewLocation(p.x - vp.getSize().width / 2, p.y - vp.getSize().height / 2);
-        }
-    }
-    */
-    
-    @Override
-    public void partActivated(IWorkbenchPart part) {
-        //if(part == this)
-            //viewer.refreshHightlight();
     }
     
     @Override
@@ -325,6 +303,10 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         if((type == IPropertySheetPage.class) && (sourcePart != null))
             return sourcePart.getAdapter(type);
         return super.getAdapter(type);
+    }
+    
+    @Override
+    public void partActivated(IWorkbenchPart part) {
     }
     
     @Override
