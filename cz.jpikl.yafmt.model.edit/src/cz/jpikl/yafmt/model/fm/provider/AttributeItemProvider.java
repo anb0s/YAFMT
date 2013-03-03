@@ -175,7 +175,7 @@ public class AttributeItemProvider
      */
     @Override
     public String getText(Object object) {
-        return ((Attribute)object).getName();
+        return ((Attribute) object).getName();
     }
 
     /**

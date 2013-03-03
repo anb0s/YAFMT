@@ -34,7 +34,7 @@
       <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Feature/orphan"/>
       <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Feature/optional"/>
       <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Feature/mandatory"/>
-      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Feature/clonable"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Feature/cloneable"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference FeatureModel.ecore#//Feature/parent"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference FeatureModel.ecore#//Feature/parentFeature"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference FeatureModel.ecore#//Feature/parentGroup"/>
@@ -79,13 +79,13 @@
         <genParameters ecoreParameter="FeatureConfiguration.ecore#//FeatureConfiguration/getSelectionsById/id"/>
       </genOperations>
     </genClasses>
-    <genClasses provider="Stateful" ecoreClass="FeatureConfiguration.ecore#//Selection">
+    <genClasses ecoreClass="FeatureConfiguration.ecore#//Selection">
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//Selection/id"/>
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//Selection/name"/>
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//Selection/description"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference FeatureConfiguration.ecore#//Selection/parent"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FeatureConfiguration.ecore#//Selection/selections"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FeatureConfiguration.ecore#//Selection/values"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FeatureConfiguration.ecore#//Selection/selections"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference FeatureConfiguration.ecore#//Selection/featureConfiguration"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference FeatureConfiguration.ecore#//Selection/feature"/>
     </genClasses>

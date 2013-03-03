@@ -136,19 +136,25 @@ public class AttributeValueItemProvider
     }
 
     /**
+     * @generated NOT
+     */
+    @Override
+    public Object getImage(Object object) {
+        return getResourceLocator().getImage("attribute.png");
+    }
+    
+    /**
      * This returns the label text for the adapted class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     @Override
     public String getText(Object object) {
-        String label = ((AttributeValue)object).getName();
-        return label == null || label.length() == 0 ?
-            getString("_UI_AttributeValue_type") :
-            getString("_UI_AttributeValue_type") + " " + label;
+        String name = ((AttributeValue) object).getName();
+        return (name != null) ? name : "???";
     }
-
+    
     /**
      * This handles model notifications by calling {@link #updateChildren} to update any cached
      * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.

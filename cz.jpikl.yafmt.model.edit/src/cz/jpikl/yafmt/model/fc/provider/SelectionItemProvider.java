@@ -18,11 +18,9 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptorDecorator;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
-import cz.jpikl.yafmt.model.fc.AttributeValue;
 import cz.jpikl.yafmt.model.fc.FeatureConfigurationFactory;
 import cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage;
 import cz.jpikl.yafmt.model.fc.Selection;
@@ -57,7 +55,7 @@ public class SelectionItemProvider
      * This returns the property descriptors for the adapted class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated NOT
+     * @generated
      */
     @Override
     public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
@@ -67,33 +65,6 @@ public class SelectionItemProvider
             addIdPropertyDescriptor(object);
             addNamePropertyDescriptor(object);
             addDescriptionPropertyDescriptor(object);
-            
-            // Copy attribute value descriptors.
-            for(AttributeValue attributeValue: ((Selection) object).getValues()) {
-                IItemPropertySource source = (IItemPropertySource) adapterFactory.adapt(attributeValue, IItemPropertySource.class);
-                for(IItemPropertyDescriptor descriptor: source.getPropertyDescriptors(object)) {
-                    Object feature = descriptor.getFeature(object);
-                    if((feature != FeatureConfigurationPackage.Literals.BOOLEAN_VALUE__VALUE) &&
-                       (feature != FeatureConfigurationPackage.Literals.INTEGER_VALUE__VALUE) &&
-                       (feature != FeatureConfigurationPackage.Literals.DOUBLE_VALUE__VALUE) &&
-                       (feature != FeatureConfigurationPackage.Literals.STRING_VALUE__VALUE)) {
-                        continue;
-                    }
-                    
-                    itemPropertyDescriptors.add(new ItemPropertyDescriptorDecorator(object, descriptor) {
-                        @Override
-                        public String getId(Object object) {
-                            return "_" + ((AttributeValue) object).getId();
-                        }
-                        
-                        @Override
-                        public String getDisplayName(Object thisObject) {
-                            String name = ((AttributeValue) object).getName();
-                            return ((name == null) ? "???" : name) + " (" + getString("_UI_Attribute_type").toLowerCase() + ")";
-                        }
-                    });
-                }
-            }
         }
         return itemPropertyDescriptors;
     }
@@ -176,8 +147,8 @@ public class SelectionItemProvider
     public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
         if (childrenFeatures == null) {
             super.getChildrenFeatures(object);
-            childrenFeatures.add(FeatureConfigurationPackage.Literals.SELECTION__SELECTIONS);
             childrenFeatures.add(FeatureConfigurationPackage.Literals.SELECTION__VALUES);
+            childrenFeatures.add(FeatureConfigurationPackage.Literals.SELECTION__SELECTIONS);
         }
         return childrenFeatures;
     }
@@ -221,14 +192,12 @@ public class SelectionItemProvider
      * This returns the label text for the adapted class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     @Override
     public String getText(Object object) {
-        String label = ((Selection)object).getName();
-        return label == null || label.length() == 0 ?
-            getString("_UI_Selection_type") :
-            getString("_UI_Selection_type") + " " + label;
+        String name = ((Selection) object).getName();
+        return (name != null) ? name : "???"; 
     }
 
     /**
@@ -248,8 +217,8 @@ public class SelectionItemProvider
             case FeatureConfigurationPackage.SELECTION__DESCRIPTION:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
                 return;
-            case FeatureConfigurationPackage.SELECTION__SELECTIONS:
             case FeatureConfigurationPackage.SELECTION__VALUES:
+            case FeatureConfigurationPackage.SELECTION__SELECTIONS:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
                 return;
         }
@@ -266,11 +235,6 @@ public class SelectionItemProvider
     @Override
     protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
         super.collectNewChildDescriptors(newChildDescriptors, object);
-
-        newChildDescriptors.add
-            (createChildParameter
-                (FeatureConfigurationPackage.Literals.SELECTION__SELECTIONS,
-                 FeatureConfigurationFactory.eINSTANCE.createSelection()));
 
         newChildDescriptors.add
             (createChildParameter
@@ -291,6 +255,11 @@ public class SelectionItemProvider
             (createChildParameter
                 (FeatureConfigurationPackage.Literals.SELECTION__VALUES,
                  FeatureConfigurationFactory.eINSTANCE.createStringValue()));
+
+        newChildDescriptors.add
+            (createChildParameter
+                (FeatureConfigurationPackage.Literals.SELECTION__SELECTIONS,
+                 FeatureConfigurationFactory.eINSTANCE.createSelection()));
     }
 
     /**

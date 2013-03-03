@@ -25,10 +25,10 @@
         changeable="false" volatile="true" transient="true" derived="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="#//Selection"
         eOpposite="#//Selection/selections"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="selections" upperBound="-1"
-        eType="#//Selection" containment="true" eOpposite="#//Selection/parent"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="values" upperBound="-1"
         eType="#//AttributeValue" containment="true" eOpposite="#//AttributeValue/selection"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="selections" upperBound="-1"
+        eType="#//Selection" containment="true" eOpposite="#//Selection/parent"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="featureConfiguration" lowerBound="1"
         eType="#//FeatureConfiguration" changeable="false" volatile="true" transient="true"
         derived="true"/>

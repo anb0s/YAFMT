@@ -34,8 +34,8 @@ import cz.jpikl.yafmt.model.fm.Feature;
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#getName <em>Name</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#getParent <em>Parent</em>}</li>
- *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#getSelections <em>Selections</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#getValues <em>Values</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#getSelections <em>Selections</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#getFeatureConfiguration <em>Feature Configuration</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#getFeature <em>Feature</em>}</li>
  * </ul>
@@ -85,16 +85,6 @@ public class SelectionImpl extends EObjectImpl implements Selection {
     protected static final String DESCRIPTION_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getSelections() <em>Selections</em>}' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getSelections()
-     * @generated
-     * @ordered
-     */
-    protected EList<Selection> selections;
-
-    /**
      * The cached value of the '{@link #getValues() <em>Values</em>}' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -103,6 +93,16 @@ public class SelectionImpl extends EObjectImpl implements Selection {
      * @ordered
      */
     protected EList<AttributeValue> values;
+
+    /**
+     * The cached value of the '{@link #getSelections() <em>Selections</em>}' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getSelections()
+     * @generated
+     * @ordered
+     */
+    protected EList<Selection> selections;
 
     /**
      * <!-- begin-user-doc -->
@@ -295,10 +295,10 @@ public class SelectionImpl extends EObjectImpl implements Selection {
                 if (eInternalContainer() != null)
                     msgs = eBasicRemoveFromContainer(msgs);
                 return basicSetParent((Selection)otherEnd, msgs);
-            case FeatureConfigurationPackage.SELECTION__SELECTIONS:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getSelections()).basicAdd(otherEnd, msgs);
             case FeatureConfigurationPackage.SELECTION__VALUES:
                 return ((InternalEList<InternalEObject>)(InternalEList<?>)getValues()).basicAdd(otherEnd, msgs);
+            case FeatureConfigurationPackage.SELECTION__SELECTIONS:
+                return ((InternalEList<InternalEObject>)(InternalEList<?>)getSelections()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
@@ -313,10 +313,10 @@ public class SelectionImpl extends EObjectImpl implements Selection {
         switch (featureID) {
             case FeatureConfigurationPackage.SELECTION__PARENT:
                 return basicSetParent(null, msgs);
-            case FeatureConfigurationPackage.SELECTION__SELECTIONS:
-                return ((InternalEList<?>)getSelections()).basicRemove(otherEnd, msgs);
             case FeatureConfigurationPackage.SELECTION__VALUES:
                 return ((InternalEList<?>)getValues()).basicRemove(otherEnd, msgs);
+            case FeatureConfigurationPackage.SELECTION__SELECTIONS:
+                return ((InternalEList<?>)getSelections()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -351,10 +351,10 @@ public class SelectionImpl extends EObjectImpl implements Selection {
                 return getDescription();
             case FeatureConfigurationPackage.SELECTION__PARENT:
                 return getParent();
-            case FeatureConfigurationPackage.SELECTION__SELECTIONS:
-                return getSelections();
             case FeatureConfigurationPackage.SELECTION__VALUES:
                 return getValues();
+            case FeatureConfigurationPackage.SELECTION__SELECTIONS:
+                return getSelections();
             case FeatureConfigurationPackage.SELECTION__FEATURE_CONFIGURATION:
                 if (resolve) return getFeatureConfiguration();
                 return basicGetFeatureConfiguration();
@@ -380,13 +380,13 @@ public class SelectionImpl extends EObjectImpl implements Selection {
             case FeatureConfigurationPackage.SELECTION__PARENT:
                 setParent((Selection)newValue);
                 return;
-            case FeatureConfigurationPackage.SELECTION__SELECTIONS:
-                getSelections().clear();
-                getSelections().addAll((Collection<? extends Selection>)newValue);
-                return;
             case FeatureConfigurationPackage.SELECTION__VALUES:
                 getValues().clear();
                 getValues().addAll((Collection<? extends AttributeValue>)newValue);
+                return;
+            case FeatureConfigurationPackage.SELECTION__SELECTIONS:
+                getSelections().clear();
+                getSelections().addAll((Collection<? extends Selection>)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -406,11 +406,11 @@ public class SelectionImpl extends EObjectImpl implements Selection {
             case FeatureConfigurationPackage.SELECTION__PARENT:
                 setParent((Selection)null);
                 return;
-            case FeatureConfigurationPackage.SELECTION__SELECTIONS:
-                getSelections().clear();
-                return;
             case FeatureConfigurationPackage.SELECTION__VALUES:
                 getValues().clear();
+                return;
+            case FeatureConfigurationPackage.SELECTION__SELECTIONS:
+                getSelections().clear();
                 return;
         }
         super.eUnset(featureID);
@@ -432,10 +432,10 @@ public class SelectionImpl extends EObjectImpl implements Selection {
                 return DESCRIPTION_EDEFAULT == null ? getDescription() != null : !DESCRIPTION_EDEFAULT.equals(getDescription());
             case FeatureConfigurationPackage.SELECTION__PARENT:
                 return getParent() != null;
-            case FeatureConfigurationPackage.SELECTION__SELECTIONS:
-                return selections != null && !selections.isEmpty();
             case FeatureConfigurationPackage.SELECTION__VALUES:
                 return values != null && !values.isEmpty();
+            case FeatureConfigurationPackage.SELECTION__SELECTIONS:
+                return selections != null && !selections.isEmpty();
             case FeatureConfigurationPackage.SELECTION__FEATURE_CONFIGURATION:
                 return basicGetFeatureConfiguration() != null;
             case FeatureConfigurationPackage.SELECTION__FEATURE:

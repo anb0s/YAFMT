@@ -175,22 +175,22 @@ public interface FeatureConfigurationPackage extends EPackage {
     int SELECTION__PARENT = 3;
 
     /**
-     * The feature id for the '<em><b>Selections</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int SELECTION__SELECTIONS = 4;
-
-    /**
      * The feature id for the '<em><b>Values</b></em>' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int SELECTION__VALUES = 5;
+    int SELECTION__VALUES = 4;
+
+    /**
+     * The feature id for the '<em><b>Selections</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SELECTION__SELECTIONS = 5;
 
     /**
      * The feature id for the '<em><b>Feature Configuration</b></em>' reference.

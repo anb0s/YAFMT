@@ -19,8 +19,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link cz.jpikl.yafmt.model.fc.Selection#getName <em>Name</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.Selection#getDescription <em>Description</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.Selection#getParent <em>Parent</em>}</li>
- *   <li>{@link cz.jpikl.yafmt.model.fc.Selection#getSelections <em>Selections</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.Selection#getValues <em>Values</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fc.Selection#getSelections <em>Selections</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.Selection#getFeatureConfiguration <em>Feature Configuration</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.Selection#getFeature <em>Feature</em>}</li>
  * </ul>
