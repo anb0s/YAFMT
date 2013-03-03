@@ -1,15 +1,21 @@
 package cz.jpikl.yafmt.ui.editors.fc.parts;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.draw2d.ChopboxAnchor;
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Label;
+import org.eclipse.draw2d.LineBorder;
 import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 import cz.jpikl.yafmt.model.fc.Selection;
-import cz.jpikl.yafmt.ui.editors.fc.figures.SelectionFigure;
+import cz.jpikl.yafmt.ui.editors.fc.model.Connection;
 
 public class SelectionEditPart extends AbstractGraphicalEditPart implements NodeEditPart {
 
@@ -21,7 +27,12 @@ public class SelectionEditPart extends AbstractGraphicalEditPart implements Node
 
     @Override
     protected IFigure createFigure() {
-        return new SelectionFigure(selection);
+        Label label = new Label(selection.getName());
+        label.setForegroundColor(ColorConstants.black);
+        label.setBorder(new LineBorder(ColorConstants.black));
+        label.setPreferredSize(100, 25);
+        return label;
+        //return new SelectionFigure(selection);
     }
     
     @Override
@@ -44,6 +55,25 @@ public class SelectionEditPart extends AbstractGraphicalEditPart implements Node
         return new ChopboxAnchor(getFigure());
     }
 
+    @Override
+    @SuppressWarnings("rawtypes")
+    protected List getModelSourceConnections() {
+        List<Object> connections = new ArrayList<Object>();
+        Selection parent = selection.getParent();
+        if(parent != null)
+            connections.add(new Connection(parent, selection));
+        return connections;
+    }
+    
+    @Override
+    @SuppressWarnings("rawtypes")
+    protected List getModelTargetConnections() {
+        List<Object> connections = new ArrayList<Object>();
+        for(Selection child: selection.getSelections())
+            connections.add(new Connection(selection, child));
+        return connections;
+    }
+    
     @Override
     protected void createEditPolicies() {
     }

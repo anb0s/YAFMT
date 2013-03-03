@@ -53,9 +53,9 @@ import cz.jpikl.yafmt.model.fm.FeatureModelFactory;
 import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
 import cz.jpikl.yafmt.ui.editors.fm.actions.SetConstraintLanguageAction;
 import cz.jpikl.yafmt.ui.editors.fm.commands.AddConstraintCommand;
-import cz.jpikl.yafmt.ui.editors.fm.util.DynamicContributionItem;
 import cz.jpikl.yafmt.ui.editors.fm.widgets.Splitter;
 import cz.jpikl.yafmt.ui.editors.fm.widgets.SplitterDock;
+import cz.jpikl.yafmt.ui.util.DynamicContributionItem;
 
 public class ConstraintsEditor extends SplitterDock implements ISelectionListener {
         

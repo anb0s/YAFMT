@@ -27,6 +27,7 @@ import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
 import org.eclipse.ui.model.BaseWorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 
+import cz.jpikl.yafmt.model.FeatureModelPlugin;
 import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
 import cz.jpikl.yafmt.model.fc.util.FeatureConfigurationUtil;
 import cz.jpikl.yafmt.model.fm.Feature;
@@ -98,6 +99,7 @@ public class NewFeatureConfigurationWizard extends NewFileWizard {
     
     @Override
     protected Resource getNewResource(IFile file) throws Exception {
+        FeatureModelPlugin.getPlugin(); // Resource factory and package registration.
         FeatureModel featureModel = getFeatureModel();        
         String name = featureConfigurationPropertiesPage.getFeatureConfigurationName();
         String version = featureConfigurationPropertiesPage.getFeatureConfigurationVersion();

@@ -65,13 +65,13 @@ import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutDataFactory;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutDataPackage;
 import cz.jpikl.yafmt.ui.editors.fm.parts.FeatureModelEditPartFactory;
-import cz.jpikl.yafmt.ui.editors.fm.util.SelectionConverter;
-import cz.jpikl.yafmt.ui.editors.fm.util.UnwrappingSelectionProvider;
 import cz.jpikl.yafmt.ui.editors.fm.widgets.Splitter;
 import cz.jpikl.yafmt.ui.operations.ResourceSaveOperation;
 import cz.jpikl.yafmt.ui.pages.EditorContentOutlinePage;
 import cz.jpikl.yafmt.ui.pages.EditorPropertySheetPage;
 import cz.jpikl.yafmt.ui.util.EditorAutoCloser;
+import cz.jpikl.yafmt.ui.util.SelectionConverter;
+import cz.jpikl.yafmt.ui.util.UnwrappingSelectionProvider;
 
 public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette {
 
@@ -142,7 +142,7 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette {
         viewer.addDropTargetListener(new TemplateTransferDropTargetListener(viewer));
         
         // Actions need original selection provider.
-        setActionsSelectionProvider(getGraphicalViewer());
+        setActionsSelectionProvider(viewer);
     }
     
     @Override
@@ -156,7 +156,7 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette {
     protected void initializeGraphicalViewer() {
         getGraphicalViewer().setContents(featureModel);
     }
-        
+    
     private ScalableFreeformRootEditPart getRootEditPart() {
         return (ScalableFreeformRootEditPart) getGraphicalViewer().getRootEditPart();
     }

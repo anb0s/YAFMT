@@ -1,4 +1,4 @@
-package cz.jpikl.yafmt.ui.editors.fm.util;
+package cz.jpikl.yafmt.ui.util;
 
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IAction;

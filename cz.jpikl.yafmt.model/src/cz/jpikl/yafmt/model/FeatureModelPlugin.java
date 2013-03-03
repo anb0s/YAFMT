@@ -15,6 +15,7 @@ import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
  * @generated
  */
 public final class FeatureModelPlugin extends EMFPlugin {
+        
     /**
      * Keep track of the singleton.
      * <!-- begin-user-doc -->

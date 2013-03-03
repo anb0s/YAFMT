@@ -16,6 +16,11 @@ public class VerticalTreeLayout extends TreeLayout {
     public VerticalTreeLayout(Helper helper) {
         super(helper);
     }
+    
+    @Override
+    public String getName() {
+        return "Vertical Tree";
+    }
 
     @Override
     protected void doLayout(IFigure root) {

@@ -8,10 +8,8 @@ import cz.jpikl.yafmt.ui.editors.fc.model.Connection;
 
 public class ConnectionEditPart extends AbstractConnectionEditPart {
 
-    private Connection connection;
-    
     public ConnectionEditPart(Connection connection) {
-        this.connection = connection;
+        setModel(connection);
     }
 
     @Override

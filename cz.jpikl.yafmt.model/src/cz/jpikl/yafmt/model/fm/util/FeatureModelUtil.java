@@ -27,18 +27,14 @@ public class FeatureModelUtil {
         
     private static ExtendedMetaData createExtendedMetadata() {
         ExtendedMetaData emd = new BasicExtendedMetaData();
-        emd.setName(Literals.FEATURE_MODEL, "feature-model");
+        emd.setName(Literals.FEATURE_MODEL, "featureModel");
         emd.setName(Literals.FEATURE_MODEL__CONSTRAINTS, "constraint");
-        emd.setName(Literals.FEATURE_MODEL__ORPHANS, "orphaned-feature");
-        emd.setName(Literals.FEATURE_MODEL__ROOT, "root-feature");
+        emd.setName(Literals.FEATURE_MODEL__ORPHANS, "orphanedFeature");
+        emd.setName(Literals.FEATURE_MODEL__ROOT, "rootFeature");
         emd.setName(Literals.FEATURE__ATTRIBUTES, "attribute");
         emd.setName(Literals.FEATURE__FEATURES, "feature");
         emd.setName(Literals.FEATURE__GROUPS, "group");
-        emd.setName(Literals.FEATURE__LOWER, "lower-bound");
-        emd.setName(Literals.FEATURE__UPPER, "upper-bound");
         emd.setName(Literals.GROUP__FEATURES, "feature");
-        emd.setName(Literals.GROUP__LOWER, "lower-bound");
-        emd.setName(Literals.GROUP__UPPER, "upper-bound");
         emd.setFeatureKind(Literals.FEATURE_MODEL__DESCRIPTION, ExtendedMetaData.ELEMENT_FEATURE);
         return emd;
     }

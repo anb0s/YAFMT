@@ -22,6 +22,7 @@ import cz.jpikl.yafmt.model.fm.Attribute;
 import cz.jpikl.yafmt.model.fm.AttributeType;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
+import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
 
 public class FeatureConfigurationUtil {
 
@@ -29,12 +30,9 @@ public class FeatureConfigurationUtil {
     
     private static ExtendedMetaData createExtendedMetadata() {
         ExtendedMetaData emd = new BasicExtendedMetaData();
-        emd.setName(Literals.FEATURE_CONFIGURATION, "feature-configuration");
-        emd.setName(Literals.FEATURE_CONFIGURATION__FEATURE_MODEL, "feature-model");
-        emd.setName(Literals.FEATURE_CONFIGURATION__FEATURE_MODEL_COPY, "feature-model-copy");
-        emd.setName(Literals.FEATURE_CONFIGURATION__ROOT, "root-feature");
-        emd.setName(Literals.SELECTION__SELECTIONS, "feature");
-        emd.setName(Literals.SELECTION__VALUES, "attribute");
+        emd.setName(Literals.FEATURE_CONFIGURATION__ROOT, "rootSelection");
+        emd.setName(Literals.SELECTION__SELECTIONS, "selection");
+        emd.setName(Literals.SELECTION__VALUES, "attributeValue");
         emd.setName(Literals.BOOLEAN_VALUE, "boolean");
         emd.setName(Literals.INTEGER_VALUE, "integer");
         emd.setName(Literals.DOUBLE_VALUE, "double");
@@ -60,7 +58,9 @@ public class FeatureConfigurationUtil {
                 public Resource createResource(URI uri) {
                     XMIResource resource = (XMIResource) super.createResource(uri);
                     resource.getDefaultLoadOptions().putAll(createSaveLoadOptions());
+                    resource.getDefaultLoadOptions().putAll(FeatureModelUtil.createSaveLoadOptions());
                     resource.getDefaultSaveOptions().putAll(createSaveLoadOptions());
+                    resource.getDefaultSaveOptions().putAll(FeatureModelUtil.createSaveLoadOptions());
                     return resource;
                 }
             }

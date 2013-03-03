@@ -14,7 +14,7 @@ public class FeatureConfigurationLayoutHelper implements TreeLayout.Helper {
 
     private GraphicalViewer viewer;
     
-    private FeatureConfigurationLayoutHelper(GraphicalViewer viewer) {
+    public void setGraphicalViewer(GraphicalViewer viewer) {
         this.viewer = viewer;
     }
     
@@ -26,9 +26,9 @@ public class FeatureConfigurationLayoutHelper implements TreeLayout.Helper {
         
         for(Object connectionPart: ((NodeEditPart) part).getSourceConnections()) {
             if(connectionPart instanceof ConnectionEditPart) {
-                Object sourcePart = ((ConnectionEditPart) connectionPart).getSource();
-                if(sourcePart instanceof GraphicalEditPart)
-                    return ((GraphicalEditPart) sourcePart).getFigure();
+                Object targetPart = ((ConnectionEditPart) connectionPart).getTarget();
+                if(targetPart instanceof GraphicalEditPart)
+                    return ((GraphicalEditPart) targetPart).getFigure();
             }
         }
         return null;
@@ -43,9 +43,9 @@ public class FeatureConfigurationLayoutHelper implements TreeLayout.Helper {
         List<IFigure> figures = new ArrayList<IFigure>();
         for(Object connectionPart: ((NodeEditPart) part).getTargetConnections()) {
             if(connectionPart instanceof ConnectionEditPart) {
-                Object targetPart = ((ConnectionEditPart) connectionPart).getTarget();
-                if(targetPart instanceof GraphicalEditPart)
-                    figures.add(((GraphicalEditPart) targetPart).getFigure());
+                Object sourcePart = ((ConnectionEditPart) connectionPart).getSource();
+                if(sourcePart instanceof GraphicalEditPart)
+                    figures.add(((GraphicalEditPart) sourcePart).getFigure());
             }
         }
         return figures;

@@ -21,7 +21,8 @@ public class ValidatingPropertyDescriptor extends PropertyDescriptor {
     }
     
     public CellEditor attachValidator(CellEditor cellEditor) {
-        cellEditor.setValidator(new ValidatorAdapter(cellEditor.getValidator()));
+        if(cellEditor != null)
+            cellEditor.setValidator(new ValidatorAdapter(cellEditor.getValidator()));
         return cellEditor;
     }
     

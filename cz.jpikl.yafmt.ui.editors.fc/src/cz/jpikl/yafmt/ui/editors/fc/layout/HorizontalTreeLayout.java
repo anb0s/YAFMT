@@ -16,6 +16,11 @@ public class HorizontalTreeLayout extends TreeLayout {
     public HorizontalTreeLayout(Helper helper) {
         super(helper);
     }
+    
+    @Override
+    public String getName() {
+        return "Horizontal Tree";
+    }
 
     @Override
     protected void doLayout(IFigure root) {

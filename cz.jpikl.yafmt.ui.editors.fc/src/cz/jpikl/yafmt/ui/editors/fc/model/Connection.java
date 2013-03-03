@@ -20,4 +20,22 @@ public class Connection {
         return target;
     }
     
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof Connection))
+            return false;
+        Connection con = (Connection) obj;
+        return (source == con.source) && (target == con.target);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        if(source != null)
+            hash += source.hashCode();
+        if(target != null)
+            hash += target.hashCode();
+        return hash;
+    }
+    
 }

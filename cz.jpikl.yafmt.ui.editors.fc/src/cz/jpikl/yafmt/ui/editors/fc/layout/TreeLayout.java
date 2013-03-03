@@ -13,6 +13,10 @@ public abstract class TreeLayout extends AbstractLayout {
     public TreeLayout(Helper helper) {
         this.helper = helper;
     }
+    
+    public abstract String getName();
+    
+    protected abstract void doLayout(IFigure treeRootFigure);
 
     @Override
     public void layout(IFigure container) {
@@ -28,8 +32,6 @@ public abstract class TreeLayout extends AbstractLayout {
         
         doLayout(treeRootFigure);
     }
-    
-    protected abstract void doLayout(IFigure treeRootFigure);
     
     @Override
     protected Dimension calculatePreferredSize(IFigure container, int wHint, int hHint) {
