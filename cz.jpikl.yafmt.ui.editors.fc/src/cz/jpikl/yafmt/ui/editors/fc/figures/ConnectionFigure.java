@@ -8,10 +8,10 @@ public class ConnectionFigure extends PolylineConnection {
 
     public ConnectionFigure() {
         setForegroundColor(ColorConstants.black);
-        setTargetDecoration(createTargetDecoration());
+        setSourceDecoration(createSourceDecoration());
     }
     
-    private PolygonDecoration createTargetDecoration() {
+    private PolygonDecoration createSourceDecoration() {
         PolygonDecoration decoration = new PolygonDecoration();
         decoration.setTemplate(PolygonDecoration.TRIANGLE_TIP);
         return decoration;
