@@ -8,6 +8,9 @@ import org.eclipse.draw2d.FreeformLayout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Viewport;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.jface.action.IMenuListener;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -29,6 +32,7 @@ public class DecoratableGraphViewer extends GraphViewer {
     public DecoratableGraphViewer(Composite composite, int style) {
         super(composite, style);
         createDecorationLayers();
+        createContextMenu();
     }
 
     private void createDecorationLayers() {
@@ -40,6 +44,17 @@ public class DecoratableGraphViewer extends GraphViewer {
         FreeformLayer layer = new FreeformLayer();
         layer.setLayoutManager(new FreeformLayout());
         return layer;
+    }
+    
+    private void createContextMenu() {
+        MenuManager manager = new MenuManager();
+        manager.addMenuListener(new IMenuListener() {
+            @Override
+            public void menuAboutToShow(IMenuManager manager) {
+                
+            }
+        });
+        manager.createContextMenu(graph);
     }
     
     @Override

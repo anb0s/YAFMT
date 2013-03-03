@@ -8,8 +8,8 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.ui.actions.ActionFactory;
 
+import cz.jpikl.yafmt.ui.actions.ExportGraphicalEditorAsImageAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.AutoLayoutAction;
-import cz.jpikl.yafmt.ui.editors.fm.actions.ExportAsImageAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.GroupFeaturesAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.SetFeatureCardinalityAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.UngroupFeaturesAction;
@@ -42,7 +42,7 @@ public class FeatureModelEditorContextMenuProvider extends ContextMenuProvider {
         addAction(menu, GEFActionConstants.GROUP_REST, GroupFeaturesAction.ID_OR);
         addAction(menu, GEFActionConstants.GROUP_REST, UngroupFeaturesAction.ID);
         addAction(menu, GEFActionConstants.GROUP_SAVE, AutoLayoutAction.ID);
-        addAction(menu, GEFActionConstants.GROUP_SAVE, ExportAsImageAction.ID);
+        addAction(menu, GEFActionConstants.GROUP_SAVE, ExportGraphicalEditorAsImageAction.ID);
     }
     
 }

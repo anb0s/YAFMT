@@ -35,6 +35,7 @@ import org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorInput;
@@ -52,9 +53,9 @@ import org.eclipse.ui.views.properties.PropertySheet;
 
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.provider.util.FeatureModelProviderUtil;
+import cz.jpikl.yafmt.ui.actions.ExportGraphicalEditorAsImageAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.AutoLayoutAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.DeleteAction;
-import cz.jpikl.yafmt.ui.editors.fm.actions.ExportAsImageAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.GroupFeaturesAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.SelectAllAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.SetFeatureCardinalityAction;
@@ -140,7 +141,8 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette {
         viewer.setContextMenu(new FeatureModelEditorContextMenuProvider(viewer, getActionRegistry()));
         viewer.addDropTargetListener(new TemplateTransferDropTargetListener(viewer));
         
-        createActionsLate();
+        // Actions need original selection provider.
+        setActionsSelectionProvider(getGraphicalViewer());
     }
     
     @Override
@@ -180,21 +182,23 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette {
         createAction(new GroupFeaturesAction(this, true));
         createAction(new GroupFeaturesAction(this, false));
         createAction(new UngroupFeaturesAction(this));
+        createAction(new AutoLayoutAction(this));
+        createAction(new ExportGraphicalEditorAsImageAction(this) {
+            @Override
+            protected String getDefaultName() {
+                return featureModel.getName().trim();
+            }
+        });
     }
     
-    protected void createActionsLate() {
-        // These actions need initialized graphical viewer.
-        createAction(new AutoLayoutAction(this, getGraphicalViewer()));
-        createAction(new ExportAsImageAction(this, getGraphicalViewer()));
-        
-        // Actions need original selection provider.
+    private void setActionsSelectionProvider(ISelectionProvider selectionProvider) {
         for(Iterator<?> it = getActionRegistry().getActions(); it.hasNext(); ) {
             IAction action = (IAction) it.next();
             if(action instanceof SelectionAction)
-                ((SelectionAction) action).setSelectionProvider(getGraphicalViewer());
+                ((SelectionAction) action).setSelectionProvider(selectionProvider);
         }
     }
-    
+
     // ==================================================================================
     //  Palette initialization
     // ==================================================================================
