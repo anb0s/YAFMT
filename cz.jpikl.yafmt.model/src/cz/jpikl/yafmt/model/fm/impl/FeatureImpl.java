@@ -348,22 +348,13 @@ public class FeatureImpl extends EObjectImpl implements Feature {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated NOT
+     * @generated
      */
     public void setUpper(int newUpper) {
-        // Check group OR state.
-        Group group = getParentGroup();
-        if((group == null) || !group.isOr())
-            group = null;
-        
         int oldUpper = upper;
         upper = newUpper;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, FeatureModelPackage.FEATURE__UPPER, oldUpper, upper));
-        
-        // Restore group OR state.
-        if(group != null)
-            group.setOr(true);
     }
 
     /**
