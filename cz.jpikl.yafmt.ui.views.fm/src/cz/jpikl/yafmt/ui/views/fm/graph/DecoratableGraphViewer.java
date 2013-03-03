@@ -8,6 +8,7 @@ import org.eclipse.draw2d.FreeformLayout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Viewport;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
@@ -19,6 +20,7 @@ import org.eclipse.zest.core.viewers.GraphViewer;
 import org.eclipse.zest.core.widgets.GraphItem;
 import org.eclipse.zest.core.widgets.GraphNode;
 
+import cz.jpikl.yafmt.ui.views.fm.actions.ExportGraphViewerAsImageAction;
 import cz.jpikl.yafmt.ui.views.fm.figures.NodeFigure;
 
 public class DecoratableGraphViewer extends GraphViewer {
@@ -28,6 +30,7 @@ public class DecoratableGraphViewer extends GraphViewer {
     public static final int FRONT_DECORATION_LAYER_INDEX = 2;
         
     private List<NodeFigure> highlightedFigures = new ArrayList<NodeFigure>();
+    private IAction exportAsImageAction = new ExportGraphViewerAsImageAction(this);
     
     public DecoratableGraphViewer(Composite composite, int style) {
         super(composite, style);
@@ -48,13 +51,14 @@ public class DecoratableGraphViewer extends GraphViewer {
     
     private void createContextMenu() {
         MenuManager manager = new MenuManager();
+        manager.setRemoveAllWhenShown(true);
         manager.addMenuListener(new IMenuListener() {
             @Override
             public void menuAboutToShow(IMenuManager manager) {
-                
+                manager.add(exportAsImageAction);
             }
         });
-        manager.createContextMenu(graph);
+        graph.setMenu(manager.createContextMenu(graph));
     }
     
     @Override
