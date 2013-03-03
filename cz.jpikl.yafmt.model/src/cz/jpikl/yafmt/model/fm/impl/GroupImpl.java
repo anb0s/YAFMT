@@ -215,6 +215,7 @@ public class GroupImpl extends EObjectImpl implements Group {
     }
     
     private int computeOrUpper() {
+        /*
         int upperSum = 0;
         for(Feature feature: getFeatures()) {
             int featureUpper = feature.getUpper();
@@ -223,6 +224,8 @@ public class GroupImpl extends EObjectImpl implements Group {
             upperSum += featureUpper;
         }
         return Math.max(1, upperSum);
+        */
+        return -1;
     }
 
     /**
