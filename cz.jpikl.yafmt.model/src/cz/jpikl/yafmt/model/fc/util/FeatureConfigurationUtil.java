@@ -82,6 +82,7 @@ public class FeatureConfigurationUtil {
         FeatureConfiguration featureConfig = FeatureConfigurationFactory.eINSTANCE.createFeatureConfiguration();
         featureConfig.setFeatureModel(featureModel);
         featureConfig.setFeatureModelCopy(EcoreUtil.copy(featureModel));
+        featureConfig.setName(name);
         featureConfig.setRoot(createSelection(featureModel.getRoot()));
         
         return featureConfig;

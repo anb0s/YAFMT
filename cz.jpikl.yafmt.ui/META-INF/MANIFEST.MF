@@ -20,5 +20,6 @@ Export-Package: cz.jpikl.yafmt.ui,
  cz.jpikl.yafmt.ui.commands,
  cz.jpikl.yafmt.ui.operations,
  cz.jpikl.yafmt.ui.pages,
+ cz.jpikl.yafmt.ui.provider,
  cz.jpikl.yafmt.ui.util,
  cz.jpikl.yafmt.ui.wizards

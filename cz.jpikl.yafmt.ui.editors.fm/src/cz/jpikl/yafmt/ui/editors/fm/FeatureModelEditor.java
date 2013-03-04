@@ -138,7 +138,7 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette {
         viewer.setEditPartFactory(new FeatureModelEditPartFactory(layoutData));
         viewer.setRootEditPart(new ScalableFreeformRootEditPart());
         viewer.addDropTargetListener(new TemplateTransferDropTargetListener(viewer));
-        viewer.setContextMenu(new FeatureModelEditorContextMenuProvider(viewer, getActionRegistry()));
+        viewer.setContextMenu(new FeatureModelEditorContextMenuProvider(this));
         viewer.addDropTargetListener(new TemplateTransferDropTargetListener(viewer));
         
         // Actions need original selection provider.
@@ -186,7 +186,7 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette {
         createAction(new ExportGraphicalEditorAsImageAction(this) {
             @Override
             protected String getDefaultName() {
-                return featureModel.getName().trim();
+                return featureModel.getName();
             }
         });
     }

@@ -1,10 +1,7 @@
 package cz.jpikl.yafmt.ui.editors.fm;
 
-import org.eclipse.gef.ContextMenuProvider;
-import org.eclipse.gef.EditPartViewer;
-import org.eclipse.gef.ui.actions.ActionRegistry;
 import org.eclipse.gef.ui.actions.GEFActionConstants;
-import org.eclipse.jface.action.IAction;
+import org.eclipse.gef.ui.parts.GraphicalEditor;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.ui.actions.ActionFactory;
 
@@ -13,36 +10,28 @@ import cz.jpikl.yafmt.ui.editors.fm.actions.AutoLayoutAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.GroupFeaturesAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.SetFeatureCardinalityAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.UngroupFeaturesAction;
+import cz.jpikl.yafmt.ui.provider.GraphicalEditorContextMenuProvider;
 
-public class FeatureModelEditorContextMenuProvider extends ContextMenuProvider {
+public class FeatureModelEditorContextMenuProvider extends GraphicalEditorContextMenuProvider {
 
-    private ActionRegistry registry;
-    
-    public FeatureModelEditorContextMenuProvider(EditPartViewer viewer, ActionRegistry registry) {
-        super(viewer);
-        this.registry = registry;
-    } 
-    
-    private void addAction(IMenuManager menu, String groupId, String actionId) {
-        IAction action = registry.getAction(actionId);
-        if(action.isEnabled())
-            menu.appendToGroup(groupId, action);
+    public FeatureModelEditorContextMenuProvider(GraphicalEditor editor) {
+        super(editor);
     }
-    
+
     @Override
     public void buildContextMenu(IMenuManager menu) {
-        GEFActionConstants.addStandardActionGroups(menu);
+        super.buildContextMenu(menu);
         
-        addAction(menu, GEFActionConstants.GROUP_UNDO, ActionFactory.UNDO.getId());
-        addAction(menu, GEFActionConstants.GROUP_UNDO, ActionFactory.REDO.getId());
-        addAction(menu, GEFActionConstants.GROUP_EDIT, ActionFactory.DELETE.getId());
-        addAction(menu, GEFActionConstants.GROUP_REST, SetFeatureCardinalityAction.ID_OPTIONAL);
-        addAction(menu, GEFActionConstants.GROUP_REST, SetFeatureCardinalityAction.ID_MANDATORY);
-        addAction(menu, GEFActionConstants.GROUP_REST, GroupFeaturesAction.ID_XOR);
-        addAction(menu, GEFActionConstants.GROUP_REST, GroupFeaturesAction.ID_OR);
-        addAction(menu, GEFActionConstants.GROUP_REST, UngroupFeaturesAction.ID);
-        addAction(menu, GEFActionConstants.GROUP_SAVE, AutoLayoutAction.ID);
-        addAction(menu, GEFActionConstants.GROUP_SAVE, ExportGraphicalEditorAsImageAction.ID);
+        addActionToMenu(menu, GEFActionConstants.GROUP_UNDO, ActionFactory.UNDO.getId());
+        addActionToMenu(menu, GEFActionConstants.GROUP_UNDO, ActionFactory.REDO.getId());
+        addActionToMenu(menu, GEFActionConstants.GROUP_EDIT, ActionFactory.DELETE.getId());
+        addActionToMenu(menu, GEFActionConstants.GROUP_REST, SetFeatureCardinalityAction.ID_OPTIONAL);
+        addActionToMenu(menu, GEFActionConstants.GROUP_REST, SetFeatureCardinalityAction.ID_MANDATORY);
+        addActionToMenu(menu, GEFActionConstants.GROUP_REST, GroupFeaturesAction.ID_XOR);
+        addActionToMenu(menu, GEFActionConstants.GROUP_REST, GroupFeaturesAction.ID_OR);
+        addActionToMenu(menu, GEFActionConstants.GROUP_REST, UngroupFeaturesAction.ID);
+        addActionToMenu(menu, GEFActionConstants.GROUP_SAVE, AutoLayoutAction.ID);
+        addActionToMenu(menu, GEFActionConstants.GROUP_SAVE, ExportGraphicalEditorAsImageAction.ID);
     }
     
 }

@@ -112,7 +112,7 @@ public class FeatureConfigurationEditor extends GraphicalEditor {
     
     private void createSettingsPanel(Composite parent) {
         Composite panel = new Composite(parent, SWT.NONE);
-        panel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+        panel.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, true, false));
         panel.setLayout(new GridLayout(2, false));
         
         Label label = new Label(panel, SWT.NONE);
@@ -141,6 +141,7 @@ public class FeatureConfigurationEditor extends GraphicalEditor {
         GraphicalViewer viewer = getGraphicalViewer();
         viewer.setEditPartFactory(new FeatureConfigurationEditPartFactory());
         viewer.setRootEditPart(new ScalableFreeformRootEditPart());
+        viewer.setContextMenu(new FeatureConfigurationEditorContextMenuProvider(this));
         
         setActionsSelectionProvider(viewer); // Actions need original selection provider.
         layoutHelper.setGraphicalViewer(viewer);
@@ -175,7 +176,7 @@ public class FeatureConfigurationEditor extends GraphicalEditor {
         createAction(new ExportGraphicalEditorAsImageAction(this) {
             @Override
             protected String getDefaultName() {
-                return featureConfig.getName().trim();
+                return featureConfig.getName();
             }
         });
     }
