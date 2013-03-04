@@ -1,6 +1,7 @@
 package cz.jpikl.yafmt.ui.editors.fc;
 
 import java.io.IOException;
+import java.util.EventObject;
 import java.util.Iterator;
 
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -19,6 +20,7 @@ import org.eclipse.gef.ui.actions.SelectionAction;
 import org.eclipse.gef.ui.parts.GraphicalEditor;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.ErrorDialog;
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -31,6 +33,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IFileEditorInput;
+import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.dialogs.SaveAsDialog;
@@ -187,6 +190,21 @@ public class FeatureConfigurationEditor extends GraphicalEditor {
             if(action instanceof SelectionAction)
                 ((SelectionAction) action).setSelectionProvider(selectionProvider);
         }
+    }
+    
+    // ==================================================================================
+    //  Event handling
+    // ==================================================================================
+    
+    @Override
+    public void commandStackChanged(EventObject event) {
+        super.commandStackChanged(event);
+        firePropertyChange(PROP_DIRTY);
+        updateActions(getSelectionActions());
+    }
+    
+    public void selectionChanged(IWorkbenchPart part, ISelection selection) {
+        super.selectionChanged(part, selection); // Update all selection actions.
     }
     
     // ==================================================================================

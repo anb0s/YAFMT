@@ -242,7 +242,7 @@ public class FeatureModelEditor extends GraphicalEditorWithFlyoutPalette {
     
     @Override
     public void selectionChanged(IWorkbenchPart part, ISelection selection) {
-        super.selectionChanged(part, selection); // Updates all selection actions.
+        super.selectionChanged(part, selection); // Update all selection actions.
         
         // Ignore invalid selections.
         IEditorPart activeEditor = getSite().getPage().getActiveEditor();

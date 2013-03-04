@@ -20,7 +20,10 @@ public class SelectionConverter {
         
         // Result list MUST contain only edit parts!!!
         for(int i = 0; i < elements.length; i++) {
-            Object editPart = editPartRegistry.get(elements[i]);
+            Object element = elements[i];
+            if(element instanceof EditPart)
+                wrappedElements.add(element);
+            Object editPart = editPartRegistry.get(element);
             if(editPart != null)
                 wrappedElements.add(editPart);
         }
