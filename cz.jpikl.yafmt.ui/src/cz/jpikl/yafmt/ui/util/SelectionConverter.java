@@ -15,37 +15,34 @@ public class SelectionConverter {
         if(!(selection instanceof IStructuredSelection))
             return selection;
         
-        IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-        List<Object> wrappedValues = new ArrayList<Object>();
+        Object[] elements = ((IStructuredSelection) selection).toArray();
+        List<Object> wrappedElements = new ArrayList<Object>(elements.length);
         
-        for(Object value: structuredSelection.toArray()) {
-            Object wrappedValue = editPartRegistry.get(value);
-            if(wrappedValue != null)
-                wrappedValues.add(wrappedValue);
+        // Result list MUST contain only edit parts!!!
+        for(int i = 0; i < elements.length; i++) {
+            Object editPart = editPartRegistry.get(elements[i]);
+            if(editPart != null)
+                wrappedElements.add(editPart);
         }
         
-        return new StructuredSelection(wrappedValues);
+        return new StructuredSelection(wrappedElements);
     }
     
     public static ISelection unwrapSelection(ISelection selection) {
         if(!(selection instanceof IStructuredSelection))
             return selection;
         
-        IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-        if(!(structuredSelection.getFirstElement() instanceof EditPart))
-            return selection;
-        
-        Object[] values = structuredSelection.toArray();
-        Object[] unwrappedValues = new Object[values.length];
-        
-        for(int i = 0; i < values.length; i++) {
-            if(values[i] instanceof EditPart)
-                unwrappedValues[i] = ((EditPart) values[i]).getModel();
-            else
-                unwrappedValues[i] = values[i];
+        Object[] elements = ((IStructuredSelection) selection).toArray();
+        for(int i = 0; i < elements.length; i++) {
+            Object element = elements[i];
+            if(element instanceof EditPart) {
+                Object model = ((EditPart) element).getModel();
+                if(model != null)
+                    elements[i] = model;
+            }
         }
             
-        return new StructuredSelection(unwrappedValues);
+        return new StructuredSelection(elements);
     }
     
 }

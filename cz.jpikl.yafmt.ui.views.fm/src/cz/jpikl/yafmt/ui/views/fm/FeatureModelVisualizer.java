@@ -24,6 +24,10 @@ import org.eclipse.ui.views.properties.PropertySheet;
 import org.eclipse.zest.core.widgets.ZestStyles;
 
 import cz.jpikl.yafmt.clang.util.ConstraintCache;
+import cz.jpikl.yafmt.model.fc.AttributeValue;
+import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
+import cz.jpikl.yafmt.model.fc.Selection;
+import cz.jpikl.yafmt.model.fm.Attribute;
 import cz.jpikl.yafmt.model.fm.Constraint;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
@@ -229,21 +233,50 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         }
     }
     
-    private boolean isValidSelection(ISelection selection) {
+    private ISelection unwrapSelection(ISelection selection) {
+        if(!(selection instanceof IStructuredSelection))
+            return null;
         if(selection.isEmpty())
-            return true;        
-        Object firstElement = ((IStructuredSelection) selection).getFirstElement();
-        return (firstElement instanceof FeatureModel) ||
-               (firstElement instanceof Feature) || 
-               (firstElement instanceof Group) || 
-               (firstElement instanceof Constraint);
+            return selection;
+        
+        Object[] elements = ((IStructuredSelection) selection).toArray();
+        if(!isValidSelectionElement(elements[0]))
+            return null;
+        
+        // Replace selections by features if possible.
+        for(int i = 0; i < elements.length; i++) {
+            Object element = elements[i];
+            if(element instanceof Selection) {
+                Feature feature = ((Selection) element).getFeature();
+                // Selection elements can't be null.
+                if(feature != null)
+                    elements[i] = feature;
+            }
+        }
+        
+        return new StructuredSelection(elements);
+    }
+    
+    private boolean isValidSelectionElement(Object element) {
+        return (element instanceof FeatureModel) ||
+               (element instanceof Feature) || 
+               (element instanceof Group) || 
+               (element instanceof Constraint) ||
+               (element instanceof Attribute) ||
+               (element instanceof FeatureConfiguration) ||
+               (element instanceof Selection) ||
+               (element instanceof AttributeValue);
     }
     
     @Override
     public void selectionChanged(IWorkbenchPart part, ISelection selection) {
         // Ignore invalid selections.
         IWorkbenchPart activePart = getSite().getPage().getActivePart();
-        if((part != activePart) || (part == this) || (part instanceof PropertySheet) || !isValidSelection(selection))
+        if((part != activePart) || (part == this) || (part instanceof PropertySheet))
+            return;
+        
+        selection = unwrapSelection(selection);
+        if(selection == null)
             return;
         
         setSourcePart(part);
