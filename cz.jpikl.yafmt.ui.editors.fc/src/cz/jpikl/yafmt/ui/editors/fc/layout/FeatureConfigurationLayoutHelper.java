@@ -3,10 +3,14 @@ package cz.jpikl.yafmt.ui.editors.fc.layout;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.LayeredPane;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
+import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.NodeEditPart;
+import org.eclipse.gef.editparts.LayerManager;
 
 import cz.jpikl.yafmt.ui.editors.fc.parts.ConnectionEditPart;
 
@@ -49,6 +53,21 @@ public class FeatureConfigurationLayoutHelper implements TreeLayout.Helper {
             }
         }
         return figures;
+    }
+
+    @Override
+    public List<Connection> getConnectionFigures() {
+        LayerManager layerManager = (LayerManager) viewer.getEditPartRegistry().get(LayerManager.ID);
+        LayeredPane printableLayers = (LayeredPane) layerManager.getLayer(LayerConstants.PRINTABLE_LAYERS);
+        IFigure connectionLayer = printableLayers.getLayer(LayerConstants.CONNECTION_LAYER);
+        
+        List<?> children = connectionLayer.getChildren();
+        List<Connection> connections = new ArrayList<Connection>(children.size());
+        for(Object child: children) {
+            if(child instanceof Connection)
+                connections.add((Connection) child);
+        }
+        return connections;
     }
 
 }

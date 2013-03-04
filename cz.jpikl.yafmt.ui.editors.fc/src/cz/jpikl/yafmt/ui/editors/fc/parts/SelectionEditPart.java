@@ -3,7 +3,6 @@ package cz.jpikl.yafmt.ui.editors.fc.parts;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.IFigure;
@@ -15,6 +14,7 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 import cz.jpikl.yafmt.model.fc.Selection;
+import cz.jpikl.yafmt.ui.editors.fc.figures.MiddleSideAnchor;
 import cz.jpikl.yafmt.ui.editors.fc.model.Connection;
 
 public class SelectionEditPart extends AbstractGraphicalEditPart implements NodeEditPart {
@@ -37,22 +37,22 @@ public class SelectionEditPart extends AbstractGraphicalEditPart implements Node
     
     @Override
     public ConnectionAnchor getSourceConnectionAnchor(ConnectionEditPart connection) {
-        return new ChopboxAnchor(getFigure());
+        return new MiddleSideAnchor(getFigure());
     }
 
     @Override
     public ConnectionAnchor getTargetConnectionAnchor(ConnectionEditPart connection) {
-        return new ChopboxAnchor(getFigure());
+        return new MiddleSideAnchor(getFigure());
     }
 
     @Override
     public ConnectionAnchor getSourceConnectionAnchor(Request request) {
-        return new ChopboxAnchor(getFigure());
+        return new MiddleSideAnchor(getFigure());
     }
 
     @Override
     public ConnectionAnchor getTargetConnectionAnchor(Request request) {
-        return new ChopboxAnchor(getFigure());
+        return new MiddleSideAnchor(getFigure());
     }
 
     @Override

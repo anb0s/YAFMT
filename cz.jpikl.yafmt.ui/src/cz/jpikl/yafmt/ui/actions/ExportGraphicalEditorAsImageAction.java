@@ -33,8 +33,8 @@ public class ExportGraphicalEditorAsImageAction extends ExportAsImageAction {
         GraphicalViewer viewer = getGraphicalViewer();
         if(viewer == null)
             return null;
-        LayerManager rootEditPart = (LayerManager) viewer.getEditPartRegistry().get(LayerManager.ID);
-        return rootEditPart.getLayer(LayerConstants.PRINTABLE_LAYERS);
+        LayerManager layerManager = (LayerManager) viewer.getEditPartRegistry().get(LayerManager.ID);
+        return layerManager.getLayer(LayerConstants.PRINTABLE_LAYERS);
     }
 
 }

@@ -3,6 +3,7 @@ package cz.jpikl.yafmt.ui.editors.fc.layout;
 import java.util.List;
 
 import org.eclipse.draw2d.AbstractLayout;
+import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 
@@ -43,6 +44,8 @@ public abstract class TreeLayout extends AbstractLayout {
         IFigure getTreeParentFigure(IFigure figure);
         
         List<IFigure> getTreeChildrenFigures(IFigure figure);
+        
+        List<Connection> getConnectionFigures();
         
     }
 

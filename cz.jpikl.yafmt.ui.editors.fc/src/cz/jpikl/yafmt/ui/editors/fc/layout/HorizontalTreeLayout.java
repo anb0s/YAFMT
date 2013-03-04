@@ -3,10 +3,14 @@ package cz.jpikl.yafmt.ui.editors.fc.layout;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.SWT;
+
+import cz.jpikl.yafmt.ui.editors.fc.figures.MiddleSideAnchor;
 
 public class HorizontalTreeLayout extends TreeLayout {
 
@@ -27,6 +31,7 @@ public class HorizontalTreeLayout extends TreeLayout {
         Map<IFigure, Integer> subTreeHeight = new HashMap<IFigure, Integer>();
         calculateSubTreeHeight(subTreeHeight, root);
         layoutTree(subTreeHeight, root, VERTICAL_SPACE, VERTICAL_SPACE);
+        setupConnectionAnchors();
     }
     
     private int calculateSubTreeHeight(Map<IFigure, Integer> subTreeHeight, IFigure figure) {
@@ -48,6 +53,13 @@ public class HorizontalTreeLayout extends TreeLayout {
         for(IFigure child: helper.getTreeChildrenFigures(figure)) {
             layoutTree(subTreeHeight, child, xOffset, yOffset);
             yOffset += subTreeHeight.get(child);
+        }
+    }
+    
+    private void setupConnectionAnchors() {
+        for(Connection connection: helper.getConnectionFigures()) {
+            ((MiddleSideAnchor) connection.getSourceAnchor()).setStyle(SWT.LEFT);
+            ((MiddleSideAnchor) connection.getTargetAnchor()).setStyle(SWT.RIGHT);
         }
     }
 
