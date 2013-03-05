@@ -31,8 +31,8 @@ import org.eclipse.ui.views.properties.IPropertySourceProvider;
 
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.provider.util.FeatureModelProviderUtil;
-import cz.jpikl.yafmt.ui.ModelEditor;
 import cz.jpikl.yafmt.ui.actions.ExportGraphicalEditorAsImageAction;
+import cz.jpikl.yafmt.ui.editors.ModelEditor;
 import cz.jpikl.yafmt.ui.editors.fm.actions.AutoLayoutAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.DeleteAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.GroupFeaturesAction;

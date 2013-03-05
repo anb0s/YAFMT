@@ -10,7 +10,7 @@ import cz.jpikl.yafmt.ui.editors.fm.actions.AutoLayoutAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.GroupFeaturesAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.SetFeatureCardinalityAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.UngroupFeaturesAction;
-import cz.jpikl.yafmt.ui.provider.GraphicalEditorContextMenuProvider;
+import cz.jpikl.yafmt.ui.providers.GraphicalEditorContextMenuProvider;
 
 public class FeatureModelEditorContextMenuProvider extends GraphicalEditorContextMenuProvider {
 

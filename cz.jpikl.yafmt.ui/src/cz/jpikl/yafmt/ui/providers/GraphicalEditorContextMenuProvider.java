@@ -1,4 +1,4 @@
-package cz.jpikl.yafmt.ui.provider;
+package cz.jpikl.yafmt.ui.providers;
 
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.GraphicalViewer;

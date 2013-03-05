@@ -6,7 +6,7 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.ui.actions.ActionFactory;
 
 import cz.jpikl.yafmt.ui.actions.ExportGraphicalEditorAsImageAction;
-import cz.jpikl.yafmt.ui.provider.GraphicalEditorContextMenuProvider;
+import cz.jpikl.yafmt.ui.providers.GraphicalEditorContextMenuProvider;
 
 public class FeatureConfigurationEditorContextMenuProvider extends GraphicalEditorContextMenuProvider {
 

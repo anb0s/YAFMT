@@ -1,4 +1,4 @@
-package cz.jpikl.yafmt.ui;
+package cz.jpikl.yafmt.ui.editors;
 
 import java.util.EventObject;
 import java.util.Iterator;
@@ -38,6 +38,7 @@ import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.IPropertySourceProvider;
 import org.eclipse.ui.views.properties.PropertySheet;
 
+import cz.jpikl.yafmt.ui.CommonUIPlugin;
 import cz.jpikl.yafmt.ui.pages.EditorContentOutlinePage;
 import cz.jpikl.yafmt.ui.pages.EditorPropertySheetPage;
 import cz.jpikl.yafmt.ui.util.EditorAutoCloser;
