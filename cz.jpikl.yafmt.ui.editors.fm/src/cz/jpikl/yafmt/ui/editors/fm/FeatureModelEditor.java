@@ -44,8 +44,8 @@ import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutDataFactory;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutDataPackage;
 import cz.jpikl.yafmt.ui.editors.fm.parts.FeatureModelEditPartFactory;
-import cz.jpikl.yafmt.ui.editors.fm.widgets.Splitter;
 import cz.jpikl.yafmt.ui.operations.ResourceSaveOperation;
+import cz.jpikl.yafmt.ui.widgets.Splitter;
 
 public class FeatureModelEditor extends ModelEditor {
 

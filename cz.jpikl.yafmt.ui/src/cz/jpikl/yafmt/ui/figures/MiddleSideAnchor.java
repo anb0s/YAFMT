@@ -1,4 +1,4 @@
-package cz.jpikl.yafmt.ui.editors.fc.figures;
+package cz.jpikl.yafmt.ui.figures;
 
 import org.eclipse.draw2d.AbstractConnectionAnchor;
 import org.eclipse.draw2d.IFigure;

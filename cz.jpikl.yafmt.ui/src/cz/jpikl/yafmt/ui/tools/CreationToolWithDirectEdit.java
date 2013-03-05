@@ -1,4 +1,4 @@
-package cz.jpikl.yafmt.ui.editors.fm.tools;
+package cz.jpikl.yafmt.ui.tools;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;

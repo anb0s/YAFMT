@@ -17,6 +17,7 @@ import org.eclipse.swt.widgets.Display;
 
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.ui.editors.fm.FeatureModelEditorPlugin;
+import cz.jpikl.yafmt.ui.figures.SeparatorFigure;
 import cz.jpikl.yafmt.ui.util.DrawConstantans;
 
 public class FeatureFigure extends RoundedRectangle {

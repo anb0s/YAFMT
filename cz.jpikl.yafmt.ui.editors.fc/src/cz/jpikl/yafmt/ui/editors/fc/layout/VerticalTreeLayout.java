@@ -10,7 +10,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 
-import cz.jpikl.yafmt.ui.editors.fc.figures.MiddleSideAnchor;
+import cz.jpikl.yafmt.ui.figures.MiddleSideAnchor;
 
 public class VerticalTreeLayout extends TreeLayout {
 

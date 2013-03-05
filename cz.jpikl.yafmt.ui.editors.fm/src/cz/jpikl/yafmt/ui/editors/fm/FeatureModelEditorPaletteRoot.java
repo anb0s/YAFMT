@@ -15,7 +15,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import cz.jpikl.yafmt.model.fm.Attribute;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModelFactory;
-import cz.jpikl.yafmt.ui.editors.fm.tools.CreationToolWithDirectEdit;
+import cz.jpikl.yafmt.ui.tools.CreationToolWithDirectEdit;
 
 public class FeatureModelEditorPaletteRoot extends PaletteRoot {
 

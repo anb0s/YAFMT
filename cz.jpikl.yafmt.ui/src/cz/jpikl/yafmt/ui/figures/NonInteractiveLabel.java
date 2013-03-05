@@ -1,4 +1,4 @@
-package cz.jpikl.yafmt.ui.editors.fm.figures;
+package cz.jpikl.yafmt.ui.figures;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;

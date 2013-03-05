@@ -1,4 +1,4 @@
-package cz.jpikl.yafmt.ui.editors.fm.widgets;
+package cz.jpikl.yafmt.ui.widgets;
 
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
@@ -17,7 +17,7 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 
-import cz.jpikl.yafmt.ui.editors.fm.FeatureModelEditorPlugin;
+import cz.jpikl.yafmt.ui.CommonUIPlugin;
 
 public abstract class SplitterDock extends Composite {
 
@@ -96,7 +96,7 @@ public abstract class SplitterDock extends Composite {
         Composite header = new Composite(parent, SWT.NONE);
         header.setLayoutData(gridData);
         header.setLayout(createGridLayout(3));
-        header.setBackgroundImage(FeatureModelEditorPlugin.getDefault().getImageRegistry().get("dock-header"));
+        header.setBackgroundImage(CommonUIPlugin.getDefault().getImageRegistry().get("dock-header"));
         return header;
     }
     
@@ -152,14 +152,14 @@ public abstract class SplitterDock extends Composite {
     
     private void refresh() {
         if(opened) {
-            collapseButton.setImage(FeatureModelEditorPlugin.getDefault().getImageRegistry().get("right"));
+            collapseButton.setImage(CommonUIPlugin.getDefault().getImageRegistry().get("right"));
             collapseButton.setToolTipText(collapseToolTipText);
             splitter.setFixedSize(size);
             
         }
         else {
             size = splitter.getFixedSize();
-            collapseButton.setImage(FeatureModelEditorPlugin.getDefault().getImageRegistry().get("left"));
+            collapseButton.setImage(CommonUIPlugin.getDefault().getImageRegistry().get("left"));
             collapseButton.setToolTipText(openToolTipText);
             splitter.setFixedSize(COLLAPSED_WIDTH);
         }

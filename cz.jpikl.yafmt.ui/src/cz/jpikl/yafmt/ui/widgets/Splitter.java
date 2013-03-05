@@ -1,4 +1,4 @@
-package cz.jpikl.yafmt.ui.editors.fm.widgets;
+package cz.jpikl.yafmt.ui.widgets;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

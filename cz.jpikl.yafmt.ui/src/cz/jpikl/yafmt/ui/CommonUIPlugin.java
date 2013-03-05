@@ -1,5 +1,7 @@
 package cz.jpikl.yafmt.ui;
 
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -49,6 +51,28 @@ public class CommonUIPlugin extends AbstractUIPlugin {
 	 */
 	public static CommonUIPlugin getDefault() {
 		return plugin;
+	}
+	
+	/**
+     * Returns an image descriptor for the image file at the given
+     * plug-in relative path
+     *
+     * @param path the path
+     * @return the image descriptor
+     */
+    public static ImageDescriptor getImageDescriptor(String path) {
+        return imageDescriptorFromPlugin(PLUGIN_ID, path);
+    }
+	
+	private void registerImage(ImageRegistry registry, String key) {
+        registry.put(key, getImageDescriptor("icons/" + key + ".png").createImage());
+    }
+	
+	@Override
+	protected void initializeImageRegistry(ImageRegistry registry) {
+	    registerImage(registry, "left");
+        registerImage(registry, "right");
+        registerImage(registry, "dock-header");
 	}
 
 }

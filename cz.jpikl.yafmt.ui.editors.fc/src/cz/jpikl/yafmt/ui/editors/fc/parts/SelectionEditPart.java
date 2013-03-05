@@ -12,10 +12,10 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 import cz.jpikl.yafmt.model.fc.Selection;
-import cz.jpikl.yafmt.ui.editors.fc.figures.MiddleSideAnchor;
 import cz.jpikl.yafmt.ui.editors.fc.figures.SelectionFigure;
 import cz.jpikl.yafmt.ui.editors.fc.model.Connection;
 import cz.jpikl.yafmt.ui.editors.fc.policies.SelectionSelectionPolicy;
+import cz.jpikl.yafmt.ui.figures.MiddleSideAnchor;
 
 public class SelectionEditPart extends AbstractGraphicalEditPart implements NodeEditPart {
 

@@ -19,11 +19,11 @@ import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
 import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.ui.editors.fm.figures.GroupFigure;
-import cz.jpikl.yafmt.ui.editors.fm.figures.MiddlePointAnchor;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 import cz.jpikl.yafmt.ui.editors.fm.model.Connection;
 import cz.jpikl.yafmt.ui.editors.fm.policies.ConnectionCreationPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.GroupEditPolicy;
+import cz.jpikl.yafmt.ui.figures.MiddlePointAnchor;
 
 public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEditPart {
     
