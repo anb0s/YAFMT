@@ -8,6 +8,8 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.draw2d.Viewport;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -22,6 +24,8 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionProvider;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -31,6 +35,7 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IWorkbenchPart;
@@ -40,6 +45,7 @@ import org.eclipse.ui.dialogs.SaveAsDialog;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
+import org.eclipse.ui.views.properties.PropertySheet;
 
 import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
 import cz.jpikl.yafmt.model.fc.provider.util.FeatureConfigurationProviderUtil;
@@ -54,6 +60,7 @@ import cz.jpikl.yafmt.ui.operations.ResourceSaveOperation;
 import cz.jpikl.yafmt.ui.pages.EditorContentOutlinePage;
 import cz.jpikl.yafmt.ui.pages.EditorPropertySheetPage;
 import cz.jpikl.yafmt.ui.util.EditorAutoCloser;
+import cz.jpikl.yafmt.ui.util.SelectionConverter;
 import cz.jpikl.yafmt.ui.util.UnwrappingSelectionProvider;
 
 public class FeatureConfigurationEditor extends GraphicalEditor {
@@ -162,6 +169,10 @@ public class FeatureConfigurationEditor extends GraphicalEditor {
         getGraphicalViewer().setContents(featureConfig);
     }
     
+    private ScalableFreeformRootEditPart getRootEditPart() {
+        return (ScalableFreeformRootEditPart) getGraphicalViewer().getRootEditPart();
+    }
+    
     // ==================================================================================
     //  Actions
     // ==================================================================================
@@ -203,8 +214,45 @@ public class FeatureConfigurationEditor extends GraphicalEditor {
         updateActions(getSelectionActions());
     }
     
+    @Override
     public void selectionChanged(IWorkbenchPart part, ISelection selection) {
         super.selectionChanged(part, selection); // Update all selection actions.
+        
+        // Ignore invalid selections.
+        IEditorPart activeEditor = getSite().getPage().getActiveEditor();
+        IWorkbenchPart activePart = getSite().getPage().getActivePart();
+        if((this != activeEditor) || (part != activePart) || (part == this) || (part instanceof PropertySheet))
+            return;
+                
+        // Apply selection to the editor if it differs.
+        selection = SelectionConverter.wrapSelection(selection, getGraphicalViewer().getEditPartRegistry());
+        if(!getGraphicalViewer().getSelection().equals(selection))
+            applySelection(selection);
+    }
+    
+    private void applySelection(ISelection selection) {
+        getGraphicalViewer().setSelection(selection);
+        if(selection.isEmpty())
+            return;
+        
+        // Center viewport to last selected object.
+        if(selection instanceof IStructuredSelection) {
+            Object[] objects = ((IStructuredSelection) selection).toArray();
+            for(int i = objects.length - 1; i >= 0; i--) {
+                if(objects[i] instanceof GraphicalEditPart) {
+                    centerViewportToEditPart((GraphicalEditPart) objects[i]);
+                    break;
+                }
+            }
+        }
+    }
+    
+    private void centerViewportToEditPart(GraphicalEditPart editPart) {
+        Viewport viewport = (Viewport) getRootEditPart().getFigure();
+        Point point = editPart.getFigure().getBounds().getCenter();
+        int x = point.x - viewport.getSize().width / 2;
+        int y = point.y - viewport.getSize().height / 2;
+        viewport.setViewLocation(x, y);
     }
     
     // ==================================================================================

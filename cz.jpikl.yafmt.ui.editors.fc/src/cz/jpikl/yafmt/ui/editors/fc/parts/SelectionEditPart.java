@@ -6,6 +6,7 @@ import java.util.List;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.ConnectionEditPart;
+import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
@@ -14,6 +15,7 @@ import cz.jpikl.yafmt.model.fc.Selection;
 import cz.jpikl.yafmt.ui.editors.fc.figures.MiddleSideAnchor;
 import cz.jpikl.yafmt.ui.editors.fc.figures.SelectionFigure;
 import cz.jpikl.yafmt.ui.editors.fc.model.Connection;
+import cz.jpikl.yafmt.ui.editors.fc.policies.SelectionSelectionPolicy;
 
 public class SelectionEditPart extends AbstractGraphicalEditPart implements NodeEditPart {
 
@@ -21,6 +23,7 @@ public class SelectionEditPart extends AbstractGraphicalEditPart implements Node
 
     public SelectionEditPart(Selection selection) {
         this.selection = selection;
+        setModel(selection);
     }
 
     @Override
@@ -69,6 +72,7 @@ public class SelectionEditPart extends AbstractGraphicalEditPart implements Node
     
     @Override
     protected void createEditPolicies() {
+        installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new SelectionSelectionPolicy());
     }
 
 }
