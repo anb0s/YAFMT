@@ -1,31 +1,15 @@
 package cz.jpikl.yafmt.ui.editors.fc;
 
-import java.io.IOException;
-import java.util.EventObject;
-import java.util.Iterator;
-
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.Status;
-import org.eclipse.draw2d.Viewport;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.gef.DefaultEditDomain;
+import org.eclipse.gef.ContextMenuProvider;
+import org.eclipse.gef.EditPartFactory;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
-import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
-import org.eclipse.gef.ui.actions.SelectionAction;
-import org.eclipse.gef.ui.parts.GraphicalEditor;
-import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.dialogs.ErrorDialog;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.ISelectionProvider;
-import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.jface.viewers.IContentProvider;
+import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -34,22 +18,14 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IFileEditorInput;
-import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.dialogs.SaveAsDialog;
-import org.eclipse.ui.part.FileEditorInput;
-import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
-import org.eclipse.ui.views.properties.IPropertySheetPage;
-import org.eclipse.ui.views.properties.PropertySheet;
+import org.eclipse.ui.views.properties.IPropertySourceProvider;
 
 import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
 import cz.jpikl.yafmt.model.fc.provider.util.FeatureConfigurationProviderUtil;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
+import cz.jpikl.yafmt.ui.ModelEditor;
 import cz.jpikl.yafmt.ui.actions.ExportGraphicalEditorAsImageAction;
 import cz.jpikl.yafmt.ui.editors.fc.layout.FeatureConfigurationLayoutHelper;
 import cz.jpikl.yafmt.ui.editors.fc.layout.HorizontalTreeLayout;
@@ -57,51 +33,13 @@ import cz.jpikl.yafmt.ui.editors.fc.layout.TreeLayout;
 import cz.jpikl.yafmt.ui.editors.fc.layout.VerticalTreeLayout;
 import cz.jpikl.yafmt.ui.editors.fc.parts.FeatureConfigurationEditPartFactory;
 import cz.jpikl.yafmt.ui.operations.ResourceSaveOperation;
-import cz.jpikl.yafmt.ui.pages.EditorContentOutlinePage;
-import cz.jpikl.yafmt.ui.pages.EditorPropertySheetPage;
-import cz.jpikl.yafmt.ui.util.EditorAutoCloser;
-import cz.jpikl.yafmt.ui.util.SelectionConverter;
-import cz.jpikl.yafmt.ui.util.UnwrappingSelectionProvider;
 
-public class FeatureConfigurationEditor extends GraphicalEditor {
+public class FeatureConfigurationEditor extends ModelEditor {
 
     private FeatureConfigurationLayoutHelper layoutHelper = new FeatureConfigurationLayoutHelper();
     private TreeLayout[] EDITOR_LAYOUTS = { new VerticalTreeLayout(layoutHelper), new HorizontalTreeLayout(layoutHelper) }; 
-    
     private FeatureConfiguration featureConfig;
-    private EditorAutoCloser editorAutoCloser;
-    private IContentOutlinePage contentOutlinePage;
-    private IPropertySheetPage propertySheetPage;
-    
-    public FeatureConfigurationEditor() {
-        editorAutoCloser = new EditorAutoCloser(this);
-        setEditDomain(new DefaultEditDomain(this));
-    }
-    
-    // ==================================================================================
-    //  Basic initialization and dispose operations
-    // ==================================================================================
-
-    public void init(IEditorSite site, IEditorInput input) throws PartInitException {
-        if (!(input instanceof IFileEditorInput))
-            throw new PartInitException("Invalid input: Must be IFileEditorInput");
         
-        super.init(site, input);
-        setPartName(input.getName());
-        doLoad((IFileEditorInput) input);
-        ResourcesPlugin.getWorkspace().addResourceChangeListener(editorAutoCloser);
-    }
-    
-    public void dispose() {
-        ResourcesPlugin.getWorkspace().removeResourceChangeListener(editorAutoCloser);
-        super.dispose();
-    }
-    
-    private void setEditorLayout(TreeLayout layout) {
-        Object featureConfigEditPart = getGraphicalViewer().getEditPartRegistry().get(featureConfig);
-        ((GraphicalEditPart) featureConfigEditPart).getFigure().setLayoutManager(layout);
-    }
-    
     // ==================================================================================
     //  Editor initialization
     // ==================================================================================
@@ -115,11 +53,14 @@ public class FeatureConfigurationEditor extends GraphicalEditor {
     }
     
     private void createFeatureConfigurationEditor(Composite parent) {
-        super.createPartControl(parent); // Calls configureGraphicalViewer and others bellow.
-        getGraphicalViewer().getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+        createGraphicalViewer(parent); // Calls configureGraphicalViewer and others bellow.
+        
+        GraphicalViewer viewer = getGraphicalViewer(); 
+        viewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+        layoutHelper.setGraphicalViewer(viewer);
         setEditorLayout(EDITOR_LAYOUTS[0]);
-    }
-    
+    }    
+        
     private void createSettingsPanel(Composite parent) {
         Composite panel = new Composite(parent, SWT.NONE);
         panel.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, true, false));
@@ -144,45 +85,48 @@ public class FeatureConfigurationEditor extends GraphicalEditor {
         });
     }
     
+    private void setEditorLayout(TreeLayout layout) {
+        Object featureConfigEditPart = getGraphicalViewer().getEditPartRegistry().get(featureConfig);
+        ((GraphicalEditPart) featureConfigEditPart).getFigure().setLayoutManager(layout);
+    }
+    
+    // ==================================================================================
+    //  Providers
+    // ==================================================================================
+    
     @Override
-    protected void configureGraphicalViewer() {
-        super.configureGraphicalViewer();
+    protected Object getModel() {
+        return featureConfig;
+    }
+    
+    @Override
+    protected EditPartFactory getEditPartFactory() {
+        return new FeatureConfigurationEditPartFactory();
+    }
+    
+    @Override
+    protected ContextMenuProvider getContextMenuProvider() {
+        return new FeatureConfigurationEditorContextMenuProvider(this);
+    }
+
+    @Override
+    protected ILabelProvider getLabelProvider() {
+        return FeatureConfigurationProviderUtil.getLabelProvider();
+    }
+
+    @Override
+    protected IPropertySourceProvider getPropertySourceProvider() {
+        return FeatureConfigurationProviderUtil.getContentProvider();
+    }
+
+    @Override
+    protected IContentProvider getContentProvider() {
+        return FeatureConfigurationProviderUtil.getContentProvider();
+    }
         
-        GraphicalViewer viewer = getGraphicalViewer();
-        viewer.setEditPartFactory(new FeatureConfigurationEditPartFactory());
-        viewer.setRootEditPart(new ScalableFreeformRootEditPart());
-        viewer.setContextMenu(new FeatureConfigurationEditorContextMenuProvider(this));
-        
-        setActionsSelectionProvider(viewer); // Actions need original selection provider.
-        layoutHelper.setGraphicalViewer(viewer);
-    }
-    
-    @Override
-    protected void hookGraphicalViewer() {
-        super.hookGraphicalViewer();
-        // Provide unwrapped selections for rest of the world.
-        getSite().setSelectionProvider(new UnwrappingSelectionProvider(getGraphicalViewer()));
-    }
-    
-    @Override
-    protected void initializeGraphicalViewer() {
-        getGraphicalViewer().setContents(featureConfig);
-    }
-    
-    private ScalableFreeformRootEditPart getRootEditPart() {
-        return (ScalableFreeformRootEditPart) getGraphicalViewer().getRootEditPart();
-    }
-    
     // ==================================================================================
     //  Actions
     // ==================================================================================
-    
-    @SuppressWarnings("unchecked")
-    private void createAction(IAction action) {
-        getActionRegistry().registerAction(action);
-        if(action instanceof SelectionAction)
-            getSelectionActions().add(action.getId());
-    }
     
     @Override
     protected void createActions() {
@@ -194,118 +138,24 @@ public class FeatureConfigurationEditor extends GraphicalEditor {
             }
         });
     }
-    
-    private void setActionsSelectionProvider(ISelectionProvider selectionProvider) {
-        for(Iterator<?> it = getActionRegistry().getActions(); it.hasNext(); ) {
-            IAction action = (IAction) it.next();
-            if(action instanceof SelectionAction)
-                ((SelectionAction) action).setSelectionProvider(selectionProvider);
-        }
-    }
-    
-    // ==================================================================================
-    //  Event handling
-    // ==================================================================================
-    
-    @Override
-    public void commandStackChanged(EventObject event) {
-        super.commandStackChanged(event);
-        firePropertyChange(PROP_DIRTY);
-        updateActions(getSelectionActions());
-    }
-    
-    @Override
-    public void selectionChanged(IWorkbenchPart part, ISelection selection) {
-        super.selectionChanged(part, selection); // Update all selection actions.
         
-        // Ignore invalid selections.
-        IEditorPart activeEditor = getSite().getPage().getActiveEditor();
-        IWorkbenchPart activePart = getSite().getPage().getActivePart();
-        if((this != activeEditor) || (part != activePart) || (part == this) || (part instanceof PropertySheet))
-            return;
-                
-        // Apply selection to the editor if it differs.
-        selection = SelectionConverter.wrapSelection(selection, getGraphicalViewer().getEditPartRegistry());
-        if(!getGraphicalViewer().getSelection().equals(selection))
-            applySelection(selection);
-    }
-    
-    private void applySelection(ISelection selection) {
-        getGraphicalViewer().setSelection(selection);
-        if(selection.isEmpty())
-            return;
-        
-        // Center viewport to last selected object.
-        if(selection instanceof IStructuredSelection) {
-            Object[] objects = ((IStructuredSelection) selection).toArray();
-            for(int i = objects.length - 1; i >= 0; i--) {
-                if(objects[i] instanceof GraphicalEditPart) {
-                    centerViewportToEditPart((GraphicalEditPart) objects[i]);
-                    break;
-                }
-            }
-        }
-    }
-    
-    private void centerViewportToEditPart(GraphicalEditPart editPart) {
-        Viewport viewport = (Viewport) getRootEditPart().getFigure();
-        Point point = editPart.getFigure().getBounds().getCenter();
-        int x = point.x - viewport.getSize().width / 2;
-        int y = point.y - viewport.getSize().height / 2;
-        viewport.setViewLocation(x, y);
-    }
-    
     // ==================================================================================
     //  Save and Load operations
     // ==================================================================================
     
-    private void doLoad(IFileEditorInput input) throws PartInitException {
+    @Override
+    protected void doLoad(IFileEditorInput input) throws Exception {
         String path = input.getFile().getFullPath().toString();
-        
-        try {
-            ResourceSet resourceSet = new ResourceSetImpl();
-            Resource resource = resourceSet.createResource(URI.createPlatformResourceURI(path, true));
-            resource.load(null);
-            featureConfig = (FeatureConfiguration) resource.getContents().get(0);
-        }
-        catch(IOException ex) {
-            throw new PartInitException("Unable to load " + path, ex);
-        }
+        ResourceSet resourceSet = new ResourceSetImpl();
+        Resource resource = resourceSet.createResource(URI.createPlatformResourceURI(path, true));
+        resource.load(null);
+        featureConfig = (FeatureConfiguration) resource.getContents().get(0);
     }
 
     @Override
-    public void doSave(IProgressMonitor monitor) {
-        try {
-            IWorkbenchWindow window = getSite().getWorkbenchWindow(); 
-            window.run(true, false, new ResourceSaveOperation(featureConfig.eResource()));
-            getEditDomain().getCommandStack().markSaveLocation();
-            firePropertyChange(PROP_DIRTY);
-        } 
-        catch (Exception ex) {
-            ErrorDialog.openError(getSite().getShell(), "Unable to save " + getEditorInput().getName(),
-                null, new Status(Status.ERROR, FeatureConfigurationEditorPlugin.PLUGIN_ID, ex.getMessage(), ex), 0);
-        }
-    }
-    
-    @Override
-    public void doSaveAs() {
-        SaveAsDialog dialog = new SaveAsDialog(getSite().getShell());
-        dialog.setOriginalFile(((IFileEditorInput) getEditorInput()).getFile());
-        dialog.open();
-        
-        IPath path = dialog.getResult();
-        if (path == null)
-            return;
-
-        featureConfig.eResource().setURI(URI.createPlatformResourceURI(path.toString(), true));
-        setInputWithNotify(new FileEditorInput(ResourcesPlugin.getWorkspace().getRoot().getFile(path)));
-        setPartName(getEditorInput().getName());
-        doSave(null);
-    }
-    
-    @Override
-    public boolean isSaveAsAllowed() {
-        return true;
+    protected void doSave() throws Exception {
+        IWorkbenchWindow window = getSite().getWorkbenchWindow(); 
+        window.run(true, false, new ResourceSaveOperation(featureConfig.eResource()));
     }
     
     // ==================================================================================
@@ -317,19 +167,6 @@ public class FeatureConfigurationEditor extends GraphicalEditor {
     public Object getAdapter(Class type) {
         if(type == FeatureModel.class)
             return featureConfig.getFeatureModelCopy();
-        
-        if(type == IPropertySheetPage.class) {
-            if(propertySheetPage == null)
-                propertySheetPage = new EditorPropertySheetPage(this, FeatureConfigurationProviderUtil.getContentProvider());
-            return propertySheetPage;
-        }
-        
-        if(type == IContentOutlinePage.class) {
-            if(contentOutlinePage == null)
-                contentOutlinePage = new EditorContentOutlinePage(this, featureConfig, FeatureConfigurationProviderUtil.getContentProvider(), FeatureConfigurationProviderUtil.getLabelProvider());
-            return contentOutlinePage;
-        }
-        
         return super.getAdapter(type);
     }
 
