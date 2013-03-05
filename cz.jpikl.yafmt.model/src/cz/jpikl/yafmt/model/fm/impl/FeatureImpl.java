@@ -363,10 +363,8 @@ public class FeatureImpl extends EObjectImpl implements Feature {
      * @generated NOT
      */
     public boolean isRoot() {
-        EObject parent = getParent();
-        if(!(parent instanceof FeatureModel))
-            return false;
-        return ((FeatureModel) parent).getRoot() == this; 
+        EObject parent = eContainer();
+        return (parent instanceof FeatureModel) && (((FeatureModel) parent).getRoot() == this); 
     }
 
     /**

@@ -34,6 +34,7 @@ import cz.jpikl.yafmt.model.fm.Feature;
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#getName <em>Name</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#getParent <em>Parent</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#isRoot <em>Root</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#getValues <em>Values</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#getSelections <em>Selections</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#getFeatureConfiguration <em>Feature Configuration</em>}</li>
@@ -83,6 +84,16 @@ public class SelectionImpl extends EObjectImpl implements Selection {
      * @ordered
      */
     protected static final String DESCRIPTION_EDEFAULT = null;
+
+    /**
+     * The default value of the '{@link #isRoot() <em>Root</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isRoot()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean ROOT_EDEFAULT = false;
 
     /**
      * The cached value of the '{@link #getValues() <em>Values</em>}' containment reference list.
@@ -203,6 +214,15 @@ public class SelectionImpl extends EObjectImpl implements Selection {
         }
         else if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, FeatureConfigurationPackage.SELECTION__PARENT, newParent, newParent));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isRoot() {
+        return (eContainer() instanceof FeatureConfiguration);
     }
 
     /**
@@ -351,6 +371,8 @@ public class SelectionImpl extends EObjectImpl implements Selection {
                 return getDescription();
             case FeatureConfigurationPackage.SELECTION__PARENT:
                 return getParent();
+            case FeatureConfigurationPackage.SELECTION__ROOT:
+                return isRoot();
             case FeatureConfigurationPackage.SELECTION__VALUES:
                 return getValues();
             case FeatureConfigurationPackage.SELECTION__SELECTIONS:
@@ -432,6 +454,8 @@ public class SelectionImpl extends EObjectImpl implements Selection {
                 return DESCRIPTION_EDEFAULT == null ? getDescription() != null : !DESCRIPTION_EDEFAULT.equals(getDescription());
             case FeatureConfigurationPackage.SELECTION__PARENT:
                 return getParent() != null;
+            case FeatureConfigurationPackage.SELECTION__ROOT:
+                return isRoot() != ROOT_EDEFAULT;
             case FeatureConfigurationPackage.SELECTION__VALUES:
                 return values != null && !values.isEmpty();
             case FeatureConfigurationPackage.SELECTION__SELECTIONS:

@@ -39,13 +39,13 @@ public class HorizontalTreeLayout extends TreeLayout {
         for(IFigure child: helper.getTreeChildrenFigures(figure))
             height += calculateSubTreeHeight(subTreeHeight, child);
         if(height == 0)
-            height = figure.getPreferredSize().height + VERTICAL_SPACE;
+            height = computeFigurePreferedSize(figure).height + VERTICAL_SPACE;
         subTreeHeight.put(figure, height);
         return height;
     }
     
     private void layoutTree(Map<IFigure, Integer> subTreeHeight, IFigure figure, int xOffset, int yOffset) {
-        Dimension size = figure.getPreferredSize();
+        Dimension size = computeFigurePreferedSize(figure);
         int y = yOffset + (subTreeHeight.get(figure) - size.height) / 2;
         figure.setBounds(new Rectangle(new Point(xOffset, y), size));
         

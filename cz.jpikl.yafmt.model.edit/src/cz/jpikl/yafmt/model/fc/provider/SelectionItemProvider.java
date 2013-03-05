@@ -215,6 +215,7 @@ public class SelectionItemProvider
             case FeatureConfigurationPackage.SELECTION__ID:
             case FeatureConfigurationPackage.SELECTION__NAME:
             case FeatureConfigurationPackage.SELECTION__DESCRIPTION:
+            case FeatureConfigurationPackage.SELECTION__ROOT:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
                 return;
             case FeatureConfigurationPackage.SELECTION__VALUES:

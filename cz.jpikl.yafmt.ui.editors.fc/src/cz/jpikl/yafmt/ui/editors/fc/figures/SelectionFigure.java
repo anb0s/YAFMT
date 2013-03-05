@@ -8,6 +8,7 @@ import org.eclipse.draw2d.GridData;
 import org.eclipse.draw2d.GridLayout;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.RoundedRectangle;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
@@ -19,9 +20,9 @@ import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.ui.util.DrawConstantans;
 
 public class SelectionFigure extends RoundedRectangle {
-
-    public static final int WIDTH = 100;
-    public static final int HEGHT = 25;
+    
+    private static final int WIDTH = 100;
+    private static final int HEIGHT = 25;
     
     private Label label = new Label();
     private Label toolTip = new Label();
@@ -40,7 +41,8 @@ public class SelectionFigure extends RoundedRectangle {
         label.setForegroundColor(ColorConstants.black);
         add(label, new GridData(SWT.FILL, SWT.FILL, true, true));
         
-        setSize(WIDTH, HEGHT);
+        setSize(-1, -1);
+        setMinimumSize(new Dimension(WIDTH, HEIGHT));
         setHighlighted(false);
         internalRefresh();
     }
@@ -84,11 +86,10 @@ public class SelectionFigure extends RoundedRectangle {
         Color color = ColorConstants.lightGray;
         Pattern pattern = null;
         
-        if(selection.getParent() != null) {
+        if(selection.eContainer() != null) {
             if(selectionError) {
                 color = ColorConstants.red;
                 pattern = createPattern(graphics, DrawConstantans.ERROR_GRADIENT_COLOR, ColorConstants.white);
-                 
             }
             else {
                 color = ColorConstants.black;
@@ -96,6 +97,7 @@ public class SelectionFigure extends RoundedRectangle {
             }
         }
          
+        label.setForegroundColor(color);
         graphics.setForegroundColor(color);
         if(pattern != null)
             graphics.setBackgroundPattern(pattern);

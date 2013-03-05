@@ -9,6 +9,18 @@ import org.eclipse.draw2d.geometry.Dimension;
 
 public abstract class TreeLayout extends AbstractLayout {
 
+    protected static Dimension computeFigurePreferedSize(IFigure figure) {
+        Dimension preferredSize = figure.getPreferredSize().getCopy();
+        Dimension minimumSize = figure.getMinimumSize();
+        
+        if(preferredSize.width < minimumSize.width)
+            preferredSize.width = minimumSize.width;
+        if(preferredSize.height < minimumSize.height)
+            preferredSize.height = minimumSize.height;
+        
+        return preferredSize;
+    }
+    
     protected Helper helper;
     
     public TreeLayout(Helper helper) {
@@ -33,7 +45,7 @@ public abstract class TreeLayout extends AbstractLayout {
         
         doLayout(treeRootFigure);
     }
-    
+        
     @Override
     protected Dimension calculatePreferredSize(IFigure container, int wHint, int hHint) {
         return null;
