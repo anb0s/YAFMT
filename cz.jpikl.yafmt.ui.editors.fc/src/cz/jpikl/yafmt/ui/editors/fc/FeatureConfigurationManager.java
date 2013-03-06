@@ -34,6 +34,7 @@ public class FeatureConfigurationManager {
     // Children to parent virtual connections.
     private Map<Selection, Selection> virtualConnectionsOpposite = new HashMap<Selection, Selection>();
     
+    private List<IFeatureConfigurationListener> listeners = new ArrayList<IFeatureConfigurationListener>();
     private FeatureConfiguration featureConfig;
 
     public FeatureConfigurationManager(FeatureConfiguration featureConfig) {
@@ -41,7 +42,7 @@ public class FeatureConfigurationManager {
         repairFeatureConfiguration();
         rebuildVirtualConnections();
     }
-    
+        
     public FeatureConfiguration getFeatureConfiguration() {
         return featureConfig;
     }
@@ -51,10 +52,32 @@ public class FeatureConfigurationManager {
     }
     
     // ===========================================================================
+    //  Listeners
+    // ===========================================================================
+    
+    public void addFeatureConfigurationListener(IFeatureConfigurationListener listener) {
+        listeners.add(listener);
+    }
+    
+    public void removeFeatureConfigurationListener(IFeatureConfigurationListener listener) {
+        listeners.add(listener);
+    }
+    
+    protected void fireFeaturesSelected(List<Selection> selections) {
+        for(IFeatureConfigurationListener listener: listeners)
+            listener.featuresSelected(selections);
+    }
+    
+    protected void fireFeaturesUnselected(List<Selection> selections) {
+        for(IFeatureConfigurationListener listener: listeners)
+            listener.featuresUnselected(selections);
+    }
+    
+    // ===========================================================================
     //  Repair operations
     // ===========================================================================
     
-    private void repairFeatureConfiguration() {
+    public void repairFeatureConfiguration() {
         // Repair configuration structure against feature model copy.
         Feature rootFeature = featureConfig.getFeatureModelCopy().getRoot();
         Selection rootSelection = featureConfig.getRoot();
@@ -65,7 +88,7 @@ public class FeatureConfigurationManager {
     //  Virtual connection related operations
     // ===========================================================================
 
-    private void rebuildVirtualConnections() {
+    public void rebuildVirtualConnections() {
         virtualConnections.clear();
         virtualConnectionsOpposite.clear();
         
@@ -181,22 +204,38 @@ public class FeatureConfigurationManager {
     // ===========================================================================
         
     public void selectFeatures(List<Selection> selections) {
-        for(Selection selection: selections)
-            selectFeature(selection);
+        List<Selection> affectedSelections = new ArrayList<Selection>(selections.size());
+        
+        for(Selection selection: selections) {
+            if(selectFeature(selection))
+                affectedSelections.add(selection);
+        }
+        
+        featuresSelected(affectedSelections);
+    }
+    
+    public void featuresSelected(List<Selection> selections) {
+        rebuildVirtualConnections();
+        fireFeaturesSelected(selections);
+    }
+    
+    public void featuresUnselected(List<Selection> selections) {
+        rebuildVirtualConnections();
+        fireFeaturesUnselected(selections);
     }
     
     public boolean canSelectFeature(Selection selection) {
         return virtualConnections.containsKey(selection);
     }
 
-    public void selectFeature(Selection selection) {
+    private boolean selectFeature(Selection selection) {
         Selection parentSelection = virtualConnectionsOpposite.get(selection);
         if(parentSelection == null)
-            return;
+            return false;
         
         List<VirtualSelection> childrenSelections = virtualConnections.get(parentSelection);
         if(childrenSelections == null)
-            return;
+            return false;
         
         int index = -1;
         for(int i = 0; i < childrenSelections.size(); i++) {
@@ -206,12 +245,13 @@ public class FeatureConfigurationManager {
             }
         }
         if(index == -1)
-            return;
+            return false;
         
         int insertPosition = childrenSelections.remove(index).insertPosition;
         for(int i = index; i < childrenSelections.size(); i++)
             childrenSelections.get(i).insertPosition++;
         parentSelection.getSelections().add(insertPosition, selection);
+        return true;
     }
     
 }

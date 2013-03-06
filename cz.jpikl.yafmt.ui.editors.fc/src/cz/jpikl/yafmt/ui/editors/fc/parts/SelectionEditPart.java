@@ -12,7 +12,6 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 import cz.jpikl.yafmt.model.fc.Selection;
-import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.ui.editors.fc.FeatureConfigurationManager;
 import cz.jpikl.yafmt.ui.editors.fc.figures.SelectionFigure;
 import cz.jpikl.yafmt.ui.editors.fc.model.Connection;
@@ -33,12 +32,9 @@ public class SelectionEditPart extends AbstractGraphicalEditPart implements Node
     @Override
     protected IFigure createFigure() {
         SelectionFigure figure = new SelectionFigure(selection);
-        // Figure cannot obtain feature from selection itself if selection is not added to the configuration.
+        // Figure cannot obtain feature from selection itself if the selection is not added to the configuration.
         // So we need to update it manually.
-        if(selection.getParent() == null) {
-            Feature feature = featureConfigManager.getFeatureModel().getFeatureById(selection.getId());
-            figure.initContents(feature);
-        }
+        figure.initContents(featureConfigManager.getFeatureModel().getFeatureById(selection.getId()));
         return figure;
     }
     

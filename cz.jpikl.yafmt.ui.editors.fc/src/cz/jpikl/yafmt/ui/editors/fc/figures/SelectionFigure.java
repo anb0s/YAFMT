@@ -44,7 +44,6 @@ public class SelectionFigure extends RoundedRectangle {
         setSize(-1, -1);
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
         setHighlighted(false);
-        initContents(selection.getFeature());
     }
     
     public void initContents(Feature feature) {
