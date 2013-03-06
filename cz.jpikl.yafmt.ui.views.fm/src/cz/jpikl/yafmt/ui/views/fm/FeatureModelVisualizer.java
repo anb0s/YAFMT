@@ -63,6 +63,10 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
     private ConstraintFilter constraintFilter;
     private ISelection currentSelection; // Viewer may not contain all selected elements, so we have to remember them.
             
+    // ===========================================================================
+    //  Basic initialization and dispose operations
+    // ===========================================================================
+    
     @Override
     public void init(IViewSite site) throws PartInitException {
         super.init(site);
@@ -90,6 +94,15 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         
         super.dispose();
     }
+    
+    @Override
+    public void setFocus() {
+        viewer.getControl().setFocus();
+    }
+    
+    // ===========================================================================
+    //  Viewer and control creation 
+    // ===========================================================================
     
     @Override
     public void createPartControl(Composite parent) {
@@ -135,6 +148,10 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         SWTUtil.enableAntialiasing(viewer.getControl()); // Enable antialiasing on Windows.
         getSite().setSelectionProvider(viewer);
     }
+    
+    // ===========================================================================
+    //  Settings change callbacks
+    // ===========================================================================
         
     @Override
     public void groupsVisibilityChanged(boolean groupsVisible) {
@@ -177,24 +194,9 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         viewer.applyLayout();
     }
     
-    private void recomputeTreeHeight() {
-        treeHeight = FeatureModelUtil.getTreeHeight(featureModel);
-    }
-    
-    private void resizeGraphView() {
-        if(settings.isFixedSize()) {
-            int size = 2 * treeHeight * CONNECTION_LENGHT * settings.getSizeMultiplier();
-            viewer.getGraphControl().setPreferredSize(size, size);
-        }
-        else {
-            viewer.getGraphControl().setPreferredSize(-1, -1);
-        }
-    }
-    
-    @Override
-    public void setFocus() {
-        viewer.getControl().setFocus();
-    }
+    // ===========================================================================
+    //  Input initialization
+    // ===========================================================================
     
     private void setSourcePart(IWorkbenchPart part) {        
         if(part == sourcePart)
@@ -232,6 +234,24 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
             constraintCache.setFeatureModel(newFeatureModel);
         }
     }
+    
+    private void recomputeTreeHeight() {
+        treeHeight = FeatureModelUtil.getTreeHeight(featureModel);
+    }
+    
+    private void resizeGraphView() {
+        if(settings.isFixedSize()) {
+            int size = 2 * treeHeight * CONNECTION_LENGHT * settings.getSizeMultiplier();
+            viewer.getGraphControl().setPreferredSize(size, size);
+        }
+        else {
+            viewer.getGraphControl().setPreferredSize(-1, -1);
+        }
+    }
+    
+    // ===========================================================================
+    //  Event handling
+    // ===========================================================================
     
     private ISelection unwrapSelection(ISelection selection) {
         if(!(selection instanceof IStructuredSelection))
@@ -306,7 +326,27 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
             setFeatureModel(null);
         }
     }
+
+    @Override
+    public void partActivated(IWorkbenchPart part) {
+    }
+    
+    @Override
+    public void partOpened(IWorkbenchPart part) {
+    }
+    
+    @Override
+    public void partBroughtToTop(IWorkbenchPart part) {
+    }
         
+    @Override
+    public void partDeactivated(IWorkbenchPart part) {
+    }
+        
+    // ===========================================================================
+    //  Model changes handling
+    // ===========================================================================
+    
     class FeatureModelAdapter extends EContentAdapter {
         
         @Override
@@ -330,6 +370,10 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         
     }
     
+    // ===========================================================================
+    //  Adapters
+    // ===========================================================================
+    
     @Override
     @SuppressWarnings("rawtypes")
     public Object getAdapter(Class type) {
@@ -338,21 +382,5 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
             return sourcePart.getAdapter(type);
         return super.getAdapter(type);
     }
-    
-    @Override
-    public void partActivated(IWorkbenchPart part) {
-    }
-    
-    @Override
-    public void partOpened(IWorkbenchPart part) {
-    }
-    
-    @Override
-    public void partBroughtToTop(IWorkbenchPart part) {
-    }
-        
-    @Override
-    public void partDeactivated(IWorkbenchPart part) {
-    }
-	
+    	
 }
