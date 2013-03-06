@@ -16,22 +16,26 @@ import cz.jpikl.yafmt.model.fm.Group;
 
 public class FeatureConfigurationManager {
     
-    // Feature selection which has no parent (its unselected feature). 
+    // Wrapper for unselected feature (selection with no parent). 
     private static class VirtualSelection {
         
         private Selection selection;
         private int insertPosition;
         
         public VirtualSelection(Selection selection, int insertPosition) {
-            this.selection = selection;
-            this.insertPosition = insertPosition;
+            this.selection = selection;           // Unselected feature.
+            this.insertPosition = insertPosition; // Where to insert selection into parent's children array.
         }
                 
     }
     
     // Parent to children virtual connections.
+    // Contains relation between selections which are present in feature configuration and selections which 
+    // is possible to add (as their children) to the feature configuration.
     private Map<Selection, List<VirtualSelection>> virtualConnections = new HashMap<Selection, List<VirtualSelection>>();
+    
     // Children to parent virtual connections.
+    // Same as above, but opposite relation.
     private Map<Selection, Selection> virtualConnectionsOpposite = new HashMap<Selection, Selection>();
     
     private List<IFeatureConfigurationListener> listeners = new ArrayList<IFeatureConfigurationListener>();
@@ -78,7 +82,7 @@ public class FeatureConfigurationManager {
     // ===========================================================================
     
     public void repairFeatureConfiguration() {
-        // Repair configuration structure against feature model copy.
+        // Repair feature configuration structure against feature model copy.
         Feature rootFeature = featureConfig.getFeatureModelCopy().getRoot();
         Selection rootSelection = featureConfig.getRoot();
         FeatureConfigurationUtil.repairSelection(rootFeature, rootSelection);
@@ -105,9 +109,7 @@ public class FeatureConfigurationManager {
         EList<Group> groups = feature.getGroups();
         for(int i = 0; i < groups.size(); i++) {
             Group group = groups.get(i);
-            int groupMax = group.getUpper();
-            if(groupMax == -1)
-                groupMax = Integer.MAX_VALUE;
+            int groupMax = (group.getUpper() == -1) ? Integer.MAX_VALUE : group.getUpper();
             startingIndex = createVirtualConnections(group.getFeatures(), startingIndex, selection, groupMax);
         }
     }
@@ -134,6 +136,7 @@ public class FeatureConfigurationManager {
                 }
             }
             
+            // Allow to select feature only if we don't break local constraint.
             if((groupMax > 0) && (featureMax > 0)) {
                 Selection childSelection = FeatureConfigurationUtil.createSelection(childFeature);
                 addVirtualConnection(parentSelection, childSelection, startingIndex);
@@ -184,6 +187,7 @@ public class FeatureConfigurationManager {
             return;
         
         if(sortChildren) {
+            // InsertPosition does not count other unselected features, so we have to increment it.
             int offset = 0;
             for(int i = 0; i < childrenSelections.size(); i++) {
                 VirtualSelection childSelection = childrenSelections.get(i);
@@ -203,7 +207,7 @@ public class FeatureConfigurationManager {
     //  Selections operations
     // ===========================================================================
         
-    public void selectFeatures(List<Selection> selections) {
+    public List<Selection> selectFeatures(List<Selection> selections) {
         List<Selection> affectedSelections = new ArrayList<Selection>(selections.size());
         
         for(Selection selection: selections) {
@@ -212,6 +216,7 @@ public class FeatureConfigurationManager {
         }
         
         featuresSelected(affectedSelections);
+        return affectedSelections;
     }
     
     public void featuresSelected(List<Selection> selections) {
@@ -229,14 +234,17 @@ public class FeatureConfigurationManager {
     }
 
     private boolean selectFeature(Selection selection) {
+        // Look for parent selection.
         Selection parentSelection = virtualConnectionsOpposite.get(selection);
         if(parentSelection == null)
             return false;
         
+        // Look for sibling selections.
         List<VirtualSelection> childrenSelections = virtualConnections.get(parentSelection);
         if(childrenSelections == null)
             return false;
         
+        // Look for position between sibling selections.
         int index = -1;
         for(int i = 0; i < childrenSelections.size(); i++) {
             if(childrenSelections.get(i).selection == selection) {
@@ -247,6 +255,8 @@ public class FeatureConfigurationManager {
         if(index == -1)
             return false;
         
+        // Insert selection to specified position.
+        // Also increment position of other, yet unselected features.
         int insertPosition = childrenSelections.remove(index).insertPosition;
         for(int i = index; i < childrenSelections.size(); i++)
             childrenSelections.get(i).insertPosition++;
