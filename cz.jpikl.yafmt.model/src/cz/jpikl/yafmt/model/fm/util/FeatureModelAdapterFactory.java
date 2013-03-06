@@ -103,7 +103,7 @@ public class FeatureModelAdapterFactory extends AdapterFactoryImpl {
      */
     @Override
     public Adapter createAdapter(Notifier target) {
-        // EMF Edit sometimes try to pass XMIResourceImpl as a target.
+        // EMF Edit sometimes try to pass XMIResourceImpl as the target for some strange reason.
         if(target instanceof EObject)
             return modelSwitch.doSwitch((EObject)target);
         return null;

@@ -11,10 +11,12 @@ import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
 import cz.jpikl.yafmt.model.fc.Selection;
 import cz.jpikl.yafmt.model.fc.util.FeatureConfigurationUtil;
 import cz.jpikl.yafmt.model.fm.Feature;
+import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.Group;
 
 public class FeatureConfigurationManager {
     
+    // Feature selection which has no parent (its unselected feature). 
     private static class VirtualSelection {
         
         private Selection selection;
@@ -38,6 +40,14 @@ public class FeatureConfigurationManager {
         this.featureConfig = featureConfig;
         repairFeatureConfiguration();
         rebuildVirtualConnections();
+    }
+    
+    public FeatureConfiguration getFeatureConfiguration() {
+        return featureConfig;
+    }
+    
+    public FeatureModel getFeatureModel() {
+        return featureConfig.getFeatureModelCopy();
     }
     
     // ===========================================================================
@@ -72,21 +82,26 @@ public class FeatureConfigurationManager {
         EList<Group> groups = feature.getGroups();
         for(int i = 0; i < groups.size(); i++) {
             Group group = groups.get(i);
-            startingIndex = createVirtualConnections(group.getFeatures(), startingIndex, selection, group.getUpper());
+            int groupMax = group.getUpper();
+            if(groupMax == -1)
+                groupMax = Integer.MAX_VALUE;
+            startingIndex = createVirtualConnections(group.getFeatures(), startingIndex, selection, groupMax);
         }
     }
 
     private int createVirtualConnections(EList<Feature> childrenFeatures, int startingIndex, Selection parentSelection, int groupMax) {
         // This expect that children selections are sorted in order given by feature configuration repair process.
-        EList<Selection> selections = parentSelection.getSelections();
+        EList<Selection> childrenSelections = parentSelection.getSelections();
         
         for(int i = 0; i < childrenFeatures.size(); i++) {
             Feature childFeature = childrenFeatures.get(i);
             String id = childFeature.getId();
             int featureMax = childFeature.getUpper();
                            
-            for(int j = startingIndex; j < selections.size(); j++) {
-                if(selections.get(j).getId().equals(id)) {
+            for(int j = startingIndex; j < childrenSelections.size(); j++) {
+                Selection childSelection = childrenSelections.get(j); 
+                if(childSelection.getId().equals(id)) {
+                    createVirtualConnections(childFeature, childSelection);
                     featureMax--;
                     groupMax--;
                     startingIndex++;
@@ -105,14 +120,14 @@ public class FeatureConfigurationManager {
         return startingIndex;
     }
 
-    private void addVirtualConnection(Selection parentSelection, Selection childSelection, int position) {
+    private void addVirtualConnection(Selection parentSelection, Selection childSelection, int insertPosition) {
         // Parent to child connection.
         List<VirtualSelection> childrenSelections = virtualConnections.get(parentSelection);
         if(childrenSelections == null) {
             childrenSelections = new ArrayList<VirtualSelection>();
             virtualConnections.put(parentSelection, childrenSelections);
         }
-        childrenSelections.add(new VirtualSelection(childSelection, position));
+        childrenSelections.add(new VirtualSelection(childSelection, insertPosition));
         
         // Child to parent connection.
         virtualConnectionsOpposite.put(childSelection, parentSelection);
@@ -125,7 +140,7 @@ public class FeatureConfigurationManager {
     public Selection getParentSelection(Selection childSelection) {
         Selection parentSelection = childSelection.getParent();
         if(parentSelection == null)
-            virtualConnectionsOpposite.get(childSelection);
+            parentSelection = virtualConnectionsOpposite.get(childSelection);
         return parentSelection;
     }
     
@@ -136,6 +151,9 @@ public class FeatureConfigurationManager {
     }
     
     public void contributeChildrenSelections(Selection parentSelection, List<Selection> selectionList, boolean sortChildren) {
+        if(virtualConnectionsOpposite.containsKey(parentSelection))
+            return;
+        
         selectionList.addAll(parentSelection.getSelections());
         
         List<VirtualSelection> childrenSelections = virtualConnections.get(parentSelection);
@@ -165,6 +183,10 @@ public class FeatureConfigurationManager {
     public void selectFeatures(List<Selection> selections) {
         for(Selection selection: selections)
             selectFeature(selection);
+    }
+    
+    public boolean canSelectFeature(Selection selection) {
+        return virtualConnections.containsKey(selection);
     }
 
     public void selectFeature(Selection selection) {

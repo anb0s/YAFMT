@@ -183,15 +183,17 @@ public class FeatureConfigurationUtil {
     private static boolean repairSelectionPosition(Feature feature, int expectedIndex, EList<Selection> selections, boolean shouldExist) {
         String id = feature.getId();
         
-        // Selection is on the expected position. OK.
-        if(selections.get(expectedIndex).getId().equals(id))
-            return true;
-        
-        for(int i = expectedIndex + 1; i < selections.size(); i++) {
-            // Selection is on different position. Move it.
-            if(selections.get(i).getId().equals(id)) {
-                selections.move(expectedIndex, i);
+        if(expectedIndex < selections.size()) {
+            // Selection is on the expected position. OK.
+            if(selections.get(expectedIndex).getId().equals(id))
                 return true;
+            
+            for(int i = expectedIndex + 1; i < selections.size(); i++) {
+                // Selection is on different position. Move it.
+                if(selections.get(i).getId().equals(id)) {
+                    selections.move(expectedIndex, i);
+                    return true;
+                }
             }
         }
         
@@ -226,15 +228,17 @@ public class FeatureConfigurationUtil {
     private static boolean repairAttributeValuePosition(Attribute attribute, int expectedIndex, EList<AttributeValue> values) {
         String id = attribute.getId();
         
-        // Attribute value is on the expected position. OK.
-        if(values.get(expectedIndex).getId().equals(id))
-            return true;
-        
-        for(int i = expectedIndex + 1; i < values.size(); i++) {
-            // Attribute value is on different position. Move it.
-            if(values.get(i).getId().equals(id)) {
-                values.move(expectedIndex, i);
+        if(expectedIndex < values.size()) {
+            // Attribute value is on the expected position. OK.
+            if(values.get(expectedIndex).getId().equals(id))
                 return true;
+            
+            for(int i = expectedIndex + 1; i < values.size(); i++) {
+                // Attribute value is on different position. Move it.
+                if(values.get(i).getId().equals(id)) {
+                    values.move(expectedIndex, i);
+                    return true;
+                }
             }
         }
         

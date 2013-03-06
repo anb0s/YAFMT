@@ -39,6 +39,7 @@ public class FeatureConfigurationEditor extends ModelEditor {
     private FeatureConfigurationLayoutHelper layoutHelper = new FeatureConfigurationLayoutHelper();
     private TreeLayout[] EDITOR_LAYOUTS = { new VerticalTreeLayout(layoutHelper), new HorizontalTreeLayout(layoutHelper) }; 
     private FeatureConfiguration featureConfig;
+    private FeatureConfigurationManager featureConfigManager;
         
     // ==================================================================================
     //  Editor initialization
@@ -101,7 +102,7 @@ public class FeatureConfigurationEditor extends ModelEditor {
     
     @Override
     protected EditPartFactory getEditPartFactory() {
-        return new FeatureConfigurationEditPartFactory();
+        return new FeatureConfigurationEditPartFactory(featureConfigManager);
     }
     
     @Override
@@ -150,6 +151,7 @@ public class FeatureConfigurationEditor extends ModelEditor {
         Resource resource = resourceSet.createResource(URI.createPlatformResourceURI(path, true));
         resource.load(null);
         featureConfig = (FeatureConfiguration) resource.getContents().get(0);
+        featureConfigManager = new FeatureConfigurationManager(featureConfig);
     }
 
     @Override

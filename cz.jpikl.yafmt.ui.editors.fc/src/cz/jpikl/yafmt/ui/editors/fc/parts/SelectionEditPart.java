@@ -12,6 +12,8 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 import cz.jpikl.yafmt.model.fc.Selection;
+import cz.jpikl.yafmt.model.fm.Feature;
+import cz.jpikl.yafmt.ui.editors.fc.FeatureConfigurationManager;
 import cz.jpikl.yafmt.ui.editors.fc.figures.SelectionFigure;
 import cz.jpikl.yafmt.ui.editors.fc.model.Connection;
 import cz.jpikl.yafmt.ui.editors.fc.policies.SelectionSelectionPolicy;
@@ -19,22 +21,25 @@ import cz.jpikl.yafmt.ui.figures.MiddleSideAnchor;
 
 public class SelectionEditPart extends AbstractGraphicalEditPart implements NodeEditPart {
 
-    private Selection parentSelection;
+    private FeatureConfigurationManager featureConfigManager;
     private Selection selection;
 
-    public SelectionEditPart(Selection selection) {
-        this(selection.getParent(), selection);
-    }
-    
-    public SelectionEditPart(Selection parentSelection, Selection selection) {
-        this.parentSelection = parentSelection;
+    public SelectionEditPart(FeatureConfigurationManager featureConfigManager, Selection selection) {
+        this.featureConfigManager = featureConfigManager;
         this.selection = selection;
         setModel(selection);
     }
 
     @Override
     protected IFigure createFigure() {
-        return new SelectionFigure(selection);
+        SelectionFigure figure = new SelectionFigure(selection);
+        // Figure cannot obtain feature from selection itself if selection is not added to the configuration.
+        // So we need to update it manually.
+        if(selection.getParent() == null) {
+            Feature feature = featureConfigManager.getFeatureModel().getFeatureById(selection.getId());
+            figure.initContents(feature);
+        }
+        return figure;
     }
     
     @Override
@@ -61,6 +66,7 @@ public class SelectionEditPart extends AbstractGraphicalEditPart implements Node
     @SuppressWarnings("rawtypes")
     protected List getModelSourceConnections() {
         List<Object> connections = new ArrayList<Object>();
+        Selection parentSelection = featureConfigManager.getParentSelection(selection);
         if(parentSelection != null)
             connections.add(new Connection(parentSelection, selection));
         return connections;
@@ -70,8 +76,8 @@ public class SelectionEditPart extends AbstractGraphicalEditPart implements Node
     @SuppressWarnings("rawtypes")
     protected List getModelTargetConnections() {
         List<Object> connections = new ArrayList<Object>();
-        for(Selection child: selection.getSelections())
-            connections.add(new Connection(selection, child));
+        for(Selection childSelection: featureConfigManager.getChildrenSelections(selection))
+            connections.add(new Connection(selection, childSelection));
         return connections;
     }
     
