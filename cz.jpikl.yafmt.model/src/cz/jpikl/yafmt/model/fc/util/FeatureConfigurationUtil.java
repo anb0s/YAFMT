@@ -3,6 +3,7 @@ package cz.jpikl.yafmt.model.fc.util;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.BasicExtendedMetaData;
@@ -13,20 +14,29 @@ import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
 import cz.jpikl.yafmt.model.fc.AttributeValue;
+import cz.jpikl.yafmt.model.fc.BooleanValue;
+import cz.jpikl.yafmt.model.fc.DoubleValue;
 import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
 import cz.jpikl.yafmt.model.fc.FeatureConfigurationFactory;
 import cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage;
 import cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage.Literals;
+import cz.jpikl.yafmt.model.fc.IntegerValue;
 import cz.jpikl.yafmt.model.fc.Selection;
+import cz.jpikl.yafmt.model.fc.StringValue;
 import cz.jpikl.yafmt.model.fm.Attribute;
 import cz.jpikl.yafmt.model.fm.AttributeType;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
+import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
 
 public class FeatureConfigurationUtil {
 
     private static Map<Object, Object> saveLoadOptions;
+    
+    // ===============================================================================================
+    //  Save and load utilities
+    // ===============================================================================================
     
     private static ExtendedMetaData createExtendedMetadata() {
         ExtendedMetaData emd = new BasicExtendedMetaData();
@@ -71,6 +81,10 @@ public class FeatureConfigurationUtil {
         FeatureConfigurationPackage.eINSTANCE.eClass();
     }
     
+    // ===============================================================================================
+    //  Creation utilities
+    // ===============================================================================================
+    
     public static FeatureConfiguration createEmptyFeatureConfiguration(FeatureModel featureModel) {
         return createEmptyFeatureConfiguration(featureModel, (featureModel != null) ? featureModel.getName() : null); 
     }
@@ -91,10 +105,7 @@ public class FeatureConfigurationUtil {
     public static Selection createSelection(Feature feature) {
         Selection selection = FeatureConfigurationFactory.eINSTANCE.createSelection();
         selection.setId(feature.getId());
-        
-        for(Attribute attribute: feature.getAttributes())
-            selection.getValues().add(createAttributeValue(attribute));
-        
+        repairSelection(feature, selection);
         return selection;
     }
     
@@ -108,10 +119,144 @@ public class FeatureConfigurationUtil {
         switch (attributeType) {
             case BOOLEAN: return FeatureConfigurationFactory.eINSTANCE.createBooleanValue();
             case INTEGER: return FeatureConfigurationFactory.eINSTANCE.createIntegerValue();
-            case DOUBLE: return FeatureConfigurationFactory.eINSTANCE.createDoubleValue();
-            case STRING: return FeatureConfigurationFactory.eINSTANCE.createStringValue();
-            default: return FeatureConfigurationFactory.eINSTANCE.createStringValue();
+            case DOUBLE:  return FeatureConfigurationFactory.eINSTANCE.createDoubleValue();
+            case STRING:  return FeatureConfigurationFactory.eINSTANCE.createStringValue();
+            default:      return FeatureConfigurationFactory.eINSTANCE.createStringValue();
         }
+    }
+        
+    // ===============================================================================================
+    //  Selection repair utilities
+    // ===============================================================================================
+    
+    public static void repairSelection(Feature feature, Selection selection) {
+        // Check attributes.
+        repairAttributeValues(feature, selection);
+        
+        // Repair solitary features.
+        int expectedIndex = 0;
+        EList<Selection> childrenSelections = selection.getSelections();
+        expectedIndex = repairSelections(feature.getFeatures(), expectedIndex, childrenSelections);
+        
+        // Repair grouped features.
+        EList<Group> groups = feature.getGroups();
+        for(int i = 0; i < groups.size(); i++) {
+            Group group = groups.get(i);
+            expectedIndex = repairSelections(group.getFeatures(), expectedIndex, childrenSelections);
+        }
+        
+        // Remove unnecessary selections from the right to left.
+        for(int i = childrenSelections.size() - 1; i >= expectedIndex; i--)
+            childrenSelections.remove(i);
+    }
+    
+    private static int repairSelections(EList<Feature> features, int startingIndex, EList<Selection> selections) {
+        int expectedIndex = startingIndex;
+        
+        for(int i = 0; i < features.size(); i++) {
+            Feature feature = features.get(i);
+            int lower = feature.getLower();
+            int upper = feature.getUpper();
+            
+            // Add or move mandatory selections.
+            for(int j = 0; j < lower; j++) {
+                if(repairSelectionPosition(feature, expectedIndex, selections, true))
+                    repairSelection(feature, selections.get(expectedIndex));
+                expectedIndex++;
+            }
+            
+            // Move optional selections.
+            for(int j = (upper == -1) ? Integer.MAX_VALUE : (upper - lower); j > 0; j--) {
+                if(repairSelectionPosition(feature, expectedIndex, selections, false)) {
+                    repairSelection(feature, selections.get(expectedIndex));
+                    expectedIndex++;
+                }
+                else {
+                    break;
+                }
+            }
+        }
+        
+        return expectedIndex;
+    }
+    
+    private static boolean repairSelectionPosition(Feature feature, int expectedIndex, EList<Selection> selections, boolean shouldExist) {
+        String id = feature.getId();
+        
+        // Selection is on the expected position. OK.
+        if(selections.get(expectedIndex).getId().equals(id))
+            return true;
+        
+        for(int i = expectedIndex + 1; i < selections.size(); i++) {
+            // Selection is on different position. Move it.
+            if(selections.get(i).getId().equals(id)) {
+                selections.move(expectedIndex, i);
+                return true;
+            }
+        }
+        
+        // Selection does not exist and must be present. Create it.
+        if(shouldExist)
+            selections.add(expectedIndex, createSelection(feature));
+        
+        // Selection was not present.
+        return false;
+    }
+    
+    // ===============================================================================================
+    //  Attribute repair utilities
+    // ===============================================================================================
+        
+    public static void repairAttributeValues(Feature feature, Selection selection) {
+        EList<Attribute> attributes = feature.getAttributes();
+        EList<AttributeValue> values = selection.getValues();
+
+        // Add or move existing attribute values.
+        for(int i = 0; i < attributes.size(); i++) {
+            Attribute attribute = attributes.get(i);
+            if(repairAttributeValuePosition(attribute, i, values))
+                repairAttributeValueType(attribute, i, values);
+        }
+        
+        // Remove unnecessary attribute values from the right to left.
+        for(int i = values.size() - 1; i >= attributes.size(); i--)
+            values.remove(i);
+    }
+    
+    private static boolean repairAttributeValuePosition(Attribute attribute, int expectedIndex, EList<AttributeValue> values) {
+        String id = attribute.getId();
+        
+        // Attribute value is on the expected position. OK.
+        if(values.get(expectedIndex).getId().equals(id))
+            return true;
+        
+        for(int i = expectedIndex + 1; i < values.size(); i++) {
+            // Attribute value is on different position. Move it.
+            if(values.get(i).getId().equals(id)) {
+                values.move(expectedIndex, i);
+                return true;
+            }
+        }
+        
+        // Attribute value does not exist. Create it.
+        values.add(expectedIndex, createAttributeValue(attribute));
+        
+        // Attribute value was not present.
+        return false;
+    }
+    
+    private static void repairAttributeValueType(Attribute attribute, int index, EList<AttributeValue> values) {
+        boolean sameType = false;
+        
+        switch (attribute.getType()) {
+            case BOOLEAN: sameType = values.get(index) instanceof BooleanValue; break;
+            case INTEGER: sameType = values.get(index) instanceof IntegerValue; break;
+            case DOUBLE:  sameType = values.get(index) instanceof DoubleValue;  break;
+            case STRING:  sameType = values.get(index) instanceof StringValue;  break;
+        }
+        
+        if(!sameType)
+            values.set(index, createAttributeValue(attribute));
     }
     
 }

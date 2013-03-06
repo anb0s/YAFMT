@@ -24,7 +24,11 @@ import cz.jpikl.yafmt.model.fm.Group;
 public class FeatureModelUtil {
 
     private static Map<Object, Object> saveLoadOptions;
-        
+    
+    // ===============================================================================================
+    //  Save and load utilities
+    // ===============================================================================================
+    
     private static ExtendedMetaData createExtendedMetadata() {
         ExtendedMetaData emd = new BasicExtendedMetaData();
         emd.setName(Literals.FEATURE_MODEL, "featureModel");
@@ -67,6 +71,10 @@ public class FeatureModelUtil {
         FeatureModelPackage.eINSTANCE.eClass();
     }
     
+    // ===============================================================================================
+    //  Creation utilities
+    // ===============================================================================================
+    
     public static FeatureModel createEmptyFeatureModel(String name) {
         if((name == null) || name.isEmpty())
             throw new IllegalArgumentException("Feature model name cannot be empty");
@@ -84,6 +92,10 @@ public class FeatureModelUtil {
         featureModel.setRoot(rootFeature);
         return featureModel;
     }
+    
+    // ===============================================================================================
+    //  Query utilities
+    // ===============================================================================================
 
     public static String getName(EObject object) {
         if(object == null)
