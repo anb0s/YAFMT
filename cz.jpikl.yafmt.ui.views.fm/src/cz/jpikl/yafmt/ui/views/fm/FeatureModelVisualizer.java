@@ -267,7 +267,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         for(int i = 0; i < elements.length; i++) {
             Object element = elements[i];
             if(element instanceof Selection) {
-                Feature feature = ((Selection) element).getFeature();
+                Feature feature = featureModel.getFeatureById(((Selection) element).getId());
                 // Selection elements can't be null.
                 if(feature != null)
                     elements[i] = feature;
