@@ -19,9 +19,15 @@ import cz.jpikl.yafmt.ui.figures.MiddleSideAnchor;
 
 public class SelectionEditPart extends AbstractGraphicalEditPart implements NodeEditPart {
 
+    private Selection parentSelection;
     private Selection selection;
 
     public SelectionEditPart(Selection selection) {
+        this(selection.getParent(), selection);
+    }
+    
+    public SelectionEditPart(Selection parentSelection, Selection selection) {
+        this.parentSelection = parentSelection;
         this.selection = selection;
         setModel(selection);
     }
@@ -55,9 +61,8 @@ public class SelectionEditPart extends AbstractGraphicalEditPart implements Node
     @SuppressWarnings("rawtypes")
     protected List getModelSourceConnections() {
         List<Object> connections = new ArrayList<Object>();
-        Selection parent = selection.getParent();
-        if(parent != null)
-            connections.add(new Connection(parent, selection));
+        if(parentSelection != null)
+            connections.add(new Connection(parentSelection, selection));
         return connections;
     }
     
