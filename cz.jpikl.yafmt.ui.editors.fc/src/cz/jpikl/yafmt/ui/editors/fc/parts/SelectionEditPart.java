@@ -15,7 +15,7 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import cz.jpikl.yafmt.model.fc.Selection;
 import cz.jpikl.yafmt.ui.editors.fc.FeatureConfigurationManager;
 import cz.jpikl.yafmt.ui.editors.fc.commands.SelectFeatureCommand;
-import cz.jpikl.yafmt.ui.editors.fc.commands.UnselectFeatureCommand;
+import cz.jpikl.yafmt.ui.editors.fc.commands.DeselectFeatureCommand;
 import cz.jpikl.yafmt.ui.editors.fc.figures.SelectionFigure;
 import cz.jpikl.yafmt.ui.editors.fc.model.Connection;
 import cz.jpikl.yafmt.ui.editors.fc.policies.SelectionSelectionPolicy;
@@ -102,7 +102,7 @@ public class SelectionEditPart extends AbstractGraphicalEditPart implements Node
             if(selection.getParent() == null)
                 commandStack.execute(new SelectFeatureCommand(featureConfigManager, selection));
             else
-                commandStack.execute(new UnselectFeatureCommand(featureConfigManager, selection));
+                commandStack.execute(new DeselectFeatureCommand(featureConfigManager, selection));
         }
     }
 

@@ -7,7 +7,7 @@ import org.eclipse.ui.actions.ActionFactory;
 
 import cz.jpikl.yafmt.ui.actions.ExportGraphicalEditorAsImageAction;
 import cz.jpikl.yafmt.ui.editors.fc.actions.SelectFeaturesAction;
-import cz.jpikl.yafmt.ui.editors.fc.actions.UnselectFeaturesAction;
+import cz.jpikl.yafmt.ui.editors.fc.actions.DeselectFeaturesAction;
 import cz.jpikl.yafmt.ui.providers.GraphicalEditorContextMenuProvider;
 
 public class FeatureConfigurationEditorContextMenuProvider extends GraphicalEditorContextMenuProvider {
@@ -23,7 +23,7 @@ public class FeatureConfigurationEditorContextMenuProvider extends GraphicalEdit
         addActionToMenu(menu, GEFActionConstants.GROUP_UNDO, ActionFactory.UNDO.getId());
         addActionToMenu(menu, GEFActionConstants.GROUP_UNDO, ActionFactory.REDO.getId());
         addActionToMenu(menu, GEFActionConstants.GROUP_EDIT, SelectFeaturesAction.ID);
-        addActionToMenu(menu, GEFActionConstants.GROUP_EDIT, UnselectFeaturesAction.ID);
+        addActionToMenu(menu, GEFActionConstants.GROUP_EDIT, DeselectFeaturesAction.ID);
         addActionToMenu(menu, GEFActionConstants.GROUP_SAVE, ExportGraphicalEditorAsImageAction.ID);
     }
 

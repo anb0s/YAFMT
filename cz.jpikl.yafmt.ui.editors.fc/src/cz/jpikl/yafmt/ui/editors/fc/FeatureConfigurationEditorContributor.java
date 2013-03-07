@@ -8,7 +8,7 @@ import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.LabelRetargetAction;
 
 import cz.jpikl.yafmt.ui.editors.fc.actions.SelectFeaturesAction;
-import cz.jpikl.yafmt.ui.editors.fc.actions.UnselectFeaturesAction;
+import cz.jpikl.yafmt.ui.editors.fc.actions.DeselectFeaturesAction;
 
 public class FeatureConfigurationEditorContributor extends ActionBarContributor {
 
@@ -18,7 +18,7 @@ public class FeatureConfigurationEditorContributor extends ActionBarContributor 
         addRetargetAction(new RedoRetargetAction());
         addRetargetAction(new LabelRetargetAction(ActionFactory.SELECT_ALL.getId(), "Select All"));
         addRetargetAction(SelectFeaturesAction.createRetargetAction());
-        addRetargetAction(UnselectFeaturesAction.createRetargetAction());
+        addRetargetAction(DeselectFeaturesAction.createRetargetAction());
     }
     
     @Override
@@ -26,7 +26,7 @@ public class FeatureConfigurationEditorContributor extends ActionBarContributor 
         toolBarManager.add(getAction(ActionFactory.UNDO.getId()));
         toolBarManager.add(getAction(ActionFactory.REDO.getId()));
         toolBarManager.add(getAction(SelectFeaturesAction.ID));
-        toolBarManager.add(getAction(UnselectFeaturesAction.ID));
+        toolBarManager.add(getAction(DeselectFeaturesAction.ID));
     }
 
     @Override

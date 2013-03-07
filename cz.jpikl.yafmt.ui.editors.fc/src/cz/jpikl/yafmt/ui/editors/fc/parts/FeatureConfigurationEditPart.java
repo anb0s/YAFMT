@@ -75,7 +75,7 @@ public class FeatureConfigurationEditPart extends AbstractGraphicalEditPart impl
     }
 
     @Override
-    public void featuresUnselected(List<Selection> selections) {
+    public void featuresDeselected(List<Selection> selections) {
         refreshAll();
     }
 

@@ -45,7 +45,7 @@ public class SelectFeatureCommand extends RecordingCommand {
     @Override
     public void undo() {
         super.undo();
-        featureConfigManager.featuresUnselected(selections); // We have to notify FC manager manually.
+        featureConfigManager.featuresDeselected(selections); // We have to notify FC manager manually.
     }
     
     @Override

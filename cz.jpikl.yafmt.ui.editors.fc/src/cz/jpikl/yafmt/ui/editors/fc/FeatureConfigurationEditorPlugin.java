@@ -59,7 +59,7 @@ public class FeatureConfigurationEditorPlugin extends AbstractUIPlugin {
     @Override
     protected void initializeImageRegistry(ImageRegistry registry) {
         registerImage(registry, "select");
-        registerImage(registry, "unselect");
+        registerImage(registry, "deselect");
     }
 
 }

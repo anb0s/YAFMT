@@ -10,24 +10,24 @@ import org.eclipse.ui.actions.RetargetAction;
 import cz.jpikl.yafmt.model.fc.Selection;
 import cz.jpikl.yafmt.ui.editors.fc.FeatureConfigurationEditorPlugin;
 import cz.jpikl.yafmt.ui.editors.fc.FeatureConfigurationManager;
-import cz.jpikl.yafmt.ui.editors.fc.commands.UnselectFeatureCommand;
+import cz.jpikl.yafmt.ui.editors.fc.commands.DeselectFeatureCommand;
 
-public class UnselectFeaturesAction extends FeatureSelectionAction {
+public class DeselectFeaturesAction extends FeatureSelectionAction {
 
-    public static final String ID = "cz.jpikl.yafmt.ui.editors.fc.actions.UnselectFeaturesAction";
+    public static final String ID = "cz.jpikl.yafmt.ui.editors.fc.actions.DeselectFeaturesAction";
     
     public static RetargetAction createRetargetAction() {
-        LabelRetargetAction action = new LabelRetargetAction(ID, "Unselect Features");
-        action.setImageDescriptor(FeatureConfigurationEditorPlugin.getImageDescriptor("icons/unselect-del.png"));
+        LabelRetargetAction action = new LabelRetargetAction(ID, "Deselect Features");
+        action.setImageDescriptor(FeatureConfigurationEditorPlugin.getImageDescriptor("icons/deselect-del.png"));
         return action;
     }
     
-    public UnselectFeaturesAction(GraphicalEditor editor, FeatureConfigurationManager featureConfigManager) {
+    public DeselectFeaturesAction(GraphicalEditor editor, FeatureConfigurationManager featureConfigManager) {
         super(editor, featureConfigManager);
         
         setId(ID);
-        setText("Unselect Features");
-        setImageDescriptor(FeatureConfigurationEditorPlugin.getImageDescriptor("icons/unselect.png"));
+        setText("Deselect Features");
+        setImageDescriptor(FeatureConfigurationEditorPlugin.getImageDescriptor("icons/deselect.png"));
         
     }
     
@@ -35,7 +35,7 @@ public class UnselectFeaturesAction extends FeatureSelectionAction {
         List<Selection> featuresToSelect = getSelectedFeatures();
         if(featuresToSelect == null)
             return null;
-        return new UnselectFeatureCommand(getFeatureConfigManager(), featuresToSelect);
+        return new DeselectFeatureCommand(getFeatureConfigManager(), featuresToSelect);
     }
 
 }

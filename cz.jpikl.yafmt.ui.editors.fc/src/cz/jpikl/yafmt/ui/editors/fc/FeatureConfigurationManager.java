@@ -60,9 +60,9 @@ public class FeatureConfigurationManager {
             listener.featuresSelected(selections);
     }
     
-    protected void fireFeaturesUnselected(List<Selection> selections) {
+    protected void fireFeaturesDeselected(List<Selection> selections) {
         for(IFeatureConfigurationListener listener: listeners)
-            listener.featuresUnselected(selections);
+            listener.featuresDeselected(selections);
     }
     
     // ===========================================================================
@@ -191,7 +191,7 @@ public class FeatureConfigurationManager {
     }
     
     // ===========================================================================
-    //  Selections operations
+    //  Selection operations
     // ===========================================================================
         
     public List<Selection> selectFeatures(List<Selection> selections) {
@@ -247,22 +247,22 @@ public class FeatureConfigurationManager {
     }
     
     // ===========================================================================
-    //  Unselections operations
+    //  Deselection operations
     // ===========================================================================
     
-    public List<Selection> unselectFeatures(List<Selection> selections) {
+    public List<Selection> deselectFeatures(List<Selection> selections) {
         List<Selection> affectedSelections = new ArrayList<Selection>(selections.size());
         
         for(Selection selection: selections) {
-            if(unselectFeature(selection))
+            if(deselectFeature(selection))
                 affectedSelections.add(selection);
         }
         
-        featuresUnselected(affectedSelections);
+        featuresDeselected(affectedSelections);
         return affectedSelections;
     }
     
-    public boolean canUnselectFeature(Selection selection) {
+    public boolean canDeselectFeature(Selection selection) {
         // Feature must be already selected.
         Selection parentSelection = selection.getParent();
         if(parentSelection == null)
@@ -273,7 +273,7 @@ public class FeatureConfigurationManager {
         if(feature == null)
             return false;
         
-        // We cannot unselect mandatory feature.
+        // We cannot deselect mandatory feature.
         int count = 0;
         List<Selection> childrenSelections = parentSelection.getSelections();
         for(int i = 0; i < childrenSelections.size(); i++) {
@@ -283,17 +283,17 @@ public class FeatureConfigurationManager {
         return count > feature.getLower();
     }
     
-    private boolean unselectFeature(Selection selection) {
-        if(canUnselectFeature(selection)) {
+    private boolean deselectFeature(Selection selection) {
+        if(canDeselectFeature(selection)) {
             selection.setParent(null);
             return true;
         }
         return false;
     }
 
-    public void featuresUnselected(List<Selection> selections) {
+    public void featuresDeselected(List<Selection> selections) {
         rebuildVirtualConnections();
-        fireFeaturesUnselected(selections);
+        fireFeaturesDeselected(selections);
     }
     
 }

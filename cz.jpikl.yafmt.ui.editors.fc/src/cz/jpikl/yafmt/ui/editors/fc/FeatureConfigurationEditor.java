@@ -28,7 +28,7 @@ import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.ui.actions.ExportGraphicalEditorAsImageAction;
 import cz.jpikl.yafmt.ui.editors.ModelEditor;
 import cz.jpikl.yafmt.ui.editors.fc.actions.SelectFeaturesAction;
-import cz.jpikl.yafmt.ui.editors.fc.actions.UnselectFeaturesAction;
+import cz.jpikl.yafmt.ui.editors.fc.actions.DeselectFeaturesAction;
 import cz.jpikl.yafmt.ui.editors.fc.layout.FeatureConfigurationLayoutHelper;
 import cz.jpikl.yafmt.ui.editors.fc.layout.HorizontalTreeLayout;
 import cz.jpikl.yafmt.ui.editors.fc.layout.TreeLayout;
@@ -145,7 +145,7 @@ public class FeatureConfigurationEditor extends ModelEditor {
     @Override
     protected void createActionsLate() {
         createAction(new SelectFeaturesAction(this, featureConfigManager));
-        createAction(new UnselectFeaturesAction(this, featureConfigManager));
+        createAction(new DeselectFeaturesAction(this, featureConfigManager));
     }
             
     // ==================================================================================

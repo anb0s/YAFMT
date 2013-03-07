@@ -8,6 +8,6 @@ public interface IFeatureConfigurationListener {
 
     public void featuresSelected(List<Selection> selections);
     
-    public void featuresUnselected(List<Selection> selections);
+    public void featuresDeselected(List<Selection> selections);
     
 }
