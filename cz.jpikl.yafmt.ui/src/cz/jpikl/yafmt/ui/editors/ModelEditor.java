@@ -103,6 +103,7 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette {
             viewer.setContextMenu(contextMenuProvider);
         
         // Actions need original selection provider.
+        createActionsLate();
         setActionsSelectionProvider(viewer);
     }
     
@@ -160,6 +161,9 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette {
         getActionRegistry().registerAction(action);
         if(action instanceof SelectionAction)
             getSelectionActions().add(action.getId());
+    }
+    
+    protected void createActionsLate() {
     }
     
     private void setActionsSelectionProvider(ISelectionProvider selectionProvider) {

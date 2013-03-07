@@ -7,6 +7,9 @@ import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.LabelRetargetAction;
 
+import cz.jpikl.yafmt.ui.editors.fc.actions.SelectFeaturesAction;
+import cz.jpikl.yafmt.ui.editors.fc.actions.UnselectFeaturesAction;
+
 public class FeatureConfigurationEditorContributor extends ActionBarContributor {
 
     @Override
@@ -14,12 +17,16 @@ public class FeatureConfigurationEditorContributor extends ActionBarContributor 
         addRetargetAction(new UndoRetargetAction());
         addRetargetAction(new RedoRetargetAction());
         addRetargetAction(new LabelRetargetAction(ActionFactory.SELECT_ALL.getId(), "Select All"));
+        addRetargetAction(SelectFeaturesAction.createRetargetAction());
+        addRetargetAction(UnselectFeaturesAction.createRetargetAction());
     }
     
     @Override
     public void contributeToToolBar(IToolBarManager toolBarManager) {
         toolBarManager.add(getAction(ActionFactory.UNDO.getId()));
         toolBarManager.add(getAction(ActionFactory.REDO.getId()));
+        toolBarManager.add(getAction(SelectFeaturesAction.ID));
+        toolBarManager.add(getAction(UnselectFeaturesAction.ID));
     }
 
     @Override

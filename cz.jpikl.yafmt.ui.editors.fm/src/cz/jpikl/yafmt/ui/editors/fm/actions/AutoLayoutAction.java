@@ -4,7 +4,6 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
-import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.ui.actions.EditorPartAction;
 import org.eclipse.gef.ui.parts.GraphicalEditor;
 
@@ -34,8 +33,7 @@ public class AutoLayoutAction extends EditorPartAction {
     
     @Override
     public void run() {
-        CommandStack commandStack = (CommandStack) getEditorPart().getAdapter(CommandStack.class);
-        commandStack.execute(getCommand());
+        execute(getCommand());
     }
 
 }
