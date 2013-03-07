@@ -16,7 +16,6 @@ import org.eclipse.swt.graphics.Pattern;
 import org.eclipse.swt.widgets.Display;
 
 import cz.jpikl.yafmt.model.fc.Selection;
-import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.ui.util.DrawConstantans;
 
 public class SelectionFigure extends RoundedRectangle {
@@ -44,21 +43,19 @@ public class SelectionFigure extends RoundedRectangle {
         setSize(-1, -1);
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
         setHighlighted(false);
+        initContents();
     }
     
-    public void initContents(Feature feature) {
-        if(feature == null)
-            return;
-        
-        String id = feature.getId();
-        String description = feature.getDescription();
+    private void initContents() {
+        String id = selection.getId();
+        String description = selection.getDescription();
         
         if((description != null) && !description.isEmpty())
             baseDescription = id + " - " + description;
         else
             baseDescription = id;
         
-        label.setText(feature.getName());
+        label.setText(selection.getName());
         toolTip.setText(baseDescription);
     }
     

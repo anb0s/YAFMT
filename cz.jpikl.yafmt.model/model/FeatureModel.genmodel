@@ -79,7 +79,7 @@
         <genParameters ecoreParameter="FeatureConfiguration.ecore#//FeatureConfiguration/getSelectionsById/id"/>
       </genOperations>
     </genClasses>
-    <genClasses ecoreClass="FeatureConfiguration.ecore#//Selection">
+    <genClasses provider="Stateful" ecoreClass="FeatureConfiguration.ecore#//Selection">
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//Selection/id"/>
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//Selection/name"/>
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//Selection/description"/>
@@ -90,7 +90,7 @@
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference FeatureConfiguration.ecore#//Selection/featureConfiguration"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference FeatureConfiguration.ecore#//Selection/feature"/>
     </genClasses>
-    <genClasses image="false" ecoreClass="FeatureConfiguration.ecore#//AttributeValue">
+    <genClasses provider="Stateful" image="false" ecoreClass="FeatureConfiguration.ecore#//AttributeValue">
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//AttributeValue/id"/>
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//AttributeValue/name"/>
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//AttributeValue/description"/>

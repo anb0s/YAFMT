@@ -13,30 +13,18 @@ import cz.jpikl.yafmt.model.fc.util.FeatureConfigurationUtil;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.Group;
+import cz.jpikl.yafmt.ui.editors.fc.model.SelectionWrapper;
 
 public class FeatureConfigurationManager {
-    
-    // Wrapper for unselected feature (selection with no parent). 
-    private static class VirtualSelection {
-        
-        private Selection selection;
-        private int insertPosition;
-        
-        public VirtualSelection(Selection selection, int insertPosition) {
-            this.selection = selection;           // Unselected feature.
-            this.insertPosition = insertPosition; // Where to insert selection into parent's children array.
-        }
-                
-    }
     
     // Parent to children virtual connections.
     // Contains relation between selections which are present in feature configuration and selections which 
     // is possible to add (as their children) to the feature configuration.
-    private Map<Selection, List<VirtualSelection>> virtualConnections = new HashMap<Selection, List<VirtualSelection>>();
+    private Map<Selection, List<SelectionWrapper>> virtualConnections = new HashMap<Selection, List<SelectionWrapper>>();
     
     // Children to parent virtual connections.
     // Same as above, but opposite relation.
-    private Map<Selection, Selection> virtualConnectionsOpposite = new HashMap<Selection, Selection>();
+    private Map<SelectionWrapper, Selection> virtualConnectionsOpposite = new HashMap<SelectionWrapper, Selection>();
     
     private List<IFeatureConfigurationListener> listeners = new ArrayList<IFeatureConfigurationListener>();
     private FeatureConfiguration featureConfig;
@@ -146,16 +134,18 @@ public class FeatureConfigurationManager {
     }
 
     private void addVirtualConnection(Selection parentSelection, Selection childSelection, int insertPosition) {
+        SelectionWrapper childWrapper = new SelectionWrapper(featureConfig, childSelection, insertPosition);
+        
         // Parent to child connection.
-        List<VirtualSelection> childrenSelections = virtualConnections.get(parentSelection);
+        List<SelectionWrapper> childrenSelections = virtualConnections.get(parentSelection);
         if(childrenSelections == null) {
-            childrenSelections = new ArrayList<VirtualSelection>();
+            childrenSelections = new ArrayList<SelectionWrapper>();
             virtualConnections.put(parentSelection, childrenSelections);
         }
-        childrenSelections.add(new VirtualSelection(childSelection, insertPosition));
+        childrenSelections.add(childWrapper);
         
         // Child to parent connection.
-        virtualConnectionsOpposite.put(childSelection, parentSelection);
+        virtualConnectionsOpposite.put(childWrapper, parentSelection);
     }
         
     // ===========================================================================
@@ -181,7 +171,7 @@ public class FeatureConfigurationManager {
         
         selectionList.addAll(parentSelection.getSelections());
         
-        List<VirtualSelection> childrenSelections = virtualConnections.get(parentSelection);
+        List<SelectionWrapper> childrenSelections = virtualConnections.get(parentSelection);
         if(childrenSelections == null)
             return;
         
@@ -189,16 +179,14 @@ public class FeatureConfigurationManager {
             // InsertPosition does not count other unselected features, so we have to increment it.
             int offset = 0;
             for(int i = 0; i < childrenSelections.size(); i++) {
-                VirtualSelection childSelection = childrenSelections.get(i);
-                selectionList.add(childSelection.insertPosition + offset, childSelection.selection);
+                // We have to add wrapper, not the original selection, since it missing parent.
+                SelectionWrapper childWrapper = childrenSelections.get(i);
+                selectionList.add(childWrapper.getInsertPosition() + offset, childWrapper);
                 offset++;
             }
         }
         else {
-            for(int i = 0; i < childrenSelections.size(); i++) {
-                VirtualSelection childSelection = childrenSelections.get(i);
-                selectionList.add(childSelection.selection);
-            }
+            selectionList.addAll(childrenSelections);
         }
     }
     
@@ -229,14 +217,14 @@ public class FeatureConfigurationManager {
             return false;
         
         // Look for sibling selections.
-        List<VirtualSelection> childrenSelections = virtualConnections.get(parentSelection);
+        List<SelectionWrapper> childrenSelections = virtualConnections.get(parentSelection);
         if(childrenSelections == null)
             return false;
         
         // Look for position between sibling selections.
         int index = -1;
         for(int i = 0; i < childrenSelections.size(); i++) {
-            if(childrenSelections.get(i).selection == selection) {
+            if(childrenSelections.get(i) == selection) {
                 index = i;
                 break;
             }
@@ -246,10 +234,10 @@ public class FeatureConfigurationManager {
         
         // Insert selection to specified position.
         // Also increment position of other, yet unselected features.
-        int insertPosition = childrenSelections.remove(index).insertPosition;
+        SelectionWrapper childWrapper = childrenSelections.remove(index);
         for(int i = index; i < childrenSelections.size(); i++)
-            childrenSelections.get(i).insertPosition++;
-        parentSelection.getSelections().add(insertPosition, selection);
+            childrenSelections.get(i).incrementInsertPosition();
+        parentSelection.getSelections().add(childWrapper.getInsertPosition(), childWrapper.getOriginalSelection());
         return true;
     }
     

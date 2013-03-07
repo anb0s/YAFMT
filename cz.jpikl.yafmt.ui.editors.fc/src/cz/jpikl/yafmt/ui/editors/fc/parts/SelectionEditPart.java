@@ -27,6 +27,7 @@ public class SelectionEditPart extends AbstractGraphicalEditPart implements Node
     private Selection selection;
 
     public SelectionEditPart(FeatureConfigurationManager featureConfigManager, Selection selection) {
+        
         this.featureConfigManager = featureConfigManager;
         this.selection = selection;
         setModel(selection);
@@ -34,18 +35,15 @@ public class SelectionEditPart extends AbstractGraphicalEditPart implements Node
 
     @Override
     protected IFigure createFigure() {
-        SelectionFigure figure = new SelectionFigure(selection);
-        // Figure cannot obtain feature from selection itself if the selection is not added to the configuration.
-        // So we need to update it manually.
-        figure.initContents(featureConfigManager.getFeatureModel().getFeatureById(selection.getId()));
-        return figure;
+        return new SelectionFigure(selection);
     }
     
     @Override
     protected void refreshVisuals() {
         // TODO Detect errors.
-        ((SelectionFigure) getFigure()).setErrorMessages(null);
-        getFigure().repaint();
+        SelectionFigure figure = (SelectionFigure) getFigure();
+        figure.setErrorMessages(null);
+        figure.repaint();
         
         // Refresh source connections visual.
         for(Object connectionEditPart: getSourceConnections())

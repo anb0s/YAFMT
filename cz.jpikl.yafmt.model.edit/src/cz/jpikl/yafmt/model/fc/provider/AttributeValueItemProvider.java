@@ -3,19 +3,12 @@
 package cz.jpikl.yafmt.model.fc.provider;
 
 
-import cz.jpikl.yafmt.model.fc.AttributeValue;
-import cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage;
-
-import cz.jpikl.yafmt.model.fm.provider.FeatureModelEditPlugin;
-
 import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.common.util.ResourceLocator;
-
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -26,6 +19,10 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+
+import cz.jpikl.yafmt.model.fc.AttributeValue;
+import cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage;
+import cz.jpikl.yafmt.model.fm.provider.FeatureModelEditPlugin;
 
 /**
  * This is the item provider adapter for a {@link cz.jpikl.yafmt.model.fc.AttributeValue} object.
@@ -55,7 +52,7 @@ public class AttributeValueItemProvider
      * This returns the property descriptors for the adapted class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     @Override
     public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
@@ -64,7 +61,10 @@ public class AttributeValueItemProvider
 
             addIdPropertyDescriptor(object);
             addNamePropertyDescriptor(object);
-            addDescriptionPropertyDescriptor(object);
+            
+            String description = ((AttributeValue) object).getDescription();
+            if((description != null) && !description.isEmpty())
+                addDescriptionPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
