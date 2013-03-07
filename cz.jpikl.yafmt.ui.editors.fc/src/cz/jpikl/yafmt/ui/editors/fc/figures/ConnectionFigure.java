@@ -17,4 +17,8 @@ public class ConnectionFigure extends PolylineConnection {
         return decoration;
     }
     
+    public void setGrayed(boolean grayed) {
+        setForegroundColor(grayed ? ColorConstants.lightGray : ColorConstants.black);
+    }
+    
 }

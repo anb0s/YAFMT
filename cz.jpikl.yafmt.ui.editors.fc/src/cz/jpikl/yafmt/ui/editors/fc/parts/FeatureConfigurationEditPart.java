@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.gef.NodeEditPart;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
@@ -64,10 +64,9 @@ public class FeatureConfigurationEditPart extends AbstractGraphicalEditPart impl
 
     private void refreshAll() {
         refresh();
-        for(Object child: getChildren()) {
-            if(child instanceof NodeEditPart)
-                ((NodeEditPart) child).refresh();
-        }
+        for(Object child: getChildren())
+            ((EditPart) child).refresh();
+        
     }
     
     @Override

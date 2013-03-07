@@ -46,6 +46,10 @@ public class SelectionEditPart extends AbstractGraphicalEditPart implements Node
         // TODO Detect errors.
         ((SelectionFigure) getFigure()).setErrorMessages(null);
         getFigure().repaint();
+        
+        // Refresh source connections visual.
+        for(Object connectionEditPart: getSourceConnections())
+            ((ConnectionEditPart) connectionEditPart).refresh();
     }
     
     @Override
