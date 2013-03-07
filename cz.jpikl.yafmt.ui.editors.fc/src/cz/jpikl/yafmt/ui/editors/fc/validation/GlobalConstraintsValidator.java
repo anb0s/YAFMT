@@ -25,7 +25,9 @@ public class GlobalConstraintsValidator implements IFeatureConfigurationValidato
 	@Override
 	public void validate(FeatureConfiguration featureConfig, IValidationResultWriter writer) {
 		initEvaluators(featureConfig);
-		validateContraints(featureConfig, writer);
+		
+		for(IEvaluator evaluator: evaluators)
+			validateContraint(featureConfig, evaluator, writer);
 	}
 	
 	private void initEvaluators(FeatureConfiguration featureConfig) {
@@ -56,36 +58,31 @@ public class GlobalConstraintsValidator implements IFeatureConfigurationValidato
 		}
 	}
 	
-	private void validateContraints(FeatureConfiguration featureConfig, IValidationResultWriter writer) {
-		FeatureModel featureModel = featureConfig.getFeatureModel();
+	private void validateContraint(FeatureConfiguration featureConfig, IEvaluator evaluator, IValidationResultWriter writer) {
+		IEvaluationResult result = evaluator.evaluate(featureConfig);
+		if(result.isSuccess())
+			return;
+			
+		StringBuilder messageBuilder = new StringBuilder(constraintValues.get(evaluator));
+		messageBuilder.append(" is violated");
 		
-		for(IEvaluator evaluator: evaluators) {
-			IEvaluationResult result = evaluator.evaluate(featureConfig);
-			if(result.isSuccess())
-				continue;
-				
-			StringBuilder messageBuilder = new StringBuilder(constraintValues.get(evaluator));
-			messageBuilder.append(" is violated");
-			
-			String errorMessage = result.getErrorMessage();
-			if((errorMessage != null) && !errorMessage.isEmpty())
-				messageBuilder.append(" (").append(errorMessage).append("");
-			messageBuilder.append(".");
-			
-			List<Feature> affectedFeatures = evaluator.getAffectedFeatures(featureModel);
-			writeErrorResult(featureConfig, affectedFeatures, messageBuilder.toString(), writer);
-		}
-	}
-
-	private void writeErrorResult(FeatureConfiguration featureConfig, List<Feature> features, String message, IValidationResultWriter writer) {
-		if(features == null)
+		String errorMessage = result.getErrorMessage();
+		if((errorMessage != null) && !errorMessage.isEmpty())
+			messageBuilder.append(" (").append(errorMessage).append("");
+		messageBuilder.append(".");
+		
+		errorMessage = messageBuilder.toString();
+		
+		FeatureModel featureModel = featureConfig.getFeatureModel();
+		List<Feature> affectedFeatures = evaluator.getAffectedFeatures(featureModel);
+		if(affectedFeatures == null)
 			return;
 		
-		for(Feature feature: features) {
+		for(Feature feature: affectedFeatures) {
 			List<Selection> selections = featureConfig.getSelectionsById(feature.getId());
 			if(selections != null) {
 				for(Selection selection: selections)
-					writer.addError(selection, message);
+					writer.addError(selection, errorMessage);
 			}
 		}
 	}

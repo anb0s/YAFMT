@@ -14,6 +14,7 @@ import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.ui.editors.fc.model.SelectionWrapper;
+import cz.jpikl.yafmt.ui.editors.fc.validation.IFeatureConfigurationValidator;
 
 public class FeatureConfigurationManager {
     
@@ -27,8 +28,9 @@ public class FeatureConfigurationManager {
     private Map<SelectionWrapper, Selection> virtualConnectionsOpposite = new HashMap<SelectionWrapper, Selection>();
     
     private List<IFeatureConfigurationListener> listeners = new ArrayList<IFeatureConfigurationListener>();
-    private FeatureConfiguration featureConfig;
+    private List<IFeatureConfigurationValidator> validators = new ArrayList<IFeatureConfigurationValidator>();
     private boolean makeVirtualConnections = true;
+    private FeatureConfiguration featureConfig;
 
     public FeatureConfigurationManager(FeatureConfiguration featureConfig) {
         this.featureConfig = featureConfig;
@@ -42,6 +44,21 @@ public class FeatureConfigurationManager {
     
     public FeatureModel getFeatureModel() {
         return featureConfig.getFeatureModelCopy();
+    }
+    
+    // ===========================================================================
+    //  Validators
+    // ===========================================================================
+    
+    public void installValidator(IFeatureConfigurationValidator validator) {
+    	validators.add(validator);
+    }
+    
+    public void revalidateFeatureConfiguration() {
+    	/* TODO implement validation process.
+    	for(IFeatureConfigurationValidator validator: validators)
+    		validator.validate(featureConfig, writer)
+		*/
     }
     
     // ===========================================================================
@@ -243,6 +260,7 @@ public class FeatureConfigurationManager {
     
     public void featuresSelected(List<Selection> selections) {
         rebuildVirtualConnections();
+        revalidateFeatureConfiguration();
         fireFeaturesSelected(selections);
     }
     
@@ -292,6 +310,7 @@ public class FeatureConfigurationManager {
 
     public void featuresDeselected(List<Selection> selections) {
         rebuildVirtualConnections();
+        revalidateFeatureConfiguration();
         fireFeaturesDeselected(selections);
     }
     

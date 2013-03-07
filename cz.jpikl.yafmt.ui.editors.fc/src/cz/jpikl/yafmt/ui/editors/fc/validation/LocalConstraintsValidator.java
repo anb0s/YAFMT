@@ -33,7 +33,6 @@ public class LocalConstraintsValidator implements IFeatureConfigurationValidator
 		Set<String> groupChildrenIds = new HashSet<String>();
 		for(Feature childFeature: group.getFeatures())
 			groupChildrenIds.add(childFeature.getId());
-		String idNames = printIds(groupChildrenIds);
 		
 		// Local constraints.
 		int lower = group.getLower();
@@ -49,9 +48,9 @@ public class LocalConstraintsValidator implements IFeatureConfigurationValidator
 			}
 			
 			if(groupSize < lower)
-				writer.addError(parentSelection, "At least " + lower + " of (" + idNames + ") must be selected.");
+				writer.addError(parentSelection, "At least " + lower + " of (" + printIds(groupChildrenIds) + ") must be selected.");
 			if(groupSize > upper)
-				writer.addError(parentSelection, "At most " + lower + " of (" + idNames + ") can be selected.");
+				writer.addError(parentSelection, "At most " + lower + " of (" + printIds(groupChildrenIds) + ") can be selected.");
 		}
 	}
 	
