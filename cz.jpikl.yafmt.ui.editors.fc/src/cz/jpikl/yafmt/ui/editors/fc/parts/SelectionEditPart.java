@@ -42,6 +42,13 @@ public class SelectionEditPart extends AbstractGraphicalEditPart implements Node
     }
     
     @Override
+    protected void refreshVisuals() {
+        // TODO Detect errors.
+        ((SelectionFigure) getFigure()).setErrorMessages(null);
+        getFigure().repaint();
+    }
+    
+    @Override
     public ConnectionAnchor getSourceConnectionAnchor(ConnectionEditPart connection) {
         return new MiddleSideAnchor(getFigure());
     }
