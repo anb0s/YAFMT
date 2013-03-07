@@ -9,10 +9,13 @@ import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
+import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 import cz.jpikl.yafmt.model.fc.Selection;
 import cz.jpikl.yafmt.ui.editors.fc.FeatureConfigurationManager;
+import cz.jpikl.yafmt.ui.editors.fc.commands.SelectFeatureCommand;
+import cz.jpikl.yafmt.ui.editors.fc.commands.UnselectFeatureCommand;
 import cz.jpikl.yafmt.ui.editors.fc.figures.SelectionFigure;
 import cz.jpikl.yafmt.ui.editors.fc.model.Connection;
 import cz.jpikl.yafmt.ui.editors.fc.policies.SelectionSelectionPolicy;
@@ -80,6 +83,18 @@ public class SelectionEditPart extends AbstractGraphicalEditPart implements Node
     @Override
     protected void createEditPolicies() {
         installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new SelectionSelectionPolicy());
+    }
+    
+    @Override
+    public void performRequest(Request request) {
+        if(request.getType().equals(REQ_OPEN)) {
+            CommandStack commandStack = getViewer().getEditDomain().getCommandStack();
+            
+            if(selection.getParent() == null)
+                commandStack.execute(new SelectFeatureCommand(featureConfigManager, selection));
+            else
+                commandStack.execute(new UnselectFeatureCommand(featureConfigManager, selection));
+        }
     }
 
 }

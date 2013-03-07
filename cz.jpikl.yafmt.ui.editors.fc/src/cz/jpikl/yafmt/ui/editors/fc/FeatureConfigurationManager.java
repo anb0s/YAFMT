@@ -220,7 +220,7 @@ public class FeatureConfigurationManager {
     }
             
     public boolean canSelectFeature(Selection selection) {
-        return virtualConnections.containsKey(selection);
+        return virtualConnectionsOpposite.containsKey(selection);
     }
 
     private boolean selectFeature(Selection selection) {
@@ -297,7 +297,7 @@ public class FeatureConfigurationManager {
     }
     
     private boolean unselectFeature(Selection selection) {
-        if(canSelectFeature(selection)) {
+        if(canUnselectFeature(selection)) {
             selection.setParent(null);
             return true;
         }

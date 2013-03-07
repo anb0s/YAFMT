@@ -39,28 +39,22 @@ public abstract class RecordingCommand extends Command {
     protected abstract void initializeRecording();
     
     protected abstract void performRecording();
-    
-    protected void executionFinished() {
-    }
         
     @Override
     public void execute() {
         initializeRecording();
         innerCommand = new InnerCommand(recordedObjects);
         innerCommand.execute();
-        executionFinished();
     }
     
     @Override
     public void redo() {
         innerCommand.redo();
-        executionFinished();
     }
     
     @Override
     public void undo() {
         innerCommand.undo();
-        executionFinished();
     }
         
     private class InnerCommand extends ChangeCommand {
