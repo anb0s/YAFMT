@@ -15,6 +15,7 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
@@ -66,15 +67,15 @@ public class FeatureConfigurationEditor extends ModelEditor {
         
     private void createSettingsPanel(Composite parent) {
         Composite panel = new Composite(parent, SWT.NONE);
-        panel.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, true, false));
-        panel.setLayout(new GridLayout(2, false));
+        panel.setLayoutData(new GridData(SWT.LEFT, SWT.FILL, true, false));
+        panel.setLayout(new GridLayout(3, false));
         
         Label label = new Label(panel, SWT.NONE);
-        label.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false));
+        label.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
         label.setText("Layout: ");
         
         Combo combo = new Combo(panel, SWT.READ_ONLY);
-        combo.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false));
+        combo.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
         for(TreeLayout layout: EDITOR_LAYOUTS)
             combo.add(layout.getName());
         
@@ -86,13 +87,25 @@ public class FeatureConfigurationEditor extends ModelEditor {
                 setEditorLayout(EDITOR_LAYOUTS[index]);
             }
         });
+        
+        Button showSelectableFeaturesButton = new Button(panel, SWT.CHECK);
+        showSelectableFeaturesButton.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
+        showSelectableFeaturesButton.setText("Show Selectable Features");
+        showSelectableFeaturesButton.setSelection(true);
+        showSelectableFeaturesButton.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent event) {
+                Button button = (Button) event.getSource();
+                featureConfigManager.setSelectableFeaturesVisible(button.getSelection());
+            }
+        });
     }
     
     private void setEditorLayout(TreeLayout layout) {
         Object featureConfigEditPart = getGraphicalViewer().getEditPartRegistry().get(featureConfig);
         ((GraphicalEditPart) featureConfigEditPart).getFigure().setLayoutManager(layout);
     }
-    
+        
     // ==================================================================================
     //  Providers
     // ==================================================================================

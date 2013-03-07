@@ -28,6 +28,7 @@ public class FeatureConfigurationManager {
     
     private List<IFeatureConfigurationListener> listeners = new ArrayList<IFeatureConfigurationListener>();
     private FeatureConfiguration featureConfig;
+    private boolean makeVirtualConnections = true;
 
     public FeatureConfigurationManager(FeatureConfiguration featureConfig) {
         this.featureConfig = featureConfig;
@@ -80,15 +81,18 @@ public class FeatureConfigurationManager {
     //  Virtual connection related operations
     // ===========================================================================
 
+    
     public void rebuildVirtualConnections() {
         virtualConnections.clear();
         virtualConnectionsOpposite.clear();
-        
-        Feature rootFeature = featureConfig.getFeatureModelCopy().getRoot();
-        Selection rootSelection = featureConfig.getRoot();
-        createVirtualConnections(rootFeature, rootSelection);
-    }
     
+        if(makeVirtualConnections) {
+            Feature rootFeature = featureConfig.getFeatureModelCopy().getRoot();
+            Selection rootSelection = featureConfig.getRoot();
+            createVirtualConnections(rootFeature, rootSelection);
+        }
+    }
+        
     private void createVirtualConnections(Feature feature, Selection selection) {
         // This expect that children selections are sorted in order given by feature configuration repair process. 
         int startingIndex = 0;
@@ -146,6 +150,12 @@ public class FeatureConfigurationManager {
         
         // Child to parent connection.
         virtualConnectionsOpposite.put(childWrapper, parentSelection);
+    }
+    
+    public void setSelectableFeaturesVisible(boolean visible) {
+        makeVirtualConnections = visible;
+        rebuildVirtualConnections();
+        fireFeaturesSelected(new ArrayList<Selection>(1));
     }
         
     // ===========================================================================
