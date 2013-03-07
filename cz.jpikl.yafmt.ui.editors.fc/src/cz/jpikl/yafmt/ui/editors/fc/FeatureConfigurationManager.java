@@ -218,17 +218,7 @@ public class FeatureConfigurationManager {
         featuresSelected(affectedSelections);
         return affectedSelections;
     }
-    
-    public void featuresSelected(List<Selection> selections) {
-        rebuildVirtualConnections();
-        fireFeaturesSelected(selections);
-    }
-    
-    public void featuresUnselected(List<Selection> selections) {
-        rebuildVirtualConnections();
-        fireFeaturesUnselected(selections);
-    }
-    
+            
     public boolean canSelectFeature(Selection selection) {
         return virtualConnections.containsKey(selection);
     }
@@ -262,6 +252,61 @@ public class FeatureConfigurationManager {
             childrenSelections.get(i).insertPosition++;
         parentSelection.getSelections().add(insertPosition, selection);
         return true;
+    }
+    
+    public void featuresSelected(List<Selection> selections) {
+        rebuildVirtualConnections();
+        fireFeaturesSelected(selections);
+    }
+    
+    // ===========================================================================
+    //  Unselections operations
+    // ===========================================================================
+    
+    public List<Selection> unselectFeatures(List<Selection> selections) {
+        List<Selection> affectedSelections = new ArrayList<Selection>(selections.size());
+        
+        for(Selection selection: selections) {
+            if(unselectFeature(selection))
+                affectedSelections.add(selection);
+        }
+        
+        featuresUnselected(affectedSelections);
+        return affectedSelections;
+    }
+    
+    public boolean canUnselectFeature(Selection selection) {
+        // Feature must be already selected.
+        Selection parentSelection = selection.getParent();
+        if(parentSelection == null)
+            return false;
+        
+        String id = selection.getId();
+        Feature feature = getFeatureModel().getFeatureById(id);
+        if(feature == null)
+            return false;
+        
+        // We cannot unselect mandatory feature.
+        int count = 0;
+        List<Selection> childrenSelections = parentSelection.getSelections();
+        for(int i = 0; i < childrenSelections.size(); i++) {
+            if(childrenSelections.get(i).getId().equals(id))
+                count++;
+        }
+        return count > feature.getLower();
+    }
+    
+    private boolean unselectFeature(Selection selection) {
+        if(canSelectFeature(selection)) {
+            selection.setParent(null);
+            return true;
+        }
+        return false;
+    }
+
+    public void featuresUnselected(List<Selection> selections) {
+        rebuildVirtualConnections();
+        fireFeaturesUnselected(selections);
     }
     
 }
