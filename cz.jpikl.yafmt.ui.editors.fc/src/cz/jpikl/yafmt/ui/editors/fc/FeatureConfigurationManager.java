@@ -109,26 +109,25 @@ public class FeatureConfigurationManager {
         EList<Group> groups = feature.getGroups();
         for(int i = 0; i < groups.size(); i++) {
             Group group = groups.get(i);
-            int groupMax = (group.getUpper() == -1) ? Integer.MAX_VALUE : group.getUpper();
-            startingIndex = createVirtualConnections(group.getFeatures(), startingIndex, selection, groupMax);
+            int groupUpper = (group.getUpper() == -1) ? Integer.MAX_VALUE : group.getUpper();
+            startingIndex = createVirtualConnections(group.getFeatures(), startingIndex, selection, groupUpper);
         }
     }
 
-    private int createVirtualConnections(EList<Feature> childrenFeatures, int startingIndex, Selection parentSelection, int groupMax) {
+    private int createVirtualConnections(EList<Feature> childrenFeatures, int startingIndex, Selection parentSelection, int groupUpper) {
         // This expect that children selections are sorted in order given by feature configuration repair process.
         EList<Selection> childrenSelections = parentSelection.getSelections();
         
         for(int i = 0; i < childrenFeatures.size(); i++) {
             Feature childFeature = childrenFeatures.get(i);
             String id = childFeature.getId();
-            int featureMax = childFeature.getUpper();
+            int allowedFeatureCount = childFeature.getUpper();
                            
             for(int j = startingIndex; j < childrenSelections.size(); j++) {
                 Selection childSelection = childrenSelections.get(j); 
                 if(childSelection.getId().equals(id)) {
                     createVirtualConnections(childFeature, childSelection);
-                    featureMax--;
-                    groupMax--;
+                    allowedFeatureCount--;
                     startingIndex++;
                 }
                 else {
@@ -137,7 +136,7 @@ public class FeatureConfigurationManager {
             }
             
             // Allow to select feature only if we don't break local constraint.
-            if((groupMax > 0) && (featureMax > 0)) {
+            if((allowedFeatureCount > 0) && (childrenSelections.size() < groupUpper)) {
                 Selection childSelection = FeatureConfigurationUtil.createSelection(childFeature);
                 addVirtualConnection(parentSelection, childSelection, startingIndex);
             }
