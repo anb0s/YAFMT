@@ -6,6 +6,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.GroupRequest;
 import org.eclipse.gef.ui.actions.SelectionAction;
+import org.eclipse.jface.action.IAction;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.actions.LabelRetargetAction;
 import org.eclipse.ui.actions.RetargetAction;
@@ -18,23 +19,21 @@ public class UngroupFeaturesAction extends SelectionAction {
     public static final String ID = "cz.jpikl.yafmt.ui.editors.fm.actions.UngroupFeaturesAction";
 
     public static RetargetAction createRetargetAction() {
-        LabelRetargetAction action = new LabelRetargetAction(ID, "Ungroup Features");
+        return (RetargetAction) initAction(new LabelRetargetAction(null, null));
+    }
+    
+    private static IAction initAction(IAction action) {
+        action.setId(ID);
+        action.setText("Ungroup Features");
         action.setImageDescriptor(FeatureModelEditorPlugin.getImageDescriptor("icons/group-del.png"));
         return action;
     }
     
     public UngroupFeaturesAction(IWorkbenchPart part) {
         super(part);
+        initAction(this);
     }
-    
-    @Override
-    protected void init() {
-        super.init();
-        setId(ID);
-        setText("Ungroup Features");
-        setImageDescriptor(FeatureModelEditorPlugin.getImageDescriptor("icons/group-del.png"));
-    }
-    
+        
     private Command getCommand() {
         List<?> objects = getSelectedObjects();
         if(objects.isEmpty() || !(objects.get(0) instanceof EditPart))

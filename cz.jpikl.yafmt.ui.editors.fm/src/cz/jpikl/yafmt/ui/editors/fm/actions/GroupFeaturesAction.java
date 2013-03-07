@@ -22,12 +22,10 @@ public class GroupFeaturesAction extends SelectionAction {
     public static final String ID_OR = "cz.jpikl.yafmt.ui.editors.fm.actions.GroupFeaturesAction.OR";
     
     public static RetargetAction createRetargetAction(boolean xorGroup) {
-        LabelRetargetAction action = new LabelRetargetAction(null, null);
-        setActionProperties(action, xorGroup);        
-        return action;
+        return (RetargetAction) initAction(new LabelRetargetAction(null, null), xorGroup);
     }
     
-    private static void setActionProperties(IAction action, boolean xorGroup) {
+    private static IAction initAction(IAction action, boolean xorGroup) {
         if(xorGroup) {
             action.setId(ID_XOR);
             action.setText("Make XOR Group");
@@ -38,6 +36,8 @@ public class GroupFeaturesAction extends SelectionAction {
             action.setText("Make OR Group");
             action.setImageDescriptor(FeatureModelEditorPlugin.getImageDescriptor("icons/group-or.png"));
         }
+        
+        return action;
     }
     
     private boolean xorGroup;
@@ -46,7 +46,7 @@ public class GroupFeaturesAction extends SelectionAction {
         super(part);
         this.xorGroup = xorGroup;
         // Do not call this code in init method since it its called in superclass constructor.
-        setActionProperties(this, xorGroup);
+        initAction(this, xorGroup);
     }
         
     private Command getCommand() {

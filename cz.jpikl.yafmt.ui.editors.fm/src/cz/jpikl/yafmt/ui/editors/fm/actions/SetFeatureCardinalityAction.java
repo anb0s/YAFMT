@@ -21,12 +21,10 @@ public class SetFeatureCardinalityAction extends SelectionAction {
     public static final String ID_OPTIONAL = "cz.jpikl.yafmt.ui.editors.fm.actions.SetFeatureCardinalityAction.Optional";
     
     public static RetargetAction createRetargetAction(boolean mandatory) {
-        LabelRetargetAction action = new LabelRetargetAction(null, null);
-        setActionProperties(action, mandatory);        
-        return action;
+        return (RetargetAction) initAction(new LabelRetargetAction(null, null), mandatory);
     }
     
-    private static void setActionProperties(IAction action, boolean mandatory) {
+    private static IAction initAction(IAction action, boolean mandatory) {
         if(mandatory) {
             action.setId(ID_MANDATORY);
             action.setText("Make Feature Mandatory");
@@ -37,6 +35,8 @@ public class SetFeatureCardinalityAction extends SelectionAction {
             action.setText("Make Feature Optional");
             action.setImageDescriptor(FeatureModelEditorPlugin.getImageDescriptor("icons/feature-opt.png"));
         }
+        
+        return action;
     }
         
     private boolean mandatory;
@@ -45,7 +45,7 @@ public class SetFeatureCardinalityAction extends SelectionAction {
         super(part);
         this.mandatory = mandatory;
         // Do not call this code in init method since it its called in superclass constructor.
-        setActionProperties(this, mandatory);
+        initAction(this, mandatory);
     }
 
     private Command getCommand() {

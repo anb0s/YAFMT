@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.ui.parts.GraphicalEditor;
+import org.eclipse.jface.action.IAction;
 import org.eclipse.ui.actions.LabelRetargetAction;
 import org.eclipse.ui.actions.RetargetAction;
 
@@ -17,18 +18,19 @@ public class SelectFeaturesAction extends FeatureSelectionAction {
     public static final String ID = "cz.jpikl.yafmt.ui.editors.fc.actions.SelectFeaturesAction";
         
     public static RetargetAction createRetargetAction() {
-        LabelRetargetAction action = new LabelRetargetAction(ID, "Select Features");
-        action.setImageDescriptor(FeatureConfigurationEditorPlugin.getImageDescriptor("icons/select-del.png"));
+        return (RetargetAction) initAction(new LabelRetargetAction(null, null));
+    }
+    
+    private static IAction initAction(IAction action) {
+        action.setId(ID);
+        action.setText("Select Features");
+        action.setImageDescriptor(FeatureConfigurationEditorPlugin.getImageDescriptor("icons/select.png"));
         return action;
     }
     
     public SelectFeaturesAction(GraphicalEditor editor, FeatureConfigurationManager featureConfigManager) {
         super(editor, featureConfigManager);
-        
-        setId(ID);
-        setText("Select Features");
-        setImageDescriptor(FeatureConfigurationEditorPlugin.getImageDescriptor("icons/select.png"));
-        
+        initAction(this);
     }
     
     protected Command getCommand() {
