@@ -134,6 +134,8 @@ public class SelectionWrapper extends EObjectDecorator implements Selection {
     
     @Override
     public boolean equals(Object obj) {
+    	if(obj instanceof SelectionWrapper)
+    		return selection.equals(((SelectionWrapper) obj).selection);
         return selection.equals(obj); // !!! Important.
     }
         

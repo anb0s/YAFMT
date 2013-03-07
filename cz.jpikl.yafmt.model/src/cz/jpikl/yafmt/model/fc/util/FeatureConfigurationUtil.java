@@ -139,11 +139,8 @@ public class FeatureConfigurationUtil {
         expectedIndex = repairSelections(feature.getFeatures(), expectedIndex, childrenSelections);
         
         // Repair grouped features.
-        EList<Group> groups = feature.getGroups();
-        for(int i = 0; i < groups.size(); i++) {
-            Group group = groups.get(i);
+        for(Group group: feature.getGroups())
             expectedIndex = repairSelections(group.getFeatures(), expectedIndex, childrenSelections);
-        }
         
         // Remove unnecessary selections from the right to left.
         for(int i = childrenSelections.size() - 1; i >= expectedIndex; i--)
@@ -153,20 +150,19 @@ public class FeatureConfigurationUtil {
     private static int repairSelections(EList<Feature> features, int startingIndex, EList<Selection> selections) {
         int expectedIndex = startingIndex;
         
-        for(int i = 0; i < features.size(); i++) {
-            Feature feature = features.get(i);
+        for(Feature feature: features) {
             int lower = feature.getLower();
             int upper = feature.getUpper();
             
             // Add or move mandatory selections.
-            for(int j = 0; j < lower; j++) {
+            for(int i = 0; i < lower; i++) {
                 if(repairSelectionPosition(feature, expectedIndex, selections, true))
                     repairSelection(feature, selections.get(expectedIndex));
                 expectedIndex++;
             }
             
             // Move optional selections.
-            for(int j = (upper == -1) ? Integer.MAX_VALUE : (upper - lower); j > 0; j--) {
+            for(int i = (upper == -1) ? Integer.MAX_VALUE : (upper - lower); i > 0; i--) {
                 if(repairSelectionPosition(feature, expectedIndex, selections, false)) {
                     repairSelection(feature, selections.get(expectedIndex));
                     expectedIndex++;

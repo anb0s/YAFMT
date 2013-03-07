@@ -24,8 +24,8 @@ public class DeselectFeatureCommand extends RecordingCommand {
     
     @Override
     public boolean canExecute() {
-        for(int i = 0; i < selections.size(); i++) {
-            if(featureConfigManager.canDeselectFeature(selections.get(i)))
+        for(Selection selection: selections) {
+            if(featureConfigManager.canDeselectFeature(selection))
                 return true;
         }
         return false;
@@ -33,8 +33,8 @@ public class DeselectFeatureCommand extends RecordingCommand {
     
     @Override
     protected void initializeRecording() {
-        for(int i = 0; i < selections.size(); i++)
-            addRecordedObject(featureConfigManager.getParentSelection(selections.get(i)));
+    	for(Selection selection: selections)
+            addRecordedObject(featureConfigManager.getParentSelection(selection));
     }
 
     @Override

@@ -98,9 +98,7 @@ public class FeatureConfigurationManager {
         int startingIndex = 0;
         startingIndex = createVirtualConnections(feature.getFeatures(), startingIndex, selection, Integer.MAX_VALUE);
         
-        EList<Group> groups = feature.getGroups();
-        for(int i = 0; i < groups.size(); i++) {
-            Group group = groups.get(i);
+        for(Group group: feature.getGroups()) {
             int groupUpper = (group.getUpper() == -1) ? Integer.MAX_VALUE : group.getUpper();
             startingIndex = createVirtualConnections(group.getFeatures(), startingIndex, selection, groupUpper);
         }
@@ -110,16 +108,15 @@ public class FeatureConfigurationManager {
         // This expect that children selections are sorted in order given by feature configuration repair process.
         EList<Selection> childrenSelections = parentSelection.getSelections();
         
-        for(int i = 0; i < childrenFeatures.size(); i++) {
-            Feature childFeature = childrenFeatures.get(i);
+        for(Feature childFeature: childrenFeatures) {
             String id = childFeature.getId();
-            int allowedFeatureCount = childFeature.getUpper();
+            int allowedFeaturesCount = childFeature.getUpper();
                            
             for(int j = startingIndex; j < childrenSelections.size(); j++) {
                 Selection childSelection = childrenSelections.get(j); 
                 if(childSelection.getId().equals(id)) {
                     createVirtualConnections(childFeature, childSelection);
-                    allowedFeatureCount--;
+                    allowedFeaturesCount--;
                     startingIndex++;
                 }
                 else {
@@ -128,7 +125,7 @@ public class FeatureConfigurationManager {
             }
             
             // Allow to select feature only if we don't break local constraint.
-            if((allowedFeatureCount > 0) && (childrenSelections.size() < groupUpper)) {
+            if((allowedFeaturesCount > 0) && (childrenSelections.size() < groupUpper)) {
                 Selection childSelection = FeatureConfigurationUtil.createSelection(childFeature);
                 addVirtualConnection(parentSelection, childSelection, startingIndex);
             }
@@ -188,9 +185,8 @@ public class FeatureConfigurationManager {
         if(sortChildren) {
             // InsertPosition does not count other unselected features, so we have to increment it.
             int offset = 0;
-            for(int i = 0; i < childrenSelections.size(); i++) {
-                // We have to add wrapper, not the original selection, since it missing parent.
-                SelectionWrapper childWrapper = childrenSelections.get(i);
+            for(SelectionWrapper childWrapper: childrenSelections) {
+                // We have to add wrapper, not the original selection, since that is missing parent.
                 selectionList.add(childWrapper.getInsertPosition() + offset, childWrapper);
                 offset++;
             }
@@ -232,13 +228,7 @@ public class FeatureConfigurationManager {
             return false;
         
         // Look for position between sibling selections.
-        int index = -1;
-        for(int i = 0; i < childrenSelections.size(); i++) {
-            if(childrenSelections.get(i) == selection) {
-                index = i;
-                break;
-            }
-        }
+        int index = childrenSelections.indexOf(selection);
         if(index == -1)
             return false;
         
@@ -285,9 +275,8 @@ public class FeatureConfigurationManager {
         
         // We cannot deselect mandatory feature.
         int count = 0;
-        List<Selection> childrenSelections = parentSelection.getSelections();
-        for(int i = 0; i < childrenSelections.size(); i++) {
-            if(childrenSelections.get(i).getId().equals(id))
+        for(Selection childSelection: parentSelection.getSelections()) {
+            if(childSelection.getId().equals(id))
                 count++;
         }
         return count > feature.getLower();

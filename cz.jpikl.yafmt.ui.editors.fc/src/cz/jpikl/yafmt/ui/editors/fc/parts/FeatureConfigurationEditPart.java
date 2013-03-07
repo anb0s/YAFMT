@@ -52,10 +52,8 @@ public class FeatureConfigurationEditPart extends AbstractGraphicalEditPart impl
         
     private void contributeModelChildren(List<Selection> modelChildren, Selection selection) {
         featureConfigManager.contributeChildrenSelections(selection, modelChildren, false);
-        
-        List<Selection> childrenSelections = selection.getSelections();
-        for(int i = 0; i < childrenSelections.size(); i++)
-            contributeModelChildren(modelChildren, childrenSelections.get(i));
+        for(Selection childSelection: selection.getSelections())
+            contributeModelChildren(modelChildren, childSelection);
     }
     
     @Override

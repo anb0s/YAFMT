@@ -19,8 +19,7 @@ public class SelectionConverter {
         List<Object> wrappedElements = new ArrayList<Object>(elements.length);
         
         // Result list MUST contain only edit parts!!!
-        for(int i = 0; i < elements.length; i++) {
-            Object element = elements[i];
+        for(Object element: elements) {
             if(element instanceof EditPart)
                 wrappedElements.add(element);
             Object editPart = editPartRegistry.get(element);
