@@ -14,16 +14,17 @@ import cz.jpikl.yafmt.clang.scl.ui.highlight.SimpleConstraintLanguageHighlightin
  * Use this class to register components to be used within the IDE.
  */
 public class SimpleConstraintLanguageUiModule extends cz.jpikl.yafmt.clang.scl.ui.AbstractSimpleConstraintLanguageUiModule {
-	public SimpleConstraintLanguageUiModule(AbstractUIPlugin plugin) {
-		super(plugin);
-	}
-	
+
+    public SimpleConstraintLanguageUiModule(AbstractUIPlugin plugin) {
+        super(plugin);
+    }
+
     public Class<? extends IContentProposalPriorities> bindIContentProposalPriorities() {
         return SimpleConstraintLanguageProposalPriorities.class;
     }
-    
+
     public Class<? extends IHighlightingConfiguration> bindIHighlightingConfiguration() {
         return SimpleConstraintLanguageHighlighting.class;
     }
-    
+
 }

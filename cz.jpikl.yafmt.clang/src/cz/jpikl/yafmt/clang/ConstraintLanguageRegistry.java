@@ -11,9 +11,9 @@ import org.eclipse.core.runtime.Platform;
 public class ConstraintLanguageRegistry {
 
     private static final String EXTENSION_POINT_ID = "cz.jpikl.yafmt.clang";
-    
+
     private Map<String, ConstraintLanguageDescriptor> registry = new HashMap<String, ConstraintLanguageDescriptor>();
-    
+
     public ConstraintLanguageRegistry() {
         for(IConfigurationElement element: Platform.getExtensionRegistry().getConfigurationElementsFor(EXTENSION_POINT_ID)) {
             try {
@@ -25,18 +25,18 @@ public class ConstraintLanguageRegistry {
             }
         }
     }
-    
+
     public Collection<ConstraintLanguageDescriptor> getDescriptors() {
         return Collections.unmodifiableCollection(registry.values());
     }
-    
+
     public ConstraintLanguageDescriptor getDescriptor(String id) {
         return registry.get(id);
     }
-    
+
     public IConstraintLanguage getLanguage(String id) {
         ConstraintLanguageDescriptor descriptor = registry.get(id);
         return (descriptor == null) ? null : descriptor.getLanguage();
     }
-    
+
 }

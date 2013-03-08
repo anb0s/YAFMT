@@ -10,10 +10,10 @@ public class ConnectionSelectionPolicy extends SelectionEditPolicy {
     protected void showSelection() {
         ((ConnectionFigure) getHostFigure()).setHighlighted(true);
     }
-    
+
     @Override
     protected void hideSelection() {
         ((ConnectionFigure) getHostFigure()).setHighlighted(false);
     }
-    
+
 }

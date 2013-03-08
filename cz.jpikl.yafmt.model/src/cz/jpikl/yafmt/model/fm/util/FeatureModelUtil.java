@@ -24,11 +24,11 @@ import cz.jpikl.yafmt.model.fm.Group;
 public class FeatureModelUtil {
 
     private static Map<Object, Object> saveLoadOptions;
-    
+
     // ===============================================================================================
     //  Save and load utilities
     // ===============================================================================================
-    
+
     private static ExtendedMetaData createExtendedMetadata() {
         ExtendedMetaData emd = new BasicExtendedMetaData();
         emd.setName(Literals.FEATURE_MODEL, "featureModel");
@@ -42,7 +42,7 @@ public class FeatureModelUtil {
         emd.setFeatureKind(Literals.FEATURE_MODEL__DESCRIPTION, ExtendedMetaData.ELEMENT_FEATURE);
         return emd;
     }
-    
+
     public static Map<Object, Object> createSaveLoadOptions() {
         if(saveLoadOptions == null) {
             saveLoadOptions = new HashMap<Object, Object>();
@@ -52,47 +52,48 @@ public class FeatureModelUtil {
         }
         return saveLoadOptions;
     }
-    
+
     public static void hookResourceFactoryRegistry() {
-        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("yafm", 
-            new XMIResourceFactoryImpl(){
-                @Override
-                public Resource createResource(URI uri) {
-                    XMIResource resource = (XMIResource) super.createResource(uri);
-                    resource.getDefaultLoadOptions().putAll(createSaveLoadOptions());
-                    resource.getDefaultSaveOptions().putAll(createSaveLoadOptions());
-                    return resource;
+        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("yafm",
+                new XMIResourceFactoryImpl() {
+
+                    @Override
+                    public Resource createResource(URI uri) {
+                        XMIResource resource = (XMIResource) super.createResource(uri);
+                        resource.getDefaultLoadOptions().putAll(createSaveLoadOptions());
+                        resource.getDefaultSaveOptions().putAll(createSaveLoadOptions());
+                        return resource;
+                    }
                 }
-            }
-        );
+                );
     }
-    
+
     public static void hookPackageRegistry() {
         FeatureModelPackage.eINSTANCE.eClass();
     }
-    
+
     // ===============================================================================================
     //  Creation utilities
     // ===============================================================================================
-    
+
     public static FeatureModel createEmptyFeatureModel(String name) {
         if((name == null) || name.isEmpty())
             throw new IllegalArgumentException("Feature model name cannot be empty");
-        
+
         FeatureModelFactory factory = FeatureModelFactory.eINSTANCE;
-        
+
         Feature rootFeature = factory.createFeature();
         rootFeature.setId(name.trim().replaceAll("\\s+", ".").toLowerCase());
         rootFeature.setName(name);
         rootFeature.setLower(1);
         rootFeature.setUpper(1);
-        
+
         FeatureModel featureModel = factory.createFeatureModel();
         featureModel.setName(name);
         featureModel.setRoot(rootFeature);
         return featureModel;
     }
-    
+
     // ===============================================================================================
     //  Query utilities
     // ===============================================================================================
@@ -110,7 +111,7 @@ public class FeatureModelUtil {
             return ((Attribute) object).getName();
         return object.toString();
     }
-    
+
     public static String getParentName(EObject parent) {
         if(parent == null)
             return "null";
@@ -118,11 +119,11 @@ public class FeatureModelUtil {
             return getName(((Group) parent).getParent());
         return getName(parent);
     }
-    
+
     public static void removeUnneededGroup(EObject object) {
         if(!(object instanceof Group))
             return;
-            
+
         Group group = (Group) object;
         List<Feature> features = group.getFeatures();
         if(features.size() <= 1) {
@@ -131,34 +132,34 @@ public class FeatureModelUtil {
             group.setParent(null);
         }
     }
-    
+
     public static String getCardinality(Feature feature) {
         if(feature == null)
             return null;
-            
+
         int lower = feature.getLower();
         int upper = feature.getUpper();
         return "[" + lower + ".." + ((upper == -1) ? "*" : upper) + "]";
     }
-    
+
     public static String getCardinality(Group group) {
         if(group == null)
             return null;
-            
+
         int lower = group.getLower();
         int upper = group.getUpper();
         return "<" + lower + "-" + ((upper == -1) ? "*" : upper) + ">";
     }
-    
+
     public static int getTreeHeight(FeatureModel featureModel) {
         if((featureModel == null) || (featureModel.getRoot() == null))
             return 0;
         return getTreeHeight(featureModel.getRoot());
     }
-    
+
     public static int getTreeHeight(Feature feature) {
         int maxHeight = 0;
-        
+
         for(Feature child: feature.getFeatures()) {
             int height = getTreeHeight(child);
             if(height > maxHeight)
@@ -172,8 +173,8 @@ public class FeatureModelUtil {
                     height = maxHeight;
             }
         }
-        
+
         return maxHeight + 1;
     }
-    
+
 }

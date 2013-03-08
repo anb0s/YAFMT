@@ -17,14 +17,14 @@ import cz.jpikl.yafmt.ui.editors.fm.FeatureModelEditorPlugin;
 import cz.jpikl.yafmt.ui.editors.fm.util.RequestConstants;
 
 public class GroupFeaturesAction extends SelectionAction {
-    
+
     public static final String ID_XOR = "cz.jpikl.yafmt.ui.editors.fm.actions.GroupFeaturesAction.XOR";
     public static final String ID_OR = "cz.jpikl.yafmt.ui.editors.fm.actions.GroupFeaturesAction.OR";
-    
+
     public static RetargetAction createRetargetAction(boolean xorGroup) {
         return (RetargetAction) initAction(new LabelRetargetAction(null, null), xorGroup);
     }
-    
+
     private static IAction initAction(IAction action, boolean xorGroup) {
         if(xorGroup) {
             action.setId(ID_XOR);
@@ -36,26 +36,26 @@ public class GroupFeaturesAction extends SelectionAction {
             action.setText("Make OR Group");
             action.setImageDescriptor(FeatureModelEditorPlugin.getImageDescriptor("icons/group-or.png"));
         }
-        
+
         return action;
     }
-    
+
     private boolean xorGroup;
-    
+
     public GroupFeaturesAction(IWorkbenchPart part, boolean xorGroup) {
         super(part);
         this.xorGroup = xorGroup;
         // Do not call this code in init method since it its called in superclass constructor.
         initAction(this, xorGroup);
     }
-        
+
     private Command getCommand() {
         List<?> objects = getSelectedObjects();
         if(objects.isEmpty() || !(objects.get(0) instanceof EditPart))
             return null;
-        
+
         CompoundCommand command = new CompoundCommand();
-        
+
         // Get command to create new group from selected features.
         EditPart parentEditPart = ((EditPart) objects.get(0)).getParent();
         if(parentEditPart != null) {
@@ -70,16 +70,16 @@ public class GroupFeaturesAction extends SelectionAction {
         Request request = new Request(type);
         for(Object object: objects)
             command.add(((EditPart) object).getCommand(request));
-        
+
         return command;
     }
-    
+
     @Override
     protected boolean calculateEnabled() {
         Command command = getCommand();
         return (command != null) && command.canExecute();
     }
-    
+
     @Override
     public void run() {
         execute(getCommand());

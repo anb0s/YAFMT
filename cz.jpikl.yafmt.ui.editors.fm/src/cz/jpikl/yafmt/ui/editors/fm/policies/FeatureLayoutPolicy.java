@@ -26,13 +26,13 @@ public class FeatureLayoutPolicy extends OrderedLayoutEditPolicy {
         // Find the edit part after cursor location.
         List<?> editParts = getHost().getChildren();
         EditPart editPartAfter = null;
-        
+
         int requestY = ((ChangeBoundsRequest) request).getLocation().y;
         int prevY = Integer.MAX_VALUE;
-        
-        for (Object editPart: editParts) {
+
+        for(Object editPart: editParts) {
             GraphicalEditPart currentEditPart = (GraphicalEditPart) editPart;
-            int currentY = currentEditPart.getFigure().getBounds().getCenter().y; 
+            int currentY = currentEditPart.getFigure().getBounds().getCenter().y;
             if((currentY > requestY) && (currentY < prevY)) {
                 prevY = currentY;
                 editPartAfter = currentEditPart;
@@ -47,38 +47,38 @@ public class FeatureLayoutPolicy extends OrderedLayoutEditPolicy {
     protected Command createMoveChildCommand(EditPart editPart, EditPart editPartAfter) {
         List<Attribute> attributes = ((Feature) getHost().getModel()).getAttributes();
         Attribute attribute = (Attribute) editPart.getModel();
-        
+
         int currentIndex = attributes.indexOf(attribute);
         int targetIndex = attributes.size();
         if(editPartAfter != null)
             targetIndex = attributes.indexOf(editPartAfter.getModel());
-                
+
         // Ignore request if attribute position was not changed.        
         if((currentIndex == targetIndex) || (currentIndex == (targetIndex - 1)))
             return null;
         // Fix position
         if(currentIndex < targetIndex)
             targetIndex--;
-        
+
         return new MoveAttributeCommand(attribute, targetIndex);
     }
-    
+
     // Moving attribute from another feature.
     @Override
     protected Command createAddCommand(EditPart editPart, EditPart editPartAfter) {
         Object model = editPart.getModel();
         if(!(model instanceof Attribute))
             return null;
-        
+
         Attribute attribute = (Attribute) model;
         LayoutData layoutData = ((FeatureEditPart) getHost()).getLayoutData();
         Feature feature = (Feature) getHost().getModel();
         List<Attribute> attributes = feature.getAttributes();
-        
+
         int targetIndex = attributes.size();
         if(editPartAfter != null)
             targetIndex = attributes.indexOf(editPartAfter.getModel());
-                
+
         CompoundCommand command = new CompoundCommand("Move attribute " + attribute.getName() + " to " + feature.getName());
         command.add(new DeleteAttributeCommand(layoutData, attribute));
         command.add(new AddAttributeCommand(layoutData, feature, attribute, targetIndex));
@@ -91,10 +91,10 @@ public class FeatureLayoutPolicy extends OrderedLayoutEditPolicy {
         Object object = request.getNewObject();
         if(!(object instanceof Attribute))
             return null;
-        
+
         Feature feature = (Feature) getHost().getModel();
         LayoutData layoutData = ((FeatureEditPart) getHost()).getLayoutData();
-        
+
         return new AddAttributeCommand(layoutData, feature, (Attribute) object);
     }
 

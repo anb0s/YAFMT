@@ -11,7 +11,7 @@ import cz.jpikl.yafmt.ui.editors.fc.model.Connection;
 public class FeatureConfigurationEditPartFactory implements EditPartFactory {
 
     private FeatureConfigurationManager featureConfigManager;
-        
+
     public FeatureConfigurationEditPartFactory(FeatureConfigurationManager featureConfigManager) {
         this.featureConfigManager = featureConfigManager;
     }
@@ -24,7 +24,7 @@ public class FeatureConfigurationEditPartFactory implements EditPartFactory {
             return new SelectionEditPart(featureConfigManager, (Selection) model);
         if(model instanceof Connection)
             return new ConnectionEditPart((Connection) model);
-        
+
         throw new IllegalStateException("No EditPart for " + model.getClass());
     }
 

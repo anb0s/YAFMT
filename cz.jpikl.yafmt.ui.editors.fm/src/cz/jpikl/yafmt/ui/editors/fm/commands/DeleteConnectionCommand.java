@@ -11,7 +11,7 @@ public class DeleteConnectionCommand extends RecordingCommand {
 
     private EObject source;
     private Feature target;
-        
+
     public DeleteConnectionCommand(Connection connection) {
         source = connection.getSource();
         target = connection.getTarget();

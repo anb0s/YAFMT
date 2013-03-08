@@ -10,15 +10,15 @@ public class ConnectionFigure extends PolylineConnection {
         setForegroundColor(ColorConstants.black);
         setSourceDecoration(createSourceDecoration());
     }
-    
+
     private PolygonDecoration createSourceDecoration() {
         PolygonDecoration decoration = new PolygonDecoration();
         decoration.setTemplate(PolygonDecoration.TRIANGLE_TIP);
         return decoration;
     }
-    
+
     public void setGrayed(boolean grayed) {
         setForegroundColor(grayed ? ColorConstants.lightGray : ColorConstants.black);
     }
-    
+
 }

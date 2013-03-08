@@ -7,7 +7,7 @@ public class SetGroupCardinalityCommand extends RecordingCommand {
 
     private Group group;
     private boolean xorGroup;
-    
+
     public SetGroupCardinalityCommand(Group group, boolean xorGroup) {
         setLabel("Make " + (xorGroup ? "XOR" : "OR") + " Group");
         this.group = group;

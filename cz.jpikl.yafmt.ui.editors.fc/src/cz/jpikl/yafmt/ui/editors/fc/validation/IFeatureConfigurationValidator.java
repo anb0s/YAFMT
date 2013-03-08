@@ -4,6 +4,6 @@ import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
 
 public interface IFeatureConfigurationValidator {
 
-	void validate(FeatureConfiguration featureConfig, IValidationResultWriter writer);
-	
+    void validate(FeatureConfiguration featureConfig, IValidationResultWriter writer);
+
 }

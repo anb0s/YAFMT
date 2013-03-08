@@ -19,11 +19,11 @@ public class SetFeatureCardinalityAction extends SelectionAction {
 
     public static final String ID_MANDATORY = "cz.jpikl.yafmt.ui.editors.fm.actions.SetFeatureCardinalityAction.Mandatory";
     public static final String ID_OPTIONAL = "cz.jpikl.yafmt.ui.editors.fm.actions.SetFeatureCardinalityAction.Optional";
-    
+
     public static RetargetAction createRetargetAction(boolean mandatory) {
         return (RetargetAction) initAction(new LabelRetargetAction(null, null), mandatory);
     }
-    
+
     private static IAction initAction(IAction action, boolean mandatory) {
         if(mandatory) {
             action.setId(ID_MANDATORY);
@@ -35,10 +35,10 @@ public class SetFeatureCardinalityAction extends SelectionAction {
             action.setText("Make Feature Optional");
             action.setImageDescriptor(FeatureModelEditorPlugin.getImageDescriptor("icons/feature-opt.png"));
         }
-        
+
         return action;
     }
-        
+
     private boolean mandatory;
 
     public SetFeatureCardinalityAction(IWorkbenchPart part, boolean mandatory) {
@@ -52,17 +52,17 @@ public class SetFeatureCardinalityAction extends SelectionAction {
         List<?> objects = getSelectedObjects();
         if(objects.isEmpty() || !(objects.get(0) instanceof EditPart))
             return null;
-        
-        String type = mandatory ? RequestConstants.REQ_MAKE_FEATURE_MAN :RequestConstants.REQ_MAKE_FEATURE_OPT; 
+
+        String type = mandatory ? RequestConstants.REQ_MAKE_FEATURE_MAN : RequestConstants.REQ_MAKE_FEATURE_OPT;
         GroupRequest request = new GroupRequest(type);
         request.setEditParts(objects);
 
         CompoundCommand command = new CompoundCommand();
-        for (Object object: objects)
+        for(Object object: objects)
             command.add(((EditPart) object).getCommand(request));
         return command;
     }
-    
+
     @Override
     protected boolean calculateEnabled() {
         Command command = getCommand();
@@ -73,5 +73,5 @@ public class SetFeatureCardinalityAction extends SelectionAction {
     public void run() {
         execute(getCommand());
     }
-    
+
 }

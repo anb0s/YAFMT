@@ -7,7 +7,7 @@ import cz.jpikl.yafmt.model.fc.Selection;
 public interface IFeatureConfigurationListener {
 
     public void featuresSelected(List<Selection> selections);
-    
+
     public void featuresDeselected(List<Selection> selections);
-    
+
 }

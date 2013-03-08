@@ -7,7 +7,7 @@ import org.eclipse.gef.tools.CreationTool;
 import org.eclipse.swt.widgets.Display;
 
 public class CreationToolWithDirectEdit extends CreationTool {
-    
+
     @Override
     protected void performCreation(int button) {
         super.performCreation(button);
@@ -22,11 +22,12 @@ public class CreationToolWithDirectEdit extends CreationTool {
             return;
 
         Display.getCurrent().asyncExec(new Runnable() {
+
             @Override
             public void run() {
                 editPart.performRequest(new Request(REQ_OPEN));
             }
         });
     }
-    
+
 }

@@ -16,24 +16,24 @@ import cz.jpikl.yafmt.ui.editors.fc.commands.DeselectFeatureCommand;
 public class DeselectFeaturesAction extends FeatureSelectionAction {
 
     public static final String ID = "cz.jpikl.yafmt.ui.editors.fc.actions.DeselectFeaturesAction";
-    
+
     public static RetargetAction createRetargetAction() {
         return (RetargetAction) initAction(new LabelRetargetAction(null, null));
     }
-    
+
     private static IAction initAction(IAction action) {
         action.setId(ID);
         action.setText("Deselect Features");
         action.setImageDescriptor(FeatureConfigurationEditorPlugin.getImageDescriptor("icons/deselect.png"));
         return action;
     }
-    
+
     public DeselectFeaturesAction(GraphicalEditor editor, FeatureConfigurationManager featureConfigManager) {
         super(editor, featureConfigManager);
         initAction(this);
-        
+
     }
-    
+
     protected Command getCommand() {
         List<Selection> featuresToSelect = getSelectedFeatures();
         if(featuresToSelect == null)

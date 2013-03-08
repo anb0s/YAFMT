@@ -28,10 +28,10 @@ public class DecoratableGraphViewer extends GraphViewer {
     public static final int BACK_DECORATION_LAYER_INDEX = 0;
     public static final int ZEST_LAYER_INDEX = 1;
     public static final int FRONT_DECORATION_LAYER_INDEX = 2;
-        
+
     private List<NodeFigure> highlightedFigures = new ArrayList<NodeFigure>();
     private IAction exportAsImageAction = new ExportGraphViewerAsImageAction(this);
-    
+
     public DecoratableGraphViewer(Composite composite, int style) {
         super(composite, style);
         createDecorationLayers();
@@ -41,18 +41,19 @@ public class DecoratableGraphViewer extends GraphViewer {
     private void createDecorationLayers() {
         graph.getRootLayer().add(createDecorationLayer(), BACK_DECORATION_LAYER_INDEX);
         graph.getRootLayer().add(createDecorationLayer(), FRONT_DECORATION_LAYER_INDEX);
-    }    
-    
+    }
+
     private IFigure createDecorationLayer() {
         FreeformLayer layer = new FreeformLayer();
         layer.setLayoutManager(new FreeformLayout());
         return layer;
     }
-    
+
     private void createContextMenu() {
         MenuManager manager = new MenuManager();
         manager.setRemoveAllWhenShown(true);
         manager.addMenuListener(new IMenuListener() {
+
             @Override
             public void menuAboutToShow(IMenuManager manager) {
                 manager.add(exportAsImageAction);
@@ -60,19 +61,19 @@ public class DecoratableGraphViewer extends GraphViewer {
         });
         graph.setMenu(manager.createContextMenu(graph));
     }
-    
+
     @Override
     protected void firePostSelectionChanged(SelectionChangedEvent event) {
         refreshHightlight();
         super.firePostSelectionChanged(event);
     }
-        
+
     public void refreshHightlight() {
         // Hide old selection.
         for(NodeFigure figure: highlightedFigures)
             figure.setHighlighted(false);
         highlightedFigures.clear();
-        
+
         // Show new selection.
         for(Object node: graph.getSelection()) {
             if(node instanceof GraphNode) {
@@ -84,14 +85,14 @@ public class DecoratableGraphViewer extends GraphViewer {
             }
         }
     }
-    
+
     public void moveViewportToSelection(ISelection selection) {
         if(selection.isEmpty())
             return;
-        
+
         // Zoom to the last selected object
         Object[] objects = ((IStructuredSelection) selection).toArray();
-        for(int i = objects.length - 1; i >= 0 ; i--) {
+        for(int i = objects.length - 1; i >= 0; i--) {
             GraphItem item = findGraphItem(objects[i]);
             if(item instanceof GraphNode) {
                 Point p = ((GraphNode) item).getLocation();

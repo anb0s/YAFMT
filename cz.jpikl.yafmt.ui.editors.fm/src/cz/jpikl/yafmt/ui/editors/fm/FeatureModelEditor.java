@@ -51,45 +51,45 @@ import cz.jpikl.yafmt.ui.widgets.Splitter;
 public class FeatureModelEditor extends ModelEditor {
 
     private static final String LAYOUT_DATA_EXTENSION = ".layout";
-    
+
     private FeatureModel featureModel;
     private LayoutData layoutData;
     private ConstraintsEditor constraintsEditor;
-	
+
     // ==================================================================================
     //  Basic initialization and dispose operations
     // ==================================================================================
-    
+
     public void dispose() {
-        getSite().getPage().removeSelectionListener(constraintsEditor);        
+        getSite().getPage().removeSelectionListener(constraintsEditor);
         super.dispose();
     }
-        
+
     // ==================================================================================
     //  Editor initialization
     // ==================================================================================
-    
+
     @Override
     public void createPartControl(Composite parent) {
         Splitter splitter = new Splitter(parent);
         createFeatureTreeEditor(splitter);
         createConstraintsEditor(splitter);
     }
-    
+
     private void createFeatureTreeEditor(Composite parent) {
         super.createPartControl(parent); // Calls configureGraphicalViewer and others bellow.
-        
+
         GraphicalViewer viewer = getGraphicalViewer();
         viewer.addDropTargetListener(new TemplateTransferDropTargetListener(viewer));
         viewer.addDropTargetListener(new TemplateTransferDropTargetListener(viewer));
     }
-        
+
     private void createConstraintsEditor(Splitter splitter) {
         constraintsEditor = new ConstraintsEditor(splitter, this);
         constraintsEditor.getViewer().addSelectionChangedListener(getSelectionProvider());
         getSite().getPage().addSelectionListener(constraintsEditor);
     }
-    
+
     // ==================================================================================
     //  Providers
     // ==================================================================================
@@ -98,17 +98,17 @@ public class FeatureModelEditor extends ModelEditor {
     protected Object getModel() {
         return featureModel;
     }
-    
+
     @Override
     protected EditPartFactory getEditPartFactory() {
         return new FeatureModelEditPartFactory(layoutData);
     }
-    
+
     @Override
     protected ContextMenuProvider getContextMenuProvider() {
         return new FeatureModelEditorContextMenuProvider(this);
     }
-    
+
     @Override
     protected ILabelProvider getLabelProvider() {
         return FeatureModelProviderUtil.getLabelProvider();
@@ -127,15 +127,16 @@ public class FeatureModelEditor extends ModelEditor {
     // ==================================================================================
     //  Palette initialization
     // ==================================================================================
-    
+
     @Override
     protected PaletteRoot getPaletteRoot() {
         return new FeatureModelEditorPaletteRoot();
     }
-    
+
     @Override
     protected PaletteViewerProvider createPaletteViewerProvider() {
         return new PaletteViewerProvider(getEditDomain()) {
+
             @Override
             protected void configurePaletteViewer(PaletteViewer viewer) {
                 super.configurePaletteViewer(viewer);
@@ -144,7 +145,7 @@ public class FeatureModelEditor extends ModelEditor {
             }
         };
     }
-    
+
     @Override
     protected FlyoutPreferences getPalettePreferences() {
         FlyoutPreferences preferences = super.getPalettePreferences();
@@ -153,7 +154,7 @@ public class FeatureModelEditor extends ModelEditor {
         preferences.setPaletteWidth(150);
         return preferences;
     }
-    
+
     // ==================================================================================
     //  Actions
     // ==================================================================================
@@ -161,7 +162,7 @@ public class FeatureModelEditor extends ModelEditor {
     @Override
     protected void createActions() {
         super.createActions();
-        
+
         createAction(new DeleteAction(this));    // Custom delete action.
         createAction(new SelectAllAction(this)); // Custom select all action.
         createAction(new SetFeatureCardinalityAction(this, false));
@@ -172,17 +173,18 @@ public class FeatureModelEditor extends ModelEditor {
         createAction(new AutoLayoutAction(this));
         createAction(new ShowFeatureModelVisualizerAction());
         createAction(new ExportGraphicalEditorAsImageAction(this) {
+
             @Override
             protected String getDefaultName() {
                 return featureModel.getName();
             }
         });
     }
-        
+
     // ==================================================================================
     //  Save and Load operations
     // ==================================================================================
-    
+
     @Override
     protected void doLoad(IFileEditorInput input) throws Exception {
         ResourceSet resourceSet = new ResourceSetImpl();
@@ -190,18 +192,18 @@ public class FeatureModelEditor extends ModelEditor {
         loadFeatureModel(resourceSet, path);
         loadLayoutData(resourceSet, path);
     }
-    
+
     private void loadFeatureModel(ResourceSet resourceSet, String path) throws Exception {
         Resource resource = resourceSet.createResource(URI.createPlatformResourceURI(path, true));
         resource.load(null);
         featureModel = (FeatureModel) resource.getContents().get(0);
     }
-        
+
     private void loadLayoutData(ResourceSet resourceSet, String featureModelPath) {
         LayoutDataPackage.eINSTANCE.eClass(); // For package registration.
         String path = featureModelPath + LAYOUT_DATA_EXTENSION;
         Resource resource = resourceSet.createResource(URI.createPlatformResourceURI(path, true));
-        
+
         try {
             resource.load(createModelLayoytLoadSaveOptions());
             layoutData = (LayoutData) resource.getContents().get(0);
@@ -214,41 +216,41 @@ public class FeatureModelEditor extends ModelEditor {
             layoutData.set(featureModel.getRoot(), rootBounds);
         }
     }
-    	
-	@Override
-	protected void doSave() throws Exception {
-	    IWorkbenchWindow window = getSite().getWorkbenchWindow(); 
+
+    @Override
+    protected void doSave() throws Exception {
+        IWorkbenchWindow window = getSite().getWorkbenchWindow();
         window.run(true, false, new ResourceSaveOperation(featureModel.eResource()));
         window.run(true, false, new ResourceSaveOperation(layoutData.eResource(), createModelLayoytLoadSaveOptions()));
-	}
-	
-	@Override
+    }
+
+    @Override
     protected void setInputWithNotify(IEditorInput input) {
         super.setInputWithNotify(input);
-        
+
         // Called during save as operation.
         String path = ((IFileEditorInput) input).getFile().getFullPath().toString();
         featureModel.eResource().setURI(URI.createPlatformResourceURI(path, true));
         layoutData.eResource().setURI(URI.createPlatformResourceURI(path + LAYOUT_DATA_EXTENSION, true));
     }
-	
-	private Map<Object, Object> createModelLayoytLoadSaveOptions() {
+
+    private Map<Object, Object> createModelLayoytLoadSaveOptions() {
         Map<Object, Object> options = new HashMap<Object, Object>();
         // Ignore and discard all dangling references.
         options.put(XMLResource.OPTION_PROCESS_DANGLING_HREF, XMLResource.OPTION_PROCESS_DANGLING_HREF_DISCARD);
         return options;
     }
-	
+
     // ==================================================================================
     //  Adapters
     // ==================================================================================
-		
-	@Override
-	@SuppressWarnings("rawtypes")
-	public Object getAdapter(Class type) {
-	    if(type == FeatureModel.class)
-	        return featureModel;
-	    return super.getAdapter(type);
-	}
-	
+
+    @Override
+    @SuppressWarnings("rawtypes")
+    public Object getAdapter(Class type) {
+        if(type == FeatureModel.class)
+            return featureModel;
+        return super.getAdapter(type);
+    }
+
 }

@@ -19,43 +19,44 @@ public class ConnectionEditPart extends AbstractConnectionEditPart {
 
     private Connection connection;
     private Adapter connectionTargetAdapter;
-    
+
     public ConnectionEditPart(Connection connection) {
         this.connection = connection;
         this.connectionTargetAdapter = new ConnectionTargetAdapter();
         setModel(connection);
     }
-    
+
     @Override
     public void activate() {
         super.activate();
         connection.getTarget().eAdapters().add(connectionTargetAdapter);
     }
-    
+
     @Override
     public void deactivate() {
         connection.getTarget().eAdapters().remove(connectionTargetAdapter);
         super.deactivate();
     }
-    
+
     @Override
     protected IFigure createFigure() {
         return new ConnectionFigure(connection);
     }
-    
+
     @Override
     protected void refreshVisuals() {
         ((ConnectionFigure) getFigure()).refresh();
     }
-                
+
     @Override
     protected void createEditPolicies() {
         installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new ConnectionSelectionPolicy());
         installEditPolicy(EditPolicy.CONNECTION_ROLE, new ConnectionEditPolicy());
         installEditPolicy(EditPolicy.CONNECTION_ENDPOINTS_ROLE, new ConnectionEndpointEditPolicy());
     }
-    
+
     private class ConnectionTargetAdapter extends AdapterImpl {
+
         @Override
         public void notifyChanged(Notification notification) {
             switch(notification.getFeatureID(Feature.class)) {

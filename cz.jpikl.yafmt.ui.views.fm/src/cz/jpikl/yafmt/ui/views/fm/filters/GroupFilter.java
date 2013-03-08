@@ -12,25 +12,25 @@ import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.Group;
 
 public class GroupFilter extends ViewerFilter {
-    
+
     private Set<Group> visibleGroups = new HashSet<Group>();
     private boolean enabled = true;
-    
+
     public GroupFilter(boolean enabled) {
         setEnabled(enabled);
     }
-    
+
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
-    
+
     public boolean isEnabled() {
         return enabled;
     }
-    
+
     public void update(ISelection selection) {
         visibleGroups.clear();
-        
+
         if(!(selection instanceof IStructuredSelection))
             return;
 
@@ -45,12 +45,12 @@ public class GroupFilter extends ViewerFilter {
             }
         }
     }
-    
+
     @Override
     public boolean select(Viewer viewer, Object parentElement, Object element) {
         if(!(element instanceof Group))
             return true;
         return enabled ? visibleGroups.contains(element) : false;
     }
-   
+
 }

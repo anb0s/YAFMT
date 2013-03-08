@@ -12,18 +12,19 @@ public class FeatureConfigurationProviderUtil {
 
     private static final FeatureConfigurationPropertySourceValidator validator = new FeatureConfigurationPropertySourceValidator();
     private static FeatureConfigurationItemProviderAdapterFactory adapterFactory = new FeatureConfigurationItemProviderAdapterFactory();
-        
+
     public static AdapterFactoryContentProvider getContentProvider() {
         return new AdapterFactoryContentProvider(adapterFactory) {
+
             @Override
             protected IPropertySource createPropertySource(Object object, IItemPropertySource itemPropertySource) {
                 return new ValidatingPropertySource(object, itemPropertySource, validator);
             }
         };
     }
-    
+
     public static AdapterFactoryLabelProvider getLabelProvider() {
         return new AdapterFactoryLabelProvider(adapterFactory);
     }
-    
+
 }

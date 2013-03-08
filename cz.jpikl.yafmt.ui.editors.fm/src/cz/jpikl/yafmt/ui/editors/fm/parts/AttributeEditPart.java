@@ -27,30 +27,30 @@ public class AttributeEditPart extends AbstractGraphicalEditPart {
 
     private Attribute attribute;
     private Adapter attributeAdapter;
-    
+
     public AttributeEditPart(Attribute attribute) {
         this.attribute = attribute;
         this.attributeAdapter = new AttributeAdapter();
         setModel(attribute);
     }
-    
+
     @Override
     public void activate() {
         super.activate();
         attribute.eAdapters().add(attributeAdapter);
     }
-    
+
     @Override
     public void deactivate() {
         attribute.eAdapters().remove(attributeAdapter);
         super.deactivate();
     }
-    
+
     @Override
     protected IFigure createFigure() {
         return new AttributeFigure(attribute);
     }
-        
+
     @Override
     protected void refreshVisuals() {
         ((AttributeFigure) getFigure()).refresh(); // Called when direct edit input is cancelled.
@@ -61,20 +61,20 @@ public class AttributeEditPart extends AbstractGraphicalEditPart {
         installEditPolicy(EditPolicy.COMPONENT_ROLE, new AttributeEditPolicy());
         installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new AttributeDirectEditPolicy());
     }
-    
+
     @Override
     public void performRequest(Request request) {
         if(REQ_OPEN.equals(request.getType())) {
             String name = attribute.getName();
             AttributeType type = attribute.getType();
-            
+
             Label label = ((AttributeFigure) getFigure());
             Rectangle labelBounds = label.getBounds().getCopy();
             label.translateToAbsolute(labelBounds);
             int nameTextWidth = TextUtilities.INSTANCE.getStringExtents(name + ": ", label.getFont()).width;
             int typeTextX = labelBounds.x + nameTextWidth;
             int mouseX = ((SelectionRequest) request).getLocation().x;
-            
+
             // Name direct edit
             if(mouseX <= typeTextX) {
                 LabelDirectEditManager manager = new LabelDirectEditManager(this, label, name);
@@ -93,9 +93,9 @@ public class AttributeEditPart extends AbstractGraphicalEditPart {
             }
         }
     }
-    
+
     private class AttributeAdapter extends AdapterImpl {
-        
+
         @Override
         public void notifyChanged(Notification notification) {
             switch(notification.getFeatureID(Attribute.class)) {
@@ -104,7 +104,7 @@ public class AttributeEditPart extends AbstractGraphicalEditPart {
                     refreshVisuals();
             }
         }
-        
+
     }
 
 }

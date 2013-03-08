@@ -9,12 +9,12 @@ public class ConstraintsEditorActivationStrategy extends ColumnViewerEditorActiv
     public ConstraintsEditorActivationStrategy(ColumnViewer viewer) {
         super(viewer);
     }
-    
+
     @Override
     protected boolean isEditorActivationEvent(ColumnViewerEditorActivationEvent event) {
         return event.eventType == ColumnViewerEditorActivationEvent.TRAVERSAL ||
-               event.eventType == ColumnViewerEditorActivationEvent.MOUSE_DOUBLE_CLICK_SELECTION ||
-               event.eventType == ColumnViewerEditorActivationEvent.PROGRAMMATIC;
+                event.eventType == ColumnViewerEditorActivationEvent.MOUSE_DOUBLE_CLICK_SELECTION ||
+                event.eventType == ColumnViewerEditorActivationEvent.PROGRAMMATIC;
     }
 
 }

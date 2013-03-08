@@ -13,5 +13,5 @@ public class XorLanguage extends ConstraintLanguage {
             throw new ConstraintLanguageException("Empty constraint");
         return new XorEvaluator(constraintValue.split("\\s+"));
     }
-    
+
 }

@@ -18,10 +18,10 @@ public class SetFeatureNameCommand extends RecordingCommand {
     protected void initializeRecording() {
         addRecordedObject(feature);
     }
-    
+
     @Override
     protected void performRecording() {
         feature.setName(newName);
     }
-    
+
 }

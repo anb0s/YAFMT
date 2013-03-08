@@ -11,11 +11,11 @@ import cz.jpikl.yafmt.model.validation.ValidatingPropertySource;
 public class FeatureModelPropertySource extends ValidatingPropertySource {
 
     private static IPropertySourceValidator validator = new FeatureModelPropertySourceValidator();
-    
+
     public FeatureModelPropertySource(Object object, IItemPropertySource itemPropertySource) {
         super(object, itemPropertySource, validator);
     }
-    
+
     @Override
     protected IPropertyDescriptor createPropertyDescriptor(IItemPropertyDescriptor itemPropertyDescriptor) {
         // Use custom property descriptor for constraint value.
@@ -25,5 +25,5 @@ public class FeatureModelPropertySource extends ValidatingPropertySource {
         // Default descriptor for others.
         return super.createPropertyDescriptor(itemPropertyDescriptor);
     }
-    
+
 }

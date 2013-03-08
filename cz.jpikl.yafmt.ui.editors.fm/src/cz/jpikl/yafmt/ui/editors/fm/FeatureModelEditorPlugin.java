@@ -10,51 +10,52 @@ import org.osgi.framework.BundleContext;
  */
 public class FeatureModelEditorPlugin extends AbstractUIPlugin {
 
-	// The plug-in ID
-	public static final String PLUGIN_ID = "cz.jpikl.yafmt.ui.editors.fm"; //$NON-NLS-1$
+    // The plug-in ID
+    public static final String PLUGIN_ID = "cz.jpikl.yafmt.ui.editors.fm"; //$NON-NLS-1$
 
-	// The shared instance
-	private static FeatureModelEditorPlugin plugin;
-	
-	public void start(BundleContext context) throws Exception {
-		super.start(context);
-		plugin = this;
-	}
+    // The shared instance
+    private static FeatureModelEditorPlugin plugin;
 
-	public void stop(BundleContext context) throws Exception {
-		plugin = null;
-		super.stop(context);
-	}
+    public void start(BundleContext context) throws Exception {
+        super.start(context);
+        plugin = this;
+    }
 
-	/**
-	 * Returns the shared instance
-	 *
-	 * @return the shared instance
-	 */
-	public static FeatureModelEditorPlugin getDefault() {
-		return plugin;
-	}
+    public void stop(BundleContext context) throws Exception {
+        plugin = null;
+        super.stop(context);
+    }
 
-	/**
-	 * Returns an image descriptor for the image file at the given
-	 * plug-in relative path
-	 *
-	 * @param path the path
-	 * @return the image descriptor
-	 */
-	public static ImageDescriptor getImageDescriptor(String path) {
-		return imageDescriptorFromPlugin(PLUGIN_ID, path);
-	}
-	
-	private void registerImage(ImageRegistry registry, String key) {
+    /**
+     * Returns the shared instance
+     * 
+     * @return the shared instance
+     */
+    public static FeatureModelEditorPlugin getDefault() {
+        return plugin;
+    }
+
+    /**
+     * Returns an image descriptor for the image file at the given plug-in
+     * relative path
+     * 
+     * @param path
+     *            the path
+     * @return the image descriptor
+     */
+    public static ImageDescriptor getImageDescriptor(String path) {
+        return imageDescriptorFromPlugin(PLUGIN_ID, path);
+    }
+
+    private void registerImage(ImageRegistry registry, String key) {
         registry.put(key, getImageDescriptor("icons/" + key + ".png").createImage());
     }
-	
-	@Override
+
+    @Override
     protected void initializeImageRegistry(ImageRegistry registry) {
-	    registerImage(registry, "constraint");
-	    registerImage(registry, "constraint-decoration");
-	    registerImage(registry, "filter");
+        registerImage(registry, "constraint");
+        registerImage(registry, "constraint-decoration");
+        registerImage(registry, "filter");
     }
-	
+
 }

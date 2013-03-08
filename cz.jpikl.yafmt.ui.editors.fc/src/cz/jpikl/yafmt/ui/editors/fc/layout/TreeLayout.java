@@ -12,23 +12,23 @@ public abstract class TreeLayout extends AbstractLayout {
     protected static Dimension computeFigurePreferedSize(IFigure figure) {
         Dimension preferredSize = figure.getPreferredSize().getCopy();
         Dimension minimumSize = figure.getMinimumSize();
-        
+
         if(preferredSize.width < minimumSize.width)
             preferredSize.width = minimumSize.width;
         if(preferredSize.height < minimumSize.height)
             preferredSize.height = minimumSize.height;
-        
+
         return preferredSize;
     }
-    
+
     protected Helper helper;
-    
+
     public TreeLayout(Helper helper) {
         this.helper = helper;
     }
-    
+
     public abstract String getName();
-    
+
     protected abstract void doLayout(IFigure treeRootFigure);
 
     @Override
@@ -36,29 +36,29 @@ public abstract class TreeLayout extends AbstractLayout {
         IFigure treeRootFigure = (IFigure) container.getChildren().get(0);
         if(treeRootFigure == null)
             return;
-        
+
         IFigure treeParentFigure = helper.getTreeParentFigure(treeRootFigure);
         while(treeParentFigure != null) {
             treeRootFigure = treeParentFigure;
             treeParentFigure = helper.getTreeParentFigure(treeParentFigure);
         }
-        
+
         doLayout(treeRootFigure);
     }
-        
+
     @Override
     protected Dimension calculatePreferredSize(IFigure container, int wHint, int hHint) {
         return null;
     }
-    
+
     public static interface Helper {
-        
+
         IFigure getTreeParentFigure(IFigure figure);
-        
+
         List<IFigure> getTreeChildrenFigures(IFigure figure);
-        
+
         List<Connection> getConnectionFigures();
-        
+
     }
 
 }

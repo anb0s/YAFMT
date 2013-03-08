@@ -22,7 +22,7 @@ public class FeatureConfigurationEditorContributor extends ActionBarContributor 
         addRetargetAction(DeselectFeaturesAction.createRetargetAction());
         addRetargetAction(ShowFeatureModelVisualizerAction.createRetargetAction());
     }
-    
+
     @Override
     public void contributeToToolBar(IToolBarManager toolBarManager) {
         toolBarManager.add(getAction(ActionFactory.UNDO.getId()));

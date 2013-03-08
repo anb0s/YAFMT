@@ -30,28 +30,28 @@ public class ConstraintsEditorEditingSupport extends EditingSupport {
 
     private IStatusLineManager statusLineManager;
     private CommandStack commandStack;
-    
+
     public ConstraintsEditorEditingSupport(ColumnViewer viewer, CommandStack commandStack) {
         super(viewer);
         this.commandStack = commandStack;
     }
-        
+
     private Table getTable() {
         return ((TableViewer) getViewer()).getTable();
     }
-    
+
     private FeatureModel getFeatureModel() {
         return (FeatureModel) getViewer().getInput();
     }
-    
+
     private IStatusLineManager getStatusLineManager() {
         if(statusLineManager == null) {
             statusLineManager = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().
-                                getActiveEditor().getEditorSite().getActionBars().getStatusLineManager();
+                    getActiveEditor().getEditorSite().getActionBars().getStatusLineManager();
         }
         return statusLineManager;
     }
-    
+
     // ================================================================================
     //  EditingSupport
     // ================================================================================
@@ -59,28 +59,28 @@ public class ConstraintsEditorEditingSupport extends EditingSupport {
     @Override
     protected CellEditor getCellEditor(Object element) {
         CellEditor editor = null;
-        
+
         String languageId = ((Constraint) element).getLanguage();
         ConstraintLanguageRegistry clRegistry = ConstraintLanguagePlugin.getDefault().getConstraintLanguageRegistry();
         EditingSupportRegistry esRegistry = ConstraintLanguagePlugin.getDefault().getEditingSupportRegistry();
         IConstraintLanguage language = clRegistry.getLanguage(languageId);
         IEditingSupport editingSupport = esRegistry.getEditingSupport(languageId);
-        
+
         // Custom editor.
         if(editingSupport != null) {
             EditingContext context = new EditingContext(getFeatureModel());
             editor = editingSupport.createCellEditor(getTable(), context);
-        } 
+        }
         // Fallback editor.
         else {
             editor = new TextCellEditor(getTable());
         }
-        
+
         editor.setValidator(new EditorValidator(language));
         editor.addListener(new EditorListener(editor));
         return editor;
     }
-    
+
     @Override
     protected boolean canEdit(Object element) {
         return element instanceof Constraint;
@@ -96,11 +96,11 @@ public class ConstraintsEditorEditingSupport extends EditingSupport {
         Constraint constraint = (Constraint) element;
         if(constraint.getValue().equals(value))
             return;
-        
+
         Command command = new SetConstraintValueCommand(constraint, (String) value);
         commandStack.execute(command);
     }
-    
+
     // ================================================================================
     //  Input validator
     // ================================================================================
@@ -108,7 +108,7 @@ public class ConstraintsEditorEditingSupport extends EditingSupport {
     private class EditorValidator implements ICellEditorValidator {
 
         private IConstraintLanguage language;
-                
+
         public EditorValidator(IConstraintLanguage language) {
             this.language = language;
         }
@@ -117,7 +117,7 @@ public class ConstraintsEditorEditingSupport extends EditingSupport {
         public String isValid(Object value) {
             if(language == null)
                 return null;
-            
+
             try {
                 IEvaluator evaluator = language.createEvaluator((String) value);
                 IValidationResult result = evaluator.validate(getFeatureModel());
@@ -127,17 +127,17 @@ public class ConstraintsEditorEditingSupport extends EditingSupport {
                 return ex.getMessage();
             }
         }
-        
+
     }
-    
+
     // ================================================================================
     //  Editor listener
     // ================================================================================
-    
+
     private class EditorListener implements ICellEditorListener {
-    
+
         private CellEditor editor;
-                
+
         public EditorListener(CellEditor editor) {
             this.editor = editor;
         }
@@ -146,17 +146,17 @@ public class ConstraintsEditorEditingSupport extends EditingSupport {
         public void applyEditorValue() {
             getStatusLineManager().setErrorMessage(null);
         }
-    
+
         @Override
         public void cancelEditor() {
             getStatusLineManager().setErrorMessage(null);
         }
-    
+
         @Override
         public void editorValueChanged(boolean oldValidState, boolean newValidState) {
             getStatusLineManager().setErrorMessage(editor.getErrorMessage());
         }
-    
+
     }
 
 }

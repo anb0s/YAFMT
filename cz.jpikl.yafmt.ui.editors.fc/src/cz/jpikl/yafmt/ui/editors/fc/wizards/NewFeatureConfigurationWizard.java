@@ -38,40 +38,40 @@ public class NewFeatureConfigurationWizard extends NewFileWizard {
 
     private static final String FM_FILE_EXTENSION = "yafm";
     private static final String FC_FILE_EXTENSION = "yafc";
-    
+
     private FeatureConfigurationPropertiesPage featureConfigurationPropertiesPage = new FeatureConfigurationPropertiesPage();
-    
+
     public NewFeatureConfigurationWizard() {
         setWindowTitle("New Feature Model Wizard");
     }
-    
+
     @Override
     protected void initNewFileCreationPage(WizardNewFileCreationPage page) {
         page.setTitle("Feature Configuration");
         page.setDescription("Create a new feature configuration.");
         page.setFileName("FeatureConfiguration");
         page.setFileExtension(FC_FILE_EXTENSION);
-        
+
         IFile featureModelFile = getSelectedFeatureModelFile();
         if(featureModelFile != null) {
             String name = featureModelFile.getName();
             page.setFileName(name.substring(0, name.length() - FM_FILE_EXTENSION.length() - 1));
         }
     }
-    
+
     @Override
     public void addPages() {
         super.addPages();
         addPage(featureConfigurationPropertiesPage);
     }
-    
+
     private IFile getSelectedFeatureModelFile() {
         IStructuredSelection selection = getSelection();
         if((selection != null) && !selection.isEmpty()) {
             Object selectedObject = selection.getFirstElement();
             if(selectedObject instanceof IFile) {
                 IFile selectedFile = (IFile) selectedObject;
-                if(FM_FILE_EXTENSION.equals(selectedFile.getFileExtension())) 
+                if(FM_FILE_EXTENSION.equals(selectedFile.getFileExtension()))
                     return selectedFile;
             }
         }
@@ -84,46 +84,46 @@ public class NewFeatureConfigurationWizard extends NewFileWizard {
         URI uri = URI.createPlatformResourceURI(featureModelFile, true);
         Resource resource = resourceSet.createResource(uri);
         resource.load(null);
-        
+
         Object featureModelFileContents = resource.getContents().get(0);
         if(!(featureModelFileContents instanceof FeatureModel))
             throw new Exception(featureModelFile + " does not contain YAFMT feature model");
-        
+
         FeatureModel featureModel = (FeatureModel) featureModelFileContents;
         Feature rootFeature = featureModel.getRoot();
         if((rootFeature == null) || (rootFeature.getId() == null) || (rootFeature.getId().isEmpty()))
             throw new Exception("Specified feature model does not have root feature");
-        
+
         return featureModel;
     }
-    
+
     @Override
     protected Resource getNewResource(IFile file) throws Exception {
         FeatureModelPlugin.getPlugin(); // Resource factory and package registration.
-        FeatureModel featureModel = getFeatureModel();        
+        FeatureModel featureModel = getFeatureModel();
         String name = featureConfigurationPropertiesPage.getFeatureConfigurationName();
         String version = featureConfigurationPropertiesPage.getFeatureConfigurationVersion();
         String description = featureConfigurationPropertiesPage.getFeatureConfigurationDescription();
-        
+
         FeatureConfiguration featureConfig = FeatureConfigurationUtil.createEmptyFeatureConfiguration(featureModel, name);
         if(!version.isEmpty())
             featureConfig.setVersion(version);
         if(!description.isEmpty())
             featureConfig.setDescription(description);
-        
+
         URI uri = URI.createPlatformResourceURI(file.getFullPath().toString(), true);
         Resource resource = featureModel.eResource().getResourceSet().createResource(uri);
         resource.getContents().add(featureConfig);
         return resource;
     }
-    
+
     private class FeatureConfigurationPropertiesPage extends WizardPage {
-        
+
         private Text featureModelFileText;
         private Text nameText;
         private Text versionText;
         private Text descriptionText;
-        
+
         protected FeatureConfigurationPropertiesPage() {
             super("Feature Model Properties Page");
             setTitle("Feature Model");
@@ -134,89 +134,92 @@ public class NewFeatureConfigurationWizard extends NewFileWizard {
         public void createControl(Composite parent) {
             Composite panel = new Composite(parent, SWT.NONE);
             panel.setLayoutData(new GridData(SWT.FILL, SWT.FILL));
-            
+
             GridLayout layout = new GridLayout();
             layout.numColumns = 3;
             panel.setLayout(layout);
-                        
+
             createFeatureModelRow(panel);
             createNameRow(panel);
             createVersionRow(panel);
             createDescriptionRow(panel);
-            
+
             // Must be called after creation of all controls
             IFile featureModelFile = getSelectedFeatureModelFile();
             if(featureModelFile != null)
                 featureModelFileText.setText(featureModelFile.getFullPath().toString());
-            
+
             setControl(panel);
             revalidatePage();
         }
-        
+
         private void createFeatureModelRow(Composite parent) {
             Label featureModelFileLabel = new Label(parent, SWT.NONE);
             featureModelFileLabel.setText("Feature Model:");
-            
+
             featureModelFileText = new Text(parent, SWT.SINGLE | SWT.BORDER);
             featureModelFileText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
             featureModelFileText.addModifyListener(new ModifyListener() {
+
                 @Override
                 public void modifyText(ModifyEvent e) {
                     revalidatePage();
                 }
             });
-                                    
+
             Button browseButton = new Button(parent, SWT.NONE);
             browseButton.setText("Browse");
             browseButton.addSelectionListener(new SelectionAdapter() {
+
                 @Override
                 public void widgetSelected(SelectionEvent e) {
                     openFeatureModelOpenDialog();
                 }
             });
         }
-        
+
         private void createNameRow(Composite parent) {
             Label nameLabel = new Label(parent, SWT.NONE);
             nameLabel.setText("Name:");
-            
+
             GridData gridData = new GridData(SWT.FILL, SWT.CENTER, true, false);
             gridData.horizontalSpan = 2;
-            
+
             nameText = new Text(parent, SWT.SINGLE | SWT.BORDER);
             nameText.setLayoutData(gridData);
             nameText.addModifyListener(new ModifyListener() {
+
                 @Override
                 public void modifyText(ModifyEvent e) {
                     revalidatePage();
                 }
             });
         }
-        
+
         private void createVersionRow(Composite parent) {
             Label versionLabel = new Label(parent, SWT.NONE);
             versionLabel.setText("Version:");
-            
+
             GridData gridData = new GridData(SWT.FILL, SWT.CENTER, true, false);
             gridData.horizontalSpan = 2;
-            
+
             versionText = new Text(parent, SWT.SINGLE | SWT.BORDER);
             versionText.setText("1.0.0");
             versionText.setLayoutData(gridData);
         }
-        
+
         private void createDescriptionRow(Composite parent) {
             Label descriptionLabel = new Label(parent, SWT.NONE);
             descriptionLabel.setLayoutData(new GridData(SWT.TOP, SWT.LEFT, false, false));
-            
+
             GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
             gridData.horizontalSpan = 2;
-            
+
             descriptionLabel.setText("Description:");
             descriptionText = new Text(parent, SWT.MULTI | SWT.BORDER);
             descriptionText.setLayoutData(gridData);
         }
-        
+
         @Override
         public void setVisible(boolean visible) {
             if(visible && nameText.getText().isEmpty()) {
@@ -224,10 +227,10 @@ public class NewFeatureConfigurationWizard extends NewFileWizard {
                 String extension = getFile().getFileExtension();
                 nameText.setText(name.substring(0, name.length() - extension.length() - 1));
             }
-            
+
             super.setVisible(visible);
-        }        
-        
+        }
+
         private void openFeatureModelOpenDialog() {
             ElementTreeSelectionDialog dialog = new ElementTreeSelectionDialog(getShell(), new WorkbenchLabelProvider(), new BaseWorkbenchContentProvider());
             dialog.setTitle("Feature Model Selection");
@@ -235,55 +238,55 @@ public class NewFeatureConfigurationWizard extends NewFileWizard {
             dialog.setInput(ResourcesPlugin.getWorkspace().getRoot());
             dialog.setAllowMultiple(false);
             dialog.open();
-            
+
             Object result = dialog.getFirstResult();
             if((result == null) || !(result instanceof IResource))
                 return;
-            
+
             featureModelFileText.setText(((IResource) result).getFullPath().toString());
         }
 
         private void revalidatePage() {
             setPageComplete(validatePage());
         }
-        
+
         private boolean validatePage() {
             IPath path = new Path(featureModelFileText.getText());
             if(path.isEmpty() || !ResourcesPlugin.getWorkspace().getRoot().exists(path)) {
                 setErrorMessage("The selected file does not exist.");
                 return false;
             }
-            
+
             if(!FM_FILE_EXTENSION.equals(path.getFileExtension())) {
                 setErrorMessage("The selected file in not a YAFMT feature model.");
                 return false;
             }
-            
+
             if(nameText.getText().trim().isEmpty()) {
                 setErrorMessage("Empty feature configuration name.");
                 return false;
             }
-            
+
             setErrorMessage(null);
             return true;
         }
-        
+
         public String getFeatureModelFile() {
             return featureModelFileText.getText();
         }
-        
+
         public String getFeatureConfigurationName() {
             return nameText.getText();
         }
-        
+
         public String getFeatureConfigurationVersion() {
             return versionText.getText();
         }
-        
+
         public String getFeatureConfigurationDescription() {
             return descriptionText.getText();
         }
-        
+
     }
 
 }

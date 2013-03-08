@@ -9,7 +9,7 @@ public class MiddlePointAnchor extends AbstractConnectionAnchor {
     public MiddlePointAnchor(IFigure figure) {
         super(figure);
     }
-    
+
     @Override
     public Point getLocation(Point reference) {
         IFigure owner = getOwner();
@@ -19,5 +19,5 @@ public class MiddlePointAnchor extends AbstractConnectionAnchor {
         owner.translateToAbsolute(center);
         return center;
     }
-    
+
 }

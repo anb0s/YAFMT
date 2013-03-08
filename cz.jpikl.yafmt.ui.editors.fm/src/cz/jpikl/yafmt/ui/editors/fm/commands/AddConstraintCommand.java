@@ -24,5 +24,5 @@ public class AddConstraintCommand extends RecordingCommand {
     protected void performRecording() {
         featureModel.getConstraints().add(constraint);
     }
-    
+
 }

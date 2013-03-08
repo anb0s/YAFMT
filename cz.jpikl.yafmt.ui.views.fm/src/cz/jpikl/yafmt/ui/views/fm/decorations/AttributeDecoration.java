@@ -8,7 +8,7 @@ public class AttributeDecoration extends ImageDecoration {
 
     public AttributeDecoration(int attributesCount) {
         super(FeatureModelVisualizerPlugin.getDefault().getImageRegistry().get("attribute-decoration"));
-        
+
         if(attributesCount > 1)
             setToolTip(new Label("Feature has " + attributesCount + " attributes."));
         else

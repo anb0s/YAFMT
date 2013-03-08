@@ -15,27 +15,27 @@ import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 
 public class ConstraintFilter extends ViewerFilter {
-    
+
     private Set<Constraint> visibleConstraints = new HashSet<Constraint>();
     private ConstraintCache constraintCache;
     private boolean enabled = true;
-    
+
     public ConstraintFilter(ConstraintCache constraintCache, boolean enabled) {
         this.constraintCache = constraintCache;
         setEnabled(enabled);
     }
-        
+
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
-    
+
     public boolean isEnabled() {
         return enabled;
     }
-    
+
     public void update(ISelection selection, FeatureModel featureModel) {
         visibleConstraints.clear();
-        
+
         if(!(selection instanceof IStructuredSelection))
             return;
 
@@ -52,7 +52,7 @@ public class ConstraintFilter extends ViewerFilter {
             }
         }
     }
-        
+
     @Override
     public boolean select(Viewer viewer, Object parentElement, Object element) {
         if(!(element instanceof Constraint))

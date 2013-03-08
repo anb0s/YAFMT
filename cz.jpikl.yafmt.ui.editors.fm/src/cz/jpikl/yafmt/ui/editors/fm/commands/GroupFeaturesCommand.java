@@ -21,42 +21,42 @@ public class GroupFeaturesCommand extends RecordingCommand {
     private Group group;
     private Rectangle bounds;
     private boolean xorGroup;
-    
+
     public GroupFeaturesCommand(LayoutData layoutData, List<Feature> features, boolean xorGroup) {
         setLabel("Make " + (xorGroup ? "XOR" : "OR") + " Group");
         this.layoutData = layoutData;
         this.features = features;
         this.xorGroup = xorGroup;
     }
-    
+
     @Override
     protected void initializeRecording() {
         for(Feature feature: features)
             addRecordedObjectParent(feature);
     }
-    
+
     @Override
     protected void performRecording() {
         EObject parent = features.get(0).getParent();
         if(parent instanceof Group)
             parent = ((Group) parent).getParent();
-        
+
         group = FeatureModelFactory.eINSTANCE.createGroup();
         group.setParent((Feature) parent);
         group.getFeatures().addAll(features);
         group.setXor(xorGroup); // Must be called after adding features.
-        
+
         // Do not iterate on the original group list (ConcurrentModificationException).
         List<Group> groups = new ArrayList<Group>(((Feature) parent).getGroups());
         for(Group group: groups)
             FeatureModelUtil.removeUnneededGroup(group);
-        
+
         computeGroupBounds();
     }
-    
+
     private void computeGroupBounds() {
         Rectangle parentBounds = layoutData.get(group.getParent());
-        
+
         int cx = 0;
         int cy = 0;
         for(Feature feature: features) {
@@ -66,27 +66,27 @@ public class GroupFeaturesCommand extends RecordingCommand {
         }
         cx /= features.size();
         cy /= features.size();
-        
+
         bounds = MoveGroupCommand.computeGroupBounds(parentBounds, cx, cy);
     }
-    
+
     @Override
     public void execute() {
         layoutData.set(group, bounds);
         super.execute();
-        
+
     }
-    
+
     @Override
     public void redo() {
         layoutData.set(group, bounds);
         super.redo();
     }
-    
+
     @Override
     public void undo() {
         super.undo();
         layoutData.remove(group);
     }
-    
+
 }

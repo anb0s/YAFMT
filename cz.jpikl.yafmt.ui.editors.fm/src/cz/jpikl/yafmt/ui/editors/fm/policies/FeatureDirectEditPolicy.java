@@ -14,21 +14,21 @@ public class FeatureDirectEditPolicy extends DirectEditPolicy {
     private String getEnteredText(DirectEditRequest request) {
         return (String) request.getCellEditor().getValue();
     }
-    
+
     @Override
     protected Command getDirectEditCommand(DirectEditRequest request) {
         String text = getEnteredText(request);
         if((text == null) || text.isEmpty())
             return null;
-        
+
         Feature feature = (Feature) getHost().getModel();
         return new SetFeatureNameCommand(feature, text);
     }
 
     @Override
     protected void showCurrentEditValue(DirectEditRequest request) {
-        Label label = ((FeatureFigure) getHostFigure()).getLabel(); 
+        Label label = ((FeatureFigure) getHostFigure()).getLabel();
         label.setText(getEnteredText(request));
     }
-    
+
 }

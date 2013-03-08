@@ -18,10 +18,10 @@ public class SetAttributeNameCommand extends RecordingCommand {
     protected void initializeRecording() {
         addRecordedObject(attribute);
     }
-    
+
     @Override
     protected void performRecording() {
         attribute.setName(newName);
     }
-    
+
 }

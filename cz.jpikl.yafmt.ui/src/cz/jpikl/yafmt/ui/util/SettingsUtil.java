@@ -9,7 +9,7 @@ public class SettingsUtil {
             return defaultValue;
         return settings.getBoolean(key);
     }
-    
+
     public static int getInteger(IDialogSettings settings, String key, int defaultValue) {
         try {
             return settings.getInt(key);
@@ -18,10 +18,10 @@ public class SettingsUtil {
             return defaultValue;
         }
     }
-    
+
     public static String getString(IDialogSettings settings, String key, String defaultValue) {
         String value = settings.get(key);
         return (value != null) ? value : defaultValue;
     }
-    
+
 }

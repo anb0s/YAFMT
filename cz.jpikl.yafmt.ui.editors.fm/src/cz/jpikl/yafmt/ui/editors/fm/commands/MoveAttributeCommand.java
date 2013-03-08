@@ -8,7 +8,7 @@ public class MoveAttributeCommand extends RecordingCommand {
 
     private Attribute attribute;
     private int targetIndex;
-    
+
     public MoveAttributeCommand(Attribute attribute, int targetIndex) {
         this.attribute = attribute;
         this.targetIndex = targetIndex;

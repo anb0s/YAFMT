@@ -21,15 +21,15 @@ import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
 import cz.jpikl.yafmt.ui.wizards.NewFileWizard;
 
 public class NewFeatureModelWizard extends NewFileWizard {
-    
+
     private static final String FM_FILE_EXTENSION = "yafm";
-    
+
     private FeatureModelPropertiesPage featureModelPropertiesPage = new FeatureModelPropertiesPage();
 
     public NewFeatureModelWizard() {
         setWindowTitle("New Feature Model Wizard");
     }
-    
+
     @Override
     protected void initNewFileCreationPage(WizardNewFileCreationPage page) {
         page.setTitle("Feature Model");
@@ -37,38 +37,38 @@ public class NewFeatureModelWizard extends NewFileWizard {
         page.setFileName("FeatureModel");
         page.setFileExtension(FM_FILE_EXTENSION);
     }
-    
+
     @Override
     public void addPages() {
         super.addPages();
         addPage(featureModelPropertiesPage);
     }
-    
+
     @Override
     protected Resource getNewResource(IFile file) throws Exception {
         String name = featureModelPropertiesPage.getFeatureModelName();
         String version = featureModelPropertiesPage.getFeatureModelVersion();
         String description = featureModelPropertiesPage.getFeatureModelDescription();
-        
+
         FeatureModel featureModel = FeatureModelUtil.createEmptyFeatureModel(name);
         if(!version.isEmpty())
             featureModel.setVersion(version);
         if(!description.isEmpty())
             featureModel.setDescription(description);
-        
+
         URI uri = URI.createPlatformResourceURI(file.getFullPath().toString(), true);
         ResourceSet resourceSet = new ResourceSetImpl();
         Resource resource = resourceSet.createResource(uri);
         resource.getContents().add(featureModel);
         return resource;
     }
-        
+
     private class FeatureModelPropertiesPage extends WizardPage {
-        
+
         private Text nameText;
         private Text versionText;
         private Text descriptionText;
-        
+
         protected FeatureModelPropertiesPage() {
             super("Feature Model Properties Page");
             setTitle("Feature Model");
@@ -79,51 +79,52 @@ public class NewFeatureModelWizard extends NewFileWizard {
         public void createControl(Composite parent) {
             Composite panel = new Composite(parent, SWT.NONE);
             panel.setLayoutData(new GridData(SWT.FILL, SWT.FILL));
-            
+
             GridLayout layout = new GridLayout();
             layout.numColumns = 2;
             panel.setLayout(layout);
-                        
+
             createNameRow(panel);
             createVersionRow(panel);
             createDescriptionRow(panel);
-            
+
             setControl(panel);
             revalidatePage();
         }
-        
+
         private void createNameRow(Composite parent) {
             Label nameLabel = new Label(parent, SWT.NONE);
             nameLabel.setText("Name:");
-            
+
             nameText = new Text(parent, SWT.SINGLE | SWT.BORDER);
             nameText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
             nameText.addModifyListener(new ModifyListener() {
+
                 @Override
                 public void modifyText(ModifyEvent e) {
                     revalidatePage();
                 }
             });
         }
-        
+
         private void createVersionRow(Composite parent) {
             Label versionLabel = new Label(parent, SWT.NONE);
             versionLabel.setText("Version:");
-            
+
             versionText = new Text(parent, SWT.SINGLE | SWT.BORDER);
             versionText.setText("1.0.0");
             versionText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
         }
-        
+
         private void createDescriptionRow(Composite parent) {
             Label descriptionLabel = new Label(parent, SWT.NONE);
             descriptionLabel.setLayoutData(new GridData(SWT.TOP, SWT.LEFT, false, false));
-            
+
             descriptionLabel.setText("Description:");
             descriptionText = new Text(parent, SWT.MULTI | SWT.BORDER);
             descriptionText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         }
-        
+
         @Override
         public void setVisible(boolean visible) {
             if(visible && nameText.getText().isEmpty()) {
@@ -131,36 +132,36 @@ public class NewFeatureModelWizard extends NewFileWizard {
                 String extension = getFile().getFileExtension();
                 nameText.setText(name.substring(0, name.length() - extension.length() - 1));
             }
-            
+
             super.setVisible(visible);
-        }        
-                
+        }
+
         private void revalidatePage() {
             setPageComplete(validatePage());
         }
-        
+
         private boolean validatePage() {
             if(nameText.getText().trim().isEmpty()) {
                 setErrorMessage("Empty feature model name.");
                 return false;
             }
-            
+
             setErrorMessage(null);
             return true;
         }
-        
+
         public String getFeatureModelName() {
             return nameText.getText();
         }
-        
+
         public String getFeatureModelVersion() {
             return versionText.getText();
         }
-        
+
         public String getFeatureModelDescription() {
             return descriptionText.getText();
         }
-        
+
     }
 
 }

@@ -17,17 +17,17 @@ import cz.jpikl.yafmt.ui.editors.fc.parts.ConnectionEditPart;
 public class FeatureConfigurationLayoutHelper implements TreeLayout.Helper {
 
     private GraphicalViewer viewer;
-    
+
     public void setGraphicalViewer(GraphicalViewer viewer) {
         this.viewer = viewer;
     }
-    
+
     @Override
     public IFigure getTreeParentFigure(IFigure figure) {
         Object part = viewer.getVisualPartMap().get(figure);
         if(!(part instanceof NodeEditPart))
             return null;
-        
+
         for(Object connectionPart: ((NodeEditPart) part).getSourceConnections()) {
             if(connectionPart instanceof ConnectionEditPart) {
                 Object targetPart = ((ConnectionEditPart) connectionPart).getTarget();
@@ -43,7 +43,7 @@ public class FeatureConfigurationLayoutHelper implements TreeLayout.Helper {
         Object part = viewer.getVisualPartMap().get(figure);
         if(!(part instanceof NodeEditPart))
             return null;
-        
+
         List<IFigure> figures = new ArrayList<IFigure>();
         for(Object connectionPart: ((NodeEditPart) part).getTargetConnections()) {
             if(connectionPart instanceof ConnectionEditPart) {
@@ -60,7 +60,7 @@ public class FeatureConfigurationLayoutHelper implements TreeLayout.Helper {
         LayerManager layerManager = (LayerManager) viewer.getEditPartRegistry().get(LayerManager.ID);
         LayeredPane printableLayers = (LayeredPane) layerManager.getLayer(LayerConstants.PRINTABLE_LAYERS);
         IFigure connectionLayer = printableLayers.getLayer(LayerConstants.CONNECTION_LAYER);
-        
+
         List<?> children = connectionLayer.getChildren();
         List<Connection> connections = new ArrayList<Connection>(children.size());
         for(Object child: children) {

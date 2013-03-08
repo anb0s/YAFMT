@@ -16,11 +16,11 @@ import org.eclipse.emf.ecore.resource.Resource;
 public class EObjectDecorator implements EObject {
 
     private EObject decoratedObject;
-    
+
     public EObjectDecorator(EObject object) {
         this.decoratedObject = object;
     }
-    
+
     public EObject getDecoratedEObject() {
         return decoratedObject;
     }

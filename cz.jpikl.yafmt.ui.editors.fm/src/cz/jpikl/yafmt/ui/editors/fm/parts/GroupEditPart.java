@@ -26,51 +26,51 @@ import cz.jpikl.yafmt.ui.editors.fm.policies.GroupEditPolicy;
 import cz.jpikl.yafmt.ui.figures.MiddlePointAnchor;
 
 public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEditPart {
-    
+
     private Group group;
     private Adapter groupAdapter;
     private LayoutData layoutData;
-        
+
     public GroupEditPart(Group group, LayoutData layoutData) {
         this.group = group;
         this.groupAdapter = new GroupAdapter();
         this.layoutData = layoutData;
         setModel(group);
     }
-        
+
     @Override
     public void activate() {
         super.activate();
         group.eAdapters().add(groupAdapter);
         refreshLayoutData();
     }
-    
+
     @Override
     public void deactivate() {
         group.eAdapters().remove(groupAdapter);
         super.deactivate();
     }
-    
+
     @Override
     protected List<Object> getModelTargetConnections() {
         if(group.getFeatures().isEmpty())
             return null;
-        
+
         List<Object> connections = new ArrayList<Object>();
         for(Feature child: group.getFeatures())
             connections.add(new Connection(group, child));
         return connections;
     }
-    
+
     @Override
     protected IFigure createFigure() {
         return new GroupFigure(group, layoutData);
     }
-    
+
     public LayoutData getLayoutData() {
         return layoutData;
     }
-                
+
     private void refreshLayoutData() {
         Rectangle bounds = layoutData.get(group);
         if(bounds == null) {
@@ -89,12 +89,12 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
         }
         layoutData.set(group, bounds);
     }
-    
+
     @Override
     protected void refreshVisuals() {
         ((GroupFigure) getFigure()).refresh();
     }
-    
+
     @Override
     public ConnectionAnchor getSourceConnectionAnchor(ConnectionEditPart connection) {
         return new MiddlePointAnchor(getFigure());
@@ -122,7 +122,7 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
     }
 
     class GroupAdapter extends AdapterImpl {
-        
+
         @Override
         public void notifyChanged(Notification notification) {
             switch(notification.getEventType()) {
@@ -133,7 +133,7 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
                     refreshTargetConnections();
                     refreshVisuals();
                     break;
-                    
+
                 case Notification.SET:
                     switch(notification.getFeatureID(Group.class)) {
                         case FeatureModelPackage.GROUP__LOWER:
@@ -144,7 +144,7 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
                     break;
             }
         }
-        
+
     }
-    
+
 }

@@ -11,24 +11,24 @@ import org.eclipse.jface.action.IMenuManager;
 public class GraphicalEditorContextMenuProvider extends ContextMenuProvider {
 
     private ActionRegistry registry;
-    
+
     public GraphicalEditorContextMenuProvider(GraphicalEditor editor) {
         super((GraphicalViewer) editor.getAdapter(GraphicalViewer.class));
         this.registry = (ActionRegistry) editor.getAdapter(ActionRegistry.class);
     }
-    
+
     protected void addActionToMenu(IMenuManager menu, String actionId) {
         IAction action = registry.getAction(actionId);
         if(action.isEnabled())
             menu.add(action);
     }
-    
+
     protected void addActionToMenu(IMenuManager menu, String groupId, String actionId) {
         IAction action = registry.getAction(actionId);
         if(action.isEnabled())
             menu.appendToGroup(groupId, action);
     }
-    
+
     @Override
     public void buildContextMenu(IMenuManager menu) {
         GEFActionConstants.addStandardActionGroups(menu);

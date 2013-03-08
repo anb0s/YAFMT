@@ -18,7 +18,7 @@ import cz.jpikl.yafmt.model.validation.IPropertySourceValidator;
 import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.Literals.*;
 
 public class FeatureModelPropertySourceValidator implements IPropertySourceValidator {
-        
+
     @Override
     public String validate(Object object, Object property, Object value) {
         try {
@@ -38,7 +38,7 @@ public class FeatureModelPropertySourceValidator implements IPropertySourceValid
         }
         return null;
     }
-   
+
     private String validateFeature(Feature feature, Object property, Object value) {
         if(property == FEATURE__ID) {
             String result = checkIdValue((String) value, "_UI_Feature_id_feature");
@@ -54,10 +54,10 @@ public class FeatureModelPropertySourceValidator implements IPropertySourceValid
         if(property == FEATURE__LOWER)
             return checkBounds(Integer.parseInt((String) value), feature.getUpper());
         if(property == FEATURE__UPPER)
-            return checkBounds(feature.getLower(), Integer.parseInt((String) value));        
+            return checkBounds(feature.getLower(), Integer.parseInt((String) value));
         return null;
     }
-    
+
     private String validateGroup(Group group, Object property, Object value) {
         if(property == GROUP__LOWER)
             return checkBounds(Integer.parseInt((String) value), group.getUpper());
@@ -65,7 +65,7 @@ public class FeatureModelPropertySourceValidator implements IPropertySourceValid
             return checkBounds(group.getLower(), Integer.parseInt((String) value));
         return null;
     }
-    
+
     private String validateAttribute(Attribute attribute, Object property, Object value) {
         if(property == ATTRIBUTE__ID) {
             String result = checkIdValue((String) value, "_UI_Attribute_id_feature");
@@ -81,14 +81,14 @@ public class FeatureModelPropertySourceValidator implements IPropertySourceValid
             return checkEmptyValue((String) value, "_UI_Attribute_name_feature");
         return null;
     }
-    
+
     private String validateConstraint(Constraint constraint, Object property, Object value) {
         if(property == CONSTRAINT__VALUE) {
             ConstraintLanguageRegistry registry = ConstraintLanguagePlugin.getDefault().getConstraintLanguageRegistry();
             IConstraintLanguage language = registry.getLanguage(constraint.getLanguage());
             if(language == null)
                 return null;
-                        
+
             try {
                 IEvaluator evaluator = language.createEvaluator((String) value);
                 IValidationResult result = evaluator.validate(constraint.getFeatureModel());
@@ -102,13 +102,13 @@ public class FeatureModelPropertySourceValidator implements IPropertySourceValid
         }
         return null;
     }
-    
+
     private String validateFeatureModel(FeatureModel featureModel, Object property, Object value) {
         if(property == FEATURE_MODEL__NAME)
             return checkEmptyValue((String) value, "_UI_FeatureModel_name_feature");
         return null;
     }
-    
+
     private String checkIdValue(String value, String name) {
         String result = checkEmptyValue(value, name);
         if(result != null)
@@ -117,13 +117,13 @@ public class FeatureModelPropertySourceValidator implements IPropertySourceValid
             return getString("_UI_Errors_WrongIdFormat");
         return null;
     }
-    
+
     private String checkEmptyValue(String value, String name) {
         if((value == null) || value.isEmpty())
             return getString("_UI_Errors_Empty", getString(name));
         return null;
     }
-    
+
     private String checkBounds(int lower, int upper) {
         upper = (upper == -1) ? Integer.MAX_VALUE : upper;
         if(lower < 0)
@@ -134,13 +134,13 @@ public class FeatureModelPropertySourceValidator implements IPropertySourceValid
             return getString("_UI_Errors_UpperLowerBoundMismatch");
         return null;
     }
-    
+
     private String getString(String key, Object param) {
         return FeatureModelEditPlugin.INSTANCE.getString(key, new Object[] { param }, true);
     }
-    
+
     private String getString(String key) {
         return FeatureModelEditPlugin.INSTANCE.getString(key, true);
     }
-    
+
 }

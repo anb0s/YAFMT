@@ -15,11 +15,11 @@ public class AddAttributeCommand extends RecordingCommand {
     private Feature feature;
     private Attribute attribute;
     private int index;
-    
+
     public AddAttributeCommand(LayoutData layoutData, Feature feature, Attribute attribute) {
         this(layoutData, feature, attribute, feature.getAttributes().size());
     }
-    
+
     public AddAttributeCommand(LayoutData layoutData, Feature feature, Attribute attribute, int index) {
         setLabel("Add Attribute");
         this.layoutData = layoutData;
@@ -27,7 +27,7 @@ public class AddAttributeCommand extends RecordingCommand {
         this.attribute = attribute;
         this.index = index;
     }
-    
+
     private void initializeResizeCommand() {
         Rectangle bounds = layoutData.get(feature);
         Rectangle deltas = new Rectangle();
@@ -36,7 +36,7 @@ public class AddAttributeCommand extends RecordingCommand {
             deltas.width = AttributeFigure.WIDTH - bounds.width;
         resizeCommand = new ResizeFeatureCommand(layoutData, feature, deltas);
     }
-    
+
     @Override
     protected void initializeRecording() {
         addRecordedObject(feature);
@@ -46,24 +46,24 @@ public class AddAttributeCommand extends RecordingCommand {
     protected void performRecording() {
         feature.getAttributes().add(index, attribute);
     }
-    
+
     @Override
     public void execute() {
         initializeResizeCommand();
         super.execute();
         resizeCommand.execute();
     }
-    
+
     @Override
     public void redo() {
         super.redo();
         resizeCommand.redo();
     }
-    
+
     @Override
     public void undo() {
         resizeCommand.undo();
         super.undo();
     }
-        
+
 }

@@ -13,16 +13,16 @@ public class ResourceSaveOperation extends WorkspaceModifyOperation {
 
     private Resource resource;
     private Map<Object, Object> saveOptions;
-    
+
     public ResourceSaveOperation(Resource resource) {
         this(resource, null);
     }
-    
+
     public ResourceSaveOperation(Resource resource, Map<Object, Object> saveOptions) {
         this.resource = resource;
         this.saveOptions = saveOptions;
     }
-    
+
     @Override
     protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
         try {

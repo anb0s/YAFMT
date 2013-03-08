@@ -16,7 +16,7 @@ public class GroupFigure extends NodeFigure {
         setHightlightColor(DrawConstantans.GROUP_HL_COLOR);
         setBorderStyle(SWT.LINE_CUSTOM);
         setBorderDash(DrawConstantans.LINE_DASH);
-        
+
         String cardinality;
         if(group.isOr())
             cardinality = "OR";
@@ -24,8 +24,8 @@ public class GroupFigure extends NodeFigure {
             cardinality = "XOR";
         else
             cardinality = FeatureModelUtil.getCardinality(group);
-            
+
         setText(cardinality + " Group");
     }
-    
+
 }

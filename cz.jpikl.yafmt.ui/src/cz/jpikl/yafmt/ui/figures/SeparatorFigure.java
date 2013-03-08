@@ -10,11 +10,11 @@ public class SeparatorFigure extends Figure {
         setPreferredSize(1, 1);
         setForegroundColor(ColorConstants.black);
     }
-    
+
     @Override
     public void paint(Graphics graphics) {
         graphics.setLineWidth(1);
         graphics.drawLine(bounds.getTopLeft(), bounds.getTopRight());
     }
-    
+
 }

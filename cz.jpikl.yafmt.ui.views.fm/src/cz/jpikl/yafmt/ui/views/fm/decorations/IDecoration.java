@@ -7,9 +7,9 @@ import cz.jpikl.yafmt.ui.views.fm.figures.IFigureWithAlpha;
 public interface IDecoration extends IFigureWithAlpha {
 
     boolean isAutoPositioned();
-    
+
     boolean isOnTop();
-    
+
     Rectangle computeBounds(Rectangle parentBounds);
-    
+
 }

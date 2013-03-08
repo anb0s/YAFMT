@@ -24,35 +24,35 @@ import cz.jpikl.yafmt.ui.editors.fm.commands.SetConstraintLanguageCommand;
 public class SetConstraintLanguageAction extends Action {
 
     public static final String ID = "cz.jpikl.yafmt.ui.editors.fm.actions.SetConstraintLanguageAction";
-    
+
     private Viewer viewer;
     private CommandStack commandStack;
-    
+
     public SetConstraintLanguageAction(Viewer viewer, CommandStack commandStack) {
         this.viewer = viewer;
         this.commandStack = commandStack;
-        
+
         setId(ID);
         setText("Set Language");
         setMenuCreator(new MenuCreator());
     }
-            
+
     @Override
     public boolean isEnabled() {
         ISelection selection = viewer.getSelection();
         if(!(selection instanceof IStructuredSelection) || selection.isEmpty())
             return false;
-        
+
         ConstraintLanguageRegistry registry = ConstraintLanguagePlugin.getDefault().getConstraintLanguageRegistry();
         for(ConstraintLanguageDescriptor descriptor: registry.getDescriptors()) {
             Command command = getCommand(descriptor.getId());
             if((command != null) && command.canExecute())
                 return true;
         }
-        
+
         return false;
     }
-    
+
     private Command getCommand(String languageId) {
         CompoundCommand command = new CompoundCommand();
         for(Object object: ((IStructuredSelection) viewer.getSelection()).toArray()) {
@@ -65,18 +65,18 @@ public class SetConstraintLanguageAction extends Action {
         }
         return command;
     }
-    
+
     private class MenuCreator implements IMenuCreator, SelectionListener {
 
         private Menu menu;
-        
+
         @Override
         public Menu getMenu(Menu parent) {
             dispose();
-            
+
             ConstraintLanguageRegistry registry = ConstraintLanguagePlugin.getDefault().getConstraintLanguageRegistry();
             menu = new Menu(parent);
-            
+
             for(ConstraintLanguageDescriptor descriptor: registry.getDescriptors()) {
                 Command command = getCommand(descriptor.getId());
                 if((command != null) && command.canExecute()) {
@@ -86,15 +86,15 @@ public class SetConstraintLanguageAction extends Action {
                     menuItem.addSelectionListener(this);
                 }
             }
-            
+
             return menu;
         }
-        
+
         @Override
         public Menu getMenu(Control parent) {
             return null;
         }
-        
+
         @Override
         public void dispose() {
             if(menu != null) {
@@ -112,7 +112,7 @@ public class SetConstraintLanguageAction extends Action {
         @Override
         public void widgetDefaultSelected(SelectionEvent e) {
         }
-        
+
     }
-    
+
 }

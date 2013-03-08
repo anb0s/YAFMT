@@ -8,7 +8,7 @@ public class DynamicContributionItem extends ActionContributionItem {
     public DynamicContributionItem(IAction action) {
         super(action);
     }
-    
+
     @Override
     public boolean isDynamic() {
         return true;

@@ -7,7 +7,7 @@ public class SetFeatureCardinalityCommand extends RecordingCommand {
 
     private Feature feature;
     private boolean mandatory;
-    
+
     public SetFeatureCardinalityCommand(Feature feature, boolean mandatory) {
         setLabel("Make Feature " + (mandatory ? "Mandatory" : "Optional"));
         this.feature = feature;

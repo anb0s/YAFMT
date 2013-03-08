@@ -10,14 +10,14 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 
 public class SelectionConverter {
-    
+
     public static ISelection wrapSelection(ISelection selection, Map<?, ?> editPartRegistry) {
         if(!(selection instanceof IStructuredSelection))
             return selection;
-        
+
         Object[] elements = ((IStructuredSelection) selection).toArray();
         List<Object> wrappedElements = new ArrayList<Object>(elements.length);
-        
+
         // Result list MUST contain only edit parts!!!
         for(Object element: elements) {
             if(element instanceof EditPart)
@@ -26,14 +26,14 @@ public class SelectionConverter {
             if(editPart != null)
                 wrappedElements.add(editPart);
         }
-        
+
         return new StructuredSelection(wrappedElements);
     }
-    
+
     public static ISelection unwrapSelection(ISelection selection) {
         if(!(selection instanceof IStructuredSelection))
             return selection;
-        
+
         Object[] elements = ((IStructuredSelection) selection).toArray();
         for(int i = 0; i < elements.length; i++) {
             Object element = elements[i];
@@ -43,8 +43,8 @@ public class SelectionConverter {
                     elements[i] = model;
             }
         }
-            
+
         return new StructuredSelection(elements);
     }
-    
+
 }

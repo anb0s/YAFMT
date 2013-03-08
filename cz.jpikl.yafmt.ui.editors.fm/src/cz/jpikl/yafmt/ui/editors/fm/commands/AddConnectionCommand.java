@@ -10,20 +10,20 @@ public class AddConnectionCommand extends RecordingCommand {
 
     private EObject source;
     private Feature target;
-    
+
     public AddConnectionCommand(EObject source) {
         this.source = source;
     }
-    
+
     public EObject getSource() {
         return source;
     }
-    
+
     public void setTarget(Feature target) {
         this.target = target;
         setLabel("Make " + target.getName() + " Subfeature of " + FeatureModelUtil.getParentName(source));
     }
-    
+
     @Override
     protected void initializeRecording() {
         addRecordedObject(source);

@@ -10,9 +10,9 @@ import cz.jpikl.yafmt.ui.actions.ExportAsImageAction;
 public class ExportGraphViewerAsImageAction extends ExportAsImageAction {
 
     public static final String ID = "cz.jpikl.yafmt.ui.views.fm.actions.ExportGraphViewerAsImageAction";
-    
+
     private GraphViewer viewer;
-    
+
     public ExportGraphViewerAsImageAction(GraphViewer viewer) {
         this.viewer = viewer;
     }
@@ -26,7 +26,7 @@ public class ExportGraphViewerAsImageAction extends ExportAsImageAction {
     protected IFigure getFigure() {
         return viewer.getGraphControl().getRootLayer();
     }
-    
+
     @Override
     protected String getDefaultName() {
         Object input = viewer.getInput();

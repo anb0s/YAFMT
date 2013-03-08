@@ -51,24 +51,24 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette {
     private IPropertySheetPage propertySheetPage;
     private EditorAutoCloser editorAutoCloser;
     private UnwrappingSelectionProvider selectionProvider;
-    
+
     public ModelEditor() {
         editorAutoCloser = new EditorAutoCloser(this);
         setEditDomain(new DefaultEditDomain(this));
     }
-    
+
     // ==================================================================================
     //  Basic initialization and dispose operations
     // ==================================================================================
-    
+
     @Override
     public void init(IEditorSite site, IEditorInput input) throws PartInitException {
-        if (!(input instanceof IFileEditorInput))
+        if(!(input instanceof IFileEditorInput))
             throw new PartInitException("Invalid input: Must be IFileEditorInput");
-        
+
         super.init(site, input);
         setPartName(input.getName());
-        
+
         try {
             doLoad((IFileEditorInput) input);
         }
@@ -76,125 +76,125 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette {
             String path = ((IFileEditorInput) input).getFile().getFullPath().toString();
             throw new PartInitException("Unable to load " + path, ex);
         }
-        
+
         ResourcesPlugin.getWorkspace().addResourceChangeListener(editorAutoCloser);
     }
-    
+
     @Override
     public void dispose() {
         ResourcesPlugin.getWorkspace().removeResourceChangeListener(editorAutoCloser);
         super.dispose();
     }
-    
+
     // ==================================================================================
     //  Editor initialization
     // ==================================================================================
-    
+
     @Override
     protected void configureGraphicalViewer() {
         super.configureGraphicalViewer();
-        
+
         GraphicalViewer viewer = getGraphicalViewer();
         viewer.setRootEditPart(new ScalableFreeformRootEditPart());
         viewer.setEditPartFactory(getEditPartFactory());
-        
+
         ContextMenuProvider contextMenuProvider = getContextMenuProvider();
         if(contextMenuProvider != null)
             viewer.setContextMenu(contextMenuProvider);
-        
+
         // Actions need original selection provider.
         createActionsLate();
         setActionsSelectionProvider(viewer);
     }
-    
+
     @Override
     protected void hookGraphicalViewer() {
         super.hookGraphicalViewer();
-        
+
         // Provide unwrapped selections for rest of the world.
         selectionProvider = new UnwrappingSelectionProvider(getGraphicalViewer());
         getSite().setSelectionProvider(selectionProvider);
     }
-   
+
     @Override
     protected void initializeGraphicalViewer() {
         getGraphicalViewer().setContents(getModel());
     }
-    
+
     // ==================================================================================
     //  Providers
     // ==================================================================================
-    
+
     protected ScalableFreeformRootEditPart getRootEditPart() {
         return (ScalableFreeformRootEditPart) getGraphicalViewer().getRootEditPart();
     }
-    
+
     protected UnwrappingSelectionProvider getSelectionProvider() {
         return selectionProvider;
     }
-    
+
     @Override
     protected PaletteRoot getPaletteRoot() {
         return null;
     }
-    
+
     protected ContextMenuProvider getContextMenuProvider() {
         return null;
     }
-    
+
     protected abstract Object getModel();
-    
+
     protected abstract EditPartFactory getEditPartFactory();
-    
+
     protected abstract ILabelProvider getLabelProvider();
-    
+
     protected abstract IPropertySourceProvider getPropertySourceProvider();
-    
+
     protected abstract IContentProvider getContentProvider();
-       
+
     // ==================================================================================
     //  Actions
     // ==================================================================================
-    
+
     @SuppressWarnings("unchecked")
     protected void createAction(IAction action) {
         getActionRegistry().registerAction(action);
         if(action instanceof SelectionAction)
             getSelectionActions().add(action.getId());
     }
-    
+
     protected void createActionsLate() {
     }
-    
+
     private void setActionsSelectionProvider(ISelectionProvider selectionProvider) {
-        for(Iterator<?> it = getActionRegistry().getActions(); it.hasNext(); ) {
+        for(Iterator<?> it = getActionRegistry().getActions(); it.hasNext();) {
             IAction action = (IAction) it.next();
             if(action instanceof SelectionAction)
                 ((SelectionAction) action).setSelectionProvider(selectionProvider);
         }
     }
-    
+
     // ==================================================================================
     //  Event handling
     // ==================================================================================
-    
+
     @Override
     public void commandStackChanged(EventObject event) {
         super.commandStackChanged(event);
         firePropertyChange(PROP_DIRTY);
         updateActions(getSelectionActions());
     }
-    
+
     @Override
     public void selectionChanged(IWorkbenchPart part, ISelection selection) {
         super.selectionChanged(part, selection); // Update all selection actions.
-        
+
         // Ignore invalid selections.
         IEditorPart activeEditor = getSite().getPage().getActiveEditor();
         IWorkbenchPart activePart = getSite().getPage().getActivePart();
         if((this != activeEditor) || (part != activePart) || (part == this) || (part instanceof PropertySheet))
             return;
-                
+
         // Apply selection to the editor if it differs.
         selection = SelectionConverter.wrapSelection(selection, getGraphicalViewer().getEditPartRegistry());
         if(!getGraphicalViewer().getSelection().equals(selection))
@@ -205,7 +205,7 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette {
         getGraphicalViewer().setSelection(selection);
         if(selection.isEmpty())
             return;
-        
+
         // Center viewport to last selected object.
         if(selection instanceof IStructuredSelection) {
             Object[] objects = ((IStructuredSelection) selection).toArray();
@@ -217,7 +217,7 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette {
             }
         }
     }
-    
+
     private void centerViewportToEditPart(GraphicalEditPart editPart) {
         Viewport viewport = (Viewport) getRootEditPart().getFigure();
         Point point = editPart.getFigure().getBounds().getCenter();
@@ -225,66 +225,66 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette {
         int y = point.y - viewport.getSize().height / 2;
         viewport.setViewLocation(x, y);
     }
-    
+
     // ==================================================================================
     //  Save and Load operations
     // ==================================================================================
-    
+
     protected abstract void doLoad(IFileEditorInput input) throws Exception;
-    
+
     protected abstract void doSave() throws Exception;
-    
+
     @Override
     public void doSave(IProgressMonitor monitor) {
         try {
             doSave();
             getEditDomain().getCommandStack().markSaveLocation();
             firePropertyChange(PROP_DIRTY);
-        } 
-        catch (Exception ex) {
+        }
+        catch(Exception ex) {
             ErrorDialog.openError(getSite().getShell(), "Unable to save " + getEditorInput().getName(),
-                null, new Status(Status.ERROR, CommonUIPlugin.PLUGIN_ID, ex.getMessage(), ex), 0);
+                    null, new Status(Status.ERROR, CommonUIPlugin.PLUGIN_ID, ex.getMessage(), ex), 0);
         }
     }
-    
+
     public void doSaveAs() {
         SaveAsDialog dialog = new SaveAsDialog(getSite().getShell());
         dialog.setOriginalFile(((IFileEditorInput) getEditorInput()).getFile());
         dialog.open();
-        
+
         IPath path = dialog.getResult();
-        if (path == null)
+        if(path == null)
             return;
-        
+
         setInputWithNotify(new FileEditorInput(ResourcesPlugin.getWorkspace().getRoot().getFile(path)));
         setPartName(getEditorInput().getName());
         doSave(null);
     }
-    
+
     public boolean isSaveAsAllowed() {
         return true;
     }
-        
+
     // ==================================================================================
     //  Adapters
     // ==================================================================================
-        
+
     @Override
     @SuppressWarnings("rawtypes")
-    public Object getAdapter(Class type) {       
+    public Object getAdapter(Class type) {
         if(type == IPropertySheetPage.class) {
             if(propertySheetPage == null)
                 propertySheetPage = new EditorPropertySheetPage(this, getPropertySourceProvider());
             return propertySheetPage;
         }
-        
+
         if(type == IContentOutlinePage.class) {
             if(contentOutlinePage == null)
                 contentOutlinePage = new EditorContentOutlinePage(this, getModel(), getContentProvider(), getLabelProvider());
             return contentOutlinePage;
         }
-        
+
         return super.getAdapter(type);
     }
- 
+
 }

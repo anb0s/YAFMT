@@ -14,15 +14,15 @@ import cz.jpikl.yafmt.model.fc.Selection;
 public class XorEvaluator extends Evaluator {
 
     private Set<String> featureIds;
-    
+
     public XorEvaluator(String[] ids) {
         featureIds = new HashSet<String>(Arrays.asList(ids));
     }
-    
+
     @Override
     public IEvaluationResult evaluate(FeatureConfiguration featureConfig) {
         int count = 0;
-        
+
         for(String id: featureIds) {
             List<Selection> selections = featureConfig.getSelectionsById(id);
             if((selections != null) && !selections.isEmpty())

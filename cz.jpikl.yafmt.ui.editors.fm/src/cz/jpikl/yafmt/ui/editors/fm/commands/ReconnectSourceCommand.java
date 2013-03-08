@@ -12,14 +12,14 @@ public class ReconnectSourceCommand extends RecordingCommand {
     private EObject source;
     private Feature oldTarget;
     private Feature newTarget;
-    
+
     public ReconnectSourceCommand(Connection connection, Feature newTarget) {
         this.source = connection.getSource();
         this.oldTarget = connection.getTarget();
         this.newTarget = newTarget;
         setLabel("Make " + newTarget.getName() + " Subfeature of " + FeatureModelUtil.getParentName(source));
     }
-    
+
     @Override
     protected void initializeRecording() {
         addRecordedObject(oldTarget.getFeatureModel());

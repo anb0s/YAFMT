@@ -7,12 +7,12 @@ import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.swt.SWT;
 
 public class FeatureConfigurationFigure extends FreeformLayer {
-    
+
     public FeatureConfigurationFigure() {
         setBorder(new MarginBorder(3));
         setLayoutManager(new FreeformLayout());
     }
-    
+
     @Override
     public void paint(Graphics graphics) {
         // Enable antialiasing.

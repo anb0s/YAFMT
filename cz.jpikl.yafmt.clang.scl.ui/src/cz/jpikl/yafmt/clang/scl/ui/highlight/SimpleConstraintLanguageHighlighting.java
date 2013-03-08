@@ -4,7 +4,7 @@ import org.eclipse.xtext.ui.editor.syntaxcoloring.DefaultHighlightingConfigurati
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfigurationAcceptor;
 
 public class SimpleConstraintLanguageHighlighting extends DefaultHighlightingConfiguration {
-    
+
     @Override
     public void configure(IHighlightingConfigurationAcceptor acceptor) {
         // Copied from superclass, because overriding defaultTextStyle() is more complicated.

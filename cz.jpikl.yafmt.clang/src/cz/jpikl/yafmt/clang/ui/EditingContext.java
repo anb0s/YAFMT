@@ -9,9 +9,9 @@ public class EditingContext {
     public EditingContext(FeatureModel featureModel) {
         this.featureModel = featureModel;
     }
-    
+
     public FeatureModel getFeatureModel() {
         return featureModel;
     }
-    
+
 }

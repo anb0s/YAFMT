@@ -10,7 +10,7 @@ public class SelectionSelectionPolicy extends SelectionEditPolicy {
     protected void showSelection() {
         ((SelectionFigure) getHostFigure()).setHighlighted(true);
     }
-    
+
     @Override
     protected void hideSelection() {
         ((SelectionFigure) getHostFigure()).setHighlighted(false);

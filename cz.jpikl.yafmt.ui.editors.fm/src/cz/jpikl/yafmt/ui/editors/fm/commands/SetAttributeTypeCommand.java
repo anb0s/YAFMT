@@ -8,7 +8,7 @@ public class SetAttributeTypeCommand extends RecordingCommand {
 
     private Attribute attribute;
     private AttributeType type;
-    
+
     public SetAttributeTypeCommand(Attribute attribute, AttributeType type) {
         this.attribute = attribute;
         this.type = type;

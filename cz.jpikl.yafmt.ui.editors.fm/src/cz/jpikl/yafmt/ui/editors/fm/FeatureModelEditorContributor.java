@@ -14,7 +14,7 @@ import cz.jpikl.yafmt.ui.editors.fm.actions.SetFeatureCardinalityAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.UngroupFeaturesAction;
 
 public class FeatureModelEditorContributor extends ActionBarContributor {
-    
+
     @Override
     protected void buildActions() {
         addRetargetAction(new UndoRetargetAction());
@@ -28,7 +28,7 @@ public class FeatureModelEditorContributor extends ActionBarContributor {
         addRetargetAction(UngroupFeaturesAction.createRetargetAction());
         addRetargetAction(ShowFeatureModelVisualizerAction.createRetargetAction());
     }
-    
+
     @Override
     public void contributeToToolBar(IToolBarManager toolBarManager) {
         toolBarManager.add(getAction(ActionFactory.UNDO.getId()));

@@ -8,7 +8,7 @@ import org.eclipse.swt.graphics.Image;
 public class ImageDecoration extends ImageFigure implements IDecoration {
 
     private int alpha = 255;
-    
+
     public ImageDecoration(Image image) {
         super(image);
         setSize(16, 16);
@@ -41,11 +41,11 @@ public class ImageDecoration extends ImageFigure implements IDecoration {
     public Integer getAlpha() {
         return alpha;
     }
-    
+
     @Override
     public void paint(Graphics graphics) {
         graphics.setAlpha(alpha);
         super.paint(graphics);
     }
-    
+
 }

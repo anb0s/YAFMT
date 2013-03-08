@@ -27,16 +27,17 @@ public class FeatureEditPolicy extends ComponentEditPolicy {
         }
         return super.getCommand(request);
     }
+
     @Override
     protected Command createDeleteCommand(GroupRequest deleteRequest) {
         Feature feature = (Feature) getHost().getModel();
         if(feature.isRoot())
             return null;
-        
+
         LayoutData layoutData = ((FeatureEditPart) getHost()).getLayoutData();
         return new DeleteFeatureCommand(feature, layoutData);
     }
-    
+
     private Command createSetFeatureCardinalityCommand(Feature feature, boolean mandatory) {
         if(feature.isRoot())
             return null;
@@ -44,5 +45,5 @@ public class FeatureEditPolicy extends ComponentEditPolicy {
             return null;
         return new SetFeatureCardinalityCommand(feature, mandatory);
     }
-    
+
 }

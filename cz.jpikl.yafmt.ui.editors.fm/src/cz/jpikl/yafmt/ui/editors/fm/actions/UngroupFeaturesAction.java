@@ -15,45 +15,45 @@ import cz.jpikl.yafmt.ui.editors.fm.FeatureModelEditorPlugin;
 import cz.jpikl.yafmt.ui.editors.fm.util.RequestConstants;
 
 public class UngroupFeaturesAction extends SelectionAction {
-    
+
     public static final String ID = "cz.jpikl.yafmt.ui.editors.fm.actions.UngroupFeaturesAction";
 
     public static RetargetAction createRetargetAction() {
         return (RetargetAction) initAction(new LabelRetargetAction(null, null));
     }
-    
+
     private static IAction initAction(IAction action) {
         action.setId(ID);
         action.setText("Ungroup Features");
         action.setImageDescriptor(FeatureModelEditorPlugin.getImageDescriptor("icons/group-del.png"));
         return action;
     }
-    
+
     public UngroupFeaturesAction(IWorkbenchPart part) {
         super(part);
         initAction(this);
     }
-        
+
     private Command getCommand() {
         List<?> objects = getSelectedObjects();
         if(objects.isEmpty() || !(objects.get(0) instanceof EditPart))
             return null;
-        
+
         EditPart parentEditPart = ((EditPart) objects.get(0)).getParent();
         if(parentEditPart == null)
             return null;
-        
+
         GroupRequest request = new GroupRequest(RequestConstants.REQ_UNGROUP_FEATURES);
         request.setEditParts(objects);
         return parentEditPart.getCommand(request);
     }
-    
+
     @Override
     protected boolean calculateEnabled() {
         Command command = getCommand();
         return (command != null) && command.canExecute();
     }
-    
+
     @Override
     public void run() {
         execute(getCommand());

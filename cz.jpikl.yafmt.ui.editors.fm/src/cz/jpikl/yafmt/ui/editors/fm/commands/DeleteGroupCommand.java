@@ -11,14 +11,14 @@ public class DeleteGroupCommand extends RecordingCommand {
     private LayoutData layoutData;
     private Group group;
     private Rectangle bounds;
-    
+
     public DeleteGroupCommand(Group group, LayoutData layoutData) {
         setLabel("Delete Group");
         this.layoutData = layoutData;
         this.group = group;
         this.bounds = layoutData.get(group);
     }
-    
+
     @Override
     protected void initializeRecording() {
         addRecordedObject(group);
@@ -30,19 +30,19 @@ public class DeleteGroupCommand extends RecordingCommand {
         group.getParent().getFeatures().addAll(group.getFeatures());
         group.setParent(null);
     }
-    
+
     @Override
     public void execute() {
         super.execute();
         layoutData.remove(group);
     }
-    
+
     @Override
     public void redo() {
         super.redo();
         layoutData.remove(group);
     }
-    
+
     @Override
     public void undo() {
         layoutData.set(group, bounds);

@@ -45,7 +45,7 @@ public class NodeFigure extends Label implements IFigureWithAlpha {
     public Color getHightlightColor() {
         return hightlightColor;
     }
-    
+
     public void setMargin(int margin) {
         this.margin = margin;
     }
@@ -70,11 +70,11 @@ public class NodeFigure extends Label implements IFigureWithAlpha {
     public Integer getAlpha() {
         return alpha;
     }
-    
+
     public void setToolTipText(String text) {
         setToolTip(new Label(text));
     }
-    
+
     public int getBorderWidth() {
         return (int) borderAttributes.width;
     }
@@ -114,7 +114,7 @@ public class NodeFigure extends Label implements IFigureWithAlpha {
     protected void adjustBoundsToFit() {
         if((getText() == null) || (getFont() == null))
             return;
-        
+
         Dimension minSize = FigureUtilities.getTextExtents(getText(), getFont());
         if(getIcon() != null) {
             org.eclipse.swt.graphics.Rectangle imageRect = getIcon().getBounds();
@@ -128,32 +128,31 @@ public class NodeFigure extends Label implements IFigureWithAlpha {
     @Override
     public void paint(Graphics graphics) {
         graphics.setAlpha(alpha);
-        
+
         Color bgColor1 = highlighted ? hightlightColor : getBackgroundColor();
         Color bgColor2 = DrawConstantans.getModifiedColor(bgColor1, highlighted ? 0.2f : -0.2f);
-                
+
         Rectangle rect = new Rectangle(bounds.x, bounds.y, bounds.width - 1, arcRadius);
         graphics.setBackgroundColor(bgColor1);
         graphics.fillRoundRectangle(rect, arcRadius, arcRadius);
-        
+
         rect.y += bounds.height - arcRadius - 1;
         graphics.setBackgroundColor(bgColor2);
         graphics.fillRoundRectangle(rect, arcRadius, arcRadius);
-        
-        
+
         rect.height = bounds.height - arcRadius - 1;
         rect.y = bounds.y + arcRadius / 2;
         graphics.setForegroundColor(bgColor1);
         graphics.fillGradient(rect, true);
-        
+
         rect.y = bounds.y;
         rect.height = bounds.height - 1;
         graphics.setLineAttributes(borderAttributes);
         graphics.setForegroundColor(getForegroundColor());
         graphics.drawRoundRectangle(rect, arcRadius, arcRadius);
-        
+
         bgColor2.dispose();
-        
+
         super.paint(graphics);
     }
 

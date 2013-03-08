@@ -12,18 +12,18 @@ import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
 public class SimpleConstraintLanguageEvaluator extends Evaluator {
 
     private Expression expression;
-    
+
     public SimpleConstraintLanguageEvaluator(Expression expression) {
         this.expression = expression;
     }
-    
+
     @Override
     protected Set<String> getAffectedFeatureIds() {
         Set<String> ids = new HashSet<String>();
         expression.retrieveFeatureIds(ids);
         return ids;
     }
-    
+
     @Override
     public IEvaluationResult evaluate(FeatureConfiguration featureConfig) {
         if(!expression.evaluate(featureConfig, null))

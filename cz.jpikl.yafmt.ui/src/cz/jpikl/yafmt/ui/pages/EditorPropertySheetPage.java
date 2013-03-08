@@ -17,24 +17,24 @@ public class EditorPropertySheetPage extends UndoablePropertySheetPage {
     private static CommandStack getCommandStack(IAdaptable adaptable) {
         return (CommandStack) adaptable.getAdapter(CommandStack.class);
     }
-    
+
     private static ActionRegistry getActionRegistry(IAdaptable adaptable) {
         return (ActionRegistry) adaptable.getAdapter(ActionRegistry.class);
     }
-    
+
     private static IAction getUndoAction(IAdaptable adaptable) {
         return getActionRegistry(adaptable).getAction(ActionFactory.UNDO.getId());
     }
-    
+
     private static IAction getRedoAction(IAdaptable adaptable) {
         return getActionRegistry(adaptable).getAction(ActionFactory.REDO.getId());
     }
-    
+
     private IPropertySourceProvider provider;
-    
+
     public EditorPropertySheetPage(GraphicalEditor editor, IPropertySourceProvider provider) {
         super(getCommandStack(editor), getUndoAction(editor), getRedoAction(editor));
-        
+
         this.provider = provider;
         setSorter(new DisabledSorter());
     }
@@ -44,14 +44,14 @@ public class EditorPropertySheetPage extends UndoablePropertySheetPage {
         super.createControl(parent);
         setPropertySourceProvider(provider);
     }
-    
+
     private static class DisabledSorter extends PropertySheetSorter {
-        
+
         @Override
         public void sort(IPropertySheetEntry[] entries) {
             // Disable sorting of entries.
         }
-        
+
     }
 
 }

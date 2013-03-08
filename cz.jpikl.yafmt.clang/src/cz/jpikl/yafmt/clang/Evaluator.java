@@ -13,11 +13,11 @@ public abstract class Evaluator implements IEvaluator {
     public List<Feature> getAffectedFeatures(FeatureModel featureModel) {
         if(featureModel == null)
             return null;
-        
+
         Set<String> ids = getAffectedFeatureIds();
         if(ids == null)
             return null;
-        
+
         List<Feature> features = new ArrayList<Feature>(ids.size());
         for(String id: ids) {
             Feature feature = featureModel.getFeatureById(id);
@@ -26,15 +26,15 @@ public abstract class Evaluator implements IEvaluator {
         }
         return features;
     }
-    
+
     public List<String> getMissingFeatureIds(FeatureModel featureModel) {
         if(featureModel == null)
             return null;
-        
+
         Set<String> ids = getAffectedFeatureIds();
         if(ids == null)
             return null;
-        
+
         List<String> features = null;
         for(String id: ids) {
             if(featureModel.getFeatureById(id) == null) {
@@ -43,29 +43,29 @@ public abstract class Evaluator implements IEvaluator {
                 features.add(id);
             }
         }
-        
+
         return features;
     }
-    
+
     @Override
     public IValidationResult validate(FeatureModel featureModel) {
         List<String> missingFeatureIds = getMissingFeatureIds(featureModel);
         if((missingFeatureIds == null) || missingFeatureIds.isEmpty())
             return ValidationResult.SUCCESS_RESULT;
-        
+
         if(missingFeatureIds.size() == 1)
             return ValidationResult.createFailureResult("Nonexistent feature ID: " + missingFeatureIds.get(0));
-        
+
         StringBuilder builder = new StringBuilder("Nonexistent feature IDs: ");
         for(int i = 0; i < missingFeatureIds.size(); i++) {
             if(i != 0)
                 builder.append(", ");
             builder.append(missingFeatureIds.get(i));
         }
-        
+
         return ValidationResult.createFailureResult(builder.toString());
     }
-    
+
     protected abstract Set<String> getAffectedFeatureIds();
-    
+
 }

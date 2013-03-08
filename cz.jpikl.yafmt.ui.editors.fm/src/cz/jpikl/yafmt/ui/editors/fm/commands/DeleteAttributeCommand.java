@@ -14,20 +14,20 @@ public class DeleteAttributeCommand extends RecordingCommand {
     private ResizeFeatureCommand resizeCommand;
     private LayoutData layoutData;
     private Attribute attribute;
-    
+
     public DeleteAttributeCommand(LayoutData layoutData, Attribute attribute) {
         setLabel("Delete Attribute " + attribute.getName());
         this.layoutData = layoutData;
         this.attribute = attribute;
     }
-    
+
     private void initializeResizeCommand() {
         Feature feature = (Feature) attribute.eContainer();
         Rectangle deltas = new Rectangle();
         deltas.height = -((feature.getAttributes().size() == 1) ? AttributeFigure.EXTENDED_HEIGHT : AttributeFigure.HEIGHT);
         resizeCommand = new ResizeFeatureCommand(layoutData, feature, deltas);
     }
-    
+
     @Override
     protected void initializeRecording() {
         addRecordedObjectParent(attribute);
@@ -37,24 +37,24 @@ public class DeleteAttributeCommand extends RecordingCommand {
     protected void performRecording() {
         EcoreUtil.remove(attribute);
     }
-    
+
     @Override
     public void execute() {
         initializeResizeCommand();
         super.execute();
         resizeCommand.execute();
     }
-    
+
     @Override
     public void redo() {
         super.redo();
         resizeCommand.redo();
     }
-    
+
     @Override
     public void undo() {
         resizeCommand.undo();
         super.undo();
     }
-    
+
 }

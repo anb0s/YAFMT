@@ -18,25 +18,25 @@ import cz.jpikl.yafmt.ui.views.fm.figures.IFigureWithAlpha;
 public class GraphAnimator extends LayoutAnimator {
 
     private static final GraphAnimator INSTANCE = new GraphAnimator();
-        
+
     public static void hook(IFigure figure) {
         figure.addLayoutListener(INSTANCE.internalLayoutListener);
     }
-    
+
     public static void unhook(IFigure figure) {
         figure.removeLayoutListener(INSTANCE.internalLayoutListener);
     }
-    
+
     private InternalLayoutListener internalLayoutListener = new InternalLayoutListener();
     private Set<IFigure> newlyAddedFigures = new HashSet<IFigure>();
-    
+
     @Override
     public void playbackStarting(IFigure container) {
         Map<?, ?> initialState = (Map<?, ?>) Animation.getInitialState(this, container);
-        
+
         // Place newly added node figures immediately to the final position. 
         for(Object figure: container.getChildren()) {
-            Rectangle initialBounds = (Rectangle) initialState.get(figure); 
+            Rectangle initialBounds = (Rectangle) initialState.get(figure);
             if((initialBounds != null) && (initialBounds.x <= 0) && (initialBounds.y <= 0)) {
                 Rectangle finalBounds = (Rectangle) container.getLayoutManager().getConstraint((IFigure) figure);
                 if(finalBounds != null) {
@@ -46,7 +46,7 @@ public class GraphAnimator extends LayoutAnimator {
                 }
             }
         }
-   
+
         // Also remember connections to newly added nodes.
         for(Object figure: container.getChildren()) {
             if(figure instanceof Connection) {
@@ -58,21 +58,21 @@ public class GraphAnimator extends LayoutAnimator {
             }
         }
     }
-    
+
     @Override
     protected boolean playback(IFigure container) {
         animateAlpha(container);
         return super.playback(container);
     }
-    
+
     private void animateAlpha(IFigure container) {
         float progress = Animation.getProgress();
         int alpha = (int) (255 * progress);
-        
+
         for(Object figure: container.getChildren()) {
             if(!newlyAddedFigures.contains(figure))
                 continue;
-            
+
             if((figure instanceof IFigureWithAlpha)) {
                 ((IFigureWithAlpha) figure).setAlpha(alpha);
             }
@@ -90,7 +90,7 @@ public class GraphAnimator extends LayoutAnimator {
     public void tearDown(IFigure container) {
         if(newlyAddedFigures.isEmpty())
             return;
-        
+
         // Restore full alpha.
         for(IFigure figure: newlyAddedFigures) {
             if(figure instanceof IFigureWithAlpha) {
@@ -104,10 +104,10 @@ public class GraphAnimator extends LayoutAnimator {
                 }
             }
         }
-        
+
         newlyAddedFigures.clear();
     }
-    
+
     public void processConstraintChange(IFigure child, Object constraint) {
         // Hide newly created node and connection figures.
         // Otherwise there is ugly effect when figure is displayed in top left corner.
@@ -121,31 +121,31 @@ public class GraphAnimator extends LayoutAnimator {
             child.setVisible((bounds != null) && (bounds.x > 0) && (bounds.y > 0));
         }
     }
-    
+
     private class InternalLayoutListener extends LayoutListener.Stub {
-        
+
         @Override
         public void setConstraint(IFigure child, Object constraint) {
             processConstraintChange(child, constraint);
         }
-        
+
         @Override
         public void invalidate(IFigure container) {
             GraphAnimator.this.invalidate(container);
         }
-        
+
         @Override
         public boolean layout(IFigure container) {
             return GraphAnimator.this.layout(container);
         }
-        
+
         @Override
         public void postLayout(IFigure container) {
             GraphAnimator.this.postLayout(container);
         }
-        
+
     }
-        
+
     private static class ConnectionVisibilityEnabler implements FigureListener {
 
         public static void hook(Connection connection) {
@@ -153,10 +153,10 @@ public class GraphAnimator extends LayoutAnimator {
             connection.getSourceAnchor().getOwner().addFigureListener(enabler);
             connection.getTargetAnchor().getOwner().addFigureListener(enabler);
         }
-        
+
         private Connection connection;
         private int countdown;
-                
+
         public ConnectionVisibilityEnabler(Connection connection) {
             this.connection = connection;
             this.countdown = 2;
@@ -167,7 +167,7 @@ public class GraphAnimator extends LayoutAnimator {
             source.removeFigureListener(this);
             connection.setVisible(--countdown <= 0);
         }
-        
+
     }
-    
+
 }

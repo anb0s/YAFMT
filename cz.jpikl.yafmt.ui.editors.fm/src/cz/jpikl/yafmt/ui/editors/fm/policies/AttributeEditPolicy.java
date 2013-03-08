@@ -15,8 +15,8 @@ public class AttributeEditPolicy extends ComponentEditPolicy {
     protected Command createDeleteCommand(GroupRequest deleteRequest) {
         Attribute attribute = (Attribute) getHost().getModel();
         LayoutData layoutData = ((FeatureEditPart) getHost().getParent()).getLayoutData();
-        
+
         return new DeleteAttributeCommand(layoutData, attribute);
     }
-    
+
 }

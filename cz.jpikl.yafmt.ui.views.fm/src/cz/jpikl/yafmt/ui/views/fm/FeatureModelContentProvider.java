@@ -20,11 +20,11 @@ import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.Group;
 
 public class FeatureModelContentProvider implements IGraphEntityContentProvider {
-    
+
     @Override
     public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
     }
-    
+
     @Override
     public void dispose() {
     }
@@ -37,7 +37,7 @@ public class FeatureModelContentProvider implements IGraphEntityContentProvider 
         FeatureModel featureModel = (FeatureModel) input;
         List<Object> objects = new ArrayList<Object>();
         objects.add(featureModel.getRoot());
-        
+
         Iterator<EObject> it = featureModel.getRoot().eAllContents();
         while(it.hasNext()) {
             EObject object = it.next();
@@ -53,28 +53,28 @@ public class FeatureModelContentProvider implements IGraphEntityContentProvider 
     public Object[] getConnectedTo(Object element) {
         if(element instanceof Feature) {
             Feature feature = (Feature) element;
-            
+
             List<Object> objects = new ArrayList<Object>();
             objects.addAll(feature.getFeatures());
-            
+
             for(Group group: feature.getGroups())
                 objects.addAll(group.getFeatures());
-            
+
             return objects.toArray();
         }
-        
+
         if(element instanceof Group) {
             return ((Group) element).getFeatures().toArray();
         }
-        
+
         if(element instanceof Constraint) {
             Constraint constraint = (Constraint) element;
-            
+
             ConstraintLanguageRegistry registry = ConstraintLanguagePlugin.getDefault().getConstraintLanguageRegistry();
             IConstraintLanguage language = registry.getLanguage(constraint.getLanguage());
             if(language == null)
                 return null;
-            
+
             try {
                 // Return all features affected by the selected constraint.
                 IEvaluator evaluator = language.createEvaluator(constraint.getValue());
@@ -84,7 +84,7 @@ public class FeatureModelContentProvider implements IGraphEntityContentProvider 
                 // Just ignore problematic constraint.
             }
         }
-        
+
         return null;
     }
 

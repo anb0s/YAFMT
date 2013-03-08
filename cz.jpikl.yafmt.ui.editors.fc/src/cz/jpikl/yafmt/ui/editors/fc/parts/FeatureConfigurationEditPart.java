@@ -17,7 +17,7 @@ public class FeatureConfigurationEditPart extends AbstractGraphicalEditPart impl
 
     private FeatureConfigurationManager featureConfigManager;
     private FeatureConfiguration featureConfig;
-    
+
     public FeatureConfigurationEditPart(FeatureConfigurationManager featureConfigManager, FeatureConfiguration featureConfig) {
         this.featureConfigManager = featureConfigManager;
         this.featureConfig = featureConfig;
@@ -29,18 +29,18 @@ public class FeatureConfigurationEditPart extends AbstractGraphicalEditPart impl
         super.activate();
         featureConfigManager.addFeatureConfigurationListener(this);
     }
-    
+
     @Override
     public void deactivate() {
         featureConfigManager.removeFeatureConfigurationListener(this);
         super.deactivate();
     }
-    
+
     @Override
     protected IFigure createFigure() {
         return new FeatureConfigurationFigure();
     }
-    
+
     @Override
     @SuppressWarnings("rawtypes")
     protected List getModelChildren() {
@@ -49,13 +49,13 @@ public class FeatureConfigurationEditPart extends AbstractGraphicalEditPart impl
         contributeModelChildren(modelChildren, featureConfig.getRoot());
         return modelChildren;
     }
-        
+
     private void contributeModelChildren(List<Selection> modelChildren, Selection selection) {
         featureConfigManager.contributeChildrenSelections(selection, modelChildren, false);
         for(Selection childSelection: selection.getSelections())
             contributeModelChildren(modelChildren, childSelection);
     }
-    
+
     @Override
     protected void createEditPolicies() {
     }
@@ -64,9 +64,9 @@ public class FeatureConfigurationEditPart extends AbstractGraphicalEditPart impl
         refresh();
         for(Object child: getChildren())
             ((EditPart) child).refresh();
-        
+
     }
-    
+
     @Override
     public void featuresSelected(List<Selection> selections) {
         refreshAll();

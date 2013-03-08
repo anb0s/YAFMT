@@ -43,14 +43,14 @@ import cz.jpikl.yafmt.ui.operations.ResourceSaveOperation;
 public class FeatureConfigurationEditor extends ModelEditor {
 
     private FeatureConfigurationLayoutHelper layoutHelper = new FeatureConfigurationLayoutHelper();
-    private TreeLayout[] EDITOR_LAYOUTS = { new VerticalTreeLayout(layoutHelper), new HorizontalTreeLayout(layoutHelper) }; 
+    private TreeLayout[] EDITOR_LAYOUTS = { new VerticalTreeLayout(layoutHelper), new HorizontalTreeLayout(layoutHelper) };
     private FeatureConfiguration featureConfig;
     private FeatureConfigurationManager featureConfigManager;
-        
+
     // ==================================================================================
     //  Editor initialization
     // ==================================================================================
-    
+
     @Override
     public void createPartControl(Composite parent) {
         Composite panel = new Composite(parent, SWT.NONE);
@@ -58,44 +58,46 @@ public class FeatureConfigurationEditor extends ModelEditor {
         createFeatureConfigurationEditor(panel);
         createSettingsPanel(panel);
     }
-    
+
     private void createFeatureConfigurationEditor(Composite parent) {
         createGraphicalViewer(parent); // Calls configureGraphicalViewer and others bellow.
-        
-        GraphicalViewer viewer = getGraphicalViewer(); 
+
+        GraphicalViewer viewer = getGraphicalViewer();
         viewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         layoutHelper.setGraphicalViewer(viewer);
         setEditorLayout(EDITOR_LAYOUTS[0]);
-    }    
-        
+    }
+
     private void createSettingsPanel(Composite parent) {
         Composite panel = new Composite(parent, SWT.NONE);
         panel.setLayoutData(new GridData(SWT.LEFT, SWT.FILL, true, false));
         panel.setLayout(new GridLayout(3, false));
-        
+
         Label label = new Label(panel, SWT.NONE);
         label.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
         label.setText("Layout: ");
-        
+
         Combo combo = new Combo(panel, SWT.READ_ONLY);
         combo.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
         for(TreeLayout layout: EDITOR_LAYOUTS)
             combo.add(layout.getName());
-        
+
         combo.select(0);
         combo.addSelectionListener(new SelectionAdapter() {
+
             @Override
             public void widgetSelected(SelectionEvent event) {
                 int index = ((Combo) event.getSource()).getSelectionIndex();
                 setEditorLayout(EDITOR_LAYOUTS[index]);
             }
         });
-        
+
         Button showSelectableFeaturesButton = new Button(panel, SWT.CHECK);
         showSelectableFeaturesButton.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
         showSelectableFeaturesButton.setText("Show Selectable Features");
         showSelectableFeaturesButton.setSelection(true);
         showSelectableFeaturesButton.addSelectionListener(new SelectionAdapter() {
+
             @Override
             public void widgetSelected(SelectionEvent event) {
                 Button button = (Button) event.getSource();
@@ -103,26 +105,26 @@ public class FeatureConfigurationEditor extends ModelEditor {
             }
         });
     }
-    
+
     private void setEditorLayout(TreeLayout layout) {
         Object featureConfigEditPart = getGraphicalViewer().getEditPartRegistry().get(featureConfig);
         ((GraphicalEditPart) featureConfigEditPart).getFigure().setLayoutManager(layout);
     }
-        
+
     // ==================================================================================
     //  Providers
     // ==================================================================================
-    
+
     @Override
     protected Object getModel() {
         return featureConfig;
     }
-    
+
     @Override
     protected EditPartFactory getEditPartFactory() {
         return new FeatureConfigurationEditPartFactory(featureConfigManager);
     }
-    
+
     @Override
     protected ContextMenuProvider getContextMenuProvider() {
         return new FeatureConfigurationEditorContextMenuProvider(this);
@@ -142,33 +144,34 @@ public class FeatureConfigurationEditor extends ModelEditor {
     protected IContentProvider getContentProvider() {
         return FeatureConfigurationProviderUtil.getContentProvider();
     }
-        
+
     // ==================================================================================
     //  Actions
     // ==================================================================================
-    
+
     @Override
     protected void createActions() {
         super.createActions();
         createAction(new ShowFeatureModelVisualizerAction());
         createAction(new ExportGraphicalEditorAsImageAction(this) {
+
             @Override
             protected String getDefaultName() {
                 return featureConfig.getName();
             }
         });
     }
-    
+
     @Override
     protected void createActionsLate() {
         createAction(new SelectFeaturesAction(this, featureConfigManager));
         createAction(new DeselectFeaturesAction(this, featureConfigManager));
     }
-            
+
     // ==================================================================================
     //  Save and Load operations
     // ==================================================================================
-    
+
     @Override
     protected void doLoad(IFileEditorInput input) throws Exception {
         String path = input.getFile().getFullPath().toString();
@@ -176,7 +179,7 @@ public class FeatureConfigurationEditor extends ModelEditor {
         Resource resource = resourceSet.createResource(URI.createPlatformResourceURI(path, true));
         resource.load(null);
         featureConfig = (FeatureConfiguration) resource.getContents().get(0);
-        
+
         // Initialize feature configuration manager.
         featureConfigManager = new FeatureConfigurationManager(featureConfig);
         featureConfigManager.installValidator(new LocalConstraintsValidator());
@@ -186,14 +189,14 @@ public class FeatureConfigurationEditor extends ModelEditor {
 
     @Override
     protected void doSave() throws Exception {
-        IWorkbenchWindow window = getSite().getWorkbenchWindow(); 
+        IWorkbenchWindow window = getSite().getWorkbenchWindow();
         window.run(true, false, new ResourceSaveOperation(featureConfig.eResource()));
     }
-    
+
     // ==================================================================================
     //  Adapters
     // ==================================================================================
-        
+
     @Override
     @SuppressWarnings("rawtypes")
     public Object getAdapter(Class type) {

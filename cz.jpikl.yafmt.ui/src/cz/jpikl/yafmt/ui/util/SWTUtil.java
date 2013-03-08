@@ -12,19 +12,20 @@ public class SWTUtil {
         Listener[] listeners = control.getListeners(SWT.Paint);
         for(Listener listener: listeners)
             control.removeListener(SWT.Paint, listener);
-        
+
         // Our listener must be the first one.
         control.addListener(SWT.Paint, new Listener() {
+
             @Override
             public void handleEvent(Event event) {
                 event.gc.setAntialias(SWT.ON);
                 event.gc.setTextAntialias(SWT.ON);
             }
         });
-       
+
         // Put original listeners back.
         for(Listener listener: listeners)
             control.addListener(SWT.Paint, listener);
     }
-    
+
 }

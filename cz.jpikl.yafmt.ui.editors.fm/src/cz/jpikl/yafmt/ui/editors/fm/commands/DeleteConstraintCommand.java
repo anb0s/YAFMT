@@ -24,5 +24,5 @@ public class DeleteConstraintCommand extends RecordingCommand {
     protected void performRecording() {
         featureModel.getConstraints().remove(constraint);
     }
-    
+
 }

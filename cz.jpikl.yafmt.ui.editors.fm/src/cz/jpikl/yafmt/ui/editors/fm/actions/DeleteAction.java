@@ -16,7 +16,7 @@ public class DeleteAction extends org.eclipse.gef.ui.actions.DeleteAction {
     public DeleteAction(IWorkbenchPart part) {
         super(part);
     }
-    
+
     private Command getDeleteConstrainsCommand(Table table) {
         CompoundCommand command = new CompoundCommand();
         for(TableItem item: table.getSelection()) {
@@ -26,7 +26,7 @@ public class DeleteAction extends org.eclipse.gef.ui.actions.DeleteAction {
         }
         return command;
     }
-    
+
     @Override
     protected boolean calculateEnabled() {
         Control controlWithFocus = Display.getCurrent().getFocusControl();
@@ -40,7 +40,7 @@ public class DeleteAction extends org.eclipse.gef.ui.actions.DeleteAction {
             return super.calculateEnabled();
         }
     }
-    
+
     @Override
     public void run() {
         Control controlWithFocus = Display.getCurrent().getFocusControl();
@@ -53,5 +53,5 @@ public class DeleteAction extends org.eclipse.gef.ui.actions.DeleteAction {
             super.run();
         }
     }
-  
+
 }

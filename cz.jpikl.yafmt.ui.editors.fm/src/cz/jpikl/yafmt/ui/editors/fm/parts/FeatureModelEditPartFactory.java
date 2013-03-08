@@ -13,7 +13,7 @@ import cz.jpikl.yafmt.ui.editors.fm.model.Connection;
 public class FeatureModelEditPartFactory implements EditPartFactory {
 
     private LayoutData layoutData;
-        
+
     public FeatureModelEditPartFactory(LayoutData layoutData) {
         this.layoutData = layoutData;
     }
@@ -30,10 +30,8 @@ public class FeatureModelEditPartFactory implements EditPartFactory {
             return new ConnectionEditPart((Connection) model);
         if(model instanceof Attribute)
             return new AttributeEditPart((Attribute) model);
-        
+
         throw new IllegalStateException("No EditPart for " + model.getClass());
     }
 
-    
-    
 }

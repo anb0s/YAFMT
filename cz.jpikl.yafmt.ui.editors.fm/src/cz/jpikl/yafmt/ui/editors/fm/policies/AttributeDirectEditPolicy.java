@@ -16,7 +16,7 @@ public class AttributeDirectEditPolicy extends DirectEditPolicy {
     protected Command getDirectEditCommand(DirectEditRequest request) {
         Attribute attribute = (Attribute) getHost().getModel();
         Object value = request.getCellEditor().getValue();
-        
+
         // Name input.
         if(value instanceof String) {
             String name = (String) value;
@@ -24,13 +24,13 @@ public class AttributeDirectEditPolicy extends DirectEditPolicy {
                 return null;
             return new SetAttributeNameCommand(attribute, name);
         }
-        
+
         // Type input.
         if(value instanceof AttributeType) {
             AttributeType type = (AttributeType) value;
             return new SetAttributeTypeCommand(attribute, type);
         }
-        
+
         return null;
     }
 
@@ -43,5 +43,5 @@ public class AttributeDirectEditPolicy extends DirectEditPolicy {
         if(value instanceof String)
             ((AttributeFigure) getHostFigure()).setName((String) value);
     }
-    
+
 }

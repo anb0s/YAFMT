@@ -34,7 +34,7 @@ public class FeatureConfigurationPropertySourceValidator implements IPropertySou
             Double.parseDouble((String) value);
         return null;
     }
-    
+
     private String validateAttributeValue(AttributeValue object, Object property, Object value) {
         if(property == INTEGER_VALUE__VALUE)
             Integer.parseInt((String) value);
@@ -54,11 +54,11 @@ public class FeatureConfigurationPropertySourceValidator implements IPropertySou
             return getString("_UI_Errors_Empty", getString(name));
         return null;
     }
-    
+
     private String getString(String key, Object param) {
         return FeatureModelEditPlugin.INSTANCE.getString(key, new Object[] { param }, true);
     }
-    
+
     private String getString(String key) {
         return FeatureModelEditPlugin.INSTANCE.getString(key, true);
     }

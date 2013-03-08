@@ -6,7 +6,7 @@ import org.eclipse.emf.edit.ui.provider.PropertySource;
 
 // Unwraps internal EMF objects.
 public class UnwrappingPropertySource extends PropertySource {
-    
+
     public UnwrappingPropertySource(Object object, IItemPropertySource itemPropertySource) {
         super(object, itemPropertySource);
     }

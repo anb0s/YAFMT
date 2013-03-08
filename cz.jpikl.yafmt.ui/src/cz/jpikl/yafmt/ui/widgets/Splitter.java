@@ -36,7 +36,7 @@ public class Splitter extends Composite {
         for(Sash sash: sashes)
             sash.setEnabled(value);
     }
-    
+
     /**
      * PropertyChangeSupport
      */
@@ -59,7 +59,7 @@ public class Splitter extends Composite {
     }
 
     public void setFixedSize(int newSize) {
-        if (newSize == fixedSize) {
+        if(newSize == fixedSize) {
             return;
         }
 
@@ -67,6 +67,7 @@ public class Splitter extends Composite {
     }
 
     class SashPainter implements Listener {
+
         public void handleEvent(Event e) {
             paint((Sash) e.widget, e.gc);
         }
@@ -75,20 +76,22 @@ public class Splitter extends Composite {
     public Splitter(Composite parent) {
         this(parent, SWT.HORIZONTAL);
     }
-    
+
     public Splitter(Composite parent, int style) {
         super(parent, checkStyle(style));
 
-        if ((style & SWT.HORIZONTAL) != 0)
+        if((style & SWT.HORIZONTAL) != 0)
             orientation = SWT.HORIZONTAL;
 
         this.addListener(SWT.Resize, new Listener() {
+
             public void handleEvent(Event e) {
                 layout(true);
             }
         });
 
         sashListener = new Listener() {
+
             public void handleEvent(Event e) {
                 onDragSash(e);
             }
@@ -103,26 +106,28 @@ public class Splitter extends Composite {
     public Point computeSize(int wHint, int hHint, boolean changed) {
 
         Control[] controls = getControls(true);
-        if (controls.length == 0)
+        if(controls.length == 0)
             return new Point(wHint, hHint);
 
         int width = 0;
         int height = 0;
         boolean vertical = (getStyle() & SWT.VERTICAL) != 0;
-        if (vertical) {
+        if(vertical) {
             width = wHint;
             height += (controls.length - 1) * getSashWidth();
-        } else {
+        }
+        else {
             height = hHint;
             width += controls.length * getSashWidth();
         }
-        for (int i = 0; i < controls.length; i++) {
-            if (vertical) {
+        for(int i = 0; i < controls.length; i++) {
+            if(vertical) {
                 Point size = controls[i].computeSize(wHint, SWT.DEFAULT);
                 height += size.y;
-            } else {
+            }
+            else {
                 Point size = controls[i].computeSize(SWT.DEFAULT, hHint);
-                if (controls[i].getData(MAINTAIN_SIZE) != null) {
+                if(controls[i].getData(MAINTAIN_SIZE) != null) {
                     size.x = fixedSize;
                 }
                 width += size.x;
@@ -158,10 +163,10 @@ public class Splitter extends Composite {
     private Control[] getControls(boolean onlyVisible) {
         Control[] children = getChildren();
         Control[] controls = new Control[0];
-        for (int i = 0; i < children.length; i++) {
-            if (children[i] instanceof Sash)
+        for(int i = 0; i < children.length; i++) {
+            if(children[i] instanceof Sash)
                 continue;
-            if (onlyVisible && !children[i].getVisible())
+            if(onlyVisible && !children[i].getVisible())
                 continue;
 
             Control[] newControls = new Control[controls.length + 1];
@@ -174,19 +179,20 @@ public class Splitter extends Composite {
 
     public void layout(boolean changed) {
         Rectangle area = getClientArea();
-        if (area.width == 0 || area.height == 0)
+        if(area.width == 0 || area.height == 0)
             return;
 
         Control[] newControls = getControls(true);
-        if (controls.length == 0 && newControls.length == 0)
+        if(controls.length == 0 && newControls.length == 0)
             return;
         controls = newControls;
 
-        if (maxControl != null && !maxControl.isDisposed()) {
-            for (int i = 0; i < controls.length; i++) {
-                if (controls[i] != maxControl) {
+        if(maxControl != null && !maxControl.isDisposed()) {
+            for(int i = 0; i < controls.length; i++) {
+                if(controls[i] != maxControl) {
                     controls[i].setBounds(-200, -200, 0, 0);
-                } else {
+                }
+                else {
                     controls[i].setBounds(area);
                 }
             }
@@ -194,12 +200,12 @@ public class Splitter extends Composite {
         }
 
         // keep just the right number of sashes
-        if (sashes.length < controls.length - 1) {
+        if(sashes.length < controls.length - 1) {
             Sash[] newSashes = new Sash[controls.length - 1];
             System.arraycopy(sashes, 0, newSashes, 0, sashes.length);
             int sashOrientation = (orientation == SWT.HORIZONTAL) ? SWT.VERTICAL
                     : SWT.HORIZONTAL;
-            for (int i = sashes.length; i < newSashes.length; i++) {
+            for(int i = sashes.length; i < newSashes.length; i++) {
                 newSashes[i] = new Sash(this, sashOrientation);
                 newSashes[i].setBackground(ColorConstants.button);
                 newSashes[i].addListener(SWT.Paint, new SashPainter());
@@ -207,23 +213,24 @@ public class Splitter extends Composite {
             }
             sashes = newSashes;
         }
-        if (sashes.length > controls.length - 1) {
-            if (controls.length == 0) {
-                for (int i = 0; i < sashes.length; i++) {
+        if(sashes.length > controls.length - 1) {
+            if(controls.length == 0) {
+                for(int i = 0; i < sashes.length; i++) {
                     sashes[i].dispose();
                 }
                 sashes = new Sash[0];
-            } else {
+            }
+            else {
                 Sash[] newSashes = new Sash[controls.length - 1];
                 System.arraycopy(sashes, 0, newSashes, 0, newSashes.length);
-                for (int i = controls.length - 1; i < sashes.length; i++) {
+                for(int i = controls.length - 1; i < sashes.length; i++) {
                     sashes[i].dispose();
                 }
                 sashes = newSashes;
             }
         }
 
-        if (controls.length == 0)
+        if(controls.length == 0)
             return;
 
         // @TODO
@@ -232,22 +239,23 @@ public class Splitter extends Composite {
         // of them has been set to maintain its size.
         int x = area.x;
         int width;
-        for (int i = 0; i < controls.length; i++) {
+        for(int i = 0; i < controls.length; i++) {
             Control control = controls[i];
-            if (control.getData(MAINTAIN_SIZE) != null) {
+            if(control.getData(MAINTAIN_SIZE) != null) {
                 width = fixedSize;
-                if (width > area.width) {
+                if(width > area.width) {
                     width = area.width - getSashWidth();
                 }
                 control.setBounds(x, area.y, width, area.height);
                 x += width + getSashWidth();
-            } else {
+            }
+            else {
                 width = Math.max(area.width - fixedSize - getSashWidth(), 0);
                 control.setBounds(x, area.y, width, area.height);
                 x += (width + getSashWidth());
             }
         }
-        if (sashes.length > 0)
+        if(sashes.length > 0)
             sashes[0].setBounds(
                     controls[0].getBounds().x + controls[0].getBounds().width,
                     area.y, getSashWidth(), area.height);
@@ -255,27 +263,28 @@ public class Splitter extends Composite {
 
     public void maintainSize(Control c) {
         Control[] controls = getControls(false);
-        for (int i = 0; i < controls.length; i++) {
+        for(int i = 0; i < controls.length; i++) {
             Control ctrl = controls[i];
-            if (ctrl == c) {
+            if(ctrl == c) {
                 ctrl.setData(MAINTAIN_SIZE, new Boolean(true));
                 break;
             }
         }
     }
-    
+
     void paint(Sash sash, GC gc) {
-        if (getSashWidth() == 0)
+        if(getSashWidth() == 0)
             return;
         Point size = sash.getSize();
-        if (getOrientation() == SWT.HORIZONTAL) {
+        if(getOrientation() == SWT.HORIZONTAL) {
             gc.setForeground(ColorConstants.buttonDarker);
             gc.drawLine(0, 0, 0, size.y);
             gc.setForeground(ColorConstants.button);
             gc.drawLine(1, 0, 1, size.y);
             gc.setForeground(ColorConstants.buttonLightest);
             gc.drawLine(2, 0, 2, size.y);
-        } else {
+        }
+        else {
             gc.setForeground(ColorConstants.buttonDarker);
             gc.drawLine(0, 0, size.x, 0);
             gc.drawLine(0, getSashWidth() - 1, size.x, getSashWidth() - 1);
@@ -285,17 +294,19 @@ public class Splitter extends Composite {
     }
 
     private void onDragSash(Event event) {
-        if (event.detail == SWT.DRAG) {
+        if(event.detail == SWT.DRAG) {
             // constrain feedback
             Rectangle area = getClientArea();
-            if (orientation == SWT.HORIZONTAL) {
-                if (controls[0].getData(MAINTAIN_SIZE) != null) {
+            if(orientation == SWT.HORIZONTAL) {
+                if(controls[0].getData(MAINTAIN_SIZE) != null) {
                     event.x = Math.max(event.x, DRAG_MINIMUM);
-                } else {
+                }
+                else {
                     event.x = Math.min(event.x, area.width - DRAG_MINIMUM
                             - getSashWidth());
                 }
-            } else {
+            }
+            else {
                 event.y = Math.min(event.y, area.height - DRAG_MINIMUM
                         - getSashWidth());
             }
@@ -304,13 +315,13 @@ public class Splitter extends Composite {
 
         Sash sash = (Sash) event.widget;
         int sashIndex = -1;
-        for (int i = 0; i < sashes.length; i++) {
-            if (sashes[i] == sash) {
+        for(int i = 0; i < sashes.length; i++) {
+            if(sashes[i] == sash) {
                 sashIndex = i;
                 break;
             }
         }
-        if (sashIndex == -1)
+        if(sashIndex == -1)
             return;
 
         Control c1 = controls[sashIndex];
@@ -320,12 +331,13 @@ public class Splitter extends Composite {
         controls = getControls(false);
 
         Rectangle sashBounds = sash.getBounds();
-        if (orientation == SWT.HORIZONTAL) {
+        if(orientation == SWT.HORIZONTAL) {
             int shift = event.x - sashBounds.x;
             b1.width += shift;
             b2.x += shift;
             b2.width -= shift;
-        } else {
+        }
+        else {
             int shift = event.y - sashBounds.y;
             b1.height += shift;
             b2.y += shift;
@@ -338,9 +350,10 @@ public class Splitter extends Composite {
         // @TODO
         // This will only work when you have two controls, one of whom is set to
         // maintain size
-        if (c1.getData(MAINTAIN_SIZE) != null) {
+        if(c1.getData(MAINTAIN_SIZE) != null) {
             setFixedSize(c1.getBounds().width);
-        } else {
+        }
+        else {
             setFixedSize(c2.getBounds().width);
         }
     }
@@ -351,16 +364,16 @@ public class Splitter extends Composite {
      * SashForm out top to bottom.
      */
     public void setOrientation(int orientation) {
-        if (this.orientation == orientation)
+        if(this.orientation == orientation)
             return;
-        if (orientation != SWT.HORIZONTAL && orientation != SWT.VERTICAL) {
+        if(orientation != SWT.HORIZONTAL && orientation != SWT.VERTICAL) {
             SWT.error(SWT.ERROR_INVALID_ARGUMENT);
         }
         this.orientation = orientation;
 
         int sashOrientation = (orientation == SWT.HORIZONTAL) ? SWT.VERTICAL
                 : SWT.HORIZONTAL;
-        for (int i = 0; i < sashes.length; i++) {
+        for(int i = 0; i < sashes.length; i++) {
             sashes[i].dispose();
             sashes[i] = new Sash(this, sashOrientation);
             sashes[i].setBackground(ColorConstants.buttonLightest);
@@ -386,18 +399,18 @@ public class Splitter extends Composite {
      * where all controls are laid out separated by sashes.
      */
     public void setMaximizedControl(Control control) {
-        if (control == null) {
-            if (maxControl != null) {
+        if(control == null) {
+            if(maxControl != null) {
                 this.maxControl = null;
                 layout();
-                for (int i = 0; i < sashes.length; i++) {
+                for(int i = 0; i < sashes.length; i++) {
                     sashes[i].setVisible(true);
                 }
             }
             return;
         }
 
-        for (int i = 0; i < sashes.length; i++) {
+        for(int i = 0; i < sashes.length; i++) {
             sashes[i].setVisible(false);
         }
         maxControl = control;

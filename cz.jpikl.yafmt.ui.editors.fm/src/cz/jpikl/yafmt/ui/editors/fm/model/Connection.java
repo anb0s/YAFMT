@@ -39,5 +39,5 @@ public class Connection {
             hash += target.hashCode();
         return hash;
     }
-    
+
 }

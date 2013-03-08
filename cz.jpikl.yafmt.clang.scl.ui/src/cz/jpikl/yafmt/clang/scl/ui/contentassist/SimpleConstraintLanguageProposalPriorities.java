@@ -10,5 +10,5 @@ public class SimpleConstraintLanguageProposalPriorities extends ContentProposalP
         // Keywords go always first.
         adjustPriority(proposal, prefix, 2 * keywordPriority);
     }
-    
+
 }

@@ -21,7 +21,7 @@ public class FeatureModelEditorContextMenuProvider extends GraphicalEditorContex
     @Override
     public void buildContextMenu(IMenuManager menu) {
         super.buildContextMenu(menu);
-        
+
         addActionToMenu(menu, GEFActionConstants.GROUP_UNDO, ActionFactory.UNDO.getId());
         addActionToMenu(menu, GEFActionConstants.GROUP_UNDO, ActionFactory.REDO.getId());
         addActionToMenu(menu, GEFActionConstants.GROUP_EDIT, ActionFactory.DELETE.getId());
@@ -33,5 +33,5 @@ public class FeatureModelEditorContextMenuProvider extends GraphicalEditorContex
         addActionToMenu(menu, GEFActionConstants.GROUP_SAVE, AutoLayoutAction.ID);
         addActionToMenu(menu, GEFActionConstants.GROUP_SAVE, ExportGraphicalEditorAsImageAction.ID);
     }
-    
+
 }

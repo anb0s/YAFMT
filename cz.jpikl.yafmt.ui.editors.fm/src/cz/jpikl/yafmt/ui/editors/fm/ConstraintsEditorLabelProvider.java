@@ -11,7 +11,7 @@ public class ConstraintsEditorLabelProvider extends ColumnLabelProvider {
 
     private Image constraintImage = FeatureModelEditorPlugin.getDefault().getImageRegistry().get("constraint");
     private Image addImage = PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_OBJ_ADD);
-    
+
     @Override
     public Image getImage(Object element) {
         if(element == ConstraintsEditorContentProvider.ADD_CONSTRAINT_OBJECT)
@@ -25,5 +25,5 @@ public class ConstraintsEditorLabelProvider extends ColumnLabelProvider {
             return "Add new constraint";
         return ((Constraint) element).getValue();
     }
-        
+
 }

@@ -23,7 +23,7 @@ public class GroupEditPolicy extends ComponentEditPolicy {
             return createSetGroupCardinalityCommand(false);
         return super.getCommand(request);
     }
-    
+
     private Command createSetGroupCardinalityCommand(boolean xorGroup) {
         Group group = (Group) getHost().getModel();
         if((group.isXor() || group.isOr()) && (group.isXor() == xorGroup))
@@ -37,5 +37,5 @@ public class GroupEditPolicy extends ComponentEditPolicy {
         Group group = (Group) getHost().getModel();
         return new DeleteGroupCommand(group, layoutData);
     }
-    
+
 }

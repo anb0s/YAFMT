@@ -27,7 +27,7 @@ public class SelectionEditPart extends AbstractGraphicalEditPart implements Node
     private Selection selection;
 
     public SelectionEditPart(FeatureConfigurationManager featureConfigManager, Selection selection) {
-        
+
         this.featureConfigManager = featureConfigManager;
         this.selection = selection;
         setModel(selection);
@@ -37,19 +37,19 @@ public class SelectionEditPart extends AbstractGraphicalEditPart implements Node
     protected IFigure createFigure() {
         return new SelectionFigure(selection);
     }
-    
+
     @Override
     protected void refreshVisuals() {
         // TODO Detect errors.
         SelectionFigure figure = (SelectionFigure) getFigure();
         figure.setErrorMessages(null);
         figure.repaint();
-        
+
         // Refresh source connections visual.
         for(Object connectionEditPart: getSourceConnections())
             ((ConnectionEditPart) connectionEditPart).refresh();
     }
-    
+
     @Override
     public ConnectionAnchor getSourceConnectionAnchor(ConnectionEditPart connection) {
         return new MiddleSideAnchor(getFigure());
@@ -79,7 +79,7 @@ public class SelectionEditPart extends AbstractGraphicalEditPart implements Node
             connections.add(new Connection(parentSelection, selection));
         return connections;
     }
-    
+
     @Override
     @SuppressWarnings("rawtypes")
     protected List getModelTargetConnections() {
@@ -88,17 +88,17 @@ public class SelectionEditPart extends AbstractGraphicalEditPart implements Node
             connections.add(new Connection(selection, childSelection));
         return connections;
     }
-    
+
     @Override
     protected void createEditPolicies() {
         installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new SelectionSelectionPolicy());
     }
-    
+
     @Override
     public void performRequest(Request request) {
         if(request.getType().equals(REQ_OPEN)) {
             CommandStack commandStack = getViewer().getEditDomain().getCommandStack();
-            
+
             if(selection.getParent() == null)
                 commandStack.execute(new SelectFeatureCommand(featureConfigManager, selection));
             else

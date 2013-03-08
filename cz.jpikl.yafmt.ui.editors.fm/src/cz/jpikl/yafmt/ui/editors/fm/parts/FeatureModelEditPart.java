@@ -38,13 +38,13 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
     // Each time when model modification is performed, constraint cache
     // and all feature figures must be refreshed.
     private static final boolean CONSTRAINT_DECORATIONS_ENABLED = true;
-    
+
     private FeatureModel featureModel;
     private LayoutData layoutData;
     private Adapter featureModelAdapter;
     private Adapter layoutDataAdapter;
     private ConstraintCache constraintCache;
-    
+
     public FeatureModelEditPart(FeatureModel featureModel, LayoutData layoutData) {
         this.featureModel = featureModel;
         this.layoutData = layoutData;
@@ -52,7 +52,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
         this.layoutDataAdapter = new LayoutDataAdapter();
         setModel(featureModel);
     }
-    
+
     @Override
     public void activate() {
         featureModel.eAdapters().add(featureModelAdapter);
@@ -60,28 +60,28 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
         // Adapters MUST be registered BEFORE children parts activation!
         super.activate();
     }
-    
+
     @Override
     public void deactivate() {
         featureModel.eAdapters().remove(featureModelAdapter);
         layoutData.eAdapters().remove(layoutDataAdapter);
         super.deactivate();
     }
-    
+
     @Override
     public void addNotify() {
         super.addNotify();
-        
+
         if(CONSTRAINT_DECORATIONS_ENABLED) {
             constraintCache = new ConstraintCache(featureModel);
             refreshFeatureFiguresConstrainedState();
         }
     }
-    
+
     @Override
     protected List<Object> getModelChildren() {
         List<Object> modelChildren = new ArrayList<Object>();
-        
+
         // Groups go before features.
         // This order is used for rendering objects.
         TreeIterator<EObject> it = featureModel.eAllContents();
@@ -90,7 +90,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
             if(object instanceof Group)
                 modelChildren.add(object);
         }
-        
+
         // Features go after groups.
         it = featureModel.eAllContents();
         while(it.hasNext()) {
@@ -98,7 +98,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
             if(object instanceof Feature)
                 modelChildren.add(object);
         }
-        
+
         return modelChildren;
     }
 
@@ -113,17 +113,17 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
         // Antialiasing for other layers is enabled in FeatureModelFigure.
         ((ConnectionLayer) getLayer(LayerConstants.CONNECTION_LAYER)).setAntialias(SWT.ON);
     }
-    
+
     public LayoutData getLayoutData() {
         return layoutData;
     }
-    
+
     @Override
     protected void createEditPolicies() {
         installEditPolicy(EditPolicy.LAYOUT_ROLE, new FeatureModelLayoutPolicy());
         installEditPolicy(EditPolicy.COMPONENT_ROLE, new FeatureModelEditPolicy());
     }
-    
+
     private GraphicalEditPart getEditPartForObject(Object object) {
         return (GraphicalEditPart) getViewer().getEditPartRegistry().get(object);
     }
@@ -154,21 +154,21 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
         }
 
         // Make sure that 'orphaned' state of all added feature figures is refreshed.
-        if(object instanceof Feature) 
+        if(object instanceof Feature)
             refreshFeatureFiguresOrphanedState((Feature) object);
     }
-    
+
     private void addEditPartsForObjects(Collection<?> objects) {
         for(Object object: objects)
             addEditPartForObject(object);
     }
-    
+
     private void removeEditPartForObject(Object object) {
         // Ignore non-existing edit parts.
         EditPart editPart = getEditPartForObject(object);
         if(editPart == null)
             return;
-            
+
         // Do not remove edit parts when they are still present in model.
         // This situation usually happens when feature parent was changed.
         if(object instanceof EObject) {
@@ -176,22 +176,22 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
                 removeChild(editPart);
         }
     }
-    
+
     private void removeEditPartsForObjects(Collection<?> objects) {
         for(Object object: objects)
             removeEditPartForObject(object);
     }
-    
+
     private void refreshFeatureFiguresOrphanedState(Feature feature) {
         boolean orphaned = feature.isOrphan();
         GraphicalEditPart editPart = getEditPartForObject(feature);
         if(editPart == null)
             return;
-        
+
         // Quit when state was not changed.
         if(!((FeatureFigure) editPart.getFigure()).setOrphaned(orphaned))
             return;
-        
+
         TreeIterator<EObject> it = feature.eAllContents();
         while(it.hasNext()) {
             Object object = it.next();
@@ -202,7 +202,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
             }
         }
     }
-    
+
     private void refreshFeatureFiguresConstrainedState() {
         for(Object editPart: getChildren()) {
             Object model = ((EditPart) editPart).getModel();
@@ -213,16 +213,16 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
             }
         }
     }
-    
+
     private void updateLayoutConstraint(Object updateValue) {
         if(!(updateValue instanceof Map.Entry<?, ?>))
             return;
-        
+
         Map.Entry<?, ?> entry = (Map.Entry<?, ?>) updateValue;
         Object object = entry.getKey();
         Object constraint = entry.getValue();
-        
-        GraphicalEditPart editPart = getEditPartForObject(object);        
+
+        GraphicalEditPart editPart = getEditPartForObject(object);
         if(editPart != null) {
             setLayoutConstraint(editPart, editPart.getFigure(), constraint);
             // Update group figure shape when the group or one of its children features moved.
@@ -232,7 +232,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
                 updateGroupFigure(((Feature) object).getParentGroup());
         }
     }
-    
+
     public void updateGroupFigure(Group group) {
         GraphicalEditPart editPart = getEditPartForObject(group);
         if(editPart != null) {
@@ -241,57 +241,57 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
             figure.repaint();
         }
     }
-        
+
     class FeatureModelAdapter extends EContentAdapter {
-        
+
         @Override
         public void notifyChanged(Notification notification) {
             super.notifyChanged(notification); // Superclass implementation must be called!
-            
+
             // Features, groups or attributes are added or removed.
             switch(notification.getEventType()) {
                 case Notification.ADD:
                     addEditPartForObject(notification.getNewValue());
                     break;
-                    
+
                 case Notification.ADD_MANY:
                     addEditPartsForObjects((Collection<?>) notification.getNewValue());
                     break;
-                    
+
                 case Notification.REMOVE:
                     removeEditPartForObject(notification.getOldValue());
                     break;
-                    
+
                 case Notification.REMOVE_MANY:
                     removeEditPartsForObjects((Collection<?>) notification.getOldValue());
                     break;
             }
-            
+
             if(CONSTRAINT_DECORATIONS_ENABLED) {
                 constraintCache.invalidate();
                 refreshFeatureFiguresConstrainedState();
             }
         }
-        
+
     }
-        
+
     class LayoutDataAdapter extends EContentAdapter {
-        
+
         @Override
         public void notifyChanged(Notification notification) {
             super.notifyChanged(notification); // Superclass implementation must be called!
-            
-            switch (notification.getEventType()) {
+
+            switch(notification.getEventType()) {
                 case Notification.ADD:
                     updateLayoutConstraint(notification.getNewValue());
                     break;
-                
+
                 case Notification.SET:
                     updateLayoutConstraint(notification.getNotifier());
                     break;
             }
         }
-        
+
     }
-        
+
 }

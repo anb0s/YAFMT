@@ -16,11 +16,11 @@ public class LabelDirectEditManager extends DirectEditManager {
 
     private String text;
     private ICellEditorValidator validator;
-    
+
     public LabelDirectEditManager(GraphicalEditPart source, Label label) {
         this(source, label, label.getText());
     }
-    
+
     public LabelDirectEditManager(GraphicalEditPart source, Label label, String text) {
         super(source, TextCellEditor.class, new LabelCellEditorLocator(label));
         this.text = text;
@@ -29,23 +29,23 @@ public class LabelDirectEditManager extends DirectEditManager {
     public void setValidator(ICellEditorValidator validator) {
         this.validator = validator;
     }
-    
+
     @Override
     protected void initCellEditor() {
         // Initializes cell editor value from label.
         getCellEditor().setValue(text);
         getCellEditor().setValidator(validator);
     }
-            
+
     // Locates where to place cell editor during direct editing.
     private static class LabelCellEditorLocator implements CellEditorLocator {
 
         private Label label;
-        
+
         public LabelCellEditorLocator(Label label) {
             this.label = label;
         }
-        
+
         @Override
         public void relocate(CellEditor cellEditor) {
             Text text = (Text) cellEditor.getControl();

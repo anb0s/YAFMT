@@ -10,7 +10,7 @@ import org.eclipse.swt.custom.CCombo;
 public class ComboDirectEditManager extends DirectEditManager {
 
     private Object value;
-    
+
     public ComboDirectEditManager(GraphicalEditPart source, Rectangle bounds, Class<?> cellEditorType, Object value) {
         super(source, cellEditorType, new SimpleLocator(bounds));
         this.value = value;
@@ -20,7 +20,7 @@ public class ComboDirectEditManager extends DirectEditManager {
     protected void initCellEditor() {
         getCellEditor().setValue(value);
     }
-    
+
     @Override
     protected void commit() {
         // Cell editor does not notify direct edit manager about value change.
@@ -34,17 +34,17 @@ public class ComboDirectEditManager extends DirectEditManager {
     private static class SimpleLocator implements CellEditorLocator {
 
         private Rectangle bounds;
-        
+
         public SimpleLocator(Rectangle bounds) {
             this.bounds = bounds;
         }
-        
+
         @Override
         public void relocate(CellEditor cellEditor) {
             CCombo combo = (CCombo) cellEditor.getControl();
             combo.setBounds(bounds.x, bounds.y, bounds.width, bounds.height);
         }
-        
+
     }
 
 }

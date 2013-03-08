@@ -12,7 +12,7 @@ public class FeatureModelFigure extends FreeformLayer {
         setBorder(new MarginBorder(3));
         setLayoutManager(new FreeformLayout());
     }
-    
+
     @Override
     public void paint(Graphics graphics) {
         // Enable antialiasing.

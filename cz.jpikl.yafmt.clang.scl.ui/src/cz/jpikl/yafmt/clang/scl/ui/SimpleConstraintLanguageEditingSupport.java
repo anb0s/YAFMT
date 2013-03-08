@@ -20,19 +20,19 @@ import cz.jpikl.yafmt.model.fm.FeatureModel;
 import de.itemis.xtext.utils.jface.viewers.XtextStyledTextCellEditor;
 
 public class SimpleConstraintLanguageEditingSupport extends EditingSupport {
-        
+
     private static Map<String, String> editedFeatureModelIds = new HashMap<String, String>();
-    
+
     public static Map<String, String> getEditedFeatureModelIds() {
         return editedFeatureModelIds;
     }
-    
+
     private static void initializeEditedFeatureModelIds(FeatureModel featureModel) {
         editedFeatureModelIds.clear();
-        
+
         Feature rootFeature = featureModel.getRoot();
         editedFeatureModelIds.put(rootFeature.getId(), rootFeature.getName());
-        
+
         TreeIterator<EObject> it = featureModel.getRoot().eAllContents();
         while(it.hasNext()) {
             EObject object = it.next();
@@ -42,21 +42,23 @@ public class SimpleConstraintLanguageEditingSupport extends EditingSupport {
             }
         }
     }
-    
+
     @Override
     public CellEditor createCellEditor(Composite composite, EditingContext context) {
         initializeEditedFeatureModelIds(context.getFeatureModel());
-        
+
         String languageId = SimpleConstraintLanguageActivator.CZ_JPIKL_YAFMT_CLANG_SCL_SIMPLECONSTRAINTLANGUAGE;
         Injector injector = SimpleConstraintLanguageActivator.getInstance().getInjector(languageId);
-        
+
         XtextStyledTextCellEditor cellEditor = new XtextStyledTextCellEditor(SWT.SINGLE, injector) {
+
             @Override
             protected StyledText createStyledText(Composite parent) {
                 // Very ugly hack that blocks throwing of SWTException
                 // when StyledText.handleKey() is called on disposed widget
                 // after pressing ENTER key.
                 return new StyledText(parent, getStyle()) {
+
                     // Called inside handleKey().
                     @Override
                     public int getKeyBinding(int key) {
@@ -64,7 +66,7 @@ public class SimpleConstraintLanguageEditingSupport extends EditingSupport {
                             return 123456; // This action code should not exist.
                         return super.getKeyBinding(key);
                     }
-                    
+
                     // Called inside handleKey() after getKeyBinding() returns 123456.
                     @Override
                     public void invokeAction(int action) {

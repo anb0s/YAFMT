@@ -42,7 +42,7 @@ public class FeatureModelEditPolicy extends ComponentEditPolicy {
         List<Feature> features = getFeatureSelection(selectedEditParts);
         if((features == null) || (features.size() < 2))
             return null;
-        
+
         // Check if all features are sub-features of the same feature.
         EObject commonParent = null;
         for(Feature feature: features) {
@@ -56,16 +56,16 @@ public class FeatureModelEditPolicy extends ComponentEditPolicy {
             else if(parent != commonParent)
                 return null;
         }
-        
+
         LayoutData layoutData = ((FeatureModelEditPart) getHost()).getLayoutData();
         return new GroupFeaturesCommand(layoutData, features, xorGroup);
     }
-    
+
     private Command createUngroupFeaturesCommand(List<?> selectedEditParts) {
         List<Feature> features = getFeatureSelection(selectedEditParts);
         if((features == null) || features.isEmpty())
             return null;
-        
+
         // Check if there is a parent group.
         boolean canExecute = false;
         for(Feature feature: features) {
@@ -76,20 +76,20 @@ public class FeatureModelEditPolicy extends ComponentEditPolicy {
         }
         if(!canExecute)
             return null;
-        
+
         return new UngroupFeaturesCommand(features);
     }
 
     List<Feature> getFeatureSelection(List<?> selectedEditParts) {
         List<Feature> features = new ArrayList<Feature>();
-        
+
         for(Object selectedObject: selectedEditParts) {
             Object model = ((EditPart) selectedObject).getModel();
             if(model instanceof Feature)
                 features.add((Feature) model);
         }
-        
+
         return features;
     }
-    
+
 }

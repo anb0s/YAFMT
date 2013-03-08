@@ -11,32 +11,32 @@ import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
 import cz.jpikl.yafmt.ui.editors.fm.model.Connection;
 
 public class ConnectionFigure extends PolylineConnection {
-    
+
     private CircleDecoration circleDecoration = new CircleDecoration();
     private SquareDecoration squareDecoration = new SquareDecoration();
     private Label label = new Label();
-    
+
     private Connection connection;
-    
+
     public ConnectionFigure(Connection connection) {
         this.connection = connection;
-        
+
         label.setForegroundColor(ColorConstants.black);
         add(label, createLabelLocator());
         setForegroundColor(ColorConstants.black);
         refresh();
     }
-    
+
     private Locator createLabelLocator() {
         ConnectionEndpointLocator locator = new ConnectionEndpointLocator(this, false);
         locator.setUDistance(4);
         locator.setVDistance(16);
         return locator;
     }
-        
+
     public void refresh() {
         Feature target = connection.getTarget();
-        
+
         if(target.isCloneable()) {
             setSourceDecoration(null);
             label.setText(FeatureModelUtil.getCardinality(target));
@@ -53,7 +53,7 @@ public class ConnectionFigure extends PolylineConnection {
             label.setText(null);
         }
     }
-    
+
     public void setHighlighted(boolean highlighted) {
         setLineWidth(highlighted ? 2 : 1);
     }

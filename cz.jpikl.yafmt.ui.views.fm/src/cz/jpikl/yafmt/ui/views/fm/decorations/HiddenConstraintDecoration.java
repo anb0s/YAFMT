@@ -10,5 +10,5 @@ public class HiddenConstraintDecoration extends ImageDecoration {
         super(FeatureModelVisualizerPlugin.getDefault().getImageRegistry().get("constraint-decoration"));
         setToolTip(new Label("There is a constraint affecting this feature."));
     }
-    
+
 }

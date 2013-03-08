@@ -17,54 +17,54 @@ public class SelectionWrapper extends EObjectDecorator implements Selection {
     private FeatureConfiguration featureConfig;
     private Selection selection;
     private int insertPosition;
-    
+
     public SelectionWrapper(FeatureConfiguration featureConfig, Selection selection) {
         this(featureConfig, selection, -1);
     }
-    
+
     public SelectionWrapper(FeatureConfiguration featureConfig, Selection selection, int insertPosition) {
         super(selection);
         this.featureConfig = featureConfig;
         this.selection = selection;
         this.insertPosition = insertPosition;
     }
-    
+
     public Selection getOriginalSelection() {
         return selection;
     }
-    
+
     public int getInsertPosition() {
         return insertPosition;
     }
-    
+
     public void incrementInsertPosition() {
         insertPosition++;
     }
-    
+
     // ===============================================================
     // Modified operations
     // ===============================================================
-    
+
     @Override
     public FeatureConfiguration getFeatureConfiguration() {
         return featureConfig;
     }
-    
+
     @Override
     public Feature getFeature() {
         return featureConfig.getFeatureModelCopy().getFeatureById(selection.getId());
     }
-    
+
     @Override
     public String getName() {
         return getFeature().getName();
     }
-    
+
     @Override
     public String getDescription() {
         return getFeature().getDescription();
     }
-    
+
     @Override
     public EList<AttributeValue> getValues() {
         // Hide attribute values for unselected feature.
@@ -72,12 +72,12 @@ public class SelectionWrapper extends EObjectDecorator implements Selection {
             return ECollections.emptyEList();
         return selection.getValues();
     }
-    
+
     @Override
     public Object eGet(EStructuralFeature feature) {
         return eGet(feature, true);
     }
-    
+
     @Override
     public Object eGet(EStructuralFeature feature, boolean resolve) {
         if(feature == FeatureConfigurationPackage.Literals.SELECTION__FEATURE_CONFIGURATION)
@@ -92,11 +92,11 @@ public class SelectionWrapper extends EObjectDecorator implements Selection {
             return getValues();
         return super.eGet(feature, resolve);
     }
-        
+
     // ===============================================================
     //  Operations calling original methods
     // ===============================================================
-        
+
     @Override
     public String getId() {
         return selection.getId();
@@ -131,12 +131,12 @@ public class SelectionWrapper extends EObjectDecorator implements Selection {
     public int hashCode() {
         return selection.hashCode(); // !!! Important.
     }
-    
+
     @Override
     public boolean equals(Object obj) {
-    	if(obj instanceof SelectionWrapper)
-    		return selection.equals(((SelectionWrapper) obj).selection);
+        if(obj instanceof SelectionWrapper)
+            return selection.equals(((SelectionWrapper) obj).selection);
         return selection.equals(obj); // !!! Important.
     }
-        
+
 }

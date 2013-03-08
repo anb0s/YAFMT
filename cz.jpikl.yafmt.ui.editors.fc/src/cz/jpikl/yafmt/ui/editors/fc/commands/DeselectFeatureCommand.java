@@ -11,17 +11,17 @@ public class DeselectFeatureCommand extends RecordingCommand {
 
     private FeatureConfigurationManager featureConfigManager;
     private List<Selection> selections;
-    
+
     public DeselectFeatureCommand(FeatureConfigurationManager featureConfigManager, List<Selection> selections) {
         this.featureConfigManager = featureConfigManager;
         this.selections = selections;
         setLabel("Deselect Features");
     }
-    
+
     public DeselectFeatureCommand(FeatureConfigurationManager featureConfigManager, Selection selection) {
         this(featureConfigManager, Arrays.asList(new Selection[] { selection }));
     }
-    
+
     @Override
     public boolean canExecute() {
         for(Selection selection: selections) {
@@ -30,10 +30,10 @@ public class DeselectFeatureCommand extends RecordingCommand {
         }
         return false;
     }
-    
+
     @Override
     protected void initializeRecording() {
-    	for(Selection selection: selections)
+        for(Selection selection: selections)
             addRecordedObject(featureConfigManager.getParentSelection(selection));
     }
 
@@ -41,13 +41,13 @@ public class DeselectFeatureCommand extends RecordingCommand {
     protected void performRecording() {
         selections = featureConfigManager.deselectFeatures(selections);
     }
-    
+
     @Override
     public void undo() {
         super.undo();
         featureConfigManager.featuresSelected(selections); // We have to notify FC manager manually.
     }
-    
+
     @Override
     public void redo() {
         super.redo();

@@ -25,58 +25,58 @@ public class ConstraintCache {
     private ConstraintLanguageRegistry registry = ConstraintLanguagePlugin.getDefault().getConstraintLanguageRegistry();
     private Map<Constraint, List<Feature>> constraintToFeatures = new HashMap<Constraint, List<Feature>>();
     private Map<Feature, Set<Constraint>> featureToConstraints = new HashMap<Feature, Set<Constraint>>();
-    
+
     private FeatureModel featureModel;
     private boolean valid = false;
-    
+
     public ConstraintCache() {
         this(null);
     }
-    
+
     public ConstraintCache(FeatureModel featureModel) {
         setFeatureModel(featureModel);
     }
-    
+
     public void dispose() {
         setFeatureModel(null);
     }
-    
+
     public void setFeatureModel(FeatureModel featureModel) {
         if(this.featureModel != featureModel) {
             this.featureModel = featureModel;
             invalidate();
         }
     }
-    
+
     public void invalidate() {
         featureToConstraints.clear();
         constraintToFeatures.clear();
         valid = false;
     }
-        
+
     public Collection<Feature> getFeaturesAffectedByConstraint(Constraint constraint) {
         checkValidity();
         return constraintToFeatures.get(constraint);
     }
-    
+
     public Collection<Constraint> getConstraintsAffectingFeature(Feature feature) {
         checkValidity();
         return featureToConstraints.get(feature);
     }
-    
+
     private void checkValidity() {
         if(!valid && (featureModel != null)) {
             refresh();
             valid = true;
         }
     }
-    
+
     private void refresh() {
         for(Constraint constraint: featureModel.getConstraints()) {
             List<Feature> features = getAffectedFeatures(constraint);
             if(features != null) {
                 constraintToFeatures.put(constraint, features);
-                
+
                 for(Feature feature: features) {
                     Set<Constraint> set = featureToConstraints.get(feature);
                     if(set == null) {
@@ -87,13 +87,13 @@ public class ConstraintCache {
                 }
             }
         }
-    }   
-    
+    }
+
     private List<Feature> getAffectedFeatures(Constraint constraint) {
         IConstraintLanguage langauge = registry.getLanguage(constraint.getLanguage());
         if(langauge == null)
             return null;
-        
+
         try {
             IEvaluator evaluator = langauge.createEvaluator(constraint.getValue());
             return evaluator.getAffectedFeatures(featureModel);
@@ -102,5 +102,5 @@ public class ConstraintCache {
             return null; // Ignore that.
         }
     }
-    
+
 }

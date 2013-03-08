@@ -13,7 +13,7 @@ import cz.jpikl.yafmt.model.validation.IPropertySourceValidator;
 import cz.jpikl.yafmt.model.validation.ValidatingPropertyDescriptor;
 
 public class ConstraintValuePropertyDescriptor extends ValidatingPropertyDescriptor {
-    
+
     public ConstraintValuePropertyDescriptor(Object object, IItemPropertyDescriptor itemPropertyDescriptor, IPropertySourceValidator validator) {
         super(object, itemPropertyDescriptor, validator);
     }
@@ -21,7 +21,7 @@ public class ConstraintValuePropertyDescriptor extends ValidatingPropertyDescrip
     @Override
     public CellEditor createPropertyEditor(Composite composite) {
         Constraint constraint = (Constraint) object;
-        
+
         // Use language custom editor from extension point if possible.
         EditingSupportRegistry registry = ConstraintLanguagePlugin.getDefault().getEditingSupportRegistry();
         IEditingSupport editingSupport = registry.getEditingSupport(constraint.getLanguage());
@@ -29,7 +29,7 @@ public class ConstraintValuePropertyDescriptor extends ValidatingPropertyDescrip
             EditingContext context = new EditingContext(constraint.getFeatureModel());
             return attachValidator(editingSupport.createCellEditor(composite, context));
         }
-        
+
         return super.createPropertyEditor(composite);
     }
 

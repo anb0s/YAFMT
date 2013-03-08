@@ -19,7 +19,7 @@ public class FeatureConfigurationEditorContextMenuProvider extends GraphicalEdit
     @Override
     public void buildContextMenu(IMenuManager menu) {
         super.buildContextMenu(menu);
-        
+
         addActionToMenu(menu, GEFActionConstants.GROUP_UNDO, ActionFactory.UNDO.getId());
         addActionToMenu(menu, GEFActionConstants.GROUP_UNDO, ActionFactory.REDO.getId());
         addActionToMenu(menu, GEFActionConstants.GROUP_EDIT, SelectFeaturesAction.ID);

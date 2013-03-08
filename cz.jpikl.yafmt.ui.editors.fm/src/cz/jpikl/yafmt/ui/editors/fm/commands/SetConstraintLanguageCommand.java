@@ -7,7 +7,7 @@ public class SetConstraintLanguageCommand extends RecordingCommand {
 
     private Constraint constraint;
     private String language;
-    
+
     public SetConstraintLanguageCommand(Constraint constraint, String language) {
         setLabel("Change constraint language");
         this.constraint = constraint;
@@ -22,6 +22,6 @@ public class SetConstraintLanguageCommand extends RecordingCommand {
     @Override
     protected void performRecording() {
         constraint.setLanguage(language);
-    }    
-    
+    }
+
 }

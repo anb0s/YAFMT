@@ -21,41 +21,41 @@ import cz.jpikl.yafmt.ui.figures.SeparatorFigure;
 import cz.jpikl.yafmt.ui.util.DrawConstantans;
 
 public class FeatureFigure extends RoundedRectangle {
-    
+
     public static final int WIDTH = 100;
     public static final int HEGHT = 25;
-    
+
     private Label label = new Label();
     private Label toolTip = new Label();
     private SeparatorFigure separator;
     private Figure attributes;
     private Image constraintDecoration;
-    
+
     private Feature feature;
     private boolean orphaned;    // Is feature orphaned?
     private boolean constrained; // Has feature constraints?
-    
+
     public FeatureFigure(Feature feature) {
         this.feature = feature;
         this.orphaned = feature.isOrphan();
         this.constrained = false;
         this.constraintDecoration = FeatureModelEditorPlugin.getDefault().getImageRegistry().get("constraint-decoration");
-        
+
         setLayoutManager(new GridLayout());
         setToolTip(toolTip);
-        
+
         label.setFont(DrawConstantans.BOLD_FONT);
         label.setForegroundColor(ColorConstants.black);
         add(label, new GridData(SWT.FILL, SWT.FILL, true, true));
-        
+
         setForegroundColor(ColorConstants.black);
         refresh();
     }
-    
+
     public Label getLabel() {
         return label;
     }
-        
+
     public boolean setOrphaned(boolean orphaned) {
         if(this.orphaned != orphaned) {
             this.orphaned = orphaned;
@@ -64,14 +64,14 @@ public class FeatureFigure extends RoundedRectangle {
         }
         return false;
     }
-    
+
     public void setConstrained(boolean constrained) {
         if(this.constrained != constrained) {
             this.constrained = constrained;
             repaint();
         }
     }
-    
+
     public void refresh() {
         label.setText(feature.getName());
         String description = feature.getDescription();
@@ -80,15 +80,15 @@ public class FeatureFigure extends RoundedRectangle {
         else
             toolTip.setText(feature.getId());
     }
-    
+
     @Override
     public void paint(Graphics graphics) {
         super.paint(graphics);
-        
+
         if(constrained)
             graphics.drawImage(constraintDecoration, bounds.x + 2, bounds.y + 2);
     }
-    
+
     @Override
     protected void fillShape(Graphics graphics) {
         Pattern pattern = null;
@@ -96,28 +96,28 @@ public class FeatureFigure extends RoundedRectangle {
             pattern = createPattern(graphics, DrawConstantans.FEATURE_GRADIENT_COLOR, ColorConstants.white);
             graphics.setBackgroundPattern(pattern);
         }
-        
+
         super.fillShape(graphics);
         graphics.setBackgroundPattern(null);
-        
+
         if(pattern != null)
             pattern.dispose();
     }
-            
+
     private Pattern createPattern(Graphics graphics, Color topColor, Color bottomColor) {
         Point top = bounds.getTop();
         Point bottom = bounds.getBottom();
         double scale = graphics.getAbsoluteScale();
-        
+
         // Apply scale.
         int topX = (int) (scale * top.x);
         int topY = (int) (scale * top.y);
         int bottomX = (int) (scale * bottom.x);
         int bottomY = (int) (scale * bottom.y);
-        
+
         return new Pattern(Display.getCurrent(), topX, topY, bottomX, bottomY, topColor, bottomColor);
     }
-    
+
     private void addAttributeFigure(IFigure figure, Object constraint, int index) {
         if(attributes == null) {
             separator = new SeparatorFigure();
@@ -127,7 +127,7 @@ public class FeatureFigure extends RoundedRectangle {
         }
         attributes.add(figure, constraint, index);
     }
-    
+
     private void removeAttributeFigure(IFigure figure) {
         attributes.remove(figure);
         if(attributes.getChildren().isEmpty()) {
@@ -137,7 +137,7 @@ public class FeatureFigure extends RoundedRectangle {
             separator = null;
         }
     }
-    
+
     @Override
     public void add(IFigure figure, Object constraint, int index) {
         if(figure instanceof AttributeFigure)
@@ -145,7 +145,7 @@ public class FeatureFigure extends RoundedRectangle {
         else
             super.add(figure, constraint, index);
     }
-    
+
     @Override
     public void remove(IFigure figure) {
         if(figure instanceof AttributeFigure)
@@ -153,5 +153,5 @@ public class FeatureFigure extends RoundedRectangle {
         else
             super.remove(figure);
     }
-    
+
 }

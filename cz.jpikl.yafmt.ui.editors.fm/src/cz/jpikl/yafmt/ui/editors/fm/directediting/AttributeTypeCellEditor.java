@@ -11,5 +11,5 @@ public class AttributeTypeCellEditor extends ExtendedComboBoxCellEditor {
     public AttributeTypeCellEditor(Composite composite) {
         super(composite, AttributeType.VALUES, FeatureModelProviderUtil.getLabelProvider());
     }
-    
+
 }

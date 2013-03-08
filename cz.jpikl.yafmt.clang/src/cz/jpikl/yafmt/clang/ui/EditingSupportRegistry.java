@@ -9,11 +9,11 @@ import org.eclipse.core.runtime.Platform;
 import cz.jpikl.yafmt.clang.ConstraintLanguagePlugin;
 
 public class EditingSupportRegistry {
-    
+
     private static final String EXTENSION_POINT_ID = "cz.jpikl.yafmt.clang.ui";
 
     private Map<String, EditingSupportDescriptor> registry = new HashMap<String, EditingSupportDescriptor>();
-    
+
     public EditingSupportRegistry() {
         for(IConfigurationElement element: Platform.getExtensionRegistry().getConfigurationElementsFor(EXTENSION_POINT_ID)) {
             try {
@@ -25,14 +25,14 @@ public class EditingSupportRegistry {
             }
         }
     }
-        
+
     public EditingSupportDescriptor getDescriptor(String id) {
         return registry.get(id);
     }
-    
+
     public IEditingSupport getEditingSupport(String id) {
         EditingSupportDescriptor descriptor = registry.get(id);
         return (descriptor == null) ? null : descriptor.getEditingSupport();
     }
-    
+
 }

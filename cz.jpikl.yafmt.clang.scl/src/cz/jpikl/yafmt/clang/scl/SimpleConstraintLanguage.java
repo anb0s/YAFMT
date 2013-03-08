@@ -15,7 +15,7 @@ import cz.jpikl.yafmt.clang.scl.parser.antlr.SimpleConstraintLanguageParser;
 public class SimpleConstraintLanguage extends ConstraintLanguage {
 
     private static SimpleConstraintLanguageParser parser;
-    
+
     public static SimpleConstraintLanguageParser getParser() {
         if(parser == null) {
             // Use dependency injection when creating parser.
@@ -24,7 +24,7 @@ public class SimpleConstraintLanguage extends ConstraintLanguage {
         }
         return parser;
     }
-        
+
     @Override
     public IEvaluator createEvaluator(String constraintValue) throws ConstraintLanguageException {
         try {
@@ -33,11 +33,11 @@ public class SimpleConstraintLanguage extends ConstraintLanguage {
                 String message = result.getSyntaxErrors().iterator().next().getSyntaxErrorMessage().getMessage();
                 throw new ConstraintLanguageException(message);
             }
-            
+
             EObject astRoot = result.getRootASTElement();
             if(!(astRoot instanceof Expression))
                 throw new ConstraintLanguageException("Empty input");
-            
+
             return new SimpleConstraintLanguageEvaluator((Expression) astRoot);
         }
         catch(RuntimeException ex) {

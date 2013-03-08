@@ -7,7 +7,7 @@ import cz.jpikl.yafmt.model.fm.Constraint;
 import cz.jpikl.yafmt.ui.util.DrawConstantans;
 
 public class ConstraintFigure extends NodeFigure {
-    
+
     public ConstraintFigure(Constraint constraint) {
         setFont(DrawConstantans.ITALIC_FONT);
         setBackgroundColor(ColorConstants.white);
@@ -16,10 +16,10 @@ public class ConstraintFigure extends NodeFigure {
         setBorderStyle(SWT.LINE_CUSTOM);
         setBorderDash(DrawConstantans.LINE_DASH);
         setText(constraint.getValue());
-        
+
         String description = constraint.getDescription();
         if((description != null) && !description.isEmpty())
             setToolTipText(description);
     }
-    
+
 }

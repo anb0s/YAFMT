@@ -6,20 +6,20 @@ public class Connection {
 
     private Selection source;
     private Selection target;
-    
+
     public Connection(Selection source, Selection target) {
         this.source = source;
         this.target = target;
     }
-    
+
     public Selection getSource() {
         return source;
     }
-    
+
     public Selection getTarget() {
         return target;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if(!(obj instanceof Connection))
@@ -37,5 +37,5 @@ public class Connection {
             hash += target.hashCode();
         return hash;
     }
-    
+
 }

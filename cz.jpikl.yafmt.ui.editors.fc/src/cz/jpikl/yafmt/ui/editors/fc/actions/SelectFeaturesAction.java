@@ -16,23 +16,23 @@ import cz.jpikl.yafmt.ui.editors.fc.commands.SelectFeatureCommand;
 public class SelectFeaturesAction extends FeatureSelectionAction {
 
     public static final String ID = "cz.jpikl.yafmt.ui.editors.fc.actions.SelectFeaturesAction";
-        
+
     public static RetargetAction createRetargetAction() {
         return (RetargetAction) initAction(new LabelRetargetAction(null, null));
     }
-    
+
     private static IAction initAction(IAction action) {
         action.setId(ID);
         action.setText("Select Features");
         action.setImageDescriptor(FeatureConfigurationEditorPlugin.getImageDescriptor("icons/select.png"));
         return action;
     }
-    
+
     public SelectFeaturesAction(GraphicalEditor editor, FeatureConfigurationManager featureConfigManager) {
         super(editor, featureConfigManager);
         initAction(this);
     }
-    
+
     protected Command getCommand() {
         List<Selection> featuresToSelect = getSelectedFeatures();
         if(featuresToSelect == null)

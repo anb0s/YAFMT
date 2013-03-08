@@ -16,21 +16,21 @@ import cz.jpikl.yafmt.ui.util.SelectionConverter;
 public abstract class FeatureSelectionAction extends SelectionAction {
 
     private FeatureConfigurationManager featureConfigManager;
-    
+
     public FeatureSelectionAction(GraphicalEditor editor, FeatureConfigurationManager featureConfigManager) {
         super(editor);
         this.featureConfigManager = featureConfigManager;
     }
-    
+
     protected FeatureConfigurationManager getFeatureConfigManager() {
         return featureConfigManager;
     }
-    
+
     protected List<Selection> getSelectedFeatures() {
         ISelection selection = SelectionConverter.unwrapSelection(getSelection());
         if(!(selection instanceof IStructuredSelection))
             return null;
-        
+
         List<Selection> selectedFeatures = new ArrayList<Selection>(((IStructuredSelection) selection).size());
         for(Object object: ((IStructuredSelection) selection).toArray()) {
             if(object instanceof Selection)
@@ -38,18 +38,18 @@ public abstract class FeatureSelectionAction extends SelectionAction {
         }
         return selectedFeatures;
     }
-    
+
     protected abstract Command getCommand();
-    
+
     @Override
     protected boolean calculateEnabled() {
         Command command = getCommand();
         return (command != null) && command.canExecute();
     }
-    
+
     @Override
     public void run() {
         execute(getCommand());
     }
-    
+
 }

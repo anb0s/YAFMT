@@ -20,33 +20,33 @@ import cz.jpikl.yafmt.ui.figures.NonInteractiveLabel;
 public class GroupFigure extends RectangleFigure {
 
     public static final int SIZE = 40;
-    
+
     private Label label = new NonInteractiveLabel();
     private Group group;
     private LayoutData layoutData;
-    
+
     private double[] connectionAngles;
     private int arcOffset = 0;
     private int arcLength = 0;
     private Rectangle arcBounds = bounds;
-    
+
     public GroupFigure(Group group, LayoutData layoutData) {
         this.group = group;
         this.layoutData = layoutData;
-        
+
         label.setForegroundColor(ColorConstants.black);
         setOpaque(true);
         setForegroundColor(ColorConstants.black);
         refresh();
     }
-    
+
     @Override
     public void addNotify() {
         super.addNotify();
         // Add label to parent.
         getParent().add(label);
     }
-    
+
     @Override
     public void removeNotify() {
         // Remove label from parent.
@@ -54,7 +54,7 @@ public class GroupFigure extends RectangleFigure {
             label.getParent().remove(label);
         super.removeNotify();
     }
-    
+
     @Override
     protected void fillShape(Graphics graphics) {
         Rectangle fillBounds = arcBounds.getCopy();
@@ -62,15 +62,15 @@ public class GroupFigure extends RectangleFigure {
         fillBounds.height++;
         graphics.fillArc(fillBounds, arcOffset, arcLength);
     }
-    
+
     @Override
     protected void outlineShape(Graphics graphics) {
         graphics.drawArc(arcBounds, arcOffset, arcLength);
     }
-    
+
     public void refresh() {
         refreshCardinality();
-        
+
         Rectangle newBounds = layoutData.get(group);
         if(newBounds != null) {
             setBounds(newBounds.getCopy());
@@ -78,7 +78,7 @@ public class GroupFigure extends RectangleFigure {
             repositionLabel();
         }
     }
-    
+
     private void refreshCardinality() {
         if(group.isOr()) {
             setBackgroundColor(ColorConstants.black);
@@ -93,35 +93,35 @@ public class GroupFigure extends RectangleFigure {
             label.setText(FeatureModelUtil.getCardinality(group));
         }
     }
-            
+
     private void recomputeArcData() {
         List<Feature> features = group.getFeatures();
         int size = features.size();
-        
+
         if(size < 2) {
             arcOffset = 0;
             arcLength = 0;
             arcBounds = bounds;
             return;
         }
-                
+
         connectionAngles = new double[size + 1];
-        connectionAngles[size] = Double.MAX_VALUE; 
+        connectionAngles[size] = Double.MAX_VALUE;
         Point self = bounds.getCenter(); // Do not get this value from layout data, it could be outdated!
-        
+
         // Get angle of each group-to-feature connection.
         for(int i = 0; i < size; i++) {
             Point target = layoutData.get(features.get(i)).getCenter();
             connectionAngles[i] = getAngle(self, target);
         }
-        
+
         // Sort them and and duplicate the first one.
         Arrays.sort(connectionAngles);
         connectionAngles[size] = connectionAngles[0] + 360.0;
-        
+
         int maxIndex = 0;
         double maxDiff = -1.0;
-        
+
         // Find region with the biggest angle difference.
         for(int i = 0; i < size; i++) {
             double diff = connectionAngles[i + 1] - connectionAngles[i];
@@ -130,13 +130,13 @@ public class GroupFigure extends RectangleFigure {
                 maxIndex = i;
             }
         }
-        
+
         // Arc is made between connections outside the found region.
         arcOffset = (int) connectionAngles[maxIndex + 1];
         arcLength = (int) (360.0 - (connectionAngles[maxIndex + 1] - connectionAngles[maxIndex]) + 1);
         arcBounds = getOptimizedBounds();
     }
-        
+
     private double getAngle(Point self, Point target) {
         double dx = target.x - self.x;
         double dy = target.y - self.y;
@@ -158,18 +158,18 @@ public class GroupFigure extends RectangleFigure {
         r.height -= inset1 + inset2;
         return r;
     }
-    
+
     private void repositionLabel() {
         if(label.getText().isEmpty() || label.getParent() == null)
             return;
-        
+
         Dimension size = label.getPreferredSize();
-        
+
         int maxIndex1 = 0;
         int maxIndex2 = 0;
         double maxDiff1 = -1.0;
         double maxDiff2 = -1.0;
-        
+
         // Find region with the 2nd biggest angle difference.
         for(int i = 0; i < (connectionAngles.length - 1); i++) {
             double diff = connectionAngles[i + 1] - connectionAngles[i];
@@ -187,12 +187,12 @@ public class GroupFigure extends RectangleFigure {
 
         // Place the label inside the found region.
         double theta = Math.toRadians((connectionAngles[maxIndex2 + 1] + connectionAngles[maxIndex2]) / 2);
-        int x =   (int) (50.0 * Math.cos(theta)) - size.width / 2;
-        int y = - (int) (50.0 * Math.sin(theta)) - size.width / 2;
-        
+        int x = (int) (50.0 * Math.cos(theta)) - size.width / 2;
+        int y = -(int) (50.0 * Math.sin(theta)) - size.width / 2;
+
         Point position = bounds.getCenter().translate(x, y);
         Rectangle labelBounds = new Rectangle(position, size);
         getParent().setConstraint(label, labelBounds);
     }
-    
+
 }

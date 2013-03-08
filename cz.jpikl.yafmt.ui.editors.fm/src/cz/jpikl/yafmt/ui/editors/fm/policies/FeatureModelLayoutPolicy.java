@@ -34,7 +34,7 @@ public class FeatureModelLayoutPolicy extends XYLayoutEditPolicy {
             return createAutoLayoutCommand();
         return super.getCommand(request);
     }
-    
+
     // Auto layout.
     private Command createAutoLayoutCommand() {
         FeatureModel featureModel = (FeatureModel) getHost().getModel();
@@ -48,14 +48,14 @@ public class FeatureModelLayoutPolicy extends XYLayoutEditPolicy {
         Object object = request.getNewObject();
         if(!(object instanceof Feature))
             return null;
-        
+
         LayoutData layoutData = ((FeatureModelEditPart) getHost()).getLayoutData();
         FeatureModel featureModel = (FeatureModel) getHost().getModel();
         Feature feature = (Feature) object;
         Point location = request.getLocation();
         return new AddFeatureCommand(layoutData, featureModel, feature, location);
     }
-    
+
     // Move/resize elements.
     @Override
     protected Command getChangeConstraintCommand(ChangeBoundsRequest request) {
@@ -73,7 +73,7 @@ public class FeatureModelLayoutPolicy extends XYLayoutEditPolicy {
                     features.add((Feature) model);
             }
             // Remove related group edit parts from request.
-            for(Iterator<?> it = request.getEditParts().iterator(); it.hasNext(); ) {
+            for(Iterator<?> it = request.getEditParts().iterator(); it.hasNext();) {
                 Object model = ((EditPart) it.next()).getModel();
                 if((model instanceof Group) && (features.contains(((Group) model).getParent())))
                     it.remove();
@@ -82,30 +82,30 @@ public class FeatureModelLayoutPolicy extends XYLayoutEditPolicy {
         // No need to proceed empty request.
         if(request.getEditParts().isEmpty())
             return null;
-        
+
         return super.getChangeConstraintCommand(request);
     }
-    
+
     // Move/resize feature or group.
     @Override
     protected Command createChangeConstraintCommand(ChangeBoundsRequest request, EditPart child, Object constraint) {
         Dimension sizeDelta = request.getSizeDelta();
         boolean resizeCommand = (sizeDelta.width != 0) || (sizeDelta.height != 0);
-        
+
         LayoutData layoutData = ((FeatureModelEditPart) getHost()).getLayoutData();
         Object model = child.getModel();
-        
+
         if(model instanceof Feature) {
             if(resizeCommand) {
                 Rectangle deltas = new Rectangle(request.getMoveDelta(), sizeDelta);
                 return new ResizeFeatureCommand(layoutData, (Feature) model, deltas);
-            }            
+            }
             else {
-                return new MoveFeatureCommand(layoutData, (Feature) model, (Rectangle) constraint);   
+                return new MoveFeatureCommand(layoutData, (Feature) model, (Rectangle) constraint);
             }
         }
-        
-        if(model instanceof Group){
+
+        if(model instanceof Group) {
             // Groups can be only moved.
             if(resizeCommand)
                 return null;
@@ -114,5 +114,5 @@ public class FeatureModelLayoutPolicy extends XYLayoutEditPolicy {
 
         return null;
     }
-    
+
 }

@@ -13,7 +13,7 @@ import org.eclipse.zest.layouts.progress.ProgressListener;
 public class LayoutAlgorithmDecorator implements LayoutAlgorithm {
 
     private LayoutAlgorithm algorithm;
-    
+
     public LayoutAlgorithmDecorator(LayoutAlgorithm algorithm) {
         this.algorithm = algorithm;
     }
@@ -99,5 +99,5 @@ public class LayoutAlgorithmDecorator implements LayoutAlgorithm {
     public void removeRelationships(List relationships) {
         algorithm.removeRelationships(relationships);
     }
-    
+
 }

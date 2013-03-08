@@ -8,19 +8,19 @@ import org.eclipse.draw2d.geometry.Point;
 public class SquareDecoration extends RectangleFigure implements RotatableDecoration {
 
     private static final int SIDE = 10;
-    
+
     public SquareDecoration() {
         setForegroundColor(ColorConstants.black);
         setSize(SIDE, SIDE);
     }
-    
+
     public void setFilled(boolean filled) {
         setBackgroundColor(filled ? ColorConstants.black : ColorConstants.white);
     }
-    
+
     @Override
     public void setReferencePoint(Point ref) {
-        translate(- SIDE / 2, - SIDE / 2);
+        translate(-SIDE / 2, -SIDE / 2);
     }
 
 }
