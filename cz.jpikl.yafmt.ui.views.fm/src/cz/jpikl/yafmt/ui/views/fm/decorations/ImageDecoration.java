@@ -2,31 +2,15 @@ package cz.jpikl.yafmt.ui.views.fm.decorations;
 
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.ImageFigure;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
 
-public class ImageDecoration extends ImageFigure implements IDecoration {
+public abstract class ImageDecoration extends ImageFigure implements IDecoration {
 
     private int alpha = 255;
 
     public ImageDecoration(Image image) {
         super(image);
         setSize(12, 12);
-    }
-
-    @Override
-    public boolean isAutoPositioned() {
-        return true;
-    }
-
-    @Override
-    public boolean isOnTop() {
-        return true;
-    }
-
-    @Override
-    public Rectangle computeBounds(Rectangle parentBounds) {
-        return null;
     }
 
     @Override
@@ -42,6 +26,16 @@ public class ImageDecoration extends ImageFigure implements IDecoration {
         return alpha;
     }
 
+    @Override
+    public boolean isAutoPositioned() {
+        return false;
+    }
+
+    @Override
+    public boolean isOnTop() {
+        return true;
+    }
+    
     @Override
     public void paint(Graphics graphics) {
         graphics.setAlpha(alpha);

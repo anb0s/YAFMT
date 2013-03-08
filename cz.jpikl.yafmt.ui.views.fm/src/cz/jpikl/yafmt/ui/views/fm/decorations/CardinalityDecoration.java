@@ -57,8 +57,8 @@ public class CardinalityDecoration extends Label implements IDecoration {
 
     @Override
     public Rectangle computeBounds(Rectangle parentBounds) {
-        int x = parentBounds.x + parentBounds.width - 1;
-        int y = parentBounds.y - bounds.height + 1;
+        int x = parentBounds.x + parentBounds.width - 2;
+        int y = parentBounds.y - bounds.height + 2;
         return new Rectangle(x, y, bounds.width, bounds.height);
     }
 
