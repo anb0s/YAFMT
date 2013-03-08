@@ -18,10 +18,10 @@ public class DrawConstantans {
 
     public static final Color FEATURE_COLOR = getColor(0, 0, 127);
     public static final Color FEATURE_HL_COLOR = getColor(128, 128, 255);
-    public static final Color CONSTRAINT_COLOR = getColor(204, 49, 1);
-    public static final Color CONSTRAINT_HL_COLOR = getColor(255, 158, 128);
-    public static final Color GROUP_COLOR = getColor(30, 92, 52);
-    public static final Color GROUP_HL_COLOR = getColor(102, 204, 138);
+    public static final Color CONSTRAINT_COLOR = getColor(91, 36, 120);
+    public static final Color CONSTRAINT_HL_COLOR = getColor(215, 195, 225);
+    public static final Color GROUP_COLOR = getColor(36, 120, 113);
+    public static final Color GROUP_HL_COLOR = getColor(204, 229, 227);
 
     public static final float[] LINE_DASH = { 2, 2 };
 

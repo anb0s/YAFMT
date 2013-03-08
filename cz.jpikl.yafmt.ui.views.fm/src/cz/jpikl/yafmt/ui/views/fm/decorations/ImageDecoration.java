@@ -11,7 +11,7 @@ public class ImageDecoration extends ImageFigure implements IDecoration {
 
     public ImageDecoration(Image image) {
         super(image);
-        setSize(16, 16);
+        setSize(12, 12);
     }
 
     @Override

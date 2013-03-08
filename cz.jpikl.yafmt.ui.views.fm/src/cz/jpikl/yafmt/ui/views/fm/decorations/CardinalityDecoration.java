@@ -11,6 +11,7 @@ import cz.jpikl.yafmt.ui.util.DrawConstantans;
 
 public class CardinalityDecoration extends Label implements IDecoration {
 
+    private static final int ARC_SIZE = 6;
     private static final Label MANDATORY_TOOL_TIP = new Label("Feature is mandatory.");
     private static final Label MANDATORY_CLONNABLE_TOOL_TIP = new Label("Feature is mandatory and clonnable.");
     private static final Label OPTIONAL_TOOL_TIP = new Label("Feature is optional.");
@@ -66,8 +67,8 @@ public class CardinalityDecoration extends Label implements IDecoration {
         graphics.setAlpha(alpha);
         graphics.setForegroundColor(ColorConstants.lightGray);
         graphics.setBackgroundColor(ColorConstants.white);
-        graphics.fillRoundRectangle(bounds, 4, 4);
-        graphics.drawRoundRectangle(bounds.getCopy().resize(-1, -1), 4, 4);
+        graphics.fillRoundRectangle(bounds, ARC_SIZE, ARC_SIZE);
+        graphics.drawRoundRectangle(bounds.getCopy().resize(-1, -1), ARC_SIZE, ARC_SIZE);
         super.paint(graphics);
     }
 
