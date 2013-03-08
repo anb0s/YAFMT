@@ -52,7 +52,7 @@ public class FeatureModelLayoutPolicy extends XYLayoutEditPolicy {
         LayoutData layoutData = ((FeatureModelEditPart) getHost()).getLayoutData();
         FeatureModel featureModel = (FeatureModel) getHost().getModel();
         Feature feature = (Feature) object;
-        Point location = request.getLocation();
+        Point location = ((Rectangle) getConstraintFor(request)).getLocation();
         return new AddFeatureCommand(layoutData, featureModel, feature, location);
     }
 
