@@ -30,6 +30,7 @@ public class FeatureConfigurationManager {
     private List<IFeatureConfigurationListener> listeners = new ArrayList<IFeatureConfigurationListener>();
     private List<IFeatureConfigurationValidator> validators = new ArrayList<IFeatureConfigurationValidator>();
     private boolean makeVirtualConnections = true;
+    private boolean makeDisabledVirtualConnetions = false;
     private FeatureConfiguration featureConfig;
 
     public FeatureConfigurationManager(FeatureConfiguration featureConfig) {
@@ -141,17 +142,19 @@ public class FeatureConfigurationManager {
             }
 
             // Allow to select feature only if we don't break local constraint.
-            if((allowedFeaturesCount > 0) && (childrenSelections.size() < groupUpper)) {
+            boolean enabled = childrenSelections.size() < groupUpper; // Does group allow one more feature?
+            boolean allowed = (allowedFeaturesCount > 0);             // Is another feature clone allowed?
+            if(allowed && (enabled || makeDisabledVirtualConnetions)) {
                 Selection childSelection = FeatureConfigurationUtil.createSelection(childFeature);
-                addVirtualConnection(parentSelection, childSelection, startingIndex);
+                addVirtualConnection(parentSelection, childSelection, startingIndex, enabled);
             }
         }
 
         return startingIndex;
     }
 
-    private void addVirtualConnection(Selection parentSelection, Selection childSelection, int insertPosition) {
-        SelectionWrapper childWrapper = new SelectionWrapper(featureConfig, childSelection, insertPosition);
+    private void addVirtualConnection(Selection parentSelection, Selection childSelection, int insertPosition, boolean enabled) {
+        SelectionWrapper childWrapper = new SelectionWrapper(featureConfig, childSelection, insertPosition, enabled);
 
         // Parent to child connection.
         List<SelectionWrapper> childrenSelections = virtualConnections.get(parentSelection);
@@ -165,12 +168,13 @@ public class FeatureConfigurationManager {
         virtualConnectionsOpposite.put(childWrapper, parentSelection);
     }
 
-    public void setSelectableFeaturesVisible(boolean visible) {
-        makeVirtualConnections = visible;
+    public void setSelectableFeaturesVisibility(boolean showSelectable, boolean showDisabled) {
+        makeVirtualConnections = showSelectable;
+        makeDisabledVirtualConnetions = makeVirtualConnections && showDisabled;
         rebuildVirtualConnections();
         fireFeaturesSelected(new ArrayList<Selection>(1));
     }
-
+    
     // ===========================================================================
     //  Query operations
     // ===========================================================================
@@ -229,10 +233,14 @@ public class FeatureConfigurationManager {
     }
 
     public boolean canSelectFeature(Selection selection) {
-        return virtualConnectionsOpposite.containsKey(selection);
+        return (selection instanceof SelectionWrapper) && ((SelectionWrapper) selection).isEnabled();
     }
 
     private boolean selectFeature(Selection selection) {
+        // Check if it is enabled.
+        if(!canSelectFeature(selection))
+            return false;
+        
         // Look for parent selection.
         Selection parentSelection = virtualConnectionsOpposite.get(selection);
         if(parentSelection == null)
@@ -253,6 +261,7 @@ public class FeatureConfigurationManager {
         SelectionWrapper childWrapper = childrenSelections.remove(index);
         for(int i = index; i < childrenSelections.size(); i++)
             childrenSelections.get(i).incrementInsertPosition();
+        // Original selection must be returned. EMF expect something that implements InternalEObject. 
         parentSelection.getSelections().add(childWrapper.getInsertPosition(), childWrapper.getOriginalSelection());
         return true;
     }

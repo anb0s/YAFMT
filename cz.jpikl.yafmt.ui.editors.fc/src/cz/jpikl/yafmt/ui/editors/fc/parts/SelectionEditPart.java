@@ -27,7 +27,6 @@ public class SelectionEditPart extends AbstractGraphicalEditPart implements Node
     private Selection selection;
 
     public SelectionEditPart(FeatureConfigurationManager featureConfigManager, Selection selection) {
-
         this.featureConfigManager = featureConfigManager;
         this.selection = selection;
         setModel(selection);

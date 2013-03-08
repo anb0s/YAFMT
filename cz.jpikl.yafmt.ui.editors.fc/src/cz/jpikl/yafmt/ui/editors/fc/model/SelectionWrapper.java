@@ -17,16 +17,14 @@ public class SelectionWrapper extends EObjectDecorator implements Selection {
     private FeatureConfiguration featureConfig;
     private Selection selection;
     private int insertPosition;
+    private boolean enabled;
 
-    public SelectionWrapper(FeatureConfiguration featureConfig, Selection selection) {
-        this(featureConfig, selection, -1);
-    }
-
-    public SelectionWrapper(FeatureConfiguration featureConfig, Selection selection, int insertPosition) {
+    public SelectionWrapper(FeatureConfiguration featureConfig, Selection selection, int insertPosition, boolean enabled) {
         super(selection);
         this.featureConfig = featureConfig;
         this.selection = selection;
         this.insertPosition = insertPosition;
+        this.enabled = enabled;
     }
 
     public Selection getOriginalSelection() {
@@ -39,6 +37,10 @@ public class SelectionWrapper extends EObjectDecorator implements Selection {
 
     public void incrementInsertPosition() {
         insertPosition++;
+    }
+    
+    public boolean isEnabled() {
+        return enabled;
     }
 
     // ===============================================================

@@ -10,12 +10,14 @@ import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.RoundedRectangle;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Pattern;
 import org.eclipse.swt.widgets.Display;
 
 import cz.jpikl.yafmt.model.fc.Selection;
+import cz.jpikl.yafmt.ui.editors.fc.model.SelectionWrapper;
 import cz.jpikl.yafmt.ui.util.DrawConstantans;
 
 public class SelectionFigure extends RoundedRectangle {
@@ -58,6 +60,18 @@ public class SelectionFigure extends RoundedRectangle {
         label.setText(selection.getName());
         toolTip.setText(baseDescription);
     }
+    
+    private boolean hasSelectedFeature() {
+        return !hasSelectableFeature();
+    }
+    
+    private boolean hasSelectableFeature() {
+        return (selection instanceof SelectionWrapper);
+    }
+    
+    private boolean hasDisabledFeature() {
+        return hasSelectableFeature() && !((SelectionWrapper) selection).isEnabled();
+    }
 
     public void setHighlighted(boolean highlighted) {
         setLineWidth(highlighted ? 2 : 1);
@@ -81,7 +95,7 @@ public class SelectionFigure extends RoundedRectangle {
         Color color = ColorConstants.lightGray;
         Pattern pattern = null;
 
-        if(selection.eContainer() != null) {
+        if(hasSelectedFeature()) {
             if(selectionError) {
                 color = ColorConstants.red;
                 pattern = createPattern(graphics, DrawConstantans.ERROR_GRADIENT_COLOR, ColorConstants.white);
@@ -103,6 +117,19 @@ public class SelectionFigure extends RoundedRectangle {
             graphics.setBackgroundPattern(null);
             pattern.dispose();
         }
+    }
+    
+    @Override
+    protected void outlineShape(Graphics graphics) {
+        if(hasDisabledFeature()) {
+            Rectangle rect = bounds.getCopy().shrink(2, 2);
+            graphics.setLineStyle(SWT.LINE_CUSTOM);
+            graphics.setLineDash(DrawConstantans.LINE_DASH);
+            graphics.drawLine(rect.getTopLeft(), rect.getBottomRight());
+            graphics.drawLine(rect.getBottomLeft(), rect.getTopRight());
+        }
+        
+        super.outlineShape(graphics);
     }
 
     private Pattern createPattern(Graphics graphics, Color topColor, Color bottomColor) {

@@ -15,7 +15,6 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
@@ -29,8 +28,8 @@ import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.ui.actions.ExportGraphicalEditorAsImageAction;
 import cz.jpikl.yafmt.ui.actions.ShowFeatureModelVisualizerAction;
 import cz.jpikl.yafmt.ui.editors.ModelEditor;
-import cz.jpikl.yafmt.ui.editors.fc.actions.SelectFeaturesAction;
 import cz.jpikl.yafmt.ui.editors.fc.actions.DeselectFeaturesAction;
+import cz.jpikl.yafmt.ui.editors.fc.actions.SelectFeaturesAction;
 import cz.jpikl.yafmt.ui.editors.fc.layout.FeatureConfigurationLayoutHelper;
 import cz.jpikl.yafmt.ui.editors.fc.layout.HorizontalTreeLayout;
 import cz.jpikl.yafmt.ui.editors.fc.layout.TreeLayout;
@@ -71,37 +70,41 @@ public class FeatureConfigurationEditor extends ModelEditor {
     private void createSettingsPanel(Composite parent) {
         Composite panel = new Composite(parent, SWT.NONE);
         panel.setLayoutData(new GridData(SWT.LEFT, SWT.FILL, true, false));
-        panel.setLayout(new GridLayout(3, false));
+        panel.setLayout(new GridLayout(4, false));
 
-        Label label = new Label(panel, SWT.NONE);
-        label.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
-        label.setText("Layout: ");
+        Label layoutLabel = new Label(panel, SWT.NONE);
+        layoutLabel.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
+        layoutLabel.setText("Layout: ");
 
-        Combo combo = new Combo(panel, SWT.READ_ONLY);
-        combo.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
+        Combo layoutCombo = new Combo(panel, SWT.READ_ONLY);
+        layoutCombo.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
         for(TreeLayout layout: EDITOR_LAYOUTS)
-            combo.add(layout.getName());
+            layoutCombo.add(layout.getName());
 
-        combo.select(0);
-        combo.addSelectionListener(new SelectionAdapter() {
-
+        layoutCombo.select(0);
+        layoutCombo.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent event) {
                 int index = ((Combo) event.getSource()).getSelectionIndex();
                 setEditorLayout(EDITOR_LAYOUTS[index]);
             }
         });
+        
+        Label visibilityLabel = new Label(panel, SWT.NONE);
+        visibilityLabel.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
+        visibilityLabel.setText("Unselected Features Visibility: ");
 
-        Button showSelectableFeaturesButton = new Button(panel, SWT.CHECK);
-        showSelectableFeaturesButton.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
-        showSelectableFeaturesButton.setText("Show Selectable Features");
-        showSelectableFeaturesButton.setSelection(true);
-        showSelectableFeaturesButton.addSelectionListener(new SelectionAdapter() {
-
+        Combo visibilityCombo = new Combo(panel, SWT.READ_ONLY);
+        visibilityCombo.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
+        visibilityCombo.add("Hide All");
+        visibilityCombo.add("Show Only Selectable");
+        visibilityCombo.add("Show All");
+        visibilityCombo.setText(visibilityCombo.getItem(1));
+        visibilityCombo.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent event) {
-                Button button = (Button) event.getSource();
-                featureConfigManager.setSelectableFeaturesVisible(button.getSelection());
+                int index = ((Combo) event.getSource()).getSelectionIndex();
+                featureConfigManager.setSelectableFeaturesVisibility(index > 0, index > 1);
             }
         });
     }
