@@ -2,6 +2,8 @@ package cz.jpikl.yafmt.ui.views.fm;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.util.EContentAdapter;
+import org.eclipse.jface.viewers.DoubleClickEvent;
+import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -145,6 +147,12 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         viewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         viewer.setNodeStyle(settings.isAnimationEnabled() ? ZestStyles.NONE : ZestStyles.NODES_NO_ANIMATION);
         viewer.setFilters(new ViewerFilter[] { distanceFilter, groupFilter, constraintFilter });
+        viewer.addDoubleClickListener(new IDoubleClickListener() {
+            @Override
+            public void doubleClick(DoubleClickEvent event) {
+                refreshAll(event.getSelection());
+            }
+        });
 
         SWTUtil.enableAntialiasing(viewer.getControl()); // Enable antialiasing on Windows.
         getSite().setSelectionProvider(viewer);
@@ -249,6 +257,15 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
             viewer.getGraphControl().setPreferredSize(-1, -1);
         }
     }
+    
+    private void refreshAll(ISelection selection) {
+        distanceFilter.update(selection, featureModel);
+        groupFilter.update(selection);
+        constraintFilter.update(selection, featureModel);
+        ((FeatureModelStyleProvider) viewer.getLabelProvider()).refresh(selection);
+        viewer.refresh();
+        viewer.applyLayout();
+    }
 
     // ===========================================================================
     //  Event handling
@@ -312,21 +329,15 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         if(!currentSelection.equals(selection)) {
             currentSelection = selection; // Viewer may not contain all selected elements, so we have to remember them.
 
-            if(!settings.isViewLocked()) {
-                distanceFilter.update(selection, featureModel);
-                groupFilter.update(selection);
-                constraintFilter.update(selection, featureModel);
-                ((FeatureModelStyleProvider) viewer.getLabelProvider()).refresh(selection);
-                viewer.refresh();
-                viewer.applyLayout();
-            }
+            if(!settings.isViewLocked())
+                refreshAll(selection);
 
             viewer.setSelection(selection);
             if(settings.isViewLocked())
                 viewer.moveViewportToSelection(selection); // Do not move viewport when layout animation is in progress!
         }
     }
-
+    
     @Override
     public void partClosed(IWorkbenchPart part) {
         if(part == sourcePart) {

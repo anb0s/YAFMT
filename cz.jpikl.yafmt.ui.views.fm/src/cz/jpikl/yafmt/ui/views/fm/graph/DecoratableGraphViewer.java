@@ -12,6 +12,7 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -61,6 +62,12 @@ public class DecoratableGraphViewer extends GraphViewer {
         graph.setMenu(manager.createContextMenu(graph));
     }
 
+    @Override
+    protected void fireDoubleClick(DoubleClickEvent event) {
+        super.fireDoubleClick(event);
+        refreshHightlight(); // Must be called after.
+    }
+    
     @Override
     protected void firePostSelectionChanged(SelectionChangedEvent event) {
         refreshHightlight();
