@@ -103,6 +103,15 @@ public class FeatureFigure extends RoundedRectangle {
         if(pattern != null)
             pattern.dispose();
     }
+    
+    @Override
+    protected void outlineShape(Graphics graphics) {
+        if(orphaned) {
+            graphics.setLineStyle(SWT.LINE_CUSTOM);
+            graphics.setLineDash(DrawConstantans.LINE_DASH);
+        }
+        super.outlineShape(graphics);
+    }
 
     private Pattern createPattern(Graphics graphics, Color topColor, Color bottomColor) {
         Point top = bounds.getTop();
