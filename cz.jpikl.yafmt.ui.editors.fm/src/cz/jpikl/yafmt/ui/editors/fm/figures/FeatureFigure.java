@@ -108,7 +108,7 @@ public class FeatureFigure extends RoundedRectangle {
     protected void outlineShape(Graphics graphics) {
         if(orphaned) {
             graphics.setLineStyle(SWT.LINE_CUSTOM);
-            graphics.setLineDash(DrawConstantans.LINE_DASH);
+            graphics.setLineDash(DrawConstantans.LINE_DASHED);
         }
         super.outlineShape(graphics);
     }

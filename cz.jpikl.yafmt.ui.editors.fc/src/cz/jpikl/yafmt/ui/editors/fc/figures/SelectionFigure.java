@@ -124,7 +124,7 @@ public class SelectionFigure extends RoundedRectangle {
         if(hasDisabledFeature()) {
             Rectangle rect = bounds.getCopy().shrink(2, 2);
             graphics.setLineStyle(SWT.LINE_CUSTOM);
-            graphics.setLineDash(DrawConstantans.LINE_DASH);
+            graphics.setLineDash(DrawConstantans.LINE_DASHED);
             graphics.drawLine(rect.getTopLeft(), rect.getBottomRight());
             graphics.drawLine(rect.getBottomLeft(), rect.getTopRight());
         }

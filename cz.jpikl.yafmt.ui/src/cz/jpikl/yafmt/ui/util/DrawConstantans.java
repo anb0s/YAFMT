@@ -23,7 +23,8 @@ public class DrawConstantans {
     public static final Color GROUP_COLOR = getColor(36, 120, 113);
     public static final Color GROUP_HL_COLOR = getColor(204, 229, 227);
 
-    public static final float[] LINE_DASH = { 2, 2 };
+    public static final float[] LINE_DASHED = { 2.0f, 2.0f };
+    public static final float[] LINE_DOTTED = { 1.0f, 2.0f };
 
     public static void dispose() {
         BOLD_FONT.dispose();

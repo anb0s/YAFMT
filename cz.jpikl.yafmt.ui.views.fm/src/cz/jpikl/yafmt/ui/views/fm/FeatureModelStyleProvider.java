@@ -106,7 +106,7 @@ public class FeatureModelStyleProvider extends LabelProviderAdapter {
         // Set better line style
         if(connection.getLineStyle() == SWT.LINE_DOT) {
             connection.setLineStyle(SWT.LINE_CUSTOM);
-            ((PolylineConnection) figure).setLineDash(DrawConstantans.LINE_DASH);
+            ((PolylineConnection) figure).setLineDash(DrawConstantans.LINE_DASHED);
         }
 
         // Replace connection anchors.

@@ -15,7 +15,7 @@ public class GroupFigure extends NodeFigure {
         setForegroundColor(DrawConstantans.GROUP_COLOR);
         setHightlightColor(DrawConstantans.GROUP_HL_COLOR);
         setBorderStyle(SWT.LINE_CUSTOM);
-        setBorderDash(DrawConstantans.LINE_DASH);
+        setBorderDash(DrawConstantans.LINE_DASHED);
 
         String cardinality;
         if(group.isOr())
