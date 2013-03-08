@@ -64,7 +64,6 @@ public class FeatureConfigurationUtil {
     public static void hookResourceFactoryRegistry() {
         Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("yafc",
                 new XMIResourceFactoryImpl() {
-
                     @Override
                     public Resource createResource(URI uri) {
                         XMIResource resource = (XMIResource) super.createResource(uri);

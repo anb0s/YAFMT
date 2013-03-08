@@ -133,7 +133,6 @@ public class ConstraintsEditor extends SplitterDock implements ISelectionListene
         viewer.setInput(featureModel);
 
         viewer.getTable().addMouseListener(new MouseAdapter() {
-
             @Override
             public void mouseDoubleClick(MouseEvent event) {
                 Object selection = ((IStructuredSelection) viewer.getSelection()).getFirstElement();
@@ -143,7 +142,6 @@ public class ConstraintsEditor extends SplitterDock implements ISelectionListene
         });
 
         viewer.getTable().addKeyListener(new KeyAdapter() {
-
             @Override
             public void keyPressed(KeyEvent event) {
                 if(event.keyCode == SWT.DEL) {
@@ -169,7 +167,6 @@ public class ConstraintsEditor extends SplitterDock implements ISelectionListene
         filterButton.setToolTipText("Filter by Feature Selection");
         filterButton.setImage(FeatureModelEditorPlugin.getDefault().getImageRegistry().get("filter"));
         filterButton.addSelectionListener(new SelectionAdapter() {
-
             @Override
             public void widgetSelected(SelectionEvent event) {
                 filterEnabled = filterButton.getSelection();

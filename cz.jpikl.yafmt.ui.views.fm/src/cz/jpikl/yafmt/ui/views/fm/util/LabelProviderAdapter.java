@@ -15,10 +15,10 @@ import org.eclipse.zest.core.widgets.GraphNode;
 import org.eclipse.zest.core.widgets.ZestStyles;
 
 public class LabelProviderAdapter implements IFigureProvider,
-                                 ILabelProvider,
-                                 IEntityStyleProvider,
-                                 IEntityConnectionStyleProvider,
-                                 ISelfStyleProvider {
+                                             ILabelProvider,
+                                             IEntityStyleProvider,
+                                             IEntityConnectionStyleProvider,
+                                             ISelfStyleProvider {
 
     @Override
     public void dispose() {

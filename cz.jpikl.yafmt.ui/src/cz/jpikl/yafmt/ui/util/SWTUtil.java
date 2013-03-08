@@ -15,7 +15,6 @@ public class SWTUtil {
 
         // Our listener must be the first one.
         control.addListener(SWT.Paint, new Listener() {
-
             @Override
             public void handleEvent(Event event) {
                 event.gc.setAntialias(SWT.ON);

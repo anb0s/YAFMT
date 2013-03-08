@@ -51,7 +51,6 @@ public class SimpleConstraintLanguageEditingSupport extends EditingSupport {
         Injector injector = SimpleConstraintLanguageActivator.getInstance().getInjector(languageId);
 
         XtextStyledTextCellEditor cellEditor = new XtextStyledTextCellEditor(SWT.SINGLE, injector) {
-
             @Override
             protected StyledText createStyledText(Composite parent) {
                 // Very ugly hack that blocks throwing of SWTException

@@ -15,7 +15,6 @@ public class FeatureConfigurationProviderUtil {
 
     public static AdapterFactoryContentProvider getContentProvider() {
         return new AdapterFactoryContentProvider(adapterFactory) {
-
             @Override
             protected IPropertySource createPropertySource(Object object, IItemPropertySource itemPropertySource) {
                 return new ValidatingPropertySource(object, itemPropertySource, validator);

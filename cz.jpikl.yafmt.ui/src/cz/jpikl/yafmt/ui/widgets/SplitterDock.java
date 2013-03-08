@@ -119,7 +119,6 @@ public abstract class SplitterDock extends Composite {
         collapseButonBar.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, true));
         collapseButton = new ToolItem(collapseButonBar, SWT.NONE);
         collapseButton.addSelectionListener(new SelectionAdapter() {
-
             @Override
             public void widgetSelected(SelectionEvent e) {
                 switchState();
@@ -131,7 +130,6 @@ public abstract class SplitterDock extends Composite {
         MenuManager manager = new MenuManager();
         manager.setRemoveAllWhenShown(true);
         manager.addMenuListener(new IMenuListener() {
-
             @Override
             public void menuAboutToShow(IMenuManager manager) {
                 contributeToContextMenu(manager);

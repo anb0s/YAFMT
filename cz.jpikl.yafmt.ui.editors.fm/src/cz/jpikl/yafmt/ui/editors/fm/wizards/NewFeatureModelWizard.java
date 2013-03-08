@@ -99,7 +99,6 @@ public class NewFeatureModelWizard extends NewFileWizard {
             nameText = new Text(parent, SWT.SINGLE | SWT.BORDER);
             nameText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
             nameText.addModifyListener(new ModifyListener() {
-
                 @Override
                 public void modifyText(ModifyEvent e) {
                     revalidatePage();

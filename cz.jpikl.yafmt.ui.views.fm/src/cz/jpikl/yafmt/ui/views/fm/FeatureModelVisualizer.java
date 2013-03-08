@@ -43,9 +43,9 @@ import cz.jpikl.yafmt.ui.views.fm.settings.ISettingsListener;
 import cz.jpikl.yafmt.ui.views.fm.settings.Settings;
 
 public class FeatureModelVisualizer extends ViewPart implements ISelectionListener,
-                                                    IPartListener,
-                                                    ISettingsListener,
-                                                    IContributedContentsView {
+                                                                IPartListener,
+                                                                ISettingsListener,
+                                                                IContributedContentsView {
 
     public static final String ID = "cz.jpikl.yafmt.ui.views.fm";
     private static final int CONNECTION_LENGHT = 200;
@@ -122,7 +122,6 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         viewer.applyLayout();
 
         parent.addControlListener(new ControlAdapter() {
-
             @Override
             public void controlResized(ControlEvent event) {
                 if(!settings.isFixedSize()) {

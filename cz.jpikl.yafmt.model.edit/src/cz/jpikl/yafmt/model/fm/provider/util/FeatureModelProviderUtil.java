@@ -13,7 +13,6 @@ public class FeatureModelProviderUtil {
 
     public static AdapterFactoryContentProvider getContentProvider() {
         return new AdapterFactoryContentProvider(adapterFactory) {
-
             @Override
             protected IPropertySource createPropertySource(Object object, IItemPropertySource itemPropertySource) {
                 return new FeatureModelPropertySource(object, itemPropertySource);

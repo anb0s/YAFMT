@@ -126,7 +126,6 @@ public class Settings {
         groupsButton.setToolTipText("Show Groups (Local Constraitns)");
         groupsButton.setImage(FeatureModelVisualizerPlugin.getDefault().getImageRegistry().get("group"));
         groupsButton.addSelectionListener(new SelectionAdapter() {
-
             @Override
             public void widgetSelected(SelectionEvent event) {
                 groupsVisible = groupsButton.getSelection();
@@ -142,7 +141,6 @@ public class Settings {
         constraintsButton.setToolTipText("Show (Global) Constraints");
         constraintsButton.setImage(FeatureModelVisualizerPlugin.getDefault().getImageRegistry().get("constraint"));
         constraintsButton.addSelectionListener(new SelectionAdapter() {
-
             @Override
             public void widgetSelected(SelectionEvent event) {
                 constraintsVisible = constraintsButton.getSelection();
@@ -158,7 +156,6 @@ public class Settings {
         lockButton.setToolTipText("Lock View");
         lockButton.setImage(FeatureModelVisualizerPlugin.getDefault().getImageRegistry().get("lock"));
         lockButton.addSelectionListener(new SelectionAdapter() {
-
             @Override
             public void widgetSelected(SelectionEvent event) {
                 viewLocked = lockButton.getSelection();
@@ -179,7 +176,6 @@ public class Settings {
         distanceCombo.setItems(new String[] { "infinite", "1", "2" });
         distanceCombo.setText(distanceCombo.getItem(Math.max(0, visibleDistance)));
         distanceCombo.addSelectionListener(new SelectionAdapter() {
-
             @Override
             public void widgetSelected(SelectionEvent event) {
                 int index = distanceCombo.getSelectionIndex();
@@ -200,7 +196,6 @@ public class Settings {
         sizeButton.setSelection(fixedSize);
         sizeButton.setText("Adjust size:");
         sizeButton.addSelectionListener(new SelectionAdapter() {
-
             @Override
             public void widgetSelected(SelectionEvent event) {
                 fixedSize = sizeButton.getSelection();
@@ -215,7 +210,6 @@ public class Settings {
         sizeCombo.setText(sizeCombo.getItem(sizeMultiplier - 1));
         sizeCombo.setEnabled(fixedSize);
         sizeCombo.addSelectionListener(new SelectionAdapter() {
-
             @Override
             public void widgetSelected(SelectionEvent event) {
                 sizeMultiplier = sizeCombo.getSelectionIndex() + 1;
@@ -235,7 +229,6 @@ public class Settings {
         animationButton.setSelection(animationEnabled);
         animationButton.setText("Enable Animation");
         animationButton.addSelectionListener(new SelectionAdapter() {
-
             @Override
             public void widgetSelected(SelectionEvent event) {
                 animationEnabled = animationButton.getSelection();
@@ -250,7 +243,6 @@ public class Settings {
         animationCombo.setText(animationSpeed.getName());
         animationCombo.setEnabled(animationEnabled);
         animationCombo.addSelectionListener(new SelectionAdapter() {
-
             @Override
             public void widgetSelected(SelectionEvent e) {
                 int index = animationCombo.getSelectionIndex();

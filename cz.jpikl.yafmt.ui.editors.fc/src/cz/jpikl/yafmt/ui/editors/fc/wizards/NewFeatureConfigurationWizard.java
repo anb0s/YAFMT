@@ -160,7 +160,6 @@ public class NewFeatureConfigurationWizard extends NewFileWizard {
             featureModelFileText = new Text(parent, SWT.SINGLE | SWT.BORDER);
             featureModelFileText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
             featureModelFileText.addModifyListener(new ModifyListener() {
-
                 @Override
                 public void modifyText(ModifyEvent e) {
                     revalidatePage();
@@ -170,7 +169,6 @@ public class NewFeatureConfigurationWizard extends NewFileWizard {
             Button browseButton = new Button(parent, SWT.NONE);
             browseButton.setText("Browse");
             browseButton.addSelectionListener(new SelectionAdapter() {
-
                 @Override
                 public void widgetSelected(SelectionEvent e) {
                     openFeatureModelOpenDialog();
@@ -188,7 +186,6 @@ public class NewFeatureConfigurationWizard extends NewFileWizard {
             nameText = new Text(parent, SWT.SINGLE | SWT.BORDER);
             nameText.setLayoutData(gridData);
             nameText.addModifyListener(new ModifyListener() {
-
                 @Override
                 public void modifyText(ModifyEvent e) {
                     revalidatePage();

@@ -53,7 +53,6 @@ public class DecoratableGraphViewer extends GraphViewer {
         MenuManager manager = new MenuManager();
         manager.setRemoveAllWhenShown(true);
         manager.addMenuListener(new IMenuListener() {
-
             @Override
             public void menuAboutToShow(IMenuManager manager) {
                 manager.add(exportAsImageAction);

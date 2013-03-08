@@ -136,7 +136,6 @@ public class FeatureModelEditor extends ModelEditor {
     @Override
     protected PaletteViewerProvider createPaletteViewerProvider() {
         return new PaletteViewerProvider(getEditDomain()) {
-
             @Override
             protected void configurePaletteViewer(PaletteViewer viewer) {
                 super.configurePaletteViewer(viewer);
@@ -173,7 +172,6 @@ public class FeatureModelEditor extends ModelEditor {
         createAction(new AutoLayoutAction(this));
         createAction(new ShowFeatureModelVisualizerAction());
         createAction(new ExportGraphicalEditorAsImageAction(this) {
-
             @Override
             protected String getDefaultName() {
                 return featureModel.getName();

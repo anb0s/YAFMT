@@ -56,7 +56,6 @@ public class FeatureModelUtil {
     public static void hookResourceFactoryRegistry() {
         Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("yafm",
                 new XMIResourceFactoryImpl() {
-
                     @Override
                     public Resource createResource(URI uri) {
                         XMIResource resource = (XMIResource) super.createResource(uri);

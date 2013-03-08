@@ -157,7 +157,6 @@ public class FeatureConfigurationEditor extends ModelEditor {
         super.createActions();
         createAction(new ShowFeatureModelVisualizerAction());
         createAction(new ExportGraphicalEditorAsImageAction(this) {
-
             @Override
             protected String getDefaultName() {
                 return featureConfig.getName();
