@@ -18,8 +18,8 @@ import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.part.IContributedContentsView;
 import org.eclipse.ui.part.ViewPart;
-import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.PropertySheet;
 import org.eclipse.zest.core.widgets.ZestStyles;
 
@@ -44,7 +44,8 @@ import cz.jpikl.yafmt.ui.views.fm.settings.Settings;
 
 public class FeatureModelVisualizer extends ViewPart implements ISelectionListener,
                                                     IPartListener,
-                                                    ISettingsListener {
+                                                    ISettingsListener,
+                                                    IContributedContentsView {
 
     public static final String ID = "cz.jpikl.yafmt.ui.views.fm";
     private static final int CONNECTION_LENGHT = 200;
@@ -254,6 +255,13 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
     //  Event handling
     // ===========================================================================
 
+    @Override
+    public IWorkbenchPart getContributingPart() {
+        // This make the property sheet view working.
+        // PropertySheet takes via this method the workbench part which content should display.
+        return sourcePart;
+    }
+
     private ISelection unwrapSelection(ISelection selection) {
         if(!(selection instanceof IStructuredSelection))
             return null;
@@ -369,19 +377,6 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
             }
         }
 
-    }
-
-    // ===========================================================================
-    //  Adapters
-    // ===========================================================================
-
-    @Override
-    @SuppressWarnings("rawtypes")
-    public Object getAdapter(Class type) {
-        // Reuse property sheet from editor.
-        if((type == IPropertySheetPage.class) && (sourcePart != null))
-            return sourcePart.getAdapter(type);
-        return super.getAdapter(type);
     }
 
 }
