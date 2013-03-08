@@ -73,6 +73,7 @@ public class CommonUIPlugin extends AbstractUIPlugin {
 	    registerImage(registry, "left");
         registerImage(registry, "right");
         registerImage(registry, "dock-header");
+        registerImage(registry, "fm-visualizer");
 	}
 
 }

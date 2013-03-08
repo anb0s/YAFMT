@@ -46,7 +46,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
                                                                 IPartListener, 
                                                                 ISettingsListener {
 
-	public static final String ID = "cz.jpikl.yafmt.ui.views.fm.FeatureModelVisualizer";
+	public static final String ID = "cz.jpikl.yafmt.ui.views.fm";
 	private static final int CONNECTION_LENGHT = 200;
 	
 	private IWorkbenchPart sourcePart;
@@ -113,9 +113,9 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         // Try to load active editor input.
         setSourcePart(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor());
         
-        distanceFilter.update(null, featureModel);
-        groupFilter.update(null);
-        constraintFilter.update(null, featureModel);
+        distanceFilter.update(StructuredSelection.EMPTY, featureModel);
+        groupFilter.update(StructuredSelection.EMPTY);
+        constraintFilter.update(StructuredSelection.EMPTY, featureModel);
         
         viewer.refresh();
         viewer.applyLayout();

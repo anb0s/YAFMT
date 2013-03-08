@@ -27,6 +27,7 @@ import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
 import cz.jpikl.yafmt.model.fc.provider.util.FeatureConfigurationProviderUtil;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.ui.actions.ExportGraphicalEditorAsImageAction;
+import cz.jpikl.yafmt.ui.actions.ShowFeatureModelVisualizerAction;
 import cz.jpikl.yafmt.ui.editors.ModelEditor;
 import cz.jpikl.yafmt.ui.editors.fc.actions.SelectFeaturesAction;
 import cz.jpikl.yafmt.ui.editors.fc.actions.DeselectFeaturesAction;
@@ -149,6 +150,7 @@ public class FeatureConfigurationEditor extends ModelEditor {
     @Override
     protected void createActions() {
         super.createActions();
+        createAction(new ShowFeatureModelVisualizerAction());
         createAction(new ExportGraphicalEditorAsImageAction(this) {
             @Override
             protected String getDefaultName() {
