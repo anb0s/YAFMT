@@ -155,6 +155,7 @@ public class FeatureConfigurationEditor extends ModelEditor {
     @Override
     protected void createActions() {
         super.createActions();
+        
         createAction(new ShowFeatureModelVisualizerAction());
         createAction(new ExportGraphicalEditorAsImageAction(this) {
             @Override
@@ -166,6 +167,8 @@ public class FeatureConfigurationEditor extends ModelEditor {
 
     @Override
     protected void createActionsLate() {
+        super.createActionsLate();
+        
         createAction(new SelectFeaturesAction(this, featureConfigManager));
         createAction(new DeselectFeaturesAction(this, featureConfigManager));
     }

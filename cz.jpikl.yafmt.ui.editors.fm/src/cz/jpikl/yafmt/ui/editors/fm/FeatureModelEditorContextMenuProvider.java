@@ -22,14 +22,16 @@ public class FeatureModelEditorContextMenuProvider extends GraphicalEditorContex
     public void buildContextMenu(IMenuManager menu) {
         super.buildContextMenu(menu);
 
+        addActionToMenu(menu, GEFActionConstants.GROUP_VIEW, GEFActionConstants.ZOOM_IN);
+        addActionToMenu(menu, GEFActionConstants.GROUP_VIEW, GEFActionConstants.ZOOM_OUT);
         addActionToMenu(menu, GEFActionConstants.GROUP_UNDO, ActionFactory.UNDO.getId());
         addActionToMenu(menu, GEFActionConstants.GROUP_UNDO, ActionFactory.REDO.getId());
         addActionToMenu(menu, GEFActionConstants.GROUP_EDIT, ActionFactory.DELETE.getId());
-        addActionToMenu(menu, GEFActionConstants.GROUP_REST, SetFeatureCardinalityAction.ID_OPTIONAL);
-        addActionToMenu(menu, GEFActionConstants.GROUP_REST, SetFeatureCardinalityAction.ID_MANDATORY);
-        addActionToMenu(menu, GEFActionConstants.GROUP_REST, GroupFeaturesAction.ID_XOR);
-        addActionToMenu(menu, GEFActionConstants.GROUP_REST, GroupFeaturesAction.ID_OR);
-        addActionToMenu(menu, GEFActionConstants.GROUP_REST, UngroupFeaturesAction.ID);
+        addActionToMenu(menu, GEFActionConstants.GROUP_EDIT,  SetFeatureCardinalityAction.ID_OPTIONAL);
+        addActionToMenu(menu, GEFActionConstants.GROUP_EDIT, SetFeatureCardinalityAction.ID_MANDATORY);
+        addActionToMenu(menu, GEFActionConstants.GROUP_EDIT, GroupFeaturesAction.ID_XOR);
+        addActionToMenu(menu, GEFActionConstants.GROUP_EDIT, GroupFeaturesAction.ID_OR);
+        addActionToMenu(menu, GEFActionConstants.GROUP_EDIT, UngroupFeaturesAction.ID);
         addActionToMenu(menu, GEFActionConstants.GROUP_SAVE, AutoLayoutAction.ID);
         addActionToMenu(menu, GEFActionConstants.GROUP_SAVE, ExportGraphicalEditorAsImageAction.ID);
     }

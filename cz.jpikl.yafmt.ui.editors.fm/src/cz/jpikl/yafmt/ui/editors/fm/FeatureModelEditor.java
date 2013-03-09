@@ -161,7 +161,7 @@ public class FeatureModelEditor extends ModelEditor {
     @Override
     protected void createActions() {
         super.createActions();
-
+        
         createAction(new DeleteAction(this));    // Custom delete action.
         createAction(new SelectAllAction(this)); // Custom select all action.
         createAction(new SetFeatureCardinalityAction(this, false));
@@ -178,7 +178,7 @@ public class FeatureModelEditor extends ModelEditor {
             }
         });
     }
-
+    
     // ==================================================================================
     //  Save and Load operations
     // ==================================================================================

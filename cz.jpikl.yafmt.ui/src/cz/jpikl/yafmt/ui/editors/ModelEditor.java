@@ -15,8 +15,11 @@ import org.eclipse.gef.EditPartFactory;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
+import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.ui.actions.SelectionAction;
+import org.eclipse.gef.ui.actions.ZoomInAction;
+import org.eclipse.gef.ui.actions.ZoomOutAction;
 import org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.ErrorDialog;
@@ -42,6 +45,7 @@ import cz.jpikl.yafmt.ui.CommonUIPlugin;
 import cz.jpikl.yafmt.ui.pages.EditorContentOutlinePage;
 import cz.jpikl.yafmt.ui.pages.EditorPropertySheetPage;
 import cz.jpikl.yafmt.ui.util.EditorAutoCloser;
+import cz.jpikl.yafmt.ui.util.EditorZoomComboContributioItem;
 import cz.jpikl.yafmt.ui.util.SelectionConverter;
 import cz.jpikl.yafmt.ui.util.UnwrappingSelectionProvider;
 
@@ -164,6 +168,10 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette {
     }
 
     protected void createActionsLate() {
+        ZoomManager zoomManager = getRootEditPart().getZoomManager();
+        EditorZoomComboContributioItem.contributeZoomLevels(zoomManager);
+        createAction(new ZoomInAction(zoomManager));
+        createAction(new ZoomOutAction(zoomManager));
     }
 
     private void setActionsSelectionProvider(ISelectionProvider selectionProvider) {
@@ -282,6 +290,10 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette {
             if(contentOutlinePage == null)
                 contentOutlinePage = new EditorContentOutlinePage(this, getModel(), getContentProvider(), getLabelProvider());
             return contentOutlinePage;
+        }
+        
+        if(type == ZoomManager.class) {
+            return getRootEditPart().getZoomManager();
         }
 
         return super.getAdapter(type);
