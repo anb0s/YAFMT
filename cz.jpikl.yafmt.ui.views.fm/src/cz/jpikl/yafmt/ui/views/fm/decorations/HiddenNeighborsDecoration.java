@@ -1,12 +1,16 @@
 package cz.jpikl.yafmt.ui.views.fm.decorations;
 
+import java.util.List;
+
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.RoundedRectangle;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 
+import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.ui.util.DrawConstantans;
 
 public class HiddenNeighborsDecoration extends RoundedRectangle implements IDecoration {
@@ -14,24 +18,43 @@ public class HiddenNeighborsDecoration extends RoundedRectangle implements IDeco
     private static final int BORDER_SCALE = 5;
     private static final int GRADIENT_DETAIL = 5;
 
-    private int hiddenNeighborsCount;
+    private List<Feature> neighbors;
+    private Label toolTip;
 
-    public HiddenNeighborsDecoration(int hiddenNeighborsCount) {
-        this.hiddenNeighborsCount = hiddenNeighborsCount;
+    public HiddenNeighborsDecoration(List<Feature> neighbors) {
+        this.neighbors = neighbors;
 
         setCornerDimensions(new Dimension(15, 15));
         setForegroundColor(DrawConstantans.FEATURE_COLOR);
         setBackgroundColor(DrawConstantans.FEATURE_HL_COLOR);
-
-        if(hiddenNeighborsCount > 1)
-            setToolTip(new Label("Feature has " + hiddenNeighborsCount + " hidden neighbors."));
-        else
-            setToolTip(new Label("Feature has a hidden neighbor."));
         
         setLineStyle(SWT.LINE_CUSTOM);
         setLineDash(DrawConstantans.LINE_DOTTED);
     }
     
+    @Override
+    public IFigure getToolTip() {
+        if(toolTip == null)
+            toolTip = new Label(createToolTipText());
+        return toolTip;
+    }
+    
+    private String createToolTipText() {
+        StringBuilder builder = new StringBuilder();
+        
+        if(neighbors.size() == 1) {
+            builder.append("Feature has a hidden neighbor (");
+            builder.append(neighbors.get(0).getName()).append(").");
+        }
+        else {
+            builder.append("Feature has " + neighbors.size() + " hidden neighbors:");
+            for(Feature neighbor: neighbors)
+                builder.append("\n    - ").append(neighbor.getName());
+        }
+                
+        return builder.toString();
+    }
+
     @Override
     public boolean isAutoPositioned() {
         return false;
@@ -48,7 +71,7 @@ public class HiddenNeighborsDecoration extends RoundedRectangle implements IDeco
     }
     
     private int computeBorder() {
-        return hiddenNeighborsCount * BORDER_SCALE;
+        return neighbors.size() * BORDER_SCALE;
     }
     
     @Override

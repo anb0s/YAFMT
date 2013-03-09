@@ -1,7 +1,9 @@
 package cz.jpikl.yafmt.ui.views.fm;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.eclipse.draw2d.Connection;
@@ -79,18 +81,20 @@ public class FeatureModelStyleProvider extends LabelProviderAdapter {
         FeatureFigure figure = new FeatureFigure(feature);
         figure.addDecoration(new CardinalityDecoration(feature.getLower(), feature.getUpper()));
 
-        int hiddenNeighbors = countHiddenNeighbors(feature);
-        if(hiddenNeighbors > 0)
-            figure.addDecoration(new HiddenNeighborsDecoration(hiddenNeighbors));
+        List<Feature> neighbors = getHiddenNeighbors(feature);
+        if((neighbors != null) && !neighbors.isEmpty())
+            figure.addDecoration(new HiddenNeighborsDecoration(neighbors));
 
-        if(isHiddenGroup(feature))
-            figure.addDecoration(new HiddenGroupDecoration());
+        Group group = getHiddenGroup(feature);
+        if(group != null)
+            figure.addDecoration(new HiddenGroupDecoration(group));
 
-        if(isHiddenConstraint(feature))
-            figure.addDecoration(new HiddenConstraintDecoration());
+        List<Constraint> constraints = getHiddenConstraints(feature);
+        if((constraints != null) && !constraints.isEmpty())
+            figure.addDecoration(new HiddenConstraintDecoration(constraints));
 
         if(!feature.getAttributes().isEmpty())
-            figure.addDecoration(new AttributeDecoration(feature.getAttributes().size()));
+            figure.addDecoration(new AttributeDecoration(feature.getAttributes()));
 
         return figure;
     }
@@ -152,45 +156,46 @@ public class FeatureModelStyleProvider extends LabelProviderAdapter {
     // Helpers
     // =============================================================
 
-    private int countHiddenNeighbors(Feature feature) {
-        int hiddenNeighbors = 0;
-
+    private List<Feature> getHiddenNeighbors(Feature feature) {
+        List<Feature> neighbors = new ArrayList<Feature>();
+        
         Object parent = feature.getParent();
         if(parent instanceof Group)
             parent = ((Group) parent).getParent();
         if(isFiltered(parent))
-            hiddenNeighbors++;
+            neighbors.add((Feature) parent);
 
         for(Feature child: feature.getFeatures()) {
             if(isFiltered(child))
-                hiddenNeighbors++;
+                neighbors.add(child);
         }
 
         for(Group group: feature.getGroups()) {
             for(Feature child: group.getFeatures()) {
                 if(isFiltered(child))
-                    hiddenNeighbors++;
+                    neighbors.add(child);;
             }
         }
 
-        return hiddenNeighbors;
+        return neighbors;
     }
 
-    private boolean isHiddenGroup(Feature feature) {
-        Group parentGroup = feature.getParentGroup();
-        return (parentGroup != null) && isFiltered(parentGroup);
+    private Group getHiddenGroup(Feature feature) {
+        Group group = feature.getParentGroup();
+        return ((group != null) && isFiltered(group)) ? group : null;
     }
 
-    private boolean isHiddenConstraint(Feature feature) {
+    private List<Constraint> getHiddenConstraints(Feature feature) {
         Collection<Constraint> constraints = constraintCache.getConstraintsAffectingFeature(feature);
         if((constraints == null) || constraints.isEmpty())
-            return false;
+            return null;
 
+        List<Constraint> hiddenConstraints = new ArrayList<Constraint>(constraints.size()); 
         for(Constraint constraint: constraints) {
             if(isFiltered(constraint))
-                return true;
+                hiddenConstraints.add(constraint);
         }
-        return false;
+        return hiddenConstraints;
     }
 
     private boolean isFiltered(Object element) {
