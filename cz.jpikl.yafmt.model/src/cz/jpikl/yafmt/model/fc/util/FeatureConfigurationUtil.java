@@ -57,6 +57,7 @@ public class FeatureConfigurationUtil {
             saveLoadOptions.put(XMLResource.OPTION_ENCODING, "UTF-8");
             saveLoadOptions.put(XMLResource.OPTION_EXTENDED_META_DATA, createExtendedMetadata());
             saveLoadOptions.put(XMLResource.OPTION_LAX_FEATURE_PROCESSING, Boolean.TRUE); // Allows proper loading of renamed XML elements.
+            saveLoadOptions.put(XMLResource.OPTION_KEEP_DEFAULT_CONTENT, Boolean.TRUE); // Persist even attributes with default value.
         }
         return saveLoadOptions;
     }
