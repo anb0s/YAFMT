@@ -303,126 +303,6 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__Implication__Alternatives_1_1
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getImplicationAccess().getImpliesKeyword_1_1_0()); }
-
-	'implies' 
-
-{ after(grammarAccess.getImplicationAccess().getImpliesKeyword_1_1_0()); }
-)
-
-    |(
-{ before(grammarAccess.getImplicationAccess().getRequiresKeyword_1_1_1()); }
-
-	'requires' 
-
-{ after(grammarAccess.getImplicationAccess().getRequiresKeyword_1_1_1()); }
-)
-
-    |(
-{ before(grammarAccess.getImplicationAccess().getHyphenMinusGreaterThanSignKeyword_1_1_2()); }
-
-	'->' 
-
-{ after(grammarAccess.getImplicationAccess().getHyphenMinusGreaterThanSignKeyword_1_1_2()); }
-)
-
-    |(
-{ before(grammarAccess.getImplicationAccess().getEqualsSignGreaterThanSignKeyword_1_1_3()); }
-
-	'=>' 
-
-{ after(grammarAccess.getImplicationAccess().getEqualsSignGreaterThanSignKeyword_1_1_3()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__Disjunction__Alternatives_1_1
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getDisjunctionAccess().getOrKeyword_1_1_0()); }
-
-	'or' 
-
-{ after(grammarAccess.getDisjunctionAccess().getOrKeyword_1_1_0()); }
-)
-
-    |(
-{ before(grammarAccess.getDisjunctionAccess().getVerticalLineKeyword_1_1_1()); }
-
-	'|' 
-
-{ after(grammarAccess.getDisjunctionAccess().getVerticalLineKeyword_1_1_1()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__ExclusiveDisjunction__Alternatives_1_1
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getExclusiveDisjunctionAccess().getXorKeyword_1_1_0()); }
-
-	'xor' 
-
-{ after(grammarAccess.getExclusiveDisjunctionAccess().getXorKeyword_1_1_0()); }
-)
-
-    |(
-{ before(grammarAccess.getExclusiveDisjunctionAccess().getCircumflexAccentKeyword_1_1_1()); }
-
-	'^' 
-
-{ after(grammarAccess.getExclusiveDisjunctionAccess().getCircumflexAccentKeyword_1_1_1()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__Conjunction__Alternatives_1_1
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getConjunctionAccess().getAndKeyword_1_1_0()); }
-
-	'and' 
-
-{ after(grammarAccess.getConjunctionAccess().getAndKeyword_1_1_0()); }
-)
-
-    |(
-{ before(grammarAccess.getConjunctionAccess().getAmpersandKeyword_1_1_1()); }
-
-	'&' 
-
-{ after(grammarAccess.getConjunctionAccess().getAmpersandKeyword_1_1_1()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
 rule__Negation__Alternatives
     @init {
 		int stackSize = keepStackSize();
@@ -438,32 +318,6 @@ rule__Negation__Alternatives
 { before(grammarAccess.getNegationAccess().getGroup_1()); }
 (rule__Negation__Group_1__0)
 { after(grammarAccess.getNegationAccess().getGroup_1()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__Negation__Alternatives_1_0
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getNegationAccess().getNotKeyword_1_0_0()); }
-
-	'not' 
-
-{ after(grammarAccess.getNegationAccess().getNotKeyword_1_0_0()); }
-)
-
-    |(
-{ before(grammarAccess.getNegationAccess().getExclamationMarkKeyword_1_0_1()); }
-
-	'!' 
-
-{ after(grammarAccess.getNegationAccess().getExclamationMarkKeyword_1_0_1()); }
 )
 
 ;
@@ -765,9 +619,11 @@ rule__Implication__Group_1__1__Impl
     }
 :
 (
-{ before(grammarAccess.getImplicationAccess().getAlternatives_1_1()); }
-(rule__Implication__Alternatives_1_1)
-{ after(grammarAccess.getImplicationAccess().getAlternatives_1_1()); }
+{ before(grammarAccess.getImplicationAccess().getImpliesKeyword_1_1()); }
+
+	'implies' 
+
+{ after(grammarAccess.getImplicationAccess().getImpliesKeyword_1_1()); }
 )
 
 ;
@@ -920,9 +776,11 @@ rule__Disjunction__Group_1__1__Impl
     }
 :
 (
-{ before(grammarAccess.getDisjunctionAccess().getAlternatives_1_1()); }
-(rule__Disjunction__Alternatives_1_1)
-{ after(grammarAccess.getDisjunctionAccess().getAlternatives_1_1()); }
+{ before(grammarAccess.getDisjunctionAccess().getOrKeyword_1_1()); }
+
+	'or' 
+
+{ after(grammarAccess.getDisjunctionAccess().getOrKeyword_1_1()); }
 )
 
 ;
@@ -1075,9 +933,11 @@ rule__ExclusiveDisjunction__Group_1__1__Impl
     }
 :
 (
-{ before(grammarAccess.getExclusiveDisjunctionAccess().getAlternatives_1_1()); }
-(rule__ExclusiveDisjunction__Alternatives_1_1)
-{ after(grammarAccess.getExclusiveDisjunctionAccess().getAlternatives_1_1()); }
+{ before(grammarAccess.getExclusiveDisjunctionAccess().getXorKeyword_1_1()); }
+
+	'xor' 
+
+{ after(grammarAccess.getExclusiveDisjunctionAccess().getXorKeyword_1_1()); }
 )
 
 ;
@@ -1230,9 +1090,11 @@ rule__Conjunction__Group_1__1__Impl
     }
 :
 (
-{ before(grammarAccess.getConjunctionAccess().getAlternatives_1_1()); }
-(rule__Conjunction__Alternatives_1_1)
-{ after(grammarAccess.getConjunctionAccess().getAlternatives_1_1()); }
+{ before(grammarAccess.getConjunctionAccess().getAndKeyword_1_1()); }
+
+	'and' 
+
+{ after(grammarAccess.getConjunctionAccess().getAndKeyword_1_1()); }
 )
 
 ;
@@ -1293,9 +1155,11 @@ rule__Negation__Group_1__0__Impl
     }
 :
 (
-{ before(grammarAccess.getNegationAccess().getAlternatives_1_0()); }
-(rule__Negation__Alternatives_1_0)
-{ after(grammarAccess.getNegationAccess().getAlternatives_1_0()); }
+{ before(grammarAccess.getNegationAccess().getNotKeyword_1_0()); }
+
+	'not' 
+
+{ after(grammarAccess.getNegationAccess().getNotKeyword_1_0()); }
 )
 
 ;

@@ -21,19 +21,12 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalSimpleConstraintLanguageParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'context'", "':'", "'implies'", "'requires'", "'->'", "'=>'", "'or'", "'|'", "'xor'", "'^'", "'and'", "'&'", "'not'", "'!'", "'('", "')'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'context'", "':'", "'implies'", "'or'", "'xor'", "'and'", "'not'", "'('", "')'"
     };
     public static final int RULE_ID=4;
-    public static final int T__26=26;
-    public static final int T__25=25;
-    public static final int T__24=24;
-    public static final int T__23=23;
-    public static final int T__22=22;
     public static final int RULE_ANY_OTHER=10;
-    public static final int T__21=21;
-    public static final int T__20=20;
-    public static final int RULE_SL_COMMENT=8;
     public static final int EOF=-1;
+    public static final int RULE_SL_COMMENT=8;
     public static final int RULE_ML_COMMENT=7;
     public static final int T__19=19;
     public static final int RULE_STRING=6;
@@ -227,7 +220,7 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalAntl
             if ( (LA1_0==11) ) {
                 alt1=1;
             }
-            else if ( (LA1_0==RULE_ID||(LA1_0>=23 && LA1_0<=25)) ) {
+            else if ( (LA1_0==RULE_ID||(LA1_0>=17 && LA1_0<=18)) ) {
                 alt1=2;
             }
             else {
@@ -400,27 +393,24 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalAntl
 
 
     // $ANTLR start "ruleImplication"
-    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:187:1: ruleImplication returns [EObject current=null] : (this_Disjunction_0= ruleDisjunction ( () (otherlv_2= 'implies' | otherlv_3= 'requires' | otherlv_4= '->' | otherlv_5= '=>' ) ( (lv_rightPart_6_0= ruleDisjunction ) ) )? ) ;
+    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:187:1: ruleImplication returns [EObject current=null] : (this_Disjunction_0= ruleDisjunction ( () otherlv_2= 'implies' ( (lv_rightPart_3_0= ruleDisjunction ) ) )? ) ;
     public final EObject ruleImplication() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_2=null;
-        Token otherlv_3=null;
-        Token otherlv_4=null;
-        Token otherlv_5=null;
         EObject this_Disjunction_0 = null;
 
-        EObject lv_rightPart_6_0 = null;
+        EObject lv_rightPart_3_0 = null;
 
 
          enterRule(); 
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:190:28: ( (this_Disjunction_0= ruleDisjunction ( () (otherlv_2= 'implies' | otherlv_3= 'requires' | otherlv_4= '->' | otherlv_5= '=>' ) ( (lv_rightPart_6_0= ruleDisjunction ) ) )? ) )
-            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:191:1: (this_Disjunction_0= ruleDisjunction ( () (otherlv_2= 'implies' | otherlv_3= 'requires' | otherlv_4= '->' | otherlv_5= '=>' ) ( (lv_rightPart_6_0= ruleDisjunction ) ) )? )
+            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:190:28: ( (this_Disjunction_0= ruleDisjunction ( () otherlv_2= 'implies' ( (lv_rightPart_3_0= ruleDisjunction ) ) )? ) )
+            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:191:1: (this_Disjunction_0= ruleDisjunction ( () otherlv_2= 'implies' ( (lv_rightPart_3_0= ruleDisjunction ) ) )? )
             {
-            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:191:1: (this_Disjunction_0= ruleDisjunction ( () (otherlv_2= 'implies' | otherlv_3= 'requires' | otherlv_4= '->' | otherlv_5= '=>' ) ( (lv_rightPart_6_0= ruleDisjunction ) ) )? )
-            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:192:5: this_Disjunction_0= ruleDisjunction ( () (otherlv_2= 'implies' | otherlv_3= 'requires' | otherlv_4= '->' | otherlv_5= '=>' ) ( (lv_rightPart_6_0= ruleDisjunction ) ) )?
+            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:191:1: (this_Disjunction_0= ruleDisjunction ( () otherlv_2= 'implies' ( (lv_rightPart_3_0= ruleDisjunction ) ) )? )
+            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:192:5: this_Disjunction_0= ruleDisjunction ( () otherlv_2= 'implies' ( (lv_rightPart_3_0= ruleDisjunction ) ) )?
             {
              
                     newCompositeNode(grammarAccess.getImplicationAccess().getDisjunctionParserRuleCall_0()); 
@@ -434,16 +424,16 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalAntl
                     current = this_Disjunction_0; 
                     afterParserOrEnumRuleCall();
                 
-            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:200:1: ( () (otherlv_2= 'implies' | otherlv_3= 'requires' | otherlv_4= '->' | otherlv_5= '=>' ) ( (lv_rightPart_6_0= ruleDisjunction ) ) )?
-            int alt3=2;
-            int LA3_0 = input.LA(1);
+            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:200:1: ( () otherlv_2= 'implies' ( (lv_rightPart_3_0= ruleDisjunction ) ) )?
+            int alt2=2;
+            int LA2_0 = input.LA(1);
 
-            if ( ((LA3_0>=13 && LA3_0<=16)) ) {
-                alt3=1;
+            if ( (LA2_0==13) ) {
+                alt2=1;
             }
-            switch (alt3) {
+            switch (alt2) {
                 case 1 :
-                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:200:2: () (otherlv_2= 'implies' | otherlv_3= 'requires' | otherlv_4= '->' | otherlv_5= '=>' ) ( (lv_rightPart_6_0= ruleDisjunction ) )
+                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:200:2: () otherlv_2= 'implies' ( (lv_rightPart_3_0= ruleDisjunction ) )
                     {
                     // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:200:2: ()
                     // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:201:5: 
@@ -456,91 +446,21 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalAntl
 
                     }
 
-                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:206:2: (otherlv_2= 'implies' | otherlv_3= 'requires' | otherlv_4= '->' | otherlv_5= '=>' )
-                    int alt2=4;
-                    switch ( input.LA(1) ) {
-                    case 13:
-                        {
-                        alt2=1;
-                        }
-                        break;
-                    case 14:
-                        {
-                        alt2=2;
-                        }
-                        break;
-                    case 15:
-                        {
-                        alt2=3;
-                        }
-                        break;
-                    case 16:
-                        {
-                        alt2=4;
-                        }
-                        break;
-                    default:
-                        NoViableAltException nvae =
-                            new NoViableAltException("", 2, 0, input);
+                    otherlv_2=(Token)match(input,13,FOLLOW_13_in_ruleImplication419); 
 
-                        throw nvae;
-                    }
-
-                    switch (alt2) {
-                        case 1 :
-                            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:206:4: otherlv_2= 'implies'
-                            {
-                            otherlv_2=(Token)match(input,13,FOLLOW_13_in_ruleImplication420); 
-
-                                	newLeafNode(otherlv_2, grammarAccess.getImplicationAccess().getImpliesKeyword_1_1_0());
-                                
-
-                            }
-                            break;
-                        case 2 :
-                            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:211:7: otherlv_3= 'requires'
-                            {
-                            otherlv_3=(Token)match(input,14,FOLLOW_14_in_ruleImplication438); 
-
-                                	newLeafNode(otherlv_3, grammarAccess.getImplicationAccess().getRequiresKeyword_1_1_1());
-                                
-
-                            }
-                            break;
-                        case 3 :
-                            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:216:7: otherlv_4= '->'
-                            {
-                            otherlv_4=(Token)match(input,15,FOLLOW_15_in_ruleImplication456); 
-
-                                	newLeafNode(otherlv_4, grammarAccess.getImplicationAccess().getHyphenMinusGreaterThanSignKeyword_1_1_2());
-                                
-
-                            }
-                            break;
-                        case 4 :
-                            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:221:7: otherlv_5= '=>'
-                            {
-                            otherlv_5=(Token)match(input,16,FOLLOW_16_in_ruleImplication474); 
-
-                                	newLeafNode(otherlv_5, grammarAccess.getImplicationAccess().getEqualsSignGreaterThanSignKeyword_1_1_3());
-                                
-
-                            }
-                            break;
-
-                    }
-
-                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:225:2: ( (lv_rightPart_6_0= ruleDisjunction ) )
-                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:226:1: (lv_rightPart_6_0= ruleDisjunction )
+                        	newLeafNode(otherlv_2, grammarAccess.getImplicationAccess().getImpliesKeyword_1_1());
+                        
+                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:210:1: ( (lv_rightPart_3_0= ruleDisjunction ) )
+                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:211:1: (lv_rightPart_3_0= ruleDisjunction )
                     {
-                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:226:1: (lv_rightPart_6_0= ruleDisjunction )
-                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:227:3: lv_rightPart_6_0= ruleDisjunction
+                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:211:1: (lv_rightPart_3_0= ruleDisjunction )
+                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:212:3: lv_rightPart_3_0= ruleDisjunction
                     {
                      
                     	        newCompositeNode(grammarAccess.getImplicationAccess().getRightPartDisjunctionParserRuleCall_1_2_0()); 
                     	    
-                    pushFollow(FOLLOW_ruleDisjunction_in_ruleImplication496);
-                    lv_rightPart_6_0=ruleDisjunction();
+                    pushFollow(FOLLOW_ruleDisjunction_in_ruleImplication440);
+                    lv_rightPart_3_0=ruleDisjunction();
 
                     state._fsp--;
 
@@ -551,7 +471,7 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalAntl
                            		set(
                            			current, 
                            			"rightPart",
-                            		lv_rightPart_6_0, 
+                            		lv_rightPart_3_0, 
                             		"Disjunction");
                     	        afterParserOrEnumRuleCall();
                     	    
@@ -588,7 +508,7 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalAntl
 
 
     // $ANTLR start "entryRuleDisjunction"
-    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:251:1: entryRuleDisjunction returns [EObject current=null] : iv_ruleDisjunction= ruleDisjunction EOF ;
+    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:236:1: entryRuleDisjunction returns [EObject current=null] : iv_ruleDisjunction= ruleDisjunction EOF ;
     public final EObject entryRuleDisjunction() throws RecognitionException {
         EObject current = null;
 
@@ -596,17 +516,17 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalAntl
 
 
         try {
-            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:252:2: (iv_ruleDisjunction= ruleDisjunction EOF )
-            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:253:2: iv_ruleDisjunction= ruleDisjunction EOF
+            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:237:2: (iv_ruleDisjunction= ruleDisjunction EOF )
+            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:238:2: iv_ruleDisjunction= ruleDisjunction EOF
             {
              newCompositeNode(grammarAccess.getDisjunctionRule()); 
-            pushFollow(FOLLOW_ruleDisjunction_in_entryRuleDisjunction534);
+            pushFollow(FOLLOW_ruleDisjunction_in_entryRuleDisjunction478);
             iv_ruleDisjunction=ruleDisjunction();
 
             state._fsp--;
 
              current =iv_ruleDisjunction; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleDisjunction544); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleDisjunction488); 
 
             }
 
@@ -624,30 +544,29 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalAntl
 
 
     // $ANTLR start "ruleDisjunction"
-    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:260:1: ruleDisjunction returns [EObject current=null] : (this_ExclusiveDisjunction_0= ruleExclusiveDisjunction ( () (otherlv_2= 'or' | otherlv_3= '|' ) ( (lv_parts_4_0= ruleExclusiveDisjunction ) ) )* ) ;
+    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:245:1: ruleDisjunction returns [EObject current=null] : (this_ExclusiveDisjunction_0= ruleExclusiveDisjunction ( () otherlv_2= 'or' ( (lv_parts_3_0= ruleExclusiveDisjunction ) ) )* ) ;
     public final EObject ruleDisjunction() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_2=null;
-        Token otherlv_3=null;
         EObject this_ExclusiveDisjunction_0 = null;
 
-        EObject lv_parts_4_0 = null;
+        EObject lv_parts_3_0 = null;
 
 
          enterRule(); 
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:263:28: ( (this_ExclusiveDisjunction_0= ruleExclusiveDisjunction ( () (otherlv_2= 'or' | otherlv_3= '|' ) ( (lv_parts_4_0= ruleExclusiveDisjunction ) ) )* ) )
-            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:264:1: (this_ExclusiveDisjunction_0= ruleExclusiveDisjunction ( () (otherlv_2= 'or' | otherlv_3= '|' ) ( (lv_parts_4_0= ruleExclusiveDisjunction ) ) )* )
+            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:248:28: ( (this_ExclusiveDisjunction_0= ruleExclusiveDisjunction ( () otherlv_2= 'or' ( (lv_parts_3_0= ruleExclusiveDisjunction ) ) )* ) )
+            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:249:1: (this_ExclusiveDisjunction_0= ruleExclusiveDisjunction ( () otherlv_2= 'or' ( (lv_parts_3_0= ruleExclusiveDisjunction ) ) )* )
             {
-            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:264:1: (this_ExclusiveDisjunction_0= ruleExclusiveDisjunction ( () (otherlv_2= 'or' | otherlv_3= '|' ) ( (lv_parts_4_0= ruleExclusiveDisjunction ) ) )* )
-            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:265:5: this_ExclusiveDisjunction_0= ruleExclusiveDisjunction ( () (otherlv_2= 'or' | otherlv_3= '|' ) ( (lv_parts_4_0= ruleExclusiveDisjunction ) ) )*
+            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:249:1: (this_ExclusiveDisjunction_0= ruleExclusiveDisjunction ( () otherlv_2= 'or' ( (lv_parts_3_0= ruleExclusiveDisjunction ) ) )* )
+            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:250:5: this_ExclusiveDisjunction_0= ruleExclusiveDisjunction ( () otherlv_2= 'or' ( (lv_parts_3_0= ruleExclusiveDisjunction ) ) )*
             {
              
                     newCompositeNode(grammarAccess.getDisjunctionAccess().getExclusiveDisjunctionParserRuleCall_0()); 
                 
-            pushFollow(FOLLOW_ruleExclusiveDisjunction_in_ruleDisjunction591);
+            pushFollow(FOLLOW_ruleExclusiveDisjunction_in_ruleDisjunction535);
             this_ExclusiveDisjunction_0=ruleExclusiveDisjunction();
 
             state._fsp--;
@@ -656,23 +575,23 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalAntl
                     current = this_ExclusiveDisjunction_0; 
                     afterParserOrEnumRuleCall();
                 
-            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:273:1: ( () (otherlv_2= 'or' | otherlv_3= '|' ) ( (lv_parts_4_0= ruleExclusiveDisjunction ) ) )*
-            loop5:
+            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:258:1: ( () otherlv_2= 'or' ( (lv_parts_3_0= ruleExclusiveDisjunction ) ) )*
+            loop3:
             do {
-                int alt5=2;
-                int LA5_0 = input.LA(1);
+                int alt3=2;
+                int LA3_0 = input.LA(1);
 
-                if ( ((LA5_0>=17 && LA5_0<=18)) ) {
-                    alt5=1;
+                if ( (LA3_0==14) ) {
+                    alt3=1;
                 }
 
 
-                switch (alt5) {
+                switch (alt3) {
             	case 1 :
-            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:273:2: () (otherlv_2= 'or' | otherlv_3= '|' ) ( (lv_parts_4_0= ruleExclusiveDisjunction ) )
+            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:258:2: () otherlv_2= 'or' ( (lv_parts_3_0= ruleExclusiveDisjunction ) )
             	    {
-            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:273:2: ()
-            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:274:5: 
+            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:258:2: ()
+            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:259:5: 
             	    {
 
             	            current = forceCreateModelElementAndAdd(
@@ -682,57 +601,21 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalAntl
 
             	    }
 
-            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:279:2: (otherlv_2= 'or' | otherlv_3= '|' )
-            	    int alt4=2;
-            	    int LA4_0 = input.LA(1);
+            	    otherlv_2=(Token)match(input,14,FOLLOW_14_in_ruleDisjunction556); 
 
-            	    if ( (LA4_0==17) ) {
-            	        alt4=1;
-            	    }
-            	    else if ( (LA4_0==18) ) {
-            	        alt4=2;
-            	    }
-            	    else {
-            	        NoViableAltException nvae =
-            	            new NoViableAltException("", 4, 0, input);
-
-            	        throw nvae;
-            	    }
-            	    switch (alt4) {
-            	        case 1 :
-            	            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:279:4: otherlv_2= 'or'
-            	            {
-            	            otherlv_2=(Token)match(input,17,FOLLOW_17_in_ruleDisjunction613); 
-
-            	                	newLeafNode(otherlv_2, grammarAccess.getDisjunctionAccess().getOrKeyword_1_1_0());
-            	                
-
-            	            }
-            	            break;
-            	        case 2 :
-            	            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:284:7: otherlv_3= '|'
-            	            {
-            	            otherlv_3=(Token)match(input,18,FOLLOW_18_in_ruleDisjunction631); 
-
-            	                	newLeafNode(otherlv_3, grammarAccess.getDisjunctionAccess().getVerticalLineKeyword_1_1_1());
-            	                
-
-            	            }
-            	            break;
-
-            	    }
-
-            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:288:2: ( (lv_parts_4_0= ruleExclusiveDisjunction ) )
-            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:289:1: (lv_parts_4_0= ruleExclusiveDisjunction )
+            	        	newLeafNode(otherlv_2, grammarAccess.getDisjunctionAccess().getOrKeyword_1_1());
+            	        
+            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:268:1: ( (lv_parts_3_0= ruleExclusiveDisjunction ) )
+            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:269:1: (lv_parts_3_0= ruleExclusiveDisjunction )
             	    {
-            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:289:1: (lv_parts_4_0= ruleExclusiveDisjunction )
-            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:290:3: lv_parts_4_0= ruleExclusiveDisjunction
+            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:269:1: (lv_parts_3_0= ruleExclusiveDisjunction )
+            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:270:3: lv_parts_3_0= ruleExclusiveDisjunction
             	    {
             	     
             	    	        newCompositeNode(grammarAccess.getDisjunctionAccess().getPartsExclusiveDisjunctionParserRuleCall_1_2_0()); 
             	    	    
-            	    pushFollow(FOLLOW_ruleExclusiveDisjunction_in_ruleDisjunction653);
-            	    lv_parts_4_0=ruleExclusiveDisjunction();
+            	    pushFollow(FOLLOW_ruleExclusiveDisjunction_in_ruleDisjunction577);
+            	    lv_parts_3_0=ruleExclusiveDisjunction();
 
             	    state._fsp--;
 
@@ -743,8 +626,324 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalAntl
             	           		add(
             	           			current, 
             	           			"parts",
-            	            		lv_parts_4_0, 
+            	            		lv_parts_3_0, 
             	            		"ExclusiveDisjunction");
+            	    	        afterParserOrEnumRuleCall();
+            	    	    
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop3;
+                }
+            } while (true);
+
+
+            }
+
+
+            }
+
+             leaveRule(); 
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleDisjunction"
+
+
+    // $ANTLR start "entryRuleExclusiveDisjunction"
+    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:294:1: entryRuleExclusiveDisjunction returns [EObject current=null] : iv_ruleExclusiveDisjunction= ruleExclusiveDisjunction EOF ;
+    public final EObject entryRuleExclusiveDisjunction() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleExclusiveDisjunction = null;
+
+
+        try {
+            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:295:2: (iv_ruleExclusiveDisjunction= ruleExclusiveDisjunction EOF )
+            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:296:2: iv_ruleExclusiveDisjunction= ruleExclusiveDisjunction EOF
+            {
+             newCompositeNode(grammarAccess.getExclusiveDisjunctionRule()); 
+            pushFollow(FOLLOW_ruleExclusiveDisjunction_in_entryRuleExclusiveDisjunction615);
+            iv_ruleExclusiveDisjunction=ruleExclusiveDisjunction();
+
+            state._fsp--;
+
+             current =iv_ruleExclusiveDisjunction; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleExclusiveDisjunction625); 
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleExclusiveDisjunction"
+
+
+    // $ANTLR start "ruleExclusiveDisjunction"
+    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:303:1: ruleExclusiveDisjunction returns [EObject current=null] : (this_Conjunction_0= ruleConjunction ( () otherlv_2= 'xor' ( (lv_parts_3_0= ruleConjunction ) ) )* ) ;
+    public final EObject ruleExclusiveDisjunction() throws RecognitionException {
+        EObject current = null;
+
+        Token otherlv_2=null;
+        EObject this_Conjunction_0 = null;
+
+        EObject lv_parts_3_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:306:28: ( (this_Conjunction_0= ruleConjunction ( () otherlv_2= 'xor' ( (lv_parts_3_0= ruleConjunction ) ) )* ) )
+            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:307:1: (this_Conjunction_0= ruleConjunction ( () otherlv_2= 'xor' ( (lv_parts_3_0= ruleConjunction ) ) )* )
+            {
+            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:307:1: (this_Conjunction_0= ruleConjunction ( () otherlv_2= 'xor' ( (lv_parts_3_0= ruleConjunction ) ) )* )
+            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:308:5: this_Conjunction_0= ruleConjunction ( () otherlv_2= 'xor' ( (lv_parts_3_0= ruleConjunction ) ) )*
+            {
+             
+                    newCompositeNode(grammarAccess.getExclusiveDisjunctionAccess().getConjunctionParserRuleCall_0()); 
+                
+            pushFollow(FOLLOW_ruleConjunction_in_ruleExclusiveDisjunction672);
+            this_Conjunction_0=ruleConjunction();
+
+            state._fsp--;
+
+             
+                    current = this_Conjunction_0; 
+                    afterParserOrEnumRuleCall();
+                
+            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:316:1: ( () otherlv_2= 'xor' ( (lv_parts_3_0= ruleConjunction ) ) )*
+            loop4:
+            do {
+                int alt4=2;
+                int LA4_0 = input.LA(1);
+
+                if ( (LA4_0==15) ) {
+                    alt4=1;
+                }
+
+
+                switch (alt4) {
+            	case 1 :
+            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:316:2: () otherlv_2= 'xor' ( (lv_parts_3_0= ruleConjunction ) )
+            	    {
+            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:316:2: ()
+            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:317:5: 
+            	    {
+
+            	            current = forceCreateModelElementAndAdd(
+            	                grammarAccess.getExclusiveDisjunctionAccess().getExclusiveDisjunctionPartsAction_1_0(),
+            	                current);
+            	        
+
+            	    }
+
+            	    otherlv_2=(Token)match(input,15,FOLLOW_15_in_ruleExclusiveDisjunction693); 
+
+            	        	newLeafNode(otherlv_2, grammarAccess.getExclusiveDisjunctionAccess().getXorKeyword_1_1());
+            	        
+            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:326:1: ( (lv_parts_3_0= ruleConjunction ) )
+            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:327:1: (lv_parts_3_0= ruleConjunction )
+            	    {
+            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:327:1: (lv_parts_3_0= ruleConjunction )
+            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:328:3: lv_parts_3_0= ruleConjunction
+            	    {
+            	     
+            	    	        newCompositeNode(grammarAccess.getExclusiveDisjunctionAccess().getPartsConjunctionParserRuleCall_1_2_0()); 
+            	    	    
+            	    pushFollow(FOLLOW_ruleConjunction_in_ruleExclusiveDisjunction714);
+            	    lv_parts_3_0=ruleConjunction();
+
+            	    state._fsp--;
+
+
+            	    	        if (current==null) {
+            	    	            current = createModelElementForParent(grammarAccess.getExclusiveDisjunctionRule());
+            	    	        }
+            	           		add(
+            	           			current, 
+            	           			"parts",
+            	            		lv_parts_3_0, 
+            	            		"Conjunction");
+            	    	        afterParserOrEnumRuleCall();
+            	    	    
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop4;
+                }
+            } while (true);
+
+
+            }
+
+
+            }
+
+             leaveRule(); 
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleExclusiveDisjunction"
+
+
+    // $ANTLR start "entryRuleConjunction"
+    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:352:1: entryRuleConjunction returns [EObject current=null] : iv_ruleConjunction= ruleConjunction EOF ;
+    public final EObject entryRuleConjunction() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleConjunction = null;
+
+
+        try {
+            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:353:2: (iv_ruleConjunction= ruleConjunction EOF )
+            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:354:2: iv_ruleConjunction= ruleConjunction EOF
+            {
+             newCompositeNode(grammarAccess.getConjunctionRule()); 
+            pushFollow(FOLLOW_ruleConjunction_in_entryRuleConjunction752);
+            iv_ruleConjunction=ruleConjunction();
+
+            state._fsp--;
+
+             current =iv_ruleConjunction; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleConjunction762); 
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleConjunction"
+
+
+    // $ANTLR start "ruleConjunction"
+    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:361:1: ruleConjunction returns [EObject current=null] : (this_Negation_0= ruleNegation ( () otherlv_2= 'and' ( (lv_parts_3_0= ruleNegation ) ) )* ) ;
+    public final EObject ruleConjunction() throws RecognitionException {
+        EObject current = null;
+
+        Token otherlv_2=null;
+        EObject this_Negation_0 = null;
+
+        EObject lv_parts_3_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:364:28: ( (this_Negation_0= ruleNegation ( () otherlv_2= 'and' ( (lv_parts_3_0= ruleNegation ) ) )* ) )
+            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:365:1: (this_Negation_0= ruleNegation ( () otherlv_2= 'and' ( (lv_parts_3_0= ruleNegation ) ) )* )
+            {
+            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:365:1: (this_Negation_0= ruleNegation ( () otherlv_2= 'and' ( (lv_parts_3_0= ruleNegation ) ) )* )
+            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:366:5: this_Negation_0= ruleNegation ( () otherlv_2= 'and' ( (lv_parts_3_0= ruleNegation ) ) )*
+            {
+             
+                    newCompositeNode(grammarAccess.getConjunctionAccess().getNegationParserRuleCall_0()); 
+                
+            pushFollow(FOLLOW_ruleNegation_in_ruleConjunction809);
+            this_Negation_0=ruleNegation();
+
+            state._fsp--;
+
+             
+                    current = this_Negation_0; 
+                    afterParserOrEnumRuleCall();
+                
+            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:374:1: ( () otherlv_2= 'and' ( (lv_parts_3_0= ruleNegation ) ) )*
+            loop5:
+            do {
+                int alt5=2;
+                int LA5_0 = input.LA(1);
+
+                if ( (LA5_0==16) ) {
+                    alt5=1;
+                }
+
+
+                switch (alt5) {
+            	case 1 :
+            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:374:2: () otherlv_2= 'and' ( (lv_parts_3_0= ruleNegation ) )
+            	    {
+            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:374:2: ()
+            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:375:5: 
+            	    {
+
+            	            current = forceCreateModelElementAndAdd(
+            	                grammarAccess.getConjunctionAccess().getConjunctionPartsAction_1_0(),
+            	                current);
+            	        
+
+            	    }
+
+            	    otherlv_2=(Token)match(input,16,FOLLOW_16_in_ruleConjunction830); 
+
+            	        	newLeafNode(otherlv_2, grammarAccess.getConjunctionAccess().getAndKeyword_1_1());
+            	        
+            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:384:1: ( (lv_parts_3_0= ruleNegation ) )
+            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:385:1: (lv_parts_3_0= ruleNegation )
+            	    {
+            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:385:1: (lv_parts_3_0= ruleNegation )
+            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:386:3: lv_parts_3_0= ruleNegation
+            	    {
+            	     
+            	    	        newCompositeNode(grammarAccess.getConjunctionAccess().getPartsNegationParserRuleCall_1_2_0()); 
+            	    	    
+            	    pushFollow(FOLLOW_ruleNegation_in_ruleConjunction851);
+            	    lv_parts_3_0=ruleNegation();
+
+            	    state._fsp--;
+
+
+            	    	        if (current==null) {
+            	    	            current = createModelElementForParent(grammarAccess.getConjunctionRule());
+            	    	        }
+            	           		add(
+            	           			current, 
+            	           			"parts",
+            	            		lv_parts_3_0, 
+            	            		"Negation");
             	    	        afterParserOrEnumRuleCall();
             	    	    
 
@@ -779,401 +978,11 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalAntl
         }
         return current;
     }
-    // $ANTLR end "ruleDisjunction"
-
-
-    // $ANTLR start "entryRuleExclusiveDisjunction"
-    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:314:1: entryRuleExclusiveDisjunction returns [EObject current=null] : iv_ruleExclusiveDisjunction= ruleExclusiveDisjunction EOF ;
-    public final EObject entryRuleExclusiveDisjunction() throws RecognitionException {
-        EObject current = null;
-
-        EObject iv_ruleExclusiveDisjunction = null;
-
-
-        try {
-            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:315:2: (iv_ruleExclusiveDisjunction= ruleExclusiveDisjunction EOF )
-            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:316:2: iv_ruleExclusiveDisjunction= ruleExclusiveDisjunction EOF
-            {
-             newCompositeNode(grammarAccess.getExclusiveDisjunctionRule()); 
-            pushFollow(FOLLOW_ruleExclusiveDisjunction_in_entryRuleExclusiveDisjunction691);
-            iv_ruleExclusiveDisjunction=ruleExclusiveDisjunction();
-
-            state._fsp--;
-
-             current =iv_ruleExclusiveDisjunction; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleExclusiveDisjunction701); 
-
-            }
-
-        }
-         
-            catch (RecognitionException re) { 
-                recover(input,re); 
-                appendSkippedTokens();
-            } 
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "entryRuleExclusiveDisjunction"
-
-
-    // $ANTLR start "ruleExclusiveDisjunction"
-    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:323:1: ruleExclusiveDisjunction returns [EObject current=null] : (this_Conjunction_0= ruleConjunction ( () (otherlv_2= 'xor' | otherlv_3= '^' ) ( (lv_parts_4_0= ruleConjunction ) ) )* ) ;
-    public final EObject ruleExclusiveDisjunction() throws RecognitionException {
-        EObject current = null;
-
-        Token otherlv_2=null;
-        Token otherlv_3=null;
-        EObject this_Conjunction_0 = null;
-
-        EObject lv_parts_4_0 = null;
-
-
-         enterRule(); 
-            
-        try {
-            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:326:28: ( (this_Conjunction_0= ruleConjunction ( () (otherlv_2= 'xor' | otherlv_3= '^' ) ( (lv_parts_4_0= ruleConjunction ) ) )* ) )
-            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:327:1: (this_Conjunction_0= ruleConjunction ( () (otherlv_2= 'xor' | otherlv_3= '^' ) ( (lv_parts_4_0= ruleConjunction ) ) )* )
-            {
-            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:327:1: (this_Conjunction_0= ruleConjunction ( () (otherlv_2= 'xor' | otherlv_3= '^' ) ( (lv_parts_4_0= ruleConjunction ) ) )* )
-            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:328:5: this_Conjunction_0= ruleConjunction ( () (otherlv_2= 'xor' | otherlv_3= '^' ) ( (lv_parts_4_0= ruleConjunction ) ) )*
-            {
-             
-                    newCompositeNode(grammarAccess.getExclusiveDisjunctionAccess().getConjunctionParserRuleCall_0()); 
-                
-            pushFollow(FOLLOW_ruleConjunction_in_ruleExclusiveDisjunction748);
-            this_Conjunction_0=ruleConjunction();
-
-            state._fsp--;
-
-             
-                    current = this_Conjunction_0; 
-                    afterParserOrEnumRuleCall();
-                
-            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:336:1: ( () (otherlv_2= 'xor' | otherlv_3= '^' ) ( (lv_parts_4_0= ruleConjunction ) ) )*
-            loop7:
-            do {
-                int alt7=2;
-                int LA7_0 = input.LA(1);
-
-                if ( ((LA7_0>=19 && LA7_0<=20)) ) {
-                    alt7=1;
-                }
-
-
-                switch (alt7) {
-            	case 1 :
-            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:336:2: () (otherlv_2= 'xor' | otherlv_3= '^' ) ( (lv_parts_4_0= ruleConjunction ) )
-            	    {
-            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:336:2: ()
-            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:337:5: 
-            	    {
-
-            	            current = forceCreateModelElementAndAdd(
-            	                grammarAccess.getExclusiveDisjunctionAccess().getExclusiveDisjunctionPartsAction_1_0(),
-            	                current);
-            	        
-
-            	    }
-
-            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:342:2: (otherlv_2= 'xor' | otherlv_3= '^' )
-            	    int alt6=2;
-            	    int LA6_0 = input.LA(1);
-
-            	    if ( (LA6_0==19) ) {
-            	        alt6=1;
-            	    }
-            	    else if ( (LA6_0==20) ) {
-            	        alt6=2;
-            	    }
-            	    else {
-            	        NoViableAltException nvae =
-            	            new NoViableAltException("", 6, 0, input);
-
-            	        throw nvae;
-            	    }
-            	    switch (alt6) {
-            	        case 1 :
-            	            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:342:4: otherlv_2= 'xor'
-            	            {
-            	            otherlv_2=(Token)match(input,19,FOLLOW_19_in_ruleExclusiveDisjunction770); 
-
-            	                	newLeafNode(otherlv_2, grammarAccess.getExclusiveDisjunctionAccess().getXorKeyword_1_1_0());
-            	                
-
-            	            }
-            	            break;
-            	        case 2 :
-            	            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:347:7: otherlv_3= '^'
-            	            {
-            	            otherlv_3=(Token)match(input,20,FOLLOW_20_in_ruleExclusiveDisjunction788); 
-
-            	                	newLeafNode(otherlv_3, grammarAccess.getExclusiveDisjunctionAccess().getCircumflexAccentKeyword_1_1_1());
-            	                
-
-            	            }
-            	            break;
-
-            	    }
-
-            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:351:2: ( (lv_parts_4_0= ruleConjunction ) )
-            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:352:1: (lv_parts_4_0= ruleConjunction )
-            	    {
-            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:352:1: (lv_parts_4_0= ruleConjunction )
-            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:353:3: lv_parts_4_0= ruleConjunction
-            	    {
-            	     
-            	    	        newCompositeNode(grammarAccess.getExclusiveDisjunctionAccess().getPartsConjunctionParserRuleCall_1_2_0()); 
-            	    	    
-            	    pushFollow(FOLLOW_ruleConjunction_in_ruleExclusiveDisjunction810);
-            	    lv_parts_4_0=ruleConjunction();
-
-            	    state._fsp--;
-
-
-            	    	        if (current==null) {
-            	    	            current = createModelElementForParent(grammarAccess.getExclusiveDisjunctionRule());
-            	    	        }
-            	           		add(
-            	           			current, 
-            	           			"parts",
-            	            		lv_parts_4_0, 
-            	            		"Conjunction");
-            	    	        afterParserOrEnumRuleCall();
-            	    	    
-
-            	    }
-
-
-            	    }
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop7;
-                }
-            } while (true);
-
-
-            }
-
-
-            }
-
-             leaveRule(); 
-        }
-         
-            catch (RecognitionException re) { 
-                recover(input,re); 
-                appendSkippedTokens();
-            } 
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "ruleExclusiveDisjunction"
-
-
-    // $ANTLR start "entryRuleConjunction"
-    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:377:1: entryRuleConjunction returns [EObject current=null] : iv_ruleConjunction= ruleConjunction EOF ;
-    public final EObject entryRuleConjunction() throws RecognitionException {
-        EObject current = null;
-
-        EObject iv_ruleConjunction = null;
-
-
-        try {
-            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:378:2: (iv_ruleConjunction= ruleConjunction EOF )
-            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:379:2: iv_ruleConjunction= ruleConjunction EOF
-            {
-             newCompositeNode(grammarAccess.getConjunctionRule()); 
-            pushFollow(FOLLOW_ruleConjunction_in_entryRuleConjunction848);
-            iv_ruleConjunction=ruleConjunction();
-
-            state._fsp--;
-
-             current =iv_ruleConjunction; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleConjunction858); 
-
-            }
-
-        }
-         
-            catch (RecognitionException re) { 
-                recover(input,re); 
-                appendSkippedTokens();
-            } 
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "entryRuleConjunction"
-
-
-    // $ANTLR start "ruleConjunction"
-    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:386:1: ruleConjunction returns [EObject current=null] : (this_Negation_0= ruleNegation ( () (otherlv_2= 'and' | otherlv_3= '&' ) ( (lv_parts_4_0= ruleNegation ) ) )* ) ;
-    public final EObject ruleConjunction() throws RecognitionException {
-        EObject current = null;
-
-        Token otherlv_2=null;
-        Token otherlv_3=null;
-        EObject this_Negation_0 = null;
-
-        EObject lv_parts_4_0 = null;
-
-
-         enterRule(); 
-            
-        try {
-            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:389:28: ( (this_Negation_0= ruleNegation ( () (otherlv_2= 'and' | otherlv_3= '&' ) ( (lv_parts_4_0= ruleNegation ) ) )* ) )
-            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:390:1: (this_Negation_0= ruleNegation ( () (otherlv_2= 'and' | otherlv_3= '&' ) ( (lv_parts_4_0= ruleNegation ) ) )* )
-            {
-            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:390:1: (this_Negation_0= ruleNegation ( () (otherlv_2= 'and' | otherlv_3= '&' ) ( (lv_parts_4_0= ruleNegation ) ) )* )
-            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:391:5: this_Negation_0= ruleNegation ( () (otherlv_2= 'and' | otherlv_3= '&' ) ( (lv_parts_4_0= ruleNegation ) ) )*
-            {
-             
-                    newCompositeNode(grammarAccess.getConjunctionAccess().getNegationParserRuleCall_0()); 
-                
-            pushFollow(FOLLOW_ruleNegation_in_ruleConjunction905);
-            this_Negation_0=ruleNegation();
-
-            state._fsp--;
-
-             
-                    current = this_Negation_0; 
-                    afterParserOrEnumRuleCall();
-                
-            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:399:1: ( () (otherlv_2= 'and' | otherlv_3= '&' ) ( (lv_parts_4_0= ruleNegation ) ) )*
-            loop9:
-            do {
-                int alt9=2;
-                int LA9_0 = input.LA(1);
-
-                if ( ((LA9_0>=21 && LA9_0<=22)) ) {
-                    alt9=1;
-                }
-
-
-                switch (alt9) {
-            	case 1 :
-            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:399:2: () (otherlv_2= 'and' | otherlv_3= '&' ) ( (lv_parts_4_0= ruleNegation ) )
-            	    {
-            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:399:2: ()
-            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:400:5: 
-            	    {
-
-            	            current = forceCreateModelElementAndAdd(
-            	                grammarAccess.getConjunctionAccess().getConjunctionPartsAction_1_0(),
-            	                current);
-            	        
-
-            	    }
-
-            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:405:2: (otherlv_2= 'and' | otherlv_3= '&' )
-            	    int alt8=2;
-            	    int LA8_0 = input.LA(1);
-
-            	    if ( (LA8_0==21) ) {
-            	        alt8=1;
-            	    }
-            	    else if ( (LA8_0==22) ) {
-            	        alt8=2;
-            	    }
-            	    else {
-            	        NoViableAltException nvae =
-            	            new NoViableAltException("", 8, 0, input);
-
-            	        throw nvae;
-            	    }
-            	    switch (alt8) {
-            	        case 1 :
-            	            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:405:4: otherlv_2= 'and'
-            	            {
-            	            otherlv_2=(Token)match(input,21,FOLLOW_21_in_ruleConjunction927); 
-
-            	                	newLeafNode(otherlv_2, grammarAccess.getConjunctionAccess().getAndKeyword_1_1_0());
-            	                
-
-            	            }
-            	            break;
-            	        case 2 :
-            	            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:410:7: otherlv_3= '&'
-            	            {
-            	            otherlv_3=(Token)match(input,22,FOLLOW_22_in_ruleConjunction945); 
-
-            	                	newLeafNode(otherlv_3, grammarAccess.getConjunctionAccess().getAmpersandKeyword_1_1_1());
-            	                
-
-            	            }
-            	            break;
-
-            	    }
-
-            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:414:2: ( (lv_parts_4_0= ruleNegation ) )
-            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:415:1: (lv_parts_4_0= ruleNegation )
-            	    {
-            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:415:1: (lv_parts_4_0= ruleNegation )
-            	    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:416:3: lv_parts_4_0= ruleNegation
-            	    {
-            	     
-            	    	        newCompositeNode(grammarAccess.getConjunctionAccess().getPartsNegationParserRuleCall_1_2_0()); 
-            	    	    
-            	    pushFollow(FOLLOW_ruleNegation_in_ruleConjunction967);
-            	    lv_parts_4_0=ruleNegation();
-
-            	    state._fsp--;
-
-
-            	    	        if (current==null) {
-            	    	            current = createModelElementForParent(grammarAccess.getConjunctionRule());
-            	    	        }
-            	           		add(
-            	           			current, 
-            	           			"parts",
-            	            		lv_parts_4_0, 
-            	            		"Negation");
-            	    	        afterParserOrEnumRuleCall();
-            	    	    
-
-            	    }
-
-
-            	    }
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop9;
-                }
-            } while (true);
-
-
-            }
-
-
-            }
-
-             leaveRule(); 
-        }
-         
-            catch (RecognitionException re) { 
-                recover(input,re); 
-                appendSkippedTokens();
-            } 
-        finally {
-        }
-        return current;
-    }
     // $ANTLR end "ruleConjunction"
 
 
     // $ANTLR start "entryRuleNegation"
-    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:440:1: entryRuleNegation returns [EObject current=null] : iv_ruleNegation= ruleNegation EOF ;
+    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:410:1: entryRuleNegation returns [EObject current=null] : iv_ruleNegation= ruleNegation EOF ;
     public final EObject entryRuleNegation() throws RecognitionException {
         EObject current = null;
 
@@ -1181,17 +990,17 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalAntl
 
 
         try {
-            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:441:2: (iv_ruleNegation= ruleNegation EOF )
-            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:442:2: iv_ruleNegation= ruleNegation EOF
+            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:411:2: (iv_ruleNegation= ruleNegation EOF )
+            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:412:2: iv_ruleNegation= ruleNegation EOF
             {
              newCompositeNode(grammarAccess.getNegationRule()); 
-            pushFollow(FOLLOW_ruleNegation_in_entryRuleNegation1005);
+            pushFollow(FOLLOW_ruleNegation_in_entryRuleNegation889);
             iv_ruleNegation=ruleNegation();
 
             state._fsp--;
 
              current =iv_ruleNegation; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleNegation1015); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleNegation899); 
 
             }
 
@@ -1209,47 +1018,46 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalAntl
 
 
     // $ANTLR start "ruleNegation"
-    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:449:1: ruleNegation returns [EObject current=null] : (this_PrimaryExpression_0= rulePrimaryExpression | ( (otherlv_1= 'not' | otherlv_2= '!' ) () ( (lv_expression_4_0= rulePrimaryExpression ) ) ) ) ;
+    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:419:1: ruleNegation returns [EObject current=null] : (this_PrimaryExpression_0= rulePrimaryExpression | (otherlv_1= 'not' () ( (lv_expression_3_0= rulePrimaryExpression ) ) ) ) ;
     public final EObject ruleNegation() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_1=null;
-        Token otherlv_2=null;
         EObject this_PrimaryExpression_0 = null;
 
-        EObject lv_expression_4_0 = null;
+        EObject lv_expression_3_0 = null;
 
 
          enterRule(); 
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:452:28: ( (this_PrimaryExpression_0= rulePrimaryExpression | ( (otherlv_1= 'not' | otherlv_2= '!' ) () ( (lv_expression_4_0= rulePrimaryExpression ) ) ) ) )
-            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:453:1: (this_PrimaryExpression_0= rulePrimaryExpression | ( (otherlv_1= 'not' | otherlv_2= '!' ) () ( (lv_expression_4_0= rulePrimaryExpression ) ) ) )
+            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:422:28: ( (this_PrimaryExpression_0= rulePrimaryExpression | (otherlv_1= 'not' () ( (lv_expression_3_0= rulePrimaryExpression ) ) ) ) )
+            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:423:1: (this_PrimaryExpression_0= rulePrimaryExpression | (otherlv_1= 'not' () ( (lv_expression_3_0= rulePrimaryExpression ) ) ) )
             {
-            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:453:1: (this_PrimaryExpression_0= rulePrimaryExpression | ( (otherlv_1= 'not' | otherlv_2= '!' ) () ( (lv_expression_4_0= rulePrimaryExpression ) ) ) )
-            int alt11=2;
-            int LA11_0 = input.LA(1);
+            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:423:1: (this_PrimaryExpression_0= rulePrimaryExpression | (otherlv_1= 'not' () ( (lv_expression_3_0= rulePrimaryExpression ) ) ) )
+            int alt6=2;
+            int LA6_0 = input.LA(1);
 
-            if ( (LA11_0==RULE_ID||LA11_0==25) ) {
-                alt11=1;
+            if ( (LA6_0==RULE_ID||LA6_0==18) ) {
+                alt6=1;
             }
-            else if ( ((LA11_0>=23 && LA11_0<=24)) ) {
-                alt11=2;
+            else if ( (LA6_0==17) ) {
+                alt6=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 11, 0, input);
+                    new NoViableAltException("", 6, 0, input);
 
                 throw nvae;
             }
-            switch (alt11) {
+            switch (alt6) {
                 case 1 :
-                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:454:5: this_PrimaryExpression_0= rulePrimaryExpression
+                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:424:5: this_PrimaryExpression_0= rulePrimaryExpression
                     {
                      
                             newCompositeNode(grammarAccess.getNegationAccess().getPrimaryExpressionParserRuleCall_0()); 
                         
-                    pushFollow(FOLLOW_rulePrimaryExpression_in_ruleNegation1062);
+                    pushFollow(FOLLOW_rulePrimaryExpression_in_ruleNegation946);
                     this_PrimaryExpression_0=rulePrimaryExpression();
 
                     state._fsp--;
@@ -1262,53 +1070,17 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalAntl
                     }
                     break;
                 case 2 :
-                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:463:6: ( (otherlv_1= 'not' | otherlv_2= '!' ) () ( (lv_expression_4_0= rulePrimaryExpression ) ) )
+                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:433:6: (otherlv_1= 'not' () ( (lv_expression_3_0= rulePrimaryExpression ) ) )
                     {
-                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:463:6: ( (otherlv_1= 'not' | otherlv_2= '!' ) () ( (lv_expression_4_0= rulePrimaryExpression ) ) )
-                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:463:7: (otherlv_1= 'not' | otherlv_2= '!' ) () ( (lv_expression_4_0= rulePrimaryExpression ) )
+                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:433:6: (otherlv_1= 'not' () ( (lv_expression_3_0= rulePrimaryExpression ) ) )
+                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:433:8: otherlv_1= 'not' () ( (lv_expression_3_0= rulePrimaryExpression ) )
                     {
-                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:463:7: (otherlv_1= 'not' | otherlv_2= '!' )
-                    int alt10=2;
-                    int LA10_0 = input.LA(1);
+                    otherlv_1=(Token)match(input,17,FOLLOW_17_in_ruleNegation964); 
 
-                    if ( (LA10_0==23) ) {
-                        alt10=1;
-                    }
-                    else if ( (LA10_0==24) ) {
-                        alt10=2;
-                    }
-                    else {
-                        NoViableAltException nvae =
-                            new NoViableAltException("", 10, 0, input);
-
-                        throw nvae;
-                    }
-                    switch (alt10) {
-                        case 1 :
-                            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:463:9: otherlv_1= 'not'
-                            {
-                            otherlv_1=(Token)match(input,23,FOLLOW_23_in_ruleNegation1081); 
-
-                                	newLeafNode(otherlv_1, grammarAccess.getNegationAccess().getNotKeyword_1_0_0());
-                                
-
-                            }
-                            break;
-                        case 2 :
-                            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:468:7: otherlv_2= '!'
-                            {
-                            otherlv_2=(Token)match(input,24,FOLLOW_24_in_ruleNegation1099); 
-
-                                	newLeafNode(otherlv_2, grammarAccess.getNegationAccess().getExclamationMarkKeyword_1_0_1());
-                                
-
-                            }
-                            break;
-
-                    }
-
-                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:472:2: ()
-                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:473:5: 
+                        	newLeafNode(otherlv_1, grammarAccess.getNegationAccess().getNotKeyword_1_0());
+                        
+                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:437:1: ()
+                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:438:5: 
                     {
 
                             current = forceCreateModelElement(
@@ -1318,17 +1090,17 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalAntl
 
                     }
 
-                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:478:2: ( (lv_expression_4_0= rulePrimaryExpression ) )
-                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:479:1: (lv_expression_4_0= rulePrimaryExpression )
+                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:443:2: ( (lv_expression_3_0= rulePrimaryExpression ) )
+                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:444:1: (lv_expression_3_0= rulePrimaryExpression )
                     {
-                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:479:1: (lv_expression_4_0= rulePrimaryExpression )
-                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:480:3: lv_expression_4_0= rulePrimaryExpression
+                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:444:1: (lv_expression_3_0= rulePrimaryExpression )
+                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:445:3: lv_expression_3_0= rulePrimaryExpression
                     {
                      
                     	        newCompositeNode(grammarAccess.getNegationAccess().getExpressionPrimaryExpressionParserRuleCall_1_2_0()); 
                     	    
-                    pushFollow(FOLLOW_rulePrimaryExpression_in_ruleNegation1130);
-                    lv_expression_4_0=rulePrimaryExpression();
+                    pushFollow(FOLLOW_rulePrimaryExpression_in_ruleNegation994);
+                    lv_expression_3_0=rulePrimaryExpression();
 
                     state._fsp--;
 
@@ -1339,7 +1111,7 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalAntl
                            		set(
                            			current, 
                            			"expression",
-                            		lv_expression_4_0, 
+                            		lv_expression_3_0, 
                             		"PrimaryExpression");
                     	        afterParserOrEnumRuleCall();
                     	    
@@ -1376,7 +1148,7 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalAntl
 
 
     // $ANTLR start "entryRulePrimaryExpression"
-    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:504:1: entryRulePrimaryExpression returns [EObject current=null] : iv_rulePrimaryExpression= rulePrimaryExpression EOF ;
+    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:469:1: entryRulePrimaryExpression returns [EObject current=null] : iv_rulePrimaryExpression= rulePrimaryExpression EOF ;
     public final EObject entryRulePrimaryExpression() throws RecognitionException {
         EObject current = null;
 
@@ -1384,17 +1156,17 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalAntl
 
 
         try {
-            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:505:2: (iv_rulePrimaryExpression= rulePrimaryExpression EOF )
-            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:506:2: iv_rulePrimaryExpression= rulePrimaryExpression EOF
+            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:470:2: (iv_rulePrimaryExpression= rulePrimaryExpression EOF )
+            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:471:2: iv_rulePrimaryExpression= rulePrimaryExpression EOF
             {
              newCompositeNode(grammarAccess.getPrimaryExpressionRule()); 
-            pushFollow(FOLLOW_rulePrimaryExpression_in_entryRulePrimaryExpression1167);
+            pushFollow(FOLLOW_rulePrimaryExpression_in_entryRulePrimaryExpression1031);
             iv_rulePrimaryExpression=rulePrimaryExpression();
 
             state._fsp--;
 
              current =iv_rulePrimaryExpression; 
-            match(input,EOF,FOLLOW_EOF_in_entryRulePrimaryExpression1177); 
+            match(input,EOF,FOLLOW_EOF_in_entryRulePrimaryExpression1041); 
 
             }
 
@@ -1412,7 +1184,7 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalAntl
 
 
     // $ANTLR start "rulePrimaryExpression"
-    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:513:1: rulePrimaryExpression returns [EObject current=null] : ( ( () ( (lv_featureId_1_0= RULE_ID ) ) ) | (otherlv_2= '(' this_Expression_3= ruleExpression otherlv_4= ')' ) ) ;
+    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:478:1: rulePrimaryExpression returns [EObject current=null] : ( ( () ( (lv_featureId_1_0= RULE_ID ) ) ) | (otherlv_2= '(' this_Expression_3= ruleExpression otherlv_4= ')' ) ) ;
     public final EObject rulePrimaryExpression() throws RecognitionException {
         EObject current = null;
 
@@ -1425,34 +1197,34 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalAntl
          enterRule(); 
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:516:28: ( ( ( () ( (lv_featureId_1_0= RULE_ID ) ) ) | (otherlv_2= '(' this_Expression_3= ruleExpression otherlv_4= ')' ) ) )
-            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:517:1: ( ( () ( (lv_featureId_1_0= RULE_ID ) ) ) | (otherlv_2= '(' this_Expression_3= ruleExpression otherlv_4= ')' ) )
+            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:481:28: ( ( ( () ( (lv_featureId_1_0= RULE_ID ) ) ) | (otherlv_2= '(' this_Expression_3= ruleExpression otherlv_4= ')' ) ) )
+            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:482:1: ( ( () ( (lv_featureId_1_0= RULE_ID ) ) ) | (otherlv_2= '(' this_Expression_3= ruleExpression otherlv_4= ')' ) )
             {
-            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:517:1: ( ( () ( (lv_featureId_1_0= RULE_ID ) ) ) | (otherlv_2= '(' this_Expression_3= ruleExpression otherlv_4= ')' ) )
-            int alt12=2;
-            int LA12_0 = input.LA(1);
+            // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:482:1: ( ( () ( (lv_featureId_1_0= RULE_ID ) ) ) | (otherlv_2= '(' this_Expression_3= ruleExpression otherlv_4= ')' ) )
+            int alt7=2;
+            int LA7_0 = input.LA(1);
 
-            if ( (LA12_0==RULE_ID) ) {
-                alt12=1;
+            if ( (LA7_0==RULE_ID) ) {
+                alt7=1;
             }
-            else if ( (LA12_0==25) ) {
-                alt12=2;
+            else if ( (LA7_0==18) ) {
+                alt7=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 12, 0, input);
+                    new NoViableAltException("", 7, 0, input);
 
                 throw nvae;
             }
-            switch (alt12) {
+            switch (alt7) {
                 case 1 :
-                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:517:2: ( () ( (lv_featureId_1_0= RULE_ID ) ) )
+                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:482:2: ( () ( (lv_featureId_1_0= RULE_ID ) ) )
                     {
-                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:517:2: ( () ( (lv_featureId_1_0= RULE_ID ) ) )
-                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:517:3: () ( (lv_featureId_1_0= RULE_ID ) )
+                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:482:2: ( () ( (lv_featureId_1_0= RULE_ID ) ) )
+                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:482:3: () ( (lv_featureId_1_0= RULE_ID ) )
                     {
-                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:517:3: ()
-                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:518:5: 
+                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:482:3: ()
+                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:483:5: 
                     {
 
                             current = forceCreateModelElement(
@@ -1462,13 +1234,13 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalAntl
 
                     }
 
-                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:523:2: ( (lv_featureId_1_0= RULE_ID ) )
-                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:524:1: (lv_featureId_1_0= RULE_ID )
+                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:488:2: ( (lv_featureId_1_0= RULE_ID ) )
+                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:489:1: (lv_featureId_1_0= RULE_ID )
                     {
-                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:524:1: (lv_featureId_1_0= RULE_ID )
-                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:525:3: lv_featureId_1_0= RULE_ID
+                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:489:1: (lv_featureId_1_0= RULE_ID )
+                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:490:3: lv_featureId_1_0= RULE_ID
                     {
-                    lv_featureId_1_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_rulePrimaryExpression1229); 
+                    lv_featureId_1_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_rulePrimaryExpression1093); 
 
                     			newLeafNode(lv_featureId_1_0, grammarAccess.getPrimaryExpressionAccess().getFeatureIdIDTerminalRuleCall_0_1_0()); 
                     		
@@ -1495,19 +1267,19 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalAntl
                     }
                     break;
                 case 2 :
-                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:542:6: (otherlv_2= '(' this_Expression_3= ruleExpression otherlv_4= ')' )
+                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:507:6: (otherlv_2= '(' this_Expression_3= ruleExpression otherlv_4= ')' )
                     {
-                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:542:6: (otherlv_2= '(' this_Expression_3= ruleExpression otherlv_4= ')' )
-                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:542:8: otherlv_2= '(' this_Expression_3= ruleExpression otherlv_4= ')'
+                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:507:6: (otherlv_2= '(' this_Expression_3= ruleExpression otherlv_4= ')' )
+                    // ../cz.jpikl.yafmt.clang.scl/src-gen/cz/jpikl/yafmt/clang/scl/parser/antlr/internal/InternalSimpleConstraintLanguage.g:507:8: otherlv_2= '(' this_Expression_3= ruleExpression otherlv_4= ')'
                     {
-                    otherlv_2=(Token)match(input,25,FOLLOW_25_in_rulePrimaryExpression1254); 
+                    otherlv_2=(Token)match(input,18,FOLLOW_18_in_rulePrimaryExpression1118); 
 
                         	newLeafNode(otherlv_2, grammarAccess.getPrimaryExpressionAccess().getLeftParenthesisKeyword_1_0());
                         
                      
                             newCompositeNode(grammarAccess.getPrimaryExpressionAccess().getExpressionParserRuleCall_1_1()); 
                         
-                    pushFollow(FOLLOW_ruleExpression_in_rulePrimaryExpression1276);
+                    pushFollow(FOLLOW_ruleExpression_in_rulePrimaryExpression1140);
                     this_Expression_3=ruleExpression();
 
                     state._fsp--;
@@ -1516,7 +1288,7 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalAntl
                             current = this_Expression_3; 
                             afterParserOrEnumRuleCall();
                         
-                    otherlv_4=(Token)match(input,26,FOLLOW_26_in_rulePrimaryExpression1287); 
+                    otherlv_4=(Token)match(input,19,FOLLOW_19_in_rulePrimaryExpression1151); 
 
                         	newLeafNode(otherlv_4, grammarAccess.getPrimaryExpressionAccess().getRightParenthesisKeyword_1_2());
                         
@@ -1557,46 +1329,39 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalAntl
     public static final BitSet FOLLOW_EOF_in_entryRuleContextualExpression175 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_11_in_ruleContextualExpression213 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_RULE_ID_in_ruleContextualExpression239 = new BitSet(new long[]{0x0000000000001000L});
-    public static final BitSet FOLLOW_12_in_ruleContextualExpression256 = new BitSet(new long[]{0x0000000003800010L});
+    public static final BitSet FOLLOW_12_in_ruleContextualExpression256 = new BitSet(new long[]{0x0000000000060010L});
     public static final BitSet FOLLOW_ruleImplication_in_ruleContextualExpression277 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleImplication_in_ruleContextualExpression306 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleImplication_in_entryRuleImplication341 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleImplication351 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDisjunction_in_ruleImplication398 = new BitSet(new long[]{0x000000000001E002L});
-    public static final BitSet FOLLOW_13_in_ruleImplication420 = new BitSet(new long[]{0x0000000003800010L});
-    public static final BitSet FOLLOW_14_in_ruleImplication438 = new BitSet(new long[]{0x0000000003800010L});
-    public static final BitSet FOLLOW_15_in_ruleImplication456 = new BitSet(new long[]{0x0000000003800010L});
-    public static final BitSet FOLLOW_16_in_ruleImplication474 = new BitSet(new long[]{0x0000000003800010L});
-    public static final BitSet FOLLOW_ruleDisjunction_in_ruleImplication496 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDisjunction_in_entryRuleDisjunction534 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleDisjunction544 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExclusiveDisjunction_in_ruleDisjunction591 = new BitSet(new long[]{0x0000000000060002L});
-    public static final BitSet FOLLOW_17_in_ruleDisjunction613 = new BitSet(new long[]{0x0000000003800010L});
-    public static final BitSet FOLLOW_18_in_ruleDisjunction631 = new BitSet(new long[]{0x0000000003800010L});
-    public static final BitSet FOLLOW_ruleExclusiveDisjunction_in_ruleDisjunction653 = new BitSet(new long[]{0x0000000000060002L});
-    public static final BitSet FOLLOW_ruleExclusiveDisjunction_in_entryRuleExclusiveDisjunction691 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleExclusiveDisjunction701 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleConjunction_in_ruleExclusiveDisjunction748 = new BitSet(new long[]{0x0000000000180002L});
-    public static final BitSet FOLLOW_19_in_ruleExclusiveDisjunction770 = new BitSet(new long[]{0x0000000003800010L});
-    public static final BitSet FOLLOW_20_in_ruleExclusiveDisjunction788 = new BitSet(new long[]{0x0000000003800010L});
-    public static final BitSet FOLLOW_ruleConjunction_in_ruleExclusiveDisjunction810 = new BitSet(new long[]{0x0000000000180002L});
-    public static final BitSet FOLLOW_ruleConjunction_in_entryRuleConjunction848 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleConjunction858 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNegation_in_ruleConjunction905 = new BitSet(new long[]{0x0000000000600002L});
-    public static final BitSet FOLLOW_21_in_ruleConjunction927 = new BitSet(new long[]{0x0000000003800010L});
-    public static final BitSet FOLLOW_22_in_ruleConjunction945 = new BitSet(new long[]{0x0000000003800010L});
-    public static final BitSet FOLLOW_ruleNegation_in_ruleConjunction967 = new BitSet(new long[]{0x0000000000600002L});
-    public static final BitSet FOLLOW_ruleNegation_in_entryRuleNegation1005 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleNegation1015 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePrimaryExpression_in_ruleNegation1062 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_23_in_ruleNegation1081 = new BitSet(new long[]{0x0000000002000010L});
-    public static final BitSet FOLLOW_24_in_ruleNegation1099 = new BitSet(new long[]{0x0000000002000010L});
-    public static final BitSet FOLLOW_rulePrimaryExpression_in_ruleNegation1130 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePrimaryExpression_in_entryRulePrimaryExpression1167 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRulePrimaryExpression1177 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rulePrimaryExpression1229 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_25_in_rulePrimaryExpression1254 = new BitSet(new long[]{0x0000000003800810L});
-    public static final BitSet FOLLOW_ruleExpression_in_rulePrimaryExpression1276 = new BitSet(new long[]{0x0000000004000000L});
-    public static final BitSet FOLLOW_26_in_rulePrimaryExpression1287 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDisjunction_in_ruleImplication398 = new BitSet(new long[]{0x0000000000002002L});
+    public static final BitSet FOLLOW_13_in_ruleImplication419 = new BitSet(new long[]{0x0000000000060010L});
+    public static final BitSet FOLLOW_ruleDisjunction_in_ruleImplication440 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDisjunction_in_entryRuleDisjunction478 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleDisjunction488 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExclusiveDisjunction_in_ruleDisjunction535 = new BitSet(new long[]{0x0000000000004002L});
+    public static final BitSet FOLLOW_14_in_ruleDisjunction556 = new BitSet(new long[]{0x0000000000060010L});
+    public static final BitSet FOLLOW_ruleExclusiveDisjunction_in_ruleDisjunction577 = new BitSet(new long[]{0x0000000000004002L});
+    public static final BitSet FOLLOW_ruleExclusiveDisjunction_in_entryRuleExclusiveDisjunction615 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleExclusiveDisjunction625 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleConjunction_in_ruleExclusiveDisjunction672 = new BitSet(new long[]{0x0000000000008002L});
+    public static final BitSet FOLLOW_15_in_ruleExclusiveDisjunction693 = new BitSet(new long[]{0x0000000000060010L});
+    public static final BitSet FOLLOW_ruleConjunction_in_ruleExclusiveDisjunction714 = new BitSet(new long[]{0x0000000000008002L});
+    public static final BitSet FOLLOW_ruleConjunction_in_entryRuleConjunction752 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleConjunction762 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNegation_in_ruleConjunction809 = new BitSet(new long[]{0x0000000000010002L});
+    public static final BitSet FOLLOW_16_in_ruleConjunction830 = new BitSet(new long[]{0x0000000000060010L});
+    public static final BitSet FOLLOW_ruleNegation_in_ruleConjunction851 = new BitSet(new long[]{0x0000000000010002L});
+    public static final BitSet FOLLOW_ruleNegation_in_entryRuleNegation889 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleNegation899 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulePrimaryExpression_in_ruleNegation946 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_17_in_ruleNegation964 = new BitSet(new long[]{0x0000000000040010L});
+    public static final BitSet FOLLOW_rulePrimaryExpression_in_ruleNegation994 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulePrimaryExpression_in_entryRulePrimaryExpression1031 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRulePrimaryExpression1041 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rulePrimaryExpression1093 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_18_in_rulePrimaryExpression1118 = new BitSet(new long[]{0x0000000000060810L});
+    public static final BitSet FOLLOW_ruleExpression_in_rulePrimaryExpression1140 = new BitSet(new long[]{0x0000000000080000L});
+    public static final BitSet FOLLOW_19_in_rulePrimaryExpression1151 = new BitSet(new long[]{0x0000000000000002L});
 
 }

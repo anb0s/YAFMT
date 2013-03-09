@@ -38,12 +38,7 @@ public class SimpleConstraintLanguageParser extends AbstractContentAssistParser 
 				private static final long serialVersionUID = 1L;
 				{
 					put(grammarAccess.getContextualExpressionAccess().getAlternatives(), "rule__ContextualExpression__Alternatives");
-					put(grammarAccess.getImplicationAccess().getAlternatives_1_1(), "rule__Implication__Alternatives_1_1");
-					put(grammarAccess.getDisjunctionAccess().getAlternatives_1_1(), "rule__Disjunction__Alternatives_1_1");
-					put(grammarAccess.getExclusiveDisjunctionAccess().getAlternatives_1_1(), "rule__ExclusiveDisjunction__Alternatives_1_1");
-					put(grammarAccess.getConjunctionAccess().getAlternatives_1_1(), "rule__Conjunction__Alternatives_1_1");
 					put(grammarAccess.getNegationAccess().getAlternatives(), "rule__Negation__Alternatives");
-					put(grammarAccess.getNegationAccess().getAlternatives_1_0(), "rule__Negation__Alternatives_1_0");
 					put(grammarAccess.getPrimaryExpressionAccess().getAlternatives(), "rule__PrimaryExpression__Alternatives");
 					put(grammarAccess.getContextualExpressionAccess().getGroup_0(), "rule__ContextualExpression__Group_0__0");
 					put(grammarAccess.getImplicationAccess().getGroup(), "rule__Implication__Group__0");

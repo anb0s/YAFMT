@@ -94,44 +94,28 @@ public class SimpleConstraintLanguageGrammarAccess extends AbstractGrammarElemen
 		private final RuleCall cDisjunctionParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Action cImplicationLeftPartAction_1_0 = (Action)cGroup_1.eContents().get(0);
-		private final Alternatives cAlternatives_1_1 = (Alternatives)cGroup_1.eContents().get(1);
-		private final Keyword cImpliesKeyword_1_1_0 = (Keyword)cAlternatives_1_1.eContents().get(0);
-		private final Keyword cRequiresKeyword_1_1_1 = (Keyword)cAlternatives_1_1.eContents().get(1);
-		private final Keyword cHyphenMinusGreaterThanSignKeyword_1_1_2 = (Keyword)cAlternatives_1_1.eContents().get(2);
-		private final Keyword cEqualsSignGreaterThanSignKeyword_1_1_3 = (Keyword)cAlternatives_1_1.eContents().get(3);
+		private final Keyword cImpliesKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
 		private final Assignment cRightPartAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
 		private final RuleCall cRightPartDisjunctionParserRuleCall_1_2_0 = (RuleCall)cRightPartAssignment_1_2.eContents().get(0);
 		
 		//Implication returns Expression:
-		//	Disjunction ({Implication.leftPart=current} ("implies" | "requires" | "->" | "=>") rightPart=Disjunction)?;
+		//	Disjunction ({Implication.leftPart=current} "implies" rightPart=Disjunction)?;
 		public ParserRule getRule() { return rule; }
 
-		//Disjunction ({Implication.leftPart=current} ("implies" | "requires" | "->" | "=>") rightPart=Disjunction)?
+		//Disjunction ({Implication.leftPart=current} "implies" rightPart=Disjunction)?
 		public Group getGroup() { return cGroup; }
 
 		//Disjunction
 		public RuleCall getDisjunctionParserRuleCall_0() { return cDisjunctionParserRuleCall_0; }
 
-		//({Implication.leftPart=current} ("implies" | "requires" | "->" | "=>") rightPart=Disjunction)?
+		//({Implication.leftPart=current} "implies" rightPart=Disjunction)?
 		public Group getGroup_1() { return cGroup_1; }
 
 		//{Implication.leftPart=current}
 		public Action getImplicationLeftPartAction_1_0() { return cImplicationLeftPartAction_1_0; }
 
-		//"implies" | "requires" | "->" | "=>"
-		public Alternatives getAlternatives_1_1() { return cAlternatives_1_1; }
-
 		//"implies"
-		public Keyword getImpliesKeyword_1_1_0() { return cImpliesKeyword_1_1_0; }
-
-		//"requires"
-		public Keyword getRequiresKeyword_1_1_1() { return cRequiresKeyword_1_1_1; }
-
-		//"->"
-		public Keyword getHyphenMinusGreaterThanSignKeyword_1_1_2() { return cHyphenMinusGreaterThanSignKeyword_1_1_2; }
-
-		//"=>"
-		public Keyword getEqualsSignGreaterThanSignKeyword_1_1_3() { return cEqualsSignGreaterThanSignKeyword_1_1_3; }
+		public Keyword getImpliesKeyword_1_1() { return cImpliesKeyword_1_1; }
 
 		//rightPart=Disjunction
 		public Assignment getRightPartAssignment_1_2() { return cRightPartAssignment_1_2; }
@@ -146,9 +130,7 @@ public class SimpleConstraintLanguageGrammarAccess extends AbstractGrammarElemen
 		private final RuleCall cExclusiveDisjunctionParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Action cDisjunctionPartsAction_1_0 = (Action)cGroup_1.eContents().get(0);
-		private final Alternatives cAlternatives_1_1 = (Alternatives)cGroup_1.eContents().get(1);
-		private final Keyword cOrKeyword_1_1_0 = (Keyword)cAlternatives_1_1.eContents().get(0);
-		private final Keyword cVerticalLineKeyword_1_1_1 = (Keyword)cAlternatives_1_1.eContents().get(1);
+		private final Keyword cOrKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
 		private final Assignment cPartsAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
 		private final RuleCall cPartsExclusiveDisjunctionParserRuleCall_1_2_0 = (RuleCall)cPartsAssignment_1_2.eContents().get(0);
 		
@@ -164,29 +146,23 @@ public class SimpleConstraintLanguageGrammarAccess extends AbstractGrammarElemen
 		////    disjunction.getParts().add(current);
 		////    current = disjunction;
 		//Disjunction returns Expression:
-		//	ExclusiveDisjunction ({Disjunction.parts+=current} ("or" | "|") parts+=ExclusiveDisjunction)*;
+		//	ExclusiveDisjunction ({Disjunction.parts+=current} "or" parts+=ExclusiveDisjunction)*;
 		public ParserRule getRule() { return rule; }
 
-		//ExclusiveDisjunction ({Disjunction.parts+=current} ("or" | "|") parts+=ExclusiveDisjunction)*
+		//ExclusiveDisjunction ({Disjunction.parts+=current} "or" parts+=ExclusiveDisjunction)*
 		public Group getGroup() { return cGroup; }
 
 		//ExclusiveDisjunction
 		public RuleCall getExclusiveDisjunctionParserRuleCall_0() { return cExclusiveDisjunctionParserRuleCall_0; }
 
-		//({Disjunction.parts+=current} ("or" | "|") parts+=ExclusiveDisjunction)*
+		//({Disjunction.parts+=current} "or" parts+=ExclusiveDisjunction)*
 		public Group getGroup_1() { return cGroup_1; }
 
 		//{Disjunction.parts+=current}
 		public Action getDisjunctionPartsAction_1_0() { return cDisjunctionPartsAction_1_0; }
 
-		//"or" | "|"
-		public Alternatives getAlternatives_1_1() { return cAlternatives_1_1; }
-
 		//"or"
-		public Keyword getOrKeyword_1_1_0() { return cOrKeyword_1_1_0; }
-
-		//"|"
-		public Keyword getVerticalLineKeyword_1_1_1() { return cVerticalLineKeyword_1_1_1; }
+		public Keyword getOrKeyword_1_1() { return cOrKeyword_1_1; }
 
 		//parts+=ExclusiveDisjunction
 		public Assignment getPartsAssignment_1_2() { return cPartsAssignment_1_2; }
@@ -201,36 +177,28 @@ public class SimpleConstraintLanguageGrammarAccess extends AbstractGrammarElemen
 		private final RuleCall cConjunctionParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Action cExclusiveDisjunctionPartsAction_1_0 = (Action)cGroup_1.eContents().get(0);
-		private final Alternatives cAlternatives_1_1 = (Alternatives)cGroup_1.eContents().get(1);
-		private final Keyword cXorKeyword_1_1_0 = (Keyword)cAlternatives_1_1.eContents().get(0);
-		private final Keyword cCircumflexAccentKeyword_1_1_1 = (Keyword)cAlternatives_1_1.eContents().get(1);
+		private final Keyword cXorKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
 		private final Assignment cPartsAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
 		private final RuleCall cPartsConjunctionParserRuleCall_1_2_0 = (RuleCall)cPartsAssignment_1_2.eContents().get(0);
 		
 		//ExclusiveDisjunction returns Expression:
-		//	Conjunction ({ExclusiveDisjunction.parts+=current} ("xor" | "^") parts+=Conjunction)*;
+		//	Conjunction ({ExclusiveDisjunction.parts+=current} "xor" parts+=Conjunction)*;
 		public ParserRule getRule() { return rule; }
 
-		//Conjunction ({ExclusiveDisjunction.parts+=current} ("xor" | "^") parts+=Conjunction)*
+		//Conjunction ({ExclusiveDisjunction.parts+=current} "xor" parts+=Conjunction)*
 		public Group getGroup() { return cGroup; }
 
 		//Conjunction
 		public RuleCall getConjunctionParserRuleCall_0() { return cConjunctionParserRuleCall_0; }
 
-		//({ExclusiveDisjunction.parts+=current} ("xor" | "^") parts+=Conjunction)*
+		//({ExclusiveDisjunction.parts+=current} "xor" parts+=Conjunction)*
 		public Group getGroup_1() { return cGroup_1; }
 
 		//{ExclusiveDisjunction.parts+=current}
 		public Action getExclusiveDisjunctionPartsAction_1_0() { return cExclusiveDisjunctionPartsAction_1_0; }
 
-		//"xor" | "^"
-		public Alternatives getAlternatives_1_1() { return cAlternatives_1_1; }
-
 		//"xor"
-		public Keyword getXorKeyword_1_1_0() { return cXorKeyword_1_1_0; }
-
-		//"^"
-		public Keyword getCircumflexAccentKeyword_1_1_1() { return cCircumflexAccentKeyword_1_1_1; }
+		public Keyword getXorKeyword_1_1() { return cXorKeyword_1_1; }
 
 		//parts+=Conjunction
 		public Assignment getPartsAssignment_1_2() { return cPartsAssignment_1_2; }
@@ -245,36 +213,28 @@ public class SimpleConstraintLanguageGrammarAccess extends AbstractGrammarElemen
 		private final RuleCall cNegationParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Action cConjunctionPartsAction_1_0 = (Action)cGroup_1.eContents().get(0);
-		private final Alternatives cAlternatives_1_1 = (Alternatives)cGroup_1.eContents().get(1);
-		private final Keyword cAndKeyword_1_1_0 = (Keyword)cAlternatives_1_1.eContents().get(0);
-		private final Keyword cAmpersandKeyword_1_1_1 = (Keyword)cAlternatives_1_1.eContents().get(1);
+		private final Keyword cAndKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
 		private final Assignment cPartsAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
 		private final RuleCall cPartsNegationParserRuleCall_1_2_0 = (RuleCall)cPartsAssignment_1_2.eContents().get(0);
 		
 		//Conjunction returns Expression:
-		//	Negation ({Conjunction.parts+=current} ("and" | "&") parts+=Negation)*;
+		//	Negation ({Conjunction.parts+=current} "and" parts+=Negation)*;
 		public ParserRule getRule() { return rule; }
 
-		//Negation ({Conjunction.parts+=current} ("and" | "&") parts+=Negation)*
+		//Negation ({Conjunction.parts+=current} "and" parts+=Negation)*
 		public Group getGroup() { return cGroup; }
 
 		//Negation
 		public RuleCall getNegationParserRuleCall_0() { return cNegationParserRuleCall_0; }
 
-		//({Conjunction.parts+=current} ("and" | "&") parts+=Negation)*
+		//({Conjunction.parts+=current} "and" parts+=Negation)*
 		public Group getGroup_1() { return cGroup_1; }
 
 		//{Conjunction.parts+=current}
 		public Action getConjunctionPartsAction_1_0() { return cConjunctionPartsAction_1_0; }
 
-		//"and" | "&"
-		public Alternatives getAlternatives_1_1() { return cAlternatives_1_1; }
-
 		//"and"
-		public Keyword getAndKeyword_1_1_0() { return cAndKeyword_1_1_0; }
-
-		//"&"
-		public Keyword getAmpersandKeyword_1_1_1() { return cAmpersandKeyword_1_1_1; }
+		public Keyword getAndKeyword_1_1() { return cAndKeyword_1_1; }
 
 		//parts+=Negation
 		public Assignment getPartsAssignment_1_2() { return cPartsAssignment_1_2; }
@@ -288,34 +248,26 @@ public class SimpleConstraintLanguageGrammarAccess extends AbstractGrammarElemen
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cPrimaryExpressionParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
-		private final Alternatives cAlternatives_1_0 = (Alternatives)cGroup_1.eContents().get(0);
-		private final Keyword cNotKeyword_1_0_0 = (Keyword)cAlternatives_1_0.eContents().get(0);
-		private final Keyword cExclamationMarkKeyword_1_0_1 = (Keyword)cAlternatives_1_0.eContents().get(1);
+		private final Keyword cNotKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
 		private final Action cNegationAction_1_1 = (Action)cGroup_1.eContents().get(1);
 		private final Assignment cExpressionAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
 		private final RuleCall cExpressionPrimaryExpressionParserRuleCall_1_2_0 = (RuleCall)cExpressionAssignment_1_2.eContents().get(0);
 		
 		//Negation returns Expression:
-		//	PrimaryExpression | ("not" | "!") {Negation} expression=PrimaryExpression;
+		//	PrimaryExpression | "not" {Negation} expression=PrimaryExpression;
 		public ParserRule getRule() { return rule; }
 
-		//PrimaryExpression | ("not" | "!") {Negation} expression=PrimaryExpression
+		//PrimaryExpression | "not" {Negation} expression=PrimaryExpression
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//PrimaryExpression
 		public RuleCall getPrimaryExpressionParserRuleCall_0() { return cPrimaryExpressionParserRuleCall_0; }
 
-		//("not" | "!") {Negation} expression=PrimaryExpression
+		//"not" {Negation} expression=PrimaryExpression
 		public Group getGroup_1() { return cGroup_1; }
 
-		//"not" | "!"
-		public Alternatives getAlternatives_1_0() { return cAlternatives_1_0; }
-
 		//"not"
-		public Keyword getNotKeyword_1_0_0() { return cNotKeyword_1_0_0; }
-
-		//"!"
-		public Keyword getExclamationMarkKeyword_1_0_1() { return cExclamationMarkKeyword_1_0_1; }
+		public Keyword getNotKeyword_1_0() { return cNotKeyword_1_0; }
 
 		//{Negation}
 		public Action getNegationAction_1_1() { return cNegationAction_1_1; }
@@ -449,7 +401,7 @@ public class SimpleConstraintLanguageGrammarAccess extends AbstractGrammarElemen
 	}
 
 	//Implication returns Expression:
-	//	Disjunction ({Implication.leftPart=current} ("implies" | "requires" | "->" | "=>") rightPart=Disjunction)?;
+	//	Disjunction ({Implication.leftPart=current} "implies" rightPart=Disjunction)?;
 	public ImplicationElements getImplicationAccess() {
 		return (pImplication != null) ? pImplication : (pImplication = new ImplicationElements());
 	}
@@ -470,7 +422,7 @@ public class SimpleConstraintLanguageGrammarAccess extends AbstractGrammarElemen
 	////    disjunction.getParts().add(current);
 	////    current = disjunction;
 	//Disjunction returns Expression:
-	//	ExclusiveDisjunction ({Disjunction.parts+=current} ("or" | "|") parts+=ExclusiveDisjunction)*;
+	//	ExclusiveDisjunction ({Disjunction.parts+=current} "or" parts+=ExclusiveDisjunction)*;
 	public DisjunctionElements getDisjunctionAccess() {
 		return (pDisjunction != null) ? pDisjunction : (pDisjunction = new DisjunctionElements());
 	}
@@ -480,7 +432,7 @@ public class SimpleConstraintLanguageGrammarAccess extends AbstractGrammarElemen
 	}
 
 	//ExclusiveDisjunction returns Expression:
-	//	Conjunction ({ExclusiveDisjunction.parts+=current} ("xor" | "^") parts+=Conjunction)*;
+	//	Conjunction ({ExclusiveDisjunction.parts+=current} "xor" parts+=Conjunction)*;
 	public ExclusiveDisjunctionElements getExclusiveDisjunctionAccess() {
 		return (pExclusiveDisjunction != null) ? pExclusiveDisjunction : (pExclusiveDisjunction = new ExclusiveDisjunctionElements());
 	}
@@ -490,7 +442,7 @@ public class SimpleConstraintLanguageGrammarAccess extends AbstractGrammarElemen
 	}
 
 	//Conjunction returns Expression:
-	//	Negation ({Conjunction.parts+=current} ("and" | "&") parts+=Negation)*;
+	//	Negation ({Conjunction.parts+=current} "and" parts+=Negation)*;
 	public ConjunctionElements getConjunctionAccess() {
 		return (pConjunction != null) ? pConjunction : (pConjunction = new ConjunctionElements());
 	}
@@ -500,7 +452,7 @@ public class SimpleConstraintLanguageGrammarAccess extends AbstractGrammarElemen
 	}
 
 	//Negation returns Expression:
-	//	PrimaryExpression | ("not" | "!") {Negation} expression=PrimaryExpression;
+	//	PrimaryExpression | "not" {Negation} expression=PrimaryExpression;
 	public NegationElements getNegationAccess() {
 		return (pNegation != null) ? pNegation : (pNegation = new NegationElements());
 	}

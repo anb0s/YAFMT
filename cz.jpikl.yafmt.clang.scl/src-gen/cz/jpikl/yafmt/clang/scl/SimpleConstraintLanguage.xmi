@@ -45,12 +45,7 @@
               <classifier xsi:type="ecore:EClass" href="https://bitbucket.org/jpikl/yafmt/clang/scl#//Implication"/>
             </type>
           </elements>
-          <elements xsi:type="xtext:Alternatives">
-            <elements xsi:type="xtext:Keyword" value="implies"/>
-            <elements xsi:type="xtext:Keyword" value="requires"/>
-            <elements xsi:type="xtext:Keyword" value="->"/>
-            <elements xsi:type="xtext:Keyword" value="=>"/>
-          </elements>
+          <elements xsi:type="xtext:Keyword" value="implies"/>
           <elements xsi:type="xtext:Assignment" feature="rightPart" operator="=">
             <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.3"/>
           </elements>
@@ -69,10 +64,7 @@
               <classifier xsi:type="ecore:EClass" href="https://bitbucket.org/jpikl/yafmt/clang/scl#//Disjunction"/>
             </type>
           </elements>
-          <elements xsi:type="xtext:Alternatives">
-            <elements xsi:type="xtext:Keyword" value="or"/>
-            <elements xsi:type="xtext:Keyword" value="|"/>
-          </elements>
+          <elements xsi:type="xtext:Keyword" value="or"/>
           <elements xsi:type="xtext:Assignment" feature="parts" operator="+=">
             <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.4"/>
           </elements>
@@ -91,10 +83,7 @@
               <classifier xsi:type="ecore:EClass" href="https://bitbucket.org/jpikl/yafmt/clang/scl#//ExclusiveDisjunction"/>
             </type>
           </elements>
-          <elements xsi:type="xtext:Alternatives">
-            <elements xsi:type="xtext:Keyword" value="xor"/>
-            <elements xsi:type="xtext:Keyword" value="^"/>
-          </elements>
+          <elements xsi:type="xtext:Keyword" value="xor"/>
           <elements xsi:type="xtext:Assignment" feature="parts" operator="+=">
             <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.5"/>
           </elements>
@@ -113,10 +102,7 @@
               <classifier xsi:type="ecore:EClass" href="https://bitbucket.org/jpikl/yafmt/clang/scl#//Conjunction"/>
             </type>
           </elements>
-          <elements xsi:type="xtext:Alternatives">
-            <elements xsi:type="xtext:Keyword" value="and"/>
-            <elements xsi:type="xtext:Keyword" value="&amp;"/>
-          </elements>
+          <elements xsi:type="xtext:Keyword" value="and"/>
           <elements xsi:type="xtext:Assignment" feature="parts" operator="+=">
             <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.6"/>
           </elements>
@@ -130,10 +116,7 @@
       <alternatives xsi:type="xtext:Alternatives">
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.7"/>
         <elements xsi:type="xtext:Group">
-          <elements xsi:type="xtext:Alternatives">
-            <elements xsi:type="xtext:Keyword" value="not"/>
-            <elements xsi:type="xtext:Keyword" value="!"/>
-          </elements>
+          <elements xsi:type="xtext:Keyword" value="not"/>
           <elements xsi:type="xtext:Action">
             <type metamodel="/0/@metamodelDeclarations.0">
               <classifier xsi:type="ecore:EClass" href="https://bitbucket.org/jpikl/yafmt/clang/scl#//Negation"/>

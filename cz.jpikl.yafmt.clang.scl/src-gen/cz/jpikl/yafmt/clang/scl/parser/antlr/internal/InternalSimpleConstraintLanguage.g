@@ -203,38 +203,23 @@ ruleImplication returns [EObject current=null]
             grammarAccess.getImplicationAccess().getImplicationLeftPartAction_1_0(),
             $current);
     }
-)(	otherlv_2='implies' 
+)	otherlv_2='implies' 
     {
-    	newLeafNode(otherlv_2, grammarAccess.getImplicationAccess().getImpliesKeyword_1_1_0());
+    	newLeafNode(otherlv_2, grammarAccess.getImplicationAccess().getImpliesKeyword_1_1());
     }
-
-    |	otherlv_3='requires' 
-    {
-    	newLeafNode(otherlv_3, grammarAccess.getImplicationAccess().getRequiresKeyword_1_1_1());
-    }
-
-    |	otherlv_4='->' 
-    {
-    	newLeafNode(otherlv_4, grammarAccess.getImplicationAccess().getHyphenMinusGreaterThanSignKeyword_1_1_2());
-    }
-
-    |	otherlv_5='=>' 
-    {
-    	newLeafNode(otherlv_5, grammarAccess.getImplicationAccess().getEqualsSignGreaterThanSignKeyword_1_1_3());
-    }
-)(
+(
 (
 		{ 
 	        newCompositeNode(grammarAccess.getImplicationAccess().getRightPartDisjunctionParserRuleCall_1_2_0()); 
 	    }
-		lv_rightPart_6_0=ruleDisjunction		{
+		lv_rightPart_3_0=ruleDisjunction		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getImplicationRule());
 	        }
        		set(
        			$current, 
        			"rightPart",
-        		lv_rightPart_6_0, 
+        		lv_rightPart_3_0, 
         		"Disjunction");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -276,28 +261,23 @@ ruleDisjunction returns [EObject current=null]
             grammarAccess.getDisjunctionAccess().getDisjunctionPartsAction_1_0(),
             $current);
     }
-)(	otherlv_2='or' 
+)	otherlv_2='or' 
     {
-    	newLeafNode(otherlv_2, grammarAccess.getDisjunctionAccess().getOrKeyword_1_1_0());
+    	newLeafNode(otherlv_2, grammarAccess.getDisjunctionAccess().getOrKeyword_1_1());
     }
-
-    |	otherlv_3='|' 
-    {
-    	newLeafNode(otherlv_3, grammarAccess.getDisjunctionAccess().getVerticalLineKeyword_1_1_1());
-    }
-)(
+(
 (
 		{ 
 	        newCompositeNode(grammarAccess.getDisjunctionAccess().getPartsExclusiveDisjunctionParserRuleCall_1_2_0()); 
 	    }
-		lv_parts_4_0=ruleExclusiveDisjunction		{
+		lv_parts_3_0=ruleExclusiveDisjunction		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getDisjunctionRule());
 	        }
        		add(
        			$current, 
        			"parts",
-        		lv_parts_4_0, 
+        		lv_parts_3_0, 
         		"ExclusiveDisjunction");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -339,28 +319,23 @@ ruleExclusiveDisjunction returns [EObject current=null]
             grammarAccess.getExclusiveDisjunctionAccess().getExclusiveDisjunctionPartsAction_1_0(),
             $current);
     }
-)(	otherlv_2='xor' 
+)	otherlv_2='xor' 
     {
-    	newLeafNode(otherlv_2, grammarAccess.getExclusiveDisjunctionAccess().getXorKeyword_1_1_0());
+    	newLeafNode(otherlv_2, grammarAccess.getExclusiveDisjunctionAccess().getXorKeyword_1_1());
     }
-
-    |	otherlv_3='^' 
-    {
-    	newLeafNode(otherlv_3, grammarAccess.getExclusiveDisjunctionAccess().getCircumflexAccentKeyword_1_1_1());
-    }
-)(
+(
 (
 		{ 
 	        newCompositeNode(grammarAccess.getExclusiveDisjunctionAccess().getPartsConjunctionParserRuleCall_1_2_0()); 
 	    }
-		lv_parts_4_0=ruleConjunction		{
+		lv_parts_3_0=ruleConjunction		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getExclusiveDisjunctionRule());
 	        }
        		add(
        			$current, 
        			"parts",
-        		lv_parts_4_0, 
+        		lv_parts_3_0, 
         		"Conjunction");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -402,28 +377,23 @@ ruleConjunction returns [EObject current=null]
             grammarAccess.getConjunctionAccess().getConjunctionPartsAction_1_0(),
             $current);
     }
-)(	otherlv_2='and' 
+)	otherlv_2='and' 
     {
-    	newLeafNode(otherlv_2, grammarAccess.getConjunctionAccess().getAndKeyword_1_1_0());
+    	newLeafNode(otherlv_2, grammarAccess.getConjunctionAccess().getAndKeyword_1_1());
     }
-
-    |	otherlv_3='&' 
-    {
-    	newLeafNode(otherlv_3, grammarAccess.getConjunctionAccess().getAmpersandKeyword_1_1_1());
-    }
-)(
+(
 (
 		{ 
 	        newCompositeNode(grammarAccess.getConjunctionAccess().getPartsNegationParserRuleCall_1_2_0()); 
 	    }
-		lv_parts_4_0=ruleNegation		{
+		lv_parts_3_0=ruleNegation		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getConjunctionRule());
 	        }
        		add(
        			$current, 
        			"parts",
-        		lv_parts_4_0, 
+        		lv_parts_3_0, 
         		"Negation");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -460,16 +430,11 @@ ruleNegation returns [EObject current=null]
         afterParserOrEnumRuleCall();
     }
 
-    |((	otherlv_1='not' 
+    |(	otherlv_1='not' 
     {
-    	newLeafNode(otherlv_1, grammarAccess.getNegationAccess().getNotKeyword_1_0_0());
+    	newLeafNode(otherlv_1, grammarAccess.getNegationAccess().getNotKeyword_1_0());
     }
-
-    |	otherlv_2='!' 
-    {
-    	newLeafNode(otherlv_2, grammarAccess.getNegationAccess().getExclamationMarkKeyword_1_0_1());
-    }
-)(
+(
     {
         $current = forceCreateModelElement(
             grammarAccess.getNegationAccess().getNegationAction_1_1(),
@@ -480,14 +445,14 @@ ruleNegation returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getNegationAccess().getExpressionPrimaryExpressionParserRuleCall_1_2_0()); 
 	    }
-		lv_expression_4_0=rulePrimaryExpression		{
+		lv_expression_3_0=rulePrimaryExpression		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getNegationRule());
 	        }
        		set(
        			$current, 
        			"expression",
-        		lv_expression_4_0, 
+        		lv_expression_3_0, 
         		"PrimaryExpression");
 	        afterParserOrEnumRuleCall();
 	    }
