@@ -147,6 +147,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         viewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         viewer.setNodeStyle(settings.isAnimationEnabled() ? ZestStyles.NONE : ZestStyles.NODES_NO_ANIMATION);
         viewer.setFilters(new ViewerFilter[] { distanceFilter, groupFilter, constraintFilter });
+        viewer.addDecorationMouseListener(new DecorationSelectionProvider(viewer));
         viewer.addDoubleClickListener(new IDoubleClickListener() {
             @Override
             public void doubleClick(DoubleClickEvent event) {

@@ -19,6 +19,10 @@ public class HiddenConstraintDecoration extends ImageDecoration {
         this.constraints = constraints;
     }
     
+    public List<Constraint> getConstraints() {
+        return constraints;
+    }
+    
     @Override
     public IFigure getToolTip() {
         if(toolTip == null)

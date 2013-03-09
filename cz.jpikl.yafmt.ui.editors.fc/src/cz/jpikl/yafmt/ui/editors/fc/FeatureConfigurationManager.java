@@ -117,9 +117,12 @@ public class FeatureConfigurationManager {
     // ===========================================================================
 
     private void initVirtualConnectionCache() {
-        virtualConnectionCache.clear();
         for(Map.Entry<Selection, Selection> entry: childrenToParentVirtualConnection.entrySet())
             virtualConnectionCache.addConnection(entry.getValue(), entry.getKey());
+    }
+    
+    private void clearVirtualConnectionCache() {
+        virtualConnectionCache.clear();
     }
     
     public void rebuildVirtualConnections() {
@@ -263,9 +266,9 @@ public class FeatureConfigurationManager {
                 affectedSelections.add(selection);
         }
 
-        initVirtualConnectionCache();
+        initVirtualConnectionCache(); // Must be called after selection is performed.
         featuresSelected(affectedSelections);
-        virtualConnectionCache.clear();
+        clearVirtualConnectionCache();
         
         return affectedSelections;
     }
@@ -324,7 +327,7 @@ public class FeatureConfigurationManager {
 
     public List<Selection> deselectFeatures(List<Selection> selections) {
         List<Selection> affectedSelections = new ArrayList<Selection>(selections.size());
-        initVirtualConnectionCache();
+        initVirtualConnectionCache();  // Must be called before deselection is performed.
                 
         for(Selection selection: selections) {
             if(deselectFeature(selection))
@@ -332,7 +335,7 @@ public class FeatureConfigurationManager {
         }
 
         featuresDeselected(affectedSelections);
-        virtualConnectionCache.clear();
+        clearVirtualConnectionCache();
         
         return affectedSelections;
     }

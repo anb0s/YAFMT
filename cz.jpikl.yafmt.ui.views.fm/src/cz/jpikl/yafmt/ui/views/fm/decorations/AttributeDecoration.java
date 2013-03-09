@@ -19,6 +19,10 @@ public class AttributeDecoration extends ImageDecoration {
         this.attributes = attributes;
     }
     
+    public List<Attribute> getAttributes() {
+        return attributes;
+    }
+    
     @Override
     public IFigure getToolTip() {
         if(toolTip == null)

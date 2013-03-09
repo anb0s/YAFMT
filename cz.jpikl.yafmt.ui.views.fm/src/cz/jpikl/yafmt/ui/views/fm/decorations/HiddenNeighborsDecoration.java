@@ -32,6 +32,10 @@ public class HiddenNeighborsDecoration extends RoundedRectangle implements IDeco
         setLineDash(DrawConstantans.LINE_DOTTED);
     }
     
+    public List<Feature> getNeighbors() {
+        return neighbors;
+    }
+    
     @Override
     public IFigure getToolTip() {
         if(toolTip == null)

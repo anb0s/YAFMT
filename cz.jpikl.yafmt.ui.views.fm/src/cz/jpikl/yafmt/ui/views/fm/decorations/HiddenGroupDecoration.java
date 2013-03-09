@@ -18,6 +18,10 @@ public class HiddenGroupDecoration extends ImageDecoration {
         this.group = group;
     }
     
+    public Group getGroup() {
+        return group;
+    }
+    
     @Override
     public IFigure getToolTip() {
         if(toolTip == null)

@@ -41,6 +41,15 @@ public class EditorContentOutlinePage extends ContentOutlinePage implements ISel
         this.contentProvider = contentProvider;
         this.labelProvider = labelProvider;
     }
+    
+    @Override
+    public Control getControl() {
+        return tabFolder;
+    }
+    
+    // ==================================================================
+    //  Basic initialization
+    // ==================================================================
 
     @Override
     public void init(IPageSite pageSite) {
@@ -58,11 +67,6 @@ public class EditorContentOutlinePage extends ContentOutlinePage implements ISel
     }
 
     @Override
-    public Control getControl() {
-        return tabFolder;
-    }
-
-    @Override
     public void createControl(Composite parent) {
         tabFolder = new CTabFolder(parent, SWT.BOTTOM); // Use CTabFolder, because TabFolder looks ugly.
         createTreeView();
@@ -75,6 +79,10 @@ public class EditorContentOutlinePage extends ContentOutlinePage implements ISel
         tabItem.setText(title);
         tabItem.setControl(control);
     }
+    
+    // ==================================================================
+    //  Tabs initialization
+    // ==================================================================
 
     private void createTreeView() {
         super.createControl(tabFolder); // Creates TreeViewer.
@@ -98,6 +106,10 @@ public class EditorContentOutlinePage extends ContentOutlinePage implements ISel
 
         addTabControll(thumbmailCanvas, "Minimap");
     }
+    
+    // ==================================================================
+    //  Event handling
+    // ==================================================================
 
     @Override
     public void selectionChanged(IWorkbenchPart part, ISelection selection) {
