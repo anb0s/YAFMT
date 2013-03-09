@@ -12,8 +12,8 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.util.SafeRunnable;
 import org.eclipse.jface.viewers.DoubleClickEvent;
-import org.eclipse.jface.viewers.IPostSelectionProvider;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -27,7 +27,6 @@ import org.eclipse.zest.core.widgets.GraphNode;
 
 import cz.jpikl.yafmt.ui.views.fm.actions.ExportGraphViewerAsImageAction;
 import cz.jpikl.yafmt.ui.views.fm.decorations.IDecoration;
-import cz.jpikl.yafmt.ui.views.fm.decorations.IDecorationMouseListener;
 import cz.jpikl.yafmt.ui.views.fm.figures.NodeFigure;
 
 public class DecoratableGraphViewer extends GraphViewer {
@@ -36,9 +35,11 @@ public class DecoratableGraphViewer extends GraphViewer {
     public static final int ZEST_LAYER_INDEX = 1;
     public static final int FRONT_DECORATION_LAYER_INDEX = 2;
 
-    private List<NodeFigure> highlightedFigures = new ArrayList<NodeFigure>();
     private IAction exportAsImageAction = new ExportGraphViewerAsImageAction(this);
-    private List<IDecorationMouseListener> decorationListeners = new ArrayList<IDecorationMouseListener>();
+    private IDecorationSelecionProvider decorationSelectionProvider;
+    
+    private List<NodeFigure> highlightedFigures = new ArrayList<NodeFigure>();
+    private List<ISelectionChangedListener> selectionChangedListeners = new ArrayList<ISelectionChangedListener>();
 
     public DecoratableGraphViewer(Composite composite, int style) {
         super(composite, style);
@@ -77,68 +78,6 @@ public class DecoratableGraphViewer extends GraphViewer {
     private void createListeners() {
         graph.addMouseListener(new GraphMouseListener());
     }
-
-    // =========================================================================
-    //  Events
-    // =========================================================================
-    
-    @Override
-    protected void fireDoubleClick(DoubleClickEvent event) {
-        super.fireDoubleClick(event);
-        refreshHightlight(); // Must be called after.
-    }
-    
-    @Override
-    protected void firePostSelectionChanged(SelectionChangedEvent event) {
-        refreshHightlight(); // Must be called before.
-        super.firePostSelectionChanged(event);
-    }
-    
-    
-    ISelectionChangedListener psl;
-    ISelectionChangedListener sl;
-    
-    @Override
-    public void addSelectionChangedListener(ISelectionChangedListener listener) {
-        sl = listener;
-        super.addSelectionChangedListener(listener);
-    }
-    
-    @Override
-    public void addPostSelectionChangedListener(ISelectionChangedListener listener) {
-        psl = listener;
-        super.addPostSelectionChangedListener(listener);
-    }
-    
-    // =========================================================================
-    //  Selection
-    // =========================================================================
-    
-    public void performManualSelection(ISelection selection) {
-        clearHighlight();
-        SelectionChangedEvent event = new SelectionChangedEvent(this, selection);
-        //super.fireSelectionChanged(event);
-        //super.firePostSelectionChanged(event);
-        sl.selectionChanged(new SelectionChangedEvent(this, selection));
-        psl.selectionChanged(new SelectionChangedEvent(this, selection));
-    }
-    
-    public void moveViewportToSelection(ISelection selection) {
-        if(selection.isEmpty())
-            return;
-
-        // Zoom to the last selected object
-        Object[] objects = ((IStructuredSelection) selection).toArray();
-        for(int i = objects.length - 1; i >= 0; i--) {
-            GraphItem item = findGraphItem(objects[i]);
-            if(item instanceof GraphNode) {
-                Point p = ((GraphNode) item).getLocation();
-                Viewport vp = graph.getViewport();
-                vp.setViewLocation(p.x - vp.getSize().width / 2, p.y - vp.getSize().height / 2);
-                return;
-            }
-        }
-    }
     
     // =========================================================================
     //  Highlighting
@@ -168,29 +107,102 @@ public class DecoratableGraphViewer extends GraphViewer {
         clearHighlight();
         revealHightlight();
     }
-    
+
     // =========================================================================
-    //  Listeners
+    //  Events
     // =========================================================================
     
-    public void addDecorationMouseListener(IDecorationMouseListener listener) {
-        decorationListeners.add(listener);
+    @Override
+    public void addSelectionChangedListener(ISelectionChangedListener listener) {
+        super.addSelectionChangedListener(listener);
+        selectionChangedListeners.add(listener);
     }
     
-    public void removeDecorationMouseListener(IDecorationMouseListener listener) {
-        decorationListeners.remove(listener);
+    @Override
+    public void removeSelectionChangedListener(ISelectionChangedListener listener) {
+        selectionChangedListeners.remove(listener);
+        super.removeSelectionChangedListener(listener);
     }
+    
+    @Override
+    protected void fireDoubleClick(DoubleClickEvent event) {
+        super.fireDoubleClick(event);
+        refreshHightlight(); // Must be called after.
+    }
+        
+    @Override
+    protected void firePostSelectionChanged(SelectionChangedEvent event) {
+        refreshHightlight(); // Must be called before.
+        super.firePostSelectionChanged(event);
+    }
+    
+    @Override
+    protected void fireSelectionChanged(final SelectionChangedEvent event) {
+        // The original one does not work at all.
+        for(final ISelectionChangedListener listener: selectionChangedListeners) {
+            SafeRunnable.run(new SafeRunnable() {
+                public void run() {
+                    listener.selectionChanged(event);
+                }
+            });
+        }
+    }
+       
+    public void setDecorationSelectionProvider(IDecorationSelecionProvider decorationSelectionProvider) {
+        this.decorationSelectionProvider = decorationSelectionProvider;
+    }
+    
+    private void decorationClicked(IDecoration decoration) {
+        if(decorationSelectionProvider == null)
+            return;
+        
+        // Retrieve selection.
+        ISelection selection = decorationSelectionProvider.getSelectionForDecoration(decoration);
+        if((selection == null) || selection.isEmpty())
+            return;
+        
+        // Clear highlight and selection without generating events.
+        clearHighlight();
+        graph.setSelection(null);
+        
+        // Send selection changed event.
+        SelectionChangedEvent event = new SelectionChangedEvent(this, selection);
+        fireSelectionChanged(event);
+        firePostSelectionChanged(event);
+    }
+        
+    public void moveViewportToSelection(ISelection selection) {
+        if(selection.isEmpty())
+            return;
+
+        // Zoom to the last selected object
+        Object[] objects = ((IStructuredSelection) selection).toArray();
+        for(int i = objects.length - 1; i >= 0; i--) {
+            GraphItem item = findGraphItem(objects[i]);
+            if(item instanceof GraphNode) {
+                Point p = ((GraphNode) item).getLocation();
+                Viewport vp = graph.getViewport();
+                vp.setViewLocation(p.x - vp.getSize().width / 2, p.y - vp.getSize().height / 2);
+                return;
+            }
+        }
+    }
+        
+    // =========================================================================
+    //  Internal Listeners
+    // =========================================================================
     
     private class GraphMouseListener extends MouseAdapter {
         
         @Override
         public void mouseDown(MouseEvent event) {
-            IFigure figure = graph.getFigureAt(event.x, event.y);
-            if(figure instanceof IDecoration) {
-                IDecoration decoration = (IDecoration) figure;
-                for(IDecorationMouseListener listener: decorationListeners)
-                    listener.decorationClicked(decoration);
-            }
+            Point viewLocation = graph.getViewport().getViewLocation();
+            int x = viewLocation.x + event.x;
+            int y = viewLocation.y + event.y;
+
+            IFigure figure = graph.getFigureAt(x, y);            
+            if(figure instanceof IDecoration)
+                decorationClicked((IDecoration) figure);
         }
         
     }
