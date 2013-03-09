@@ -85,6 +85,8 @@
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//Selection/description"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference FeatureConfiguration.ecore#//Selection/parent"/>
       <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//Selection/root"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//Selection/present"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//Selection/enabled"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FeatureConfiguration.ecore#//Selection/values"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FeatureConfiguration.ecore#//Selection/selections"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference FeatureConfiguration.ecore#//Selection/featureConfiguration"/>

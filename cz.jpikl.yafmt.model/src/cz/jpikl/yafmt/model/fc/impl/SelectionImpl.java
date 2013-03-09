@@ -35,6 +35,8 @@ import cz.jpikl.yafmt.model.fm.Feature;
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#getParent <em>Parent</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#isRoot <em>Root</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#isPresent <em>Present</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#isEnabled <em>Enabled</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#getValues <em>Values</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#getSelections <em>Selections</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#getFeatureConfiguration <em>Feature Configuration</em>}</li>
@@ -96,6 +98,36 @@ public class SelectionImpl extends EObjectImpl implements Selection {
     protected static final boolean ROOT_EDEFAULT = false;
 
     /**
+     * The default value of the '{@link #isPresent() <em>Present</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isPresent()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean PRESENT_EDEFAULT = false;
+
+    /**
+     * The default value of the '{@link #isEnabled() <em>Enabled</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isEnabled()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean ENABLED_EDEFAULT = true;
+
+    /**
+     * The cached value of the '{@link #isEnabled() <em>Enabled</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isEnabled()
+     * @generated
+     * @ordered
+     */
+    protected boolean enabled = ENABLED_EDEFAULT;
+
+    /**
      * The cached value of the '{@link #getValues() <em>Values</em>}' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -114,6 +146,16 @@ public class SelectionImpl extends EObjectImpl implements Selection {
      * @ordered
      */
     protected EList<Selection> selections;
+
+    /**
+     * The cached value of the '{@link #getFeatureConfiguration() <em>Feature Configuration</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getFeatureConfiguration()
+     * @generated
+     * @ordered
+     */
+    protected FeatureConfiguration featureConfiguration;
 
     /**
      * <!-- begin-user-doc -->
@@ -219,10 +261,41 @@ public class SelectionImpl extends EObjectImpl implements Selection {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     public boolean isRoot() {
-        return (eContainer() instanceof FeatureConfiguration);
+        return eContainer() instanceof FeatureConfiguration;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    public boolean isPresent() {
+        // Must test getParent(), NOT eContainer()
+        return (getParent() != null) || isRoot();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setEnabled(boolean newEnabled) {
+        boolean oldEnabled = enabled;
+        enabled = newEnabled;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, FeatureConfigurationPackage.SELECTION__ENABLED, oldEnabled, enabled));
     }
 
     /**
@@ -252,11 +325,18 @@ public class SelectionImpl extends EObjectImpl implements Selection {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     public FeatureConfiguration getFeatureConfiguration() {
-        FeatureConfiguration featureConfiguration = basicGetFeatureConfiguration();
-        return featureConfiguration != null && featureConfiguration.eIsProxy() ? (FeatureConfiguration)eResolveProxy((InternalEObject)featureConfiguration) : featureConfiguration;
+        if (featureConfiguration != null && featureConfiguration.eIsProxy()) {
+            InternalEObject oldFeatureConfiguration = (InternalEObject)featureConfiguration;
+            featureConfiguration = (FeatureConfiguration)eResolveProxy(oldFeatureConfiguration);
+            if (featureConfiguration != oldFeatureConfiguration) {
+                if (eNotificationRequired())
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, FeatureConfigurationPackage.SELECTION__FEATURE_CONFIGURATION, oldFeatureConfiguration, featureConfiguration));
+            }
+        }
+        return basicGetFeatureConfiguration();
     }
 
     /**
@@ -265,6 +345,12 @@ public class SelectionImpl extends EObjectImpl implements Selection {
      * @generated NOT
      */
     public FeatureConfiguration basicGetFeatureConfiguration() {
+        if(featureConfiguration == null)
+            featureConfiguration = findFeatureConfiguration();
+        return featureConfiguration;
+    }
+
+    private FeatureConfiguration findFeatureConfiguration() {
         Resource resource = eResource();
         if(resource == null)
             return null;
@@ -278,6 +364,18 @@ public class SelectionImpl extends EObjectImpl implements Selection {
                 return (FeatureConfiguration) parent;
         }
         return null;
+    }
+    
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setFeatureConfiguration(FeatureConfiguration newFeatureConfiguration) {
+        FeatureConfiguration oldFeatureConfiguration = featureConfiguration;
+        featureConfiguration = newFeatureConfiguration;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, FeatureConfigurationPackage.SELECTION__FEATURE_CONFIGURATION, oldFeatureConfiguration, featureConfiguration));
     }
 
     /**
@@ -373,6 +471,10 @@ public class SelectionImpl extends EObjectImpl implements Selection {
                 return getParent();
             case FeatureConfigurationPackage.SELECTION__ROOT:
                 return isRoot();
+            case FeatureConfigurationPackage.SELECTION__PRESENT:
+                return isPresent();
+            case FeatureConfigurationPackage.SELECTION__ENABLED:
+                return isEnabled();
             case FeatureConfigurationPackage.SELECTION__VALUES:
                 return getValues();
             case FeatureConfigurationPackage.SELECTION__SELECTIONS:
@@ -402,6 +504,9 @@ public class SelectionImpl extends EObjectImpl implements Selection {
             case FeatureConfigurationPackage.SELECTION__PARENT:
                 setParent((Selection)newValue);
                 return;
+            case FeatureConfigurationPackage.SELECTION__ENABLED:
+                setEnabled((Boolean)newValue);
+                return;
             case FeatureConfigurationPackage.SELECTION__VALUES:
                 getValues().clear();
                 getValues().addAll((Collection<? extends AttributeValue>)newValue);
@@ -409,6 +514,9 @@ public class SelectionImpl extends EObjectImpl implements Selection {
             case FeatureConfigurationPackage.SELECTION__SELECTIONS:
                 getSelections().clear();
                 getSelections().addAll((Collection<? extends Selection>)newValue);
+                return;
+            case FeatureConfigurationPackage.SELECTION__FEATURE_CONFIGURATION:
+                setFeatureConfiguration((FeatureConfiguration)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -428,11 +536,17 @@ public class SelectionImpl extends EObjectImpl implements Selection {
             case FeatureConfigurationPackage.SELECTION__PARENT:
                 setParent((Selection)null);
                 return;
+            case FeatureConfigurationPackage.SELECTION__ENABLED:
+                setEnabled(ENABLED_EDEFAULT);
+                return;
             case FeatureConfigurationPackage.SELECTION__VALUES:
                 getValues().clear();
                 return;
             case FeatureConfigurationPackage.SELECTION__SELECTIONS:
                 getSelections().clear();
+                return;
+            case FeatureConfigurationPackage.SELECTION__FEATURE_CONFIGURATION:
+                setFeatureConfiguration((FeatureConfiguration)null);
                 return;
         }
         super.eUnset(featureID);
@@ -456,12 +570,16 @@ public class SelectionImpl extends EObjectImpl implements Selection {
                 return getParent() != null;
             case FeatureConfigurationPackage.SELECTION__ROOT:
                 return isRoot() != ROOT_EDEFAULT;
+            case FeatureConfigurationPackage.SELECTION__PRESENT:
+                return isPresent() != PRESENT_EDEFAULT;
+            case FeatureConfigurationPackage.SELECTION__ENABLED:
+                return enabled != ENABLED_EDEFAULT;
             case FeatureConfigurationPackage.SELECTION__VALUES:
                 return values != null && !values.isEmpty();
             case FeatureConfigurationPackage.SELECTION__SELECTIONS:
                 return selections != null && !selections.isEmpty();
             case FeatureConfigurationPackage.SELECTION__FEATURE_CONFIGURATION:
-                return basicGetFeatureConfiguration() != null;
+                return featureConfiguration != null;
             case FeatureConfigurationPackage.SELECTION__FEATURE:
                 return basicGetFeature() != null;
         }
@@ -480,6 +598,8 @@ public class SelectionImpl extends EObjectImpl implements Selection {
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (id: ");
         result.append(id);
+        result.append(", enabled: ");
+        result.append(enabled);
         result.append(')');
         return result.toString();
     }

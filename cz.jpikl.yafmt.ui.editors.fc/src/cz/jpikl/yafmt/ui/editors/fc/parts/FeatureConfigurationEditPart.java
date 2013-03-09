@@ -64,7 +64,7 @@ public class FeatureConfigurationEditPart extends AbstractGraphicalEditPart impl
         refresh();
         for(Object child: getChildren())
             ((EditPart) child).refresh();
-
+        getFigure().getLayoutManager().layout(getFigure()); // We need to refresh connection anchors.
     }
 
     @Override

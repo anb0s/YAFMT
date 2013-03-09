@@ -20,6 +20,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link cz.jpikl.yafmt.model.fc.Selection#getDescription <em>Description</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.Selection#getParent <em>Parent</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.Selection#isRoot <em>Root</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fc.Selection#isPresent <em>Present</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fc.Selection#isEnabled <em>Enabled</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.Selection#getValues <em>Values</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.Selection#getSelections <em>Selections</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.Selection#getFeatureConfiguration <em>Feature Configuration</em>}</li>
@@ -132,6 +134,48 @@ public interface Selection extends EObject {
     boolean isRoot();
 
     /**
+     * Returns the value of the '<em><b>Present</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Present</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Present</em>' attribute.
+     * @see cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage#getSelection_Present()
+     * @model transient="true" changeable="false" volatile="true" derived="true"
+     * @generated
+     */
+    boolean isPresent();
+
+    /**
+     * Returns the value of the '<em><b>Enabled</b></em>' attribute.
+     * The default value is <code>"true"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Enabled</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Enabled</em>' attribute.
+     * @see #setEnabled(boolean)
+     * @see cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage#getSelection_Enabled()
+     * @model default="true" required="true" transient="true"
+     * @generated
+     */
+    boolean isEnabled();
+
+    /**
+     * Sets the value of the '{@link cz.jpikl.yafmt.model.fc.Selection#isEnabled <em>Enabled</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Enabled</em>' attribute.
+     * @see #isEnabled()
+     * @generated
+     */
+    void setEnabled(boolean value);
+
+    /**
      * Returns the value of the '<em><b>Selections</b></em>' containment reference list.
      * The list contents are of type {@link cz.jpikl.yafmt.model.fc.Selection}.
      * It is bidirectional and its opposite is '{@link cz.jpikl.yafmt.model.fc.Selection#getParent <em>Parent</em>}'.
@@ -176,11 +220,22 @@ public interface Selection extends EObject {
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Feature Configuration</em>' reference.
+     * @see #setFeatureConfiguration(FeatureConfiguration)
      * @see cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage#getSelection_FeatureConfiguration()
-     * @model required="true" transient="true" changeable="false" volatile="true" derived="true"
+     * @model required="true" transient="true" derived="true"
      * @generated
      */
     FeatureConfiguration getFeatureConfiguration();
+
+    /**
+     * Sets the value of the '{@link cz.jpikl.yafmt.model.fc.Selection#getFeatureConfiguration <em>Feature Configuration</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Feature Configuration</em>' reference.
+     * @see #getFeatureConfiguration()
+     * @generated
+     */
+    void setFeatureConfiguration(FeatureConfiguration value);
 
     /**
      * Returns the value of the '<em><b>Feature</b></em>' reference.

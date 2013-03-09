@@ -11,8 +11,12 @@ public class MiddleSideAnchor extends AbstractConnectionAnchor {
     private int style;
 
     public MiddleSideAnchor(IFigure owner) {
+        this(owner, SWT.TOP);
+    }
+    
+    public MiddleSideAnchor(IFigure owner, int style) {
         super(owner);
-        setStyle(SWT.TOP);
+        setStyle(style);
     }
 
     public void setStyle(int style) {

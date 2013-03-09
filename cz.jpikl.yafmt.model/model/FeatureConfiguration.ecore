@@ -27,13 +27,17 @@
         eOpposite="#//Selection/selections"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="root" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         changeable="false" volatile="true" transient="true" derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="present" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        changeable="false" volatile="true" transient="true" derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabled" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" transient="true"
+        defaultValueLiteral="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="values" upperBound="-1"
         eType="#//AttributeValue" containment="true" eOpposite="#//AttributeValue/selection"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="selections" upperBound="-1"
         eType="#//Selection" containment="true" eOpposite="#//Selection/parent"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="featureConfiguration" lowerBound="1"
-        eType="#//FeatureConfiguration" changeable="false" volatile="true" transient="true"
-        derived="true"/>
+        eType="#//FeatureConfiguration" transient="true" derived="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="feature" lowerBound="1"
         eType="ecore:EClass FeatureModel.ecore#//Feature" changeable="false" volatile="true"
         transient="true" derived="true"/>

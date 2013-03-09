@@ -414,7 +414,7 @@ public interface Feature extends EObject {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Feature Model</em>' reference.
      * @see cz.jpikl.yafmt.model.fm.FeatureModelPackage#getFeature_FeatureModel()
-     * @model transient="true" changeable="false" volatile="true" derived="true"
+     * @model transient="true" changeable="false" derived="true"
      * @generated
      */
     FeatureModel getFeatureModel();

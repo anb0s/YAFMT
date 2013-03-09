@@ -234,6 +234,16 @@ public class FeatureImpl extends EObjectImpl implements Feature {
     protected EList<Group> groups;
 
     /**
+     * The cached value of the '{@link #getFeatureModel() <em>Feature Model</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getFeatureModel()
+     * @generated
+     * @ordered
+     */
+    protected FeatureModel featureModel;
+
+    /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -593,8 +603,15 @@ public class FeatureImpl extends EObjectImpl implements Feature {
      * @generated
      */
     public FeatureModel getFeatureModel() {
-        FeatureModel featureModel = basicGetFeatureModel();
-        return featureModel != null && featureModel.eIsProxy() ? (FeatureModel)eResolveProxy((InternalEObject)featureModel) : featureModel;
+        if (featureModel != null && featureModel.eIsProxy()) {
+            InternalEObject oldFeatureModel = (InternalEObject)featureModel;
+            featureModel = (FeatureModel)eResolveProxy(oldFeatureModel);
+            if (featureModel != oldFeatureModel) {
+                if (eNotificationRequired())
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, FeatureModelPackage.FEATURE__FEATURE_MODEL, oldFeatureModel, featureModel));
+            }
+        }
+        return basicGetFeatureModel();
     }
 
     /**
@@ -603,6 +620,12 @@ public class FeatureImpl extends EObjectImpl implements Feature {
      * @generated NOT
      */
     public FeatureModel basicGetFeatureModel() {
+        if(featureModel == null)
+            featureModel = findFeatureModel();
+        return featureModel;
+    }
+    
+    private FeatureModel findFeatureModel() {
         Resource resource = eResource();
         if(resource == null)
             return null;
@@ -878,7 +901,7 @@ public class FeatureImpl extends EObjectImpl implements Feature {
             case FeatureModelPackage.FEATURE__GROUPS:
                 return groups != null && !groups.isEmpty();
             case FeatureModelPackage.FEATURE__FEATURE_MODEL:
-                return basicGetFeatureModel() != null;
+                return featureModel != null;
         }
         return super.eIsSet(featureID);
     }

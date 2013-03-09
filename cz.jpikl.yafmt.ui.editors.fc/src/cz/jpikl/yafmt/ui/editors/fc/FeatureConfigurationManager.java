@@ -13,24 +13,34 @@ import cz.jpikl.yafmt.model.fc.util.FeatureConfigurationUtil;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.Group;
-import cz.jpikl.yafmt.ui.editors.fc.model.SelectionWrapper;
+import cz.jpikl.yafmt.ui.editors.fc.util.VirtualConnectionCache;
 import cz.jpikl.yafmt.ui.editors.fc.validation.IFeatureConfigurationValidator;
 
 public class FeatureConfigurationManager {
 
-    // Parent to children virtual connections.
+    // Class containing insert position of unselected feature
+    private static class SelectionInfo {
+        
+        public Selection selection;
+        public int insertPosition;
+
+        public SelectionInfo(Selection selection, int insertPosition) {
+            this.selection = selection;
+            this.insertPosition = insertPosition;
+        }
+        
+    }
+    
     // Contains relation between selections which are present in feature configuration and selections which 
     // is possible to add (as their children) to the feature configuration.
-    private Map<Selection, List<SelectionWrapper>> virtualConnections = new HashMap<Selection, List<SelectionWrapper>>();
-
-    // Children to parent virtual connections.
-    // Same as above, but opposite relation.
-    private Map<SelectionWrapper, Selection> virtualConnectionsOpposite = new HashMap<SelectionWrapper, Selection>();
-
-    private List<IFeatureConfigurationListener> listeners = new ArrayList<IFeatureConfigurationListener>();
-    private List<IFeatureConfigurationValidator> validators = new ArrayList<IFeatureConfigurationValidator>();
+    private Map<Selection, List<SelectionInfo>> parentToChildrenVirtualConnection = new HashMap<Selection, List<SelectionInfo>>();
+    private Map<Selection, Selection> childrenToParentVirtualConnection = new HashMap<Selection, Selection>();
+    private VirtualConnectionCache virtualConnectionCache = new VirtualConnectionCache();
     private boolean makeVirtualConnections = true;
     private boolean makeDisabledVirtualConnetions = false;
+    
+    private List<IFeatureConfigurationListener> listeners = new ArrayList<IFeatureConfigurationListener>();
+    private List<IFeatureConfigurationValidator> validators = new ArrayList<IFeatureConfigurationValidator>();
     private FeatureConfiguration featureConfig;
 
     public FeatureConfigurationManager(FeatureConfiguration featureConfig) {
@@ -45,6 +55,13 @@ public class FeatureConfigurationManager {
 
     public FeatureModel getFeatureModel() {
         return featureConfig.getFeatureModelCopy();
+    }
+    
+    public void setSelectableFeaturesVisibility(boolean showSelectable, boolean showDisabled) {
+        makeVirtualConnections = showSelectable;
+        makeDisabledVirtualConnetions = makeVirtualConnections && showDisabled;
+        rebuildVirtualConnections();
+        fireFeaturesSelected(new ArrayList<Selection>(1));
     }
 
     // ===========================================================================
@@ -99,15 +116,43 @@ public class FeatureConfigurationManager {
     //  Virtual connection related operations
     // ===========================================================================
 
+    private void initVirtualConnectionCache() {
+        virtualConnectionCache.clear();
+        for(Map.Entry<Selection, Selection> entry: childrenToParentVirtualConnection.entrySet())
+            virtualConnectionCache.addConnection(entry.getValue(), entry.getKey());
+    }
+    
     public void rebuildVirtualConnections() {
-        virtualConnections.clear();
-        virtualConnectionsOpposite.clear();
+        parentToChildrenVirtualConnection.clear();
+        childrenToParentVirtualConnection.clear();
 
         if(makeVirtualConnections) {
             Feature rootFeature = featureConfig.getFeatureModelCopy().getRoot();
             Selection rootSelection = featureConfig.getRoot();
             createVirtualConnections(rootFeature, rootSelection);
         }
+    }
+    
+    private void addVirtualConnection(Selection parentSelection, Selection childrenSelection, int insertPosition, boolean enabled) {
+        SelectionInfo selectionInfo = new SelectionInfo(childrenSelection, insertPosition);
+        selectionInfo.selection.setFeatureConfiguration(featureConfig);
+        selectionInfo.selection.setEnabled(enabled);
+
+        // Parent to child connection.
+        List<SelectionInfo> childrenSelections = parentToChildrenVirtualConnection.get(parentSelection);
+        if(childrenSelections == null) {
+            childrenSelections = new ArrayList<SelectionInfo>();
+            parentToChildrenVirtualConnection.put(parentSelection, childrenSelections);
+        }
+        childrenSelections.add(selectionInfo);
+
+        // Child to parent connection.
+        childrenToParentVirtualConnection.put(childrenSelection, parentSelection);
+    }
+    
+    private void removeVirtualConnection(SelectionInfo selectionInfo) {
+        Selection parentSelection = childrenToParentVirtualConnection.remove(selectionInfo.selection);
+        parentToChildrenVirtualConnection.get(parentSelection).remove(selectionInfo);
     }
 
     private void createVirtualConnections(Feature feature, Selection selection) {
@@ -145,36 +190,25 @@ public class FeatureConfigurationManager {
             boolean enabled = childrenSelections.size() < groupUpper; // Does group allow one more feature?
             boolean allowed = (allowedFeaturesCount > 0);             // Is another feature clone allowed?
             if(allowed && (enabled || makeDisabledVirtualConnetions)) {
-                Selection childSelection = FeatureConfigurationUtil.createSelection(childFeature);
+                Selection childSelection = createSelection(parentSelection, childFeature);
                 addVirtualConnection(parentSelection, childSelection, startingIndex, enabled);
             }
         }
 
         return startingIndex;
     }
-
-    private void addVirtualConnection(Selection parentSelection, Selection childSelection, int insertPosition, boolean enabled) {
-        SelectionWrapper childWrapper = new SelectionWrapper(featureConfig, childSelection, insertPosition, enabled);
-
-        // Parent to child connection.
-        List<SelectionWrapper> childrenSelections = virtualConnections.get(parentSelection);
-        if(childrenSelections == null) {
-            childrenSelections = new ArrayList<SelectionWrapper>();
-            virtualConnections.put(parentSelection, childrenSelections);
-        }
-        childrenSelections.add(childWrapper);
-
-        // Child to parent connection.
-        virtualConnectionsOpposite.put(childWrapper, parentSelection);
-    }
-
-    public void setSelectableFeaturesVisibility(boolean showSelectable, boolean showDisabled) {
-        makeVirtualConnections = showSelectable;
-        makeDisabledVirtualConnetions = makeVirtualConnections && showDisabled;
-        rebuildVirtualConnections();
-        fireFeaturesSelected(new ArrayList<Selection>(1));
-    }
     
+    private Selection createSelection(Selection parentSelection, Feature childFeature) {
+        // Reuse existing selections (therefore even their edit parts) if possible.
+        Selection childSelection = virtualConnectionCache.getChildSelection(parentSelection, childFeature.getId());
+        if(childSelection != null) {
+            childSelection.getValues().clear();
+            return childSelection;
+        }
+        
+        return FeatureConfigurationUtil.createSelection(childFeature);
+    }
+        
     // ===========================================================================
     //  Query operations
     // ===========================================================================
@@ -182,7 +216,7 @@ public class FeatureConfigurationManager {
     public Selection getParentSelection(Selection childSelection) {
         Selection parentSelection = childSelection.getParent();
         if(parentSelection == null)
-            parentSelection = virtualConnectionsOpposite.get(childSelection);
+            parentSelection = childrenToParentVirtualConnection.get(childSelection);
         return parentSelection;
     }
 
@@ -193,26 +227,27 @@ public class FeatureConfigurationManager {
     }
 
     public void contributeChildrenSelections(Selection parentSelection, List<Selection> selectionList, boolean sortChildren) {
-        if(virtualConnectionsOpposite.containsKey(parentSelection))
+        if(childrenToParentVirtualConnection.containsKey(parentSelection))
             return;
 
         selectionList.addAll(parentSelection.getSelections());
 
-        List<SelectionWrapper> childrenSelections = virtualConnections.get(parentSelection);
+        List<SelectionInfo> childrenSelections = parentToChildrenVirtualConnection.get(parentSelection);
         if(childrenSelections == null)
             return;
 
         if(sortChildren) {
             // InsertPosition does not count other unselected features, so we have to increment it.
             int offset = 0;
-            for(SelectionWrapper childWrapper: childrenSelections) {
+            for(SelectionInfo selectionInfo: childrenSelections) {
                 // We have to add wrapper, not the original selection, since that is missing parent.
-                selectionList.add(childWrapper.getInsertPosition() + offset, childWrapper);
+                selectionList.add(selectionInfo.insertPosition + offset, selectionInfo.selection);
                 offset++;
             }
         }
         else {
-            selectionList.addAll(childrenSelections);
+            for(SelectionInfo selectionInfo: childrenSelections)
+                selectionList.add(selectionInfo.selection);
         }
     }
 
@@ -222,18 +257,21 @@ public class FeatureConfigurationManager {
 
     public List<Selection> selectFeatures(List<Selection> selections) {
         List<Selection> affectedSelections = new ArrayList<Selection>(selections.size());
-
+        
         for(Selection selection: selections) {
             if(selectFeature(selection))
                 affectedSelections.add(selection);
         }
 
+        initVirtualConnectionCache();
         featuresSelected(affectedSelections);
+        virtualConnectionCache.clear();
+        
         return affectedSelections;
     }
 
     public boolean canSelectFeature(Selection selection) {
-        return (selection instanceof SelectionWrapper) && ((SelectionWrapper) selection).isEnabled();
+        return !selection.isPresent() && selection.isEnabled();
     }
 
     private boolean selectFeature(Selection selection) {
@@ -242,27 +280,35 @@ public class FeatureConfigurationManager {
             return false;
         
         // Look for parent selection.
-        Selection parentSelection = virtualConnectionsOpposite.get(selection);
+        Selection parentSelection = childrenToParentVirtualConnection.get(selection);
         if(parentSelection == null)
             return false;
 
         // Look for sibling selections.
-        List<SelectionWrapper> childrenSelections = virtualConnections.get(parentSelection);
+        List<SelectionInfo> childrenSelections = parentToChildrenVirtualConnection.get(parentSelection);
         if(childrenSelections == null)
             return false;
 
         // Look for position between sibling selections.
-        int index = childrenSelections.indexOf(selection);
+        int index = -1;
+        for(int i = 0; i < childrenSelections.size(); i++) {
+            if(childrenSelections.get(i).selection == selection) {
+                index = i;
+                break;
+            }
+        }
         if(index == -1)
             return false;
 
         // Insert selection to specified position.
         // Also increment position of other, yet unselected features.
-        SelectionWrapper childWrapper = childrenSelections.remove(index);
+        SelectionInfo selectionInfo = childrenSelections.remove(index);
         for(int i = index; i < childrenSelections.size(); i++)
-            childrenSelections.get(i).incrementInsertPosition();
-        // Original selection must be returned. EMF expect something that implements InternalEObject. 
-        parentSelection.getSelections().add(childWrapper.getInsertPosition(), childWrapper.getOriginalSelection());
+            childrenSelections.get(i).insertPosition++; 
+        parentSelection.getSelections().add(selectionInfo.insertPosition, selectionInfo.selection);
+        
+        // Remove virtual connection!!!
+        removeVirtualConnection(selectionInfo);
         return true;
     }
 
@@ -278,25 +324,28 @@ public class FeatureConfigurationManager {
 
     public List<Selection> deselectFeatures(List<Selection> selections) {
         List<Selection> affectedSelections = new ArrayList<Selection>(selections.size());
-
+        initVirtualConnectionCache();
+                
         for(Selection selection: selections) {
             if(deselectFeature(selection))
                 affectedSelections.add(selection);
         }
 
         featuresDeselected(affectedSelections);
+        virtualConnectionCache.clear();
+        
         return affectedSelections;
     }
 
     public boolean canDeselectFeature(Selection selection) {
         // Feature must be already selected.
-        Selection parentSelection = selection.getParent();
-        if(parentSelection == null)
+        if(!selection.isPresent())
             return false;
 
         String id = selection.getId();
-        Feature feature = getFeatureModel().getFeatureById(id);
-        if(feature == null)
+        Feature feature = selection.getFeature();
+        Selection parentSelection = selection.getParent();
+        if(parentSelection == null) // Root selection is present but does not have parent.
             return false;
 
         // We cannot deselect mandatory feature.
@@ -310,6 +359,7 @@ public class FeatureConfigurationManager {
 
     private boolean deselectFeature(Selection selection) {
         if(canDeselectFeature(selection)) {
+            virtualConnectionCache.addConnection(selection.getParent(), selection); // Cache removed connections.
             selection.setParent(null);
             return true;
         }
