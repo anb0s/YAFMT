@@ -1,5 +1,6 @@
 package cz.jpikl.yafmt.ui.editors.fc;
 
+import org.eclipse.core.resources.IResource;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -36,7 +37,8 @@ import cz.jpikl.yafmt.ui.editors.fc.layout.TreeLayout;
 import cz.jpikl.yafmt.ui.editors.fc.layout.VerticalTreeLayout;
 import cz.jpikl.yafmt.ui.editors.fc.parts.FeatureConfigurationEditPartFactory;
 import cz.jpikl.yafmt.ui.operations.ResourceSaveOperation;
-import cz.jpikl.yafmt.ui.validation.TextOutputDiagnosticWriter;
+import cz.jpikl.yafmt.ui.validation.IDiagnosticWriter;
+import cz.jpikl.yafmt.ui.validation.ResourceMarkerDiagnosticWriter;
 
 public class FeatureConfigurationEditor extends ModelEditor {
 
@@ -185,7 +187,8 @@ public class FeatureConfigurationEditor extends ModelEditor {
         featureConfig = (FeatureConfiguration) resource.getContents().get(0);
 
         // Initialize feature configuration manager.
-        featureConfigManager = new FeatureConfigurationManager(featureConfig, new TextOutputDiagnosticWriter());
+        IDiagnosticWriter diagnosticWriter = new ResourceMarkerDiagnosticWriter((IResource) input.getAdapter(IResource.class));
+        featureConfigManager = new FeatureConfigurationManager(featureConfig, diagnosticWriter);
         featureConfigManager.revalidateFeatureConfiguration();
     }
 

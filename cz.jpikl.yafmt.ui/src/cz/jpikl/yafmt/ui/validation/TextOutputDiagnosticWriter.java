@@ -44,5 +44,13 @@ public class TextOutputDiagnosticWriter implements IDiagnosticWriter {
                 return "?????";
         }
     }
+
+    @Override
+    public void clearResults(Object target) {
+    }
+
+    @Override
+    public void clearAllResults() {
+    }
     
 }

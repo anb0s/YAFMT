@@ -70,16 +70,6 @@ public class FeatureConfigurationManager {
     }
 
     // ===========================================================================
-    //  Validation
-    // ===========================================================================
-
-    public void revalidateFeatureConfiguration() {
-        BasicDiagnostic diagnostic = new BasicDiagnostic();
-        FeatureConfigurationValidator.INSTANCE.validate(featureConfig, diagnostic);
-        diagnosticWriter.writeResults(diagnostic);
-    }
-
-    // ===========================================================================
     //  Listeners
     // ===========================================================================
 
@@ -110,6 +100,17 @@ public class FeatureConfigurationManager {
         Feature rootFeature = featureConfig.getFeatureModelCopy().getRoot();
         Selection rootSelection = featureConfig.getRoot();
         FeatureConfigurationUtil.repairSelection(rootFeature, rootSelection);
+    }
+    
+    // ===========================================================================
+    //  Validation
+    // ===========================================================================
+
+    public void revalidateFeatureConfiguration() {
+        BasicDiagnostic diagnostic = new BasicDiagnostic();
+        FeatureConfigurationValidator.INSTANCE.validate(featureConfig, diagnostic);
+        diagnosticWriter.clearAllResults();
+        diagnosticWriter.writeResults(diagnostic);
     }
 
     // ===========================================================================
