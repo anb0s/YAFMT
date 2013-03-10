@@ -2,6 +2,7 @@ package cz.jpikl.yafmt.ui.editors.fm.policies;
 
 import java.util.List;
 
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Request;
@@ -27,7 +28,9 @@ public class FeatureLayoutPolicy extends OrderedLayoutEditPolicy {
         List<?> editParts = getHost().getChildren();
         EditPart editPartAfter = null;
 
-        int requestY = ((ChangeBoundsRequest) request).getLocation().y;
+        Point requestLocation = ((ChangeBoundsRequest) request).getLocation();
+        getHostFigure().translateToRelative(requestLocation);
+        int requestY = requestLocation.y;
         int prevY = Integer.MAX_VALUE;
 
         for(Object editPart: editParts) {
