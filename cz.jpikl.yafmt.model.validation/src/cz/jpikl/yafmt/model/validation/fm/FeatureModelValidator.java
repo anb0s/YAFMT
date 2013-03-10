@@ -21,6 +21,8 @@ import static cz.jpikl.yafmt.model.validation.ValidationUtil.*;
 
 public class FeatureModelValidator extends BasicValidator {
 
+    public static final FeatureModelValidator INSTANCE = new FeatureModelValidator();
+    
     private EStructuralFeature[] FEATURE_MODEL_STRUCTURAL_FEATURES = { Literals.FEATURE_MODEL__NAME };
     private EStructuralFeature[] FEATURE_STRUCTURAL_FEATURES = { Literals.FEATURE__ID, Literals.FEATURE__NAME, Literals.FEATURE__LOWER, Literals.FEATURE__UPPER };
     private EStructuralFeature[] GROUP_STRUCTURAL_FEATURES = { Literals.GROUP__LOWER, Literals.GROUP__UPPER };
@@ -49,11 +51,13 @@ public class FeatureModelValidator extends BasicValidator {
             case CONSTRAINT:
                 return validateConstraint((Constraint) object, diagnostics);
         }
-        return false;
+        return true;
     }
     
     private boolean validateFeatureModel(FeatureModel featureModel, DiagnosticChain diagnostics) {
-        return validateStructuralFeatures(featureModel, FEATURE_MODEL_STRUCTURAL_FEATURES, diagnostics);
+        boolean result =  validateStructuralFeatures(featureModel, FEATURE_MODEL_STRUCTURAL_FEATURES, diagnostics);
+        result &= validateAllContents(featureModel, diagnostics);
+        return result;
     }
     
     private boolean validateFeature(Feature feature, DiagnosticChain diagnostics) {

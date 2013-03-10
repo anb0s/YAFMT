@@ -11,9 +11,11 @@ import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
 
 public class SimpleConstraintLanguageEvaluator extends Evaluator {
 
+    private String originalValue;
     private Expression expression;
 
-    public SimpleConstraintLanguageEvaluator(Expression expression) {
+    public SimpleConstraintLanguageEvaluator(String originalValue, Expression expression) {
+        this.originalValue = originalValue;
         this.expression = expression;
     }
 
@@ -26,8 +28,9 @@ public class SimpleConstraintLanguageEvaluator extends Evaluator {
 
     @Override
     public IEvaluationResult evaluate(FeatureConfiguration featureConfig) {
+        // TODO add list of problem selections into evaluation result.
         if(!expression.evaluate(featureConfig, null))
-            EvaluationResult.createFailureResult(null);
+            EvaluationResult.createFailureResult(originalValue + " is violated.");
         return EvaluationResult.SUCCESS_RESULT;
     }
 

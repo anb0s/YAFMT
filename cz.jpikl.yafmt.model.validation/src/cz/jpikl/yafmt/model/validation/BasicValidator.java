@@ -67,11 +67,15 @@ public abstract class BasicValidator implements EValidator, IStructuralFeatureVa
     protected abstract void checkStructuralFeature(EObject object, EStructuralFeature structuralFeature, Object value) throws Exception ;
 
     public void addError(DiagnosticChain diagnostics, String message, Object object) {
-        addDiagnostics(diagnostics, Diagnostic.ERROR, message, object);
+        addDiagnostics(diagnostics, Diagnostic.ERROR, message, new Object[] { object });
     }
     
-    public void addDiagnostics(DiagnosticChain diagnostics, int code, String message, Object object) {
-        diagnostics.add(new BasicDiagnostic(DIAGNOSTIC_SOURCE, code, message, new Object[] { object }));
+    public void addError(DiagnosticChain diagnostics, String message, Object[] objects) {
+        addDiagnostics(diagnostics, Diagnostic.ERROR, message, objects);
+    }
+        
+    public void addDiagnostics(DiagnosticChain diagnostics, int code, String message, Object[] objects) {
+        diagnostics.add(new BasicDiagnostic(DIAGNOSTIC_SOURCE, code, message, objects));
     }
     
     // =============================================================================

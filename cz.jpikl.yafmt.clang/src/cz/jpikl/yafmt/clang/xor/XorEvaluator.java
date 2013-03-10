@@ -19,6 +19,17 @@ public class XorEvaluator extends Evaluator {
         featureIds = new HashSet<String>(Arrays.asList(ids));
     }
 
+    private String getErrorMessage() {
+        StringBuilder builder = null;
+        for(String id: featureIds) {
+            if(builder == null)
+                builder = new StringBuilder("Only one of the following features should be selected: ").append(id);
+            else
+                builder.append(", ").append(id);
+        }
+        return builder.append(".").toString();
+    }
+    
     @Override
     public IEvaluationResult evaluate(FeatureConfiguration featureConfig) {
         int count = 0;
@@ -28,10 +39,10 @@ public class XorEvaluator extends Evaluator {
             if((selections != null) && !selections.isEmpty())
                 count++;
             if(count > 1)
-                return EvaluationResult.createFailureResult(null);
+                return EvaluationResult.createFailureResult(getErrorMessage());
         }
 
-        return (count > 1) ? EvaluationResult.SUCCESS_RESULT : EvaluationResult.createFailureResult(null);
+        return (count > 1) ? EvaluationResult.SUCCESS_RESULT : EvaluationResult.createFailureResult(getErrorMessage());
     }
 
     @Override

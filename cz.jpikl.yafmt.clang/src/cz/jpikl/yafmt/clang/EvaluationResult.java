@@ -1,5 +1,10 @@
 package cz.jpikl.yafmt.clang;
 
+import java.util.Collections;
+import java.util.List;
+
+import cz.jpikl.yafmt.model.fc.Selection;
+
 public class EvaluationResult implements IEvaluationResult {
 
     public static final IEvaluationResult SUCCESS_RESULT = new EvaluationResult(true, null);
@@ -24,6 +29,11 @@ public class EvaluationResult implements IEvaluationResult {
     @Override
     public String getErrorMessage() {
         return errorMessage;
+    }
+    
+    @Override
+    public List<Selection> getProblemSelections() {
+        return Collections.emptyList();
     }
 
 }

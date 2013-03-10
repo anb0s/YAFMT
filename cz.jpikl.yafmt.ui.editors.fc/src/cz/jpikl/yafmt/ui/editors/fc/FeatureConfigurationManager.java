@@ -14,7 +14,6 @@ import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.ui.editors.fc.util.VirtualConnectionCache;
-import cz.jpikl.yafmt.ui.editors.fc.validation.IFeatureConfigurationValidator;
 
 public class FeatureConfigurationManager {
 
@@ -40,13 +39,13 @@ public class FeatureConfigurationManager {
     private boolean makeDisabledVirtualConnetions = false;
     
     private List<IFeatureConfigurationListener> listeners = new ArrayList<IFeatureConfigurationListener>();
-    private List<IFeatureConfigurationValidator> validators = new ArrayList<IFeatureConfigurationValidator>();
     private FeatureConfiguration featureConfig;
 
     public FeatureConfigurationManager(FeatureConfiguration featureConfig) {
         this.featureConfig = featureConfig;
         repairFeatureConfiguration();
         rebuildVirtualConnections();
+        revalidateFeatureConfiguration();
     }
 
     public FeatureConfiguration getFeatureConfiguration() {
@@ -65,12 +64,8 @@ public class FeatureConfigurationManager {
     }
 
     // ===========================================================================
-    //  Validators
+    //  Validation
     // ===========================================================================
-
-    public void installValidator(IFeatureConfigurationValidator validator) {
-        validators.add(validator);
-    }
 
     public void revalidateFeatureConfiguration() {
         /* TODO implement validation process.

@@ -1,7 +1,8 @@
 package cz.jpikl.yafmt.model.validation;
 
-import static cz.jpikl.yafmt.model.validation.Localization.*;
+import static cz.jpikl.yafmt.model.validation.Localization.getMessage;
 
+import java.util.Collection;
 import java.util.regex.Pattern;
 
 public class ValidationUtil {
@@ -27,6 +28,21 @@ public class ValidationUtil {
         if(lower > upper)
             throw new Exception(getMessage("Errors_UpperLowerBoundMismatch"));
         return null;
+    }
+    
+    public static String printIds(Collection<String> ids) {
+        if(ids.isEmpty())
+            return null;
+
+        StringBuilder builder = null;
+        for(String id: ids) {
+            if(builder == null)
+                builder = new StringBuilder(id);
+            else
+                builder.append(", ").append(id);
+        }
+        
+        return builder.toString();
     }
     
 }

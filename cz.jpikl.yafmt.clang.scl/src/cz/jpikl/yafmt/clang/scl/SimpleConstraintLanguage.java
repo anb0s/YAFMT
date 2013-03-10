@@ -38,7 +38,7 @@ public class SimpleConstraintLanguage extends ConstraintLanguage {
             if(!(astRoot instanceof Expression))
                 throw new ConstraintLanguageException("Empty input");
 
-            return new SimpleConstraintLanguageEvaluator((Expression) astRoot);
+            return new SimpleConstraintLanguageEvaluator(constraintValue, (Expression) astRoot);
         }
         catch(RuntimeException ex) {
             throw new ConstraintLanguageException("Unexpected error: " + ex.getMessage());
