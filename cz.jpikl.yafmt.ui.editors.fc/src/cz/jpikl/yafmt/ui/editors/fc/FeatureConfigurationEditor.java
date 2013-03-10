@@ -138,7 +138,7 @@ public class FeatureConfigurationEditor extends ModelEditor {
 
     @Override
     protected IPropertySourceProvider getPropertySourceProvider() {
-        return FeatureConfigurationProviderUtil.getContentProvider();
+        return FeatureConfigurationProviderUtil.getPropertySourceProvider();
     }
 
     @Override

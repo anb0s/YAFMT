@@ -9,12 +9,12 @@ import cz.jpikl.yafmt.clang.ui.EditingContext;
 import cz.jpikl.yafmt.clang.ui.EditingSupportRegistry;
 import cz.jpikl.yafmt.clang.ui.IEditingSupport;
 import cz.jpikl.yafmt.model.fm.Constraint;
-import cz.jpikl.yafmt.model.validation.IPropertySourceValidator;
+import cz.jpikl.yafmt.model.validation.IStructuralFeatureValidator;
 import cz.jpikl.yafmt.model.validation.ValidatingPropertyDescriptor;
 
 public class ConstraintValuePropertyDescriptor extends ValidatingPropertyDescriptor {
 
-    public ConstraintValuePropertyDescriptor(Object object, IItemPropertyDescriptor itemPropertyDescriptor, IPropertySourceValidator validator) {
+    public ConstraintValuePropertyDescriptor(Object object, IItemPropertyDescriptor itemPropertyDescriptor, IStructuralFeatureValidator validator) {
         super(object, itemPropertyDescriptor, validator);
     }
 

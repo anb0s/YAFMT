@@ -1,5 +1,7 @@
 package cz.jpikl.yafmt.model.validation;
 
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.ui.provider.PropertyDescriptor;
 import org.eclipse.jface.viewers.CellEditor;
@@ -8,9 +10,9 @@ import org.eclipse.swt.widgets.Composite;
 
 public class ValidatingPropertyDescriptor extends PropertyDescriptor {
 
-    private IPropertySourceValidator validator;
+    private IStructuralFeatureValidator validator;
 
-    public ValidatingPropertyDescriptor(Object object, IItemPropertyDescriptor itemPropertyDescriptor, IPropertySourceValidator validator) {
+    public ValidatingPropertyDescriptor(Object object, IItemPropertyDescriptor itemPropertyDescriptor, IStructuralFeatureValidator validator) {
         super(object, itemPropertyDescriptor);
         this.validator = validator;
     }
@@ -36,8 +38,8 @@ public class ValidatingPropertyDescriptor extends PropertyDescriptor {
 
         @Override
         public String isValid(Object value) {
-            Object property = itemPropertyDescriptor.getFeature(value);
-            String result = validator.validate(object, property, value);
+            EStructuralFeature structuralFeature = (EStructuralFeature) itemPropertyDescriptor.getFeature(value);
+            String result = validator.getStructuralFeatureError((EObject) object, structuralFeature, value);
             if(result != null)
                 return result;
             if(originalValidator != null)

@@ -188,7 +188,7 @@ public class FeatureConfigurationValidator extends BasicValidator {
     private void checkFeatureConfigurationStructuralFeature(FeatureConfiguration featureConfiguration, EStructuralFeature structuralFeature, Object value) throws Exception {
         switch(structuralFeature.getFeatureID()) {
             case FEATURE_CONFIGURATION__NAME:
-                checkEmptyValue(getMessage("FeatureConfiguration"), (String) value);
+                checkEmptyValue(getMessage("FeatureConfiguration_Name"), (String) value);
                 break;
         }
     }

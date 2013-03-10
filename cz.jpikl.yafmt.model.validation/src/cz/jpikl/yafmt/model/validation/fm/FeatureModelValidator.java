@@ -4,6 +4,7 @@ import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
+import cz.jpikl.yafmt.clang.ConstraintLanguageDescriptor;
 import cz.jpikl.yafmt.clang.ConstraintLanguagePlugin;
 import cz.jpikl.yafmt.clang.ConstraintLanguageRegistry;
 import cz.jpikl.yafmt.clang.IConstraintLanguage;
@@ -159,7 +160,10 @@ public class FeatureModelValidator extends BasicValidator {
                 checkIdValue(getMessage("Feature_Id"), id);
                 
                 FeatureModel featureModel = feature.getFeatureModel();
-                if((featureModel != null) && (featureModel.getFeatureById(id) != feature))
+                if(featureModel == null)
+                    break;
+                Feature otherFeature = featureModel.getFeatureById(id);
+                if((otherFeature != null) && (otherFeature != feature))
                     throw new Exception(getMessage("Errors_IdNotUnique", getMessage("FeatureModel")));
                 break;
             }
@@ -220,9 +224,14 @@ public class FeatureModelValidator extends BasicValidator {
     private void checkConstraintStructuralFeature(Constraint constraint, EStructuralFeature structuralFeature, Object value) throws Exception {
         switch(structuralFeature.getFeatureID()) {
             case CONSTRAINT__LANGUAGE: {
-                ConstraintLanguageRegistry registry = ConstraintLanguagePlugin.getDefault().getConstraintLanguageRegistry();
-                if(registry.getLanguage(constraint.getLanguage()) == null)
+                if(value instanceof String) {
+                    ConstraintLanguageRegistry registry = ConstraintLanguagePlugin.getDefault().getConstraintLanguageRegistry();
+                    if(registry.getLanguage((String) value) == null)
+                        throw new Exception(getMessage("Errors_UnknownConstraintLangauge"));
+                }
+                else if(!(value instanceof ConstraintLanguageDescriptor)) {
                     throw new Exception(getMessage("Errors_UnknownConstraintLangauge"));
+                }
                 break;
             }
                 

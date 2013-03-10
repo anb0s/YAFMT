@@ -6,9 +6,9 @@ import org.eclipse.ui.views.properties.IPropertyDescriptor;
 
 public class ValidatingPropertySource extends UnwrappingPropertySource {
 
-    protected IPropertySourceValidator validator;
+    protected IStructuralFeatureValidator validator;
 
-    public ValidatingPropertySource(Object object, IItemPropertySource itemPropertySource, IPropertySourceValidator validator) {
+    public ValidatingPropertySource(Object object, IItemPropertySource itemPropertySource, IStructuralFeatureValidator validator) {
         super(object, itemPropertySource);
         this.validator = validator;
     }
