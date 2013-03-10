@@ -1,8 +1,10 @@
-package cz.jpikl.yafmt.model.validation;
+package cz.jpikl.yafmt.model.provider.util;
 
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
+
+import cz.jpikl.yafmt.model.validation.IStructuralFeatureValidator;
 
 public class ValidatingPropertySource extends UnwrappingPropertySource {
 

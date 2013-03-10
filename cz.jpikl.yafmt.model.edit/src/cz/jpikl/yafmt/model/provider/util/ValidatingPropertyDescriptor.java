@@ -1,4 +1,4 @@
-package cz.jpikl.yafmt.model.validation;
+package cz.jpikl.yafmt.model.provider.util;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -7,6 +7,8 @@ import org.eclipse.emf.edit.ui.provider.PropertyDescriptor;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ICellEditorValidator;
 import org.eclipse.swt.widgets.Composite;
+
+import cz.jpikl.yafmt.model.validation.IStructuralFeatureValidator;
 
 public class ValidatingPropertyDescriptor extends PropertyDescriptor {
 

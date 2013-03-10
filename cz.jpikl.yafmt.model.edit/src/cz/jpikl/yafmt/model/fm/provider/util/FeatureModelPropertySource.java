@@ -5,7 +5,7 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 
 import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
-import cz.jpikl.yafmt.model.validation.ValidatingPropertySource;
+import cz.jpikl.yafmt.model.provider.util.ValidatingPropertySource;
 import cz.jpikl.yafmt.model.validation.fm.FeatureModelValidator;
 
 public class FeatureModelPropertySource extends ValidatingPropertySource {

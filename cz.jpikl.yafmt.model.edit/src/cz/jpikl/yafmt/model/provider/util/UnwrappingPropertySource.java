@@ -1,4 +1,4 @@
-package cz.jpikl.yafmt.model.validation;
+package cz.jpikl.yafmt.model.provider.util;
 
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor.PropertyValueWrapper;

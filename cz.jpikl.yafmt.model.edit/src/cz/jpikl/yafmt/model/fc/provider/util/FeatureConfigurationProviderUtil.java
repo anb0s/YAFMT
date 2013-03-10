@@ -8,7 +8,7 @@ import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.IPropertySourceProvider;
 
 import cz.jpikl.yafmt.model.fc.provider.FeatureConfigurationItemProviderAdapterFactory;
-import cz.jpikl.yafmt.model.validation.ValidatingPropertySource;
+import cz.jpikl.yafmt.model.provider.util.ValidatingPropertySource;
 import cz.jpikl.yafmt.model.validation.fc.FeatureConfigurationValidator;
 
 public class FeatureConfigurationProviderUtil {
