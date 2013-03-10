@@ -3,7 +3,6 @@ package cz.jpikl.yafmt.ui.editors.fm.parts;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
@@ -24,6 +23,7 @@ import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
 import cz.jpikl.yafmt.ui.directediting.LabelDirectEditManager;
 import cz.jpikl.yafmt.ui.editors.fm.figures.FeatureFigure;
+import cz.jpikl.yafmt.ui.editors.fm.figures.ShrinkedChopboxAnchor;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 import cz.jpikl.yafmt.ui.editors.fm.model.Connection;
 import cz.jpikl.yafmt.ui.editors.fm.policies.ConnectionCreationPolicy;
@@ -108,22 +108,22 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
 
     @Override
     public ConnectionAnchor getSourceConnectionAnchor(ConnectionEditPart connection) {
-        return new ChopboxAnchor(getFigure());
+        return new ShrinkedChopboxAnchor(getFigure(), 1);
     }
 
     @Override
     public ConnectionAnchor getTargetConnectionAnchor(ConnectionEditPart connection) {
-        return new ChopboxAnchor(getFigure());
+        return new ShrinkedChopboxAnchor(getFigure(), 1);
     }
 
     @Override
     public ConnectionAnchor getSourceConnectionAnchor(Request request) {
-        return new ChopboxAnchor(getFigure());
+        return new ShrinkedChopboxAnchor(getFigure(), 1);
     }
 
     @Override
     public ConnectionAnchor getTargetConnectionAnchor(Request request) {
-        return new ChopboxAnchor(getFigure());
+        return new ShrinkedChopboxAnchor(getFigure(), 1);
     }
 
     @Override
