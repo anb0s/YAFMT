@@ -1,4 +1,4 @@
-package cz.jpikl.yafmt.ui.editors.fm.directediting;
+package cz.jpikl.yafmt.ui.editors.fm.util;
 
 import org.eclipse.emf.common.ui.celleditor.ExtendedComboBoxCellEditor;
 import org.eclipse.swt.widgets.Composite;

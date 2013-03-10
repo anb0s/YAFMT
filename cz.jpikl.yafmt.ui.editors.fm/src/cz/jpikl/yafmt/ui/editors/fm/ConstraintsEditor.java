@@ -51,9 +51,9 @@ import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.FeatureModelFactory;
 import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
+import cz.jpikl.yafmt.ui.actions.DynamicContributionItem;
 import cz.jpikl.yafmt.ui.editors.fm.actions.SetConstraintLanguageAction;
 import cz.jpikl.yafmt.ui.editors.fm.commands.AddConstraintCommand;
-import cz.jpikl.yafmt.ui.util.DynamicContributionItem;
 import cz.jpikl.yafmt.ui.widgets.Splitter;
 import cz.jpikl.yafmt.ui.widgets.SplitterDock;
 

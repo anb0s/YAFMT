@@ -1,13 +1,13 @@
-package cz.jpikl.yafmt.ui.editors.fm.directediting;
+package cz.jpikl.yafmt.ui.util;
 
 import org.eclipse.jface.viewers.ICellEditorValidator;
 
-public class DirectInputValidator implements ICellEditorValidator {
+public class NonEmptyCellEditorValidator implements ICellEditorValidator {
 
     @Override
     public String isValid(Object value) {
         if((value == null) || ("".equals(value)))
-            return "Empty input"; // Not displayed anywhere.
+            return "Empty input";
         return null;
     }
 

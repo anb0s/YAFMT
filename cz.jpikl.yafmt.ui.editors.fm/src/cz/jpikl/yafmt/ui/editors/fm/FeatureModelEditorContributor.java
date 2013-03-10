@@ -12,11 +12,11 @@ import org.eclipse.jface.action.Separator;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.LabelRetargetAction;
 
+import cz.jpikl.yafmt.ui.actions.EditorZoomComboContributioItem;
 import cz.jpikl.yafmt.ui.actions.ShowFeatureModelVisualizerAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.GroupFeaturesAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.SetFeatureCardinalityAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.UngroupFeaturesAction;
-import cz.jpikl.yafmt.ui.util.EditorZoomComboContributioItem;
 
 public class FeatureModelEditorContributor extends ActionBarContributor {
 

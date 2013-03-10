@@ -42,10 +42,10 @@ import org.eclipse.ui.views.properties.IPropertySourceProvider;
 import org.eclipse.ui.views.properties.PropertySheet;
 
 import cz.jpikl.yafmt.ui.CommonUIPlugin;
+import cz.jpikl.yafmt.ui.actions.EditorZoomComboContributioItem;
 import cz.jpikl.yafmt.ui.pages.EditorContentOutlinePage;
 import cz.jpikl.yafmt.ui.pages.EditorPropertySheetPage;
 import cz.jpikl.yafmt.ui.util.EditorAutoCloser;
-import cz.jpikl.yafmt.ui.util.EditorZoomComboContributioItem;
 import cz.jpikl.yafmt.ui.util.SelectionConverter;
 import cz.jpikl.yafmt.ui.util.UnwrappingSelectionProvider;
 

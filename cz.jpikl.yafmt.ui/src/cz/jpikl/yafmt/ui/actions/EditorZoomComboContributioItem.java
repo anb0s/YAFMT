@@ -1,4 +1,4 @@
-package cz.jpikl.yafmt.ui.util;
+package cz.jpikl.yafmt.ui.actions;
 
 import java.util.Arrays;
 

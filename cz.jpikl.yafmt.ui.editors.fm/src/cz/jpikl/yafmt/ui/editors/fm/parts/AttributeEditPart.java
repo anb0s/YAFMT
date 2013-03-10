@@ -10,18 +10,20 @@ import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
+import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
 import org.eclipse.gef.requests.SelectionRequest;
+import org.eclipse.swt.SWT;
 
 import cz.jpikl.yafmt.model.fm.Attribute;
 import cz.jpikl.yafmt.model.fm.AttributeType;
 import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
-import cz.jpikl.yafmt.ui.editors.fm.directediting.AttributeTypeCellEditor;
-import cz.jpikl.yafmt.ui.editors.fm.directediting.ComboDirectEditManager;
-import cz.jpikl.yafmt.ui.editors.fm.directediting.DirectInputValidator;
-import cz.jpikl.yafmt.ui.editors.fm.directediting.LabelDirectEditManager;
+import cz.jpikl.yafmt.ui.directediting.ComboDirectEditManager;
+import cz.jpikl.yafmt.ui.directediting.LabelDirectEditManager;
 import cz.jpikl.yafmt.ui.editors.fm.figures.AttributeFigure;
 import cz.jpikl.yafmt.ui.editors.fm.policies.AttributeDirectEditPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.AttributeEditPolicy;
+import cz.jpikl.yafmt.ui.editors.fm.util.AttributeTypeCellEditor;
+import cz.jpikl.yafmt.ui.util.NonEmptyCellEditorValidator;
 
 public class AttributeEditPart extends AbstractGraphicalEditPart {
 
@@ -65,30 +67,30 @@ public class AttributeEditPart extends AbstractGraphicalEditPart {
     @Override
     public void performRequest(Request request) {
         if(REQ_OPEN.equals(request.getType())) {
-            String name = attribute.getName();
-            AttributeType type = attribute.getType();
+            String attributeName = attribute.getName();
+            AttributeType attributeType = attribute.getType();
 
+            double scale = ((ScalableFreeformRootEditPart) getRoot()).getZoomManager().getZoom();
             Label label = ((AttributeFigure) getFigure());
             Rectangle labelBounds = label.getBounds().getCopy();
             label.translateToAbsolute(labelBounds);
-            int nameTextWidth = TextUtilities.INSTANCE.getStringExtents(name + ": ", label.getFont()).width;
-            int typeTextX = labelBounds.x + nameTextWidth;
+            
+            int attributeNameWidth = TextUtilities.INSTANCE.getStringExtents(attributeName + ": ", label.getFont()).width;
+            int attributeTypeX = labelBounds.x + (int) (scale * attributeNameWidth);
             int mouseX = ((SelectionRequest) request).getLocation().x;
 
             // Name direct edit
-            if(mouseX <= typeTextX) {
-                LabelDirectEditManager manager = new LabelDirectEditManager(this, label, name);
-                manager.setValidator(new DirectInputValidator());
+            if(mouseX <= attributeTypeX) {
+                LabelDirectEditManager manager = new LabelDirectEditManager(this, label, attributeName);
+                manager.setValidator(new NonEmptyCellEditorValidator());
+                manager.setAlignment(SWT.LEFT | SWT.CENTER);
                 manager.show();
             }
             // Type direct edit.
             else {
-                Rectangle bounds = labelBounds.getCopy();
-                bounds.x += nameTextWidth;
-                bounds.y -= 2;
-                bounds.width = 80;
-                bounds.height += 2;
-                ComboDirectEditManager manager = new ComboDirectEditManager(this, bounds, AttributeTypeCellEditor.class, type);
+                ComboDirectEditManager manager = new ComboDirectEditManager(this, AttributeTypeCellEditor.class, label, attributeType);
+                manager.setAlignment(SWT.LEFT | SWT.CENTER);
+                manager.setXOffset(attributeNameWidth); // Offset must not be scaled
                 manager.show();
             }
         }

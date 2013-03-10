@@ -17,12 +17,12 @@ import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
+import org.eclipse.swt.SWT;
 
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
-import cz.jpikl.yafmt.ui.editors.fm.directediting.DirectInputValidator;
-import cz.jpikl.yafmt.ui.editors.fm.directediting.LabelDirectEditManager;
+import cz.jpikl.yafmt.ui.directediting.LabelDirectEditManager;
 import cz.jpikl.yafmt.ui.editors.fm.figures.FeatureFigure;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 import cz.jpikl.yafmt.ui.editors.fm.model.Connection;
@@ -30,6 +30,7 @@ import cz.jpikl.yafmt.ui.editors.fm.policies.ConnectionCreationPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureDirectEditPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureEditPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureLayoutPolicy;
+import cz.jpikl.yafmt.ui.util.NonEmptyCellEditorValidator;
 
 public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEditPart {
 
@@ -138,7 +139,8 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
         if(REQ_OPEN.equals(request.getType())) {
             Label label = ((FeatureFigure) getFigure()).getLabel();
             LabelDirectEditManager manager = new LabelDirectEditManager(this, label);
-            manager.setValidator(new DirectInputValidator());
+            manager.setValidator(new NonEmptyCellEditorValidator());
+            manager.setAlignment(SWT.CENTER);
             manager.show();
         }
     }
