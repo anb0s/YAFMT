@@ -18,6 +18,7 @@ import org.eclipse.swt.widgets.Display;
 
 import cz.jpikl.yafmt.model.fc.Selection;
 import cz.jpikl.yafmt.ui.util.DrawConstantans;
+import cz.jpikl.yafmt.ui.util.DrawUtil;
 
 public class SelectionFigure extends RoundedRectangle {
 
@@ -75,6 +76,12 @@ public class SelectionFigure extends RoundedRectangle {
         }
 
         toolTip.setText(tooltipBuilder.toString());
+    }
+    
+    @Override
+    public void paint(Graphics graphics) {
+        DrawUtil.fixZoomedFigureLocation(graphics);
+        super.paint(graphics);
     }
 
     @Override

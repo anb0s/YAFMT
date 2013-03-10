@@ -19,6 +19,7 @@ import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.ui.editors.fm.FeatureModelEditorPlugin;
 import cz.jpikl.yafmt.ui.figures.SeparatorFigure;
 import cz.jpikl.yafmt.ui.util.DrawConstantans;
+import cz.jpikl.yafmt.ui.util.DrawUtil;
 
 public class FeatureFigure extends RoundedRectangle {
 
@@ -83,10 +84,15 @@ public class FeatureFigure extends RoundedRectangle {
 
     @Override
     public void paint(Graphics graphics) {
+        DrawUtil.fixZoomedFigureLocation(graphics);
         super.paint(graphics);
 
-        if(constrained)
-            graphics.drawImage(constraintDecoration, bounds.x + 2, bounds.y + 2);
+        if(constrained) {
+            double scale = Math.max(1.0, graphics.getAbsoluteScale());
+            int w = constraintDecoration.getImageData().width;
+            int h = constraintDecoration.getImageData().height;
+            graphics.drawImage(constraintDecoration, 0, 0, w, w, bounds.x + 2, bounds.y + 2, (int) (w / scale), (int) (h / scale));
+        }
     }
 
     @Override
@@ -103,7 +109,7 @@ public class FeatureFigure extends RoundedRectangle {
         if(pattern != null)
             pattern.dispose();
     }
-    
+        
     @Override
     protected void outlineShape(Graphics graphics) {
         if(orphaned) {

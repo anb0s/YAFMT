@@ -16,6 +16,7 @@ import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 import cz.jpikl.yafmt.ui.figures.NonInteractiveLabel;
+import cz.jpikl.yafmt.ui.util.DrawUtil;
 
 public class GroupFigure extends RectangleFigure {
 
@@ -55,6 +56,12 @@ public class GroupFigure extends RectangleFigure {
         super.removeNotify();
     }
 
+    @Override
+    public void paint(Graphics graphics) {
+        DrawUtil.fixZoomedFigureLocation(graphics);
+        super.paint(graphics);
+    }
+    
     @Override
     protected void fillShape(Graphics graphics) {
         Rectangle fillBounds = arcBounds.getCopy();

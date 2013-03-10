@@ -6,6 +6,8 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.RotatableDecoration;
 import org.eclipse.draw2d.geometry.Point;
 
+import cz.jpikl.yafmt.ui.util.DrawUtil;
+
 class CircleDecoration extends Ellipse implements RotatableDecoration {
 
     private static final int RADIUS = 5;
@@ -27,6 +29,12 @@ class CircleDecoration extends Ellipse implements RotatableDecoration {
     @Override
     public void setReferencePoint(Point ref) {
         translate(-RADIUS, -RADIUS);
+    }
+    
+    @Override
+    public void paint(Graphics graphics) {
+        DrawUtil.fixZoomedFigureLocation(graphics);
+        super.paint(graphics);
     }
 
 }
