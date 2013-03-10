@@ -52,7 +52,9 @@ public class FeatureConfigurationValidator extends BasicValidator {
     public boolean validate(EObject object, DiagnosticChain diagnostics) {
         switch(object.eClass().getClassifierID()) {
             case FEATURE_CONFIGURATION:
-                return validateFeatureConfiguration((FeatureConfiguration) object, diagnostics);
+                // We have to check it since there are also classes from a different package (FeatureModelPackage).
+                if(object instanceof FeatureConfiguration)
+                    return validateFeatureConfiguration((FeatureConfiguration) object, diagnostics);
         }
         return false;
     }
@@ -106,7 +108,7 @@ public class FeatureConfigurationValidator extends BasicValidator {
                 addError(diagnostics, getMessage("Errors_LocalConstraintMinimum", lower, printIds(groupFeaturesIds)), group);
                 result = false;
             }
-            if(groupSize > upper) {
+            if((upper != -1) && (groupSize > upper)) {
                 addError(diagnostics, getMessage("Errors_LocalConstraintMaximum", upper, printIds(groupFeaturesIds)), group);
                 result = false;
             }

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.EList;
 
 import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
@@ -13,7 +14,9 @@ import cz.jpikl.yafmt.model.fc.util.FeatureConfigurationUtil;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.Group;
+import cz.jpikl.yafmt.model.validation.fc.FeatureConfigurationValidator;
 import cz.jpikl.yafmt.ui.editors.fc.util.VirtualConnectionCache;
+import cz.jpikl.yafmt.ui.validation.IDiagnosticWriter;
 
 public class FeatureConfigurationManager {
 
@@ -39,10 +42,13 @@ public class FeatureConfigurationManager {
     private boolean makeDisabledVirtualConnetions = false;
     
     private List<IFeatureConfigurationListener> listeners = new ArrayList<IFeatureConfigurationListener>();
+    private IDiagnosticWriter diagnosticWriter;
     private FeatureConfiguration featureConfig;
 
-    public FeatureConfigurationManager(FeatureConfiguration featureConfig) {
+    public FeatureConfigurationManager(FeatureConfiguration featureConfig, IDiagnosticWriter diagnosticWriter) {
         this.featureConfig = featureConfig;
+        this.diagnosticWriter = diagnosticWriter;
+        
         repairFeatureConfiguration();
         rebuildVirtualConnections();
         revalidateFeatureConfiguration();
@@ -68,10 +74,9 @@ public class FeatureConfigurationManager {
     // ===========================================================================
 
     public void revalidateFeatureConfiguration() {
-        /* TODO implement validation process.
-        for(IFeatureConfigurationValidator validator: validators)
-        	validator.validate(featureConfig, writer)
-        */
+        BasicDiagnostic diagnostic = new BasicDiagnostic();
+        FeatureConfigurationValidator.INSTANCE.validate(featureConfig, diagnostic);
+        diagnosticWriter.writeResults(diagnostic);
     }
 
     // ===========================================================================

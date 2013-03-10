@@ -36,6 +36,7 @@ import cz.jpikl.yafmt.ui.editors.fc.layout.TreeLayout;
 import cz.jpikl.yafmt.ui.editors.fc.layout.VerticalTreeLayout;
 import cz.jpikl.yafmt.ui.editors.fc.parts.FeatureConfigurationEditPartFactory;
 import cz.jpikl.yafmt.ui.operations.ResourceSaveOperation;
+import cz.jpikl.yafmt.ui.validation.TextOutputDiagnosticWriter;
 
 public class FeatureConfigurationEditor extends ModelEditor {
 
@@ -184,7 +185,7 @@ public class FeatureConfigurationEditor extends ModelEditor {
         featureConfig = (FeatureConfiguration) resource.getContents().get(0);
 
         // Initialize feature configuration manager.
-        featureConfigManager = new FeatureConfigurationManager(featureConfig);
+        featureConfigManager = new FeatureConfigurationManager(featureConfig, new TextOutputDiagnosticWriter());
         featureConfigManager.revalidateFeatureConfiguration();
     }
 

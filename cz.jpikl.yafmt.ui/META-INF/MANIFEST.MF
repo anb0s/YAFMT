@@ -26,5 +26,6 @@ Export-Package: cz.jpikl.yafmt.ui,
  cz.jpikl.yafmt.ui.providers,
  cz.jpikl.yafmt.ui.tools,
  cz.jpikl.yafmt.ui.util,
+ cz.jpikl.yafmt.ui.validation,
  cz.jpikl.yafmt.ui.widgets,
  cz.jpikl.yafmt.ui.wizards
