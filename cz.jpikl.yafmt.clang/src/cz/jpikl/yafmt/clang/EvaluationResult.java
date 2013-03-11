@@ -21,7 +21,7 @@ public class EvaluationResult implements IEvaluationResult {
 
     @Override
     public boolean isSuccess() {
-        return (errorMessage != null) && problemElements.isEmpty();
+        return (errorMessage == null) && problemElements.isEmpty();
     }
 
     public void setErrorMessage(String errorMessage) {

@@ -9,6 +9,7 @@ import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
 import cz.jpikl.yafmt.model.fc.Selection;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -158,13 +159,27 @@ public class DisjunctionImpl extends ExpressionImpl implements Disjunction {
     }
     
     @Override
-    public boolean evaluate(FeatureConfiguration featureConfig, Selection context) {
-        // Parts should not be empty or null.
-        for(Expression part: parts) {
-            if(part.evaluate(featureConfig, context))
-                return true;
+    public boolean evaluate(FeatureConfiguration featureConfig, Selection context, Set<Selection> problemSelections, boolean expectTrue) {
+        // OR expression
+        if(expectTrue) {
+            // At least one must be true.
+            Set<Selection> internalProblemSelections = new HashSet<Selection>();
+            for(Expression part: parts) {
+                if(part.evaluate(featureConfig, context, internalProblemSelections, true))
+                    return true;
+            }
+            problemSelections.addAll(internalProblemSelections);
+            return false;
         }
-        return false;
+        else {
+            // Everything must be false.
+            boolean result = true;
+            for(Expression part: parts) {
+                if(!part.evaluate(featureConfig, context, problemSelections, false))
+                    result = false;
+            }
+            return result;
+        }
     }
 
 } //DisjunctionImpl

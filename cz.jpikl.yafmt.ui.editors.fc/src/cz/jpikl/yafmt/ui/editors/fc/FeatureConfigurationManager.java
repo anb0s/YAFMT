@@ -181,6 +181,8 @@ public class FeatureConfigurationManager {
         for(Feature childFeature: childrenFeatures) {
             String id = childFeature.getId();
             int allowedFeaturesCount = childFeature.getUpper();
+            if(allowedFeaturesCount == -1)
+                allowedFeaturesCount = Integer.MAX_VALUE;
 
             for(int j = startingIndex; j < childrenSelections.size(); j++) {
                 Selection childSelection = childrenSelections.get(j);

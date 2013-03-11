@@ -3,6 +3,7 @@
 package cz.jpikl.yafmt.clang.scl.model.impl;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -155,13 +156,28 @@ public class ConjunctionImpl extends ExpressionImpl implements Conjunction {
     }
     
     @Override
-    public boolean evaluate(FeatureConfiguration featureConfig, Selection context) {
-        // Parts should not be empty or null.
-        for(Expression part: parts) {
-            if(!part.evaluate(featureConfig, context))
-                return false;
+    public boolean evaluate(FeatureConfiguration featureConfig, Selection context, Set<Selection> problemSelections, boolean expectTrue) {
+        // AND expression.
+        if(expectTrue) {
+            // Everything must be true.
+            boolean result = true;
+            for(Expression part: parts) {
+                if(!part.evaluate(featureConfig, context, problemSelections, true))
+                    result = false;
+            }
+            return result;
         }
-        return true;
+        // NAND expression.
+        else {
+            // At least one must be false.
+            Set<Selection> internalProblemSelections = new HashSet<Selection>();
+            for(Expression part: parts) {
+                if(part.evaluate(featureConfig, context, internalProblemSelections, false))
+                    return true;
+            }
+            problemSelections.addAll(internalProblemSelections);
+            return false;
+        }
     }
 
 } //ConjunctionImpl

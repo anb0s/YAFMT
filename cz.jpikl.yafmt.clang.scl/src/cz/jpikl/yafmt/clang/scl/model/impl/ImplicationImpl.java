@@ -2,6 +2,7 @@
  */
 package cz.jpikl.yafmt.clang.scl.model.impl;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import cz.jpikl.yafmt.clang.scl.model.Expression;
@@ -249,10 +250,34 @@ public class ImplicationImpl extends ExpressionImpl implements Implication {
     }
     
     @Override
-    public boolean evaluate(FeatureConfiguration featureConfig, Selection context) {
-        if(!leftPart.evaluate(featureConfig, context))
-            return true;
-        return rightPart.evaluate(featureConfig, context);
+    public boolean evaluate(FeatureConfiguration featureConfig, Selection context, Set<Selection> problemSelections, boolean expectTrue) {
+        Set<Selection> internalProblemSelections = new HashSet<Selection>();
+        
+        // Implication.
+        if(expectTrue) {
+            // If left part is false, the whole expression is true
+            if(leftPart.evaluate(featureConfig, context, internalProblemSelections, false))
+                return true;
+            
+            // Right part must be true then.
+            if(rightPart.evaluate(featureConfig, context, internalProblemSelections, true))
+                return true;
+                
+            // Something was wrong.
+            problemSelections.addAll(internalProblemSelections);
+            return false;
+        }
+        // Negated implication.
+        else {
+            // Left part must be true and right part must be false to be the whole expression true.
+            boolean leftResult = leftPart.evaluate(featureConfig, context, internalProblemSelections, true);
+            boolean rightResult = rightPart.evaluate(featureConfig, context, internalProblemSelections, false); 
+            if(leftResult && rightResult)
+                return true;
+            
+            problemSelections.addAll(internalProblemSelections);
+            return false;
+        }
     }
 
 } //ImplicationImpl

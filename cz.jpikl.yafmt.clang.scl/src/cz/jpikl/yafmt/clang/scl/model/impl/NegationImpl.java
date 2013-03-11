@@ -181,8 +181,8 @@ public class NegationImpl extends ExpressionImpl implements Negation {
     }
     
     @Override
-    public boolean evaluate(FeatureConfiguration featureConfig, Selection context) {
-        return !expression.evaluate(featureConfig, context);
+    public boolean evaluate(FeatureConfiguration featureConfig, Selection context, Set<Selection> problemSelections, boolean expectTrue) {
+        return expression.evaluate(featureConfig, context, problemSelections, !expectTrue);
     }
 
 } //NegationImpl

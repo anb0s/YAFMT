@@ -23,6 +23,6 @@ public interface Expression extends EObject {
     
     void retrieveFeatureIds(Set<String> ids);
     
-    boolean evaluate(FeatureConfiguration featureConfig, Selection context);
+    boolean evaluate(FeatureConfiguration featureConfig, Selection context, Set<Selection> problemSelections, boolean expectTrue);
 
 } // Expression

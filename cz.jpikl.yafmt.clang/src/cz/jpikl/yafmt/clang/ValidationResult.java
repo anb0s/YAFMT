@@ -16,7 +16,7 @@ public class ValidationResult implements IValidationResult {
 
     @Override
     public boolean isSuccess() {
-        return errorMessage != null;
+        return errorMessage == null;
     }
     
     public void setErrorMessage(String errorMessage) {

@@ -2,6 +2,7 @@
  */
 package cz.jpikl.yafmt.clang.scl.model.impl;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -251,37 +252,30 @@ public class ContextualExpressionImpl extends ExpressionImpl implements Contextu
     }
     
     @Override
-    public boolean evaluate(FeatureConfiguration featureConfig, Selection parentContext) {
-        // Get all context instances.
-        List<Selection> contexts = featureConfig.getSelectionsById(contextId);
-        
-        // Expression must be true for each context instance. If there is no context,
-        // the expression is automatically true.
-        if((contexts == null) || !contexts.isEmpty())
-            return true;
-        
-        // Evaluate expression for each context.
-        for(Selection context: contexts) {
-            // Evaluate expression only if we are under the parent context.
-            if(parentContext != null) {
-                boolean underParentContext = false;
-                for(Selection ancestor = context; ancestor != null; ancestor = ancestor.getParent()) {
-                    if(ancestor == parentContext) {
-                        underParentContext = true;
-                        break;
-                    }
-                }
-                if(!underParentContext)
-                    continue;
+    public boolean evaluate(FeatureConfiguration featureConfig, Selection context, Set<Selection> problemSelections, boolean expectTrue) {
+        List<Selection> lowerContexts = getSelections(featureConfig, context, contextId);
+     
+        // For each context must be true.
+        if(expectTrue) {
+            // Evaluate expression for each context.
+            boolean result = true;
+            for(Selection lowerContext: lowerContexts) {
+                if(!expression.evaluate(featureConfig, lowerContext, problemSelections, true))
+                    result = false;
             }
-            
-            // Expression must be true for each context.
-            if(!expression.evaluate(featureConfig, context))
-                return false;
+            return result;
         }
-        
-        // Expression was true for each valid context.
-        return true;
+        // At least for one context must be false.
+        else {
+            // Evaluate expression for each context.
+            Set<Selection> internalProblemSelections = new HashSet<Selection>();
+            for(Selection lowerContext: lowerContexts) {
+                if(expression.evaluate(featureConfig, lowerContext, internalProblemSelections, false))
+                    return true;
+            }
+            problemSelections.addAll(internalProblemSelections);
+            return false;
+        }
     }
 
 } //ContextualExpressionImpl

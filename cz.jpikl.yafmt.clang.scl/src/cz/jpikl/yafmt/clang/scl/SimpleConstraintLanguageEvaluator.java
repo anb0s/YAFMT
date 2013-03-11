@@ -8,6 +8,7 @@ import cz.jpikl.yafmt.clang.Evaluator;
 import cz.jpikl.yafmt.clang.IEvaluationResult;
 import cz.jpikl.yafmt.clang.scl.model.Expression;
 import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
+import cz.jpikl.yafmt.model.fc.Selection;
 
 public class SimpleConstraintLanguageEvaluator extends Evaluator {
 
@@ -28,10 +29,14 @@ public class SimpleConstraintLanguageEvaluator extends Evaluator {
 
     @Override
     public IEvaluationResult evaluate(FeatureConfiguration featureConfig) {
-        // TODO add list of problem selections into evaluation result.
-        if(!expression.evaluate(featureConfig, null))
-            return new EvaluationResult(originalValue + " is violated.");
-        return EvaluationResult.SUCCESS_RESULT;
+        Set<Selection> problemSelections = new HashSet<Selection>();
+        if(expression.evaluate(featureConfig, featureConfig.getRoot(), problemSelections, true))
+            return EvaluationResult.SUCCESS_RESULT;
+        
+        EvaluationResult result = new EvaluationResult();
+        result.setErrorMessage(originalValue + " is violated.");
+        result.getProblemElements().addAll(problemSelections);
+        return result; 
     }
 
 }

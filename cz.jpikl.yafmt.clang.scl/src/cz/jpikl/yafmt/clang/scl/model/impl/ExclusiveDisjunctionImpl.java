@@ -8,7 +8,10 @@ import cz.jpikl.yafmt.clang.scl.model.ModelPackage;
 import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
 import cz.jpikl.yafmt.model.fc.Selection;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -158,19 +161,58 @@ public class ExclusiveDisjunctionImpl extends ExpressionImpl implements Exclusiv
     }
     
     @Override
-    public boolean evaluate(FeatureConfiguration featureConfig, Selection context) {
-        // Parts should not be empty or null.
+    public boolean evaluate(FeatureConfiguration featureConfig, Selection context, Set<Selection> problemSelections, boolean expectTrue) {
         // This is actually not the same as the XOR logic function, but it uses
         // semantic of XOR group. This means that expression A1 xor A2 xor ... xor An
         // if true only if exactly one of A1, A2, ..., An is true.
-        int count = 0;
-        for(Expression part: parts) {
-            if(part.evaluate(featureConfig, context))
-                count++;
-            if(count > 1)
+        
+        Set<Selection> internalProblemSelections = new HashSet<Selection>();
+
+        // XOR expression.
+        if(expectTrue) {
+            // Exactly one must be true.
+            List<Expression> trueExpressions = new ArrayList<Expression>();
+            for(Expression part: parts) {
+                if(part.evaluate(featureConfig, context, internalProblemSelections, true))
+                    trueExpressions.add(part);
+            }
+   
+            // Exactly one was true.
+            if(trueExpressions.size() == 1)
+                return true;
+            
+            // Nothing was true.
+            if(trueExpressions.isEmpty()) {
+                problemSelections.addAll(internalProblemSelections);
                 return false;
+            }
+            
+            // More than one was true.
+            for(Expression part: trueExpressions)
+                part.evaluate(featureConfig, context, problemSelections, false);
+            return false;
         }
-        return count == 1;
+        // Negated XOR expression.
+        else {
+            // Zero or more than one must be true.
+            Expression trueExpression = null;
+            int count = 0;
+            for(Expression part: parts) {
+                if(part.evaluate(featureConfig, context, internalProblemSelections, true)) {
+                    trueExpression = part;
+                    count++;
+                }
+            }
+            
+            // Zero or more than one must was true.
+            if(count != 1)
+                return true;
+                        
+            // Exactly one was true.
+            for(Expression part: parts)
+                part.evaluate(featureConfig, context, problemSelections, part != trueExpression);
+            return false;
+        }        
     }
 
 } //ExclusiveDisjunctionImpl
