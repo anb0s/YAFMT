@@ -14,7 +14,7 @@ public class DrawConstantans {
     public static final Font TINY_FONT = getModifiedFont(DEFAULT_FONT, 7, SWT.DEFAULT);
 
     public static final Color FEATURE_GRADIENT_COLOR = getColor(175, 201, 235);
-    public static final Color ERROR_GRADIENT_COLOR = getColor(255, 192, 192);
+    public static final Color DARK_RED_COLOR = getColor(192, 0, 0);
 
     public static final Color FEATURE_COLOR = getColor(0, 0, 127);
     public static final Color FEATURE_HL_COLOR = getColor(128, 128, 255);
@@ -31,8 +31,7 @@ public class DrawConstantans {
         ITALIC_FONT.dispose();
         CONSTRAINT_COLOR.dispose();
         FEATURE_GRADIENT_COLOR.dispose();
-        ERROR_GRADIENT_COLOR.dispose();
-        ERROR_GRADIENT_COLOR.dispose();
+        DARK_RED_COLOR.dispose();
         CONSTRAINT_COLOR.dispose();
         CONSTRAINT_HL_COLOR.dispose();
         GROUP_COLOR.dispose();

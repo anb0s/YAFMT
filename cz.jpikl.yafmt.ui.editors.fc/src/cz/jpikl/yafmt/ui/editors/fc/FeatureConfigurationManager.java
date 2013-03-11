@@ -62,6 +62,10 @@ public class FeatureConfigurationManager {
         return featureConfig.getFeatureModelCopy();
     }
     
+    public IProblemStore getProblemStore() {
+        return problemStore;
+    }
+    
     public void setSelectableFeaturesVisibility(boolean showSelectable, boolean showDisabled) {
         makeVirtualConnections = showSelectable;
         makeDisabledVirtualConnetions = makeVirtualConnections && showDisabled;
