@@ -38,6 +38,7 @@ public class FeatureConfigurationManager {
     private Map<Selection, List<SelectionInfo>> parentToChildrenVirtualConnection = new HashMap<Selection, List<SelectionInfo>>();
     private Map<Selection, Selection> childrenToParentVirtualConnection = new HashMap<Selection, Selection>();
     private VirtualConnectionCache virtualConnectionCache = new VirtualConnectionCache();
+    private FeatureConfigurationValidator validator = new FeatureConfigurationValidator(); // If we do not use global instance, validator use cache for compiled constraints. 
     private boolean makeVirtualConnections = true;
     private boolean makeDisabledVirtualConnetions = false;
     
@@ -112,7 +113,7 @@ public class FeatureConfigurationManager {
 
     public void revalidateFeatureConfiguration() {
         BasicDiagnostic diagnostic = new BasicDiagnostic();
-        FeatureConfigurationValidator.INSTANCE.validate(featureConfig, diagnostic);
+        validator.validate(featureConfig, diagnostic);
         problemStore.clearAllProblems();
         problemStore.readProblems(diagnostic);
     }

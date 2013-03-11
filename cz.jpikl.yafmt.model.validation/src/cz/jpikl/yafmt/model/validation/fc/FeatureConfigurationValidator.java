@@ -42,7 +42,10 @@ public class FeatureConfigurationValidator extends BasicValidator {
     public static final FeatureConfigurationValidator INSTANCE = new FeatureConfigurationValidator();
     
     private EStructuralFeature[] FEATURE_CONFIGURATION_STRUCTURAL_FEATURES = { Literals.FEATURE_CONFIGURATION__NAME };
-
+    
+    private FeatureConfiguration lastValidatedFeatureConfiguration;
+    private List<IEvaluator> evaluatorsCache;
+    
     // ===========================================================================
     //  Object validation
     // ===========================================================================
@@ -130,6 +133,16 @@ public class FeatureConfigurationValidator extends BasicValidator {
     }
     
     public boolean validateGlobalConstraints(FeatureConfiguration featureConfiguration, DiagnosticChain diagnostics) {
+        return validateGlobalConstraints(featureConfiguration, createEvaluators(featureConfiguration), diagnostics);
+    }
+    
+    private List<IEvaluator> createEvaluators(FeatureConfiguration featureConfiguration) {
+        // If we do not use global instance, we can reuse already created evaluators.
+        if(this != INSTANCE) {
+            if((lastValidatedFeatureConfiguration == featureConfiguration) && (evaluatorsCache != null))
+                return evaluatorsCache;
+        }
+        
         FeatureModel featureModel = featureConfiguration.getFeatureModelCopy();
         ConstraintLanguageRegistry registry = ConstraintLanguagePlugin.getDefault().getConstraintLanguageRegistry();
         
@@ -151,7 +164,13 @@ public class FeatureConfigurationValidator extends BasicValidator {
             }
         }
         
-        return validateGlobalConstraints(featureConfiguration, evaluators, diagnostics);
+        // If we do not use global instance, remember created evaluators.
+        if(this != INSTANCE) {
+            lastValidatedFeatureConfiguration = featureConfiguration;
+            evaluatorsCache = evaluators;
+        }
+        
+        return evaluators;
     }
     
     public boolean validateGlobalConstraints(FeatureConfiguration featureConfiguration, List<IEvaluator> evaluators, DiagnosticChain diagnostics) {
