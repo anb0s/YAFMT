@@ -38,8 +38,8 @@ import cz.jpikl.yafmt.ui.editors.fc.layout.TreeLayout;
 import cz.jpikl.yafmt.ui.editors.fc.layout.VerticalTreeLayout;
 import cz.jpikl.yafmt.ui.editors.fc.parts.FeatureConfigurationEditPartFactory;
 import cz.jpikl.yafmt.ui.operations.ResourceSaveOperation;
-import cz.jpikl.yafmt.ui.validation.IDiagnosticWriter;
-import cz.jpikl.yafmt.ui.validation.ResourceMarkerDiagnosticWriter;
+import cz.jpikl.yafmt.ui.validation.IProblemStore;
+import cz.jpikl.yafmt.ui.validation.ResourceProblemStore;
 
 public class FeatureConfigurationEditor extends ModelEditor {
 
@@ -188,9 +188,8 @@ public class FeatureConfigurationEditor extends ModelEditor {
         featureConfig = (FeatureConfiguration) resource.getContents().get(0);
 
         // Initialize feature configuration manager.
-        IDiagnosticWriter diagnosticWriter = new ResourceMarkerDiagnosticWriter((IResource) input.getAdapter(IResource.class));
-        featureConfigManager = new FeatureConfigurationManager(featureConfig, diagnosticWriter);
-        featureConfigManager.revalidateFeatureConfiguration();
+        IProblemStore problemStore = new ResourceProblemStore((IResource) input.getAdapter(IResource.class));
+        featureConfigManager = new FeatureConfigurationManager(featureConfig, problemStore);
     }
 
     @Override

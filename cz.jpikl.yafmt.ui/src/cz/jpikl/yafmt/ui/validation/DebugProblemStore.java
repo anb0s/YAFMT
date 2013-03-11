@@ -1,12 +1,15 @@
 package cz.jpikl.yafmt.ui.validation;
 
+import java.util.Collections;
+import java.util.List;
+
 import org.eclipse.emf.common.util.Diagnostic;
 
 
-public class TextOutputDiagnosticWriter implements IDiagnosticWriter {
+public class DebugProblemStore implements IProblemStore {
 
     @Override
-    public void writeResults(Diagnostic diagnostic) {
+    public void readProblems(Diagnostic diagnostic) {
         System.out.println("------------------------------------------");
         System.out.println(" Validation Results");
         System.out.println("------------------------------------------");
@@ -44,13 +47,18 @@ public class TextOutputDiagnosticWriter implements IDiagnosticWriter {
                 return "?????";
         }
     }
-
+    
     @Override
-    public void clearResults(Object target) {
+    public List<String> getProblems(Object target) {
+        return Collections.emptyList();
     }
 
     @Override
-    public void clearAllResults() {
+    public void clearProblems(Object target) {
+    }
+
+    @Override
+    public void clearAllProblems() {
     }
     
 }

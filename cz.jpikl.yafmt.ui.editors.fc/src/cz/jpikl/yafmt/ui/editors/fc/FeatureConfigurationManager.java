@@ -16,7 +16,7 @@ import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.model.validation.fc.FeatureConfigurationValidator;
 import cz.jpikl.yafmt.ui.editors.fc.util.VirtualConnectionCache;
-import cz.jpikl.yafmt.ui.validation.IDiagnosticWriter;
+import cz.jpikl.yafmt.ui.validation.IProblemStore;
 
 public class FeatureConfigurationManager {
 
@@ -42,12 +42,12 @@ public class FeatureConfigurationManager {
     private boolean makeDisabledVirtualConnetions = false;
     
     private List<IFeatureConfigurationListener> listeners = new ArrayList<IFeatureConfigurationListener>();
-    private IDiagnosticWriter diagnosticWriter;
+    private IProblemStore problemStore;
     private FeatureConfiguration featureConfig;
 
-    public FeatureConfigurationManager(FeatureConfiguration featureConfig, IDiagnosticWriter diagnosticWriter) {
+    public FeatureConfigurationManager(FeatureConfiguration featureConfig, IProblemStore problemStore) {
         this.featureConfig = featureConfig;
-        this.diagnosticWriter = diagnosticWriter;
+        this.problemStore = problemStore;
         
         repairFeatureConfiguration();
         rebuildVirtualConnections();
@@ -109,8 +109,8 @@ public class FeatureConfigurationManager {
     public void revalidateFeatureConfiguration() {
         BasicDiagnostic diagnostic = new BasicDiagnostic();
         FeatureConfigurationValidator.INSTANCE.validate(featureConfig, diagnostic);
-        diagnosticWriter.clearAllResults();
-        diagnosticWriter.writeResults(diagnostic);
+        problemStore.clearAllProblems();
+        problemStore.readProblems(diagnostic);
     }
 
     // ===========================================================================

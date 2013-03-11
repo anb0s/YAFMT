@@ -12,41 +12,37 @@ import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 
-public class ResourceMarkerDiagnosticWriter implements IDiagnosticWriter {
+public class ResourceProblemStore implements IProblemStore {
     
     public static final String MARKER_ID = "cz.jpikl.yafmt.ui.ModelProblemMarker";
     public static final String MARKER_PROBLEM_OBJECT_URI = "cz.jpikl.yafmt.ui.ModelProblemMarker.ProblemObjectURI";
     public static final String URI_FRAGMENTS_SEPARATOR = ";";
+    
+    private static class Problems {
+        List<IMarker> markers = new ArrayList<IMarker>();
+        List<String> messages = new ArrayList<String>();
+    }
 
-    private Map<Object, List<IMarker>> objectMarkers = new HashMap<Object, List<IMarker>>();
+    private Map<Object, Problems> problems = new HashMap<Object, Problems>();
     private IResource resource;
     
-    public ResourceMarkerDiagnosticWriter(IResource resource) {
+    public ResourceProblemStore(IResource resource) {
         if(resource == null)
             throw new IllegalArgumentException("Resource must not be null.");
         this.resource = resource;
     }
-    
-    private void addMarkerForObject(Object object, IMarker marker) {
-        List<IMarker> markers = objectMarkers.get(object);
-        if(markers == null) {
-            markers = new ArrayList<IMarker>();
-            objectMarkers.put(object, markers);
-        }
-        markers.add(marker);            
-    }
-    
+        
     @Override
-    public void writeResults(Diagnostic diagnostic) {
+    public void readProblems(Diagnostic diagnostic) {
         for(Diagnostic diagnosticChild: diagnostic.getChildren()) {
             int code = diagnosticChild.getCode();
             String message = diagnosticChild.getMessage();
             List<?> objects = diagnosticChild.getData();
-            createMarker(code, message, objects);
+            addProblems(code, message, objects);
         }
     }
     
-    private void createMarker(int code, String message, List<?> objects) {
+    private void addProblems(int code, String message, List<?> objects) {
         try {
             IMarker marker = resource.createMarker(MARKER_ID);
             marker.setAttribute(IMarker.SEVERITY, getSeverity(code));
@@ -55,7 +51,7 @@ public class ResourceMarkerDiagnosticWriter implements IDiagnosticWriter {
             if(objects == null)
                 return;
                 
-            // Generate string containing uri fragments of all EObjects.
+            // Generate string containing URI fragments of all EObjects.
             StringBuilder uriBuilder = new StringBuilder();
             for(Object object: objects) {
                 if(!(object instanceof EObject))
@@ -66,7 +62,7 @@ public class ResourceMarkerDiagnosticWriter implements IDiagnosticWriter {
                 if(emfResource != null) {
                     String uri = emfResource.getURIFragment(eObject);
                     uriBuilder.append(uri).append(URI_FRAGMENTS_SEPARATOR);
-                    addMarkerForObject(object, marker);
+                    addProblem(eObject, marker, message);
                 }
             }
             
@@ -76,6 +72,16 @@ public class ResourceMarkerDiagnosticWriter implements IDiagnosticWriter {
         catch(CoreException ex) {
             ex.printStackTrace();
         }
+    }
+    
+    private void addProblem(Object object, IMarker marker, String message) {
+        Problems objectProblems = problems.get(object);
+        if(objectProblems == null) {
+            objectProblems = new Problems();
+            problems.put(object, objectProblems);
+        }
+        objectProblems.markers.add(marker);
+        objectProblems.messages.add(message);
     }
     
     private int getSeverity(int code) {
@@ -95,13 +101,13 @@ public class ResourceMarkerDiagnosticWriter implements IDiagnosticWriter {
     }
 
     @Override
-    public void clearResults(Object target) {
-        List<IMarker> markers = objectMarkers.remove(target);
-        if(markers == null)
+    public void clearProblems(Object target) {
+        Problems objectProblems = problems.remove(target);
+        if(objectProblems == null)
             return;
         
         try {
-            for(IMarker marker: markers)
+            for(IMarker marker: objectProblems.markers)
                 marker.delete();
         }
         catch(CoreException ex) {
@@ -110,14 +116,20 @@ public class ResourceMarkerDiagnosticWriter implements IDiagnosticWriter {
     }
 
     @Override
-    public void clearAllResults() {
+    public void clearAllProblems() {
         try {
-            objectMarkers.clear();
+            problems.clear();
             resource.deleteMarkers(MARKER_ID, false, IResource.DEPTH_INFINITE);
         }
         catch(CoreException ex) {
             ex.printStackTrace();
         }
+    }
+
+    @Override
+    public List<String> getProblems(Object target) {
+        Problems objectProblems = problems.remove(target);
+        return (objectProblems != null) ? objectProblems.messages : null;
     }
 
 }

@@ -56,7 +56,7 @@ import cz.jpikl.yafmt.ui.pages.EditorPropertySheetPage;
 import cz.jpikl.yafmt.ui.util.EditorAutoCloser;
 import cz.jpikl.yafmt.ui.util.SelectionConverter;
 import cz.jpikl.yafmt.ui.util.UnwrappingSelectionProvider;
-import cz.jpikl.yafmt.ui.validation.ResourceMarkerDiagnosticWriter;
+import cz.jpikl.yafmt.ui.validation.ResourceProblemStore;
 
 public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette implements IGotoMarker {
 
@@ -250,10 +250,10 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette imple
     @Override
     public void gotoMarker(IMarker marker) {
         try {
-            if(!marker.getType().equals(ResourceMarkerDiagnosticWriter.MARKER_ID))
+            if(!marker.getType().equals(ResourceProblemStore.MARKER_ID))
                 return;
             
-            String uriFragments = marker.getAttribute(ResourceMarkerDiagnosticWriter.MARKER_PROBLEM_OBJECT_URI, null);
+            String uriFragments = marker.getAttribute(ResourceProblemStore.MARKER_PROBLEM_OBJECT_URI, null);
             if(uriFragments == null)
                 return;
             
@@ -262,7 +262,7 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette imple
                 return;
             
             List<Object> objectsToSelect = new ArrayList<Object>();
-            for(String uriFragment: uriFragments.split(ResourceMarkerDiagnosticWriter.URI_FRAGMENTS_SEPARATOR)) {
+            for(String uriFragment: uriFragments.split(ResourceProblemStore.URI_FRAGMENTS_SEPARATOR)) {
                 EObject object = resource.getEObject(uriFragment);
                 if(object != null)
                     objectsToSelect.add(object);
