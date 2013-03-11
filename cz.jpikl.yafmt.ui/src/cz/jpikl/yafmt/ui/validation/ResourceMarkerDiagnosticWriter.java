@@ -9,10 +9,14 @@ import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 
 public class ResourceMarkerDiagnosticWriter implements IDiagnosticWriter {
     
     public static final String MARKER_ID = "cz.jpikl.yafmt.ui.ModelProblemMarker";
+    public static final String MARKER_PROBLEM_OBJECT_URI = "cz.jpikl.yafmt.ui.ModelProblemMarker.ProblemObjectURI";
+    public static final String URI_FRAGMENTS_SEPARATOR = ";";
 
     private Map<Object, List<IMarker>> objectMarkers = new HashMap<Object, List<IMarker>>();
     private IResource resource;
@@ -48,10 +52,26 @@ public class ResourceMarkerDiagnosticWriter implements IDiagnosticWriter {
             marker.setAttribute(IMarker.SEVERITY, getSeverity(code));
             marker.setAttribute(IMarker.MESSAGE, message);
             
-            if(objects != null) {
-                for(Object object: objects)
+            if(objects == null)
+                return;
+                
+            // Generate string containing uri fragments of all EObjects.
+            StringBuilder uriBuilder = new StringBuilder();
+            for(Object object: objects) {
+                if(!(object instanceof EObject))
+                    continue;
+                
+                EObject eObject = (EObject) object;
+                Resource emfResource = eObject.eResource();
+                if(emfResource != null) {
+                    String uri = emfResource.getURIFragment(eObject);
+                    uriBuilder.append(uri).append(URI_FRAGMENTS_SEPARATOR);
                     addMarkerForObject(object, marker);
+                }
             }
+            
+            // Save the result as marker attribute.
+            marker.setAttribute(MARKER_PROBLEM_OBJECT_URI, uriBuilder.toString());
         }
         catch(CoreException ex) {
             ex.printStackTrace();

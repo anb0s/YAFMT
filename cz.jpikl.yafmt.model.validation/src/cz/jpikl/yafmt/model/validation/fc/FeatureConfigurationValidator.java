@@ -105,11 +105,11 @@ public class FeatureConfigurationValidator extends BasicValidator {
             }
 
             if(groupSize < lower) {
-                addError(diagnostics, getMessage("Errors_LocalConstraintMinimum", lower, printIds(groupFeaturesIds)), group);
+                addError(diagnostics, getMessage("Errors_LocalConstraintMinimum", lower, printIds(groupFeaturesIds)), selection);
                 result = false;
             }
             if((upper != -1) && (groupSize > upper)) {
-                addError(diagnostics, getMessage("Errors_LocalConstraintMaximum", upper, printIds(groupFeaturesIds)), group);
+                addError(diagnostics, getMessage("Errors_LocalConstraintMaximum", upper, printIds(groupFeaturesIds)), selection);
                 result = false;
             }
         }

@@ -1,14 +1,20 @@
 package cz.jpikl.yafmt.ui.editors;
 
+import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.Iterator;
+import java.util.List;
 
+import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.draw2d.Viewport;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.EditPartFactory;
@@ -28,6 +34,7 @@ import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorSite;
@@ -35,6 +42,7 @@ import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.dialogs.SaveAsDialog;
+import org.eclipse.ui.ide.IGotoMarker;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
@@ -48,8 +56,9 @@ import cz.jpikl.yafmt.ui.pages.EditorPropertySheetPage;
 import cz.jpikl.yafmt.ui.util.EditorAutoCloser;
 import cz.jpikl.yafmt.ui.util.SelectionConverter;
 import cz.jpikl.yafmt.ui.util.UnwrappingSelectionProvider;
+import cz.jpikl.yafmt.ui.validation.ResourceMarkerDiagnosticWriter;
 
-public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette {
+public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette implements IGotoMarker {
 
     private IContentOutlinePage contentOutlinePage;
     private IPropertySheetPage propertySheetPage;
@@ -146,7 +155,7 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette {
         return null;
     }
 
-    protected abstract Object getModel();
+    protected abstract EObject getModel();
 
     protected abstract EditPartFactory getEditPartFactory();
 
@@ -232,6 +241,41 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette {
         int x = point.x - viewport.getSize().width / 2;
         int y = point.y - viewport.getSize().height / 2;
         viewport.setViewLocation(x, y);
+    }
+    
+    // ==================================================================================
+    //  Markers
+    // ==================================================================================
+    
+    @Override
+    public void gotoMarker(IMarker marker) {
+        try {
+            if(!marker.getType().equals(ResourceMarkerDiagnosticWriter.MARKER_ID))
+                return;
+            
+            String uriFragments = marker.getAttribute(ResourceMarkerDiagnosticWriter.MARKER_PROBLEM_OBJECT_URI, null);
+            if(uriFragments == null)
+                return;
+            
+            Resource resource = getModel().eResource();
+            if(resource == null)
+                return;
+            
+            List<Object> objectsToSelect = new ArrayList<Object>();
+            for(String uriFragment: uriFragments.split(ResourceMarkerDiagnosticWriter.URI_FRAGMENTS_SEPARATOR)) {
+                EObject object = resource.getEObject(uriFragment);
+                if(object != null)
+                    objectsToSelect.add(object);
+            }
+            
+            if(!objectsToSelect.isEmpty()) {
+                ISelection selection = new StructuredSelection(objectsToSelect);
+                applySelection(SelectionConverter.wrapSelection(selection, getGraphicalViewer().getEditPartRegistry()));
+            }
+        }
+        catch(CoreException ex) {
+            ex.printStackTrace();
+        }
     }
 
     // ==================================================================================
