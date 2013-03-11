@@ -1,39 +1,41 @@
 package cz.jpikl.yafmt.clang;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
-
-import cz.jpikl.yafmt.model.fc.Selection;
 
 public class EvaluationResult implements IEvaluationResult {
 
-    public static final IEvaluationResult SUCCESS_RESULT = new EvaluationResult(true, null);
+    public static final IEvaluationResult SUCCESS_RESULT = new EvaluationResult();
 
-    public static IEvaluationResult createFailureResult(String errorMessage) {
-        return new EvaluationResult(false, errorMessage);
-    }
-
-    private boolean success;
     private String errorMessage;
+    private List<Object> problemElements = new ArrayList<Object>();
 
-    private EvaluationResult(boolean success, String errorMessage) {
-        this.success = success;
+    
+    public EvaluationResult() {
+        this(null);
+    }
+    
+    public EvaluationResult(String errorMessage) {
         this.errorMessage = errorMessage;
     }
 
     @Override
     public boolean isSuccess() {
-        return success;
+        return (errorMessage != null) && problemElements.isEmpty();
     }
 
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+    
     @Override
     public String getErrorMessage() {
         return errorMessage;
     }
     
     @Override
-    public List<Selection> getProblemSelections() {
-        return Collections.emptyList();
+    public List<Object> getProblemElements() {
+        return problemElements;
     }
 
 }

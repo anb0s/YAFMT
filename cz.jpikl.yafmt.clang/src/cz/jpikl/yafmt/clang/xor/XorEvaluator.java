@@ -19,7 +19,7 @@ public class XorEvaluator extends Evaluator {
         featureIds = new HashSet<String>(Arrays.asList(ids));
     }
 
-    private String getErrorMessage() {
+    private String createErrorMessage() {
         StringBuilder builder = null;
         for(String id: featureIds) {
             if(builder == null)
@@ -30,19 +30,37 @@ public class XorEvaluator extends Evaluator {
         return builder.append(".").toString();
     }
     
-    @Override
-    public IEvaluationResult evaluate(FeatureConfiguration featureConfig) {
-        int count = 0;
-
+    private IEvaluationResult createFailureResult(FeatureConfiguration featureConfig) {
+        EvaluationResult result = new EvaluationResult(createErrorMessage());
+        
         for(String id: featureIds) {
             List<Selection> selections = featureConfig.getSelectionsById(id);
             if((selections != null) && !selections.isEmpty())
-                count++;
-            if(count > 1)
-                return EvaluationResult.createFailureResult(getErrorMessage());
+                result.getProblemElements().addAll(selections);
         }
-
-        return (count > 1) ? EvaluationResult.SUCCESS_RESULT : EvaluationResult.createFailureResult(getErrorMessage());
+        
+        if(result.getProblemElements().isEmpty())
+            result.getProblemElements().add(featureConfig.getRoot());
+        
+        return result;
+    }
+    
+    @Override
+    public IEvaluationResult evaluate(FeatureConfiguration featureConfig) {
+        int count = 0;
+        for(String id: featureIds) {
+            List<Selection> selections = featureConfig.getSelectionsById(id);
+            if((selections != null) && !selections.isEmpty()) {
+                count++;
+                if(count > 1)
+                    break;
+            }
+        }
+        
+        if(count == 1)
+            return EvaluationResult.SUCCESS_RESULT;
+        else
+            return createFailureResult(featureConfig);
     }
 
     @Override

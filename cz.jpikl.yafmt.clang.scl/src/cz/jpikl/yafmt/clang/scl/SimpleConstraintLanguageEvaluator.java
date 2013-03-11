@@ -30,7 +30,7 @@ public class SimpleConstraintLanguageEvaluator extends Evaluator {
     public IEvaluationResult evaluate(FeatureConfiguration featureConfig) {
         // TODO add list of problem selections into evaluation result.
         if(!expression.evaluate(featureConfig, null))
-            return EvaluationResult.createFailureResult(originalValue + " is violated.");
+            return new EvaluationResult(originalValue + " is violated.");
         return EvaluationResult.SUCCESS_RESULT;
     }
 

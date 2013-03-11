@@ -2,23 +2,25 @@ package cz.jpikl.yafmt.clang;
 
 public class ValidationResult implements IValidationResult {
 
-    public static final IValidationResult SUCCESS_RESULT = new ValidationResult(true, null);
+    public static final IValidationResult SUCCESS_RESULT = new ValidationResult();
 
-    public static IValidationResult createFailureResult(String errorMessage) {
-        return new ValidationResult(false, errorMessage);
-    }
-
-    private boolean success;
     private String errorMessage;
 
-    private ValidationResult(boolean success, String errorMessage) {
-        this.success = success;
+    public ValidationResult() {
+        this(null);
+    }
+    
+    public ValidationResult(String errorMessage) {
         this.errorMessage = errorMessage;
     }
 
     @Override
     public boolean isSuccess() {
-        return success;
+        return errorMessage != null;
+    }
+    
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 
     @Override

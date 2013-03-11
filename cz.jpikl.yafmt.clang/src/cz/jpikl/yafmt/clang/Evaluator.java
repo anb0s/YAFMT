@@ -54,7 +54,7 @@ public abstract class Evaluator implements IEvaluator {
             return ValidationResult.SUCCESS_RESULT;
 
         if(missingFeatureIds.size() == 1)
-            return ValidationResult.createFailureResult("Nonexistent feature ID: " + missingFeatureIds.get(0));
+            return new ValidationResult("Nonexistent feature ID: " + missingFeatureIds.get(0));
 
         StringBuilder builder = new StringBuilder("Nonexistent feature IDs: ");
         for(int i = 0; i < missingFeatureIds.size(); i++) {
@@ -63,7 +63,7 @@ public abstract class Evaluator implements IEvaluator {
             builder.append(missingFeatureIds.get(i));
         }
 
-        return ValidationResult.createFailureResult(builder.toString());
+        return new ValidationResult(builder.toString());
     }
 
     protected abstract Set<String> getAffectedFeatureIds();

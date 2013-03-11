@@ -8,7 +8,6 @@ import static cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage.INTEGER_VALUE;
 import static cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage.INTEGER_VALUE__VALUE;
 import static cz.jpikl.yafmt.model.validation.Localization.getMessage;
 import static cz.jpikl.yafmt.model.validation.ValidationUtil.checkEmptyValue;
-import static cz.jpikl.yafmt.model.validation.ValidationUtil.printIds;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -86,9 +85,9 @@ public class FeatureConfigurationValidator extends BasicValidator {
             return true;
 
         // Collect children IDs.
-        Set<String> groupFeaturesIds = new HashSet<String>();
+        Set<String> groupedFeaturesIds = new HashSet<String>();
         for(Feature childFeature: group.getFeatures())
-            groupFeaturesIds.add(childFeature.getId());
+            groupedFeaturesIds.add(childFeature.getId());
 
         // Local constraints.
         int lower = group.getLower();
@@ -100,21 +99,34 @@ public class FeatureConfigurationValidator extends BasicValidator {
             int groupSize = 0;
 
             for(Selection childSelection: selection.getSelections()) {
-                if(groupFeaturesIds.contains(childSelection.getId()))
+                if(groupedFeaturesIds.contains(childSelection.getId()))
                     groupSize++;
             }
 
             if(groupSize < lower) {
-                addError(diagnostics, getMessage("Errors_LocalConstraintMinimum", lower, printIds(groupFeaturesIds)), selection);
+                addError(diagnostics, getMessage("Errors_LocalConstraintMinimum", lower, getGroupedFeaturesNames(group)), selection);
                 result = false;
             }
             if((upper != -1) && (groupSize > upper)) {
-                addError(diagnostics, getMessage("Errors_LocalConstraintMaximum", upper, printIds(groupFeaturesIds)), selection);
+                addError(diagnostics, getMessage("Errors_LocalConstraintMaximum", upper, getGroupedFeaturesNames(group)), selection);
                 result = false;
             }
         }
         
         return result;
+    }
+    
+    private String getGroupedFeaturesNames(Group group) {
+        StringBuilder builder = null;
+        
+        for(Feature feature: group.getFeatures()) {
+            if(builder == null)
+                builder = new StringBuilder(feature.getName());
+            else
+                builder.append(", ").append(feature.getName());
+        }
+        
+        return builder.toString();
     }
     
     public boolean validateGlobalConstraints(FeatureConfiguration featureConfiguration, DiagnosticChain diagnostics) {
@@ -158,11 +170,11 @@ public class FeatureConfigurationValidator extends BasicValidator {
         if((message == null) || (message.isEmpty()))
             message = "Global constraint is violated";
         
-        List<Selection> selections = result.getProblemSelections();
-        if(selections == null)
-            selections = Collections.emptyList();
+        List<Object> problemElements = result.getProblemElements();
+        if(problemElements == null)
+            problemElements = Collections.emptyList();
         
-        addError(diagnostics, message, selections.toArray(new Selection[selections.size()]));
+        addError(diagnostics, message, problemElements.toArray(new Selection[problemElements.size()]));
         return false;
     }
     
