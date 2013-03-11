@@ -96,9 +96,5 @@ public abstract class BasicValidator implements EValidator, IStructuralFeatureVa
     public boolean validate(EDataType eDataType, Object value, DiagnosticChain diagnostics, Map<Object, Object> context) {
         return true;
     }
-    
-    // =============================================================================
-    //  Utility classes
-    // =============================================================================
         
 }
