@@ -33,7 +33,6 @@ import cz.jpikl.yafmt.ui.editors.fm.figures.GroupFigure;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureModelEditPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureModelLayoutPolicy;
-import cz.jpikl.yafmt.ui.figures.FigureDecorator;
 import cz.jpikl.yafmt.ui.validation.IProblemStore;
 
 public class FeatureModelEditPart extends AbstractGraphicalEditPart {
@@ -204,7 +203,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
             return;
 
         // Quit when state was not changed.
-        if(!((FeatureFigure) ((FigureDecorator) editPart.getFigure()).getFigure()).setOrphaned(orphaned))
+        if(!((FeatureEditPart) editPart).getFigure().setOrphaned(orphaned))
             return;
 
         TreeIterator<EObject> it = feature.eAllContents();
@@ -213,7 +212,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
             if(object instanceof Feature) {
                 editPart = getEditPartForObject(object);
                 if(editPart != null)
-                    ((FeatureFigure) ((FigureDecorator) editPart.getFigure()).getFigure()).setOrphaned(orphaned);
+                    ((FeatureEditPart) editPart).getFigure().setOrphaned(orphaned);
             }
         }
     }
@@ -223,7 +222,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
             Object model = ((EditPart) editPart).getModel();
             if(model instanceof Feature) {
                 Collection<Constraint> constraints = constraintCache.getConstraintsAffectingFeature((Feature) model);
-                FeatureFigure figure = ((FeatureEditPart) editPart).getFeatureFigure();
+                FeatureFigure figure = ((FeatureEditPart) editPart).getFigure();
                 figure.setConstrained((constraints != null) && !constraints.isEmpty());
             }
         }

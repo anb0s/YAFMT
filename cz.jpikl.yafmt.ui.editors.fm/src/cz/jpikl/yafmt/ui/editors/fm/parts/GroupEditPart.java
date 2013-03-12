@@ -187,21 +187,26 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
                 notifyChangedFromFeature(msg);
         }
         
-        private void notifyChangedFromFeature(Notification msg) {
-            switch(msg.getFeatureID(Feature.class)) {
-                case FEATURE__LOWER:
-                case FEATURE__UPPER:
+        private void notifyChangedFromGroup(Notification msg) {
+            switch(msg.getFeatureID(Group.class)) {
+                case GROUP__LOWER:
+                case GROUP__UPPER:
+                    revalidateModel();
+                    refreshVisuals();
+                    break;
+                    
+                case GROUP__FEATURES:
+                    refreshTargetConnections();
                     revalidateModel();
                     refreshVisuals();
                     break;
             }
         }
-
-        private void notifyChangedFromGroup(Notification msg) {
-            switch(msg.getFeatureID(Group.class)) {
-                case GROUP__LOWER:
-                case GROUP__UPPER:
-                case GROUP__FEATURES:
+        
+        private void notifyChangedFromFeature(Notification msg) {
+            switch(msg.getFeatureID(Feature.class)) {
+                case FEATURE__LOWER:
+                case FEATURE__UPPER:
                     revalidateModel();
                     refreshVisuals();
                     break;

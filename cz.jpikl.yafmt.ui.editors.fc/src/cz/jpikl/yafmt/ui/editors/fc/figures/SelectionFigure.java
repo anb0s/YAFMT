@@ -125,7 +125,7 @@ public class SelectionFigure extends RoundedRectangle {
         super.fillShape(graphics);
         
         if(pattern != null) {
-            graphics.setBackgroundColor(null);
+            graphics.setBackgroundPattern(null);
             pattern.dispose();
         }
     }

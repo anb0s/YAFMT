@@ -49,19 +49,19 @@ public abstract class BasicValidator implements EValidator, IStructuralFeatureVa
     //  Structural features validation
     // =============================================================================
         
-    public boolean validateAllStructuralFeatures(EObject object, DiagnosticChain diagnostics) {
+    protected boolean validateAllStructuralFeatures(EObject object, DiagnosticChain diagnostics) {
         EList<EStructuralFeature> structuralFeautures = object.eClass().getEAllStructuralFeatures(); 
         return validateStructuralFeatures(object, structuralFeautures.toArray(new EStructuralFeature[structuralFeautures.size()]), diagnostics);
     }
     
-    public boolean validateStructuralFeatures(EObject object, EStructuralFeature[] structuralFeatures, DiagnosticChain diagnostics) {
+    protected boolean validateStructuralFeatures(EObject object, EStructuralFeature[] structuralFeatures, DiagnosticChain diagnostics) {
         boolean result = true;
         for(EStructuralFeature structuralFeature: structuralFeatures)
             result &= validateStructuralFeature(object, structuralFeature, diagnostics);
         return result;
     }
     
-    public boolean validateStructuralFeature(EObject object, EStructuralFeature structuralFeature, DiagnosticChain diagnostics) {
+    protected boolean validateStructuralFeature(EObject object, EStructuralFeature structuralFeature, DiagnosticChain diagnostics) {
         String message = getStructuralFeatureError(object, structuralFeature, object.eGet(structuralFeature));
         if(message != null) {
             addError(diagnostics, message, object);
@@ -90,15 +90,15 @@ public abstract class BasicValidator implements EValidator, IStructuralFeatureVa
     //  Utilities
     // =============================================================================
 
-    public void addError(DiagnosticChain diagnostics, String message, Object object) {
+    protected void addError(DiagnosticChain diagnostics, String message, Object object) {
         addDiagnostics(diagnostics, Diagnostic.ERROR, message, new Object[] { object });
     }
     
-    public void addError(DiagnosticChain diagnostics, String message, Object[] objects) {
+    protected void addError(DiagnosticChain diagnostics, String message, Object[] objects) {
         addDiagnostics(diagnostics, Diagnostic.ERROR, message, objects);
     }
         
-    public void addDiagnostics(DiagnosticChain diagnostics, int code, String message, Object[] objects) {
+    protected void addDiagnostics(DiagnosticChain diagnostics, int code, String message, Object[] objects) {
         diagnostics.add(new BasicDiagnostic(DIAGNOSTIC_SOURCE, code, message, objects));
     }
     

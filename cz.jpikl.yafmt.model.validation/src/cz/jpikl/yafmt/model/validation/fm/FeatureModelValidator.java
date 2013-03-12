@@ -64,10 +64,8 @@ public class FeatureModelValidator extends BasicValidator {
     private boolean validateFeature(Feature feature, DiagnosticChain diagnostics, boolean recursive) {
         boolean result = validateStructuralFeature(feature, Literals.FEATURE__NAME, diagnostics);
         result &= validateStructuralFeature(feature, Literals.FEATURE__LOWER, diagnostics); // Lower bound check includes also upper bound check.
-        if(recursive) {
-            result &= validateAllContents(feature, diagnostics, false);
+        if(recursive)
             result &= validateUniqueAttributeIds(feature, diagnostics);
-        }
         return result;
     }
     

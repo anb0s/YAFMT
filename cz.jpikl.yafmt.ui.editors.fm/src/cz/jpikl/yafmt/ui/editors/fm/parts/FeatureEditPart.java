@@ -90,13 +90,13 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
         return new FeatureFigure(feature);
     }
 
-    public FeatureFigure getFeatureFigure() {
+    public FeatureFigure getFigure() {
         return (FeatureFigure) super.getFigure();
     }
     
     @Override
     protected void refreshVisuals() {
-        FeatureFigure figure = getFeatureFigure();
+        FeatureFigure figure = getFigure();
         figure.setErrors(problemStore.getProblems(feature));
         figure.refresh();
     }

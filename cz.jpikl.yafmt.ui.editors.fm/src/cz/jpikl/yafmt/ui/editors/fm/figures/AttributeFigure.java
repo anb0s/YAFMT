@@ -1,10 +1,16 @@
 package cz.jpikl.yafmt.ui.editors.fm.figures;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
+import org.eclipse.draw2d.StackLayout;
+import org.eclipse.draw2d.XYLayout;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import cz.jpikl.yafmt.model.fm.Attribute;
 import cz.jpikl.yafmt.model.fm.AttributeType;
@@ -30,8 +36,16 @@ public class AttributeFigure extends Label {
     // ==================================================================
     
     private void initialize() {
-        add(createErrorDecoration());
         setForegroundColor(ColorConstants.black);
+        //setLayoutManager(new StackLayout());
+        add(createErrorDecoration());
+    }
+    
+    private IFigure createDecorationLayer() {
+        IFigure layer = new Figure();
+        layer.setLayoutManager(new XYLayout());
+        layer.add(createErrorDecoration(), new Rectangle(0, 0, 12, 12));
+        return layer;
     }
     
     private IFigure createErrorDecoration() {
@@ -44,7 +58,8 @@ public class AttributeFigure extends Label {
     // ==================================================================
     
     public void setErrors(List<String> messages) {
-        errorDecoration.setErrors(messages);
+        List<String> s = new ArrayList<String>();s.add("aaaa");
+        errorDecoration.setErrors(s);
     }
     
     public void refresh() {

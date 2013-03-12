@@ -9,6 +9,7 @@ import org.eclipse.draw2d.GridData;
 import org.eclipse.draw2d.GridLayout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
+import org.eclipse.draw2d.Layer;
 import org.eclipse.draw2d.RoundedRectangle;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.draw2d.geometry.Point;
@@ -88,8 +89,10 @@ public class FeatureFigure extends RoundedRectangle {
     }
     
     private void destroyAttributesContainer() {
+        mainLayer.remove(attributesContainer);
         mainLayer.remove(separatorFigure);
-        mainLayer.remove(separatorFigure);
+        attributesContainer = null;
+        separatorFigure = null;
     }
     
     private Figure createAttributesContainer() {
@@ -107,7 +110,7 @@ public class FeatureFigure extends RoundedRectangle {
     // ==================================================================
     
     private IFigure createDecorationLayer() {
-        Figure layer = new Figure();
+        Figure layer = new Layer();
         layer.add(createErrorDecoration());
         layer.add(createConstraintDecoration());
         return layer;
@@ -190,7 +193,7 @@ public class FeatureFigure extends RoundedRectangle {
         super.fillShape(graphics);
         
         if(pattern != null) {
-            graphics.setBackgroundColor(null);
+            graphics.setBackgroundPattern(null);
             pattern.dispose();
         }
     }

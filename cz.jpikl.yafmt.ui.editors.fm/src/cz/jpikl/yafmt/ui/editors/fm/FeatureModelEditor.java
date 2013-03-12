@@ -7,6 +7,7 @@ import java.util.Map;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -35,6 +36,7 @@ import org.eclipse.ui.views.properties.IPropertySourceProvider;
 
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.provider.util.FeatureModelProviderUtil;
+import cz.jpikl.yafmt.model.validation.fm.FeatureModelValidator;
 import cz.jpikl.yafmt.ui.actions.ExportGraphicalEditorAsImageAction;
 import cz.jpikl.yafmt.ui.actions.ShowFeatureModelVisualizerAction;
 import cz.jpikl.yafmt.ui.editors.ModelEditor;
@@ -70,12 +72,22 @@ public class FeatureModelEditor extends ModelEditor {
     @Override
     public void init(IEditorSite site, IEditorInput input) throws PartInitException {
         super.init(site, input);
+        // Revalidation happens when edit parts are added.
         problemStore = new ResourceProblemStore((IResource) input.getAdapter(IResource.class));
+        problemStore.clearAllProblems();
     }
-        
+    
     public void dispose() {
+        revalidateFeatureModel(); // Removed edit parts clear their problems so we have to revalidate everything again.
         getSite().getPage().removeSelectionListener(constraintsEditor);
         super.dispose();
+    }
+    
+    private void revalidateFeatureModel() {
+        problemStore.clearAllProblems();
+        BasicDiagnostic diagnostic = new BasicDiagnostic();
+        if(!FeatureModelValidator.INSTANCE.validateRecursive(featureModel, diagnostic))
+            problemStore.readProblems(diagnostic);
     }
 
     // ==================================================================================
