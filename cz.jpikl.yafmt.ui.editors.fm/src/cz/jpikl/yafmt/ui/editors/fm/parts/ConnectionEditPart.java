@@ -1,5 +1,8 @@
 package cz.jpikl.yafmt.ui.editors.fm.parts;
 
+import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.FEATURE__LOWER;
+import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.FEATURE__UPPER;
+
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
@@ -9,7 +12,6 @@ import org.eclipse.gef.editparts.AbstractConnectionEditPart;
 import org.eclipse.gef.editpolicies.ConnectionEndpointEditPolicy;
 
 import cz.jpikl.yafmt.model.fm.Feature;
-import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
 import cz.jpikl.yafmt.ui.editors.fm.figures.ConnectionFigure;
 import cz.jpikl.yafmt.ui.editors.fm.model.Connection;
 import cz.jpikl.yafmt.ui.editors.fm.policies.ConnectionEditPolicy;
@@ -26,6 +28,10 @@ public class ConnectionEditPart extends AbstractConnectionEditPart {
         setModel(connection);
     }
 
+    // ===================================================================
+    //  Initialization
+    // ===================================================================
+
     @Override
     public void activate() {
         super.activate();
@@ -38,15 +44,27 @@ public class ConnectionEditPart extends AbstractConnectionEditPart {
         super.deactivate();
     }
 
+    // ===================================================================
+    //  Visuals
+    // ===================================================================
+
     @Override
     protected IFigure createFigure() {
         return new ConnectionFigure(connection);
     }
 
+    public ConnectionFigure getFigure() {
+        return (ConnectionFigure) super.getFigure();
+    }
+
     @Override
     protected void refreshVisuals() {
-        ((ConnectionFigure) getFigure()).refresh();
+        getFigure().refresh();
     }
+
+    // ===================================================================
+    //  Policies
+    // ===================================================================
 
     @Override
     protected void createEditPolicies() {
@@ -55,13 +73,17 @@ public class ConnectionEditPart extends AbstractConnectionEditPart {
         installEditPolicy(EditPolicy.CONNECTION_ENDPOINTS_ROLE, new ConnectionEndpointEditPolicy());
     }
 
+    // ===================================================================
+    //  Events
+    // ===================================================================
+
     private class ConnectionTargetAdapter extends AdapterImpl {
 
         @Override
         public void notifyChanged(Notification notification) {
             switch(notification.getFeatureID(Feature.class)) {
-                case FeatureModelPackage.FEATURE__LOWER:
-                case FeatureModelPackage.FEATURE__UPPER:
+                case FEATURE__LOWER:
+                case FEATURE__UPPER:
                     refreshVisuals();
                     break;
             }
