@@ -33,6 +33,7 @@ import cz.jpikl.yafmt.ui.editors.fm.figures.GroupFigure;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureModelEditPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureModelLayoutPolicy;
+import cz.jpikl.yafmt.ui.figures.FigureDecorator;
 import cz.jpikl.yafmt.ui.validation.IProblemStore;
 
 public class FeatureModelEditPart extends AbstractGraphicalEditPart {
@@ -88,7 +89,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
         // Do not use recursive validation (just basic properties).
         problemStore.clearProblems(featureModel);
         BasicDiagnostic diagnostic = new BasicDiagnostic();
-        if(!FeatureModelValidator.INSTANCE.validate(featureModel, diagnostic, false))
+        if(!FeatureModelValidator.INSTANCE.validate(featureModel, diagnostic))
             problemStore.readProblems(diagnostic);
     }
 
@@ -203,7 +204,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
             return;
 
         // Quit when state was not changed.
-        if(!((FeatureFigure) editPart.getFigure()).setOrphaned(orphaned))
+        if(!((FeatureFigure) ((FigureDecorator) editPart.getFigure()).getFigure()).setOrphaned(orphaned))
             return;
 
         TreeIterator<EObject> it = feature.eAllContents();
@@ -212,7 +213,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
             if(object instanceof Feature) {
                 editPart = getEditPartForObject(object);
                 if(editPart != null)
-                    ((FeatureFigure) editPart.getFigure()).setOrphaned(orphaned);
+                    ((FeatureFigure) ((FigureDecorator) editPart.getFigure()).getFigure()).setOrphaned(orphaned);
             }
         }
     }
@@ -250,7 +251,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
     public void updateGroupFigure(Group group) {
         GraphicalEditPart editPart = getEditPartForObject(group);
         if(editPart != null) {
-            GroupFigure figure = ((GroupEditPart) editPart).getGroupFigure();
+            GroupFigure figure = ((GroupEditPart) editPart).getFigure();
             figure.refresh();
             figure.repaint();
         }

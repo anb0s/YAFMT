@@ -12,26 +12,46 @@ import cz.jpikl.yafmt.ui.editors.fm.model.Connection;
 
 public class ConnectionFigure extends PolylineConnection {
 
+    private Connection connection;
+    
     private CircleDecoration circleDecoration = new CircleDecoration();
     private SquareDecoration squareDecoration = new SquareDecoration();
-    private Label label = new Label();
-
-    private Connection connection;
+    private Label label;
 
     public ConnectionFigure(Connection connection) {
         this.connection = connection;
-
-        label.setForegroundColor(ColorConstants.black);
-        add(label, createLabelLocator());
-        setForegroundColor(ColorConstants.black);
+        initialize();
         refresh();
     }
+    
+    // ==================================================================
+    //  Initialization
+    // ==================================================================
 
+    private void initialize() {
+        add(createLabel(), createLabelLocator());
+        setForegroundColor(ColorConstants.black);
+    }
+    
+    private Label createLabel() {
+        label = new Label();
+        label.setForegroundColor(ColorConstants.black);
+        return label;
+    }
+    
     private Locator createLabelLocator() {
         ConnectionEndpointLocator locator = new ConnectionEndpointLocator(this, false);
         locator.setUDistance(4);
         locator.setVDistance(16);
         return locator;
+    }
+    
+    // ==================================================================
+    //  Properties
+    // ==================================================================
+    
+    public void setHighlighted(boolean highlighted) {
+        setLineWidth(highlighted ? 2 : 1);
     }
 
     public void refresh() {
@@ -52,10 +72,6 @@ public class ConnectionFigure extends PolylineConnection {
             }
             label.setText(null);
         }
-    }
-
-    public void setHighlighted(boolean highlighted) {
-        setLineWidth(highlighted ? 2 : 1);
     }
 
 }

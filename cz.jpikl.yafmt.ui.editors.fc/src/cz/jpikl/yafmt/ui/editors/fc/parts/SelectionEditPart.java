@@ -34,7 +34,7 @@ public class SelectionEditPart extends AbstractGraphicalEditPart implements Node
     }
     
     // ===================================================================
-    //  Rendering
+    //  Visuals
     // ===================================================================
     
     @Override

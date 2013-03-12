@@ -7,7 +7,6 @@ import java.util.Map;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -36,7 +35,6 @@ import org.eclipse.ui.views.properties.IPropertySourceProvider;
 
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.provider.util.FeatureModelProviderUtil;
-import cz.jpikl.yafmt.model.validation.fm.FeatureModelValidator;
 import cz.jpikl.yafmt.ui.actions.ExportGraphicalEditorAsImageAction;
 import cz.jpikl.yafmt.ui.actions.ShowFeatureModelVisualizerAction;
 import cz.jpikl.yafmt.ui.editors.ModelEditor;
@@ -72,19 +70,9 @@ public class FeatureModelEditor extends ModelEditor {
     @Override
     public void init(IEditorSite site, IEditorInput input) throws PartInitException {
         super.init(site, input);
-        
-        // Revalidate feature model.
         problemStore = new ResourceProblemStore((IResource) input.getAdapter(IResource.class));
-        revalidateFeatureModel();
     }
-    
-    private void revalidateFeatureModel() {
-        problemStore.clearAllProblems();
-        BasicDiagnostic diagnostic = new BasicDiagnostic();
-        FeatureModelValidator.INSTANCE.validate(featureModel, diagnostic);
-        problemStore.readProblems(diagnostic);
-    }
-    
+        
     public void dispose() {
         getSite().getPage().removeSelectionListener(constraintsEditor);
         super.dispose();

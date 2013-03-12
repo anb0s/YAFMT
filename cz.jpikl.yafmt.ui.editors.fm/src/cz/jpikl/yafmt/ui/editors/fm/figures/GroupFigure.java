@@ -7,7 +7,8 @@ import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
-import org.eclipse.draw2d.RectangleFigure;
+import org.eclipse.draw2d.Shape;
+import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -16,18 +17,22 @@ import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
-import cz.jpikl.yafmt.ui.figures.FigureDecorator;
+import cz.jpikl.yafmt.ui.figures.ErrorDecoration;
 import cz.jpikl.yafmt.ui.figures.NonInteractiveLabel;
 import cz.jpikl.yafmt.ui.util.DrawUtil;
 
-public class GroupFigure extends RectangleFigure {
+public class GroupFigure extends Shape {
 
     public static final int SIZE = 40;
+    private static final int LABEL_DISTANCE = 50;
+    private static final int ERROR_DECORATION_DISTANCE = 14;
 
-    private Label label = new NonInteractiveLabel();
     private Group group;
     private LayoutData layoutData;
-
+    
+    private Label label;
+    private ErrorDecoration errorDecoration;
+    
     private double[] connectionAngles;
     private int arcOffset = 0;
     private int arcLength = 0;
@@ -36,25 +41,41 @@ public class GroupFigure extends RectangleFigure {
     public GroupFigure(Group group, LayoutData layoutData) {
         this.group = group;
         this.layoutData = layoutData;
-
-        label.setForegroundColor(ColorConstants.black);
-        setOpaque(true);
-        setForegroundColor(ColorConstants.black);
+        initialize();
         refresh();
     }
-
-    private IFigure getParentForLabel() {
-        IFigure parent = getParent();
-        if(parent instanceof FigureDecorator)
-            parent = parent.getParent();
-        return parent;
+    
+    // ==================================================================
+    //  Initialization
+    // ==================================================================
+    
+    private void initialize() {
+        setLayoutManager(new XYLayout());
+        setForegroundColor(ColorConstants.black);
+        setOpaque(true);
+        createLabel();
+        add(createErrorDecoration());
     }
+
+    private void createLabel() {
+        label = new NonInteractiveLabel();
+        label.setForegroundColor(ColorConstants.black);
+    }
+    
+    private IFigure createErrorDecoration() {
+        errorDecoration = new ErrorDecoration();
+        return errorDecoration;
+    }
+    
+    // ==================================================================
+    //  Events
+    // ==================================================================
     
     @Override
     public void addNotify() {
-        super.addNotify();
         // Add label to parent.
-        getParentForLabel().add(label);
+        super.addNotify();
+        getParent().add(label);
     }
 
     @Override
@@ -64,35 +85,14 @@ public class GroupFigure extends RectangleFigure {
             label.getParent().remove(label);
         super.removeNotify();
     }
-
-    @Override
-    public void paint(Graphics graphics) {
-        DrawUtil.fixZoomedFigureLocation(graphics);
-        super.paint(graphics);
-    }
     
-    @Override
-    protected void fillShape(Graphics graphics) {
-        Rectangle fillBounds = arcBounds.getCopy();
-        fillBounds.width++;
-        fillBounds.height++;
-        graphics.fillArc(fillBounds, arcOffset, arcLength);
-    }
-
-    @Override
-    protected void outlineShape(Graphics graphics) {
-        graphics.drawArc(arcBounds, arcOffset, arcLength);
-    }
-
+    // ==================================================================
+    //  Properties
+    // ==================================================================
+    
     public void refresh() {
         refreshCardinality();
-
-        Rectangle newBounds = layoutData.get(group);
-        if(newBounds != null) {
-            setBounds(newBounds.getCopy());
-            recomputeArcData();
-            repositionLabel();
-        }
+        refreshVisuals();
     }
 
     private void refreshCardinality() {
@@ -109,7 +109,25 @@ public class GroupFigure extends RectangleFigure {
             label.setText(FeatureModelUtil.getCardinality(group));
         }
     }
-
+    
+    private void refreshVisuals() {
+        Rectangle newBounds = layoutData.get(group);
+        if(newBounds != null) {
+            setBounds(newBounds.getCopy());
+            recomputeArcData();
+            repositionLabel();
+            repositionErrorDecoration();
+        }
+    }
+    
+    public void setErrors(List<String> messages) {
+        errorDecoration.setErrors(messages);
+    }
+    
+    // ==================================================================
+    //  Computations
+    // ==================================================================
+    
     private void recomputeArcData() {
         List<Feature> features = group.getFeatures();
         int size = features.size();
@@ -203,12 +221,43 @@ public class GroupFigure extends RectangleFigure {
 
         // Place the label inside the found region.
         double theta = Math.toRadians((connectionAngles[maxIndex2 + 1] + connectionAngles[maxIndex2]) / 2);
-        int x = (int) (50.0 * Math.cos(theta)) - size.width / 2;
-        int y = -(int) (50.0 * Math.sin(theta)) - size.width / 2;
+        int x = (int) (LABEL_DISTANCE * Math.cos(theta)) - size.width / 2;
+        int y = -(int) (LABEL_DISTANCE * Math.sin(theta)) - size.width / 2;
 
         Point position = bounds.getCenter().translate(x, y);
         Rectangle labelBounds = new Rectangle(position, size);
-        getParentForLabel().setConstraint(label, labelBounds);
+        label.getParent().setConstraint(label, labelBounds); // Label is child of group's parent figure.
+    }
+    
+    private void repositionErrorDecoration() {
+        double theta = Math.toRadians(arcOffset + arcLength / 2);
+        Dimension size = errorDecoration.getSize();
+        int x = (int) ((SIZE - size.width) / 2 + (ERROR_DECORATION_DISTANCE * Math.cos(theta)));
+        int y = (int) ((SIZE - size.height) / 2 - (ERROR_DECORATION_DISTANCE * Math.sin(theta)));
+        setConstraint(errorDecoration, new Rectangle(x, y, size.width, size.height));
+    }
+    
+    // ==================================================================
+    //  Rendering
+    // ==================================================================
+    
+    @Override
+    public void paint(Graphics graphics) {
+        DrawUtil.fixZoomedFigureLocation(graphics);
+        super.paint(graphics);
+    }
+    
+    @Override
+    protected void fillShape(Graphics graphics) {
+        Rectangle fillBounds = arcBounds.getCopy();
+        fillBounds.width++;
+        fillBounds.height++;
+        graphics.fillArc(fillBounds, arcOffset, arcLength);
+    }
+
+    @Override
+    protected void outlineShape(Graphics graphics) {
+        graphics.drawArc(arcBounds, arcOffset, arcLength);
     }
 
 }

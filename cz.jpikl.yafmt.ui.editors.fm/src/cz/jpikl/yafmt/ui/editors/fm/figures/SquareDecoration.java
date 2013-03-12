@@ -17,13 +17,13 @@ public class SquareDecoration extends RectangleFigure implements RotatableDecora
         setSize(SIDE, SIDE);
     }
 
-    public void setFilled(boolean filled) {
-        setBackgroundColor(filled ? ColorConstants.black : ColorConstants.white);
-    }
-
     @Override
     public void setReferencePoint(Point ref) {
         translate(-SIDE / 2, -SIDE / 2);
+    }
+    
+    public void setFilled(boolean filled) {
+        setBackgroundColor(filled ? ColorConstants.black : ColorConstants.white);
     }
     
     @Override

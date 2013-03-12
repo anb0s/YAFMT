@@ -40,9 +40,7 @@ import cz.jpikl.yafmt.model.validation.BasicValidator;
 public class FeatureConfigurationValidator extends BasicValidator {
     
     public static final FeatureConfigurationValidator INSTANCE = new FeatureConfigurationValidator();
-    
-    private EStructuralFeature[] FEATURE_CONFIGURATION_STRUCTURAL_FEATURES = { Literals.FEATURE_CONFIGURATION__NAME };
-    
+        
     private FeatureConfiguration lastValidatedFeatureConfig;
     private List<IEvaluator> evaluatorsCache;
     
@@ -51,7 +49,7 @@ public class FeatureConfigurationValidator extends BasicValidator {
     // ===========================================================================
     
     @Override
-    public boolean validate(EObject object, DiagnosticChain diagnostics, boolean recursive) {
+    protected boolean validate(EObject object, DiagnosticChain diagnostics, boolean recursive) {
         switch(object.eClass().getClassifierID()) {
             case FEATURE_CONFIGURATION:
                 // We have to check it since there are also classes from a different package (FeatureModelPackage).
@@ -62,7 +60,7 @@ public class FeatureConfigurationValidator extends BasicValidator {
     }
 
     private boolean validateFeatureConfiguration(FeatureConfiguration featureConfig, DiagnosticChain diagnostics, boolean recursive) {
-        boolean result = validateStructuralFeatures(featureConfig, FEATURE_CONFIGURATION_STRUCTURAL_FEATURES, diagnostics);
+        boolean result = validateStructuralFeature(featureConfig, Literals.FEATURE_CONFIGURATION__NAME, diagnostics);
         if(recursive) {
             result &= validateLocalConstraints(featureConfig, diagnostics);
             result &= validateGlobalConstraints(featureConfig, diagnostics);
@@ -74,7 +72,7 @@ public class FeatureConfigurationValidator extends BasicValidator {
     //  Local constraints
     // ===========================================================================
         
-    public boolean validateLocalConstraints(FeatureConfiguration featureConfig, DiagnosticChain diagnostics) {
+    private boolean validateLocalConstraints(FeatureConfiguration featureConfig, DiagnosticChain diagnostics) {
         TreeIterator<EObject> it = featureConfig.getFeatureModelCopy().eAllContents();
         boolean result = true;
         
@@ -141,7 +139,7 @@ public class FeatureConfigurationValidator extends BasicValidator {
     //  Global constraints
     // ===========================================================================
     
-    public boolean validateGlobalConstraints(FeatureConfiguration featureConfig, DiagnosticChain diagnostics) {
+    private boolean validateGlobalConstraints(FeatureConfiguration featureConfig, DiagnosticChain diagnostics) {
         return validateGlobalConstraints(featureConfig, createEvaluators(featureConfig), diagnostics);
     }
     
@@ -182,7 +180,7 @@ public class FeatureConfigurationValidator extends BasicValidator {
         return evaluators;
     }
     
-    public boolean validateGlobalConstraints(FeatureConfiguration featureConfig, List<IEvaluator> evaluators, DiagnosticChain diagnostics) {
+    private boolean validateGlobalConstraints(FeatureConfiguration featureConfig, List<IEvaluator> evaluators, DiagnosticChain diagnostics) {
         boolean result = true;
         for(IEvaluator evaluator: evaluators)
             result &= validateGlobalContraint(featureConfig, evaluator, diagnostics);

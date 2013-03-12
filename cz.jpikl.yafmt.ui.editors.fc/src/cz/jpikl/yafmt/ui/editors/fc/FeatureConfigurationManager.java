@@ -75,7 +75,7 @@ public class FeatureConfigurationManager {
     public void revalidateFeatureConfiguration() {
         problemStore.clearAllProblems();
         BasicDiagnostic diagnostic = new BasicDiagnostic();
-        if(!validator.validate(featureConfig, diagnostic))
+        if(!validator.validateRecursive(featureConfig, diagnostic))
             problemStore.readProblems(diagnostic);
     }
 

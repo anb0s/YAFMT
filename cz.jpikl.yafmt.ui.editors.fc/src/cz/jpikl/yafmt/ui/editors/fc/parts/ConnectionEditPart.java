@@ -16,7 +16,7 @@ public class ConnectionEditPart extends AbstractConnectionEditPart {
     }
     
     // ===================================================================
-    //  Rendering
+    //  Visuals
     // ===================================================================
 
     @Override

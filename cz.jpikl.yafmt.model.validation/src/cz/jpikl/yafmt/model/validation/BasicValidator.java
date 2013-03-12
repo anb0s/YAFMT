@@ -19,19 +19,35 @@ public abstract class BasicValidator implements EValidator, IStructuralFeatureVa
 
     private static final String DIAGNOSTIC_SOURCE = "cz.jpikl.yafmt.model.validation";
     
+    // =============================================================================
+    //  Public API
+    // =============================================================================
+    
     public boolean validate(EObject object, DiagnosticChain diagnostics) {
+        return validate(object, diagnostics, false);
+    }
+    
+    public boolean validateRecursive(EObject object, DiagnosticChain diagnostics) {
         return validate(object, diagnostics, true);
     }
     
-    public abstract boolean validate(EObject object, DiagnosticChain diagnostics, boolean recursive);
+    // =============================================================================
+    //  Object validations
+    // =============================================================================
     
-    public boolean validateAllContents(EObject object, DiagnosticChain diagnostics) {
+    protected abstract boolean validate(EObject object, DiagnosticChain diagnostics, boolean recursive);
+    
+    protected boolean validateAllContents(EObject object, DiagnosticChain diagnostics, boolean recursive) {
         TreeIterator<EObject> it = object.eAllContents();
         boolean result = true;
         while(it.hasNext())
-            result &= validate(it.next(), diagnostics, null);
+            result &= validate(it.next(), diagnostics, recursive);
         return result;
     }
+    
+    // =============================================================================
+    //  Structural features validation
+    // =============================================================================
         
     public boolean validateAllStructuralFeatures(EObject object, DiagnosticChain diagnostics) {
         EList<EStructuralFeature> structuralFeautures = object.eClass().getEAllStructuralFeatures(); 
@@ -69,6 +85,10 @@ public abstract class BasicValidator implements EValidator, IStructuralFeatureVa
     }
     
     protected abstract void checkStructuralFeature(EObject object, EStructuralFeature structuralFeature, Object value) throws Exception ;
+    
+    // =============================================================================
+    //  Utilities
+    // =============================================================================
 
     public void addError(DiagnosticChain diagnostics, String message, Object object) {
         addDiagnostics(diagnostics, Diagnostic.ERROR, message, new Object[] { object });
@@ -88,12 +108,12 @@ public abstract class BasicValidator implements EValidator, IStructuralFeatureVa
     
     @Override
     public boolean validate(EObject eObject, DiagnosticChain diagnostics, Map<Object, Object> context) {
-        return validate(eObject, diagnostics);
+        return validateRecursive(eObject, diagnostics);
     }
 
     @Override
     public boolean validate(EClass eClass, EObject eObject, DiagnosticChain diagnostics, Map<Object, Object> context) {
-        return validate(eObject, diagnostics);
+        return validateRecursive(eObject, diagnostics);
     }
 
     @Override

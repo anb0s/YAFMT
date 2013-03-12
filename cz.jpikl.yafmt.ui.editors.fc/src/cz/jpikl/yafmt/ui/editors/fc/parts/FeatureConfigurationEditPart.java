@@ -52,7 +52,7 @@ public class FeatureConfigurationEditPart extends AbstractGraphicalEditPart {
     }
     
     // ===================================================================
-    //  Rendering
+    //  Visuals
     // ===================================================================
 
     @Override
@@ -68,7 +68,7 @@ public class FeatureConfigurationEditPart extends AbstractGraphicalEditPart {
         IProblemStore problemStore = featureConfigManager.getProblemStore();
         problemStore.clearProblems(featureConfig);
         BasicDiagnostic diagnostic = new BasicDiagnostic();
-        if(!FeatureConfigurationValidator.INSTANCE.validate(featureConfig, diagnostic, false))
+        if(!FeatureConfigurationValidator.INSTANCE.validate(featureConfig, diagnostic))
             problemStore.readProblems(diagnostic);        
     }
     

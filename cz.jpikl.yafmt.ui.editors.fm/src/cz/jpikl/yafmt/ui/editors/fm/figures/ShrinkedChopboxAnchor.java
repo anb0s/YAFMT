@@ -4,7 +4,6 @@ import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-
 public class ShrinkedChopboxAnchor extends ChopboxAnchor {
     
     private int shrinkSize;
@@ -19,5 +18,4 @@ public class ShrinkedChopboxAnchor extends ChopboxAnchor {
         return super.getBox().getCopy().shrink(shrinkSize, shrinkSize);
     }
    
-
 }

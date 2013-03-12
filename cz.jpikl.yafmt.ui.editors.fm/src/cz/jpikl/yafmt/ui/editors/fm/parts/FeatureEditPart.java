@@ -73,7 +73,7 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
                 problemStore.clearProblems(attribute);
         }
         BasicDiagnostic diagnostic = new BasicDiagnostic();
-        if(!FeatureModelValidator.INSTANCE.validate(feature, diagnostic, recursive))
+        if(!FeatureModelValidator.INSTANCE.validate(feature, diagnostic))
             problemStore.readProblems(diagnostic);
         getErrorDecoration().setErrors(problemStore.getProblems(feature));
     }

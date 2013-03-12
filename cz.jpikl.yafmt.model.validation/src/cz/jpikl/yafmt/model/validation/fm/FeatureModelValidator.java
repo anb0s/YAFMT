@@ -1,5 +1,10 @@
 package cz.jpikl.yafmt.model.validation.fm;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -23,25 +28,19 @@ import static cz.jpikl.yafmt.model.validation.ValidationUtil.*;
 public class FeatureModelValidator extends BasicValidator {
 
     public static final FeatureModelValidator INSTANCE = new FeatureModelValidator();
-    
-    private EStructuralFeature[] FEATURE_MODEL_STRUCTURAL_FEATURES = { Literals.FEATURE_MODEL__NAME };
-    private EStructuralFeature[] FEATURE_STRUCTURAL_FEATURES = { Literals.FEATURE__ID, Literals.FEATURE__NAME, Literals.FEATURE__LOWER }; // Lower bound check includes also upper bound check.
-    private EStructuralFeature[] GROUP_STRUCTURAL_FEATURES = { Literals.GROUP__LOWER };
-    private EStructuralFeature[] ATTRIBUTE_STRUCTURAL_FEATURES = { Literals.ATTRIBUTE__ID, Literals.ATTRIBUTE__NAME };
-    private EStructuralFeature[] CONSTRAINT_STRUCTURAL_FEATURES = { Literals.CONSTRAINT__LANGUAGE, Literals.CONSTRAINT__VALUE };
-    
+        
     // ===========================================================================
     //  Object validation
     // ===========================================================================
     
     @Override
-    public boolean validate(EObject object, DiagnosticChain diagnostics, boolean recursive) {
+    protected boolean validate(EObject object, DiagnosticChain diagnostics, boolean recursive) {
         switch(object.eClass().getClassifierID()) {
             case FEATURE_MODEL:
                 return validateFeatureModel((FeatureModel) object, diagnostics, recursive);
             
             case FEATURE:
-                return validateFeature((Feature) object, diagnostics);
+                return validateFeature((Feature) object, diagnostics, recursive);
                 
             case GROUP:
                 return validateGroup((Group) object, diagnostics);
@@ -56,18 +55,47 @@ public class FeatureModelValidator extends BasicValidator {
     }
     
     private boolean validateFeatureModel(FeatureModel featureModel, DiagnosticChain diagnostics, boolean recursive) {
-        boolean result = validateStructuralFeatures(featureModel, FEATURE_MODEL_STRUCTURAL_FEATURES, diagnostics);
+        boolean result = validateStructuralFeature(featureModel, Literals.FEATURE_MODEL__NAME, diagnostics);
         if(recursive)
-            result &= validateAllContents(featureModel, diagnostics);
+            result &= validateAllContents(featureModel, diagnostics, true);
         return result;
     }
     
-    private boolean validateFeature(Feature feature, DiagnosticChain diagnostics) {
-        return validateStructuralFeatures(feature, FEATURE_STRUCTURAL_FEATURES, diagnostics);
+    private boolean validateFeature(Feature feature, DiagnosticChain diagnostics, boolean recursive) {
+        boolean result = validateStructuralFeature(feature, Literals.FEATURE__NAME, diagnostics);
+        result &= validateStructuralFeature(feature, Literals.FEATURE__LOWER, diagnostics); // Lower bound check includes also upper bound check.
+        if(recursive) {
+            result &= validateAllContents(feature, diagnostics, false);
+            result &= validateUniqueAttributeIds(feature, diagnostics);
+        }
+        return result;
     }
     
+    private boolean validateUniqueAttributeIds(Feature feature, DiagnosticChain diagnostics) {
+        Set<String> ids = new HashSet<String>();
+        Set<String> problemIds = new HashSet<String>();
+                
+        for(Attribute attribute: feature.getAttributes()) {
+            String id = attribute.getId();
+            if(ids.contains(id))
+                problemIds.add(id);
+            else
+                ids.add(id);
+        }
+        if(problemIds.isEmpty())
+            return true;
+        
+        List<Attribute> problemAttributes = new ArrayList<Attribute>();
+        for(Attribute attribute: feature.getAttributes()) {
+            if(problemIds.contains(attribute.getId()))
+                problemAttributes.add(attribute);
+        }
+        addError(diagnostics, getMessage("Errors_IdNotUnique", getMessage("Feature")), problemAttributes.toArray());
+        return false;
+    }
+
     private boolean validateGroup(Group group, DiagnosticChain diagnostics) {
-        boolean result = validateStructuralFeatures(group, GROUP_STRUCTURAL_FEATURES, diagnostics);
+        boolean result = validateStructuralFeature(group, Literals.GROUP__LOWER, diagnostics); // Lower bound check includes also upper bound check.
         result &= validateGroupUpperMinimum(group, diagnostics, result);
         result &= validateGroupLowerMaximum(group, diagnostics, result);
         return result;
@@ -110,11 +138,13 @@ public class FeatureModelValidator extends BasicValidator {
     }
     
     private boolean validateAttribute(Attribute attribute, DiagnosticChain diagnostics) {
-        return validateStructuralFeatures(attribute, ATTRIBUTE_STRUCTURAL_FEATURES, diagnostics);
+        return validateStructuralFeature(attribute, Literals.ATTRIBUTE__NAME, diagnostics);
     }
     
     private boolean validateConstraint(Constraint constraint, DiagnosticChain diagnostics) {
-        return validateStructuralFeatures(constraint, CONSTRAINT_STRUCTURAL_FEATURES, diagnostics);
+        if(!validateStructuralFeature(constraint, Literals.CONSTRAINT__LANGUAGE, diagnostics))
+            return false;
+        return validateStructuralFeature(constraint, Literals.CONSTRAINT__VALUE, diagnostics);
     }
 
     // ===========================================================================

@@ -17,24 +17,24 @@ class CircleDecoration extends Ellipse implements RotatableDecoration {
         setSize(2 * RADIUS, 2 * RADIUS);
     }
 
-    public void setFilled(boolean filled) {
-        setBackgroundColor(filled ? ColorConstants.black : ColorConstants.white);
-    }
-
-    @Override
-    protected void fillShape(Graphics graphics) {
-        graphics.fillOval(getBounds());
-    }
-
     @Override
     public void setReferencePoint(Point ref) {
         translate(-RADIUS, -RADIUS);
+    }
+    
+    public void setFilled(boolean filled) {
+        setBackgroundColor(filled ? ColorConstants.black : ColorConstants.white);
     }
     
     @Override
     public void paint(Graphics graphics) {
         DrawUtil.fixZoomedFigureLocation(graphics);
         super.paint(graphics);
+    }
+    
+    @Override
+    protected void fillShape(Graphics graphics) {
+        graphics.fillOval(getBounds());
     }
 
 }

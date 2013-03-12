@@ -30,12 +30,20 @@ public class SelectionFigure extends RoundedRectangle {
     private static final int MIN_HEIGHT = 25;
 
     private Selection selection;
+    
     private Label label;
     private ErrorDecoration errorDecoration;
 
     public SelectionFigure(Selection selection) {
         this.selection = selection;
-
+        initialize();
+    }
+    
+    // =================================================================
+    //  Initialization
+    // =================================================================
+    
+    private void initialize() {
         setLayoutManager(new StackLayout());        
         setMinimumSize(new Dimension(MIN_WIDTH, MIN_HEIGHT));
         setSize(-1, -1);
@@ -45,10 +53,6 @@ public class SelectionFigure extends RoundedRectangle {
         add(createMainLayer());
         add(createDecorationsLayer());
     }
-    
-    // =================================================================
-    //  Initialization
-    // =================================================================
 
     private IFigure createMainLayer() {
         Figure layer = new Figure();
