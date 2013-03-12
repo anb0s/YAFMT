@@ -25,7 +25,7 @@ public class UngroupFeaturesAction extends SelectionAction {
     private static IAction initAction(IAction action) {
         action.setId(ID);
         action.setText("Ungroup Features");
-        action.setImageDescriptor(FeatureModelEditorPlugin.getImageDescriptor("icons/group-del.png"));
+        action.setImageDescriptor(FeatureModelEditorPlugin.getAccess().getImageDescriptor("group-del.png"));
         return action;
     }
 

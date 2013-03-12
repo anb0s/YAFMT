@@ -79,7 +79,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         currentSelection = StructuredSelection.EMPTY;
         settings = new Settings();
         settings.addSettingsListener(this);
-        settings.init(FeatureModelVisualizerPlugin.getDefault().getDialogSettings());
+        settings.init(FeatureModelVisualizerPlugin.getAccess().getDialogSettings());
 
         site.getPage().addPartListener(this);
         site.getPage().addSelectionListener(this);
@@ -87,7 +87,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
 
     @Override
     public void dispose() {
-        settings.save(FeatureModelVisualizerPlugin.getDefault().getDialogSettings());
+        settings.save(FeatureModelVisualizerPlugin.getAccess().getDialogSettings());
         settings.removeSettingsListener(this);
         setFeatureModel(null);
 

@@ -45,7 +45,7 @@ public class FeatureModelEditorPaletteRoot extends PaletteRoot {
     private ToolEntry createOptionalFeatureCreationEntry() {
         // Use CombinedTemplateCreationEntry instead of CreationToolEntry to support drag and drop
         // via TemplateTransferDragSourceListener and TemplateTransferDropTargetListener.
-        ImageDescriptor img = FeatureModelEditorPlugin.getImageDescriptor("icons/feature-opt.png");
+        ImageDescriptor img = FeatureModelEditorPlugin.getAccess().getImageDescriptor("feature-opt.png");
         CreationToolEntry featureCreationEntry = new CombinedTemplateCreationEntry(
                 "Optional Feature", "Create optional feature.", new FeatureFactory(false), img, null);
         featureCreationEntry.setToolClass(CreationToolWithDirectEdit.class);
@@ -53,7 +53,7 @@ public class FeatureModelEditorPaletteRoot extends PaletteRoot {
     }
 
     private ToolEntry createMandatoryFeatureCreationEntry() {
-        ImageDescriptor img = FeatureModelEditorPlugin.getImageDescriptor("icons/feature-man.png");
+        ImageDescriptor img = FeatureModelEditorPlugin.getAccess().getImageDescriptor("feature-man.png");
         CreationToolEntry featureCreationEntry = new CombinedTemplateCreationEntry(
                 "Mandatory Feature", "Create mandatory feature.", new FeatureFactory(true), img, null);
         featureCreationEntry.setToolClass(CreationToolWithDirectEdit.class);
@@ -61,14 +61,14 @@ public class FeatureModelEditorPaletteRoot extends PaletteRoot {
     }
 
     private ToolEntry createAttributeCreationEntry() {
-        ImageDescriptor img = FeatureModelEditorPlugin.getImageDescriptor("icons/attribute.png");
+        ImageDescriptor img = FeatureModelEditorPlugin.getAccess().getImageDescriptor("attribute.png");
         CreationToolEntry attributeCreationEntry = new CombinedTemplateCreationEntry(
                 "Attribute", "Add atribute to a feature.", new AttributeFactory(), img, null);
         return attributeCreationEntry;
     }
 
     private ToolEntry createConnectionCreationEntry() {
-        ImageDescriptor img = FeatureModelEditorPlugin.getImageDescriptor("icons/connection.png");
+        ImageDescriptor img = FeatureModelEditorPlugin.getAccess().getImageDescriptor("connection.png");
         return new ConnectionCreationToolEntry("Connection", "Create connection (from feature to sub-feature).", null, img, null);
     }
 

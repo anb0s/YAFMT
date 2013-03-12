@@ -41,7 +41,7 @@ public class FeatureFigure extends RoundedRectangle {
         this.feature = feature;
         this.orphaned = feature.isOrphan();
         this.constrained = false;
-        this.constraintDecoration = FeatureModelEditorPlugin.getDefault().getImageRegistry().get("constraint-decoration");
+        this.constraintDecoration = FeatureModelEditorPlugin.getAccess().getImage("constraint-decoration.png");
 
         setLayoutManager(new GridLayout());
         setToolTip(toolTip);

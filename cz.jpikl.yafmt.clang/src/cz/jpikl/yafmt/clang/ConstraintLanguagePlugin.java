@@ -9,6 +9,7 @@ import cz.jpikl.yafmt.clang.ui.EditingSupportRegistry;
 public class ConstraintLanguagePlugin extends Plugin {
 
     public static final String ID = "cz.jpikl.yafmt.clang";
+    
     private static ConstraintLanguagePlugin instance;
 
     public static ConstraintLanguagePlugin getDefault() {

@@ -29,12 +29,12 @@ public class GroupFeaturesAction extends SelectionAction {
         if(xorGroup) {
             action.setId(ID_XOR);
             action.setText("Make XOR Group");
-            action.setImageDescriptor(FeatureModelEditorPlugin.getImageDescriptor("icons/group-xor.png"));
+            action.setImageDescriptor(FeatureModelEditorPlugin.getAccess().getImageDescriptor("group-xor.png"));
         }
         else {
             action.setId(ID_OR);
             action.setText("Make OR Group");
-            action.setImageDescriptor(FeatureModelEditorPlugin.getImageDescriptor("icons/group-or.png"));
+            action.setImageDescriptor(FeatureModelEditorPlugin.getAccess().getImageDescriptor("group-or.png"));
         }
 
         return action;

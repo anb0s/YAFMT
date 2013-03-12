@@ -15,7 +15,7 @@ public class ConstraintDecoration extends ImageDecoration {
     private Label toolTip;
     
     public ConstraintDecoration(List<Constraint> constraints) {
-        super(FeatureModelVisualizerPlugin.getDefault().getImageRegistry().get("constraint-decoration"));
+        super(FeatureModelVisualizerPlugin.getAccess().getImage("constraint-decoration.png"));
         this.constraints = constraints;
     }
     

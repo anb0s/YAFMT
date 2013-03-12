@@ -96,7 +96,7 @@ public abstract class SplitterDock extends Composite {
         Composite header = new Composite(parent, SWT.NONE);
         header.setLayoutData(gridData);
         header.setLayout(createGridLayout(3));
-        header.setBackgroundImage(CommonUIPlugin.getDefault().getImageRegistry().get("dock-header"));
+        header.setBackgroundImage(CommonUIPlugin.getAccess().getImage("dock-header.png"));
         return header;
     }
 
@@ -152,14 +152,14 @@ public abstract class SplitterDock extends Composite {
 
     private void refresh() {
         if(opened) {
-            collapseButton.setImage(CommonUIPlugin.getDefault().getImageRegistry().get("right"));
+            collapseButton.setImage(CommonUIPlugin.getAccess().getImage("right.png"));
             collapseButton.setToolTipText(collapseToolTipText);
             splitter.setFixedSize(size);
 
         }
         else {
             size = splitter.getFixedSize();
-            collapseButton.setImage(CommonUIPlugin.getDefault().getImageRegistry().get("left"));
+            collapseButton.setImage(CommonUIPlugin.getAccess().getImage("left.png"));
             collapseButton.setToolTipText(openToolTipText);
             splitter.setFixedSize(COLLAPSED_WIDTH);
         }

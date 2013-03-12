@@ -89,7 +89,7 @@ public class Settings {
         ToolItem button = new ToolItem(toolBar, SWT.CHECK);
         button.setSelection(groupsVisible);
         button.setToolTipText("Show Groups (Local Constraitns)");
-        button.setImage(FeatureModelVisualizerPlugin.getDefault().getImageRegistry().get("group"));
+        button.setImage(FeatureModelVisualizerPlugin.getAccess().getImage("group.png"));
         button.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent event) {
@@ -104,7 +104,7 @@ public class Settings {
         ToolItem button = new ToolItem(toolBar, SWT.CHECK);
         button.setSelection(constraintsVisible);
         button.setToolTipText("Show (Global) Constraints");
-        button.setImage(FeatureModelVisualizerPlugin.getDefault().getImageRegistry().get("constraint"));
+        button.setImage(FeatureModelVisualizerPlugin.getAccess().getImage("constraint.png"));
         button.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent event) {
@@ -119,7 +119,7 @@ public class Settings {
         ToolItem button = new ToolItem(toolBar, SWT.CHECK);
         button.setSelection(viewLocked);
         button.setToolTipText("Lock View");
-        button.setImage(FeatureModelVisualizerPlugin.getDefault().getImageRegistry().get("lock"));
+        button.setImage(FeatureModelVisualizerPlugin.getAccess().getImage("lock.png"));
         button.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent event) {

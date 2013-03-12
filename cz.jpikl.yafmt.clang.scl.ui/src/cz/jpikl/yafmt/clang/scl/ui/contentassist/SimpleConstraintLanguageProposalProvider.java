@@ -41,7 +41,7 @@ public class SimpleConstraintLanguageProposalProvider extends AbstractSimpleCons
     }
 
     private void completeFeatureIdsProposal(ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-        Image image = SimpleConstraintLanguageEditingSupportPlugin.getInstance().getImageRegistry().get("id");
+        Image image = SimpleConstraintLanguageEditingSupportPlugin.getInstance().getImageRegistry().get("id.png");
 
         for(Map.Entry<String, String> entry: SimpleConstraintLanguageEditingSupport.getEditedFeatureModelIds().entrySet()) {
             String proposal = entry.getKey();

@@ -10,13 +10,16 @@ public class SimpleConstraintLanguageEditingSupportPlugin extends SimpleConstrai
     private static final String PLUGIN_ID = "cz.jpikl.yafmt.clang.scl.ui";
 
     public static ImageDescriptor getImageDescriptor(String path) {
-        return imageDescriptorFromPlugin(PLUGIN_ID, path);
+        return imageDescriptorFromPlugin(PLUGIN_ID, "icons/" + path);
     }
 
+    private void registerImage(ImageRegistry registry, String name) {
+        registry.put(name, getImageDescriptor(name).createImage());
+    }
+    
     @Override
     protected void initializeImageRegistry(ImageRegistry registry) {
-        super.initializeImageRegistry(registry);
-        registry.put("id", getImageDescriptor("icons/id.png").createImage());
+        registerImage(registry, "id.png");
     }
 
 }

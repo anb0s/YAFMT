@@ -15,7 +15,7 @@ public class AttributeDecoration extends ImageDecoration {
     private Label toolTip;
     
     public AttributeDecoration(List<Attribute> attributes) {
-        super(FeatureModelVisualizerPlugin.getDefault().getImageRegistry().get("attribute-decoration"));
+        super(FeatureModelVisualizerPlugin.getAccess().getImage("attribute-decoration.png"));
         this.attributes = attributes;
     }
     

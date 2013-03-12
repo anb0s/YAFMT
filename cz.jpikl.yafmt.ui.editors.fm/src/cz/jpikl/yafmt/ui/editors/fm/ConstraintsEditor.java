@@ -88,7 +88,7 @@ public class ConstraintsEditor extends SplitterDock implements ISelectionListene
         buildControl();
 
         setName("Constraints");
-        setImage(FeatureModelEditorPlugin.getDefault().getImageRegistry().get("constraint"));
+        setImage(FeatureModelEditorPlugin.getAccess().getImage("constraint.png"));
         setOpenToolTipText("Show Constraints");
         setCollapseToolTipText("Hide Constraints");
     }
@@ -165,7 +165,7 @@ public class ConstraintsEditor extends SplitterDock implements ISelectionListene
         filterButton = new ToolItem(toolBar, SWT.CHECK);
         filterButton.setSelection(filterEnabled);
         filterButton.setToolTipText("Filter by Feature Selection");
-        filterButton.setImage(FeatureModelEditorPlugin.getDefault().getImageRegistry().get("filter"));
+        filterButton.setImage(FeatureModelEditorPlugin.getAccess().getImage("filter.png"));
         filterButton.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent event) {

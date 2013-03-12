@@ -9,7 +9,7 @@ import cz.jpikl.yafmt.model.fm.Constraint;
 
 public class ConstraintsEditorLabelProvider extends ColumnLabelProvider {
 
-    private Image constraintImage = FeatureModelEditorPlugin.getDefault().getImageRegistry().get("constraint");
+    private Image constraintImage = FeatureModelEditorPlugin.getAccess().getImage("constraint.png");
     private Image addImage = PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_OBJ_ADD);
 
     @Override

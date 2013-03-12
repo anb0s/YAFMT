@@ -14,7 +14,7 @@ public class GroupDecoration extends ImageDecoration {
     private Label toolTip;
     
     public GroupDecoration(Group group) {
-        super(FeatureModelVisualizerPlugin.getDefault().getImageRegistry().get("group-decoration"));
+        super(FeatureModelVisualizerPlugin.getAccess().getImage("group-decoration.png"));
         this.group = group;
     }
     

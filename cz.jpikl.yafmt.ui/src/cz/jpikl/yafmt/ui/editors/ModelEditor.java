@@ -10,7 +10,6 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.draw2d.Viewport;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.ecore.EObject;
@@ -28,7 +27,6 @@ import org.eclipse.gef.ui.actions.ZoomInAction;
 import org.eclipse.gef.ui.actions.ZoomOutAction;
 import org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette;
 import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ISelection;
@@ -294,8 +292,7 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette imple
             firePropertyChange(PROP_DIRTY);
         }
         catch(Exception ex) {
-            ErrorDialog.openError(getSite().getShell(), "Unable to save " + getEditorInput().getName(),
-                    null, new Status(Status.ERROR, CommonUIPlugin.PLUGIN_ID, ex.getMessage(), ex), 0);
+            CommonUIPlugin.getAccess().showErrorDialog(getSite(), "Unable to save " + getEditorInput().getName(), ex);
         }
     }
 
