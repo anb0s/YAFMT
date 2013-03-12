@@ -1,10 +1,14 @@
 package cz.jpikl.yafmt.ui.editors.fm.figures;
 
+import java.util.List;
+
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 
 import cz.jpikl.yafmt.model.fm.Attribute;
 import cz.jpikl.yafmt.model.fm.AttributeType;
+import cz.jpikl.yafmt.ui.figures.ErrorDecoration;
 
 public class AttributeFigure extends Label {
 
@@ -13,14 +17,36 @@ public class AttributeFigure extends Label {
     public static int EXTENDED_HEIGHT = 28;
 
     private Attribute attribute;
+    private ErrorDecoration errorDecoration;
 
     public AttributeFigure(Attribute attribute) {
         this.attribute = attribute;
-
-        setForegroundColor(ColorConstants.black);
+        initialize();
         refresh();
     }
 
+    // ==================================================================
+    //  Initialization
+    // ==================================================================
+    
+    private void initialize() {
+        add(createErrorDecoration());
+        setForegroundColor(ColorConstants.black);
+    }
+    
+    private IFigure createErrorDecoration() {
+        errorDecoration = new ErrorDecoration();
+        return errorDecoration;
+    }
+
+    // ==================================================================
+    //  Properties
+    // ==================================================================
+    
+    public void setErrors(List<String> messages) {
+        errorDecoration.setErrors(messages);
+    }
+    
     public void refresh() {
         setNameAndType(attribute.getName(), attribute.getType());
     }
