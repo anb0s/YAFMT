@@ -132,7 +132,7 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
     private void refreshLayoutData() {
         Rectangle bounds = layoutData.get(feature);
         if(bounds == null)
-            bounds = new Rectangle(0, 0, FeatureFigure.WIDTH, FeatureFigure.HEGHT);
+            bounds = new Rectangle(0, 0, FeatureFigure.INITIAL_WIDTH, FeatureFigure.INITIAL_HEGHT);
         layoutData.set(feature, bounds);
     }
 

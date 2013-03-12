@@ -1,5 +1,7 @@
 package cz.jpikl.yafmt.ui.editors.fm.figures;
 
+import java.util.List;
+
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
@@ -8,107 +10,189 @@ import org.eclipse.draw2d.GridLayout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.RoundedRectangle;
+import org.eclipse.draw2d.StackLayout;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Pattern;
 import org.eclipse.swt.widgets.Display;
 
 import cz.jpikl.yafmt.model.fm.Feature;
-import cz.jpikl.yafmt.ui.editors.fm.FeatureModelEditorPlugin;
-import cz.jpikl.yafmt.ui.figures.FigureDecorator;
+import cz.jpikl.yafmt.ui.figures.ErrorDecoration;
 import cz.jpikl.yafmt.ui.figures.SeparatorFigure;
+import cz.jpikl.yafmt.ui.figures.VerticalToolbarFigure;
 import cz.jpikl.yafmt.ui.util.DrawConstantans;
 import cz.jpikl.yafmt.ui.util.DrawUtil;
 
 public class FeatureFigure extends RoundedRectangle {
 
-    public static final int WIDTH = 100;
-    public static final int HEGHT = 25;
+    public static final int INITIAL_WIDTH = 100;
+    public static final int INITIAL_HEGHT = 25;
+    private static final int DECORATION_SPACE = 2;
 
-    private Label label = new Label();
-    private Label toolTip = new Label();
-    private SeparatorFigure separator;
-    private Figure attributes;
-    private Image constraintDecoration;
+    private Label label;
+    private Label toolTip;
+    private Figure mainLayer;
+    private Figure separatorFigure;
+    private Figure attributesContainer;
+    private ErrorDecoration errorDecoration;
+    private ErrorDecoration constraintDecoration;
 
     private Feature feature;
-    private boolean orphaned;    // Is feature orphaned?
-    private boolean constrained; // Has feature constraints?
+    private boolean orphaned;
 
     public FeatureFigure(Feature feature) {
         this.feature = feature;
         this.orphaned = feature.isOrphan();
-        this.constrained = false;
-        this.constraintDecoration = FeatureModelEditorPlugin.getAccess().getImage("constraint-decoration.png");
-
-        setLayoutManager(new GridLayout());
-        setToolTip(toolTip);
-
-        label.setFont(DrawConstantans.BOLD_FONT);
-        label.setForegroundColor(ColorConstants.black);
-        add(label, new GridData(SWT.FILL, SWT.FILL, true, true));
-
-        setForegroundColor(ColorConstants.black);
+        initialize();
         refresh();
     }
+    
+    // ==================================================================
+    //  Initialization
+    // ==================================================================
+    
+    private void initialize() {
+        setForegroundColor(ColorConstants.black);
+        setLayoutManager(new StackLayout());
+        setToolTip(createToolTip());
+        add(createMainLayer());
+        add(createDecorationLayer());
+    }
 
+    private IFigure createToolTip() {
+        toolTip = new Label();
+        return toolTip;
+    }
+
+    // ==================================================================
+    //  Initialization (main layer)
+    // ==================================================================
+    
+    private IFigure createMainLayer() {
+        mainLayer = new Figure();
+        mainLayer.setLayoutManager(new GridLayout());
+        mainLayer.add(createLabel(), new GridData(SWT.CENTER, SWT.CENTER, true, true));
+        return mainLayer;
+    }
+    
+    private IFigure createLabel() {
+        label = new Label();
+        label.setFont(DrawConstantans.BOLD_FONT);
+        label.setForegroundColor(ColorConstants.black);
+        return label;
+    }
+    
+    private void initializeAttributesContainer() {
+        mainLayer.add(createSeparatorFigure(), new GridData(SWT.FILL, SWT.CENTER, true, false), 1);
+        mainLayer.add(createAttributesContainer(), new GridData(SWT.CENTER, SWT.CENTER, true, false), 2);
+    }
+    
+    private void destroyAttributesContainer() {
+        mainLayer.remove(separatorFigure);
+        mainLayer.remove(separatorFigure);
+    }
+    
+    private Figure createAttributesContainer() {
+        attributesContainer = new VerticalToolbarFigure();
+        return attributesContainer;
+    }
+    
+    private Figure createSeparatorFigure() {
+        separatorFigure = new SeparatorFigure();
+        return separatorFigure;
+    }
+    
+    // ==================================================================
+    //  Initialization (decorations layer)
+    // ==================================================================
+    
+    private IFigure createDecorationLayer() {
+        Figure layer = new Figure();
+        layer.add(createErrorDecoration());
+        layer.add(createConstraintDecoration());
+        return layer;
+    }
+    
+    private IFigure createErrorDecoration() {
+        errorDecoration = new ErrorDecoration();
+        return errorDecoration;
+    }
+    
+    private IFigure createConstraintDecoration() {
+        constraintDecoration = new ErrorDecoration();
+        return constraintDecoration;
+    }
+    
+    private void repositionDecorations() {
+        int x = DECORATION_SPACE;
+        if(errorDecoration.isVisible()) {
+            errorDecoration.setLocation(new Point(x, DECORATION_SPACE));
+            x += errorDecoration.getSize().width + DECORATION_SPACE;
+        }
+        if(constraintDecoration.isVisible())
+            constraintDecoration.setLocation(new Point(x, DECORATION_SPACE));
+    }
+
+    // ==================================================================
+    //  Properties
+    // ==================================================================
+    
+    public void setErrors(List<String> messages) {
+        errorDecoration.setErrors(messages);
+        repositionDecorations();
+    }
+    
+    public void setConstrained(boolean value) {
+        constraintDecoration.setVisible(value);
+        repositionDecorations();
+    }
+    
+    public boolean setOrphaned(boolean value) {
+        if(orphaned == value)
+            return false;
+        orphaned = value;
+        return true;
+    }
+    
     public Label getLabel() {
         return label;
     }
 
-    public boolean setOrphaned(boolean orphaned) {
-        if(this.orphaned != orphaned) {
-            this.orphaned = orphaned;
-            repaint();
-            return true;
-        }
-        return false;
-    }
-
-    public void setConstrained(boolean constrained) {
-        if(this.constrained != constrained) {
-            this.constrained = constrained;
-            repaint();
-        }
-    }
-
     public void refresh() {
         label.setText(feature.getName());
+        toolTip.setText(createDescriptionText());
+    }
+    
+    private String createDescriptionText() {
         String description = feature.getDescription();
         if((description != null) && !description.isEmpty())
-            toolTip.setText(feature.getId() + " - " + description);
+            return feature.getId() + " - " + description;
         else
-            toolTip.setText(feature.getId());
+            return feature.getId();
     }
+    
+    // ==================================================================
+    //  Drawing
+    // ==================================================================
 
     @Override
     public void paint(Graphics graphics) {
         DrawUtil.fixZoomedFigureLocation(graphics);
         super.paint(graphics);
-
-        if(constrained) {
-            double scale = Math.max(1.0, graphics.getAbsoluteScale());
-            int w = constraintDecoration.getImageData().width;
-            int h = constraintDecoration.getImageData().height;
-            graphics.drawImage(constraintDecoration, 0, 0, w, w, bounds.x + 2, bounds.y + 2, (int) (w / scale), (int) (h / scale));
-        }
     }
 
     @Override
     protected void fillShape(Graphics graphics) {
-        Pattern pattern = null;
-        if(!orphaned) {
-            pattern = createPattern(graphics, DrawConstantans.FEATURE_GRADIENT_COLOR, ColorConstants.white);
+        Pattern pattern = createBackgroundPattern(graphics);
+        if(pattern != null)
             graphics.setBackgroundPattern(pattern);
-        }
 
         super.fillShape(graphics);
-        graphics.setBackgroundPattern(null);
-
-        if(pattern != null)
+        
+        if(pattern != null) {
+            graphics.setBackgroundColor(null);
             pattern.dispose();
+        }
     }
         
     @Override
@@ -120,7 +204,10 @@ public class FeatureFigure extends RoundedRectangle {
         super.outlineShape(graphics);
     }
 
-    private Pattern createPattern(Graphics graphics, Color topColor, Color bottomColor) {
+    private Pattern createBackgroundPattern(Graphics graphics) {
+        if(orphaned)
+            return null;
+        
         Point top = bounds.getTop();
         Point bottom = bounds.getBottom();
         double scale = graphics.getAbsoluteScale();
@@ -131,34 +218,16 @@ public class FeatureFigure extends RoundedRectangle {
         int bottomX = (int) (scale * bottom.x);
         int bottomY = (int) (scale * bottom.y);
 
-        return new Pattern(Display.getCurrent(), topX, topY, bottomX, bottomY, topColor, bottomColor);
+        return new Pattern(Display.getCurrent(), topX, topY, bottomX, bottomY,  DrawConstantans.FEATURE_GRADIENT_COLOR, ColorConstants.white);
     }
 
-    private void addAttributeFigure(IFigure figure, Object constraint, int index) {
-        if(attributes == null) {
-            separator = new SeparatorFigure();
-            attributes = new AttributeContainerFigure();
-            add(separator, new GridData(SWT.FILL, SWT.CENTER, true, false), 1);
-            add(attributes, new GridData(SWT.CENTER, SWT.FILL, true, false), 2);
-        }
-        attributes.add(figure, constraint, index);
-    }
-
-    private void removeAttributeFigure(IFigure figure) {
-        attributes.remove(figure);
-        if(attributes.getChildren().isEmpty()) {
-            remove(attributes);
-            remove(separator);
-            attributes = null;
-            separator = null;
-        }
-    }
-
+    // ==================================================================
+    //  Events
+    // ==================================================================
+    
     @Override
     public void add(IFigure figure, Object constraint, int index) {
         if(figure instanceof AttributeFigure)
-            addAttributeFigure(figure, constraint, index);
-        else if((figure instanceof FigureDecorator) && (((FigureDecorator) figure).getFigure() instanceof AttributeFigure))
             addAttributeFigure(figure, constraint, index);
         else
             super.add(figure, constraint, index);
@@ -168,10 +237,20 @@ public class FeatureFigure extends RoundedRectangle {
     public void remove(IFigure figure) {
         if(figure instanceof AttributeFigure)
             removeAttributeFigure(figure);
-        else if((figure instanceof FigureDecorator) && (((FigureDecorator) figure).getFigure() instanceof AttributeFigure))
-            removeAttributeFigure(figure);
         else
             super.remove(figure);
+    }
+    
+    private void addAttributeFigure(IFigure figure, Object constraint, int index) {
+        if(attributesContainer == null)
+            initializeAttributesContainer();
+        attributesContainer.add(figure, constraint, index);
+    }
+
+    private void removeAttributeFigure(IFigure figure) {
+        attributesContainer.remove(figure);
+        if(attributesContainer.getChildren().isEmpty())
+            destroyAttributesContainer();
     }
 
 }

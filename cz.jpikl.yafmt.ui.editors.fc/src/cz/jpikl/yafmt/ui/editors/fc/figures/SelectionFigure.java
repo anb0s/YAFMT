@@ -118,14 +118,14 @@ public class SelectionFigure extends RoundedRectangle {
 
     @Override
     protected void fillShape(Graphics graphics) {
-        Pattern pattern = createPattern(graphics);
+        Pattern pattern = createBackgroundPattern(graphics);
         if(pattern != null)
             graphics.setBackgroundPattern(pattern);
             
         super.fillShape(graphics);
         
         if(pattern != null) {
-            graphics.setBackgroundPattern(null);
+            graphics.setBackgroundColor(null);
             pattern.dispose();
         }
     }
@@ -150,7 +150,7 @@ public class SelectionFigure extends RoundedRectangle {
         return selection.isPresent() ? ColorConstants.black : ColorConstants.lightGray;
     }
 
-    private Pattern createPattern(Graphics graphics) {
+    private Pattern createBackgroundPattern(Graphics graphics) {
         if(!selection.isPresent())
             return null;
         

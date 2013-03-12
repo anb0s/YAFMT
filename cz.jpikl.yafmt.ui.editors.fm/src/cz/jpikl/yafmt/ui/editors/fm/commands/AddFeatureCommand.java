@@ -23,10 +23,10 @@ public class AddFeatureCommand extends RecordingCommand {
         this.feature = feature;
 
         bounds = new Rectangle();
-        bounds.x = location.x - FeatureFigure.WIDTH / 2;
-        bounds.y = location.y - FeatureFigure.HEGHT / 2;
-        bounds.width = FeatureFigure.WIDTH;
-        bounds.height = FeatureFigure.HEGHT;
+        bounds.x = location.x - FeatureFigure.INITIAL_WIDTH / 2;
+        bounds.y = location.y - FeatureFigure.INITIAL_HEGHT / 2;
+        bounds.width = FeatureFigure.INITIAL_WIDTH;
+        bounds.height = FeatureFigure.INITIAL_HEGHT;
     }
 
     @Override
