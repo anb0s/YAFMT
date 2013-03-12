@@ -15,17 +15,21 @@ import cz.jpikl.yafmt.ui.util.DrawUtil;
 public class ErrorDecoration extends RoundedRectangle {
 
     private static final Dimension CORNER_DIMENSION = new Dimension(4, 4);
-    private static final int SIZE = 12; 
+    public static final int SIZE = 12; 
     
     private Label toolTip = new Label();
 
     public ErrorDecoration() {
+        this(null);
+    }
+    
+    public ErrorDecoration(Collection<String> messages) {
         setForegroundColor(DrawConstantans.DARK_RED_COLOR);
         setBackgroundColor(ColorConstants.red);
         setToolTip(toolTip);
         setSize(SIZE, SIZE);
         setCornerDimensions(CORNER_DIMENSION);
-        setVisible(false);
+        setErrors(messages);
     }
 
     public void setErrors(Collection<String> messages) {

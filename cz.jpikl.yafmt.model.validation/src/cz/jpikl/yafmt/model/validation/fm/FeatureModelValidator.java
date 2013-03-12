@@ -25,8 +25,8 @@ public class FeatureModelValidator extends BasicValidator {
     public static final FeatureModelValidator INSTANCE = new FeatureModelValidator();
     
     private EStructuralFeature[] FEATURE_MODEL_STRUCTURAL_FEATURES = { Literals.FEATURE_MODEL__NAME };
-    private EStructuralFeature[] FEATURE_STRUCTURAL_FEATURES = { Literals.FEATURE__ID, Literals.FEATURE__NAME, Literals.FEATURE__LOWER, Literals.FEATURE__UPPER };
-    private EStructuralFeature[] GROUP_STRUCTURAL_FEATURES = { Literals.GROUP__LOWER, Literals.GROUP__UPPER };
+    private EStructuralFeature[] FEATURE_STRUCTURAL_FEATURES = { Literals.FEATURE__ID, Literals.FEATURE__NAME, Literals.FEATURE__LOWER }; // Lower bound check includes also upper bound check.
+    private EStructuralFeature[] GROUP_STRUCTURAL_FEATURES = { Literals.GROUP__LOWER };
     private EStructuralFeature[] ATTRIBUTE_STRUCTURAL_FEATURES = { Literals.ATTRIBUTE__ID, Literals.ATTRIBUTE__NAME };
     private EStructuralFeature[] CONSTRAINT_STRUCTURAL_FEATURES = { Literals.CONSTRAINT__LANGUAGE, Literals.CONSTRAINT__VALUE };
     
@@ -35,10 +35,10 @@ public class FeatureModelValidator extends BasicValidator {
     // ===========================================================================
     
     @Override
-    public boolean validate(EObject object, DiagnosticChain diagnostics) {
+    public boolean validate(EObject object, DiagnosticChain diagnostics, boolean recursive) {
         switch(object.eClass().getClassifierID()) {
             case FEATURE_MODEL:
-                return validateFeatureModel((FeatureModel) object, diagnostics);
+                return validateFeatureModel((FeatureModel) object, diagnostics, recursive);
             
             case FEATURE:
                 return validateFeature((Feature) object, diagnostics);
@@ -55,9 +55,10 @@ public class FeatureModelValidator extends BasicValidator {
         return true;
     }
     
-    private boolean validateFeatureModel(FeatureModel featureModel, DiagnosticChain diagnostics) {
-        boolean result =  validateStructuralFeatures(featureModel, FEATURE_MODEL_STRUCTURAL_FEATURES, diagnostics);
-        result &= validateAllContents(featureModel, diagnostics);
+    private boolean validateFeatureModel(FeatureModel featureModel, DiagnosticChain diagnostics, boolean recursive) {
+        boolean result = validateStructuralFeatures(featureModel, FEATURE_MODEL_STRUCTURAL_FEATURES, diagnostics);
+        if(recursive)
+            result &= validateAllContents(featureModel, diagnostics);
         return result;
     }
     

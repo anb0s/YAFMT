@@ -112,10 +112,10 @@ public class FeatureConfigurationManager {
     // ===========================================================================
 
     public void revalidateFeatureConfiguration() {
-        BasicDiagnostic diagnostic = new BasicDiagnostic();
-        validator.validate(featureConfig, diagnostic);
         problemStore.clearAllProblems();
-        problemStore.readProblems(diagnostic);
+        BasicDiagnostic diagnostic = new BasicDiagnostic();
+        if(!validator.validate(featureConfig, diagnostic))
+            problemStore.readProblems(diagnostic);
     }
 
     // ===========================================================================

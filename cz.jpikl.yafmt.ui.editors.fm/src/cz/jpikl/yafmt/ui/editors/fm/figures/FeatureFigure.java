@@ -17,6 +17,7 @@ import org.eclipse.swt.widgets.Display;
 
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.ui.editors.fm.FeatureModelEditorPlugin;
+import cz.jpikl.yafmt.ui.figures.FigureDecorator;
 import cz.jpikl.yafmt.ui.figures.SeparatorFigure;
 import cz.jpikl.yafmt.ui.util.DrawConstantans;
 import cz.jpikl.yafmt.ui.util.DrawUtil;
@@ -157,6 +158,8 @@ public class FeatureFigure extends RoundedRectangle {
     public void add(IFigure figure, Object constraint, int index) {
         if(figure instanceof AttributeFigure)
             addAttributeFigure(figure, constraint, index);
+        else if((figure instanceof FigureDecorator) && (((FigureDecorator) figure).getFigure() instanceof AttributeFigure))
+            addAttributeFigure(figure, constraint, index);
         else
             super.add(figure, constraint, index);
     }
@@ -164,6 +167,8 @@ public class FeatureFigure extends RoundedRectangle {
     @Override
     public void remove(IFigure figure) {
         if(figure instanceof AttributeFigure)
+            removeAttributeFigure(figure);
+        else if((figure instanceof FigureDecorator) && (((FigureDecorator) figure).getFigure() instanceof AttributeFigure))
             removeAttributeFigure(figure);
         else
             super.remove(figure);

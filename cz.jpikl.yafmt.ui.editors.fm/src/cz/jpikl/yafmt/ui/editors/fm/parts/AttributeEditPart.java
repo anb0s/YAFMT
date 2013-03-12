@@ -7,6 +7,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
+import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
@@ -17,22 +18,28 @@ import org.eclipse.swt.SWT;
 import cz.jpikl.yafmt.model.fm.Attribute;
 import cz.jpikl.yafmt.model.fm.AttributeType;
 import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
+import cz.jpikl.yafmt.model.validation.fm.FeatureModelValidator;
 import cz.jpikl.yafmt.ui.directediting.ComboDirectEditManager;
 import cz.jpikl.yafmt.ui.directediting.LabelDirectEditManager;
 import cz.jpikl.yafmt.ui.editors.fm.figures.AttributeFigure;
 import cz.jpikl.yafmt.ui.editors.fm.policies.AttributeDirectEditPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.AttributeEditPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.util.AttributeTypeCellEditor;
+import cz.jpikl.yafmt.ui.figures.ErrorDecoration;
+import cz.jpikl.yafmt.ui.figures.FigureDecorator;
 import cz.jpikl.yafmt.ui.util.NonEmptyCellEditorValidator;
+import cz.jpikl.yafmt.ui.validation.IProblemStore;
 
 public class AttributeEditPart extends AbstractGraphicalEditPart {
 
     private Attribute attribute;
     private Adapter attributeAdapter;
+    private IProblemStore problemStore;
 
-    public AttributeEditPart(Attribute attribute) {
+    public AttributeEditPart(Attribute attribute, IProblemStore problemStore) {
         this.attribute = attribute;
         this.attributeAdapter = new AttributeAdapter();
+        this.problemStore = problemStore;
         setModel(attribute);
     }
 
@@ -48,14 +55,33 @@ public class AttributeEditPart extends AbstractGraphicalEditPart {
         super.deactivate();
     }
 
+    private void revalidateModel() {
+        problemStore.clearProblems(attribute);
+        BasicDiagnostic diagnostic = new BasicDiagnostic();
+        if(!FeatureModelValidator.INSTANCE.validate(attribute, diagnostic))
+            problemStore.readProblems(diagnostic);
+        getErrorDecoration().setErrors(problemStore.getProblems(attribute));
+    }
+    
     @Override
     protected IFigure createFigure() {
-        return new AttributeFigure(attribute);
+        FigureDecorator figure = new FigureDecorator(new AttributeFigure(attribute), 0);
+        figure.addDecoration(new ErrorDecoration(problemStore.getProblems(attribute)));
+        return figure;
+    }
+    
+    private AttributeFigure getAttributeFigure() {
+        return (AttributeFigure) ((FigureDecorator) getFigure()).getFigure();
+    }
+    
+    private ErrorDecoration getErrorDecoration() {
+        return (ErrorDecoration) ((FigureDecorator) getFigure()).getDecorations().get(0);
     }
 
     @Override
     protected void refreshVisuals() {
-        ((AttributeFigure) getFigure()).refresh(); // Called when direct edit input is cancelled.
+        getAttributeFigure().refresh(); // Called when direct edit input is cancelled.
+        getErrorDecoration().setErrors(problemStore.getProblems(attribute));
     }
 
     @Override
@@ -105,6 +131,9 @@ public class AttributeEditPart extends AbstractGraphicalEditPart {
                 case FeatureModelPackage.ATTRIBUTE__TYPE:
                     refreshVisuals();
             }
+            
+            // Revalidate model when basic properties change.
+            revalidateModel();
         }
 
     }

@@ -9,6 +9,7 @@ import org.eclipse.draw2d.ConnectionLayer;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EContentAdapter;
@@ -23,13 +24,16 @@ import cz.jpikl.yafmt.clang.util.ConstraintCache;
 import cz.jpikl.yafmt.model.fm.Constraint;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
+import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
 import cz.jpikl.yafmt.model.fm.Group;
+import cz.jpikl.yafmt.model.validation.fm.FeatureModelValidator;
 import cz.jpikl.yafmt.ui.editors.fm.figures.FeatureFigure;
 import cz.jpikl.yafmt.ui.editors.fm.figures.FeatureModelFigure;
 import cz.jpikl.yafmt.ui.editors.fm.figures.GroupFigure;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureModelEditPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureModelLayoutPolicy;
+import cz.jpikl.yafmt.ui.validation.IProblemStore;
 
 public class FeatureModelEditPart extends AbstractGraphicalEditPart {
 
@@ -41,13 +45,15 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
 
     private FeatureModel featureModel;
     private LayoutData layoutData;
+    private IProblemStore problemStore;
     private Adapter featureModelAdapter;
     private Adapter layoutDataAdapter;
     private ConstraintCache constraintCache;
 
-    public FeatureModelEditPart(FeatureModel featureModel, LayoutData layoutData) {
+    public FeatureModelEditPart(FeatureModel featureModel, LayoutData layoutData, IProblemStore problemStore) {
         this.featureModel = featureModel;
         this.layoutData = layoutData;
+        this.problemStore = problemStore;
         this.featureModelAdapter = new FeatureModelAdapter();
         this.layoutDataAdapter = new LayoutDataAdapter();
         setModel(featureModel);
@@ -71,11 +77,19 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
     @Override
     public void addNotify() {
         super.addNotify();
-
+        
         if(CONSTRAINT_DECORATIONS_ENABLED) {
             constraintCache = new ConstraintCache(featureModel);
             refreshFeatureFiguresConstrainedState();
         }
+    }
+  
+    private void revalidateModel() {
+        // Do not use recursive validation (just basic properties).
+        problemStore.clearProblems(featureModel);
+        BasicDiagnostic diagnostic = new BasicDiagnostic();
+        if(!FeatureModelValidator.INSTANCE.validate(featureModel, diagnostic, false))
+            problemStore.readProblems(diagnostic);
     }
 
     @Override
@@ -208,7 +222,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
             Object model = ((EditPart) editPart).getModel();
             if(model instanceof Feature) {
                 Collection<Constraint> constraints = constraintCache.getConstraintsAffectingFeature((Feature) model);
-                FeatureFigure figure = (FeatureFigure) ((GraphicalEditPart) editPart).getFigure();
+                FeatureFigure figure = ((FeatureEditPart) editPart).getFeatureFigure();
                 figure.setConstrained((constraints != null) && !constraints.isEmpty());
             }
         }
@@ -236,7 +250,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
     public void updateGroupFigure(Group group) {
         GraphicalEditPart editPart = getEditPartForObject(group);
         if(editPart != null) {
-            GroupFigure figure = (GroupFigure) editPart.getFigure();
+            GroupFigure figure = ((GroupEditPart) editPart).getGroupFigure();
             figure.refresh();
             figure.repaint();
         }
@@ -248,6 +262,15 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
         public void notifyChanged(Notification notification) {
             super.notifyChanged(notification); // Superclass implementation must be called!
 
+            // Revalidate model when basic properties change.
+            if(notification.getNotifier() instanceof FeatureModel) {
+                switch(notification.getFeatureID(FeatureModel.class)) {
+                    case FeatureModelPackage.FEATURE_MODEL__NAME:
+                        revalidateModel();
+                        return;
+                }
+            }
+            
             // Features, groups or attributes are added or removed.
             switch(notification.getEventType()) {
                 case Notification.ADD:

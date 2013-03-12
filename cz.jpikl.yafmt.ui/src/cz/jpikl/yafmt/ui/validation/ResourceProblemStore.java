@@ -128,7 +128,7 @@ public class ResourceProblemStore implements IProblemStore {
 
     @Override
     public List<String> getProblems(Object target) {
-        Problems objectProblems = problems.remove(target);
+        Problems objectProblems = problems.get(target);
         return (objectProblems != null) ? objectProblems.messages : null;
     }
 

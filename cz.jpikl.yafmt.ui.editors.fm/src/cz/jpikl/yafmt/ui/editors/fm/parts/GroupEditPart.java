@@ -8,7 +8,9 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.impl.AdapterImpl;
+import org.eclipse.emf.common.notify.Notifier;
+import org.eclipse.emf.common.util.BasicDiagnostic;
+import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.NodeEditPart;
@@ -18,23 +20,29 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
 import cz.jpikl.yafmt.model.fm.Group;
+import cz.jpikl.yafmt.model.validation.fm.FeatureModelValidator;
 import cz.jpikl.yafmt.ui.editors.fm.figures.GroupFigure;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 import cz.jpikl.yafmt.ui.editors.fm.model.Connection;
 import cz.jpikl.yafmt.ui.editors.fm.policies.ConnectionCreationPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.GroupEditPolicy;
+import cz.jpikl.yafmt.ui.figures.ErrorDecoration;
+import cz.jpikl.yafmt.ui.figures.FigureDecorator;
 import cz.jpikl.yafmt.ui.figures.MiddlePointAnchor;
+import cz.jpikl.yafmt.ui.validation.IProblemStore;
 
 public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEditPart {
 
     private Group group;
     private Adapter groupAdapter;
     private LayoutData layoutData;
+    private IProblemStore problemStore;
 
-    public GroupEditPart(Group group, LayoutData layoutData) {
+    public GroupEditPart(Group group, LayoutData layoutData, IProblemStore problemStore) {
         this.group = group;
         this.groupAdapter = new GroupAdapter();
         this.layoutData = layoutData;
+        this.problemStore = problemStore;
         setModel(group);
     }
 
@@ -50,6 +58,14 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
         group.eAdapters().remove(groupAdapter);
         super.deactivate();
     }
+    
+    private void revalidateModel() {
+        problemStore.clearProblems(group);
+        BasicDiagnostic diagnostic = new BasicDiagnostic();
+        if(!FeatureModelValidator.INSTANCE.validate(group, diagnostic))
+            problemStore.readProblems(diagnostic);
+        getErrorDecoration().setErrors(problemStore.getProblems(group));
+    }
 
     @Override
     protected List<Object> getModelTargetConnections() {
@@ -62,9 +78,20 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
         return connections;
     }
 
+    
     @Override
     protected IFigure createFigure() {
-        return new GroupFigure(group, layoutData);
+        FigureDecorator figure = new FigureDecorator(new GroupFigure(group, layoutData), (GroupFigure.SIZE - ErrorDecoration.SIZE) / 2);
+        figure.addDecoration(new ErrorDecoration(problemStore.getProblems(group)));
+        return figure;
+    }
+    
+    public GroupFigure getGroupFigure() {
+        return (GroupFigure) ((FigureDecorator) getFigure()).getFigure();
+    }
+    
+    private ErrorDecoration getErrorDecoration() {
+        return (ErrorDecoration) ((FigureDecorator) getFigure()).getDecorations().get(0);
     }
 
     public LayoutData getLayoutData() {
@@ -92,7 +119,7 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
 
     @Override
     protected void refreshVisuals() {
-        ((GroupFigure) getFigure()).refresh();
+        getGroupFigure().refresh();
     }
 
     @Override
@@ -121,10 +148,27 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
         installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new ConnectionCreationPolicy());
     }
 
-    class GroupAdapter extends AdapterImpl {
-
+    class GroupAdapter extends EContentAdapter {
+        
+        @Override
+        protected void addAdapter(Notifier notifier) {
+            // Listen only to children features changes.
+            if((notifier instanceof Feature) && ((Feature) notifier).getParentGroup() == group)
+                super.addAdapter(notifier);
+        }
+        
         @Override
         public void notifyChanged(Notification notification) {
+            // Revalidate model when children feature bounds changes.
+            if(notification.getNotifier() instanceof Feature) {
+                switch(notification.getFeatureID(Feature.class)) {
+                    case FeatureModelPackage.FEATURE__LOWER:
+                    case FeatureModelPackage.FEATURE__UPPER:
+                        revalidateModel();
+                        return;
+                }
+            }
+            
             switch(notification.getEventType()) {
                 case Notification.ADD:
                 case Notification.ADD_MANY:
@@ -132,6 +176,7 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
                 case Notification.REMOVE_MANY:
                     refreshTargetConnections();
                     refreshVisuals();
+                    revalidateModel();
                     break;
 
                 case Notification.SET:
@@ -139,6 +184,7 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
                         case FeatureModelPackage.GROUP__LOWER:
                         case FeatureModelPackage.GROUP__UPPER:
                             refreshVisuals();
+                            revalidateModel();
                             break;
                     }
                     break;

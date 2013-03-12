@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.core.resources.IResource;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -26,12 +28,15 @@ import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.views.properties.IPropertySourceProvider;
 
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.provider.util.FeatureModelProviderUtil;
+import cz.jpikl.yafmt.model.validation.fm.FeatureModelValidator;
 import cz.jpikl.yafmt.ui.actions.ExportGraphicalEditorAsImageAction;
 import cz.jpikl.yafmt.ui.actions.ShowFeatureModelVisualizerAction;
 import cz.jpikl.yafmt.ui.editors.ModelEditor;
@@ -47,6 +52,8 @@ import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutDataFactory;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutDataPackage;
 import cz.jpikl.yafmt.ui.editors.fm.parts.FeatureModelEditPartFactory;
 import cz.jpikl.yafmt.ui.operations.ResourceSaveOperation;
+import cz.jpikl.yafmt.ui.validation.IProblemStore;
+import cz.jpikl.yafmt.ui.validation.ResourceProblemStore;
 import cz.jpikl.yafmt.ui.widgets.Splitter;
 
 public class FeatureModelEditor extends ModelEditor {
@@ -56,11 +63,28 @@ public class FeatureModelEditor extends ModelEditor {
     private FeatureModel featureModel;
     private LayoutData layoutData;
     private ConstraintsEditor constraintsEditor;
+    private IProblemStore problemStore;
 
     // ==================================================================================
     //  Basic initialization and dispose operations
     // ==================================================================================
 
+    @Override
+    public void init(IEditorSite site, IEditorInput input) throws PartInitException {
+        super.init(site, input);
+        
+        // Revalidate feature model.
+        problemStore = new ResourceProblemStore((IResource) input.getAdapter(IResource.class));
+        revalidateFeatureModel();
+    }
+    
+    private void revalidateFeatureModel() {
+        problemStore.clearAllProblems();
+        BasicDiagnostic diagnostic = new BasicDiagnostic();
+        FeatureModelValidator.INSTANCE.validate(featureModel, diagnostic);
+        problemStore.readProblems(diagnostic);
+    }
+    
     public void dispose() {
         getSite().getPage().removeSelectionListener(constraintsEditor);
         super.dispose();
@@ -102,7 +126,7 @@ public class FeatureModelEditor extends ModelEditor {
 
     @Override
     protected EditPartFactory getEditPartFactory() {
-        return new FeatureModelEditPartFactory(layoutData);
+        return new FeatureModelEditPartFactory(layoutData, problemStore);
     }
 
     @Override
@@ -239,7 +263,7 @@ public class FeatureModelEditor extends ModelEditor {
         options.put(XMLResource.OPTION_PROCESS_DANGLING_HREF, XMLResource.OPTION_PROCESS_DANGLING_HREF_DISCARD);
         return options;
     }
-
+    
     // ==================================================================================
     //  Adapters
     // ==================================================================================

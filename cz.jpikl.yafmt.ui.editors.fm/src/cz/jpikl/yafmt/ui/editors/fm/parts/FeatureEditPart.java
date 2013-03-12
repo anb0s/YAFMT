@@ -10,6 +10,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
+import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.EditPolicy;
@@ -18,9 +19,11 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.swt.SWT;
 
+import cz.jpikl.yafmt.model.fm.Attribute;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
+import cz.jpikl.yafmt.model.validation.fm.FeatureModelValidator;
 import cz.jpikl.yafmt.ui.directediting.LabelDirectEditManager;
 import cz.jpikl.yafmt.ui.editors.fm.figures.FeatureFigure;
 import cz.jpikl.yafmt.ui.editors.fm.figures.ShrinkedChopboxAnchor;
@@ -30,18 +33,23 @@ import cz.jpikl.yafmt.ui.editors.fm.policies.ConnectionCreationPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureDirectEditPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureEditPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureLayoutPolicy;
+import cz.jpikl.yafmt.ui.figures.ErrorDecoration;
+import cz.jpikl.yafmt.ui.figures.FigureDecorator;
 import cz.jpikl.yafmt.ui.util.NonEmptyCellEditorValidator;
+import cz.jpikl.yafmt.ui.validation.IProblemStore;
 
 public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEditPart {
 
     private Feature feature;
     private Adapter featureAdapter;
     private LayoutData layoutData;
+    private IProblemStore problemStore;
 
-    public FeatureEditPart(Feature feature, LayoutData layoutData) {
+    public FeatureEditPart(Feature feature, LayoutData layoutData, IProblemStore problemStore) {
         this.feature = feature;
         this.featureAdapter = new FeatureAdapter();
         this.layoutData = layoutData;
+        this.problemStore = problemStore;
         setModel(feature);
     }
 
@@ -56,6 +64,18 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
     public void deactivate() {
         feature.eAdapters().remove(featureAdapter);
         super.deactivate();
+    }
+    
+    private void revalidateModel(boolean recursive) {
+        problemStore.clearProblems(feature);
+        if(recursive) {
+            for(Attribute attribute: feature.getAttributes())
+                problemStore.clearProblems(attribute);
+        }
+        BasicDiagnostic diagnostic = new BasicDiagnostic();
+        if(!FeatureModelValidator.INSTANCE.validate(feature, diagnostic, recursive))
+            problemStore.readProblems(diagnostic);
+        getErrorDecoration().setErrors(problemStore.getProblems(feature));
     }
 
     @Override
@@ -87,12 +107,22 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
 
     @Override
     protected IFigure createFigure() {
-        return new FeatureFigure(feature);
+        FigureDecorator figure = new FigureDecorator(new FeatureFigure(feature));
+        figure.addDecoration(new ErrorDecoration(problemStore.getProblems(feature)));
+        return figure;
     }
 
+    public FeatureFigure getFeatureFigure() {
+        return (FeatureFigure) ((FigureDecorator) getFigure()).getFigure();
+    }
+    
+    private ErrorDecoration getErrorDecoration() {
+        return (ErrorDecoration) ((FigureDecorator) getFigure()).getDecorations().get(0);
+    }
+    
     @Override
     protected void refreshVisuals() {
-        ((FeatureFigure) getFigure()).refresh(); // Called when direct edit input is cancelled.
+        getFeatureFigure().refresh(); // Called when direct edit input is cancelled.
     }
 
     public LayoutData getLayoutData() {
@@ -144,7 +174,7 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
             manager.show();
         }
     }
-
+    
     private class FeatureAdapter extends AdapterImpl {
 
         @Override
@@ -154,7 +184,13 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
                 case FeatureModelPackage.FEATURE__NAME:
                 case FeatureModelPackage.FEATURE__ID:
                 case FeatureModelPackage.FEATURE__DESCRIPTION:
+                    revalidateModel(false);
                     refreshVisuals();
+                    break;
+                    
+                case FeatureModelPackage.FEATURE__LOWER:
+                case FeatureModelPackage.FEATURE__UPPER:
+                    revalidateModel(false);
                     break;
 
                 case FeatureModelPackage.FEATURE__PARENT_FEATURE:
@@ -172,10 +208,12 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
                         case Notification.ADD:
                         case Notification.REMOVE:
                         case Notification.MOVE:
+                            revalidateModel(true);
                             refreshChildren();
                             break;
                     }
             }
+            
         }
 
     }

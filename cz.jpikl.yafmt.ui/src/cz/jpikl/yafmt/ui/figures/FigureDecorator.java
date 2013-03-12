@@ -10,6 +10,7 @@ import org.eclipse.draw2d.LayoutManager;
 import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.OrderedLayout;
 import org.eclipse.draw2d.StackLayout;
+import org.eclipse.draw2d.TreeSearch;
 
 public class FigureDecorator extends Figure {
 
@@ -21,8 +22,8 @@ public class FigureDecorator extends Figure {
     
     public FigureDecorator(IFigure figure, int borderSize) {
         setLayoutManager(new StackLayout());
-        add(figure);
-        add(createDecorationLayer(borderSize));
+        addInternal(figure);
+        addInternal(createDecorationLayer(borderSize));
     }
 
     private IFigure createDecorationLayer(int borderSize) {
@@ -38,6 +39,20 @@ public class FigureDecorator extends Figure {
         layout.setMajorSpacing(borderSize);
         layout.setMinorSpacing(borderSize);
         return layout;
+    }
+    
+    private void addInternal(IFigure child) {
+        super.add(child, null, -1);
+    }
+    
+    @Override
+    public void add(IFigure figure, Object constraint, int index) {
+        getFigure().add(figure, constraint, index);
+    }
+    
+    @Override
+    public void remove(IFigure figure) {
+        getFigure().remove(figure);
     }
 
     public IFigure getFigure() {
@@ -55,6 +70,14 @@ public class FigureDecorator extends Figure {
     @SuppressWarnings("unchecked")
     public List<IFigure> getDecorations() {
         return Collections.unmodifiableList(getDecorationLayer().getChildren());
+    }
+    
+    @Override
+    public IFigure findFigureAt(int x, int y, TreeSearch search) {
+        IFigure result = getDecorationLayer().findFigureAt(x, y, search);
+        if((result != null) && (result != getDecorationLayer()))
+            return result;
+        return getFigure().findFigureAt(x, y, search);
     }
     
 }

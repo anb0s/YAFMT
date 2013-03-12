@@ -51,21 +51,23 @@ public class FeatureConfigurationValidator extends BasicValidator {
     // ===========================================================================
     
     @Override
-    public boolean validate(EObject object, DiagnosticChain diagnostics) {
+    public boolean validate(EObject object, DiagnosticChain diagnostics, boolean recursive) {
         switch(object.eClass().getClassifierID()) {
             case FEATURE_CONFIGURATION:
                 // We have to check it since there are also classes from a different package (FeatureModelPackage).
                 if(object instanceof FeatureConfiguration)
-                    return validateFeatureConfiguration((FeatureConfiguration) object, diagnostics);
+                    return validateFeatureConfiguration((FeatureConfiguration) object, diagnostics, recursive);
         }
         return false;
     }
 
-    private boolean validateFeatureConfiguration(FeatureConfiguration featureConfiguration, DiagnosticChain diagnostics) {
+    private boolean validateFeatureConfiguration(FeatureConfiguration featureConfiguration, DiagnosticChain diagnostics, boolean recursive) {
         boolean result = validateStructuralFeatures(featureConfiguration, FEATURE_CONFIGURATION_STRUCTURAL_FEATURES, diagnostics);
-        result &= validateAllContents(featureConfiguration, diagnostics);
-        result &= validateLocalConstraints(featureConfiguration, diagnostics);
-        result &= validateGlobalConstraints(featureConfiguration, diagnostics);
+        if(recursive) {
+            result &= validateAllContents(featureConfiguration, diagnostics);
+            result &= validateLocalConstraints(featureConfiguration, diagnostics);
+            result &= validateGlobalConstraints(featureConfiguration, diagnostics);
+        }
         return result;
     }
         

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -15,6 +16,7 @@ import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
+import cz.jpikl.yafmt.ui.figures.FigureDecorator;
 import cz.jpikl.yafmt.ui.figures.NonInteractiveLabel;
 import cz.jpikl.yafmt.ui.util.DrawUtil;
 
@@ -41,11 +43,18 @@ public class GroupFigure extends RectangleFigure {
         refresh();
     }
 
+    private IFigure getParentForLabel() {
+        IFigure parent = getParent();
+        if(parent instanceof FigureDecorator)
+            parent = parent.getParent();
+        return parent;
+    }
+    
     @Override
     public void addNotify() {
         super.addNotify();
         // Add label to parent.
-        getParent().add(label);
+        getParentForLabel().add(label);
     }
 
     @Override
@@ -199,7 +208,7 @@ public class GroupFigure extends RectangleFigure {
 
         Point position = bounds.getCenter().translate(x, y);
         Rectangle labelBounds = new Rectangle(position, size);
-        getParent().setConstraint(label, labelBounds);
+        getParentForLabel().setConstraint(label, labelBounds);
     }
 
 }

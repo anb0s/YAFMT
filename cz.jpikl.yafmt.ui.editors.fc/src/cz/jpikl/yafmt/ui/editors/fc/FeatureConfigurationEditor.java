@@ -20,8 +20,11 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.views.properties.IPropertySourceProvider;
 
 import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
@@ -48,6 +51,16 @@ public class FeatureConfigurationEditor extends ModelEditor {
     private FeatureConfiguration featureConfig;
     private FeatureConfigurationManager featureConfigManager;
 
+    
+    @Override
+    public void init(IEditorSite site, IEditorInput input) throws PartInitException {
+        super.init(site, input);
+        
+        // Initialize feature configuration manager.
+        IProblemStore problemStore = new ResourceProblemStore((IResource) input.getAdapter(IResource.class));
+        featureConfigManager = new FeatureConfigurationManager(featureConfig, problemStore);
+    }
+    
     // ==================================================================================
     //  Editor initialization
     // ==================================================================================
@@ -186,10 +199,6 @@ public class FeatureConfigurationEditor extends ModelEditor {
         Resource resource = resourceSet.createResource(URI.createPlatformResourceURI(path, true));
         resource.load(null);
         featureConfig = (FeatureConfiguration) resource.getContents().get(0);
-
-        // Initialize feature configuration manager.
-        IProblemStore problemStore = new ResourceProblemStore((IResource) input.getAdapter(IResource.class));
-        featureConfigManager = new FeatureConfigurationManager(featureConfig, problemStore);
     }
 
     @Override

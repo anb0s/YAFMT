@@ -19,7 +19,11 @@ public abstract class BasicValidator implements EValidator, IStructuralFeatureVa
 
     private static final String DIAGNOSTIC_SOURCE = "cz.jpikl.yafmt.model.validation";
     
-    public abstract boolean validate(EObject object, DiagnosticChain diagnostics);
+    public boolean validate(EObject object, DiagnosticChain diagnostics) {
+        return validate(object, diagnostics, true);
+    }
+    
+    public abstract boolean validate(EObject object, DiagnosticChain diagnostics, boolean recursive);
     
     public boolean validateAllContents(EObject object, DiagnosticChain diagnostics) {
         TreeIterator<EObject> it = object.eAllContents();
