@@ -8,15 +8,19 @@ import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
 import cz.jpikl.yafmt.ui.views.fm.FeatureModelVisualizerPlugin;
 
-public class HiddenGroupDecoration extends ImageDecoration {
+public class GroupDecoration extends ImageDecoration {
 
     private Group group;
     private Label toolTip;
     
-    public HiddenGroupDecoration(Group group) {
+    public GroupDecoration(Group group) {
         super(FeatureModelVisualizerPlugin.getDefault().getImageRegistry().get("group-decoration"));
         this.group = group;
     }
+    
+    // ===============================================================
+    //  Basic properties
+    // ===============================================================
     
     public Group getGroup() {
         return group;
@@ -32,6 +36,10 @@ public class HiddenGroupDecoration extends ImageDecoration {
     private String createToolTipText() {
         return "Feature is part of a group (with cardinality " + FeatureModelUtil.getCardinality(group) + ").";
     }
+    
+    // ===============================================================
+    //  Decoration properties
+    // ===============================================================
     
     @Override
     public Rectangle computeBounds(Rectangle parentBounds) {

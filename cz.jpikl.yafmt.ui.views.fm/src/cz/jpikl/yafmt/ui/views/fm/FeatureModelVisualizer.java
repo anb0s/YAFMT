@@ -67,7 +67,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
     private ISelection currentSelection; // Viewer may not contain all selected elements, so we have to remember them.
 
     // ===========================================================================
-    //  Basic initialization and dispose operations
+    //  Initialization
     // ===========================================================================
 
     @Override
@@ -205,7 +205,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
     }
 
     // ===========================================================================
-    //  Input initialization
+    //  Input handling
     // ===========================================================================
 
     private void setSourcePart(IWorkbenchPart part) {

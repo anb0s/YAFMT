@@ -13,6 +13,10 @@ public abstract class ImageDecoration extends ImageFigure implements IDecoration
         setSize(12, 12);
     }
 
+    // ===============================================================
+    //  Basic properties
+    // ===============================================================
+    
     @Override
     public void setAlpha(int alpha) {
         if(this.alpha != alpha) {
@@ -25,7 +29,11 @@ public abstract class ImageDecoration extends ImageFigure implements IDecoration
     public Integer getAlpha() {
         return alpha;
     }
-
+    
+    // ===============================================================
+    //  Decoration properties
+    // ===============================================================
+    
     @Override
     public boolean isAutoPositioned() {
         return false;
@@ -35,6 +43,10 @@ public abstract class ImageDecoration extends ImageFigure implements IDecoration
     public boolean isOnTop() {
         return true;
     }
+    
+    // ===============================================================
+    //  Drawing
+    // ===============================================================
     
     @Override
     public void paint(Graphics graphics) {

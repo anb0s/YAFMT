@@ -19,6 +19,10 @@ public class AttributeDecoration extends ImageDecoration {
         this.attributes = attributes;
     }
     
+    // ===============================================================
+    //  Basic properties
+    // ===============================================================
+    
     public List<Attribute> getAttributes() {
         return attributes;
     }
@@ -49,6 +53,10 @@ public class AttributeDecoration extends ImageDecoration {
     private StringBuilder appendAttributeText(StringBuilder builder, Attribute attribute) {
         return builder.append(attribute.getName()).append(": ").append(attribute.getType());
     }
+    
+    // ===============================================================
+    //  Decoration properties
+    // ===============================================================
 
     @Override
     public Rectangle computeBounds(Rectangle parentBounds) {

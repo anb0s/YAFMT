@@ -107,6 +107,10 @@ public class GraphAnimator extends LayoutAnimator {
 
         newlyAddedFigures.clear();
     }
+    
+    // ===================================================================
+    //  Events
+    // ===================================================================
 
     public void processConstraintChange(IFigure child, Object constraint) {
         // Hide newly created node and connection figures.
@@ -145,6 +149,10 @@ public class GraphAnimator extends LayoutAnimator {
         }
 
     }
+    
+    // ===================================================================
+    //  Helpers
+    // ===================================================================
 
     private static class ConnectionVisibilityEnabler implements FigureListener {
 

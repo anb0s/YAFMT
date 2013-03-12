@@ -51,41 +51,44 @@ public class FeatureModelContentProvider implements IGraphEntityContentProvider 
 
     @Override
     public Object[] getConnectedTo(Object element) {
-        if(element instanceof Feature) {
-            Feature feature = (Feature) element;
-
-            List<Object> objects = new ArrayList<Object>();
-            objects.addAll(feature.getFeatures());
-
-            for(Group group: feature.getGroups())
-                objects.addAll(group.getFeatures());
-
-            return objects.toArray();
-        }
-
-        if(element instanceof Group) {
-            return ((Group) element).getFeatures().toArray();
-        }
-
-        if(element instanceof Constraint) {
-            Constraint constraint = (Constraint) element;
-
-            ConstraintLanguageRegistry registry = ConstraintLanguagePlugin.getDefault().getConstraintLanguageRegistry();
-            IConstraintLanguage language = registry.getLanguage(constraint.getLanguage());
-            if(language == null)
-                return null;
-
-            try {
-                // Return all features affected by the selected constraint.
-                IEvaluator evaluator = language.createEvaluator(constraint.getValue());
-                return evaluator.getAffectedFeatures(constraint.getFeatureModel()).toArray();
-            }
-            catch(ConstraintLanguageException ex) {
-                // Just ignore problematic constraint.
-            }
-        }
-
+        if(element instanceof Feature)
+            return getConnectedToFeature((Feature) element);
+        if(element instanceof Group)
+            return getConnectedToGroup((Group) element);
+        if(element instanceof Constraint)
+            return getConnectedToConstraint((Constraint) element);
         return null;
     }
+
+    private Object[] getConnectedToFeature(Feature feature) {
+        List<Object> objects = new ArrayList<Object>();
+        objects.addAll(feature.getFeatures());
+
+        for(Group group: feature.getGroups())
+            objects.addAll(group.getFeatures());
+
+        return objects.toArray();
+    }
+    
+    private Object[] getConnectedToGroup(Group group) {
+        return group.getFeatures().toArray();
+    }
+
+    private Object[] getConnectedToConstraint(Constraint constraint) {
+        ConstraintLanguageRegistry registry = ConstraintLanguagePlugin.getDefault().getConstraintLanguageRegistry();
+        IConstraintLanguage language = registry.getLanguage(constraint.getLanguage());
+        if(language == null)
+            return null;
+
+        try {
+            IEvaluator evaluator = language.createEvaluator(constraint.getValue());
+            return evaluator.getAffectedFeatures(constraint.getFeatureModel()).toArray();
+        }
+        catch(ConstraintLanguageException ex) {
+            return null; // Just ignore problematic constraint.
+        }
+    }
+
+
 
 }

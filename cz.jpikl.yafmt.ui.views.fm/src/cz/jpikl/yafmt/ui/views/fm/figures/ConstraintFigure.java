@@ -16,10 +16,7 @@ public class ConstraintFigure extends NodeFigure {
         setBorderStyle(SWT.LINE_CUSTOM);
         setBorderDash(DrawConstantans.LINE_DASHED);
         setText(constraint.getValue());
-
-        String description = constraint.getDescription();
-        if((description != null) && !description.isEmpty())
-            setToolTipText(description);
+        setToolTipText(constraint.getDescription());
     }
 
 }

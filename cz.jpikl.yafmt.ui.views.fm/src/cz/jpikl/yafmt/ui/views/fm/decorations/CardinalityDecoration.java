@@ -25,11 +25,18 @@ public class CardinalityDecoration extends Label implements IDecoration {
         setText(lower + ".." + ((upper == -1) ? "*" : upper));
         setSize(FigureUtilities.getStringExtents(getText(), getFont()).expand(4, 4));
         setBorder(new MarginBorder(2));
-
+        setToolTip(getToolTip(lower, upper));
+    }
+    
+    // ===============================================================
+    //  Basic properties
+    // ===============================================================
+    
+    private Label getToolTip(int lower, int upper) {
         if(upper > 1)
-            setToolTip((lower == 0) ? OPTIONAL_CLONNABLE_TOOL_TIP : MANDATORY_CLONNABLE_TOOL_TIP);
+            return (lower == 0) ? OPTIONAL_CLONNABLE_TOOL_TIP : MANDATORY_CLONNABLE_TOOL_TIP;
         else
-            setToolTip((lower == 0) ? OPTIONAL_TOOL_TIP : MANDATORY_TOOL_TIP);
+            return (lower == 0) ? OPTIONAL_TOOL_TIP : MANDATORY_TOOL_TIP;
     }
 
     @Override
@@ -39,11 +46,15 @@ public class CardinalityDecoration extends Label implements IDecoration {
             repaint();
         }
     }
-
+    
     @Override
     public Integer getAlpha() {
         return alpha;
     }
+    
+    // ===============================================================
+    //  Decoration properties
+    // ===============================================================
 
     @Override
     public boolean isAutoPositioned() {
@@ -55,6 +66,10 @@ public class CardinalityDecoration extends Label implements IDecoration {
         return true;
     }
 
+    // ===============================================================
+    //  Drawing
+    // ===============================================================
+    
     @Override
     public Rectangle computeBounds(Rectangle parentBounds) {
         int x = parentBounds.x + parentBounds.width - 2;

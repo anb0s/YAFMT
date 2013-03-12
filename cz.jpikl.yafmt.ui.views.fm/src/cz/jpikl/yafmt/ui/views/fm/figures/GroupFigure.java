@@ -16,16 +16,16 @@ public class GroupFigure extends NodeFigure {
         setHightlightColor(DrawConstantans.GROUP_HL_COLOR);
         setBorderStyle(SWT.LINE_CUSTOM);
         setBorderDash(DrawConstantans.LINE_DASHED);
-
-        String cardinality;
+        setText(createCardinalityText(group) + " Group");
+    }
+    
+    private String createCardinalityText(Group group) {
         if(group.isOr())
-            cardinality = "OR";
+            return "OR";
         else if(group.isXor())
-            cardinality = "XOR";
+            return "XOR";
         else
-            cardinality = FeatureModelUtil.getCardinality(group);
-
-        setText(cardinality + " Group");
+            return FeatureModelUtil.getCardinality(group);
     }
 
 }

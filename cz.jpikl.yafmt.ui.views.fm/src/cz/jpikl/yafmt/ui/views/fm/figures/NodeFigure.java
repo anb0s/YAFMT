@@ -1,5 +1,6 @@
 package cz.jpikl.yafmt.ui.views.fm.figures;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.FigureUtilities;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.Label;
@@ -13,51 +14,43 @@ import cz.jpikl.yafmt.ui.util.DrawConstantans;
 
 public class NodeFigure extends Label implements IFigureWithAlpha {
 
-    private Color hightlightColor;
+    private LineAttributes borderAttributes = new LineAttributes(1);
+    private Color hightlightColor = ColorConstants.white;
     private boolean highlighted = false;
     private int margin = 2;
     private int arcRadius = 10;
     private int alpha = 255;
-    private LineAttributes borderAttributes = new LineAttributes(1);
 
     public NodeFigure() {
         setFont(DrawConstantans.DEFAULT_FONT);
     }
-
-    public void setHighlighted(boolean highlighted) {
-        if(this.highlighted != highlighted) {
-            this.highlighted = highlighted;
-            repaint();
-        }
-    }
-
-    public boolean isHighlighted() {
-        return highlighted;
-    }
-
+    
+    // =====================================================================
+    //  Attribute setters
+    // =====================================================================
+    
     public void setHightlightColor(Color color) {
         if(hightlightColor != color) {
             hightlightColor = color;
             repaint();
         }
     }
-
-    public Color getHightlightColor() {
-        return hightlightColor;
+    
+    public void setHighlighted(boolean highlighted) {
+        if(this.highlighted != highlighted) {
+            this.highlighted = highlighted;
+            repaint();
+        }
     }
-
+    
     public void setMargin(int margin) {
         this.margin = margin;
     }
-
+    
     public void setArcRadius(int arcRadius) {
         this.arcRadius = arcRadius;
     }
-
-    public int getArcRadius() {
-        return arcRadius;
-    }
-
+    
     @Override
     public void setAlpha(int alpha) {
         if(this.alpha != alpha) {
@@ -65,52 +58,80 @@ public class NodeFigure extends Label implements IFigureWithAlpha {
             repaint();
         }
     }
-
-    @Override
-    public Integer getAlpha() {
-        return alpha;
-    }
-
-    public void setToolTipText(String text) {
-        setToolTip(new Label(text));
-    }
-
-    public int getBorderWidth() {
-        return (int) borderAttributes.width;
-    }
-
+        
     public void setBorderWidth(int borderWidth) {
         borderAttributes.width = borderWidth;
     }
-
-    public int getBorderStyle() {
-        return borderAttributes.style;
-    }
-
+    
     public void setBorderStyle(int style) {
         borderAttributes.style = style;
     }
-
-    public float[] getBorderDash() {
-        return borderAttributes.dash;
-    }
-
+    
     public void setBorderDash(float[] dash) {
         borderAttributes.dash = dash;
     }
 
+    public void setToolTipText(String text) {
+        if((text != null) && !text.isEmpty())
+            setToolTip(new Label(text));
+        else
+            setToolTip(null);
+    }
+    
+    @Override
+    public void setText(String s) {
+        super.setText(s);
+        adjustBoundsToFit();
+    }
+    
     @Override
     public void setFont(Font f) {
         super.setFont(f);
         adjustBoundsToFit();
     }
 
-    @Override
-    public void setText(String s) {
-        super.setText(s);
-        adjustBoundsToFit();
+    // =====================================================================
+    //  Attribute getters
+    // =====================================================================
+
+    public Color getHightlightColor() {
+        return hightlightColor;
     }
 
+    public boolean isHighlighted() {
+        return highlighted;
+    }
+
+    public int getMargin() {
+        return margin;
+    }
+
+    
+    public int getArcRadius() {
+        return arcRadius;
+    }
+
+    @Override
+    public Integer getAlpha() {
+        return alpha;
+    }
+
+    public int getBorderWidth() {
+        return (int) borderAttributes.width;
+    }
+
+    public int getBorderStyle() {
+        return borderAttributes.style;
+    }
+
+    public float[] getBorderDash() {
+        return borderAttributes.dash;
+    }
+
+    // =====================================================================
+    //  Size computation
+    // =====================================================================
+    
     protected void adjustBoundsToFit() {
         if((getText() == null) || (getFont() == null))
             return;
@@ -124,6 +145,10 @@ public class NodeFigure extends Label implements IFigureWithAlpha {
         minSize.expand(5 + 2 * margin, 2 + 2 * margin);
         setBounds(new Rectangle(getLocation(), minSize));
     }
+    
+    // =====================================================================
+    //  Drawing
+    // =====================================================================
 
     @Override
     public void paint(Graphics graphics) {

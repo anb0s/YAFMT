@@ -12,13 +12,15 @@ public class FeatureFigure extends DecoratableNodeFigure {
         setForegroundColor(DrawConstantans.FEATURE_COLOR);
         setHightlightColor(DrawConstantans.FEATURE_HL_COLOR);
         setText(feature.getName());
-
-        String id = feature.getId();
+        setToolTipText(createToolTipText(feature));
+    }
+    
+    private String createToolTipText(Feature feature) {
         String description = feature.getDescription();
         if((description != null) && !description.isEmpty())
-            setToolTipText(id + " - " + description);
+            return feature.getId() + " - " + description;
         else
-            setToolTipText(id);
+            return feature.getId();
     }
 
 }

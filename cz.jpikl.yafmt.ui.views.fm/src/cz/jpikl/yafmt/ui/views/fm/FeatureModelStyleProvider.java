@@ -28,9 +28,9 @@ import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.ui.util.DrawConstantans;
 import cz.jpikl.yafmt.ui.views.fm.decorations.AttributeDecoration;
 import cz.jpikl.yafmt.ui.views.fm.decorations.CardinalityDecoration;
-import cz.jpikl.yafmt.ui.views.fm.decorations.HiddenConstraintDecoration;
-import cz.jpikl.yafmt.ui.views.fm.decorations.HiddenGroupDecoration;
-import cz.jpikl.yafmt.ui.views.fm.decorations.HiddenNeighborsDecoration;
+import cz.jpikl.yafmt.ui.views.fm.decorations.ConstraintDecoration;
+import cz.jpikl.yafmt.ui.views.fm.decorations.GroupDecoration;
+import cz.jpikl.yafmt.ui.views.fm.decorations.NeighborsDecoration;
 import cz.jpikl.yafmt.ui.views.fm.figures.ConstraintFigure;
 import cz.jpikl.yafmt.ui.views.fm.figures.FeatureFigure;
 import cz.jpikl.yafmt.ui.views.fm.figures.GroupFigure;
@@ -83,15 +83,15 @@ public class FeatureModelStyleProvider extends LabelProviderAdapter {
 
         List<Feature> neighbors = getHiddenNeighbors(feature);
         if((neighbors != null) && !neighbors.isEmpty())
-            figure.addDecoration(new HiddenNeighborsDecoration(neighbors));
+            figure.addDecoration(new NeighborsDecoration(neighbors));
 
         Group group = getHiddenGroup(feature);
         if(group != null)
-            figure.addDecoration(new HiddenGroupDecoration(group));
+            figure.addDecoration(new GroupDecoration(group));
 
         List<Constraint> constraints = getHiddenConstraints(feature);
         if((constraints != null) && !constraints.isEmpty())
-            figure.addDecoration(new HiddenConstraintDecoration(constraints));
+            figure.addDecoration(new ConstraintDecoration(constraints));
 
         if(!feature.getAttributes().isEmpty())
             figure.addDecoration(new AttributeDecoration(feature.getAttributes()));

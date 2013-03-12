@@ -13,7 +13,7 @@ import org.eclipse.swt.SWT;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.ui.util.DrawConstantans;
 
-public class HiddenNeighborsDecoration extends RoundedRectangle implements IDecoration {
+public class NeighborsDecoration extends RoundedRectangle implements IDecoration {
 
     private static final int BORDER_SCALE = 5;
     private static final int GRADIENT_DETAIL = 5;
@@ -21,16 +21,19 @@ public class HiddenNeighborsDecoration extends RoundedRectangle implements IDeco
     private List<Feature> neighbors;
     private Label toolTip;
 
-    public HiddenNeighborsDecoration(List<Feature> neighbors) {
+    public NeighborsDecoration(List<Feature> neighbors) {
         this.neighbors = neighbors;
 
         setCornerDimensions(new Dimension(15, 15));
         setForegroundColor(DrawConstantans.FEATURE_COLOR);
         setBackgroundColor(DrawConstantans.FEATURE_HL_COLOR);
-        
         setLineStyle(SWT.LINE_CUSTOM);
         setLineDash(DrawConstantans.LINE_DOTTED);
     }
+    
+    // ===============================================================
+    //  Basic properties
+    // ===============================================================
     
     public List<Feature> getNeighbors() {
         return neighbors;
@@ -59,6 +62,10 @@ public class HiddenNeighborsDecoration extends RoundedRectangle implements IDeco
         return builder.toString();
     }
 
+    // ===============================================================
+    //  Decoration properties
+    // ===============================================================
+    
     @Override
     public boolean isAutoPositioned() {
         return false;
@@ -68,21 +75,16 @@ public class HiddenNeighborsDecoration extends RoundedRectangle implements IDeco
     public boolean isOnTop() {
         return false;
     }
-
-    private int computeAlpha() {
-        Integer alpha = getAlpha();
-        return (alpha != null) ? alpha : 255;  
-    }
-    
-    private int computeBorder() {
-        return neighbors.size() * BORDER_SCALE;
-    }
     
     @Override
     public Rectangle computeBounds(Rectangle parentBounds) {
         int border = computeBorder();
         return parentBounds.getCopy().expand(border, border);
     }
+    
+    // ===============================================================
+    //  Drawing
+    // ===============================================================
     
     @Override
     protected void fillShape(Graphics graphics) {
@@ -102,6 +104,15 @@ public class HiddenNeighborsDecoration extends RoundedRectangle implements IDeco
     protected void outlineShape(Graphics graphics) {
         graphics.setAlpha(computeAlpha() / 2);
         super.outlineShape(graphics);
+    }
+    
+    private int computeAlpha() {
+        Integer alpha = getAlpha();
+        return (alpha != null) ? alpha : 255;  
+    }
+    
+    private int computeBorder() {
+        return neighbors.size() * BORDER_SCALE;
     }
 
 }

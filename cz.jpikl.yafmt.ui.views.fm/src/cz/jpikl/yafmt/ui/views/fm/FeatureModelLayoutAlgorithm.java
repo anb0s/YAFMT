@@ -13,12 +13,12 @@ import cz.jpikl.yafmt.model.fm.Feature;
 public class FeatureModelLayoutAlgorithm extends CompositeLayoutAlgorithm {
 
     private static LayoutAlgorithm[] createAlgorithms() {
-        // First algorithm layouts the basic radial tree structure made from feature nodes. 
+        // The first algorithm layouts basic radial tree structure made from feature nodes. 
         // It ignores group and constraint nodes.
         RadialLayoutAlgorithm radialLayoutAlgorithm = new RadialLayoutAlgorithm();
         radialLayoutAlgorithm.setFilter(new FeatureToOthersConnectionFilter());
 
-        // Second algorithm repositions group and constraint nodes.
+        // The second algorithm repositions group and constraint nodes.
         SpringLayoutAlgorithm springLayoutAlgorithm = new SpringLayoutAlgorithm();
         springLayoutAlgorithm.setFilter(new FeatureToFeatureConnectionFilter());
         springLayoutAlgorithm.setRandom(false);
@@ -29,6 +29,10 @@ public class FeatureModelLayoutAlgorithm extends CompositeLayoutAlgorithm {
     public FeatureModelLayoutAlgorithm() {
         super(createAlgorithms());
     }
+    
+    // ===============================================================
+    //  Filters
+    // ===============================================================
 
     private static abstract class ConnectionFilter implements Filter {
 

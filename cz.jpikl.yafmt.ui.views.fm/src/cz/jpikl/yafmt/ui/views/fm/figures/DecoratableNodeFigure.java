@@ -17,6 +17,19 @@ public class DecoratableNodeFigure extends NodeFigure {
     private List<IDecoration> decorations = new ArrayList<IDecoration>();
     private int decorationSpace = 2;
 
+    // ===============================================================
+    //  Basic operations
+    // ===============================================================
+    
+    @Override
+    public void setAlpha(int alpha) {
+        super.setAlpha(alpha);
+        for(IDecoration decoration: decorations) {
+            if(decoration instanceof IFigureWithAlpha)
+                ((IFigureWithAlpha) decoration).setAlpha(alpha);
+        }
+    }
+    
     public void setDecorationSpace(int decorationSpace) {
         this.decorationSpace = decorationSpace;
     }
@@ -25,14 +38,9 @@ public class DecoratableNodeFigure extends NodeFigure {
         return decorationSpace;
     }
 
-    public List<IDecoration> getDecorations() {
-        return Collections.unmodifiableList(decorations);
-    }
-
     public void addDecoration(IDecoration decoration) {
         decorations.add(decoration);
-        // Just resize, do not change position yet!
-        // It would break layout animation.
+        // Just resize, do not change position yet! It would break layout animation.
         if(!decoration.isAutoPositioned())
             decoration.setSize(decoration.computeBounds(bounds).getSize());
         addDecorationToLayer(decoration);
@@ -42,7 +50,20 @@ public class DecoratableNodeFigure extends NodeFigure {
         decorations.remove(decoration);
         removeDecorationFromLayer(decoration);
     }
+    
+    public List<IDecoration> getDecorations() {
+        return Collections.unmodifiableList(decorations);
+    }
 
+    // ===============================================================
+    //  Decorations internal operations
+    // ===============================================================
+
+    private IFigure getDecorationLayer(IDecoration decoration) {
+        int index = decoration.isOnTop() ? DecoratableGraphViewer.FRONT_DECORATION_LAYER_INDEX : DecoratableGraphViewer.BACK_DECORATION_LAYER_INDEX;
+        return (IFigure) getParent().getParent().getChildren().get(index);
+    }
+    
     private void addDecorationToLayer(IDecoration decoration) {
         if(getParent() != null)
             getDecorationLayer(decoration).add(decoration);
@@ -53,7 +74,7 @@ public class DecoratableNodeFigure extends NodeFigure {
             getDecorationLayer(decoration).remove(decoration);
     }
 
-    public void moveDecorations() {
+    private void moveDecorations() {
         IFigure parent = getParent();
         if(parent == null)
             return;
@@ -82,20 +103,10 @@ public class DecoratableNodeFigure extends NodeFigure {
         }
     }
 
-    public IFigure getDecorationLayer(IDecoration decoration) {
-        int index = decoration.isOnTop() ? DecoratableGraphViewer.FRONT_DECORATION_LAYER_INDEX : DecoratableGraphViewer.BACK_DECORATION_LAYER_INDEX;
-        return (IFigure) getParent().getParent().getChildren().get(index);
-    }
-
-    @Override
-    public void setAlpha(int alpha) {
-        super.setAlpha(alpha);
-        for(IDecoration decoration: decorations) {
-            if(decoration instanceof IFigureWithAlpha)
-                ((IFigureWithAlpha) decoration).setAlpha(alpha);
-        }
-    }
-
+    // ===============================================================
+    //  Events
+    // ===============================================================
+    
     @Override
     public void addNotify() {
         super.addNotify();

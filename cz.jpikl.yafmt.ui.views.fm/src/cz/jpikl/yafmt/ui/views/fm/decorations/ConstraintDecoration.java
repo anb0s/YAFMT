@@ -9,15 +9,19 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import cz.jpikl.yafmt.model.fm.Constraint;
 import cz.jpikl.yafmt.ui.views.fm.FeatureModelVisualizerPlugin;
 
-public class HiddenConstraintDecoration extends ImageDecoration {
+public class ConstraintDecoration extends ImageDecoration {
 
     private List<Constraint> constraints;
     private Label toolTip;
     
-    public HiddenConstraintDecoration(List<Constraint> constraints) {
+    public ConstraintDecoration(List<Constraint> constraints) {
         super(FeatureModelVisualizerPlugin.getDefault().getImageRegistry().get("constraint-decoration"));
         this.constraints = constraints;
     }
+    
+    // ===============================================================
+    //  Basic properties
+    // ===============================================================
     
     public List<Constraint> getConstraints() {
         return constraints;
@@ -45,6 +49,10 @@ public class HiddenConstraintDecoration extends ImageDecoration {
         
         return builder.toString();
     }
+    
+    // ===============================================================
+    //  Decoration properties
+    // ===============================================================
     
     @Override
     public Rectangle computeBounds(Rectangle parentBounds) {

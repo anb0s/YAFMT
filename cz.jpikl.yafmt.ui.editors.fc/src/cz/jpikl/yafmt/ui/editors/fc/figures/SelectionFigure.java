@@ -82,13 +82,11 @@ public class SelectionFigure extends RoundedRectangle {
     }
     
     private String createToolTipText() {
-        String id = selection.getId();
         String description = selection.getDescription();
-        
         if((description != null) && !description.isEmpty())
-            return id + " - " + description;
+            return selection.getId() + " - " + description;
         else
-            return id;
+            return selection.getId();
     }
     
     // =================================================================

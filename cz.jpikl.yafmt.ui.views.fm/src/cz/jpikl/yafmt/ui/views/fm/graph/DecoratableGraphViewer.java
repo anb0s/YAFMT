@@ -48,6 +48,10 @@ public class DecoratableGraphViewer extends GraphViewer {
         createListeners();
     }
     
+    public void setDecorationSelectionProvider(IDecorationSelecionProvider decorationSelectionProvider) {
+        this.decorationSelectionProvider = decorationSelectionProvider;
+    }
+    
     // =========================================================================
     //  Initialization
     // =========================================================================
@@ -111,7 +115,7 @@ public class DecoratableGraphViewer extends GraphViewer {
     // =========================================================================
     //  Events
     // =========================================================================
-    
+        
     @Override
     public void addSelectionChangedListener(ISelectionChangedListener listener) {
         super.addSelectionChangedListener(listener);
@@ -146,10 +150,6 @@ public class DecoratableGraphViewer extends GraphViewer {
                 }
             });
         }
-    }
-       
-    public void setDecorationSelectionProvider(IDecorationSelecionProvider decorationSelectionProvider) {
-        this.decorationSelectionProvider = decorationSelectionProvider;
     }
     
     private void decorationClicked(IDecoration decoration) {
