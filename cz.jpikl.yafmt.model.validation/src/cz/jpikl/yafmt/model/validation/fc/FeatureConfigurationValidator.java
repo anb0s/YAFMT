@@ -43,7 +43,7 @@ public class FeatureConfigurationValidator extends BasicValidator {
     
     private EStructuralFeature[] FEATURE_CONFIGURATION_STRUCTURAL_FEATURES = { Literals.FEATURE_CONFIGURATION__NAME };
     
-    private FeatureConfiguration lastValidatedFeatureConfiguration;
+    private FeatureConfiguration lastValidatedFeatureConfig;
     private List<IEvaluator> evaluatorsCache;
     
     // ===========================================================================
@@ -58,34 +58,37 @@ public class FeatureConfigurationValidator extends BasicValidator {
                 if(object instanceof FeatureConfiguration)
                     return validateFeatureConfiguration((FeatureConfiguration) object, diagnostics, recursive);
         }
-        return false;
+        return true;
     }
 
-    private boolean validateFeatureConfiguration(FeatureConfiguration featureConfiguration, DiagnosticChain diagnostics, boolean recursive) {
-        boolean result = validateStructuralFeatures(featureConfiguration, FEATURE_CONFIGURATION_STRUCTURAL_FEATURES, diagnostics);
+    private boolean validateFeatureConfiguration(FeatureConfiguration featureConfig, DiagnosticChain diagnostics, boolean recursive) {
+        boolean result = validateStructuralFeatures(featureConfig, FEATURE_CONFIGURATION_STRUCTURAL_FEATURES, diagnostics);
         if(recursive) {
-            result &= validateAllContents(featureConfiguration, diagnostics);
-            result &= validateLocalConstraints(featureConfiguration, diagnostics);
-            result &= validateGlobalConstraints(featureConfiguration, diagnostics);
+            result &= validateLocalConstraints(featureConfig, diagnostics);
+            result &= validateGlobalConstraints(featureConfig, diagnostics);
         }
         return result;
     }
+    
+    // ===========================================================================
+    //  Local constraints
+    // ===========================================================================
         
-    public boolean validateLocalConstraints(FeatureConfiguration featureConfiguration, DiagnosticChain diagnostics) {
-        TreeIterator<EObject> it = featureConfiguration.getFeatureModelCopy().eAllContents();
+    public boolean validateLocalConstraints(FeatureConfiguration featureConfig, DiagnosticChain diagnostics) {
+        TreeIterator<EObject> it = featureConfig.getFeatureModelCopy().eAllContents();
         boolean result = true;
         
         while(it.hasNext()) {
             EObject object = it.next();
             if(object instanceof Group)
-                result &= validateLocalConstraint(featureConfiguration, (Group) object, diagnostics);
+                result &= validateLocalConstraint(featureConfig, (Group) object, diagnostics);
         }
         
         return result;
     }
 
-    private boolean validateLocalConstraint(FeatureConfiguration featureConfiguration, Group group, DiagnosticChain diagnostics) {
-        List<Selection> selections = featureConfiguration.getSelectionsById(group.getParent().getId());
+    private boolean validateLocalConstraint(FeatureConfiguration featureConfig, Group group, DiagnosticChain diagnostics) {
+        List<Selection> selections = featureConfig.getSelectionsById(group.getParent().getId());
         if(selections == null)
             return true;
 
@@ -134,18 +137,22 @@ public class FeatureConfigurationValidator extends BasicValidator {
         return builder.toString();
     }
     
-    public boolean validateGlobalConstraints(FeatureConfiguration featureConfiguration, DiagnosticChain diagnostics) {
-        return validateGlobalConstraints(featureConfiguration, createEvaluators(featureConfiguration), diagnostics);
+    // ===========================================================================
+    //  Global constraints
+    // ===========================================================================
+    
+    public boolean validateGlobalConstraints(FeatureConfiguration featureConfig, DiagnosticChain diagnostics) {
+        return validateGlobalConstraints(featureConfig, createEvaluators(featureConfig), diagnostics);
     }
     
-    private List<IEvaluator> createEvaluators(FeatureConfiguration featureConfiguration) {
+    private List<IEvaluator> createEvaluators(FeatureConfiguration featureConfig) {
         // If we do not use global instance, we can reuse already created evaluators.
         if(this != INSTANCE) {
-            if((lastValidatedFeatureConfiguration == featureConfiguration) && (evaluatorsCache != null))
+            if((lastValidatedFeatureConfig == featureConfig) && (evaluatorsCache != null))
                 return evaluatorsCache;
         }
         
-        FeatureModel featureModel = featureConfiguration.getFeatureModelCopy();
+        FeatureModel featureModel = featureConfig.getFeatureModelCopy();
         ConstraintLanguageRegistry registry = ConstraintLanguagePlugin.getDefault().getConstraintLanguageRegistry();
         
         List<Constraint> constraints = featureModel.getConstraints();
@@ -168,22 +175,22 @@ public class FeatureConfigurationValidator extends BasicValidator {
         
         // If we do not use global instance, remember created evaluators.
         if(this != INSTANCE) {
-            lastValidatedFeatureConfiguration = featureConfiguration;
+            lastValidatedFeatureConfig = featureConfig;
             evaluatorsCache = evaluators;
         }
         
         return evaluators;
     }
     
-    public boolean validateGlobalConstraints(FeatureConfiguration featureConfiguration, List<IEvaluator> evaluators, DiagnosticChain diagnostics) {
+    public boolean validateGlobalConstraints(FeatureConfiguration featureConfig, List<IEvaluator> evaluators, DiagnosticChain diagnostics) {
         boolean result = true;
         for(IEvaluator evaluator: evaluators)
-            result &= validateGlobalContraint(featureConfiguration, evaluator, diagnostics);
+            result &= validateGlobalContraint(featureConfig, evaluator, diagnostics);
         return result;
     }
 
-    private boolean validateGlobalContraint(FeatureConfiguration featureConfiguration, IEvaluator evaluator, DiagnosticChain diagnostics) {
-        IEvaluationResult result = evaluator.evaluate(featureConfiguration);
+    private boolean validateGlobalContraint(FeatureConfiguration featureConfig, IEvaluator evaluator, DiagnosticChain diagnostics) {
+        IEvaluationResult result = evaluator.evaluate(featureConfig);
         if(result.isSuccess())
             return true;
 
@@ -200,7 +207,7 @@ public class FeatureConfigurationValidator extends BasicValidator {
     }
     
     // ===========================================================================
-    //  Structural feature validation
+    //  Structural features validation
     // ===========================================================================
 
     @Override
@@ -220,7 +227,7 @@ public class FeatureConfigurationValidator extends BasicValidator {
         }
     }
 
-    private void checkFeatureConfigurationStructuralFeature(FeatureConfiguration featureConfiguration, EStructuralFeature structuralFeature, Object value) throws Exception {
+    private void checkFeatureConfigurationStructuralFeature(FeatureConfiguration featureConfig, EStructuralFeature structuralFeature, Object value) throws Exception {
         switch(structuralFeature.getFeatureID()) {
             case FEATURE_CONFIGURATION__NAME:
                 checkEmptyValue(getMessage("FeatureConfiguration_Name"), (String) value);

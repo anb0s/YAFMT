@@ -51,12 +51,17 @@ public class FeatureConfigurationEditor extends ModelEditor {
     private FeatureConfiguration featureConfig;
     private FeatureConfigurationManager featureConfigManager;
 
+    // ==================================================================================
+    //  Basic initialization
+    // ==================================================================================
     
     @Override
     public void init(IEditorSite site, IEditorInput input) throws PartInitException {
         super.init(site, input);
-        
-        // Initialize feature configuration manager.
+        initializeConfigurrationManager(input);
+    }
+    
+    private void initializeConfigurrationManager(IEditorInput input) {
         IProblemStore problemStore = new ResourceProblemStore((IResource) input.getAdapter(IResource.class));
         featureConfigManager = new FeatureConfigurationManager(featureConfig, problemStore);
     }

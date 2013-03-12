@@ -15,15 +15,12 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 import cz.jpikl.yafmt.model.fc.Selection;
 import cz.jpikl.yafmt.ui.editors.fc.FeatureConfigurationManager;
-import cz.jpikl.yafmt.ui.editors.fc.commands.SelectFeatureCommand;
 import cz.jpikl.yafmt.ui.editors.fc.commands.DeselectFeatureCommand;
+import cz.jpikl.yafmt.ui.editors.fc.commands.SelectFeatureCommand;
 import cz.jpikl.yafmt.ui.editors.fc.figures.SelectionFigure;
 import cz.jpikl.yafmt.ui.editors.fc.model.Connection;
 import cz.jpikl.yafmt.ui.editors.fc.policies.SelectionSelectionPolicy;
-import cz.jpikl.yafmt.ui.figures.ErrorDecoration;
-import cz.jpikl.yafmt.ui.figures.FigureDecorator;
 import cz.jpikl.yafmt.ui.figures.MiddleSideAnchor;
-import cz.jpikl.yafmt.ui.validation.IProblemStore;
 
 public class SelectionEditPart extends AbstractGraphicalEditPart implements NodeEditPart {
 
@@ -35,24 +32,29 @@ public class SelectionEditPart extends AbstractGraphicalEditPart implements Node
         this.selection = selection;
         setModel(selection);
     }
-
+    
+    // ===================================================================
+    //  Rendering
+    // ===================================================================
+    
     @Override
     protected IFigure createFigure() {
-        FigureDecorator figure = new FigureDecorator(new SelectionFigure(selection));
-        figure.addDecoration(new ErrorDecoration());
-        return figure;
+        return new SelectionFigure(selection);
+    }
+    
+    @Override
+    public SelectionFigure getFigure() {
+        return (SelectionFigure) super.getFigure();
     }
 
     @Override
     protected void refreshVisuals() {
-        // Update error decoration.
-        IProblemStore problemStore = featureConfigManager.getProblemStore();
-        FigureDecorator figure = ((FigureDecorator) getFigure());
-        ErrorDecoration errorDecoration = (ErrorDecoration) figure.getDecorations().get(0);
-        errorDecoration.setErrors(problemStore.getProblems(selection));
+        // Update error decoration and repaint figure.
+        SelectionFigure figure = getFigure();
+        figure.setErrors(featureConfigManager.getProblemStore().getProblems(selection));
+        figure.repaint();
 
-        // Repaint figure and refresh source connections visual.
-        getFigure().repaint();
+        // Refresh source connections visual.
         for(Object connectionEditPart: getSourceConnections())
             ((ConnectionEditPart) connectionEditPart).refresh();
     }
@@ -76,6 +78,10 @@ public class SelectionEditPart extends AbstractGraphicalEditPart implements Node
     public ConnectionAnchor getTargetConnectionAnchor(Request request) {
         return new MiddleSideAnchor(getFigure());
     }
+    
+    // ===================================================================
+    //  Model
+    // ===================================================================
 
     @Override
     @SuppressWarnings("rawtypes")
@@ -95,6 +101,10 @@ public class SelectionEditPart extends AbstractGraphicalEditPart implements Node
             connections.add(new Connection(selection, childSelection));
         return connections;
     }
+    
+    // ===================================================================
+    //  Policies and requests
+    // ===================================================================
 
     @Override
     protected void createEditPolicies() {

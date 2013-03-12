@@ -14,6 +14,10 @@ public class ConnectionEditPart extends AbstractConnectionEditPart {
         this.connection = connection;
         setModel(connection);
     }
+    
+    // ===================================================================
+    //  Rendering
+    // ===================================================================
 
     @Override
     protected IFigure createFigure() {
@@ -24,9 +28,11 @@ public class ConnectionEditPart extends AbstractConnectionEditPart {
     protected void refreshVisuals() {
         ConnectionFigure figure = (ConnectionFigure) getFigure();
         figure.setGrayed(connection.getTarget().getParent() == null);
-        figure.repaint();
-
     }
+    
+    // ===================================================================
+    //  Policies
+    // ===================================================================
 
     @Override
     protected void createEditPolicies() {

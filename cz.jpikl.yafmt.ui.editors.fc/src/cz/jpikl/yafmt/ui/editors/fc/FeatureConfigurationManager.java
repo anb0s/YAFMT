@@ -19,32 +19,19 @@ import cz.jpikl.yafmt.ui.editors.fc.util.VirtualConnectionCache;
 import cz.jpikl.yafmt.ui.validation.IProblemStore;
 
 public class FeatureConfigurationManager {
-
-    // Class containing insert position of unselected feature
-    private static class SelectionInfo {
-        
-        public Selection selection;
-        public int insertPosition;
-
-        public SelectionInfo(Selection selection, int insertPosition) {
-            this.selection = selection;
-            this.insertPosition = insertPosition;
-        }
-        
-    }
     
     // Contains relation between selections which are present in feature configuration and selections which 
     // is possible to add (as their children) to the feature configuration.
     private Map<Selection, List<SelectionInfo>> parentToChildrenVirtualConnection = new HashMap<Selection, List<SelectionInfo>>();
     private Map<Selection, Selection> childrenToParentVirtualConnection = new HashMap<Selection, Selection>();
     private VirtualConnectionCache virtualConnectionCache = new VirtualConnectionCache();
-    private FeatureConfigurationValidator validator = new FeatureConfigurationValidator(); // If we do not use global instance, validator use cache for compiled constraints. 
     private boolean makeVirtualConnections = true;
     private boolean makeDisabledVirtualConnetions = false;
     
     private List<IFeatureConfigurationListener> listeners = new ArrayList<IFeatureConfigurationListener>();
-    private IProblemStore problemStore;
+    private FeatureConfigurationValidator validator = new FeatureConfigurationValidator(); // If we do not use global instance, validator use cache for compiled constraints.
     private FeatureConfiguration featureConfig;
+    private IProblemStore problemStore;
 
     public FeatureConfigurationManager(FeatureConfiguration featureConfig, IProblemStore problemStore) {
         this.featureConfig = featureConfig;
@@ -54,6 +41,10 @@ public class FeatureConfigurationManager {
         rebuildVirtualConnections();
         revalidateFeatureConfiguration();
     }
+    
+    // ===========================================================================
+    //  Basic operations
+    // ===========================================================================
 
     public FeatureConfiguration getFeatureConfiguration() {
         return featureConfig;
@@ -73,43 +64,13 @@ public class FeatureConfigurationManager {
         rebuildVirtualConnections();
         fireFeaturesSelected(new ArrayList<Selection>(1));
     }
-
-    // ===========================================================================
-    //  Listeners
-    // ===========================================================================
-
-    public void addFeatureConfigurationListener(IFeatureConfigurationListener listener) {
-        listeners.add(listener);
-    }
-
-    public void removeFeatureConfigurationListener(IFeatureConfigurationListener listener) {
-        listeners.add(listener);
-    }
-
-    protected void fireFeaturesSelected(List<Selection> selections) {
-        for(IFeatureConfigurationListener listener: listeners)
-            listener.featuresSelected(selections);
-    }
-
-    protected void fireFeaturesDeselected(List<Selection> selections) {
-        for(IFeatureConfigurationListener listener: listeners)
-            listener.featuresDeselected(selections);
-    }
-
-    // ===========================================================================
-    //  Repair operations
-    // ===========================================================================
-
+    
     public void repairFeatureConfiguration() {
         // Repair feature configuration structure against feature model copy.
         Feature rootFeature = featureConfig.getFeatureModelCopy().getRoot();
         Selection rootSelection = featureConfig.getRoot();
         FeatureConfigurationUtil.repairSelection(rootFeature, rootSelection);
     }
-    
-    // ===========================================================================
-    //  Validation
-    // ===========================================================================
 
     public void revalidateFeatureConfiguration() {
         problemStore.clearAllProblems();
@@ -216,7 +177,6 @@ public class FeatureConfigurationManager {
             childSelection.getValues().clear();
             return childSelection;
         }
-        
         return FeatureConfigurationUtil.createSelection(childFeature);
     }
         
@@ -381,6 +341,45 @@ public class FeatureConfigurationManager {
         rebuildVirtualConnections();
         revalidateFeatureConfiguration();
         fireFeaturesDeselected(selections);
+    }
+    
+    // ===========================================================================
+    //  Listeners
+    // ===========================================================================
+
+    public void addFeatureConfigurationListener(IFeatureConfigurationListener listener) {
+        listeners.add(listener);
+    }
+
+    public void removeFeatureConfigurationListener(IFeatureConfigurationListener listener) {
+        listeners.add(listener);
+    }
+
+    protected void fireFeaturesSelected(List<Selection> selections) {
+        for(IFeatureConfigurationListener listener: listeners)
+            listener.featuresSelected(selections);
+    }
+
+    protected void fireFeaturesDeselected(List<Selection> selections) {
+        for(IFeatureConfigurationListener listener: listeners)
+            listener.featuresDeselected(selections);
+    }
+    
+    // ===========================================================================
+    //  Helpers
+    // ===========================================================================
+    
+    // Class containing insert position of unselected feature
+    private static class SelectionInfo {
+        
+        public Selection selection;
+        public int insertPosition;
+
+        public SelectionInfo(Selection selection, int insertPosition) {
+            this.selection = selection;
+            this.insertPosition = insertPosition;
+        }
+        
     }
 
 }

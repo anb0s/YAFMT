@@ -20,5 +20,5 @@ public class ConnectionFigure extends PolylineConnection {
     public void setGrayed(boolean grayed) {
         setForegroundColor(grayed ? ColorConstants.lightGray : ColorConstants.black);
     }
-
+    
 }

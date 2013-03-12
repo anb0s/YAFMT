@@ -1,11 +1,16 @@
 package cz.jpikl.yafmt.ui.editors.fc.figures;
 
+import java.util.List;
+
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.GridData;
 import org.eclipse.draw2d.GridLayout;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.RoundedRectangle;
+import org.eclipse.draw2d.StackLayout;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -15,6 +20,7 @@ import org.eclipse.swt.graphics.Pattern;
 import org.eclipse.swt.widgets.Display;
 
 import cz.jpikl.yafmt.model.fc.Selection;
+import cz.jpikl.yafmt.ui.figures.ErrorDecoration;
 import cz.jpikl.yafmt.ui.util.DrawConstantans;
 import cz.jpikl.yafmt.ui.util.DrawUtil;
 
@@ -23,18 +29,32 @@ public class SelectionFigure extends RoundedRectangle {
     private static final int MIN_WIDTH = 100;
     private static final int MIN_HEIGHT = 25;
 
-    private Label label;
     private Selection selection;
+    private Label label;
+    private ErrorDecoration errorDecoration;
 
     public SelectionFigure(Selection selection) {
         this.selection = selection;
 
-        setLayoutManager(new GridLayout());
-        setSize(-1, -1);
+        setLayoutManager(new StackLayout());        
         setMinimumSize(new Dimension(MIN_WIDTH, MIN_HEIGHT));
+        setSize(-1, -1);
         setHighlighted(false);
         setToolTip(createToolTip());
-        add(createLabel(), new GridData(SWT.FILL, SWT.FILL, true, true));
+        
+        add(createMainLayer());
+        add(createDecorationsLayer());
+    }
+    
+    // =================================================================
+    //  Initialization
+    // =================================================================
+
+    private IFigure createMainLayer() {
+        Figure layer = new Figure();
+        layer.setLayoutManager(new GridLayout());
+        layer.add(createLabel(), new GridData(SWT.CENTER, SWT.CENTER, true, true));
+        return layer;
     }
     
     private Label createLabel() {
@@ -45,22 +65,47 @@ public class SelectionFigure extends RoundedRectangle {
         return label;
     }
     
+    private IFigure createDecorationsLayer() {
+        Figure layer = new Figure();
+        layer.add(createErrorDecoration());
+        return layer;
+    }
+    
+    private IFigure createErrorDecoration() {
+        errorDecoration = new ErrorDecoration();
+        errorDecoration.setLocation(new Point(2, 2));
+        return errorDecoration;
+    }
+    
     private Label createToolTip() {
-        Label toolTip = new Label();
+        return new Label(createToolTipText());
+    }
+    
+    private String createToolTipText() {
         String id = selection.getId();
         String description = selection.getDescription();
         
         if((description != null) && !description.isEmpty())
-            toolTip.setText(id + " - " + description);
+            return id + " - " + description;
         else
-            toolTip.setText(id);
-        
-        return toolTip;
+            return id;
     }
+    
+    // =================================================================
+    //  Properties
+    // =================================================================
         
     public void setHighlighted(boolean highlighted) {
         setLineWidth(highlighted ? 2 : 1);
     }
+    
+    public void setErrors(List<String> messages) {
+        errorDecoration.setErrors(messages);
+    }
+    
+    // =================================================================
+    //  Drawing
+    // =================================================================
         
     @Override
     public void paint(Graphics graphics) {
@@ -91,16 +136,16 @@ public class SelectionFigure extends RoundedRectangle {
         super.outlineShape(graphics);
     }
     
-    private Color computeForgroundColor() {
-        return selection.isPresent() ? ColorConstants.black : ColorConstants.lightGray;
-    }
-    
     private void drawCross(Graphics graphics) {
         Rectangle rect = bounds.getCopy().shrink(2, 2);
         graphics.setLineStyle(SWT.LINE_CUSTOM);
         graphics.setLineDash(DrawConstantans.LINE_DASHED);
         graphics.drawLine(rect.getTopLeft(), rect.getBottomRight());
         graphics.drawLine(rect.getBottomLeft(), rect.getTopRight());
+    }
+    
+    private Color computeForgroundColor() {
+        return selection.isPresent() ? ColorConstants.black : ColorConstants.lightGray;
     }
 
     private Pattern createPattern(Graphics graphics) {
