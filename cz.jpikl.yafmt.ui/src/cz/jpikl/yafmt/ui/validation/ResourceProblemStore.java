@@ -17,23 +17,31 @@ public class ResourceProblemStore implements IProblemStore {
     public static final String MARKER_ID = "cz.jpikl.yafmt.ui.ModelProblemMarker";
     public static final String MARKER_PROBLEM_OBJECT_URI = "cz.jpikl.yafmt.ui.ModelProblemMarker.ProblemObjectURI";
     public static final String URI_FRAGMENTS_SEPARATOR = ";";
-    
+        
     private static class Problems {
         List<IMarker> markers = new ArrayList<IMarker>();
         List<String> messages = new ArrayList<String>();
     }
 
     private Map<Object, Problems> problems = new HashMap<Object, Problems>();
+    private boolean enabled = true;
     private IResource resource;
-    
+        
     public ResourceProblemStore(IResource resource) {
         if(resource == null)
             throw new IllegalArgumentException("Resource must not be null.");
         this.resource = resource;
     }
+    
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
         
     @Override
     public void readProblems(Diagnostic diagnostic) {
+        if(!enabled)
+            return;
+        
         for(Diagnostic diagnosticChild: diagnostic.getChildren()) {
             int code = diagnosticChild.getCode();
             String message = diagnosticChild.getMessage();
@@ -102,6 +110,9 @@ public class ResourceProblemStore implements IProblemStore {
 
     @Override
     public void clearProblems(Object target) {
+        if(!enabled)
+            return;
+        
         Problems objectProblems = problems.remove(target);
         if(objectProblems == null)
             return;
@@ -117,9 +128,13 @@ public class ResourceProblemStore implements IProblemStore {
 
     @Override
     public void clearAllProblems() {
+        if(!enabled)
+            return;
+        
         try {
             problems.clear();
-            resource.deleteMarkers(MARKER_ID, false, IResource.DEPTH_INFINITE);
+            if(resource.exists()) // When user deleted edited file.
+                resource.deleteMarkers(MARKER_ID, false, IResource.DEPTH_INFINITE);
         }
         catch(CoreException ex) {
             ex.printStackTrace();

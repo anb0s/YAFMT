@@ -35,6 +35,7 @@ import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureModelEditPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureModelLayoutPolicy;
 import cz.jpikl.yafmt.ui.validation.IProblemStore;
+import cz.jpikl.yafmt.ui.validation.ResourceProblemStore;
 
 public class FeatureModelEditPart extends AbstractGraphicalEditPart {
 
@@ -81,6 +82,9 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
 
     @Override
     public void deactivate() {
+        // Disable deletion of all problems when edited model is being closed.
+        if(problemStore instanceof ResourceProblemStore)
+            ((ResourceProblemStore) problemStore).setEnabled(false);
         problemStore.clearProblems(featureModel);
         featureModel.eAdapters().remove(featureModelAdapter);
         layoutData.eAdapters().remove(layoutDataAdapter);
