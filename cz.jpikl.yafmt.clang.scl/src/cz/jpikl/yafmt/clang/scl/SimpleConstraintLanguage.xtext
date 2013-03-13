@@ -38,13 +38,13 @@ Implication returns Expression:
 //    disjunction.getParts().add(current);
 //    current = disjunction;
 Disjunction returns Expression:
-    ExclusiveDisjunction ({Disjunction.parts+=current} 'or' parts+=ExclusiveDisjunction)*;
+    ExclusiveDisjunction ({Disjunction.parts+=current} ('or' parts+=ExclusiveDisjunction)+)?;
 
 ExclusiveDisjunction returns Expression:
-    Conjunction ({ExclusiveDisjunction.parts+=current} 'xor' parts+=Conjunction)*;
+    Conjunction ({ExclusiveDisjunction.parts+=current} ('xor' parts+=Conjunction)+)?;
 	
 Conjunction returns Expression:
-    Negation ({Conjunction.parts+=current} 'and' parts+=Negation)*;	
+    Negation ({Conjunction.parts+=current} ('and' parts+=Negation)+)?;	
 
 Negation returns Expression:
     PrimaryExpression | 'not' {Negation} expression=PrimaryExpression;

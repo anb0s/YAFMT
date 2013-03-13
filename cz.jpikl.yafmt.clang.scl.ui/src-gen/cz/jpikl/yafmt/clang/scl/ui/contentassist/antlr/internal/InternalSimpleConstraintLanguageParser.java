@@ -1853,47 +1853,40 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
 
 
     // $ANTLR start "rule__Disjunction__Group__1__Impl"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:709:1: rule__Disjunction__Group__1__Impl : ( ( rule__Disjunction__Group_1__0 )* ) ;
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:709:1: rule__Disjunction__Group__1__Impl : ( ( rule__Disjunction__Group_1__0 )? ) ;
     public final void rule__Disjunction__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:713:1: ( ( ( rule__Disjunction__Group_1__0 )* ) )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:714:1: ( ( rule__Disjunction__Group_1__0 )* )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:713:1: ( ( ( rule__Disjunction__Group_1__0 )? ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:714:1: ( ( rule__Disjunction__Group_1__0 )? )
             {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:714:1: ( ( rule__Disjunction__Group_1__0 )* )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:715:1: ( rule__Disjunction__Group_1__0 )*
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:714:1: ( ( rule__Disjunction__Group_1__0 )? )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:715:1: ( rule__Disjunction__Group_1__0 )?
             {
              before(grammarAccess.getDisjunctionAccess().getGroup_1()); 
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:716:1: ( rule__Disjunction__Group_1__0 )*
-            loop5:
-            do {
-                int alt5=2;
-                int LA5_0 = input.LA(1);
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:716:1: ( rule__Disjunction__Group_1__0 )?
+            int alt5=2;
+            int LA5_0 = input.LA(1);
 
-                if ( (LA5_0==14) ) {
-                    alt5=1;
-                }
+            if ( (LA5_0==14) ) {
+                alt5=1;
+            }
+            switch (alt5) {
+                case 1 :
+                    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:716:2: rule__Disjunction__Group_1__0
+                    {
+                    pushFollow(FOLLOW_rule__Disjunction__Group_1__0_in_rule__Disjunction__Group__1__Impl1403);
+                    rule__Disjunction__Group_1__0();
 
-
-                switch (alt5) {
-            	case 1 :
-            	    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:716:2: rule__Disjunction__Group_1__0
-            	    {
-            	    pushFollow(FOLLOW_rule__Disjunction__Group_1__0_in_rule__Disjunction__Group__1__Impl1403);
-            	    rule__Disjunction__Group_1__0();
-
-            	    state._fsp--;
+                    state._fsp--;
 
 
-            	    }
-            	    break;
+                    }
+                    break;
 
-            	default :
-            	    break loop5;
-                }
-            } while (true);
+            }
 
              after(grammarAccess.getDisjunctionAccess().getGroup_1()); 
 
@@ -1993,22 +1986,17 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
 
 
     // $ANTLR start "rule__Disjunction__Group_1__1"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:761:1: rule__Disjunction__Group_1__1 : rule__Disjunction__Group_1__1__Impl rule__Disjunction__Group_1__2 ;
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:761:1: rule__Disjunction__Group_1__1 : rule__Disjunction__Group_1__1__Impl ;
     public final void rule__Disjunction__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:765:1: ( rule__Disjunction__Group_1__1__Impl rule__Disjunction__Group_1__2 )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:766:2: rule__Disjunction__Group_1__1__Impl rule__Disjunction__Group_1__2
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:765:1: ( rule__Disjunction__Group_1__1__Impl )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:766:2: rule__Disjunction__Group_1__1__Impl
             {
             pushFollow(FOLLOW_rule__Disjunction__Group_1__1__Impl_in_rule__Disjunction__Group_1__11499);
             rule__Disjunction__Group_1__1__Impl();
-
-            state._fsp--;
-
-            pushFollow(FOLLOW_rule__Disjunction__Group_1__2_in_rule__Disjunction__Group_1__11502);
-            rule__Disjunction__Group_1__2();
 
             state._fsp--;
 
@@ -2031,21 +2019,74 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
 
 
     // $ANTLR start "rule__Disjunction__Group_1__1__Impl"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:773:1: rule__Disjunction__Group_1__1__Impl : ( 'or' ) ;
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:772:1: rule__Disjunction__Group_1__1__Impl : ( ( ( rule__Disjunction__Group_1_1__0 ) ) ( ( rule__Disjunction__Group_1_1__0 )* ) ) ;
     public final void rule__Disjunction__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:777:1: ( ( 'or' ) )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:778:1: ( 'or' )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:776:1: ( ( ( ( rule__Disjunction__Group_1_1__0 ) ) ( ( rule__Disjunction__Group_1_1__0 )* ) ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:777:1: ( ( ( rule__Disjunction__Group_1_1__0 ) ) ( ( rule__Disjunction__Group_1_1__0 )* ) )
             {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:778:1: ( 'or' )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:779:1: 'or'
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:777:1: ( ( ( rule__Disjunction__Group_1_1__0 ) ) ( ( rule__Disjunction__Group_1_1__0 )* ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:778:1: ( ( rule__Disjunction__Group_1_1__0 ) ) ( ( rule__Disjunction__Group_1_1__0 )* )
             {
-             before(grammarAccess.getDisjunctionAccess().getOrKeyword_1_1()); 
-            match(input,14,FOLLOW_14_in_rule__Disjunction__Group_1__1__Impl1530); 
-             after(grammarAccess.getDisjunctionAccess().getOrKeyword_1_1()); 
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:778:1: ( ( rule__Disjunction__Group_1_1__0 ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:779:1: ( rule__Disjunction__Group_1_1__0 )
+            {
+             before(grammarAccess.getDisjunctionAccess().getGroup_1_1()); 
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:780:1: ( rule__Disjunction__Group_1_1__0 )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:780:2: rule__Disjunction__Group_1_1__0
+            {
+            pushFollow(FOLLOW_rule__Disjunction__Group_1_1__0_in_rule__Disjunction__Group_1__1__Impl1528);
+            rule__Disjunction__Group_1_1__0();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getDisjunctionAccess().getGroup_1_1()); 
+
+            }
+
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:783:1: ( ( rule__Disjunction__Group_1_1__0 )* )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:784:1: ( rule__Disjunction__Group_1_1__0 )*
+            {
+             before(grammarAccess.getDisjunctionAccess().getGroup_1_1()); 
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:785:1: ( rule__Disjunction__Group_1_1__0 )*
+            loop6:
+            do {
+                int alt6=2;
+                int LA6_0 = input.LA(1);
+
+                if ( (LA6_0==14) ) {
+                    alt6=1;
+                }
+
+
+                switch (alt6) {
+            	case 1 :
+            	    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:785:2: rule__Disjunction__Group_1_1__0
+            	    {
+            	    pushFollow(FOLLOW_rule__Disjunction__Group_1_1__0_in_rule__Disjunction__Group_1__1__Impl1540);
+            	    rule__Disjunction__Group_1_1__0();
+
+            	    state._fsp--;
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop6;
+                }
+            } while (true);
+
+             after(grammarAccess.getDisjunctionAccess().getGroup_1_1()); 
+
+            }
+
 
             }
 
@@ -2067,18 +2108,23 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
     // $ANTLR end "rule__Disjunction__Group_1__1__Impl"
 
 
-    // $ANTLR start "rule__Disjunction__Group_1__2"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:792:1: rule__Disjunction__Group_1__2 : rule__Disjunction__Group_1__2__Impl ;
-    public final void rule__Disjunction__Group_1__2() throws RecognitionException {
+    // $ANTLR start "rule__Disjunction__Group_1_1__0"
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:800:1: rule__Disjunction__Group_1_1__0 : rule__Disjunction__Group_1_1__0__Impl rule__Disjunction__Group_1_1__1 ;
+    public final void rule__Disjunction__Group_1_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:796:1: ( rule__Disjunction__Group_1__2__Impl )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:797:2: rule__Disjunction__Group_1__2__Impl
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:804:1: ( rule__Disjunction__Group_1_1__0__Impl rule__Disjunction__Group_1_1__1 )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:805:2: rule__Disjunction__Group_1_1__0__Impl rule__Disjunction__Group_1_1__1
             {
-            pushFollow(FOLLOW_rule__Disjunction__Group_1__2__Impl_in_rule__Disjunction__Group_1__21561);
-            rule__Disjunction__Group_1__2__Impl();
+            pushFollow(FOLLOW_rule__Disjunction__Group_1_1__0__Impl_in_rule__Disjunction__Group_1_1__01577);
+            rule__Disjunction__Group_1_1__0__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_rule__Disjunction__Group_1_1__1_in_rule__Disjunction__Group_1_1__01580);
+            rule__Disjunction__Group_1_1__1();
 
             state._fsp--;
 
@@ -2097,35 +2143,25 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
         }
         return ;
     }
-    // $ANTLR end "rule__Disjunction__Group_1__2"
+    // $ANTLR end "rule__Disjunction__Group_1_1__0"
 
 
-    // $ANTLR start "rule__Disjunction__Group_1__2__Impl"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:803:1: rule__Disjunction__Group_1__2__Impl : ( ( rule__Disjunction__PartsAssignment_1_2 ) ) ;
-    public final void rule__Disjunction__Group_1__2__Impl() throws RecognitionException {
+    // $ANTLR start "rule__Disjunction__Group_1_1__0__Impl"
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:812:1: rule__Disjunction__Group_1_1__0__Impl : ( 'or' ) ;
+    public final void rule__Disjunction__Group_1_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:807:1: ( ( ( rule__Disjunction__PartsAssignment_1_2 ) ) )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:808:1: ( ( rule__Disjunction__PartsAssignment_1_2 ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:816:1: ( ( 'or' ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:817:1: ( 'or' )
             {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:808:1: ( ( rule__Disjunction__PartsAssignment_1_2 ) )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:809:1: ( rule__Disjunction__PartsAssignment_1_2 )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:817:1: ( 'or' )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:818:1: 'or'
             {
-             before(grammarAccess.getDisjunctionAccess().getPartsAssignment_1_2()); 
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:810:1: ( rule__Disjunction__PartsAssignment_1_2 )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:810:2: rule__Disjunction__PartsAssignment_1_2
-            {
-            pushFollow(FOLLOW_rule__Disjunction__PartsAssignment_1_2_in_rule__Disjunction__Group_1__2__Impl1588);
-            rule__Disjunction__PartsAssignment_1_2();
-
-            state._fsp--;
-
-
-            }
-
-             after(grammarAccess.getDisjunctionAccess().getPartsAssignment_1_2()); 
+             before(grammarAccess.getDisjunctionAccess().getOrKeyword_1_1_0()); 
+            match(input,14,FOLLOW_14_in_rule__Disjunction__Group_1_1__0__Impl1608); 
+             after(grammarAccess.getDisjunctionAccess().getOrKeyword_1_1_0()); 
 
             }
 
@@ -2144,25 +2180,105 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
         }
         return ;
     }
-    // $ANTLR end "rule__Disjunction__Group_1__2__Impl"
+    // $ANTLR end "rule__Disjunction__Group_1_1__0__Impl"
+
+
+    // $ANTLR start "rule__Disjunction__Group_1_1__1"
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:831:1: rule__Disjunction__Group_1_1__1 : rule__Disjunction__Group_1_1__1__Impl ;
+    public final void rule__Disjunction__Group_1_1__1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:835:1: ( rule__Disjunction__Group_1_1__1__Impl )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:836:2: rule__Disjunction__Group_1_1__1__Impl
+            {
+            pushFollow(FOLLOW_rule__Disjunction__Group_1_1__1__Impl_in_rule__Disjunction__Group_1_1__11639);
+            rule__Disjunction__Group_1_1__1__Impl();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Disjunction__Group_1_1__1"
+
+
+    // $ANTLR start "rule__Disjunction__Group_1_1__1__Impl"
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:842:1: rule__Disjunction__Group_1_1__1__Impl : ( ( rule__Disjunction__PartsAssignment_1_1_1 ) ) ;
+    public final void rule__Disjunction__Group_1_1__1__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:846:1: ( ( ( rule__Disjunction__PartsAssignment_1_1_1 ) ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:847:1: ( ( rule__Disjunction__PartsAssignment_1_1_1 ) )
+            {
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:847:1: ( ( rule__Disjunction__PartsAssignment_1_1_1 ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:848:1: ( rule__Disjunction__PartsAssignment_1_1_1 )
+            {
+             before(grammarAccess.getDisjunctionAccess().getPartsAssignment_1_1_1()); 
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:849:1: ( rule__Disjunction__PartsAssignment_1_1_1 )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:849:2: rule__Disjunction__PartsAssignment_1_1_1
+            {
+            pushFollow(FOLLOW_rule__Disjunction__PartsAssignment_1_1_1_in_rule__Disjunction__Group_1_1__1__Impl1666);
+            rule__Disjunction__PartsAssignment_1_1_1();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getDisjunctionAccess().getPartsAssignment_1_1_1()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Disjunction__Group_1_1__1__Impl"
 
 
     // $ANTLR start "rule__ExclusiveDisjunction__Group__0"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:826:1: rule__ExclusiveDisjunction__Group__0 : rule__ExclusiveDisjunction__Group__0__Impl rule__ExclusiveDisjunction__Group__1 ;
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:863:1: rule__ExclusiveDisjunction__Group__0 : rule__ExclusiveDisjunction__Group__0__Impl rule__ExclusiveDisjunction__Group__1 ;
     public final void rule__ExclusiveDisjunction__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:830:1: ( rule__ExclusiveDisjunction__Group__0__Impl rule__ExclusiveDisjunction__Group__1 )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:831:2: rule__ExclusiveDisjunction__Group__0__Impl rule__ExclusiveDisjunction__Group__1
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:867:1: ( rule__ExclusiveDisjunction__Group__0__Impl rule__ExclusiveDisjunction__Group__1 )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:868:2: rule__ExclusiveDisjunction__Group__0__Impl rule__ExclusiveDisjunction__Group__1
             {
-            pushFollow(FOLLOW_rule__ExclusiveDisjunction__Group__0__Impl_in_rule__ExclusiveDisjunction__Group__01624);
+            pushFollow(FOLLOW_rule__ExclusiveDisjunction__Group__0__Impl_in_rule__ExclusiveDisjunction__Group__01700);
             rule__ExclusiveDisjunction__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ExclusiveDisjunction__Group__1_in_rule__ExclusiveDisjunction__Group__01627);
+            pushFollow(FOLLOW_rule__ExclusiveDisjunction__Group__1_in_rule__ExclusiveDisjunction__Group__01703);
             rule__ExclusiveDisjunction__Group__1();
 
             state._fsp--;
@@ -2186,20 +2302,20 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
 
 
     // $ANTLR start "rule__ExclusiveDisjunction__Group__0__Impl"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:838:1: rule__ExclusiveDisjunction__Group__0__Impl : ( ruleConjunction ) ;
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:875:1: rule__ExclusiveDisjunction__Group__0__Impl : ( ruleConjunction ) ;
     public final void rule__ExclusiveDisjunction__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:842:1: ( ( ruleConjunction ) )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:843:1: ( ruleConjunction )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:879:1: ( ( ruleConjunction ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:880:1: ( ruleConjunction )
             {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:843:1: ( ruleConjunction )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:844:1: ruleConjunction
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:880:1: ( ruleConjunction )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:881:1: ruleConjunction
             {
              before(grammarAccess.getExclusiveDisjunctionAccess().getConjunctionParserRuleCall_0()); 
-            pushFollow(FOLLOW_ruleConjunction_in_rule__ExclusiveDisjunction__Group__0__Impl1654);
+            pushFollow(FOLLOW_ruleConjunction_in_rule__ExclusiveDisjunction__Group__0__Impl1730);
             ruleConjunction();
 
             state._fsp--;
@@ -2227,16 +2343,16 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
 
 
     // $ANTLR start "rule__ExclusiveDisjunction__Group__1"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:855:1: rule__ExclusiveDisjunction__Group__1 : rule__ExclusiveDisjunction__Group__1__Impl ;
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:892:1: rule__ExclusiveDisjunction__Group__1 : rule__ExclusiveDisjunction__Group__1__Impl ;
     public final void rule__ExclusiveDisjunction__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:859:1: ( rule__ExclusiveDisjunction__Group__1__Impl )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:860:2: rule__ExclusiveDisjunction__Group__1__Impl
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:896:1: ( rule__ExclusiveDisjunction__Group__1__Impl )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:897:2: rule__ExclusiveDisjunction__Group__1__Impl
             {
-            pushFollow(FOLLOW_rule__ExclusiveDisjunction__Group__1__Impl_in_rule__ExclusiveDisjunction__Group__11683);
+            pushFollow(FOLLOW_rule__ExclusiveDisjunction__Group__1__Impl_in_rule__ExclusiveDisjunction__Group__11759);
             rule__ExclusiveDisjunction__Group__1__Impl();
 
             state._fsp--;
@@ -2260,47 +2376,40 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
 
 
     // $ANTLR start "rule__ExclusiveDisjunction__Group__1__Impl"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:866:1: rule__ExclusiveDisjunction__Group__1__Impl : ( ( rule__ExclusiveDisjunction__Group_1__0 )* ) ;
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:903:1: rule__ExclusiveDisjunction__Group__1__Impl : ( ( rule__ExclusiveDisjunction__Group_1__0 )? ) ;
     public final void rule__ExclusiveDisjunction__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:870:1: ( ( ( rule__ExclusiveDisjunction__Group_1__0 )* ) )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:871:1: ( ( rule__ExclusiveDisjunction__Group_1__0 )* )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:907:1: ( ( ( rule__ExclusiveDisjunction__Group_1__0 )? ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:908:1: ( ( rule__ExclusiveDisjunction__Group_1__0 )? )
             {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:871:1: ( ( rule__ExclusiveDisjunction__Group_1__0 )* )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:872:1: ( rule__ExclusiveDisjunction__Group_1__0 )*
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:908:1: ( ( rule__ExclusiveDisjunction__Group_1__0 )? )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:909:1: ( rule__ExclusiveDisjunction__Group_1__0 )?
             {
              before(grammarAccess.getExclusiveDisjunctionAccess().getGroup_1()); 
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:873:1: ( rule__ExclusiveDisjunction__Group_1__0 )*
-            loop6:
-            do {
-                int alt6=2;
-                int LA6_0 = input.LA(1);
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:910:1: ( rule__ExclusiveDisjunction__Group_1__0 )?
+            int alt7=2;
+            int LA7_0 = input.LA(1);
 
-                if ( (LA6_0==15) ) {
-                    alt6=1;
-                }
+            if ( (LA7_0==15) ) {
+                alt7=1;
+            }
+            switch (alt7) {
+                case 1 :
+                    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:910:2: rule__ExclusiveDisjunction__Group_1__0
+                    {
+                    pushFollow(FOLLOW_rule__ExclusiveDisjunction__Group_1__0_in_rule__ExclusiveDisjunction__Group__1__Impl1786);
+                    rule__ExclusiveDisjunction__Group_1__0();
 
-
-                switch (alt6) {
-            	case 1 :
-            	    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:873:2: rule__ExclusiveDisjunction__Group_1__0
-            	    {
-            	    pushFollow(FOLLOW_rule__ExclusiveDisjunction__Group_1__0_in_rule__ExclusiveDisjunction__Group__1__Impl1710);
-            	    rule__ExclusiveDisjunction__Group_1__0();
-
-            	    state._fsp--;
+                    state._fsp--;
 
 
-            	    }
-            	    break;
+                    }
+                    break;
 
-            	default :
-            	    break loop6;
-                }
-            } while (true);
+            }
 
              after(grammarAccess.getExclusiveDisjunctionAccess().getGroup_1()); 
 
@@ -2325,21 +2434,21 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
 
 
     // $ANTLR start "rule__ExclusiveDisjunction__Group_1__0"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:887:1: rule__ExclusiveDisjunction__Group_1__0 : rule__ExclusiveDisjunction__Group_1__0__Impl rule__ExclusiveDisjunction__Group_1__1 ;
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:924:1: rule__ExclusiveDisjunction__Group_1__0 : rule__ExclusiveDisjunction__Group_1__0__Impl rule__ExclusiveDisjunction__Group_1__1 ;
     public final void rule__ExclusiveDisjunction__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:891:1: ( rule__ExclusiveDisjunction__Group_1__0__Impl rule__ExclusiveDisjunction__Group_1__1 )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:892:2: rule__ExclusiveDisjunction__Group_1__0__Impl rule__ExclusiveDisjunction__Group_1__1
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:928:1: ( rule__ExclusiveDisjunction__Group_1__0__Impl rule__ExclusiveDisjunction__Group_1__1 )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:929:2: rule__ExclusiveDisjunction__Group_1__0__Impl rule__ExclusiveDisjunction__Group_1__1
             {
-            pushFollow(FOLLOW_rule__ExclusiveDisjunction__Group_1__0__Impl_in_rule__ExclusiveDisjunction__Group_1__01745);
+            pushFollow(FOLLOW_rule__ExclusiveDisjunction__Group_1__0__Impl_in_rule__ExclusiveDisjunction__Group_1__01821);
             rule__ExclusiveDisjunction__Group_1__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ExclusiveDisjunction__Group_1__1_in_rule__ExclusiveDisjunction__Group_1__01748);
+            pushFollow(FOLLOW_rule__ExclusiveDisjunction__Group_1__1_in_rule__ExclusiveDisjunction__Group_1__01824);
             rule__ExclusiveDisjunction__Group_1__1();
 
             state._fsp--;
@@ -2363,21 +2472,21 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
 
 
     // $ANTLR start "rule__ExclusiveDisjunction__Group_1__0__Impl"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:899:1: rule__ExclusiveDisjunction__Group_1__0__Impl : ( () ) ;
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:936:1: rule__ExclusiveDisjunction__Group_1__0__Impl : ( () ) ;
     public final void rule__ExclusiveDisjunction__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:903:1: ( ( () ) )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:904:1: ( () )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:940:1: ( ( () ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:941:1: ( () )
             {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:904:1: ( () )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:905:1: ()
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:941:1: ( () )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:942:1: ()
             {
              before(grammarAccess.getExclusiveDisjunctionAccess().getExclusiveDisjunctionPartsAction_1_0()); 
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:906:1: ()
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:908:1: 
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:943:1: ()
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:945:1: 
             {
             }
 
@@ -2400,22 +2509,17 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
 
 
     // $ANTLR start "rule__ExclusiveDisjunction__Group_1__1"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:918:1: rule__ExclusiveDisjunction__Group_1__1 : rule__ExclusiveDisjunction__Group_1__1__Impl rule__ExclusiveDisjunction__Group_1__2 ;
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:955:1: rule__ExclusiveDisjunction__Group_1__1 : rule__ExclusiveDisjunction__Group_1__1__Impl ;
     public final void rule__ExclusiveDisjunction__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:922:1: ( rule__ExclusiveDisjunction__Group_1__1__Impl rule__ExclusiveDisjunction__Group_1__2 )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:923:2: rule__ExclusiveDisjunction__Group_1__1__Impl rule__ExclusiveDisjunction__Group_1__2
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:959:1: ( rule__ExclusiveDisjunction__Group_1__1__Impl )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:960:2: rule__ExclusiveDisjunction__Group_1__1__Impl
             {
-            pushFollow(FOLLOW_rule__ExclusiveDisjunction__Group_1__1__Impl_in_rule__ExclusiveDisjunction__Group_1__11806);
+            pushFollow(FOLLOW_rule__ExclusiveDisjunction__Group_1__1__Impl_in_rule__ExclusiveDisjunction__Group_1__11882);
             rule__ExclusiveDisjunction__Group_1__1__Impl();
-
-            state._fsp--;
-
-            pushFollow(FOLLOW_rule__ExclusiveDisjunction__Group_1__2_in_rule__ExclusiveDisjunction__Group_1__11809);
-            rule__ExclusiveDisjunction__Group_1__2();
 
             state._fsp--;
 
@@ -2438,21 +2542,74 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
 
 
     // $ANTLR start "rule__ExclusiveDisjunction__Group_1__1__Impl"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:930:1: rule__ExclusiveDisjunction__Group_1__1__Impl : ( 'xor' ) ;
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:966:1: rule__ExclusiveDisjunction__Group_1__1__Impl : ( ( ( rule__ExclusiveDisjunction__Group_1_1__0 ) ) ( ( rule__ExclusiveDisjunction__Group_1_1__0 )* ) ) ;
     public final void rule__ExclusiveDisjunction__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:934:1: ( ( 'xor' ) )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:935:1: ( 'xor' )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:970:1: ( ( ( ( rule__ExclusiveDisjunction__Group_1_1__0 ) ) ( ( rule__ExclusiveDisjunction__Group_1_1__0 )* ) ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:971:1: ( ( ( rule__ExclusiveDisjunction__Group_1_1__0 ) ) ( ( rule__ExclusiveDisjunction__Group_1_1__0 )* ) )
             {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:935:1: ( 'xor' )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:936:1: 'xor'
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:971:1: ( ( ( rule__ExclusiveDisjunction__Group_1_1__0 ) ) ( ( rule__ExclusiveDisjunction__Group_1_1__0 )* ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:972:1: ( ( rule__ExclusiveDisjunction__Group_1_1__0 ) ) ( ( rule__ExclusiveDisjunction__Group_1_1__0 )* )
             {
-             before(grammarAccess.getExclusiveDisjunctionAccess().getXorKeyword_1_1()); 
-            match(input,15,FOLLOW_15_in_rule__ExclusiveDisjunction__Group_1__1__Impl1837); 
-             after(grammarAccess.getExclusiveDisjunctionAccess().getXorKeyword_1_1()); 
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:972:1: ( ( rule__ExclusiveDisjunction__Group_1_1__0 ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:973:1: ( rule__ExclusiveDisjunction__Group_1_1__0 )
+            {
+             before(grammarAccess.getExclusiveDisjunctionAccess().getGroup_1_1()); 
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:974:1: ( rule__ExclusiveDisjunction__Group_1_1__0 )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:974:2: rule__ExclusiveDisjunction__Group_1_1__0
+            {
+            pushFollow(FOLLOW_rule__ExclusiveDisjunction__Group_1_1__0_in_rule__ExclusiveDisjunction__Group_1__1__Impl1911);
+            rule__ExclusiveDisjunction__Group_1_1__0();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getExclusiveDisjunctionAccess().getGroup_1_1()); 
+
+            }
+
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:977:1: ( ( rule__ExclusiveDisjunction__Group_1_1__0 )* )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:978:1: ( rule__ExclusiveDisjunction__Group_1_1__0 )*
+            {
+             before(grammarAccess.getExclusiveDisjunctionAccess().getGroup_1_1()); 
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:979:1: ( rule__ExclusiveDisjunction__Group_1_1__0 )*
+            loop8:
+            do {
+                int alt8=2;
+                int LA8_0 = input.LA(1);
+
+                if ( (LA8_0==15) ) {
+                    alt8=1;
+                }
+
+
+                switch (alt8) {
+            	case 1 :
+            	    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:979:2: rule__ExclusiveDisjunction__Group_1_1__0
+            	    {
+            	    pushFollow(FOLLOW_rule__ExclusiveDisjunction__Group_1_1__0_in_rule__ExclusiveDisjunction__Group_1__1__Impl1923);
+            	    rule__ExclusiveDisjunction__Group_1_1__0();
+
+            	    state._fsp--;
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop8;
+                }
+            } while (true);
+
+             after(grammarAccess.getExclusiveDisjunctionAccess().getGroup_1_1()); 
+
+            }
+
 
             }
 
@@ -2474,18 +2631,23 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
     // $ANTLR end "rule__ExclusiveDisjunction__Group_1__1__Impl"
 
 
-    // $ANTLR start "rule__ExclusiveDisjunction__Group_1__2"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:949:1: rule__ExclusiveDisjunction__Group_1__2 : rule__ExclusiveDisjunction__Group_1__2__Impl ;
-    public final void rule__ExclusiveDisjunction__Group_1__2() throws RecognitionException {
+    // $ANTLR start "rule__ExclusiveDisjunction__Group_1_1__0"
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:994:1: rule__ExclusiveDisjunction__Group_1_1__0 : rule__ExclusiveDisjunction__Group_1_1__0__Impl rule__ExclusiveDisjunction__Group_1_1__1 ;
+    public final void rule__ExclusiveDisjunction__Group_1_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:953:1: ( rule__ExclusiveDisjunction__Group_1__2__Impl )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:954:2: rule__ExclusiveDisjunction__Group_1__2__Impl
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:998:1: ( rule__ExclusiveDisjunction__Group_1_1__0__Impl rule__ExclusiveDisjunction__Group_1_1__1 )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:999:2: rule__ExclusiveDisjunction__Group_1_1__0__Impl rule__ExclusiveDisjunction__Group_1_1__1
             {
-            pushFollow(FOLLOW_rule__ExclusiveDisjunction__Group_1__2__Impl_in_rule__ExclusiveDisjunction__Group_1__21868);
-            rule__ExclusiveDisjunction__Group_1__2__Impl();
+            pushFollow(FOLLOW_rule__ExclusiveDisjunction__Group_1_1__0__Impl_in_rule__ExclusiveDisjunction__Group_1_1__01960);
+            rule__ExclusiveDisjunction__Group_1_1__0__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_rule__ExclusiveDisjunction__Group_1_1__1_in_rule__ExclusiveDisjunction__Group_1_1__01963);
+            rule__ExclusiveDisjunction__Group_1_1__1();
 
             state._fsp--;
 
@@ -2504,35 +2666,25 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
         }
         return ;
     }
-    // $ANTLR end "rule__ExclusiveDisjunction__Group_1__2"
+    // $ANTLR end "rule__ExclusiveDisjunction__Group_1_1__0"
 
 
-    // $ANTLR start "rule__ExclusiveDisjunction__Group_1__2__Impl"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:960:1: rule__ExclusiveDisjunction__Group_1__2__Impl : ( ( rule__ExclusiveDisjunction__PartsAssignment_1_2 ) ) ;
-    public final void rule__ExclusiveDisjunction__Group_1__2__Impl() throws RecognitionException {
+    // $ANTLR start "rule__ExclusiveDisjunction__Group_1_1__0__Impl"
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1006:1: rule__ExclusiveDisjunction__Group_1_1__0__Impl : ( 'xor' ) ;
+    public final void rule__ExclusiveDisjunction__Group_1_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:964:1: ( ( ( rule__ExclusiveDisjunction__PartsAssignment_1_2 ) ) )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:965:1: ( ( rule__ExclusiveDisjunction__PartsAssignment_1_2 ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1010:1: ( ( 'xor' ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1011:1: ( 'xor' )
             {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:965:1: ( ( rule__ExclusiveDisjunction__PartsAssignment_1_2 ) )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:966:1: ( rule__ExclusiveDisjunction__PartsAssignment_1_2 )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1011:1: ( 'xor' )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1012:1: 'xor'
             {
-             before(grammarAccess.getExclusiveDisjunctionAccess().getPartsAssignment_1_2()); 
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:967:1: ( rule__ExclusiveDisjunction__PartsAssignment_1_2 )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:967:2: rule__ExclusiveDisjunction__PartsAssignment_1_2
-            {
-            pushFollow(FOLLOW_rule__ExclusiveDisjunction__PartsAssignment_1_2_in_rule__ExclusiveDisjunction__Group_1__2__Impl1895);
-            rule__ExclusiveDisjunction__PartsAssignment_1_2();
-
-            state._fsp--;
-
-
-            }
-
-             after(grammarAccess.getExclusiveDisjunctionAccess().getPartsAssignment_1_2()); 
+             before(grammarAccess.getExclusiveDisjunctionAccess().getXorKeyword_1_1_0()); 
+            match(input,15,FOLLOW_15_in_rule__ExclusiveDisjunction__Group_1_1__0__Impl1991); 
+             after(grammarAccess.getExclusiveDisjunctionAccess().getXorKeyword_1_1_0()); 
 
             }
 
@@ -2551,25 +2703,105 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
         }
         return ;
     }
-    // $ANTLR end "rule__ExclusiveDisjunction__Group_1__2__Impl"
+    // $ANTLR end "rule__ExclusiveDisjunction__Group_1_1__0__Impl"
+
+
+    // $ANTLR start "rule__ExclusiveDisjunction__Group_1_1__1"
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1025:1: rule__ExclusiveDisjunction__Group_1_1__1 : rule__ExclusiveDisjunction__Group_1_1__1__Impl ;
+    public final void rule__ExclusiveDisjunction__Group_1_1__1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1029:1: ( rule__ExclusiveDisjunction__Group_1_1__1__Impl )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1030:2: rule__ExclusiveDisjunction__Group_1_1__1__Impl
+            {
+            pushFollow(FOLLOW_rule__ExclusiveDisjunction__Group_1_1__1__Impl_in_rule__ExclusiveDisjunction__Group_1_1__12022);
+            rule__ExclusiveDisjunction__Group_1_1__1__Impl();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ExclusiveDisjunction__Group_1_1__1"
+
+
+    // $ANTLR start "rule__ExclusiveDisjunction__Group_1_1__1__Impl"
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1036:1: rule__ExclusiveDisjunction__Group_1_1__1__Impl : ( ( rule__ExclusiveDisjunction__PartsAssignment_1_1_1 ) ) ;
+    public final void rule__ExclusiveDisjunction__Group_1_1__1__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1040:1: ( ( ( rule__ExclusiveDisjunction__PartsAssignment_1_1_1 ) ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1041:1: ( ( rule__ExclusiveDisjunction__PartsAssignment_1_1_1 ) )
+            {
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1041:1: ( ( rule__ExclusiveDisjunction__PartsAssignment_1_1_1 ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1042:1: ( rule__ExclusiveDisjunction__PartsAssignment_1_1_1 )
+            {
+             before(grammarAccess.getExclusiveDisjunctionAccess().getPartsAssignment_1_1_1()); 
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1043:1: ( rule__ExclusiveDisjunction__PartsAssignment_1_1_1 )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1043:2: rule__ExclusiveDisjunction__PartsAssignment_1_1_1
+            {
+            pushFollow(FOLLOW_rule__ExclusiveDisjunction__PartsAssignment_1_1_1_in_rule__ExclusiveDisjunction__Group_1_1__1__Impl2049);
+            rule__ExclusiveDisjunction__PartsAssignment_1_1_1();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getExclusiveDisjunctionAccess().getPartsAssignment_1_1_1()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ExclusiveDisjunction__Group_1_1__1__Impl"
 
 
     // $ANTLR start "rule__Conjunction__Group__0"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:983:1: rule__Conjunction__Group__0 : rule__Conjunction__Group__0__Impl rule__Conjunction__Group__1 ;
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1057:1: rule__Conjunction__Group__0 : rule__Conjunction__Group__0__Impl rule__Conjunction__Group__1 ;
     public final void rule__Conjunction__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:987:1: ( rule__Conjunction__Group__0__Impl rule__Conjunction__Group__1 )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:988:2: rule__Conjunction__Group__0__Impl rule__Conjunction__Group__1
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1061:1: ( rule__Conjunction__Group__0__Impl rule__Conjunction__Group__1 )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1062:2: rule__Conjunction__Group__0__Impl rule__Conjunction__Group__1
             {
-            pushFollow(FOLLOW_rule__Conjunction__Group__0__Impl_in_rule__Conjunction__Group__01931);
+            pushFollow(FOLLOW_rule__Conjunction__Group__0__Impl_in_rule__Conjunction__Group__02083);
             rule__Conjunction__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Conjunction__Group__1_in_rule__Conjunction__Group__01934);
+            pushFollow(FOLLOW_rule__Conjunction__Group__1_in_rule__Conjunction__Group__02086);
             rule__Conjunction__Group__1();
 
             state._fsp--;
@@ -2593,20 +2825,20 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
 
 
     // $ANTLR start "rule__Conjunction__Group__0__Impl"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:995:1: rule__Conjunction__Group__0__Impl : ( ruleNegation ) ;
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1069:1: rule__Conjunction__Group__0__Impl : ( ruleNegation ) ;
     public final void rule__Conjunction__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:999:1: ( ( ruleNegation ) )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1000:1: ( ruleNegation )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1073:1: ( ( ruleNegation ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1074:1: ( ruleNegation )
             {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1000:1: ( ruleNegation )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1001:1: ruleNegation
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1074:1: ( ruleNegation )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1075:1: ruleNegation
             {
              before(grammarAccess.getConjunctionAccess().getNegationParserRuleCall_0()); 
-            pushFollow(FOLLOW_ruleNegation_in_rule__Conjunction__Group__0__Impl1961);
+            pushFollow(FOLLOW_ruleNegation_in_rule__Conjunction__Group__0__Impl2113);
             ruleNegation();
 
             state._fsp--;
@@ -2634,16 +2866,16 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
 
 
     // $ANTLR start "rule__Conjunction__Group__1"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1012:1: rule__Conjunction__Group__1 : rule__Conjunction__Group__1__Impl ;
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1086:1: rule__Conjunction__Group__1 : rule__Conjunction__Group__1__Impl ;
     public final void rule__Conjunction__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1016:1: ( rule__Conjunction__Group__1__Impl )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1017:2: rule__Conjunction__Group__1__Impl
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1090:1: ( rule__Conjunction__Group__1__Impl )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1091:2: rule__Conjunction__Group__1__Impl
             {
-            pushFollow(FOLLOW_rule__Conjunction__Group__1__Impl_in_rule__Conjunction__Group__11990);
+            pushFollow(FOLLOW_rule__Conjunction__Group__1__Impl_in_rule__Conjunction__Group__12142);
             rule__Conjunction__Group__1__Impl();
 
             state._fsp--;
@@ -2667,47 +2899,40 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
 
 
     // $ANTLR start "rule__Conjunction__Group__1__Impl"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1023:1: rule__Conjunction__Group__1__Impl : ( ( rule__Conjunction__Group_1__0 )* ) ;
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1097:1: rule__Conjunction__Group__1__Impl : ( ( rule__Conjunction__Group_1__0 )? ) ;
     public final void rule__Conjunction__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1027:1: ( ( ( rule__Conjunction__Group_1__0 )* ) )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1028:1: ( ( rule__Conjunction__Group_1__0 )* )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1101:1: ( ( ( rule__Conjunction__Group_1__0 )? ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1102:1: ( ( rule__Conjunction__Group_1__0 )? )
             {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1028:1: ( ( rule__Conjunction__Group_1__0 )* )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1029:1: ( rule__Conjunction__Group_1__0 )*
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1102:1: ( ( rule__Conjunction__Group_1__0 )? )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1103:1: ( rule__Conjunction__Group_1__0 )?
             {
              before(grammarAccess.getConjunctionAccess().getGroup_1()); 
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1030:1: ( rule__Conjunction__Group_1__0 )*
-            loop7:
-            do {
-                int alt7=2;
-                int LA7_0 = input.LA(1);
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1104:1: ( rule__Conjunction__Group_1__0 )?
+            int alt9=2;
+            int LA9_0 = input.LA(1);
 
-                if ( (LA7_0==16) ) {
-                    alt7=1;
-                }
+            if ( (LA9_0==16) ) {
+                alt9=1;
+            }
+            switch (alt9) {
+                case 1 :
+                    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1104:2: rule__Conjunction__Group_1__0
+                    {
+                    pushFollow(FOLLOW_rule__Conjunction__Group_1__0_in_rule__Conjunction__Group__1__Impl2169);
+                    rule__Conjunction__Group_1__0();
 
-
-                switch (alt7) {
-            	case 1 :
-            	    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1030:2: rule__Conjunction__Group_1__0
-            	    {
-            	    pushFollow(FOLLOW_rule__Conjunction__Group_1__0_in_rule__Conjunction__Group__1__Impl2017);
-            	    rule__Conjunction__Group_1__0();
-
-            	    state._fsp--;
+                    state._fsp--;
 
 
-            	    }
-            	    break;
+                    }
+                    break;
 
-            	default :
-            	    break loop7;
-                }
-            } while (true);
+            }
 
              after(grammarAccess.getConjunctionAccess().getGroup_1()); 
 
@@ -2732,21 +2957,21 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
 
 
     // $ANTLR start "rule__Conjunction__Group_1__0"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1044:1: rule__Conjunction__Group_1__0 : rule__Conjunction__Group_1__0__Impl rule__Conjunction__Group_1__1 ;
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1118:1: rule__Conjunction__Group_1__0 : rule__Conjunction__Group_1__0__Impl rule__Conjunction__Group_1__1 ;
     public final void rule__Conjunction__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1048:1: ( rule__Conjunction__Group_1__0__Impl rule__Conjunction__Group_1__1 )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1049:2: rule__Conjunction__Group_1__0__Impl rule__Conjunction__Group_1__1
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1122:1: ( rule__Conjunction__Group_1__0__Impl rule__Conjunction__Group_1__1 )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1123:2: rule__Conjunction__Group_1__0__Impl rule__Conjunction__Group_1__1
             {
-            pushFollow(FOLLOW_rule__Conjunction__Group_1__0__Impl_in_rule__Conjunction__Group_1__02052);
+            pushFollow(FOLLOW_rule__Conjunction__Group_1__0__Impl_in_rule__Conjunction__Group_1__02204);
             rule__Conjunction__Group_1__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Conjunction__Group_1__1_in_rule__Conjunction__Group_1__02055);
+            pushFollow(FOLLOW_rule__Conjunction__Group_1__1_in_rule__Conjunction__Group_1__02207);
             rule__Conjunction__Group_1__1();
 
             state._fsp--;
@@ -2770,21 +2995,21 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
 
 
     // $ANTLR start "rule__Conjunction__Group_1__0__Impl"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1056:1: rule__Conjunction__Group_1__0__Impl : ( () ) ;
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1130:1: rule__Conjunction__Group_1__0__Impl : ( () ) ;
     public final void rule__Conjunction__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1060:1: ( ( () ) )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1061:1: ( () )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1134:1: ( ( () ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1135:1: ( () )
             {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1061:1: ( () )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1062:1: ()
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1135:1: ( () )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1136:1: ()
             {
              before(grammarAccess.getConjunctionAccess().getConjunctionPartsAction_1_0()); 
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1063:1: ()
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1065:1: 
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1137:1: ()
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1139:1: 
             {
             }
 
@@ -2807,22 +3032,17 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
 
 
     // $ANTLR start "rule__Conjunction__Group_1__1"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1075:1: rule__Conjunction__Group_1__1 : rule__Conjunction__Group_1__1__Impl rule__Conjunction__Group_1__2 ;
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1149:1: rule__Conjunction__Group_1__1 : rule__Conjunction__Group_1__1__Impl ;
     public final void rule__Conjunction__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1079:1: ( rule__Conjunction__Group_1__1__Impl rule__Conjunction__Group_1__2 )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1080:2: rule__Conjunction__Group_1__1__Impl rule__Conjunction__Group_1__2
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1153:1: ( rule__Conjunction__Group_1__1__Impl )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1154:2: rule__Conjunction__Group_1__1__Impl
             {
-            pushFollow(FOLLOW_rule__Conjunction__Group_1__1__Impl_in_rule__Conjunction__Group_1__12113);
+            pushFollow(FOLLOW_rule__Conjunction__Group_1__1__Impl_in_rule__Conjunction__Group_1__12265);
             rule__Conjunction__Group_1__1__Impl();
-
-            state._fsp--;
-
-            pushFollow(FOLLOW_rule__Conjunction__Group_1__2_in_rule__Conjunction__Group_1__12116);
-            rule__Conjunction__Group_1__2();
 
             state._fsp--;
 
@@ -2845,21 +3065,74 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
 
 
     // $ANTLR start "rule__Conjunction__Group_1__1__Impl"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1087:1: rule__Conjunction__Group_1__1__Impl : ( 'and' ) ;
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1160:1: rule__Conjunction__Group_1__1__Impl : ( ( ( rule__Conjunction__Group_1_1__0 ) ) ( ( rule__Conjunction__Group_1_1__0 )* ) ) ;
     public final void rule__Conjunction__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1091:1: ( ( 'and' ) )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1092:1: ( 'and' )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1164:1: ( ( ( ( rule__Conjunction__Group_1_1__0 ) ) ( ( rule__Conjunction__Group_1_1__0 )* ) ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1165:1: ( ( ( rule__Conjunction__Group_1_1__0 ) ) ( ( rule__Conjunction__Group_1_1__0 )* ) )
             {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1092:1: ( 'and' )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1093:1: 'and'
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1165:1: ( ( ( rule__Conjunction__Group_1_1__0 ) ) ( ( rule__Conjunction__Group_1_1__0 )* ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1166:1: ( ( rule__Conjunction__Group_1_1__0 ) ) ( ( rule__Conjunction__Group_1_1__0 )* )
             {
-             before(grammarAccess.getConjunctionAccess().getAndKeyword_1_1()); 
-            match(input,16,FOLLOW_16_in_rule__Conjunction__Group_1__1__Impl2144); 
-             after(grammarAccess.getConjunctionAccess().getAndKeyword_1_1()); 
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1166:1: ( ( rule__Conjunction__Group_1_1__0 ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1167:1: ( rule__Conjunction__Group_1_1__0 )
+            {
+             before(grammarAccess.getConjunctionAccess().getGroup_1_1()); 
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1168:1: ( rule__Conjunction__Group_1_1__0 )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1168:2: rule__Conjunction__Group_1_1__0
+            {
+            pushFollow(FOLLOW_rule__Conjunction__Group_1_1__0_in_rule__Conjunction__Group_1__1__Impl2294);
+            rule__Conjunction__Group_1_1__0();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getConjunctionAccess().getGroup_1_1()); 
+
+            }
+
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1171:1: ( ( rule__Conjunction__Group_1_1__0 )* )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1172:1: ( rule__Conjunction__Group_1_1__0 )*
+            {
+             before(grammarAccess.getConjunctionAccess().getGroup_1_1()); 
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1173:1: ( rule__Conjunction__Group_1_1__0 )*
+            loop10:
+            do {
+                int alt10=2;
+                int LA10_0 = input.LA(1);
+
+                if ( (LA10_0==16) ) {
+                    alt10=1;
+                }
+
+
+                switch (alt10) {
+            	case 1 :
+            	    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1173:2: rule__Conjunction__Group_1_1__0
+            	    {
+            	    pushFollow(FOLLOW_rule__Conjunction__Group_1_1__0_in_rule__Conjunction__Group_1__1__Impl2306);
+            	    rule__Conjunction__Group_1_1__0();
+
+            	    state._fsp--;
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop10;
+                }
+            } while (true);
+
+             after(grammarAccess.getConjunctionAccess().getGroup_1_1()); 
+
+            }
+
 
             }
 
@@ -2881,18 +3154,23 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
     // $ANTLR end "rule__Conjunction__Group_1__1__Impl"
 
 
-    // $ANTLR start "rule__Conjunction__Group_1__2"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1106:1: rule__Conjunction__Group_1__2 : rule__Conjunction__Group_1__2__Impl ;
-    public final void rule__Conjunction__Group_1__2() throws RecognitionException {
+    // $ANTLR start "rule__Conjunction__Group_1_1__0"
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1188:1: rule__Conjunction__Group_1_1__0 : rule__Conjunction__Group_1_1__0__Impl rule__Conjunction__Group_1_1__1 ;
+    public final void rule__Conjunction__Group_1_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1110:1: ( rule__Conjunction__Group_1__2__Impl )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1111:2: rule__Conjunction__Group_1__2__Impl
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1192:1: ( rule__Conjunction__Group_1_1__0__Impl rule__Conjunction__Group_1_1__1 )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1193:2: rule__Conjunction__Group_1_1__0__Impl rule__Conjunction__Group_1_1__1
             {
-            pushFollow(FOLLOW_rule__Conjunction__Group_1__2__Impl_in_rule__Conjunction__Group_1__22175);
-            rule__Conjunction__Group_1__2__Impl();
+            pushFollow(FOLLOW_rule__Conjunction__Group_1_1__0__Impl_in_rule__Conjunction__Group_1_1__02343);
+            rule__Conjunction__Group_1_1__0__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_rule__Conjunction__Group_1_1__1_in_rule__Conjunction__Group_1_1__02346);
+            rule__Conjunction__Group_1_1__1();
 
             state._fsp--;
 
@@ -2911,35 +3189,25 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
         }
         return ;
     }
-    // $ANTLR end "rule__Conjunction__Group_1__2"
+    // $ANTLR end "rule__Conjunction__Group_1_1__0"
 
 
-    // $ANTLR start "rule__Conjunction__Group_1__2__Impl"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1117:1: rule__Conjunction__Group_1__2__Impl : ( ( rule__Conjunction__PartsAssignment_1_2 ) ) ;
-    public final void rule__Conjunction__Group_1__2__Impl() throws RecognitionException {
+    // $ANTLR start "rule__Conjunction__Group_1_1__0__Impl"
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1200:1: rule__Conjunction__Group_1_1__0__Impl : ( 'and' ) ;
+    public final void rule__Conjunction__Group_1_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1121:1: ( ( ( rule__Conjunction__PartsAssignment_1_2 ) ) )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1122:1: ( ( rule__Conjunction__PartsAssignment_1_2 ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1204:1: ( ( 'and' ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1205:1: ( 'and' )
             {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1122:1: ( ( rule__Conjunction__PartsAssignment_1_2 ) )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1123:1: ( rule__Conjunction__PartsAssignment_1_2 )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1205:1: ( 'and' )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1206:1: 'and'
             {
-             before(grammarAccess.getConjunctionAccess().getPartsAssignment_1_2()); 
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1124:1: ( rule__Conjunction__PartsAssignment_1_2 )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1124:2: rule__Conjunction__PartsAssignment_1_2
-            {
-            pushFollow(FOLLOW_rule__Conjunction__PartsAssignment_1_2_in_rule__Conjunction__Group_1__2__Impl2202);
-            rule__Conjunction__PartsAssignment_1_2();
-
-            state._fsp--;
-
-
-            }
-
-             after(grammarAccess.getConjunctionAccess().getPartsAssignment_1_2()); 
+             before(grammarAccess.getConjunctionAccess().getAndKeyword_1_1_0()); 
+            match(input,16,FOLLOW_16_in_rule__Conjunction__Group_1_1__0__Impl2374); 
+             after(grammarAccess.getConjunctionAccess().getAndKeyword_1_1_0()); 
 
             }
 
@@ -2958,25 +3226,105 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
         }
         return ;
     }
-    // $ANTLR end "rule__Conjunction__Group_1__2__Impl"
+    // $ANTLR end "rule__Conjunction__Group_1_1__0__Impl"
+
+
+    // $ANTLR start "rule__Conjunction__Group_1_1__1"
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1219:1: rule__Conjunction__Group_1_1__1 : rule__Conjunction__Group_1_1__1__Impl ;
+    public final void rule__Conjunction__Group_1_1__1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1223:1: ( rule__Conjunction__Group_1_1__1__Impl )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1224:2: rule__Conjunction__Group_1_1__1__Impl
+            {
+            pushFollow(FOLLOW_rule__Conjunction__Group_1_1__1__Impl_in_rule__Conjunction__Group_1_1__12405);
+            rule__Conjunction__Group_1_1__1__Impl();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Conjunction__Group_1_1__1"
+
+
+    // $ANTLR start "rule__Conjunction__Group_1_1__1__Impl"
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1230:1: rule__Conjunction__Group_1_1__1__Impl : ( ( rule__Conjunction__PartsAssignment_1_1_1 ) ) ;
+    public final void rule__Conjunction__Group_1_1__1__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1234:1: ( ( ( rule__Conjunction__PartsAssignment_1_1_1 ) ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1235:1: ( ( rule__Conjunction__PartsAssignment_1_1_1 ) )
+            {
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1235:1: ( ( rule__Conjunction__PartsAssignment_1_1_1 ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1236:1: ( rule__Conjunction__PartsAssignment_1_1_1 )
+            {
+             before(grammarAccess.getConjunctionAccess().getPartsAssignment_1_1_1()); 
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1237:1: ( rule__Conjunction__PartsAssignment_1_1_1 )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1237:2: rule__Conjunction__PartsAssignment_1_1_1
+            {
+            pushFollow(FOLLOW_rule__Conjunction__PartsAssignment_1_1_1_in_rule__Conjunction__Group_1_1__1__Impl2432);
+            rule__Conjunction__PartsAssignment_1_1_1();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getConjunctionAccess().getPartsAssignment_1_1_1()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Conjunction__Group_1_1__1__Impl"
 
 
     // $ANTLR start "rule__Negation__Group_1__0"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1140:1: rule__Negation__Group_1__0 : rule__Negation__Group_1__0__Impl rule__Negation__Group_1__1 ;
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1251:1: rule__Negation__Group_1__0 : rule__Negation__Group_1__0__Impl rule__Negation__Group_1__1 ;
     public final void rule__Negation__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1144:1: ( rule__Negation__Group_1__0__Impl rule__Negation__Group_1__1 )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1145:2: rule__Negation__Group_1__0__Impl rule__Negation__Group_1__1
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1255:1: ( rule__Negation__Group_1__0__Impl rule__Negation__Group_1__1 )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1256:2: rule__Negation__Group_1__0__Impl rule__Negation__Group_1__1
             {
-            pushFollow(FOLLOW_rule__Negation__Group_1__0__Impl_in_rule__Negation__Group_1__02238);
+            pushFollow(FOLLOW_rule__Negation__Group_1__0__Impl_in_rule__Negation__Group_1__02466);
             rule__Negation__Group_1__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Negation__Group_1__1_in_rule__Negation__Group_1__02241);
+            pushFollow(FOLLOW_rule__Negation__Group_1__1_in_rule__Negation__Group_1__02469);
             rule__Negation__Group_1__1();
 
             state._fsp--;
@@ -3000,20 +3348,20 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
 
 
     // $ANTLR start "rule__Negation__Group_1__0__Impl"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1152:1: rule__Negation__Group_1__0__Impl : ( 'not' ) ;
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1263:1: rule__Negation__Group_1__0__Impl : ( 'not' ) ;
     public final void rule__Negation__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1156:1: ( ( 'not' ) )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1157:1: ( 'not' )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1267:1: ( ( 'not' ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1268:1: ( 'not' )
             {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1157:1: ( 'not' )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1158:1: 'not'
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1268:1: ( 'not' )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1269:1: 'not'
             {
              before(grammarAccess.getNegationAccess().getNotKeyword_1_0()); 
-            match(input,17,FOLLOW_17_in_rule__Negation__Group_1__0__Impl2269); 
+            match(input,17,FOLLOW_17_in_rule__Negation__Group_1__0__Impl2497); 
              after(grammarAccess.getNegationAccess().getNotKeyword_1_0()); 
 
             }
@@ -3037,21 +3385,21 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
 
 
     // $ANTLR start "rule__Negation__Group_1__1"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1171:1: rule__Negation__Group_1__1 : rule__Negation__Group_1__1__Impl rule__Negation__Group_1__2 ;
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1282:1: rule__Negation__Group_1__1 : rule__Negation__Group_1__1__Impl rule__Negation__Group_1__2 ;
     public final void rule__Negation__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1175:1: ( rule__Negation__Group_1__1__Impl rule__Negation__Group_1__2 )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1176:2: rule__Negation__Group_1__1__Impl rule__Negation__Group_1__2
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1286:1: ( rule__Negation__Group_1__1__Impl rule__Negation__Group_1__2 )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1287:2: rule__Negation__Group_1__1__Impl rule__Negation__Group_1__2
             {
-            pushFollow(FOLLOW_rule__Negation__Group_1__1__Impl_in_rule__Negation__Group_1__12300);
+            pushFollow(FOLLOW_rule__Negation__Group_1__1__Impl_in_rule__Negation__Group_1__12528);
             rule__Negation__Group_1__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Negation__Group_1__2_in_rule__Negation__Group_1__12303);
+            pushFollow(FOLLOW_rule__Negation__Group_1__2_in_rule__Negation__Group_1__12531);
             rule__Negation__Group_1__2();
 
             state._fsp--;
@@ -3075,21 +3423,21 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
 
 
     // $ANTLR start "rule__Negation__Group_1__1__Impl"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1183:1: rule__Negation__Group_1__1__Impl : ( () ) ;
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1294:1: rule__Negation__Group_1__1__Impl : ( () ) ;
     public final void rule__Negation__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1187:1: ( ( () ) )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1188:1: ( () )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1298:1: ( ( () ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1299:1: ( () )
             {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1188:1: ( () )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1189:1: ()
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1299:1: ( () )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1300:1: ()
             {
              before(grammarAccess.getNegationAccess().getNegationAction_1_1()); 
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1190:1: ()
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1192:1: 
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1301:1: ()
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1303:1: 
             {
             }
 
@@ -3112,16 +3460,16 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
 
 
     // $ANTLR start "rule__Negation__Group_1__2"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1202:1: rule__Negation__Group_1__2 : rule__Negation__Group_1__2__Impl ;
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1313:1: rule__Negation__Group_1__2 : rule__Negation__Group_1__2__Impl ;
     public final void rule__Negation__Group_1__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1206:1: ( rule__Negation__Group_1__2__Impl )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1207:2: rule__Negation__Group_1__2__Impl
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1317:1: ( rule__Negation__Group_1__2__Impl )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1318:2: rule__Negation__Group_1__2__Impl
             {
-            pushFollow(FOLLOW_rule__Negation__Group_1__2__Impl_in_rule__Negation__Group_1__22361);
+            pushFollow(FOLLOW_rule__Negation__Group_1__2__Impl_in_rule__Negation__Group_1__22589);
             rule__Negation__Group_1__2__Impl();
 
             state._fsp--;
@@ -3145,23 +3493,23 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
 
 
     // $ANTLR start "rule__Negation__Group_1__2__Impl"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1213:1: rule__Negation__Group_1__2__Impl : ( ( rule__Negation__ExpressionAssignment_1_2 ) ) ;
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1324:1: rule__Negation__Group_1__2__Impl : ( ( rule__Negation__ExpressionAssignment_1_2 ) ) ;
     public final void rule__Negation__Group_1__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1217:1: ( ( ( rule__Negation__ExpressionAssignment_1_2 ) ) )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1218:1: ( ( rule__Negation__ExpressionAssignment_1_2 ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1328:1: ( ( ( rule__Negation__ExpressionAssignment_1_2 ) ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1329:1: ( ( rule__Negation__ExpressionAssignment_1_2 ) )
             {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1218:1: ( ( rule__Negation__ExpressionAssignment_1_2 ) )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1219:1: ( rule__Negation__ExpressionAssignment_1_2 )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1329:1: ( ( rule__Negation__ExpressionAssignment_1_2 ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1330:1: ( rule__Negation__ExpressionAssignment_1_2 )
             {
              before(grammarAccess.getNegationAccess().getExpressionAssignment_1_2()); 
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1220:1: ( rule__Negation__ExpressionAssignment_1_2 )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1220:2: rule__Negation__ExpressionAssignment_1_2
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1331:1: ( rule__Negation__ExpressionAssignment_1_2 )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1331:2: rule__Negation__ExpressionAssignment_1_2
             {
-            pushFollow(FOLLOW_rule__Negation__ExpressionAssignment_1_2_in_rule__Negation__Group_1__2__Impl2388);
+            pushFollow(FOLLOW_rule__Negation__ExpressionAssignment_1_2_in_rule__Negation__Group_1__2__Impl2616);
             rule__Negation__ExpressionAssignment_1_2();
 
             state._fsp--;
@@ -3192,21 +3540,21 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
 
 
     // $ANTLR start "rule__PrimaryExpression__Group_0__0"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1236:1: rule__PrimaryExpression__Group_0__0 : rule__PrimaryExpression__Group_0__0__Impl rule__PrimaryExpression__Group_0__1 ;
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1347:1: rule__PrimaryExpression__Group_0__0 : rule__PrimaryExpression__Group_0__0__Impl rule__PrimaryExpression__Group_0__1 ;
     public final void rule__PrimaryExpression__Group_0__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1240:1: ( rule__PrimaryExpression__Group_0__0__Impl rule__PrimaryExpression__Group_0__1 )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1241:2: rule__PrimaryExpression__Group_0__0__Impl rule__PrimaryExpression__Group_0__1
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1351:1: ( rule__PrimaryExpression__Group_0__0__Impl rule__PrimaryExpression__Group_0__1 )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1352:2: rule__PrimaryExpression__Group_0__0__Impl rule__PrimaryExpression__Group_0__1
             {
-            pushFollow(FOLLOW_rule__PrimaryExpression__Group_0__0__Impl_in_rule__PrimaryExpression__Group_0__02424);
+            pushFollow(FOLLOW_rule__PrimaryExpression__Group_0__0__Impl_in_rule__PrimaryExpression__Group_0__02652);
             rule__PrimaryExpression__Group_0__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__PrimaryExpression__Group_0__1_in_rule__PrimaryExpression__Group_0__02427);
+            pushFollow(FOLLOW_rule__PrimaryExpression__Group_0__1_in_rule__PrimaryExpression__Group_0__02655);
             rule__PrimaryExpression__Group_0__1();
 
             state._fsp--;
@@ -3230,21 +3578,21 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
 
 
     // $ANTLR start "rule__PrimaryExpression__Group_0__0__Impl"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1248:1: rule__PrimaryExpression__Group_0__0__Impl : ( () ) ;
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1359:1: rule__PrimaryExpression__Group_0__0__Impl : ( () ) ;
     public final void rule__PrimaryExpression__Group_0__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1252:1: ( ( () ) )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1253:1: ( () )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1363:1: ( ( () ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1364:1: ( () )
             {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1253:1: ( () )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1254:1: ()
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1364:1: ( () )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1365:1: ()
             {
              before(grammarAccess.getPrimaryExpressionAccess().getPrimaryExpressionAction_0_0()); 
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1255:1: ()
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1257:1: 
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1366:1: ()
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1368:1: 
             {
             }
 
@@ -3267,16 +3615,16 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
 
 
     // $ANTLR start "rule__PrimaryExpression__Group_0__1"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1267:1: rule__PrimaryExpression__Group_0__1 : rule__PrimaryExpression__Group_0__1__Impl ;
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1378:1: rule__PrimaryExpression__Group_0__1 : rule__PrimaryExpression__Group_0__1__Impl ;
     public final void rule__PrimaryExpression__Group_0__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1271:1: ( rule__PrimaryExpression__Group_0__1__Impl )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1272:2: rule__PrimaryExpression__Group_0__1__Impl
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1382:1: ( rule__PrimaryExpression__Group_0__1__Impl )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1383:2: rule__PrimaryExpression__Group_0__1__Impl
             {
-            pushFollow(FOLLOW_rule__PrimaryExpression__Group_0__1__Impl_in_rule__PrimaryExpression__Group_0__12485);
+            pushFollow(FOLLOW_rule__PrimaryExpression__Group_0__1__Impl_in_rule__PrimaryExpression__Group_0__12713);
             rule__PrimaryExpression__Group_0__1__Impl();
 
             state._fsp--;
@@ -3300,23 +3648,23 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
 
 
     // $ANTLR start "rule__PrimaryExpression__Group_0__1__Impl"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1278:1: rule__PrimaryExpression__Group_0__1__Impl : ( ( rule__PrimaryExpression__FeatureIdAssignment_0_1 ) ) ;
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1389:1: rule__PrimaryExpression__Group_0__1__Impl : ( ( rule__PrimaryExpression__FeatureIdAssignment_0_1 ) ) ;
     public final void rule__PrimaryExpression__Group_0__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1282:1: ( ( ( rule__PrimaryExpression__FeatureIdAssignment_0_1 ) ) )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1283:1: ( ( rule__PrimaryExpression__FeatureIdAssignment_0_1 ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1393:1: ( ( ( rule__PrimaryExpression__FeatureIdAssignment_0_1 ) ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1394:1: ( ( rule__PrimaryExpression__FeatureIdAssignment_0_1 ) )
             {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1283:1: ( ( rule__PrimaryExpression__FeatureIdAssignment_0_1 ) )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1284:1: ( rule__PrimaryExpression__FeatureIdAssignment_0_1 )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1394:1: ( ( rule__PrimaryExpression__FeatureIdAssignment_0_1 ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1395:1: ( rule__PrimaryExpression__FeatureIdAssignment_0_1 )
             {
              before(grammarAccess.getPrimaryExpressionAccess().getFeatureIdAssignment_0_1()); 
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1285:1: ( rule__PrimaryExpression__FeatureIdAssignment_0_1 )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1285:2: rule__PrimaryExpression__FeatureIdAssignment_0_1
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1396:1: ( rule__PrimaryExpression__FeatureIdAssignment_0_1 )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1396:2: rule__PrimaryExpression__FeatureIdAssignment_0_1
             {
-            pushFollow(FOLLOW_rule__PrimaryExpression__FeatureIdAssignment_0_1_in_rule__PrimaryExpression__Group_0__1__Impl2512);
+            pushFollow(FOLLOW_rule__PrimaryExpression__FeatureIdAssignment_0_1_in_rule__PrimaryExpression__Group_0__1__Impl2740);
             rule__PrimaryExpression__FeatureIdAssignment_0_1();
 
             state._fsp--;
@@ -3347,21 +3695,21 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
 
 
     // $ANTLR start "rule__PrimaryExpression__Group_1__0"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1299:1: rule__PrimaryExpression__Group_1__0 : rule__PrimaryExpression__Group_1__0__Impl rule__PrimaryExpression__Group_1__1 ;
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1410:1: rule__PrimaryExpression__Group_1__0 : rule__PrimaryExpression__Group_1__0__Impl rule__PrimaryExpression__Group_1__1 ;
     public final void rule__PrimaryExpression__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1303:1: ( rule__PrimaryExpression__Group_1__0__Impl rule__PrimaryExpression__Group_1__1 )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1304:2: rule__PrimaryExpression__Group_1__0__Impl rule__PrimaryExpression__Group_1__1
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1414:1: ( rule__PrimaryExpression__Group_1__0__Impl rule__PrimaryExpression__Group_1__1 )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1415:2: rule__PrimaryExpression__Group_1__0__Impl rule__PrimaryExpression__Group_1__1
             {
-            pushFollow(FOLLOW_rule__PrimaryExpression__Group_1__0__Impl_in_rule__PrimaryExpression__Group_1__02546);
+            pushFollow(FOLLOW_rule__PrimaryExpression__Group_1__0__Impl_in_rule__PrimaryExpression__Group_1__02774);
             rule__PrimaryExpression__Group_1__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__PrimaryExpression__Group_1__1_in_rule__PrimaryExpression__Group_1__02549);
+            pushFollow(FOLLOW_rule__PrimaryExpression__Group_1__1_in_rule__PrimaryExpression__Group_1__02777);
             rule__PrimaryExpression__Group_1__1();
 
             state._fsp--;
@@ -3385,20 +3733,20 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
 
 
     // $ANTLR start "rule__PrimaryExpression__Group_1__0__Impl"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1311:1: rule__PrimaryExpression__Group_1__0__Impl : ( '(' ) ;
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1422:1: rule__PrimaryExpression__Group_1__0__Impl : ( '(' ) ;
     public final void rule__PrimaryExpression__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1315:1: ( ( '(' ) )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1316:1: ( '(' )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1426:1: ( ( '(' ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1427:1: ( '(' )
             {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1316:1: ( '(' )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1317:1: '('
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1427:1: ( '(' )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1428:1: '('
             {
              before(grammarAccess.getPrimaryExpressionAccess().getLeftParenthesisKeyword_1_0()); 
-            match(input,18,FOLLOW_18_in_rule__PrimaryExpression__Group_1__0__Impl2577); 
+            match(input,18,FOLLOW_18_in_rule__PrimaryExpression__Group_1__0__Impl2805); 
              after(grammarAccess.getPrimaryExpressionAccess().getLeftParenthesisKeyword_1_0()); 
 
             }
@@ -3422,21 +3770,21 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
 
 
     // $ANTLR start "rule__PrimaryExpression__Group_1__1"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1330:1: rule__PrimaryExpression__Group_1__1 : rule__PrimaryExpression__Group_1__1__Impl rule__PrimaryExpression__Group_1__2 ;
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1441:1: rule__PrimaryExpression__Group_1__1 : rule__PrimaryExpression__Group_1__1__Impl rule__PrimaryExpression__Group_1__2 ;
     public final void rule__PrimaryExpression__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1334:1: ( rule__PrimaryExpression__Group_1__1__Impl rule__PrimaryExpression__Group_1__2 )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1335:2: rule__PrimaryExpression__Group_1__1__Impl rule__PrimaryExpression__Group_1__2
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1445:1: ( rule__PrimaryExpression__Group_1__1__Impl rule__PrimaryExpression__Group_1__2 )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1446:2: rule__PrimaryExpression__Group_1__1__Impl rule__PrimaryExpression__Group_1__2
             {
-            pushFollow(FOLLOW_rule__PrimaryExpression__Group_1__1__Impl_in_rule__PrimaryExpression__Group_1__12608);
+            pushFollow(FOLLOW_rule__PrimaryExpression__Group_1__1__Impl_in_rule__PrimaryExpression__Group_1__12836);
             rule__PrimaryExpression__Group_1__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__PrimaryExpression__Group_1__2_in_rule__PrimaryExpression__Group_1__12611);
+            pushFollow(FOLLOW_rule__PrimaryExpression__Group_1__2_in_rule__PrimaryExpression__Group_1__12839);
             rule__PrimaryExpression__Group_1__2();
 
             state._fsp--;
@@ -3460,20 +3808,20 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
 
 
     // $ANTLR start "rule__PrimaryExpression__Group_1__1__Impl"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1342:1: rule__PrimaryExpression__Group_1__1__Impl : ( ruleExpression ) ;
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1453:1: rule__PrimaryExpression__Group_1__1__Impl : ( ruleExpression ) ;
     public final void rule__PrimaryExpression__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1346:1: ( ( ruleExpression ) )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1347:1: ( ruleExpression )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1457:1: ( ( ruleExpression ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1458:1: ( ruleExpression )
             {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1347:1: ( ruleExpression )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1348:1: ruleExpression
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1458:1: ( ruleExpression )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1459:1: ruleExpression
             {
              before(grammarAccess.getPrimaryExpressionAccess().getExpressionParserRuleCall_1_1()); 
-            pushFollow(FOLLOW_ruleExpression_in_rule__PrimaryExpression__Group_1__1__Impl2638);
+            pushFollow(FOLLOW_ruleExpression_in_rule__PrimaryExpression__Group_1__1__Impl2866);
             ruleExpression();
 
             state._fsp--;
@@ -3501,16 +3849,16 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
 
 
     // $ANTLR start "rule__PrimaryExpression__Group_1__2"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1359:1: rule__PrimaryExpression__Group_1__2 : rule__PrimaryExpression__Group_1__2__Impl ;
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1470:1: rule__PrimaryExpression__Group_1__2 : rule__PrimaryExpression__Group_1__2__Impl ;
     public final void rule__PrimaryExpression__Group_1__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1363:1: ( rule__PrimaryExpression__Group_1__2__Impl )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1364:2: rule__PrimaryExpression__Group_1__2__Impl
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1474:1: ( rule__PrimaryExpression__Group_1__2__Impl )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1475:2: rule__PrimaryExpression__Group_1__2__Impl
             {
-            pushFollow(FOLLOW_rule__PrimaryExpression__Group_1__2__Impl_in_rule__PrimaryExpression__Group_1__22667);
+            pushFollow(FOLLOW_rule__PrimaryExpression__Group_1__2__Impl_in_rule__PrimaryExpression__Group_1__22895);
             rule__PrimaryExpression__Group_1__2__Impl();
 
             state._fsp--;
@@ -3534,20 +3882,20 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
 
 
     // $ANTLR start "rule__PrimaryExpression__Group_1__2__Impl"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1370:1: rule__PrimaryExpression__Group_1__2__Impl : ( ')' ) ;
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1481:1: rule__PrimaryExpression__Group_1__2__Impl : ( ')' ) ;
     public final void rule__PrimaryExpression__Group_1__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1374:1: ( ( ')' ) )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1375:1: ( ')' )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1485:1: ( ( ')' ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1486:1: ( ')' )
             {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1375:1: ( ')' )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1376:1: ')'
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1486:1: ( ')' )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1487:1: ')'
             {
              before(grammarAccess.getPrimaryExpressionAccess().getRightParenthesisKeyword_1_2()); 
-            match(input,19,FOLLOW_19_in_rule__PrimaryExpression__Group_1__2__Impl2695); 
+            match(input,19,FOLLOW_19_in_rule__PrimaryExpression__Group_1__2__Impl2923); 
              after(grammarAccess.getPrimaryExpressionAccess().getRightParenthesisKeyword_1_2()); 
 
             }
@@ -3571,20 +3919,20 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
 
 
     // $ANTLR start "rule__ContextualExpression__ContextIdAssignment_0_2"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1396:1: rule__ContextualExpression__ContextIdAssignment_0_2 : ( RULE_ID ) ;
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1507:1: rule__ContextualExpression__ContextIdAssignment_0_2 : ( RULE_ID ) ;
     public final void rule__ContextualExpression__ContextIdAssignment_0_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1400:1: ( ( RULE_ID ) )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1401:1: ( RULE_ID )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1511:1: ( ( RULE_ID ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1512:1: ( RULE_ID )
             {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1401:1: ( RULE_ID )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1402:1: RULE_ID
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1512:1: ( RULE_ID )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1513:1: RULE_ID
             {
              before(grammarAccess.getContextualExpressionAccess().getContextIdIDTerminalRuleCall_0_2_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ContextualExpression__ContextIdAssignment_0_22737); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ContextualExpression__ContextIdAssignment_0_22965); 
              after(grammarAccess.getContextualExpressionAccess().getContextIdIDTerminalRuleCall_0_2_0()); 
 
             }
@@ -3608,20 +3956,20 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
 
 
     // $ANTLR start "rule__ContextualExpression__ExpressionAssignment_0_4"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1411:1: rule__ContextualExpression__ExpressionAssignment_0_4 : ( ruleImplication ) ;
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1522:1: rule__ContextualExpression__ExpressionAssignment_0_4 : ( ruleImplication ) ;
     public final void rule__ContextualExpression__ExpressionAssignment_0_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1415:1: ( ( ruleImplication ) )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1416:1: ( ruleImplication )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1526:1: ( ( ruleImplication ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1527:1: ( ruleImplication )
             {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1416:1: ( ruleImplication )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1417:1: ruleImplication
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1527:1: ( ruleImplication )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1528:1: ruleImplication
             {
              before(grammarAccess.getContextualExpressionAccess().getExpressionImplicationParserRuleCall_0_4_0()); 
-            pushFollow(FOLLOW_ruleImplication_in_rule__ContextualExpression__ExpressionAssignment_0_42768);
+            pushFollow(FOLLOW_ruleImplication_in_rule__ContextualExpression__ExpressionAssignment_0_42996);
             ruleImplication();
 
             state._fsp--;
@@ -3649,20 +3997,20 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
 
 
     // $ANTLR start "rule__Implication__RightPartAssignment_1_2"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1426:1: rule__Implication__RightPartAssignment_1_2 : ( ruleDisjunction ) ;
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1537:1: rule__Implication__RightPartAssignment_1_2 : ( ruleDisjunction ) ;
     public final void rule__Implication__RightPartAssignment_1_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1430:1: ( ( ruleDisjunction ) )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1431:1: ( ruleDisjunction )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1541:1: ( ( ruleDisjunction ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1542:1: ( ruleDisjunction )
             {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1431:1: ( ruleDisjunction )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1432:1: ruleDisjunction
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1542:1: ( ruleDisjunction )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1543:1: ruleDisjunction
             {
              before(grammarAccess.getImplicationAccess().getRightPartDisjunctionParserRuleCall_1_2_0()); 
-            pushFollow(FOLLOW_ruleDisjunction_in_rule__Implication__RightPartAssignment_1_22799);
+            pushFollow(FOLLOW_ruleDisjunction_in_rule__Implication__RightPartAssignment_1_23027);
             ruleDisjunction();
 
             state._fsp--;
@@ -3689,26 +4037,26 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
     // $ANTLR end "rule__Implication__RightPartAssignment_1_2"
 
 
-    // $ANTLR start "rule__Disjunction__PartsAssignment_1_2"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1441:1: rule__Disjunction__PartsAssignment_1_2 : ( ruleExclusiveDisjunction ) ;
-    public final void rule__Disjunction__PartsAssignment_1_2() throws RecognitionException {
+    // $ANTLR start "rule__Disjunction__PartsAssignment_1_1_1"
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1552:1: rule__Disjunction__PartsAssignment_1_1_1 : ( ruleExclusiveDisjunction ) ;
+    public final void rule__Disjunction__PartsAssignment_1_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1445:1: ( ( ruleExclusiveDisjunction ) )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1446:1: ( ruleExclusiveDisjunction )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1556:1: ( ( ruleExclusiveDisjunction ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1557:1: ( ruleExclusiveDisjunction )
             {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1446:1: ( ruleExclusiveDisjunction )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1447:1: ruleExclusiveDisjunction
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1557:1: ( ruleExclusiveDisjunction )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1558:1: ruleExclusiveDisjunction
             {
-             before(grammarAccess.getDisjunctionAccess().getPartsExclusiveDisjunctionParserRuleCall_1_2_0()); 
-            pushFollow(FOLLOW_ruleExclusiveDisjunction_in_rule__Disjunction__PartsAssignment_1_22830);
+             before(grammarAccess.getDisjunctionAccess().getPartsExclusiveDisjunctionParserRuleCall_1_1_1_0()); 
+            pushFollow(FOLLOW_ruleExclusiveDisjunction_in_rule__Disjunction__PartsAssignment_1_1_13058);
             ruleExclusiveDisjunction();
 
             state._fsp--;
 
-             after(grammarAccess.getDisjunctionAccess().getPartsExclusiveDisjunctionParserRuleCall_1_2_0()); 
+             after(grammarAccess.getDisjunctionAccess().getPartsExclusiveDisjunctionParserRuleCall_1_1_1_0()); 
 
             }
 
@@ -3727,29 +4075,29 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
         }
         return ;
     }
-    // $ANTLR end "rule__Disjunction__PartsAssignment_1_2"
+    // $ANTLR end "rule__Disjunction__PartsAssignment_1_1_1"
 
 
-    // $ANTLR start "rule__ExclusiveDisjunction__PartsAssignment_1_2"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1456:1: rule__ExclusiveDisjunction__PartsAssignment_1_2 : ( ruleConjunction ) ;
-    public final void rule__ExclusiveDisjunction__PartsAssignment_1_2() throws RecognitionException {
+    // $ANTLR start "rule__ExclusiveDisjunction__PartsAssignment_1_1_1"
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1567:1: rule__ExclusiveDisjunction__PartsAssignment_1_1_1 : ( ruleConjunction ) ;
+    public final void rule__ExclusiveDisjunction__PartsAssignment_1_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1460:1: ( ( ruleConjunction ) )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1461:1: ( ruleConjunction )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1571:1: ( ( ruleConjunction ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1572:1: ( ruleConjunction )
             {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1461:1: ( ruleConjunction )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1462:1: ruleConjunction
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1572:1: ( ruleConjunction )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1573:1: ruleConjunction
             {
-             before(grammarAccess.getExclusiveDisjunctionAccess().getPartsConjunctionParserRuleCall_1_2_0()); 
-            pushFollow(FOLLOW_ruleConjunction_in_rule__ExclusiveDisjunction__PartsAssignment_1_22861);
+             before(grammarAccess.getExclusiveDisjunctionAccess().getPartsConjunctionParserRuleCall_1_1_1_0()); 
+            pushFollow(FOLLOW_ruleConjunction_in_rule__ExclusiveDisjunction__PartsAssignment_1_1_13089);
             ruleConjunction();
 
             state._fsp--;
 
-             after(grammarAccess.getExclusiveDisjunctionAccess().getPartsConjunctionParserRuleCall_1_2_0()); 
+             after(grammarAccess.getExclusiveDisjunctionAccess().getPartsConjunctionParserRuleCall_1_1_1_0()); 
 
             }
 
@@ -3768,29 +4116,29 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
         }
         return ;
     }
-    // $ANTLR end "rule__ExclusiveDisjunction__PartsAssignment_1_2"
+    // $ANTLR end "rule__ExclusiveDisjunction__PartsAssignment_1_1_1"
 
 
-    // $ANTLR start "rule__Conjunction__PartsAssignment_1_2"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1471:1: rule__Conjunction__PartsAssignment_1_2 : ( ruleNegation ) ;
-    public final void rule__Conjunction__PartsAssignment_1_2() throws RecognitionException {
+    // $ANTLR start "rule__Conjunction__PartsAssignment_1_1_1"
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1582:1: rule__Conjunction__PartsAssignment_1_1_1 : ( ruleNegation ) ;
+    public final void rule__Conjunction__PartsAssignment_1_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1475:1: ( ( ruleNegation ) )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1476:1: ( ruleNegation )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1586:1: ( ( ruleNegation ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1587:1: ( ruleNegation )
             {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1476:1: ( ruleNegation )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1477:1: ruleNegation
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1587:1: ( ruleNegation )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1588:1: ruleNegation
             {
-             before(grammarAccess.getConjunctionAccess().getPartsNegationParserRuleCall_1_2_0()); 
-            pushFollow(FOLLOW_ruleNegation_in_rule__Conjunction__PartsAssignment_1_22892);
+             before(grammarAccess.getConjunctionAccess().getPartsNegationParserRuleCall_1_1_1_0()); 
+            pushFollow(FOLLOW_ruleNegation_in_rule__Conjunction__PartsAssignment_1_1_13120);
             ruleNegation();
 
             state._fsp--;
 
-             after(grammarAccess.getConjunctionAccess().getPartsNegationParserRuleCall_1_2_0()); 
+             after(grammarAccess.getConjunctionAccess().getPartsNegationParserRuleCall_1_1_1_0()); 
 
             }
 
@@ -3809,24 +4157,24 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
         }
         return ;
     }
-    // $ANTLR end "rule__Conjunction__PartsAssignment_1_2"
+    // $ANTLR end "rule__Conjunction__PartsAssignment_1_1_1"
 
 
     // $ANTLR start "rule__Negation__ExpressionAssignment_1_2"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1486:1: rule__Negation__ExpressionAssignment_1_2 : ( rulePrimaryExpression ) ;
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1597:1: rule__Negation__ExpressionAssignment_1_2 : ( rulePrimaryExpression ) ;
     public final void rule__Negation__ExpressionAssignment_1_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1490:1: ( ( rulePrimaryExpression ) )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1491:1: ( rulePrimaryExpression )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1601:1: ( ( rulePrimaryExpression ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1602:1: ( rulePrimaryExpression )
             {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1491:1: ( rulePrimaryExpression )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1492:1: rulePrimaryExpression
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1602:1: ( rulePrimaryExpression )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1603:1: rulePrimaryExpression
             {
              before(grammarAccess.getNegationAccess().getExpressionPrimaryExpressionParserRuleCall_1_2_0()); 
-            pushFollow(FOLLOW_rulePrimaryExpression_in_rule__Negation__ExpressionAssignment_1_22923);
+            pushFollow(FOLLOW_rulePrimaryExpression_in_rule__Negation__ExpressionAssignment_1_23151);
             rulePrimaryExpression();
 
             state._fsp--;
@@ -3854,20 +4202,20 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
 
 
     // $ANTLR start "rule__PrimaryExpression__FeatureIdAssignment_0_1"
-    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1501:1: rule__PrimaryExpression__FeatureIdAssignment_0_1 : ( RULE_ID ) ;
+    // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1612:1: rule__PrimaryExpression__FeatureIdAssignment_0_1 : ( RULE_ID ) ;
     public final void rule__PrimaryExpression__FeatureIdAssignment_0_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1505:1: ( ( RULE_ID ) )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1506:1: ( RULE_ID )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1616:1: ( ( RULE_ID ) )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1617:1: ( RULE_ID )
             {
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1506:1: ( RULE_ID )
-            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1507:1: RULE_ID
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1617:1: ( RULE_ID )
+            // ../cz.jpikl.yafmt.clang.scl.ui/src-gen/cz/jpikl/yafmt/clang/scl/ui/contentassist/antlr/internal/InternalSimpleConstraintLanguage.g:1618:1: RULE_ID
             {
              before(grammarAccess.getPrimaryExpressionAccess().getFeatureIdIDTerminalRuleCall_0_1_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__PrimaryExpression__FeatureIdAssignment_0_12954); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__PrimaryExpression__FeatureIdAssignment_0_13182); 
              after(grammarAccess.getPrimaryExpressionAccess().getFeatureIdIDTerminalRuleCall_0_1_0()); 
 
             }
@@ -3953,64 +4301,73 @@ public class InternalSimpleConstraintLanguageParser extends AbstractInternalCont
     public static final BitSet FOLLOW_rule__Disjunction__Group__1_in_rule__Disjunction__Group__01320 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleExclusiveDisjunction_in_rule__Disjunction__Group__0__Impl1347 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__Disjunction__Group__1__Impl_in_rule__Disjunction__Group__11376 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Disjunction__Group_1__0_in_rule__Disjunction__Group__1__Impl1403 = new BitSet(new long[]{0x0000000000004002L});
+    public static final BitSet FOLLOW_rule__Disjunction__Group_1__0_in_rule__Disjunction__Group__1__Impl1403 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__Disjunction__Group_1__0__Impl_in_rule__Disjunction__Group_1__01438 = new BitSet(new long[]{0x0000000000004000L});
     public static final BitSet FOLLOW_rule__Disjunction__Group_1__1_in_rule__Disjunction__Group_1__01441 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Disjunction__Group_1__1__Impl_in_rule__Disjunction__Group_1__11499 = new BitSet(new long[]{0x0000000000060010L});
-    public static final BitSet FOLLOW_rule__Disjunction__Group_1__2_in_rule__Disjunction__Group_1__11502 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_14_in_rule__Disjunction__Group_1__1__Impl1530 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Disjunction__Group_1__2__Impl_in_rule__Disjunction__Group_1__21561 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Disjunction__PartsAssignment_1_2_in_rule__Disjunction__Group_1__2__Impl1588 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ExclusiveDisjunction__Group__0__Impl_in_rule__ExclusiveDisjunction__Group__01624 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_rule__ExclusiveDisjunction__Group__1_in_rule__ExclusiveDisjunction__Group__01627 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleConjunction_in_rule__ExclusiveDisjunction__Group__0__Impl1654 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ExclusiveDisjunction__Group__1__Impl_in_rule__ExclusiveDisjunction__Group__11683 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ExclusiveDisjunction__Group_1__0_in_rule__ExclusiveDisjunction__Group__1__Impl1710 = new BitSet(new long[]{0x0000000000008002L});
-    public static final BitSet FOLLOW_rule__ExclusiveDisjunction__Group_1__0__Impl_in_rule__ExclusiveDisjunction__Group_1__01745 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_rule__ExclusiveDisjunction__Group_1__1_in_rule__ExclusiveDisjunction__Group_1__01748 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ExclusiveDisjunction__Group_1__1__Impl_in_rule__ExclusiveDisjunction__Group_1__11806 = new BitSet(new long[]{0x0000000000060010L});
-    public static final BitSet FOLLOW_rule__ExclusiveDisjunction__Group_1__2_in_rule__ExclusiveDisjunction__Group_1__11809 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_15_in_rule__ExclusiveDisjunction__Group_1__1__Impl1837 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ExclusiveDisjunction__Group_1__2__Impl_in_rule__ExclusiveDisjunction__Group_1__21868 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ExclusiveDisjunction__PartsAssignment_1_2_in_rule__ExclusiveDisjunction__Group_1__2__Impl1895 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Conjunction__Group__0__Impl_in_rule__Conjunction__Group__01931 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_rule__Conjunction__Group__1_in_rule__Conjunction__Group__01934 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNegation_in_rule__Conjunction__Group__0__Impl1961 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Conjunction__Group__1__Impl_in_rule__Conjunction__Group__11990 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Conjunction__Group_1__0_in_rule__Conjunction__Group__1__Impl2017 = new BitSet(new long[]{0x0000000000010002L});
-    public static final BitSet FOLLOW_rule__Conjunction__Group_1__0__Impl_in_rule__Conjunction__Group_1__02052 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_rule__Conjunction__Group_1__1_in_rule__Conjunction__Group_1__02055 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Conjunction__Group_1__1__Impl_in_rule__Conjunction__Group_1__12113 = new BitSet(new long[]{0x0000000000060010L});
-    public static final BitSet FOLLOW_rule__Conjunction__Group_1__2_in_rule__Conjunction__Group_1__12116 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_16_in_rule__Conjunction__Group_1__1__Impl2144 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Conjunction__Group_1__2__Impl_in_rule__Conjunction__Group_1__22175 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Conjunction__PartsAssignment_1_2_in_rule__Conjunction__Group_1__2__Impl2202 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Negation__Group_1__0__Impl_in_rule__Negation__Group_1__02238 = new BitSet(new long[]{0x0000000000040010L});
-    public static final BitSet FOLLOW_rule__Negation__Group_1__1_in_rule__Negation__Group_1__02241 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_17_in_rule__Negation__Group_1__0__Impl2269 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Negation__Group_1__1__Impl_in_rule__Negation__Group_1__12300 = new BitSet(new long[]{0x0000000000040010L});
-    public static final BitSet FOLLOW_rule__Negation__Group_1__2_in_rule__Negation__Group_1__12303 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Negation__Group_1__2__Impl_in_rule__Negation__Group_1__22361 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Negation__ExpressionAssignment_1_2_in_rule__Negation__Group_1__2__Impl2388 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PrimaryExpression__Group_0__0__Impl_in_rule__PrimaryExpression__Group_0__02424 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__PrimaryExpression__Group_0__1_in_rule__PrimaryExpression__Group_0__02427 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PrimaryExpression__Group_0__1__Impl_in_rule__PrimaryExpression__Group_0__12485 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PrimaryExpression__FeatureIdAssignment_0_1_in_rule__PrimaryExpression__Group_0__1__Impl2512 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PrimaryExpression__Group_1__0__Impl_in_rule__PrimaryExpression__Group_1__02546 = new BitSet(new long[]{0x0000000000060810L});
-    public static final BitSet FOLLOW_rule__PrimaryExpression__Group_1__1_in_rule__PrimaryExpression__Group_1__02549 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_18_in_rule__PrimaryExpression__Group_1__0__Impl2577 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PrimaryExpression__Group_1__1__Impl_in_rule__PrimaryExpression__Group_1__12608 = new BitSet(new long[]{0x0000000000080000L});
-    public static final BitSet FOLLOW_rule__PrimaryExpression__Group_1__2_in_rule__PrimaryExpression__Group_1__12611 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExpression_in_rule__PrimaryExpression__Group_1__1__Impl2638 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PrimaryExpression__Group_1__2__Impl_in_rule__PrimaryExpression__Group_1__22667 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_19_in_rule__PrimaryExpression__Group_1__2__Impl2695 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__ContextualExpression__ContextIdAssignment_0_22737 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleImplication_in_rule__ContextualExpression__ExpressionAssignment_0_42768 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDisjunction_in_rule__Implication__RightPartAssignment_1_22799 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExclusiveDisjunction_in_rule__Disjunction__PartsAssignment_1_22830 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleConjunction_in_rule__ExclusiveDisjunction__PartsAssignment_1_22861 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNegation_in_rule__Conjunction__PartsAssignment_1_22892 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePrimaryExpression_in_rule__Negation__ExpressionAssignment_1_22923 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__PrimaryExpression__FeatureIdAssignment_0_12954 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Disjunction__Group_1__1__Impl_in_rule__Disjunction__Group_1__11499 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Disjunction__Group_1_1__0_in_rule__Disjunction__Group_1__1__Impl1528 = new BitSet(new long[]{0x0000000000004002L});
+    public static final BitSet FOLLOW_rule__Disjunction__Group_1_1__0_in_rule__Disjunction__Group_1__1__Impl1540 = new BitSet(new long[]{0x0000000000004002L});
+    public static final BitSet FOLLOW_rule__Disjunction__Group_1_1__0__Impl_in_rule__Disjunction__Group_1_1__01577 = new BitSet(new long[]{0x0000000000060010L});
+    public static final BitSet FOLLOW_rule__Disjunction__Group_1_1__1_in_rule__Disjunction__Group_1_1__01580 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_14_in_rule__Disjunction__Group_1_1__0__Impl1608 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Disjunction__Group_1_1__1__Impl_in_rule__Disjunction__Group_1_1__11639 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Disjunction__PartsAssignment_1_1_1_in_rule__Disjunction__Group_1_1__1__Impl1666 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ExclusiveDisjunction__Group__0__Impl_in_rule__ExclusiveDisjunction__Group__01700 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_rule__ExclusiveDisjunction__Group__1_in_rule__ExclusiveDisjunction__Group__01703 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleConjunction_in_rule__ExclusiveDisjunction__Group__0__Impl1730 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ExclusiveDisjunction__Group__1__Impl_in_rule__ExclusiveDisjunction__Group__11759 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ExclusiveDisjunction__Group_1__0_in_rule__ExclusiveDisjunction__Group__1__Impl1786 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ExclusiveDisjunction__Group_1__0__Impl_in_rule__ExclusiveDisjunction__Group_1__01821 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_rule__ExclusiveDisjunction__Group_1__1_in_rule__ExclusiveDisjunction__Group_1__01824 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ExclusiveDisjunction__Group_1__1__Impl_in_rule__ExclusiveDisjunction__Group_1__11882 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ExclusiveDisjunction__Group_1_1__0_in_rule__ExclusiveDisjunction__Group_1__1__Impl1911 = new BitSet(new long[]{0x0000000000008002L});
+    public static final BitSet FOLLOW_rule__ExclusiveDisjunction__Group_1_1__0_in_rule__ExclusiveDisjunction__Group_1__1__Impl1923 = new BitSet(new long[]{0x0000000000008002L});
+    public static final BitSet FOLLOW_rule__ExclusiveDisjunction__Group_1_1__0__Impl_in_rule__ExclusiveDisjunction__Group_1_1__01960 = new BitSet(new long[]{0x0000000000060010L});
+    public static final BitSet FOLLOW_rule__ExclusiveDisjunction__Group_1_1__1_in_rule__ExclusiveDisjunction__Group_1_1__01963 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_15_in_rule__ExclusiveDisjunction__Group_1_1__0__Impl1991 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ExclusiveDisjunction__Group_1_1__1__Impl_in_rule__ExclusiveDisjunction__Group_1_1__12022 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ExclusiveDisjunction__PartsAssignment_1_1_1_in_rule__ExclusiveDisjunction__Group_1_1__1__Impl2049 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Conjunction__Group__0__Impl_in_rule__Conjunction__Group__02083 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_rule__Conjunction__Group__1_in_rule__Conjunction__Group__02086 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNegation_in_rule__Conjunction__Group__0__Impl2113 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Conjunction__Group__1__Impl_in_rule__Conjunction__Group__12142 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Conjunction__Group_1__0_in_rule__Conjunction__Group__1__Impl2169 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Conjunction__Group_1__0__Impl_in_rule__Conjunction__Group_1__02204 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_rule__Conjunction__Group_1__1_in_rule__Conjunction__Group_1__02207 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Conjunction__Group_1__1__Impl_in_rule__Conjunction__Group_1__12265 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Conjunction__Group_1_1__0_in_rule__Conjunction__Group_1__1__Impl2294 = new BitSet(new long[]{0x0000000000010002L});
+    public static final BitSet FOLLOW_rule__Conjunction__Group_1_1__0_in_rule__Conjunction__Group_1__1__Impl2306 = new BitSet(new long[]{0x0000000000010002L});
+    public static final BitSet FOLLOW_rule__Conjunction__Group_1_1__0__Impl_in_rule__Conjunction__Group_1_1__02343 = new BitSet(new long[]{0x0000000000060010L});
+    public static final BitSet FOLLOW_rule__Conjunction__Group_1_1__1_in_rule__Conjunction__Group_1_1__02346 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_16_in_rule__Conjunction__Group_1_1__0__Impl2374 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Conjunction__Group_1_1__1__Impl_in_rule__Conjunction__Group_1_1__12405 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Conjunction__PartsAssignment_1_1_1_in_rule__Conjunction__Group_1_1__1__Impl2432 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Negation__Group_1__0__Impl_in_rule__Negation__Group_1__02466 = new BitSet(new long[]{0x0000000000040010L});
+    public static final BitSet FOLLOW_rule__Negation__Group_1__1_in_rule__Negation__Group_1__02469 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_17_in_rule__Negation__Group_1__0__Impl2497 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Negation__Group_1__1__Impl_in_rule__Negation__Group_1__12528 = new BitSet(new long[]{0x0000000000040010L});
+    public static final BitSet FOLLOW_rule__Negation__Group_1__2_in_rule__Negation__Group_1__12531 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Negation__Group_1__2__Impl_in_rule__Negation__Group_1__22589 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Negation__ExpressionAssignment_1_2_in_rule__Negation__Group_1__2__Impl2616 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PrimaryExpression__Group_0__0__Impl_in_rule__PrimaryExpression__Group_0__02652 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_rule__PrimaryExpression__Group_0__1_in_rule__PrimaryExpression__Group_0__02655 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PrimaryExpression__Group_0__1__Impl_in_rule__PrimaryExpression__Group_0__12713 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PrimaryExpression__FeatureIdAssignment_0_1_in_rule__PrimaryExpression__Group_0__1__Impl2740 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PrimaryExpression__Group_1__0__Impl_in_rule__PrimaryExpression__Group_1__02774 = new BitSet(new long[]{0x0000000000060810L});
+    public static final BitSet FOLLOW_rule__PrimaryExpression__Group_1__1_in_rule__PrimaryExpression__Group_1__02777 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_18_in_rule__PrimaryExpression__Group_1__0__Impl2805 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PrimaryExpression__Group_1__1__Impl_in_rule__PrimaryExpression__Group_1__12836 = new BitSet(new long[]{0x0000000000080000L});
+    public static final BitSet FOLLOW_rule__PrimaryExpression__Group_1__2_in_rule__PrimaryExpression__Group_1__12839 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExpression_in_rule__PrimaryExpression__Group_1__1__Impl2866 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PrimaryExpression__Group_1__2__Impl_in_rule__PrimaryExpression__Group_1__22895 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_19_in_rule__PrimaryExpression__Group_1__2__Impl2923 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__ContextualExpression__ContextIdAssignment_0_22965 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleImplication_in_rule__ContextualExpression__ExpressionAssignment_0_42996 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDisjunction_in_rule__Implication__RightPartAssignment_1_23027 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExclusiveDisjunction_in_rule__Disjunction__PartsAssignment_1_1_13058 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleConjunction_in_rule__ExclusiveDisjunction__PartsAssignment_1_1_13089 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNegation_in_rule__Conjunction__PartsAssignment_1_1_13120 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulePrimaryExpression_in_rule__Negation__ExpressionAssignment_1_23151 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__PrimaryExpression__FeatureIdAssignment_0_13182 = new BitSet(new long[]{0x0000000000000002L});
 
 }

@@ -17,12 +17,18 @@ import org.eclipse.xtext.serializer.sequencer.AbstractSyntacticSequencer;
 public class SimpleConstraintLanguageSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected SimpleConstraintLanguageGrammarAccess grammarAccess;
+	protected AbstractElementAlias match_Conjunction_AndKeyword_1_1_0_q;
+	protected AbstractElementAlias match_Disjunction_OrKeyword_1_1_0_q;
+	protected AbstractElementAlias match_ExclusiveDisjunction_XorKeyword_1_1_0_q;
 	protected AbstractElementAlias match_PrimaryExpression_LeftParenthesisKeyword_1_0_a;
 	protected AbstractElementAlias match_PrimaryExpression_LeftParenthesisKeyword_1_0_p;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (SimpleConstraintLanguageGrammarAccess) access;
+		match_Conjunction_AndKeyword_1_1_0_q = new TokenAlias(false, true, grammarAccess.getConjunctionAccess().getAndKeyword_1_1_0());
+		match_Disjunction_OrKeyword_1_1_0_q = new TokenAlias(false, true, grammarAccess.getDisjunctionAccess().getOrKeyword_1_1_0());
+		match_ExclusiveDisjunction_XorKeyword_1_1_0_q = new TokenAlias(false, true, grammarAccess.getExclusiveDisjunctionAccess().getXorKeyword_1_1_0());
 		match_PrimaryExpression_LeftParenthesisKeyword_1_0_a = new TokenAlias(true, true, grammarAccess.getPrimaryExpressionAccess().getLeftParenthesisKeyword_1_0());
 		match_PrimaryExpression_LeftParenthesisKeyword_1_0_p = new TokenAlias(true, false, grammarAccess.getPrimaryExpressionAccess().getLeftParenthesisKeyword_1_0());
 	}
@@ -39,7 +45,13 @@ public class SimpleConstraintLanguageSyntacticSequencer extends AbstractSyntacti
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if(match_PrimaryExpression_LeftParenthesisKeyword_1_0_a.equals(syntax))
+			if(match_Conjunction_AndKeyword_1_1_0_q.equals(syntax))
+				emit_Conjunction_AndKeyword_1_1_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_Disjunction_OrKeyword_1_1_0_q.equals(syntax))
+				emit_Disjunction_OrKeyword_1_1_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_ExclusiveDisjunction_XorKeyword_1_1_0_q.equals(syntax))
+				emit_ExclusiveDisjunction_XorKeyword_1_1_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_PrimaryExpression_LeftParenthesisKeyword_1_0_a.equals(syntax))
 				emit_PrimaryExpression_LeftParenthesisKeyword_1_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_PrimaryExpression_LeftParenthesisKeyword_1_0_p.equals(syntax))
 				emit_PrimaryExpression_LeftParenthesisKeyword_1_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
@@ -47,6 +59,30 @@ public class SimpleConstraintLanguageSyntacticSequencer extends AbstractSyntacti
 		}
 	}
 
+	/**
+	 * Syntax:
+	 *     'and'?
+	 */
+	protected void emit_Conjunction_AndKeyword_1_1_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Syntax:
+	 *     'or'?
+	 */
+	protected void emit_Disjunction_OrKeyword_1_1_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Syntax:
+	 *     'xor'?
+	 */
+	protected void emit_ExclusiveDisjunction_XorKeyword_1_1_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
 	/**
 	 * Syntax:
 	 *     '('*

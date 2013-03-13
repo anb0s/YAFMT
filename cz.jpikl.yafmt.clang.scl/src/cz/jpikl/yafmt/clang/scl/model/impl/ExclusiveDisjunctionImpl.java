@@ -167,7 +167,7 @@ public class ExclusiveDisjunctionImpl extends ExpressionImpl implements Exclusiv
         // if true only if exactly one of A1, A2, ..., An is true.
         
         Set<Selection> internalProblemSelections = new HashSet<Selection>();
-
+System.out.println(parts.size());
         // XOR expression.
         if(expectTrue) {
             // Exactly one must be true.

@@ -261,14 +261,14 @@ ruleDisjunction returns [EObject current=null]
             grammarAccess.getDisjunctionAccess().getDisjunctionPartsAction_1_0(),
             $current);
     }
-)	otherlv_2='or' 
+)(	otherlv_2='or' 
     {
-    	newLeafNode(otherlv_2, grammarAccess.getDisjunctionAccess().getOrKeyword_1_1());
+    	newLeafNode(otherlv_2, grammarAccess.getDisjunctionAccess().getOrKeyword_1_1_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getDisjunctionAccess().getPartsExclusiveDisjunctionParserRuleCall_1_2_0()); 
+	        newCompositeNode(grammarAccess.getDisjunctionAccess().getPartsExclusiveDisjunctionParserRuleCall_1_1_1_0()); 
 	    }
 		lv_parts_3_0=ruleExclusiveDisjunction		{
 	        if ($current==null) {
@@ -283,7 +283,7 @@ ruleDisjunction returns [EObject current=null]
 	    }
 
 )
-))*)
+))+)?)
 ;
 
 
@@ -319,14 +319,14 @@ ruleExclusiveDisjunction returns [EObject current=null]
             grammarAccess.getExclusiveDisjunctionAccess().getExclusiveDisjunctionPartsAction_1_0(),
             $current);
     }
-)	otherlv_2='xor' 
+)(	otherlv_2='xor' 
     {
-    	newLeafNode(otherlv_2, grammarAccess.getExclusiveDisjunctionAccess().getXorKeyword_1_1());
+    	newLeafNode(otherlv_2, grammarAccess.getExclusiveDisjunctionAccess().getXorKeyword_1_1_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getExclusiveDisjunctionAccess().getPartsConjunctionParserRuleCall_1_2_0()); 
+	        newCompositeNode(grammarAccess.getExclusiveDisjunctionAccess().getPartsConjunctionParserRuleCall_1_1_1_0()); 
 	    }
 		lv_parts_3_0=ruleConjunction		{
 	        if ($current==null) {
@@ -341,7 +341,7 @@ ruleExclusiveDisjunction returns [EObject current=null]
 	    }
 
 )
-))*)
+))+)?)
 ;
 
 
@@ -377,14 +377,14 @@ ruleConjunction returns [EObject current=null]
             grammarAccess.getConjunctionAccess().getConjunctionPartsAction_1_0(),
             $current);
     }
-)	otherlv_2='and' 
+)(	otherlv_2='and' 
     {
-    	newLeafNode(otherlv_2, grammarAccess.getConjunctionAccess().getAndKeyword_1_1());
+    	newLeafNode(otherlv_2, grammarAccess.getConjunctionAccess().getAndKeyword_1_1_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getConjunctionAccess().getPartsNegationParserRuleCall_1_2_0()); 
+	        newCompositeNode(grammarAccess.getConjunctionAccess().getPartsNegationParserRuleCall_1_1_1_0()); 
 	    }
 		lv_parts_3_0=ruleNegation		{
 	        if ($current==null) {
@@ -399,7 +399,7 @@ ruleConjunction returns [EObject current=null]
 	    }
 
 )
-))*)
+))+)?)
 ;
 
 

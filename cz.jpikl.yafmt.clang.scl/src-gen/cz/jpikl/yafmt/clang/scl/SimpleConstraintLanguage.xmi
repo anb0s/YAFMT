@@ -58,15 +58,17 @@
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.4"/>
-        <elements xsi:type="xtext:Group" cardinality="*">
+        <elements xsi:type="xtext:Group" cardinality="?">
           <elements xsi:type="xtext:Action" feature="parts" operator="+=">
             <type metamodel="/0/@metamodelDeclarations.0">
               <classifier xsi:type="ecore:EClass" href="https://bitbucket.org/jpikl/yafmt/clang/scl#//Disjunction"/>
             </type>
           </elements>
-          <elements xsi:type="xtext:Keyword" value="or"/>
-          <elements xsi:type="xtext:Assignment" feature="parts" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.4"/>
+          <elements xsi:type="xtext:Group" cardinality="+">
+            <elements xsi:type="xtext:Keyword" value="or"/>
+            <elements xsi:type="xtext:Assignment" feature="parts" operator="+=">
+              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.4"/>
+            </elements>
           </elements>
         </elements>
       </alternatives>
@@ -77,15 +79,17 @@
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.5"/>
-        <elements xsi:type="xtext:Group" cardinality="*">
+        <elements xsi:type="xtext:Group" cardinality="?">
           <elements xsi:type="xtext:Action" feature="parts" operator="+=">
             <type metamodel="/0/@metamodelDeclarations.0">
               <classifier xsi:type="ecore:EClass" href="https://bitbucket.org/jpikl/yafmt/clang/scl#//ExclusiveDisjunction"/>
             </type>
           </elements>
-          <elements xsi:type="xtext:Keyword" value="xor"/>
-          <elements xsi:type="xtext:Assignment" feature="parts" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.5"/>
+          <elements xsi:type="xtext:Group" cardinality="+">
+            <elements xsi:type="xtext:Keyword" value="xor"/>
+            <elements xsi:type="xtext:Assignment" feature="parts" operator="+=">
+              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.5"/>
+            </elements>
           </elements>
         </elements>
       </alternatives>
@@ -96,15 +100,17 @@
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.6"/>
-        <elements xsi:type="xtext:Group" cardinality="*">
+        <elements xsi:type="xtext:Group" cardinality="?">
           <elements xsi:type="xtext:Action" feature="parts" operator="+=">
             <type metamodel="/0/@metamodelDeclarations.0">
               <classifier xsi:type="ecore:EClass" href="https://bitbucket.org/jpikl/yafmt/clang/scl#//Conjunction"/>
             </type>
           </elements>
-          <elements xsi:type="xtext:Keyword" value="and"/>
-          <elements xsi:type="xtext:Assignment" feature="parts" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.6"/>
+          <elements xsi:type="xtext:Group" cardinality="+">
+            <elements xsi:type="xtext:Keyword" value="and"/>
+            <elements xsi:type="xtext:Assignment" feature="parts" operator="+=">
+              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.6"/>
+            </elements>
           </elements>
         </elements>
       </alternatives>

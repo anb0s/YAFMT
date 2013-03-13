@@ -156,7 +156,7 @@ public class SimpleConstraintLanguageSemanticSequencer extends AbstractDelegatin
 	
 	/**
 	 * Constraint:
-	 *     (parts+=Conjunction_Conjunction_1_0 parts+=Negation)
+	 *     (parts+=Conjunction_Conjunction_1_0 parts+=Negation+)
 	 */
 	protected void sequence_Conjunction(EObject context, Conjunction semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -184,7 +184,7 @@ public class SimpleConstraintLanguageSemanticSequencer extends AbstractDelegatin
 	
 	/**
 	 * Constraint:
-	 *     (parts+=Disjunction_Disjunction_1_0 parts+=ExclusiveDisjunction)
+	 *     (parts+=Disjunction_Disjunction_1_0 parts+=ExclusiveDisjunction+)
 	 */
 	protected void sequence_Disjunction(EObject context, Disjunction semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -193,7 +193,7 @@ public class SimpleConstraintLanguageSemanticSequencer extends AbstractDelegatin
 	
 	/**
 	 * Constraint:
-	 *     (parts+=ExclusiveDisjunction_ExclusiveDisjunction_1_0 parts+=Conjunction)
+	 *     (parts+=ExclusiveDisjunction_ExclusiveDisjunction_1_0 parts+=Conjunction+)
 	 */
 	protected void sequence_ExclusiveDisjunction(EObject context, ExclusiveDisjunction semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
