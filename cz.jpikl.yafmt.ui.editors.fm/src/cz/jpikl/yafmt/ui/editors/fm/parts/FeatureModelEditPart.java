@@ -108,10 +108,8 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
         if(editPart == null)
             return;
 
-        // Quit when state was not changed.
         boolean orphaned = feature.isOrphan();
-        if(!((FeatureEditPart) editPart).getFigure().setOrphaned(orphaned))
-            return;
+        ((FeatureEditPart) editPart).getFigure().setOrphaned(orphaned);
 
         TreeIterator<EObject> it = feature.eAllContents();
         while(it.hasNext()) {

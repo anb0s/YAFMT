@@ -175,6 +175,7 @@ public class FeatureConfigurationManager {
         Selection childSelection = virtualConnectionCache.getChildSelection(parentSelection, childFeature.getId());
         if(childSelection != null) {
             childSelection.getValues().clear();
+            childSelection.getSelections().clear();
             return childSelection;
         }
         return FeatureConfigurationUtil.createSelection(childFeature);

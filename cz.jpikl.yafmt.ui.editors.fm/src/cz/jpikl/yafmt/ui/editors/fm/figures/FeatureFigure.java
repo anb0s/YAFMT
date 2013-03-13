@@ -136,16 +136,16 @@ public class FeatureFigure extends RoundedRectangle {
         markerLayer.refresh();
     }
     
-    public void setConstrained(boolean value) {System.out.println(feature.getName() + " ... " +value);
+    public void setConstrained(boolean value) {
         constraintMarker.setVisible(value);
         markerLayer.refresh();
     }
     
-    public boolean setOrphaned(boolean value) {
-        if(orphaned == value)
-            return false;
-        orphaned = value;
-        return true;
+    public void setOrphaned(boolean value) {
+        if(orphaned != value) {
+            orphaned = value;
+            repaint();
+        }
     }
     
     public Label getLabel() {
