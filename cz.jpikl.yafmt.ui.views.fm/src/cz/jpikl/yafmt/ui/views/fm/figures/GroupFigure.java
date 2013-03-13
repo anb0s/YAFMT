@@ -13,7 +13,7 @@ public class GroupFigure extends NodeFigure {
         setFont(DrawConstantans.ITALIC_FONT);
         setBackgroundColor(ColorConstants.white);
         setForegroundColor(DrawConstantans.GROUP_COLOR);
-        setHightlightColor(DrawConstantans.GROUP_HL_COLOR);
+        setHightlightColor(DrawConstantans.GROUP_LIGHTER_COLOR);
         setBorderStyle(SWT.LINE_CUSTOM);
         setBorderDash(DrawConstantans.LINE_DASHED);
         setText(createCardinalityText(group) + " Group");

@@ -17,8 +17,9 @@ import org.eclipse.swt.graphics.Pattern;
 import org.eclipse.swt.widgets.Display;
 
 import cz.jpikl.yafmt.model.fm.Feature;
-import cz.jpikl.yafmt.ui.figures.DecorationLayer;
-import cz.jpikl.yafmt.ui.figures.ErrorDecoration;
+import cz.jpikl.yafmt.ui.figures.ConstraintMarker;
+import cz.jpikl.yafmt.ui.figures.MarkerLayer;
+import cz.jpikl.yafmt.ui.figures.ErrorMarker;
 import cz.jpikl.yafmt.ui.figures.SeparatorFigure;
 import cz.jpikl.yafmt.ui.figures.VerticalToolbarFigure;
 import cz.jpikl.yafmt.ui.util.DrawConstantans;
@@ -32,11 +33,11 @@ public class FeatureFigure extends RoundedRectangle {
     private Label label;
     private Label toolTip;
     private Figure mainLayer;
-    private DecorationLayer decorationLayer;
+    private MarkerLayer markerLayer;
     private Figure separatorFigure;
     private Figure attributesContainer;
-    private ErrorDecoration errorDecoration;
-    private ErrorDecoration constraintDecoration;
+    private ErrorMarker errorMarker;
+    private ConstraintMarker constraintMarker;
 
     private Feature feature;
     private boolean orphaned;
@@ -57,7 +58,7 @@ public class FeatureFigure extends RoundedRectangle {
         setLayoutManager(new StackLayout());
         setToolTip(createToolTip());
         add(createMainLayer());
-        add(createDecorationLayer());
+        add(createMarkerLayer());
     }
 
     private IFigure createToolTip() {
@@ -106,24 +107,24 @@ public class FeatureFigure extends RoundedRectangle {
     }
     
     // ==================================================================
-    //  Initialization (decorations layer)
+    //  Initialization (marker layer)
     // ==================================================================
     
-    private IFigure createDecorationLayer() {
-        decorationLayer = new DecorationLayer();
-        decorationLayer.add(createErrorDecoration());
-        decorationLayer.add(createConstraintDecoration());
-        return decorationLayer;
+    private IFigure createMarkerLayer() {
+        markerLayer = new MarkerLayer();
+        markerLayer.add(createErrorMarker());
+        markerLayer.add(createConstraintMarker());
+        return markerLayer;
     }
     
-    private IFigure createErrorDecoration() {
-        errorDecoration = new ErrorDecoration();
-        return errorDecoration;
+    private IFigure createErrorMarker() {
+        errorMarker = new ErrorMarker();
+        return errorMarker;
     }
     
-    private IFigure createConstraintDecoration() {
-        constraintDecoration = new ErrorDecoration();
-        return constraintDecoration;
+    private IFigure createConstraintMarker() {
+        constraintMarker = new ConstraintMarker();
+        return constraintMarker;
     }
     
     // ==================================================================
@@ -131,13 +132,13 @@ public class FeatureFigure extends RoundedRectangle {
     // ==================================================================
     
     public void setErrors(List<String> messages) {
-        errorDecoration.setErrors(messages);
-        decorationLayer.refresh();
+        errorMarker.setErrors(messages);
+        markerLayer.refresh();
     }
     
-    public void setConstrained(boolean value) {
-        constraintDecoration.setVisible(value);
-        decorationLayer.refresh();
+    public void setConstrained(boolean value) {System.out.println(feature.getName() + " ... " +value);
+        constraintMarker.setVisible(value);
+        markerLayer.refresh();
     }
     
     public boolean setOrphaned(boolean value) {

@@ -38,11 +38,11 @@ import cz.jpikl.yafmt.ui.validation.IProblemStore;
 
 public class FeatureModelEditPart extends AbstractGraphicalEditPart {
 
-    // Enabling constraint decorations may slow down editor when 
+    // Enabling constraint markers may slow down editor when 
     // editing large feature models with many constraints.
     // Each time when model modification is performed, constraint cache
     // and all affected feature figures must be refreshed.
-    private static final boolean CONSTRAINT_DECORATIONS_ENABLED = true;
+    private static final boolean CONSTRAINT_MARKERS_ENABLED = true;
 
     private FeatureModel featureModel;
     private LayoutData layoutData;
@@ -76,7 +76,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
     @Override
     public void addNotify() {
         super.addNotify();
-        refreshFeatureFiguresConstrainedDecoration();
+        refreshFeatureFiguresConstraintMarker();
     }
 
     @Override
@@ -124,22 +124,22 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
         }
     }
 
-    private void refreshFeatureFiguresConstrainedDecoration() {
-        if(!CONSTRAINT_DECORATIONS_ENABLED)
+    private void refreshFeatureFiguresConstraintMarker() {
+        if(!CONSTRAINT_MARKERS_ENABLED)
             return;
         
-        // Reset state of currently decorated figures.
+        // Reset state of currently marked figures.
         if(constraintCache == null)
             constraintCache = new ConstraintCache(featureModel);
         else
-            setFeatureFiguresConstrainedDecoration(false);
+            setFeatureFiguresConstraintMarker(false);
          
-        // Set state of newly decorated figures.
+        // Set state of newly marked figures.
         constraintCache.invalidate();
-        setFeatureFiguresConstrainedDecoration(true);
+        setFeatureFiguresConstraintMarker(true);
     }
     
-    private void setFeatureFiguresConstrainedDecoration(boolean constrained) {
+    private void setFeatureFiguresConstraintMarker(boolean constrained) {
         for(Feature feature: constraintCache.getFeaturesAffectedByConstraint()) {
             EditPart editPart = getEditPartForObject(feature);
             if(editPart != null)
@@ -306,7 +306,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
             else if((notifier instanceof Feature) || (notifier instanceof Group))
                 notifyChangedFromOthers(msg);
 
-            refreshFeatureFiguresConstrainedDecoration();
+            refreshFeatureFiguresConstraintMarker();
         }
 
         private void notifyChangedFromFeatureModel(Notification msg) {

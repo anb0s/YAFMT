@@ -11,17 +11,19 @@ public class DrawConstantans {
     public static final Font DEFAULT_FONT = getDefaultFont();
     public static final Font BOLD_FONT = getModifiedFont(DEFAULT_FONT, SWT.DEFAULT, SWT.BOLD);
     public static final Font ITALIC_FONT = getModifiedFont(DEFAULT_FONT, SWT.DEFAULT, SWT.ITALIC);
-    public static final Font TINY_FONT = getModifiedFont(DEFAULT_FONT, 7, SWT.DEFAULT);
+    public static final Font SMALL_FONT = getModifiedFont(DEFAULT_FONT, 7, SWT.DEFAULT);
+    public static final Font TINY_FONT = getModifiedFont(DEFAULT_FONT, 6, SWT.DEFAULT);
 
     public static final Color FEATURE_GRADIENT_COLOR = getColor(175, 201, 235);
-    public static final Color DARK_RED_COLOR = getColor(192, 0, 0);
+    public static final Color DARK_RED_COLOR = getColor(128, 0, 0);
 
     public static final Color FEATURE_COLOR = getColor(0, 0, 127);
-    public static final Color FEATURE_HL_COLOR = getColor(128, 128, 255);
+    public static final Color FEATURE_LIGHTER_COLOR = getColor(128, 128, 255);
     public static final Color CONSTRAINT_COLOR = getColor(91, 36, 120);
-    public static final Color CONSTRAINT_HL_COLOR = getColor(215, 195, 225);
+    public static final Color CONSTRAINT_LIGHTER_COLOR = getColor(215, 195, 225);
+    public static final Color CONSTRAINT_DARKER_COLOR = getColor(38, 14, 51);
     public static final Color GROUP_COLOR = getColor(36, 120, 113);
-    public static final Color GROUP_HL_COLOR = getColor(204, 229, 227);
+    public static final Color GROUP_LIGHTER_COLOR = getColor(204, 229, 227);
 
     public static final float[] LINE_DASHED = { 2.0f, 2.0f };
     public static final float[] LINE_DOTTED = { 1.0f, 2.0f };
@@ -29,13 +31,16 @@ public class DrawConstantans {
     public static void dispose() {
         BOLD_FONT.dispose();
         ITALIC_FONT.dispose();
+        SMALL_FONT.dispose();
+        TINY_FONT.dispose();
         CONSTRAINT_COLOR.dispose();
         FEATURE_GRADIENT_COLOR.dispose();
         DARK_RED_COLOR.dispose();
         CONSTRAINT_COLOR.dispose();
-        CONSTRAINT_HL_COLOR.dispose();
+        CONSTRAINT_LIGHTER_COLOR.dispose();
+        CONSTRAINT_DARKER_COLOR.dispose();
         GROUP_COLOR.dispose();
-        GROUP_HL_COLOR.dispose();
+        GROUP_LIGHTER_COLOR.dispose();
     }
 
     public static Font getDefaultFont() {

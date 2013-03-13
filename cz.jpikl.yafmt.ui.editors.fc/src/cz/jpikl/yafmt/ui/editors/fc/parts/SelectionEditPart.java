@@ -49,7 +49,7 @@ public class SelectionEditPart extends AbstractGraphicalEditPart implements Node
 
     @Override
     protected void refreshVisuals() {
-        // Update error decoration and repaint figure.
+        // Update error marker and repaint figure.
         SelectionFigure figure = getFigure();
         figure.setErrors(featureConfigManager.getProblemStore().getProblems(selection));
         figure.repaint();

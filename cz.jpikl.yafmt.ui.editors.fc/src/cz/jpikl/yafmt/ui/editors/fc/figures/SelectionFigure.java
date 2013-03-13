@@ -20,7 +20,7 @@ import org.eclipse.swt.graphics.Pattern;
 import org.eclipse.swt.widgets.Display;
 
 import cz.jpikl.yafmt.model.fc.Selection;
-import cz.jpikl.yafmt.ui.figures.ErrorDecoration;
+import cz.jpikl.yafmt.ui.figures.ErrorMarker;
 import cz.jpikl.yafmt.ui.util.DrawConstantans;
 import cz.jpikl.yafmt.ui.util.DrawUtil;
 
@@ -32,7 +32,7 @@ public class SelectionFigure extends RoundedRectangle {
     private Selection selection;
     
     private Label label;
-    private ErrorDecoration errorDecoration;
+    private ErrorMarker errorMarker;
 
     public SelectionFigure(Selection selection) {
         this.selection = selection;
@@ -51,7 +51,7 @@ public class SelectionFigure extends RoundedRectangle {
         setToolTip(createToolTip());
         
         add(createMainLayer());
-        add(createDecorationsLayer());
+        add(createMarkerLayer());
     }
 
     private IFigure createMainLayer() {
@@ -69,16 +69,16 @@ public class SelectionFigure extends RoundedRectangle {
         return label;
     }
     
-    private IFigure createDecorationsLayer() {
+    private IFigure createMarkerLayer() {
         Figure layer = new Figure();
-        layer.add(createErrorDecoration());
+        layer.add(createErrorMarker());
         return layer;
     }
     
-    private IFigure createErrorDecoration() {
-        errorDecoration = new ErrorDecoration();
-        errorDecoration.setLocation(new Point(2, 2));
-        return errorDecoration;
+    private IFigure createErrorMarker() {
+        errorMarker = new ErrorMarker();
+        errorMarker.setLocation(new Point(2, 2));
+        return errorMarker;
     }
     
     private Label createToolTip() {
@@ -102,7 +102,7 @@ public class SelectionFigure extends RoundedRectangle {
     }
     
     public void setErrors(List<String> messages) {
-        errorDecoration.setErrors(messages);
+        errorMarker.setErrors(messages);
     }
     
     // =================================================================

@@ -10,7 +10,7 @@ public class FeatureFigure extends DecoratableNodeFigure {
     public FeatureFigure(Feature feature) {
         setBackgroundColor(ColorConstants.white);
         setForegroundColor(DrawConstantans.FEATURE_COLOR);
-        setHightlightColor(DrawConstantans.FEATURE_HL_COLOR);
+        setHightlightColor(DrawConstantans.FEATURE_LIGHTER_COLOR);
         setText(feature.getName());
         setToolTipText(createToolTipText(feature));
     }

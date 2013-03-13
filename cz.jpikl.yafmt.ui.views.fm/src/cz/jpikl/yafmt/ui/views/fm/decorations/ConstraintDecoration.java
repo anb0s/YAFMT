@@ -38,11 +38,11 @@ public class ConstraintDecoration extends ImageDecoration {
         StringBuilder builder = new StringBuilder();
         
         if(constraints.size() == 1) {
-            builder.append("There is a constraint affecting this feature (");
+            builder.append("This feature is affected by a constraint (");
             builder.append(constraints.get(0).getValue()).append(").");
         }
         else {
-            builder.append("There are constraints affecting this feature:");
+            builder.append("This feature is affected by some constraints:");
             for(Constraint constraint: constraints)
                 builder.append("\n    - ").append(constraint.getValue());
         }

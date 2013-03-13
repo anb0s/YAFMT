@@ -8,15 +8,15 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 
-public class DecorationLayer extends Layer {
+public class MarkerLayer extends Layer {
     
     private int margin;
     
-    public DecorationLayer() {
+    public MarkerLayer() {
         this(2);
     }
     
-    public DecorationLayer(int margin) {
+    public MarkerLayer(int margin) {
         this.margin = margin;
         setLayoutManager(new XYLayout());
     }

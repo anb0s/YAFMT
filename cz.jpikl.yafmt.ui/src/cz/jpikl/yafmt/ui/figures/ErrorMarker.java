@@ -4,36 +4,26 @@ import java.util.Collection;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.Label;
-import org.eclipse.draw2d.RoundedRectangle;
-import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.PrecisionRectangle;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 import cz.jpikl.yafmt.ui.util.DrawConstantans;
-import cz.jpikl.yafmt.ui.util.DrawUtil;
 
-public class ErrorDecoration extends RoundedRectangle {
+public class ErrorMarker extends MarkerFigure {
 
-    private static final Dimension CORNER_DIMENSION = new Dimension(4, 4);
-    public static final int SIZE = 12; 
-    
-    private Label toolTip = new Label();
-
-    public ErrorDecoration() {
+    public ErrorMarker() {
         this(null);
     }
     
-    public ErrorDecoration(Collection<String> messages) {
+    public ErrorMarker(Collection<String> messages) {
         setForegroundColor(DrawConstantans.DARK_RED_COLOR);
         setBackgroundColor(ColorConstants.red);
-        setToolTip(toolTip);
-        setSize(SIZE, SIZE);
-        setCornerDimensions(CORNER_DIMENSION);
         setErrors(messages);
     }
 
     public void setErrors(Collection<String> messages) {
         if((messages == null) || messages.isEmpty()) {
+            setToolTipText(null);
             setVisible(false);
             return;
         }
@@ -46,23 +36,27 @@ public class ErrorDecoration extends RoundedRectangle {
                 builder.append("\n").append(message);
         }
 
-        toolTip.setText(builder.toString());
+        setToolTipText(builder.toString());
         setVisible(true);
     }
-    
+                
     @Override
-    protected void outlineShape(Graphics graphics) {
-        drawCross(graphics);
-        DrawUtil.fixZoomedFigureLocation(graphics);
-        super.outlineShape(graphics);
-    }
-            
-    private void drawCross(Graphics graphics) {
+    protected void paintContents(Graphics graphics) {
         graphics.setForegroundColor(ColorConstants.white);
-        Rectangle rect = bounds.getCopy().shrink(3, 3);
+        graphics.setLineWidth(1);
+        Rectangle rect = createCrossBounds();
         graphics.drawLine(rect.getTopLeft(), rect.getBottomRight());
         graphics.drawLine(rect.getBottomLeft(), rect.getTopRight());
         graphics.setForegroundColor(getForegroundColor());
+    }
+
+    private Rectangle createCrossBounds() {
+        Rectangle rect = new PrecisionRectangle(bounds);
+        rect.x += 3.0;
+        rect.y += 3.0;
+        rect.width -= 7.0;
+        rect.height -= 7.0;
+        return rect;
     }
 
 }

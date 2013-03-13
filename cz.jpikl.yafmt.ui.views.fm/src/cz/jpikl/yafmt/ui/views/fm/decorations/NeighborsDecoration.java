@@ -26,7 +26,7 @@ public class NeighborsDecoration extends RoundedRectangle implements IDecoration
 
         setCornerDimensions(new Dimension(15, 15));
         setForegroundColor(DrawConstantans.FEATURE_COLOR);
-        setBackgroundColor(DrawConstantans.FEATURE_HL_COLOR);
+        setBackgroundColor(DrawConstantans.FEATURE_LIGHTER_COLOR);
         setLineStyle(SWT.LINE_CUSTOM);
         setLineDash(DrawConstantans.LINE_DOTTED);
     }

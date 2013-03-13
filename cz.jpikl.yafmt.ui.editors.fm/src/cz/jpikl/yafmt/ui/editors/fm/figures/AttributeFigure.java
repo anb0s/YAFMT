@@ -8,7 +8,7 @@ import org.eclipse.draw2d.Label;
 
 import cz.jpikl.yafmt.model.fm.Attribute;
 import cz.jpikl.yafmt.model.fm.AttributeType;
-import cz.jpikl.yafmt.ui.figures.ErrorDecoration;
+import cz.jpikl.yafmt.ui.figures.ErrorMarker;
 
 public class AttributeFigure extends Label {
 
@@ -17,7 +17,7 @@ public class AttributeFigure extends Label {
     public static int EXTENDED_HEIGHT = 28;
 
     private Attribute attribute;
-    private ErrorDecoration errorDecoration;
+    private ErrorMarker errorMarker;
 
     public AttributeFigure(Attribute attribute) {
         this.attribute = attribute;
@@ -31,12 +31,12 @@ public class AttributeFigure extends Label {
     
     private void initialize() {
         setForegroundColor(ColorConstants.black);
-        add(createErrorDecoration());
+        add(createErrorMarker());
     }
     
-    private IFigure createErrorDecoration() {
-        errorDecoration = new ErrorDecoration();
-        return errorDecoration;
+    private IFigure createErrorMarker() {
+        errorMarker = new ErrorMarker();
+        return errorMarker;
     }
 
     // ==================================================================
@@ -44,7 +44,7 @@ public class AttributeFigure extends Label {
     // ==================================================================
     
     public void setErrors(List<String> messages) {
-        errorDecoration.setErrors(messages);
+        errorMarker.setErrors(messages);
     }
     
     public void refresh() {

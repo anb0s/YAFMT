@@ -17,7 +17,7 @@ import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
-import cz.jpikl.yafmt.ui.figures.ErrorDecoration;
+import cz.jpikl.yafmt.ui.figures.ErrorMarker;
 import cz.jpikl.yafmt.ui.figures.NonInteractiveLabel;
 import cz.jpikl.yafmt.ui.util.DrawUtil;
 
@@ -25,13 +25,13 @@ public class GroupFigure extends Shape {
 
     public static final int SIZE = 40;
     private static final int LABEL_DISTANCE = 50;
-    private static final int ERROR_DECORATION_DISTANCE = 14;
+    private static final int ERROR_MARKER_DISTANCE = 14;
 
     private Group group;
     private LayoutData layoutData;
     
     private Label label;
-    private ErrorDecoration errorDecoration;
+    private ErrorMarker errorMarker;
     
     private double[] connectionAngles;
     private int arcOffset = 0;
@@ -54,7 +54,7 @@ public class GroupFigure extends Shape {
         setForegroundColor(ColorConstants.black);
         setOpaque(true);
         createLabel();
-        add(createErrorDecoration());
+        add(createErrorMarker());
     }
 
     private void createLabel() {
@@ -62,9 +62,9 @@ public class GroupFigure extends Shape {
         label.setForegroundColor(ColorConstants.black);
     }
     
-    private IFigure createErrorDecoration() {
-        errorDecoration = new ErrorDecoration();
-        return errorDecoration;
+    private IFigure createErrorMarker() {
+        errorMarker = new ErrorMarker();
+        return errorMarker;
     }
     
     // ==================================================================
@@ -116,12 +116,12 @@ public class GroupFigure extends Shape {
             setBounds(newBounds.getCopy());
             recomputeArcData();
             repositionLabel();
-            repositionErrorDecoration();
+            repositionErrorMarker();
         }
     }
     
     public void setErrors(List<String> messages) {
-        errorDecoration.setErrors(messages);
+        errorMarker.setErrors(messages);
     }
     
     // ==================================================================
@@ -229,12 +229,12 @@ public class GroupFigure extends Shape {
         label.getParent().setConstraint(label, labelBounds); // Label is child of group's parent figure.
     }
     
-    private void repositionErrorDecoration() {
+    private void repositionErrorMarker() {
         double theta = Math.toRadians(arcOffset + arcLength / 2);
-        Dimension size = errorDecoration.getSize();
-        int x = (int) ((SIZE - size.width) / 2 + (ERROR_DECORATION_DISTANCE * Math.cos(theta)));
-        int y = (int) ((SIZE - size.height) / 2 - (ERROR_DECORATION_DISTANCE * Math.sin(theta)));
-        setConstraint(errorDecoration, new Rectangle(x, y, size.width, size.height));
+        Dimension size = errorMarker.getSize();
+        int x = (int) ((SIZE - size.width) / 2 + (ERROR_MARKER_DISTANCE * Math.cos(theta)));
+        int y = (int) ((SIZE - size.height) / 2 - (ERROR_MARKER_DISTANCE * Math.sin(theta)));
+        setConstraint(errorMarker, new Rectangle(x, y, size.width, size.height));
     }
     
     // ==================================================================
