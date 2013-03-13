@@ -1,5 +1,8 @@
 package cz.jpikl.yafmt.ui.editors.fm;
 
+import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.CONSTRAINT__VALUE;
+import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.FEATURE_MODEL__CONSTRAINTS;
+
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -50,7 +53,6 @@ import cz.jpikl.yafmt.model.fm.Constraint;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.FeatureModelFactory;
-import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
 import cz.jpikl.yafmt.ui.actions.DynamicContributionItem;
 import cz.jpikl.yafmt.ui.editors.fm.actions.SetConstraintLanguageAction;
 import cz.jpikl.yafmt.ui.editors.fm.commands.AddConstraintCommand;
@@ -282,15 +284,15 @@ public class ConstraintsEditor extends SplitterDock implements ISelectionListene
     private class FeatureModelAdapter extends EContentAdapter {
 
         @Override
-        public void notifyChanged(Notification notification) {
-            super.notifyChanged(notification);
+        public void notifyChanged(Notification msg) {
+            super.notifyChanged(msg);
 
             constraintCache.invalidate();
-            Object notifier = notification.getNotifier();
-            if((notifier instanceof FeatureModel) && (notification.getFeatureID(FeatureModel.class) == FeatureModelPackage.FEATURE_MODEL__CONSTRAINTS))
+            Object notifier = msg.getNotifier();
+            if((notifier instanceof FeatureModel) && (msg.getFeatureID(FeatureModel.class) == FEATURE_MODEL__CONSTRAINTS))
                 viewer.refresh();
-            else if((notifier instanceof Constraint) && (notification.getFeatureID(Constraint.class) == FeatureModelPackage.CONSTRAINT__VALUE))
-                viewer.refresh(notification.getNotifier());
+            else if((notifier instanceof Constraint) && (msg.getFeatureID(Constraint.class) == CONSTRAINT__VALUE))
+                viewer.refresh(msg.getNotifier());
         }
 
     }

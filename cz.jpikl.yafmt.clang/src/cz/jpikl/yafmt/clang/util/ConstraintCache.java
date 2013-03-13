@@ -54,6 +54,11 @@ public class ConstraintCache {
         valid = false;
     }
 
+    public Collection<Feature> getFeaturesAffectedByConstraint() {
+        checkValidity();
+        return featureToConstraints.keySet();
+    }
+    
     public Collection<Feature> getFeaturesAffectedByConstraint(Constraint constraint) {
         checkValidity();
         return constraintToFeatures.get(constraint);

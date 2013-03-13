@@ -228,6 +228,8 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
         }
 
         private void notifyChangedFromFeature(Notification msg) {
+            super.notifyChanged(msg);
+            
             switch(msg.getFeatureID(Feature.class)) {
                 case FEATURE__NAME:
                 case FEATURE__LOWER:

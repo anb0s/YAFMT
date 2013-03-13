@@ -188,6 +188,8 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
         }
         
         private void notifyChangedFromGroup(Notification msg) {
+            super.notifyChanged(msg);
+            
             switch(msg.getFeatureID(Group.class)) {
                 case GROUP__LOWER:
                 case GROUP__UPPER:
