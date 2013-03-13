@@ -42,10 +42,13 @@ public abstract class SplitterDock extends Composite {
 
     public SplitterDock(Splitter splitter, int style) {
         super(splitter, style);
-
         this.splitter = splitter;
         this.splitter.maintainSize(this);
     }
+    
+    // ====================================================================
+    //  Control creation
+    // ====================================================================
 
     public void buildControl() {
         setLayout(createGridLayout(1));
@@ -58,23 +61,7 @@ public abstract class SplitterDock extends Composite {
 
         refresh();
     }
-
-    public void setName(String name) {
-        titleText.setText(name);
-    }
-
-    public void setImage(Image image) {
-        titleImage.setImage(image);
-    }
-
-    public void setOpenToolTipText(String openToolTipText) {
-        this.openToolTipText = openToolTipText;
-    }
-
-    public void setCollapseToolTipText(String collapseToolTipText) {
-        this.collapseToolTipText = collapseToolTipText;
-    }
-
+    
     protected abstract Control createControl(Composite parent);
 
     protected void contributeToToolbar(ToolBar toolBar) {
@@ -82,7 +69,7 @@ public abstract class SplitterDock extends Composite {
 
     protected void contributeToContextMenu(IMenuManager manager) {
     }
-
+    
     private void createTopControl(Composite parent) {
         Composite header = createHeader(parent);
         createHeaderTitle(header);
@@ -143,6 +130,26 @@ public abstract class SplitterDock extends Composite {
         layout.marginHeight = 0;
         layout.marginWidth = 0;
         return layout;
+    }
+    
+    // ====================================================================
+    //  Properties
+    // ====================================================================
+
+    public void setName(String name) {
+        titleText.setText(name);
+    }
+
+    public void setImage(Image image) {
+        titleImage.setImage(image);
+    }
+
+    public void setOpenToolTipText(String openToolTipText) {
+        this.openToolTipText = openToolTipText;
+    }
+
+    public void setCollapseToolTipText(String collapseToolTipText) {
+        this.collapseToolTipText = collapseToolTipText;
     }
 
     private void switchState() {

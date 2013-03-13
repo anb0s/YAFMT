@@ -79,16 +79,20 @@ public class ConstraintsEditor extends SplitterDock implements ISelectionListene
 
     public ConstraintsEditor(Splitter splitter, GraphicalEditor editor) {
         super(splitter, SWT.NONE);
-
         commandStack = (CommandStack) editor.getAdapter(CommandStack.class);
         actionRegistry = (ActionRegistry) editor.getAdapter(ActionRegistry.class);
-
         featureModel = (FeatureModel) editor.getAdapter(FeatureModel.class);
         featureModel.eAdapters().add(featureModelAdapter);
         constraintCache.setFeatureModel(featureModel);
-
+        initialize();
+    }
+    
+    // ====================================================================
+    //  Initialization  
+    // ====================================================================
+    
+    private void initialize() {
         buildControl();
-
         setName("Constraints");
         setImage(FeatureModelEditorPlugin.getAccess().getImage("constraint.png"));
         setOpenToolTipText("Show Constraints");
@@ -101,6 +105,10 @@ public class ConstraintsEditor extends SplitterDock implements ISelectionListene
         super.dispose();
     }
 
+    // ====================================================================
+    //  Control creation
+    // ====================================================================
+    
     @Override
     protected Control createControl(Composite parent) {
         viewer = new CustomTableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
@@ -176,7 +184,59 @@ public class ConstraintsEditor extends SplitterDock implements ISelectionListene
             }
         });
     }
+    
+    // ====================================================================
+    //  Properties
+    // ====================================================================
+    
+    @Override
+    public boolean setFocus() {
+        return viewer.getControl().setFocus();
+    }
 
+    @Override
+    public boolean isFocusControl() {
+        return viewer.getControl().isFocusControl();
+    }
+
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        refresh();
+    }
+
+    public TableViewer getViewer() {
+        return viewer;
+    }
+    
+    public void refresh() {
+        if(!isVisible())
+            return;
+
+        if(filterEnabled)
+            refreshFilter();
+        viewer.refresh();
+    }
+
+    private void refreshFilter() {
+        visibleConstraints.clear();
+
+        for(Object object: outerSelection.toArray()) {
+            if(object instanceof Constraint) {
+                visibleConstraints.add((Constraint) object);
+            }
+            else if(object instanceof Feature) {
+                Collection<Constraint> constraints = constraintCache.getConstraintsAffectingFeature((Feature) object);
+                if(constraints != null)
+                    visibleConstraints.addAll(constraints);
+            }
+        }
+    }
+    
+    // ====================================================================
+    //  Commands
+    // ====================================================================
+    
     private void addNewConstraint() {
         Constraint constraint = FeatureModelFactory.eINSTANCE.createConstraint();
         constraint.setLanguage(getDefaultConstraintLanguage());
@@ -206,26 +266,10 @@ public class ConstraintsEditor extends SplitterDock implements ISelectionListene
         return (descriptor != null) ? descriptor.getId() : null;
     }
 
-    @Override
-    public boolean setFocus() {
-        return viewer.getControl().setFocus();
-    }
-
-    @Override
-    public boolean isFocusControl() {
-        return viewer.getControl().isFocusControl();
-    }
-
-    @Override
-    public void setVisible(boolean visible) {
-        super.setVisible(visible);
-        refresh();
-    }
-
-    public TableViewer getViewer() {
-        return viewer;
-    }
-
+    // ====================================================================
+    //  Events
+    // ====================================================================
+    
     @Override
     public void selectionChanged(IWorkbenchPart part, ISelection selection) {
         // Ignore invalid selections.
@@ -244,42 +288,7 @@ public class ConstraintsEditor extends SplitterDock implements ISelectionListene
             viewer.setSelection(selection);
             blockSelectionEvents = false;
         }
-    }
-
-    public void refresh() {
-        if(!isVisible())
-            return;
-
-        if(filterEnabled)
-            refreshFilter();
-        viewer.refresh();
-    }
-
-    private void refreshFilter() {
-        visibleConstraints.clear();
-
-        for(Object object: outerSelection.toArray()) {
-            if(object instanceof Constraint) {
-                visibleConstraints.add((Constraint) object);
-            }
-            else if(object instanceof Feature) {
-                Collection<Constraint> constraints = constraintCache.getConstraintsAffectingFeature((Feature) object);
-                if(constraints != null)
-                    visibleConstraints.addAll(constraints);
-            }
-        }
-    }
-
-    private class ConstraintsFilter extends ViewerFilter {
-
-        @Override
-        public boolean select(Viewer viewer, Object parentElement, Object element) {
-            if(!filterEnabled || (element == ConstraintsEditorContentProvider.ADD_CONSTRAINT_OBJECT))
-                return true;
-            return visibleConstraints.contains(element);
-        }
-
-    }
+    }   
 
     private class FeatureModelAdapter extends EContentAdapter {
 
@@ -296,7 +305,22 @@ public class ConstraintsEditor extends SplitterDock implements ISelectionListene
         }
 
     }
+    
+    // ====================================================================
+    //  Helpers
+    // ====================================================================
 
+    private class ConstraintsFilter extends ViewerFilter {
+
+        @Override
+        public boolean select(Viewer viewer, Object parentElement, Object element) {
+            if(!filterEnabled || (element == ConstraintsEditorContentProvider.ADD_CONSTRAINT_OBJECT))
+                return true;
+            return visibleConstraints.contains(element);
+        }
+
+    }
+    
     private class CustomTableViewer extends TableViewer {
 
         public CustomTableViewer(Composite parent, int style) {
