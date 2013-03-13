@@ -158,7 +158,7 @@ public class FeatureModelStyleProvider extends LabelProviderAdapter {
 
     private List<Feature> getHiddenNeighbors(Feature feature) {
         List<Feature> neighbors = new ArrayList<Feature>();
-        
+
         Object parent = feature.getParent();
         if(parent instanceof Group)
             parent = ((Group) parent).getParent();
@@ -173,7 +173,7 @@ public class FeatureModelStyleProvider extends LabelProviderAdapter {
         for(Group group: feature.getGroups()) {
             for(Feature child: group.getFeatures()) {
                 if(isFiltered(child))
-                    neighbors.add(child);;
+                    neighbors.add(child);
             }
         }
 
