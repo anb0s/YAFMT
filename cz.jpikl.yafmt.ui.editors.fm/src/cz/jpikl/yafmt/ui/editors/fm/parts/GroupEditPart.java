@@ -196,8 +196,8 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
                     break;
                     
                 case GROUP__FEATURES:
-                    refreshTargetConnections();
                     revalidateModel();
+                    refreshTargetConnections();
                     refreshVisuals();
                     break;
             }

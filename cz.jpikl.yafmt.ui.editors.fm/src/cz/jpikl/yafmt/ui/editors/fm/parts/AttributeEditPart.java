@@ -1,5 +1,6 @@
 package cz.jpikl.yafmt.ui.editors.fm.parts;
 
+import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.ATTRIBUTE__ID;
 import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.ATTRIBUTE__NAME;
 import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.ATTRIBUTE__TYPE;
 
@@ -143,20 +144,23 @@ public class AttributeEditPart extends AbstractGraphicalEditPart {
     //  Events
     // ===================================================================
 
-    private class AttributeAdapter extends AdapterImpl {
+    protected class AttributeAdapter extends AdapterImpl {
 
         @Override
-        public void notifyChanged(Notification notification) {
-            switch(notification.getFeatureID(Attribute.class)) {
+        public void notifyChanged(Notification msg) {
+            switch(msg.getFeatureID(Attribute.class)) {
+                case ATTRIBUTE__ID:
                 case ATTRIBUTE__NAME:
                     revalidateModel();
                     refreshVisuals();
+                    break;
                     
                 case ATTRIBUTE__TYPE:
                     refreshVisuals();
+                    break;
             }
         }
-
+        
     }
 
 }

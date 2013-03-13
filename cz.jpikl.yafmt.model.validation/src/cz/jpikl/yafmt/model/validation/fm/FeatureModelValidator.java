@@ -1,9 +1,25 @@
 package cz.jpikl.yafmt.model.validation.fm;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.ATTRIBUTE;
+import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.ATTRIBUTE__ID;
+import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.ATTRIBUTE__NAME;
+import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.CONSTRAINT;
+import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.CONSTRAINT__LANGUAGE;
+import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.CONSTRAINT__VALUE;
+import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.FEATURE;
+import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.FEATURE_MODEL;
+import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.FEATURE_MODEL__NAME;
+import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.FEATURE__ID;
+import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.FEATURE__LOWER;
+import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.FEATURE__NAME;
+import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.FEATURE__UPPER;
+import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.GROUP;
+import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.GROUP__LOWER;
+import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.GROUP__UPPER;
+import static cz.jpikl.yafmt.model.validation.Localization.getMessage;
+import static cz.jpikl.yafmt.model.validation.ValidationUtil.checkBounds;
+import static cz.jpikl.yafmt.model.validation.ValidationUtil.checkEmptyValue;
+import static cz.jpikl.yafmt.model.validation.ValidationUtil.checkIdValue;
 
 import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.ecore.EObject;
@@ -19,11 +35,9 @@ import cz.jpikl.yafmt.model.fm.Attribute;
 import cz.jpikl.yafmt.model.fm.Constraint;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
+import cz.jpikl.yafmt.model.fm.FeatureModelPackage.Literals;
 import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.model.validation.BasicValidator;
-import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.*;
-import static cz.jpikl.yafmt.model.validation.Localization.*;
-import static cz.jpikl.yafmt.model.validation.ValidationUtil.*;
 
 public class FeatureModelValidator extends BasicValidator {
 
@@ -40,7 +54,7 @@ public class FeatureModelValidator extends BasicValidator {
                 return validateFeatureModel((FeatureModel) object, diagnostics, recursive);
             
             case FEATURE:
-                return validateFeature((Feature) object, diagnostics, recursive);
+                return validateFeature((Feature) object, diagnostics);
                 
             case GROUP:
                 return validateGroup((Group) object, diagnostics);
@@ -61,37 +75,12 @@ public class FeatureModelValidator extends BasicValidator {
         return result;
     }
     
-    private boolean validateFeature(Feature feature, DiagnosticChain diagnostics, boolean recursive) {
+    private boolean validateFeature(Feature feature, DiagnosticChain diagnostics) {
         boolean result = validateStructuralFeature(feature, Literals.FEATURE__NAME, diagnostics);
         result &= validateStructuralFeature(feature, Literals.FEATURE__LOWER, diagnostics); // Lower bound check includes also upper bound check.
-        if(recursive)
-            result &= validateUniqueAttributeIds(feature, diagnostics);
         return result;
     }
     
-    private boolean validateUniqueAttributeIds(Feature feature, DiagnosticChain diagnostics) {
-        Set<String> ids = new HashSet<String>();
-        Set<String> problemIds = new HashSet<String>();
-                
-        for(Attribute attribute: feature.getAttributes()) {
-            String id = attribute.getId();
-            if(ids.contains(id))
-                problemIds.add(id);
-            else
-                ids.add(id);
-        }
-        if(problemIds.isEmpty())
-            return true;
-        
-        List<Attribute> problemAttributes = new ArrayList<Attribute>();
-        for(Attribute attribute: feature.getAttributes()) {
-            if(problemIds.contains(attribute.getId()))
-                problemAttributes.add(attribute);
-        }
-        addError(diagnostics, getMessage("Errors_IdNotUnique", getMessage("Feature")), problemAttributes.toArray());
-        return false;
-    }
-
     private boolean validateGroup(Group group, DiagnosticChain diagnostics) {
         boolean result = validateStructuralFeature(group, Literals.GROUP__LOWER, diagnostics); // Lower bound check includes also upper bound check.
         result &= validateGroupUpperMinimum(group, diagnostics, result);
@@ -136,7 +125,9 @@ public class FeatureModelValidator extends BasicValidator {
     }
     
     private boolean validateAttribute(Attribute attribute, DiagnosticChain diagnostics) {
-        return validateStructuralFeature(attribute, Literals.ATTRIBUTE__NAME, diagnostics);
+        boolean result = validateStructuralFeature(attribute, Literals.ATTRIBUTE__NAME, diagnostics);
+        result &= validateStructuralFeature(attribute, Literals.ATTRIBUTE__ID, diagnostics);
+        return result;
     }
     
     private boolean validateConstraint(Constraint constraint, DiagnosticChain diagnostics) {

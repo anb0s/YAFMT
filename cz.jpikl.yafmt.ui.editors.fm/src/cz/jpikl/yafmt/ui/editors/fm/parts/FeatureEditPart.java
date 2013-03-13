@@ -22,9 +22,10 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.gef.ConnectionEditPart;
-import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
@@ -34,12 +35,14 @@ import org.eclipse.swt.SWT;
 import cz.jpikl.yafmt.model.fm.Attribute;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
+import cz.jpikl.yafmt.model.fm.FeatureModelPackage.Literals;
 import cz.jpikl.yafmt.model.validation.fm.FeatureModelValidator;
 import cz.jpikl.yafmt.ui.directediting.LabelDirectEditManager;
 import cz.jpikl.yafmt.ui.editors.fm.figures.FeatureFigure;
 import cz.jpikl.yafmt.ui.editors.fm.figures.ShrinkedChopboxAnchor;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 import cz.jpikl.yafmt.ui.editors.fm.model.Connection;
+import cz.jpikl.yafmt.ui.editors.fm.parts.AttributeEditPart.AttributeAdapter;
 import cz.jpikl.yafmt.ui.editors.fm.policies.ConnectionCreationPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureDirectEditPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureEditPolicy;
@@ -70,13 +73,14 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
     public void activate() {
         super.activate();
         feature.eAdapters().add(featureAdapter);
-        revalidateModelRecursive();
+        revalidateModel();
         refreshLayoutData();
         refreshVisuals();
     }
 
     @Override
     public void deactivate() {
+        problemStore.clearProblems(feature);
         feature.eAdapters().remove(featureAdapter);
         super.deactivate();
     }
@@ -99,12 +103,6 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
         FeatureFigure figure = getFigure();
         figure.setErrors(problemStore.getProblems(feature));
         figure.refresh();
-    }
-    
-    protected void refreshVisualsRecursive() {
-        refreshVisuals();
-        for(Object child: getChildren())
-            ((EditPart) child).refresh();
     }
     
     @Override
@@ -154,15 +152,6 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
         problemStore.clearProblems(feature);
         BasicDiagnostic diagnostic = new BasicDiagnostic();
         if(!FeatureModelValidator.INSTANCE.validate(feature, diagnostic))
-            problemStore.readProblems(diagnostic);
-    }
-    
-    private void revalidateModelRecursive() {
-        problemStore.clearProblems(feature);
-        for(Attribute attribute: feature.getAttributes())
-            problemStore.clearProblems(attribute);
-        BasicDiagnostic diagnostic = new BasicDiagnostic();
-        if(!FeatureModelValidator.INSTANCE.validateRecursive(feature, diagnostic))
             problemStore.readProblems(diagnostic);
     }
 
@@ -225,7 +214,7 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
 
         @Override
         protected void addAdapter(Notifier notifier) {
-            // Listen only to feature attributes.
+            // Listen only to own attributes.
             if(notifier instanceof Attribute)
                 super.addAdapter(notifier);
         }
@@ -235,7 +224,7 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
             if(msg.getNotifier() instanceof Feature)
                 notifyChangedFromFeature(msg);
             else
-                notifyChangedFromAttribute(msg);            
+                notifyChangedFromAttribute(msg);
         }
 
         private void notifyChangedFromFeature(Notification msg) {
@@ -258,18 +247,32 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
                     break;
                 
                 case FEATURE__ATTRIBUTES:
-                    revalidateModelRecursive();
                     refreshChildren();
+                    // Force every attribute to revalidate its state.
+                    if(!feature.getAttributes().isEmpty()) {
+                        Attribute attribute = feature.getAttributes().get(0);
+                        sendNotifyToAllAttributes(new ENotificationImpl((InternalEObject) attribute, Notification.SET, Literals.ATTRIBUTE__ID, attribute.getId(), attribute.getId()));
+                    }                    
                     break;
             }
         }
-
+        
         private void notifyChangedFromAttribute(Notification msg) {
             switch(msg.getFeatureID(Attribute.class)) {
                 case ATTRIBUTE__ID:
-                    revalidateModelRecursive();
-                    refreshVisualsRecursive();
+                    // Force every attribute to revalidate its state.
+                    sendNotifyToAllAttributes(msg);
                     break;
+            }
+        }
+        
+        private void sendNotifyToAllAttributes(Notification msg) {
+            for(Attribute attribute: feature.getAttributes()) {
+                for(Adapter adapter: attribute.eAdapters()) {
+                    // Send notification only to attribute edit parts, beware recursion!
+                    if(adapter instanceof AttributeAdapter)
+                        adapter.notifyChanged(msg);
+                }
             }
         }
 

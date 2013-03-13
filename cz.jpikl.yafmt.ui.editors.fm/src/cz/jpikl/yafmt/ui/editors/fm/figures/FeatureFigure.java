@@ -9,7 +9,6 @@ import org.eclipse.draw2d.GridData;
 import org.eclipse.draw2d.GridLayout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
-import org.eclipse.draw2d.Layer;
 import org.eclipse.draw2d.RoundedRectangle;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.draw2d.geometry.Point;
@@ -18,6 +17,7 @@ import org.eclipse.swt.graphics.Pattern;
 import org.eclipse.swt.widgets.Display;
 
 import cz.jpikl.yafmt.model.fm.Feature;
+import cz.jpikl.yafmt.ui.figures.DecorationLayer;
 import cz.jpikl.yafmt.ui.figures.ErrorDecoration;
 import cz.jpikl.yafmt.ui.figures.SeparatorFigure;
 import cz.jpikl.yafmt.ui.figures.VerticalToolbarFigure;
@@ -28,11 +28,11 @@ public class FeatureFigure extends RoundedRectangle {
 
     public static final int INITIAL_WIDTH = 100;
     public static final int INITIAL_HEGHT = 25;
-    private static final int DECORATION_SPACE = 2;
 
     private Label label;
     private Label toolTip;
     private Figure mainLayer;
+    private DecorationLayer decorationLayer;
     private Figure separatorFigure;
     private Figure attributesContainer;
     private ErrorDecoration errorDecoration;
@@ -110,10 +110,10 @@ public class FeatureFigure extends RoundedRectangle {
     // ==================================================================
     
     private IFigure createDecorationLayer() {
-        Figure layer = new Layer();
-        layer.add(createErrorDecoration());
-        layer.add(createConstraintDecoration());
-        return layer;
+        decorationLayer = new DecorationLayer();
+        decorationLayer.add(createErrorDecoration());
+        decorationLayer.add(createConstraintDecoration());
+        return decorationLayer;
     }
     
     private IFigure createErrorDecoration() {
@@ -126,28 +126,18 @@ public class FeatureFigure extends RoundedRectangle {
         return constraintDecoration;
     }
     
-    private void repositionDecorations() {
-        int x = DECORATION_SPACE;
-        if(errorDecoration.isVisible()) {
-            errorDecoration.setLocation(new Point(x, DECORATION_SPACE));
-            x += errorDecoration.getSize().width + DECORATION_SPACE;
-        }
-        if(constraintDecoration.isVisible())
-            constraintDecoration.setLocation(new Point(x, DECORATION_SPACE));
-    }
-
     // ==================================================================
     //  Properties
     // ==================================================================
     
     public void setErrors(List<String> messages) {
         errorDecoration.setErrors(messages);
-        repositionDecorations();
+        decorationLayer.refresh();
     }
     
     public void setConstrained(boolean value) {
         constraintDecoration.setVisible(value);
-        repositionDecorations();
+        decorationLayer.refresh();
     }
     
     public boolean setOrphaned(boolean value) {

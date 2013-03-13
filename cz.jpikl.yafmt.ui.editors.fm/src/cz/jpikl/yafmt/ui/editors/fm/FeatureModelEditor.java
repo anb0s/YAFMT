@@ -72,13 +72,13 @@ public class FeatureModelEditor extends ModelEditor {
     @Override
     public void init(IEditorSite site, IEditorInput input) throws PartInitException {
         super.init(site, input);
-        // Revalidation happens when edit parts are added.
+        // Revalidation happens when edit parts are activated.
         problemStore = new ResourceProblemStore((IResource) input.getAdapter(IResource.class));
         problemStore.clearAllProblems();
     }
     
     public void dispose() {
-        revalidateFeatureModel(); // Removed edit parts clear their problems so we have to revalidate everything again.
+        revalidateFeatureModel(); // Deactivated edit parts clear their problems so we have to revalidate everything again.
         getSite().getPage().removeSelectionListener(constraintsEditor);
         super.dispose();
     }
