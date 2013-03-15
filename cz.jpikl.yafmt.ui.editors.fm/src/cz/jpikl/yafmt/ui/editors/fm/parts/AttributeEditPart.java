@@ -30,18 +30,18 @@ import cz.jpikl.yafmt.ui.editors.fm.policies.AttributeDirectEditPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.AttributeEditPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.util.AttributeTypeCellEditor;
 import cz.jpikl.yafmt.ui.util.NonEmptyCellEditorValidator;
-import cz.jpikl.yafmt.ui.validation.IProblemStore;
+import cz.jpikl.yafmt.ui.validation.IProblemManager;
 
 public class AttributeEditPart extends AbstractGraphicalEditPart {
 
     private Attribute attribute;
     private Adapter attributeAdapter;
-    private IProblemStore problemStore;
+    private IProblemManager problemManager;
 
-    public AttributeEditPart(Attribute attribute, IProblemStore problemStore) {
+    public AttributeEditPart(Attribute attribute, IProblemManager problemManager) {
         this.attribute = attribute;
         this.attributeAdapter = new AttributeAdapter();
-        this.problemStore = problemStore;
+        this.problemManager = problemManager;
         setModel(attribute);
     }
 
@@ -59,7 +59,7 @@ public class AttributeEditPart extends AbstractGraphicalEditPart {
 
     @Override
     public void deactivate() {
-        problemStore.clearProblems(attribute);
+        problemManager.clearProblems(attribute);
         attribute.eAdapters().remove(attributeAdapter);
         super.deactivate();
     }
@@ -80,7 +80,7 @@ public class AttributeEditPart extends AbstractGraphicalEditPart {
     @Override
     protected void refreshVisuals() {
         AttributeFigure figure = getFigure();
-        figure.setErrors(problemStore.getProblems(attribute));
+        figure.setErrors(problemManager.getMessages(attribute));
         figure.refresh();
     }
     
@@ -89,10 +89,10 @@ public class AttributeEditPart extends AbstractGraphicalEditPart {
     // ===================================================================
     
     private void revalidateModel() {
-        problemStore.clearProblems(attribute);
+        problemManager.clearProblems(attribute);
         BasicDiagnostic diagnostic = new BasicDiagnostic();
         if(!FeatureModelValidator.INSTANCE.validate(attribute, diagnostic))
-            problemStore.readProblems(diagnostic);
+            problemManager.addProblems(diagnostic);
     }
     
     // ===================================================================

@@ -18,7 +18,7 @@ import cz.jpikl.yafmt.model.validation.fc.FeatureConfigurationValidator;
 import cz.jpikl.yafmt.ui.editors.fc.FeatureConfigurationManager;
 import cz.jpikl.yafmt.ui.editors.fc.IFeatureConfigurationListener;
 import cz.jpikl.yafmt.ui.editors.fc.figures.FeatureConfigurationFigure;
-import cz.jpikl.yafmt.ui.validation.IProblemStore;
+import cz.jpikl.yafmt.ui.validation.IProblemManager;
 
 public class FeatureConfigurationEditPart extends AbstractGraphicalEditPart {
 
@@ -65,11 +65,11 @@ public class FeatureConfigurationEditPart extends AbstractGraphicalEditPart {
     // ===================================================================
     
     private void revalidateModel() {
-        IProblemStore problemStore = featureConfigManager.getProblemStore();
-        problemStore.clearProblems(featureConfig);
+        IProblemManager problemManager = featureConfigManager.getProblemStore();
+        problemManager.clearProblems(featureConfig);
         BasicDiagnostic diagnostic = new BasicDiagnostic();
         if(!FeatureConfigurationValidator.INSTANCE.validate(featureConfig, diagnostic))
-            problemStore.readProblems(diagnostic);        
+            problemManager.addProblems(diagnostic);        
     }
     
     private void refreshModel() {

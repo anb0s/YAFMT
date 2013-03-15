@@ -1,6 +1,5 @@
 package cz.jpikl.yafmt.ui.editors.fc;
 
-import org.eclipse.core.resources.IResource;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -41,8 +40,6 @@ import cz.jpikl.yafmt.ui.editors.fc.layout.TreeLayout;
 import cz.jpikl.yafmt.ui.editors.fc.layout.VerticalTreeLayout;
 import cz.jpikl.yafmt.ui.editors.fc.parts.FeatureConfigurationEditPartFactory;
 import cz.jpikl.yafmt.ui.operations.ResourceSaveOperation;
-import cz.jpikl.yafmt.ui.validation.IProblemStore;
-import cz.jpikl.yafmt.ui.validation.ResourceProblemStore;
 
 public class FeatureConfigurationEditor extends ModelEditor {
 
@@ -58,14 +55,9 @@ public class FeatureConfigurationEditor extends ModelEditor {
     @Override
     public void init(IEditorSite site, IEditorInput input) throws PartInitException {
         super.init(site, input);
-        initializeConfigurrationManager(input);
+        featureConfigManager = new FeatureConfigurationManager(featureConfig, getProblemManager());
     }
-    
-    private void initializeConfigurrationManager(IEditorInput input) {
-        IProblemStore problemStore = new ResourceProblemStore((IResource) input.getAdapter(IResource.class));
-        featureConfigManager = new FeatureConfigurationManager(featureConfig, problemStore);
-    }
-    
+        
     // ==================================================================================
     //  Editor initialization
     // ==================================================================================

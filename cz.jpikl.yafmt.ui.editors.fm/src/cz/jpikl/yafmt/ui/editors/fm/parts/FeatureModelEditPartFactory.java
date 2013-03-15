@@ -9,30 +9,30 @@ import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 import cz.jpikl.yafmt.ui.editors.fm.model.Connection;
-import cz.jpikl.yafmt.ui.validation.IProblemStore;
+import cz.jpikl.yafmt.ui.validation.IProblemManager;
 
 public class FeatureModelEditPartFactory implements EditPartFactory {
 
     private LayoutData layoutData;
-    private IProblemStore problemStore;
+    private IProblemManager problemManager;
 
-    public FeatureModelEditPartFactory(LayoutData layoutData, IProblemStore problemStore) {
+    public FeatureModelEditPartFactory(LayoutData layoutData, IProblemManager problemManager) {
         this.layoutData = layoutData;
-        this.problemStore = problemStore;
+        this.problemManager = problemManager;
     }
 
     @Override
     public EditPart createEditPart(EditPart context, Object model) {
         if(model instanceof FeatureModel)
-            return new FeatureModelEditPart((FeatureModel) model, layoutData, problemStore);
+            return new FeatureModelEditPart((FeatureModel) model, layoutData, problemManager);
         if(model instanceof Feature)
-            return new FeatureEditPart((Feature) model, layoutData, problemStore);
+            return new FeatureEditPart((Feature) model, layoutData, problemManager);
         if(model instanceof Group)
-            return new GroupEditPart((Group) model, layoutData, problemStore);
+            return new GroupEditPart((Group) model, layoutData, problemManager);
         if(model instanceof Connection)
             return new ConnectionEditPart((Connection) model);
         if(model instanceof Attribute)
-            return new AttributeEditPart((Attribute) model, problemStore);
+            return new AttributeEditPart((Attribute) model, problemManager);
 
         throw new IllegalStateException("No EditPart for " + model.getClass());
     }

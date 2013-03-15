@@ -51,7 +51,7 @@ public class SelectionEditPart extends AbstractGraphicalEditPart implements Node
     protected void refreshVisuals() {
         // Update error marker and repaint figure.
         SelectionFigure figure = getFigure();
-        figure.setErrors(featureConfigManager.getProblemStore().getProblems(selection));
+        figure.setErrors(featureConfigManager.getProblemStore().getMessages(selection));
         figure.repaint();
 
         // Refresh source connections visual.

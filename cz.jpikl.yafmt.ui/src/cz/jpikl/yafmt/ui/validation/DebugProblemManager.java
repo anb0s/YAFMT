@@ -6,10 +6,10 @@ import java.util.List;
 import org.eclipse.emf.common.util.Diagnostic;
 
 
-public class DebugProblemStore implements IProblemStore {
+public class DebugProblemManager implements IProblemManager {
 
     @Override
-    public void readProblems(Diagnostic diagnostic) {
+    public void addProblems(Diagnostic diagnostic) {
         System.out.println("------------------------------------------");
         System.out.println(" Validation Results");
         System.out.println("------------------------------------------");
@@ -49,7 +49,7 @@ public class DebugProblemStore implements IProblemStore {
     }
     
     @Override
-    public List<String> getProblems(Object target) {
+    public List<String> getMessages(Object target) {
         return Collections.emptyList();
     }
 
@@ -58,7 +58,7 @@ public class DebugProblemStore implements IProblemStore {
     }
 
     @Override
-    public void clearAllProblems() {
+    public void clearProblems() {
     }
     
 }

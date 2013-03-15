@@ -54,7 +54,9 @@ import cz.jpikl.yafmt.ui.pages.EditorPropertySheetPage;
 import cz.jpikl.yafmt.ui.util.EditorAutoCloser;
 import cz.jpikl.yafmt.ui.util.SelectionConverter;
 import cz.jpikl.yafmt.ui.util.UnwrappingSelectionProvider;
-import cz.jpikl.yafmt.ui.validation.ResourceProblemStore;
+import cz.jpikl.yafmt.ui.validation.IProblemManager;
+import cz.jpikl.yafmt.ui.validation.ModelMarkerDescriptor;
+import cz.jpikl.yafmt.ui.validation.ResourceProblemManager;
 
 public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette implements IGotoMarker {
 
@@ -62,6 +64,7 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette imple
     private IPropertySheetPage propertySheetPage;
     private EditorAutoCloser editorAutoCloser;
     private UnwrappingSelectionProvider selectionProvider;
+    private ResourceProblemManager problemManager;
 
     public ModelEditor() {
         editorAutoCloser = new EditorAutoCloser(this);
@@ -69,7 +72,7 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette imple
     }
 
     // ==================================================================================
-    //  Basic initialization and dispose operations
+    //  Basic initialization
     // ==================================================================================
 
     @Override
@@ -82,6 +85,7 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette imple
 
         try {
             doLoad((IFileEditorInput) input);
+            problemManager = new ResourceProblemManager(((IFileEditorInput) input).getFile());
         }
         catch(Exception ex) {
             String path = ((IFileEditorInput) input).getFile().getFullPath().toString();
@@ -93,6 +97,7 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette imple
 
     @Override
     public void dispose() {
+        problemManager.restoreState();
         ResourcesPlugin.getWorkspace().removeResourceChangeListener(editorAutoCloser);
         super.dispose();
     }
@@ -130,18 +135,23 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette imple
     @Override
     protected void initializeGraphicalViewer() {
         getGraphicalViewer().setContents(getModel());
+        problemManager.saveState();
     }
 
     // ==================================================================================
     //  Providers
     // ==================================================================================
-
+    
     protected ScalableFreeformRootEditPart getRootEditPart() {
         return (ScalableFreeformRootEditPart) getGraphicalViewer().getRootEditPart();
     }
 
     protected UnwrappingSelectionProvider getSelectionProvider() {
         return selectionProvider;
+    }
+    
+    protected IProblemManager getProblemManager() {
+        return problemManager;
     }
 
     @Override
@@ -248,10 +258,10 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette imple
     @Override
     public void gotoMarker(IMarker marker) {
         try {
-            if(!marker.getType().equals(ResourceProblemStore.MARKER_ID))
+            if(!marker.getType().equals(ModelMarkerDescriptor.MARKER_ID))
                 return;
             
-            String uriFragments = marker.getAttribute(ResourceProblemStore.MARKER_PROBLEM_OBJECT_URI, null);
+            String uriFragments = marker.getAttribute(ModelMarkerDescriptor.OBJECTS_URI_ID, null);
             if(uriFragments == null)
                 return;
             
@@ -260,7 +270,7 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette imple
                 return;
             
             List<Object> objectsToSelect = new ArrayList<Object>();
-            for(String uriFragment: uriFragments.split(ResourceProblemStore.URI_FRAGMENTS_SEPARATOR)) {
+            for(String uriFragment: uriFragments.split(ModelMarkerDescriptor.URI_FRAGMENTS_SEPARATOR)) {
                 EObject object = resource.getEObject(uriFragment);
                 if(object != null)
                     objectsToSelect.add(object);
@@ -272,7 +282,7 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette imple
             }
         }
         catch(CoreException ex) {
-            ex.printStackTrace();
+            CommonUIPlugin.getAccess().logError(ex);
         }
     }
 
@@ -290,6 +300,7 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette imple
             doSave();
             getEditDomain().getCommandStack().markSaveLocation();
             firePropertyChange(PROP_DIRTY);
+            problemManager.saveState();
         }
         catch(Exception ex) {
             CommonUIPlugin.getAccess().showErrorDialog(getSite(), "Unable to save " + getEditorInput().getName(), ex);

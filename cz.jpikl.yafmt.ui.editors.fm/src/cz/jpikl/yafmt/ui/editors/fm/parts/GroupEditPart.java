@@ -32,20 +32,20 @@ import cz.jpikl.yafmt.ui.editors.fm.model.Connection;
 import cz.jpikl.yafmt.ui.editors.fm.policies.ConnectionCreationPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.GroupEditPolicy;
 import cz.jpikl.yafmt.ui.figures.MiddlePointAnchor;
-import cz.jpikl.yafmt.ui.validation.IProblemStore;
+import cz.jpikl.yafmt.ui.validation.IProblemManager;
 
 public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEditPart {
 
     private Group group;
     private Adapter groupAdapter;
     private LayoutData layoutData;
-    private IProblemStore problemStore;
+    private IProblemManager problemManager;
 
-    public GroupEditPart(Group group, LayoutData layoutData, IProblemStore problemStore) {
+    public GroupEditPart(Group group, LayoutData layoutData, IProblemManager problemManager) {
         this.group = group;
         this.groupAdapter = new GroupAdapter();
         this.layoutData = layoutData;
-        this.problemStore = problemStore;
+        this.problemManager = problemManager;
         setModel(group);
     }
 
@@ -64,7 +64,7 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
 
     @Override
     public void deactivate() {
-        problemStore.clearProblems(group);
+        problemManager.clearProblems(group);
         group.eAdapters().remove(groupAdapter);
         super.deactivate();
     }
@@ -85,7 +85,7 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
     @Override
     protected void refreshVisuals() {
         GroupFigure figure = getFigure();
-        figure.setErrors(problemStore.getProblems(group));
+        figure.setErrors(problemManager.getMessages(group));
         figure.refresh();
     }
 
@@ -139,10 +139,10 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
     // ===================================================================
 
     private void revalidateModel() {
-        problemStore.clearProblems(group);
+        problemManager.clearProblems(group);
         BasicDiagnostic diagnostic = new BasicDiagnostic();
         if(!FeatureModelValidator.INSTANCE.validate(group, diagnostic))
-            problemStore.readProblems(diagnostic);
+            problemManager.addProblems(diagnostic);
     }
 
     @Override

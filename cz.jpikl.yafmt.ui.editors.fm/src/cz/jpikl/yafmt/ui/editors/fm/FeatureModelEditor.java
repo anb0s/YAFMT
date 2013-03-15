@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.core.resources.IResource;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.util.URI;
@@ -50,8 +49,6 @@ import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutDataFactory;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutDataPackage;
 import cz.jpikl.yafmt.ui.editors.fm.parts.FeatureModelEditPartFactory;
 import cz.jpikl.yafmt.ui.operations.ResourceSaveOperation;
-import cz.jpikl.yafmt.ui.validation.IProblemStore;
-import cz.jpikl.yafmt.ui.validation.ResourceProblemStore;
 import cz.jpikl.yafmt.ui.widgets.Splitter;
 
 public class FeatureModelEditor extends ModelEditor {
@@ -61,18 +58,15 @@ public class FeatureModelEditor extends ModelEditor {
     private FeatureModel featureModel;
     private LayoutData layoutData;
     private ConstraintsEditor constraintsEditor;
-    private IProblemStore problemStore;
 
     // ==================================================================================
-    //  Basic initialization and dispose operations
+    //  Basic initialization
     // ==================================================================================
-
+    
     @Override
     public void init(IEditorSite site, IEditorInput input) throws PartInitException {
         super.init(site, input);
-        // Revalidation happens when edit parts are activated.
-        problemStore = new ResourceProblemStore((IResource) input.getAdapter(IResource.class));
-        problemStore.clearAllProblems();
+        getProblemManager().clearProblems(); // Revalidation occurs when edit parts are created.
     }
     
     public void dispose() {
@@ -116,7 +110,7 @@ public class FeatureModelEditor extends ModelEditor {
 
     @Override
     protected EditPartFactory getEditPartFactory() {
-        return new FeatureModelEditPartFactory(layoutData, problemStore);
+        return new FeatureModelEditPartFactory(layoutData, getProblemManager());
     }
 
     @Override

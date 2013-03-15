@@ -2,7 +2,7 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
-         id="cz.jpikl.yafmt.ui.ModelProblemMarker"
+         id="cz.jpikl.yafmt.ui.ModelMarker"
          name="Model Problem"
          point="org.eclipse.core.resources.markers">
       <super
@@ -12,7 +12,7 @@
             value="true">
       </persistent>
       <attribute
-            name="cz.jpikl.yafmt.ui.ModelProblemMarker.ProblemObjectURI">
+            name="cz.jpikl.yafmt.ui.ModelMarker.ObjectsURI">
       </attribute>
    </extension>
 

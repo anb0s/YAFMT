@@ -16,7 +16,7 @@ import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.model.validation.fc.FeatureConfigurationValidator;
 import cz.jpikl.yafmt.ui.editors.fc.util.VirtualConnectionCache;
-import cz.jpikl.yafmt.ui.validation.IProblemStore;
+import cz.jpikl.yafmt.ui.validation.IProblemManager;
 
 public class FeatureConfigurationManager {
     
@@ -31,11 +31,11 @@ public class FeatureConfigurationManager {
     private List<IFeatureConfigurationListener> listeners = new ArrayList<IFeatureConfigurationListener>();
     private FeatureConfigurationValidator validator = new FeatureConfigurationValidator(); // If we do not use global instance, validator use cache for compiled constraints.
     private FeatureConfiguration featureConfig;
-    private IProblemStore problemStore;
+    private IProblemManager problemManager;
 
-    public FeatureConfigurationManager(FeatureConfiguration featureConfig, IProblemStore problemStore) {
+    public FeatureConfigurationManager(FeatureConfiguration featureConfig, IProblemManager problemManager) {
         this.featureConfig = featureConfig;
-        this.problemStore = problemStore;
+        this.problemManager = problemManager;
         
         repairFeatureConfiguration();
         rebuildVirtualConnections();
@@ -54,8 +54,8 @@ public class FeatureConfigurationManager {
         return featureConfig.getFeatureModelCopy();
     }
     
-    public IProblemStore getProblemStore() {
-        return problemStore;
+    public IProblemManager getProblemStore() {
+        return problemManager;
     }
     
     public void setSelectableFeaturesVisibility(boolean showSelectable, boolean showDisabled) {
@@ -73,10 +73,10 @@ public class FeatureConfigurationManager {
     }
 
     public void revalidateFeatureConfiguration() {
-        problemStore.clearAllProblems();
+        problemManager.clearProblems();
         BasicDiagnostic diagnostic = new BasicDiagnostic();
         if(!validator.validateRecursive(featureConfig, diagnostic))
-            problemStore.readProblems(diagnostic);
+            problemManager.addProblems(diagnostic);
     }
 
     // ===========================================================================

@@ -34,8 +34,7 @@ import cz.jpikl.yafmt.ui.editors.fm.figures.GroupFigure;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureModelEditPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureModelLayoutPolicy;
-import cz.jpikl.yafmt.ui.validation.IProblemStore;
-import cz.jpikl.yafmt.ui.validation.ResourceProblemStore;
+import cz.jpikl.yafmt.ui.validation.IProblemManager;
 
 public class FeatureModelEditPart extends AbstractGraphicalEditPart {
 
@@ -47,15 +46,15 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
 
     private FeatureModel featureModel;
     private LayoutData layoutData;
-    private IProblemStore problemStore;
+    private IProblemManager problemManager;
     private ConstraintCache constraintCache;
     private Adapter featureModelAdapter;
     private Adapter layoutDataAdapter;
     
-    public FeatureModelEditPart(FeatureModel featureModel, LayoutData layoutData, IProblemStore problemStore) {
+    public FeatureModelEditPart(FeatureModel featureModel, LayoutData layoutData, IProblemManager problemManager) {
         this.featureModel = featureModel;
         this.layoutData = layoutData;
-        this.problemStore = problemStore;
+        this.problemManager = problemManager;
         this.featureModelAdapter = new FeatureModelAdapter();
         this.layoutDataAdapter = new LayoutDataAdapter();
         setModel(featureModel);
@@ -82,10 +81,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
 
     @Override
     public void deactivate() {
-        // Disable deletion of all problems when edited model is being closed.
-        if(problemStore instanceof ResourceProblemStore)
-            ((ResourceProblemStore) problemStore).setEnabled(false);
-        problemStore.clearProblems(featureModel);
+        problemManager.clearProblems(featureModel);
         featureModel.eAdapters().remove(featureModelAdapter);
         layoutData.eAdapters().remove(layoutDataAdapter);
         super.deactivate();
@@ -193,10 +189,10 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
     // ===================================================================
     
     private void revalidateModel() {
-        problemStore.clearProblems(featureModel);
+        problemManager.clearProblems(featureModel);
         BasicDiagnostic diagnostic = new BasicDiagnostic();
         if(!FeatureModelValidator.INSTANCE.validate(featureModel, diagnostic))
-            problemStore.readProblems(diagnostic);
+            problemManager.addProblems(diagnostic);
     }
     
     @Override

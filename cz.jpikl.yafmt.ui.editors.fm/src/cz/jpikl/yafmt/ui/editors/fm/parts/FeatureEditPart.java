@@ -48,20 +48,20 @@ import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureDirectEditPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureEditPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureLayoutPolicy;
 import cz.jpikl.yafmt.ui.util.NonEmptyCellEditorValidator;
-import cz.jpikl.yafmt.ui.validation.IProblemStore;
+import cz.jpikl.yafmt.ui.validation.IProblemManager;
 
 public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEditPart {
 
     private Feature feature;
     private Adapter featureAdapter;
     private LayoutData layoutData;
-    private IProblemStore problemStore;
+    private IProblemManager problemManager;
 
-    public FeatureEditPart(Feature feature, LayoutData layoutData, IProblemStore problemStore) {
+    public FeatureEditPart(Feature feature, LayoutData layoutData, IProblemManager problemManager) {
         this.feature = feature;
         this.featureAdapter = new FeatureAdapter();
         this.layoutData = layoutData;
-        this.problemStore = problemStore;
+        this.problemManager = problemManager;
         setModel(feature);
     }
     
@@ -80,7 +80,7 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
 
     @Override
     public void deactivate() {
-        problemStore.clearProblems(feature);
+        problemManager.clearProblems(feature);
         feature.eAdapters().remove(featureAdapter);
         super.deactivate();
     }
@@ -101,7 +101,7 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
     @Override
     protected void refreshVisuals() {
         FeatureFigure figure = getFigure();
-        figure.setErrors(problemStore.getProblems(feature));
+        figure.setErrors(problemManager.getMessages(feature));
         figure.refresh();
     }
     
@@ -149,10 +149,10 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
     // ===================================================================
     
     private void revalidateModel() {
-        problemStore.clearProblems(feature);
+        problemManager.clearProblems(feature);
         BasicDiagnostic diagnostic = new BasicDiagnostic();
         if(!FeatureModelValidator.INSTANCE.validate(feature, diagnostic))
-            problemStore.readProblems(diagnostic);
+            problemManager.addProblems(diagnostic);
     }
 
     @Override

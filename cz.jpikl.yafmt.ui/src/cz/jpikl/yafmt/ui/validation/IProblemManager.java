@@ -5,14 +5,14 @@ import java.util.List;
 import org.eclipse.emf.common.util.Diagnostic;
 
 
-public interface IProblemStore {
+public interface IProblemManager {
     
-    void readProblems(Diagnostic diagnostic);
+    void addProblems(Diagnostic diagnostic);
     
-    List<String> getProblems(Object target);
+    List<String> getMessages(Object target);
     
     void clearProblems(Object target);
     
-    void clearAllProblems();
+    void clearProblems();
     
 }
