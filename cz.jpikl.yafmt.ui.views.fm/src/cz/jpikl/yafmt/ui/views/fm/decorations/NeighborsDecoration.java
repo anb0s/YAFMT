@@ -102,7 +102,7 @@ public class NeighborsDecoration extends RoundedRectangle implements IDecoration
     
     @Override
     protected void outlineShape(Graphics graphics) {
-        graphics.setAlpha(computeAlpha() / 2);
+        graphics.setAlpha(computeAlpha() / 4);
         super.outlineShape(graphics);
     }
     
