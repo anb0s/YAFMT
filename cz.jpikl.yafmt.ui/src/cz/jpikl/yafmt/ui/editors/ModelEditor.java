@@ -279,15 +279,29 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette imple
             if(resource == null)
                 return;
             
-            List<Object> markerObjects = new ArrayList<Object>();
+            final List<Object> markerObjects = new ArrayList<Object>();
             for(String uriFragment: uriFragments.split(ModelMarkerDescriptor.URI_FRAGMENTS_SEPARATOR)) {
                 EObject object = resource.getEObject(uriFragment);
                 if(object != null)
                     markerObjects.add(object);
             }
             
-            if(!markerObjects.isEmpty())
-                gotoMarker(markerObjects);
+            if(!markerObjects.isEmpty()) {
+                // When user double-click the marker in problems view the
+                // editor is activated and gotoMarker is called. But then, 
+                // the problems view is activated again which causes invalidation
+                // of editor selection that was done in gotoMarker method.
+                // We have to call the selection code in asynchronous thread
+                // and reactivate the editor manually. However this is causing
+                // ugly effect switching twice between editor and problem view.
+                getSite().getShell().getDisplay().asyncExec(new Runnable() {
+                    @Override
+                    public void run() {
+                        getSite().getPage().activate(ModelEditor.this);
+                        gotoMarker(markerObjects);
+                    }
+                });
+            }
         }
         catch(CoreException ex) {
             CommonUIPlugin.getAccess().logError(ex);
