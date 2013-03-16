@@ -33,6 +33,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorSite;
@@ -105,7 +106,17 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette imple
     // ==================================================================================
     //  Editor initialization
     // ==================================================================================
-
+    
+    @Override
+    public void createPartControl(Composite parent) {
+        createModelEditor(parent);
+        problemManager.saveState();
+    }
+    
+    protected void createModelEditor(Composite parent) {
+        super.createPartControl(parent);
+    }
+        
     @Override
     protected void configureGraphicalViewer() {
         super.configureGraphicalViewer();
@@ -135,9 +146,8 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette imple
     @Override
     protected void initializeGraphicalViewer() {
         getGraphicalViewer().setContents(getModel());
-        problemManager.saveState();
     }
-
+    
     // ==================================================================================
     //  Providers
     // ==================================================================================
@@ -258,7 +268,7 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette imple
     @Override
     public void gotoMarker(IMarker marker) {
         try {
-            if(!marker.getType().equals(ModelMarkerDescriptor.MARKER_ID))
+            if(!marker.exists() || !marker.getType().equals(ModelMarkerDescriptor.MARKER_ID))
                 return;
             
             String uriFragments = marker.getAttribute(ModelMarkerDescriptor.OBJECTS_URI_ID, null);

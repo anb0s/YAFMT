@@ -81,15 +81,15 @@ public class FeatureModelEditor extends ModelEditor {
     // ==================================================================================
 
     @Override
-    public void createPartControl(Composite parent) {
+    protected void createModelEditor(Composite parent) {
         Splitter splitter = new Splitter(parent);
         createFeatureTreeEditor(splitter);
         createConstraintsEditor(splitter);
     }
-
+    
     private void createFeatureTreeEditor(Composite parent) {
-        super.createPartControl(parent); // Calls configureGraphicalViewer and others bellow.
-
+        super.createModelEditor(parent); // Calls configureGraphicalViewer and others bellow.
+        
         GraphicalViewer viewer = getGraphicalViewer();
         viewer.addDropTargetListener(new TemplateTransferDropTargetListener(viewer));
         viewer.addDropTargetListener(new TemplateTransferDropTargetListener(viewer));
