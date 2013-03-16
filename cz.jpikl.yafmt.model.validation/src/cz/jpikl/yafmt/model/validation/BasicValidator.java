@@ -1,5 +1,8 @@
 package cz.jpikl.yafmt.model.validation;
 
+import static cz.jpikl.yafmt.model.validation.Localization.getMessage;
+
+import java.util.Collection;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.BasicDiagnostic;
@@ -12,8 +15,6 @@ import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EValidator;
-
-import static cz.jpikl.yafmt.model.validation.Localization.*;
 
 public abstract class BasicValidator implements EValidator, IStructuralFeatureValidator {
 
@@ -31,11 +32,28 @@ public abstract class BasicValidator implements EValidator, IStructuralFeatureVa
         return validate(object, diagnostics, true);
     }
     
+    public boolean validate(Collection<? extends EObject> object, DiagnosticChain diagnostics) {
+        return validate(object, diagnostics, false);
+    }
+    
+    public boolean validateRecursive(Collection<? extends EObject> object, DiagnosticChain diagnostics) {
+        return validate(object, diagnostics, true);
+    }
+    
     // =============================================================================
     //  Object validations
     // =============================================================================
     
     protected abstract boolean validate(EObject object, DiagnosticChain diagnostics, boolean recursive);
+    
+    protected boolean validate(Collection<? extends EObject> objects, DiagnosticChain diagnostics, boolean recursive) {
+        boolean result = true;
+        for(EObject object: objects) {
+            if(!validate(object, diagnostics, recursive))
+                result = false;
+        }
+        return result;
+    }
     
     protected boolean validateAllContents(EObject object, DiagnosticChain diagnostics, boolean recursive) {
         TreeIterator<EObject> it = object.eAllContents();

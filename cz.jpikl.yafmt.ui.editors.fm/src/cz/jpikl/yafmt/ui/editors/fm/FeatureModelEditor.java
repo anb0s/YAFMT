@@ -94,7 +94,7 @@ public class FeatureModelEditor extends ModelEditor {
     }
 
     private void createConstraintsEditor(Splitter splitter) {
-        constraintsEditor = new ConstraintsEditor(splitter, this);
+        constraintsEditor = new ConstraintsEditor(splitter, this, getProblemManager());
         constraintsEditor.getViewer().addSelectionChangedListener(getSelectionProvider());
         getSite().getPage().addSelectionListener(constraintsEditor);
     }
