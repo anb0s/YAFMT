@@ -78,14 +78,9 @@ public class ResourceProblemManager implements IProblemManager {
     }
     
     private void copyState(List<ModelMarkerDescriptor> src, List<ModelMarkerDescriptor> dst) {
-        try {
-            dst.clear();
-            for(ModelMarkerDescriptor descriptor: src)
-                dst.add((ModelMarkerDescriptor) descriptor.clone());
-        }
-        catch(CloneNotSupportedException ex) {
-            CommonUIPlugin.getAccess().logError(ex);
-        }
+        dst.clear();
+        for(ModelMarkerDescriptor descriptor: src)
+            dst.add((ModelMarkerDescriptor) descriptor.clone());
     }
 
     private void createMarker(ModelMarkerDescriptor descriptor) {

@@ -9,7 +9,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 
-public class ModelMarkerDescriptor {
+public class ModelMarkerDescriptor implements Cloneable {
     
     public static final String MARKER_ID = "cz.jpikl.yafmt.ui.ModelMarker";
     public static final String OBJECTS_URI_ID = "cz.jpikl.yafmt.ui.ModelMarker.ObjectsURI";
@@ -89,7 +89,7 @@ public class ModelMarkerDescriptor {
     }
     
     @Override
-    protected Object clone() throws CloneNotSupportedException {
+    protected Object clone() {
         return new ModelMarkerDescriptor(severity, message, objects);
     }
     

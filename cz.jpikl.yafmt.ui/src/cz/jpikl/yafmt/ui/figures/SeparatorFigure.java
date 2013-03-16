@@ -12,9 +12,13 @@ public class SeparatorFigure extends Figure {
     }
 
     @Override
-    public void paint(Graphics graphics) {
-        graphics.setLineWidth(1);
+    public void paintFigure(Graphics graphics) {
+        graphics.setLineWidth(computeLineWidth(graphics));
         graphics.drawLine(bounds.getTopLeft(), bounds.getTopRight());
     }
 
+    private int computeLineWidth(Graphics graphics) {
+        return (int) Math.max(1.0, graphics.getAbsoluteScale());
+    }
+    
 }
