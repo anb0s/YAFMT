@@ -269,21 +269,24 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette imple
             if(resource == null)
                 return;
             
-            List<Object> objectsToSelect = new ArrayList<Object>();
+            List<Object> markerObjects = new ArrayList<Object>();
             for(String uriFragment: uriFragments.split(ModelMarkerDescriptor.URI_FRAGMENTS_SEPARATOR)) {
                 EObject object = resource.getEObject(uriFragment);
                 if(object != null)
-                    objectsToSelect.add(object);
+                    markerObjects.add(object);
             }
             
-            if(!objectsToSelect.isEmpty()) {
-                ISelection selection = new StructuredSelection(objectsToSelect);
-                applySelection(SelectionConverter.wrapSelection(selection, getGraphicalViewer().getEditPartRegistry()));
-            }
+            if(!markerObjects.isEmpty())
+                gotoMarker(markerObjects);
         }
         catch(CoreException ex) {
             CommonUIPlugin.getAccess().logError(ex);
         }
+    }
+    
+    protected void gotoMarker(List<Object> markerObjects) {
+        ISelection selection = new StructuredSelection(markerObjects);
+        applySelection(SelectionConverter.wrapSelection(selection, getGraphicalViewer().getEditPartRegistry()));
     }
 
     // ==================================================================================

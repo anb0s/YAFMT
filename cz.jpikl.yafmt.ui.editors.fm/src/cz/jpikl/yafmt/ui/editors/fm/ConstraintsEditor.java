@@ -288,15 +288,13 @@ public class ConstraintsEditor extends SplitterDock implements ISelectionListene
 
         outerSelection = (selection instanceof IStructuredSelection) ? (IStructuredSelection) selection : null;
 
-        if(filterEnabled) {
+        if(filterEnabled)
             refresh();
-        }
-        else {
-            // Do not generate another selection event.
-            blockSelectionEvents = true;
-            viewer.setSelection(selection);
-            blockSelectionEvents = false;
-        }
+        
+        // Do not generate another selection event.
+        blockSelectionEvents = true;
+        viewer.setSelection(selection);
+        blockSelectionEvents = false;
     }   
 
     private class FeatureModelAdapter extends EContentAdapter {

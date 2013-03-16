@@ -2,6 +2,7 @@ package cz.jpikl.yafmt.ui.editors.fm;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.draw2d.PositionConstants;
@@ -24,6 +25,7 @@ import org.eclipse.gef.ui.palette.PaletteViewer;
 import org.eclipse.gef.ui.palette.PaletteViewerProvider;
 import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
@@ -186,6 +188,16 @@ public class FeatureModelEditor extends ModelEditor {
                 return featureModel.getName();
             }
         });
+    }
+    
+    // ==================================================================================
+    //  Markers
+    // ==================================================================================
+    
+    @Override
+    protected void gotoMarker(List<Object> markerObjects) {
+        super.gotoMarker(markerObjects);
+        constraintsEditor.selectionChanged(this, new StructuredSelection(markerObjects));
     }
     
     // ==================================================================================
