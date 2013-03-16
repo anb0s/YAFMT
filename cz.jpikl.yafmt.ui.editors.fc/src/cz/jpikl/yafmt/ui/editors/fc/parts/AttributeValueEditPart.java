@@ -3,10 +3,12 @@ package cz.jpikl.yafmt.ui.editors.fc.parts;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
+import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 import cz.jpikl.yafmt.model.fc.AttributeValue;
 import cz.jpikl.yafmt.ui.editors.fc.figures.AttributeValueFigure;
+import cz.jpikl.yafmt.ui.editors.fc.policies.AttributeValueSelectionPolicy;
 
 
 public class AttributeValueEditPart extends AbstractGraphicalEditPart {
@@ -61,6 +63,7 @@ public class AttributeValueEditPart extends AbstractGraphicalEditPart {
     
     @Override
     protected void createEditPolicies() {
+        installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new AttributeValueSelectionPolicy());
     }
     
     // ===================================================================

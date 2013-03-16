@@ -8,6 +8,7 @@ import static cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage.STRING_VALUE;
 import java.util.List;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 
@@ -23,9 +24,11 @@ public class AttributeValueFigure extends Label {
 
     private AttributeValue attributeValue;
     private ErrorMarker errorMarker;
+    private boolean highlighted;
 
     public AttributeValueFigure(AttributeValue attributeValue) {
         this.attributeValue = attributeValue;
+        this.highlighted = false;
         initialize();
         refresh();
     }
@@ -52,6 +55,13 @@ public class AttributeValueFigure extends Label {
         errorMarker.setErrors(messages);
     }
     
+    public void setHightlighted(boolean value) {
+        if(highlighted != value) {
+            highlighted = value;
+            repaint();
+        }
+    }
+    
     public void refresh() {
         setNameAndValue(attributeValue.getName(), getValue(attributeValue));
     }
@@ -61,7 +71,8 @@ public class AttributeValueFigure extends Label {
     }
 
     private void setNameAndValue(String name, Object value) {
-        setText(name + " = " + valueToString(value));
+        // Spaces on sides are reserved to display highlight border properly.
+        setText(" " + name + " = " + valueToString(value) + " ");
     }
     
     private Object getValue(AttributeValue attributeValue) {
@@ -85,6 +96,18 @@ public class AttributeValueFigure extends Label {
     
     private String valueToString(Object value) {
         return (value != null) ? value.toString() : "null";
+    }
+    
+    // ==================================================================
+    //  Drawing
+    // ==================================================================
+    
+    @Override
+    protected void paintFigure(Graphics graphics) {
+        super.paintFigure(graphics);
+        
+        if(highlighted)
+            graphics.drawRectangle(bounds.x, bounds.y, bounds.width - 1, bounds.height - 1);
     }
     
 }

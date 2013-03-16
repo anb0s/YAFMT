@@ -18,7 +18,7 @@ public class AttributeFigure extends Label {
 
     private Attribute attribute;
     private ErrorMarker errorMarker;
-
+    
     public AttributeFigure(Attribute attribute) {
         this.attribute = attribute;
         initialize();
@@ -46,7 +46,7 @@ public class AttributeFigure extends Label {
     public void setErrors(List<String> messages) {
         errorMarker.setErrors(messages);
     }
-    
+        
     public void refresh() {
         setNameAndType(attribute.getName(), attribute.getType());
     }
@@ -73,5 +73,5 @@ public class AttributeFigure extends Label {
                 return "Unknown";
         }
     }
-
+    
 }
