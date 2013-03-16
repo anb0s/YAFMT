@@ -9,7 +9,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 
 public abstract class TreeLayout extends AbstractLayout {
 
-    protected static Dimension computeFigurePreferedSize(IFigure figure) {
+    protected static Dimension computeFigurePreferredSize(IFigure figure) {
         Dimension preferredSize = figure.getPreferredSize().getCopy();
         Dimension minimumSize = figure.getMinimumSize();
 

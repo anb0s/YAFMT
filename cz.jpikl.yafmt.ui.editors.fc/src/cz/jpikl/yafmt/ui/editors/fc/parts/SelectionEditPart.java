@@ -1,6 +1,7 @@
 package cz.jpikl.yafmt.ui.editors.fc.parts;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.draw2d.ConnectionAnchor;
@@ -83,6 +84,12 @@ public class SelectionEditPart extends AbstractGraphicalEditPart implements Node
     //  Model
     // ===================================================================
 
+    @Override
+    @SuppressWarnings("rawtypes")
+    protected List getModelChildren() {
+        return selection.isPresent() ? selection.getValues() : Collections.EMPTY_LIST;
+    }
+    
     @Override
     @SuppressWarnings("rawtypes")
     protected List getModelSourceConnections() {

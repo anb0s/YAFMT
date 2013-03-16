@@ -35,17 +35,17 @@ public class VerticalTreeLayout extends TreeLayout {
     }
 
     private int calculateSubTreeWidth(Map<IFigure, Integer> subTreeWidth, IFigure figure) {
-        int width = 0;
+        int treeWidth = 0;
         for(IFigure child: helper.getTreeChildrenFigures(figure))
-            width += calculateSubTreeWidth(subTreeWidth, child);
-        if(width == 0)
-            width = computeFigurePreferedSize(figure).width + HORIZONTAL_SPACE;
+            treeWidth += calculateSubTreeWidth(subTreeWidth, child);
+        int preferredWidth = computeFigurePreferredSize(figure).width + HORIZONTAL_SPACE;
+        int width = Math.max(preferredWidth, treeWidth);
         subTreeWidth.put(figure, width);
         return width;
     }
 
     private void layoutTree(Map<IFigure, Integer> subTreeWidth, IFigure figure, int xOffset, int yOffset) {
-        Dimension size = computeFigurePreferedSize(figure);
+        Dimension size = computeFigurePreferredSize(figure);
         int x = xOffset + (subTreeWidth.get(figure) - size.width) / 2;
         figure.setBounds(new Rectangle(new Point(x, yOffset), size));
 

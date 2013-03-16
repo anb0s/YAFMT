@@ -21,6 +21,9 @@ import org.eclipse.swt.widgets.Display;
 
 import cz.jpikl.yafmt.model.fc.Selection;
 import cz.jpikl.yafmt.ui.figures.ErrorMarker;
+import cz.jpikl.yafmt.ui.figures.MarkerLayer;
+import cz.jpikl.yafmt.ui.figures.SeparatorFigure;
+import cz.jpikl.yafmt.ui.figures.VerticalToolbarFigure;
 import cz.jpikl.yafmt.ui.util.DrawConstantans;
 import cz.jpikl.yafmt.ui.util.DrawUtil;
 
@@ -32,6 +35,10 @@ public class SelectionFigure extends RoundedRectangle {
     private Selection selection;
     
     private Label label;
+    private Figure mainLayer;
+    private MarkerLayer markerLayer;
+    private Figure separatorFigure;
+    private Figure attributeValuesContainer;
     private ErrorMarker errorMarker;
 
     public SelectionFigure(Selection selection) {
@@ -44,41 +51,13 @@ public class SelectionFigure extends RoundedRectangle {
     // =================================================================
     
     private void initialize() {
-        setLayoutManager(new StackLayout());        
+        setLayoutManager(new StackLayout());
         setMinimumSize(new Dimension(MIN_WIDTH, MIN_HEIGHT));
         setSize(-1, -1);
         setHighlighted(false);
         setToolTip(createToolTip());
-        
         add(createMainLayer());
-        add(createMarkerLayer());
-    }
-
-    private IFigure createMainLayer() {
-        Figure layer = new Figure();
-        layer.setLayoutManager(new GridLayout());
-        layer.add(createLabel(), new GridData(SWT.CENTER, SWT.CENTER, true, true));
-        return layer;
-    }
-    
-    private Label createLabel() {
-        label = new Label();
-        label.setFont(DrawConstantans.BOLD_FONT);
-        label.setForegroundColor(ColorConstants.black);
-        label.setText(selection.getName());
-        return label;
-    }
-    
-    private IFigure createMarkerLayer() {
-        Figure layer = new Figure();
-        layer.add(createErrorMarker());
-        return layer;
-    }
-    
-    private IFigure createErrorMarker() {
-        errorMarker = new ErrorMarker();
-        errorMarker.setLocation(new Point(2, 2));
-        return errorMarker;
+        add(createMarkerLayer());        
     }
     
     private Label createToolTip() {
@@ -93,6 +72,63 @@ public class SelectionFigure extends RoundedRectangle {
             return selection.getId();
     }
     
+    // ==================================================================
+    //  Initialization (main layer)
+    // ==================================================================
+
+    private IFigure createMainLayer() {
+        mainLayer = new Figure();
+        mainLayer.setLayoutManager(new GridLayout());
+        mainLayer.add(createLabel(), new GridData(SWT.CENTER, SWT.CENTER, true, true));
+        return mainLayer;
+    }
+    
+    private Label createLabel() {
+        label = new Label();
+        label.setFont(DrawConstantans.BOLD_FONT);
+        label.setForegroundColor(ColorConstants.black);
+        label.setText(selection.getName());
+        return label;
+    }
+    
+    private void initializeAttributesContainer() {
+        mainLayer.add(createSeparatorFigure(), new GridData(SWT.FILL, SWT.CENTER, true, false), 1);
+        mainLayer.add(createAttributeValuesContainer(), new GridData(SWT.CENTER, SWT.CENTER, true, false), 2);
+    }
+    
+    private void destroyAttributeValuesContainer() {
+        mainLayer.remove(attributeValuesContainer);
+        mainLayer.remove(separatorFigure);
+        attributeValuesContainer = null;
+        separatorFigure = null;
+    }
+    
+    private Figure createAttributeValuesContainer() {
+        attributeValuesContainer = new VerticalToolbarFigure();
+        return attributeValuesContainer;
+    }
+    
+    private Figure createSeparatorFigure() {
+        separatorFigure = new SeparatorFigure();
+        return separatorFigure;
+    }
+    
+    // ==================================================================
+    //  Initialization (marker layer)
+    // ==================================================================
+    
+    private IFigure createMarkerLayer() {
+        markerLayer = new MarkerLayer();
+        markerLayer.add(createErrorMarker());
+        return markerLayer;
+    }
+    
+    private IFigure createErrorMarker() {
+        errorMarker = new ErrorMarker();
+        errorMarker.setLocation(new Point(2, 2));
+        return errorMarker;
+    }
+        
     // =================================================================
     //  Properties
     // =================================================================
@@ -103,6 +139,7 @@ public class SelectionFigure extends RoundedRectangle {
     
     public void setErrors(List<String> messages) {
         errorMarker.setErrors(messages);
+        markerLayer.refresh();
     }
     
     // =================================================================
@@ -165,6 +202,38 @@ public class SelectionFigure extends RoundedRectangle {
         int bottomY = (int) (scale * bottom.y);
 
         return new Pattern(Display.getCurrent(), topX, topY, bottomX, bottomY, DrawConstantans.FEATURE_GRADIENT_COLOR, ColorConstants.white);
+    }
+    
+    // ==================================================================
+    //  Events
+    // ==================================================================
+    
+    @Override
+    public void add(IFigure figure, Object constraint, int index) {
+        if(figure instanceof AttributeValueFigure)
+            addAttributeValueFigure(figure, constraint, index);
+        else
+            super.add(figure, constraint, index);
+    }
+
+    @Override
+    public void remove(IFigure figure) {
+        if(figure instanceof AttributeValueFigure)
+            removeAttributeValueFigure(figure);
+        else
+            super.remove(figure);
+    }
+    
+    private void addAttributeValueFigure(IFigure figure, Object constraint, int index) {
+        if(attributeValuesContainer == null)
+            initializeAttributesContainer();
+        attributeValuesContainer.add(figure, constraint, index);
+    }
+
+    private void removeAttributeValueFigure(IFigure figure) {
+        attributeValuesContainer.remove(figure);
+        if(attributeValuesContainer.getChildren().isEmpty())
+            destroyAttributeValuesContainer();
     }
 
 }

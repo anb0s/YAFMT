@@ -195,7 +195,11 @@ public abstract class AttributeValueImpl extends EObjectImpl implements Attribut
      * @generated NOT
      */
     public Attribute basicGetAttribute() {
-        Feature feature = getSelection().getFeature();
+        Selection selection = getSelection();
+        if(selection == null)
+            return null;
+        
+        Feature feature = selection.getFeature();
         if(feature == null)
             return null;
         
