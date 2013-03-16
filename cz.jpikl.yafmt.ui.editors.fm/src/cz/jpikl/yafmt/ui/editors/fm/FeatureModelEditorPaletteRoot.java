@@ -1,6 +1,5 @@
 package cz.jpikl.yafmt.ui.editors.fm;
 
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gef.palette.CombinedTemplateCreationEntry;
 import org.eclipse.gef.palette.ConnectionCreationToolEntry;
 import org.eclipse.gef.palette.CreationToolEntry;
@@ -15,6 +14,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import cz.jpikl.yafmt.model.fm.Attribute;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModelFactory;
+import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
 import cz.jpikl.yafmt.ui.tools.CreationToolWithDirectEdit;
 
 public class FeatureModelEditorPaletteRoot extends PaletteRoot {
@@ -84,7 +84,7 @@ public class FeatureModelEditorPaletteRoot extends PaletteRoot {
         @Override
         public Object getNewObject() {
             Feature feature = FeatureModelFactory.eINSTANCE.createFeature();
-            feature.setId(EcoreUtil.generateUUID());
+            feature.setId(FeatureModelUtil.generateFeatureID());
             feature.setName("New feature");
             feature.setMandatory(mandatoryFeatures);
             return feature;
@@ -101,7 +101,7 @@ public class FeatureModelEditorPaletteRoot extends PaletteRoot {
         @Override
         public Object getNewObject() {
             Attribute atttribute = FeatureModelFactory.eINSTANCE.createAttribute();
-            atttribute.setId(EcoreUtil.generateUUID());
+            atttribute.setId(FeatureModelUtil.generateAttributeID());
             atttribute.setName("New Attribute");
             return atttribute;
         }

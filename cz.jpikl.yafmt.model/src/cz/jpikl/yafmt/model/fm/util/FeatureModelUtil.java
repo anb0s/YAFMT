@@ -3,6 +3,7 @@ package cz.jpikl.yafmt.model.fm.util;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -23,6 +24,7 @@ import cz.jpikl.yafmt.model.fm.Group;
 
 public class FeatureModelUtil {
 
+    private static final Random random = new Random();
     private static Map<Object, Object> saveLoadOptions;
 
     // ===============================================================================================
@@ -92,6 +94,14 @@ public class FeatureModelUtil {
         featureModel.setName(name);
         featureModel.setRoot(rootFeature);
         return featureModel;
+    }
+    
+    public static String generateFeatureID() {
+        return "f_" + Math.abs(random.nextInt());
+    }
+    
+    public static String generateAttributeID() {
+        return "a_" + Math.abs(random.nextInt());
     }
 
     // ===============================================================================================
