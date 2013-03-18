@@ -7,7 +7,7 @@ import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import cz.jpikl.yafmt.ui.util.DrawConstantans;
+import cz.jpikl.yafmt.ui.util.DrawUtil;
 
 public class CardinalityDecoration extends Label implements IDecoration {
 
@@ -21,7 +21,7 @@ public class CardinalityDecoration extends Label implements IDecoration {
 
     public CardinalityDecoration(int lower, int upper) {
         setForegroundColor(ColorConstants.darkGray);
-        setFont(DrawConstantans.SMALL_FONT);
+        setFont(DrawUtil.SMALL_FONT);
         setText(lower + ".." + ((upper == -1) ? "*" : upper));
         setSize(FigureUtilities.getStringExtents(getText(), getFont()).expand(4, 4));
         setBorder(new MarginBorder(2));

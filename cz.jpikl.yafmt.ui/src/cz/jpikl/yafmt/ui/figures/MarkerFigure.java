@@ -34,7 +34,7 @@ public class MarkerFigure extends RoundedRectangle {
     
     @Override
     public void paint(Graphics graphics) {
-        DrawUtil.fixZoomedFigureLocation(graphics);
+        DrawUtil.fixScaledFigureLocation(graphics);
         super.paint(graphics);
     }
     

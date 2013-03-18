@@ -24,7 +24,6 @@ import cz.jpikl.yafmt.ui.figures.ErrorMarker;
 import cz.jpikl.yafmt.ui.figures.MarkerLayer;
 import cz.jpikl.yafmt.ui.figures.SeparatorFigure;
 import cz.jpikl.yafmt.ui.figures.VerticalToolbarFigure;
-import cz.jpikl.yafmt.ui.util.DrawConstantans;
 import cz.jpikl.yafmt.ui.util.DrawUtil;
 
 public class SelectionFigure extends RoundedRectangle {
@@ -85,7 +84,7 @@ public class SelectionFigure extends RoundedRectangle {
     
     private Label createLabel() {
         label = new Label();
-        label.setFont(DrawConstantans.BOLD_FONT);
+        label.setFont(DrawUtil.BOLD_FONT);
         label.setForegroundColor(ColorConstants.black);
         label.setText(selection.getName());
         return label;
@@ -148,7 +147,7 @@ public class SelectionFigure extends RoundedRectangle {
         
     @Override
     public void paint(Graphics graphics) {
-        DrawUtil.fixZoomedFigureLocation(graphics);
+        DrawUtil.fixScaledFigureLocation(graphics);
         label.setForegroundColor(computeForgroundColor());
         super.paint(graphics);
     }
@@ -178,7 +177,7 @@ public class SelectionFigure extends RoundedRectangle {
     private void drawCross(Graphics graphics) {
         Rectangle rect = bounds.getCopy().shrink(2, 2);
         graphics.setLineStyle(SWT.LINE_CUSTOM);
-        graphics.setLineDash(DrawConstantans.LINE_DASHED);
+        graphics.setLineDash(DrawUtil.getScaledDash(DrawUtil.LINE_DASHED, graphics));
         graphics.drawLine(rect.getTopLeft(), rect.getBottomRight());
         graphics.drawLine(rect.getBottomLeft(), rect.getTopRight());
     }
@@ -201,7 +200,7 @@ public class SelectionFigure extends RoundedRectangle {
         int bottomX = (int) (scale * bottom.x);
         int bottomY = (int) (scale * bottom.y);
 
-        return new Pattern(Display.getCurrent(), topX, topY, bottomX, bottomY, DrawConstantans.FEATURE_GRADIENT_COLOR, ColorConstants.white);
+        return new Pattern(Display.getCurrent(), topX, topY, bottomX, bottomY, DrawUtil.FEATURE_GRADIENT_COLOR, ColorConstants.white);
     }
     
     // ==================================================================

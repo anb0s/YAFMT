@@ -28,7 +28,7 @@ public class SquareDecoration extends RectangleFigure implements RotatableDecora
     
     @Override
     public void paint(Graphics graphics) {
-        DrawUtil.fixZoomedFigureLocation(graphics);
+        DrawUtil.fixScaledFigureLocation(graphics);
         super.paint(graphics);
     }
 

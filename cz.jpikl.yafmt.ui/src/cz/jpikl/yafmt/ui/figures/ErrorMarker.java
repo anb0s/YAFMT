@@ -7,7 +7,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.PrecisionRectangle;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import cz.jpikl.yafmt.ui.util.DrawConstantans;
+import cz.jpikl.yafmt.ui.util.DrawUtil;
 
 public class ErrorMarker extends MarkerFigure {
 
@@ -16,7 +16,7 @@ public class ErrorMarker extends MarkerFigure {
     }
     
     public ErrorMarker(Collection<String> messages) {
-        setForegroundColor(DrawConstantans.DARK_RED_COLOR);
+        setForegroundColor(DrawUtil.DARK_RED_COLOR);
         setBackgroundColor(ColorConstants.red);
         setErrors(messages);
     }

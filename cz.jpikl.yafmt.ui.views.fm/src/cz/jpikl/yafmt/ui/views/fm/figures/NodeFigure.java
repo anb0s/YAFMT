@@ -10,7 +10,7 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.LineAttributes;
 
-import cz.jpikl.yafmt.ui.util.DrawConstantans;
+import cz.jpikl.yafmt.ui.util.DrawUtil;
 
 public class NodeFigure extends Label implements IFigureWithAlpha {
 
@@ -22,7 +22,7 @@ public class NodeFigure extends Label implements IFigureWithAlpha {
     private int alpha = 255;
 
     public NodeFigure() {
-        setFont(DrawConstantans.DEFAULT_FONT);
+        setFont(DrawUtil.DEFAULT_FONT);
     }
     
     // =====================================================================
@@ -155,7 +155,7 @@ public class NodeFigure extends Label implements IFigureWithAlpha {
         graphics.setAlpha(alpha);
 
         Color bgColor1 = highlighted ? hightlightColor : getBackgroundColor();
-        Color bgColor2 = DrawConstantans.getModifiedColor(bgColor1, highlighted ? 0.2f : -0.2f);
+        Color bgColor2 = DrawUtil.getModifiedColor(bgColor1, highlighted ? 0.2f : -0.2f);
 
         Rectangle rect = new Rectangle(bounds.x, bounds.y, bounds.width - 1, arcRadius);
         graphics.setBackgroundColor(bgColor1);

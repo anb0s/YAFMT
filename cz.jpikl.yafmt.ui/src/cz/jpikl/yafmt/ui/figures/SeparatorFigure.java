@@ -4,6 +4,8 @@ import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 
+import cz.jpikl.yafmt.ui.util.DrawUtil;
+
 public class SeparatorFigure extends Figure {
 
     public SeparatorFigure() {
@@ -13,12 +15,8 @@ public class SeparatorFigure extends Figure {
 
     @Override
     public void paintFigure(Graphics graphics) {
-        graphics.setLineWidth(computeLineWidth(graphics));
+        graphics.setLineWidth(DrawUtil.getScaledLineWidth(1, graphics));
         graphics.drawLine(bounds.getTopLeft(), bounds.getTopRight());
-    }
-
-    private int computeLineWidth(Graphics graphics) {
-        return (int) Math.max(1.0, graphics.getAbsoluteScale());
     }
     
 }

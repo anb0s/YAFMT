@@ -11,7 +11,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 
 import cz.jpikl.yafmt.model.fm.Feature;
-import cz.jpikl.yafmt.ui.util.DrawConstantans;
+import cz.jpikl.yafmt.ui.util.DrawUtil;
 
 public class NeighborsDecoration extends RoundedRectangle implements IDecoration {
 
@@ -25,10 +25,10 @@ public class NeighborsDecoration extends RoundedRectangle implements IDecoration
         this.neighbors = neighbors;
 
         setCornerDimensions(new Dimension(15, 15));
-        setForegroundColor(DrawConstantans.FEATURE_COLOR);
-        setBackgroundColor(DrawConstantans.FEATURE_LIGHTER_COLOR);
+        setForegroundColor(DrawUtil.FEATURE_COLOR);
+        setBackgroundColor(DrawUtil.FEATURE_LIGHTER_COLOR);
         setLineStyle(SWT.LINE_CUSTOM);
-        setLineDash(DrawConstantans.LINE_DOTTED);
+        setLineDash(DrawUtil.LINE_DOTTED);
     }
     
     // ===============================================================

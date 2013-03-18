@@ -22,7 +22,6 @@ import cz.jpikl.yafmt.ui.figures.MarkerLayer;
 import cz.jpikl.yafmt.ui.figures.ErrorMarker;
 import cz.jpikl.yafmt.ui.figures.SeparatorFigure;
 import cz.jpikl.yafmt.ui.figures.VerticalToolbarFigure;
-import cz.jpikl.yafmt.ui.util.DrawConstantans;
 import cz.jpikl.yafmt.ui.util.DrawUtil;
 
 public class FeatureFigure extends RoundedRectangle {
@@ -79,7 +78,7 @@ public class FeatureFigure extends RoundedRectangle {
     
     private IFigure createLabel() {
         label = new Label();
-        label.setFont(DrawConstantans.BOLD_FONT);
+        label.setFont(DrawUtil.BOLD_FONT);
         label.setForegroundColor(ColorConstants.black);
         return label;
     }
@@ -171,7 +170,7 @@ public class FeatureFigure extends RoundedRectangle {
 
     @Override
     public void paint(Graphics graphics) {
-        DrawUtil.fixZoomedFigureLocation(graphics);
+        DrawUtil.fixScaledFigureLocation(graphics);
         super.paint(graphics);
     }
 
@@ -193,7 +192,7 @@ public class FeatureFigure extends RoundedRectangle {
     protected void outlineShape(Graphics graphics) {
         if(orphaned) {
             graphics.setLineStyle(SWT.LINE_CUSTOM);
-            graphics.setLineDash(DrawConstantans.LINE_DASHED);
+            graphics.setLineDash(DrawUtil.LINE_DASHED);
         }
         super.outlineShape(graphics);
     }
@@ -212,7 +211,7 @@ public class FeatureFigure extends RoundedRectangle {
         int bottomX = (int) (scale * bottom.x);
         int bottomY = (int) (scale * bottom.y);
 
-        return new Pattern(Display.getCurrent(), topX, topY, bottomX, bottomY,  DrawConstantans.FEATURE_GRADIENT_COLOR, ColorConstants.white);
+        return new Pattern(Display.getCurrent(), topX, topY, bottomX, bottomY,  DrawUtil.FEATURE_GRADIENT_COLOR, ColorConstants.white);
     }
 
     // ==================================================================

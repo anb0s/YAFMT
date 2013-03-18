@@ -5,17 +5,17 @@ import org.eclipse.swt.SWT;
 
 import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
-import cz.jpikl.yafmt.ui.util.DrawConstantans;
+import cz.jpikl.yafmt.ui.util.DrawUtil;
 
 public class GroupFigure extends NodeFigure {
 
     public GroupFigure(Group group) {
-        setFont(DrawConstantans.ITALIC_FONT);
+        setFont(DrawUtil.ITALIC_FONT);
         setBackgroundColor(ColorConstants.white);
-        setForegroundColor(DrawConstantans.GROUP_COLOR);
-        setHightlightColor(DrawConstantans.GROUP_LIGHTER_COLOR);
+        setForegroundColor(DrawUtil.GROUP_COLOR);
+        setHightlightColor(DrawUtil.GROUP_LIGHTER_COLOR);
         setBorderStyle(SWT.LINE_CUSTOM);
-        setBorderDash(DrawConstantans.LINE_DASHED);
+        setBorderDash(DrawUtil.LINE_DASHED);
         setText(createCardinalityText(group) + " Group");
     }
     

@@ -28,7 +28,7 @@ class CircleDecoration extends Ellipse implements RotatableDecoration {
     
     @Override
     public void paint(Graphics graphics) {
-        DrawUtil.fixZoomedFigureLocation(graphics);
+        DrawUtil.fixScaledFigureLocation(graphics);
         super.paint(graphics);
     }
     

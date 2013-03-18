@@ -11,6 +11,7 @@ import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
+import org.eclipse.swt.SWT;
 
 import cz.jpikl.yafmt.model.fc.AttributeValue;
 import cz.jpikl.yafmt.model.fc.BooleanValue;
@@ -18,6 +19,7 @@ import cz.jpikl.yafmt.model.fc.DoubleValue;
 import cz.jpikl.yafmt.model.fc.IntegerValue;
 import cz.jpikl.yafmt.model.fc.StringValue;
 import cz.jpikl.yafmt.ui.figures.ErrorMarker;
+import cz.jpikl.yafmt.ui.util.DrawUtil;
 
 
 public class AttributeValueFigure extends Label {
@@ -106,8 +108,11 @@ public class AttributeValueFigure extends Label {
     protected void paintFigure(Graphics graphics) {
         super.paintFigure(graphics);
         
-        if(highlighted)
+        if(highlighted) {
+            graphics.setLineStyle(SWT.LINE_CUSTOM);
+            graphics.setLineDash(DrawUtil.LINE_DASHED);
             graphics.drawRectangle(bounds.x, bounds.y, bounds.width - 1, bounds.height - 1);
+        }
     }
     
 }

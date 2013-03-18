@@ -6,7 +6,7 @@ import org.eclipse.draw2d.TextUtilities;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.PrecisionPoint;
 
-import cz.jpikl.yafmt.ui.util.DrawConstantans;
+import cz.jpikl.yafmt.ui.util.DrawUtil;
 
 
 public class ConstraintMarker extends MarkerFigure {
@@ -14,19 +14,19 @@ public class ConstraintMarker extends MarkerFigure {
     private static final String LABEL = "{ }";
     
     public ConstraintMarker() {
-        setBackgroundColor(DrawConstantans.CONSTRAINT_COLOR);
-        setForegroundColor(DrawConstantans.CONSTRAINT_DARKER_COLOR);
+        setBackgroundColor(DrawUtil.CONSTRAINT_COLOR);
+        setForegroundColor(DrawUtil.CONSTRAINT_DARKER_COLOR);
         setToolTipText("This feature is affected by a constraint.");
         setVisible(false);
     }
     
     @Override
     protected void paintContents(Graphics graphics) {
-        Dimension size = TextUtilities.INSTANCE.getStringExtents(LABEL, DrawConstantans.TINY_FONT);
+        Dimension size = TextUtilities.INSTANCE.getStringExtents(LABEL, DrawUtil.TINY_FONT);
         double x = bounds.x + 0.5 * (bounds.width - size.width);
         double y = bounds.y + 0.5 * (bounds.height - size.height);
         graphics.setForegroundColor(ColorConstants.white);
-        graphics.setFont(DrawConstantans.TINY_FONT);
+        graphics.setFont(DrawUtil.TINY_FONT);
         graphics.drawText("{ }", new PrecisionPoint(x, y));
     }
     

@@ -25,7 +25,7 @@ import cz.jpikl.yafmt.clang.util.ConstraintCache;
 import cz.jpikl.yafmt.model.fm.Constraint;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.Group;
-import cz.jpikl.yafmt.ui.util.DrawConstantans;
+import cz.jpikl.yafmt.ui.util.DrawUtil;
 import cz.jpikl.yafmt.ui.views.fm.decorations.AttributeDecoration;
 import cz.jpikl.yafmt.ui.views.fm.decorations.CardinalityDecoration;
 import cz.jpikl.yafmt.ui.views.fm.decorations.ConstraintDecoration;
@@ -110,7 +110,7 @@ public class FeatureModelStyleProvider extends LabelProviderAdapter {
         // Set better line style
         if(connection.getLineStyle() == SWT.LINE_DOT) {
             connection.setLineStyle(SWT.LINE_CUSTOM);
-            ((PolylineConnection) figure).setLineDash(DrawConstantans.LINE_DASHED);
+            ((PolylineConnection) figure).setLineDash(DrawUtil.LINE_DASHED);
         }
 
         // Replace connection anchors.
@@ -141,10 +141,10 @@ public class FeatureModelStyleProvider extends LabelProviderAdapter {
     @Override
     public Color getColor(Object src, Object dst) {
         if((src instanceof Feature) && (dst instanceof Feature))
-            return DrawConstantans.FEATURE_COLOR;
+            return DrawUtil.FEATURE_COLOR;
         if((src instanceof Group) || (dst instanceof Group))
-            return DrawConstantans.GROUP_COLOR;
-        return DrawConstantans.CONSTRAINT_COLOR;
+            return DrawUtil.GROUP_COLOR;
+        return DrawUtil.CONSTRAINT_COLOR;
     }
 
     @Override
