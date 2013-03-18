@@ -11,6 +11,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.RoundedRectangle;
 import org.eclipse.draw2d.StackLayout;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Pattern;
@@ -56,6 +57,7 @@ public class FeatureFigure extends RoundedRectangle {
         setForegroundColor(ColorConstants.black);
         setLayoutManager(new StackLayout());
         setToolTip(createToolTip());
+        setMinimumSize(new Dimension(INITIAL_WIDTH, INITIAL_HEGHT));
         add(createMainLayer());
         add(createMarkerLayer());
     }

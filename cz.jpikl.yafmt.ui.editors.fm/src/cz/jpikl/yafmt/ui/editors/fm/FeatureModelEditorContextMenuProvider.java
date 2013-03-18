@@ -9,6 +9,7 @@ import cz.jpikl.yafmt.ui.actions.ExportGraphicalEditorAsImageAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.AutoLayoutAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.GroupFeaturesAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.SetFeatureCardinalityAction;
+import cz.jpikl.yafmt.ui.editors.fm.actions.SetFeatureOptimalSizeAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.UngroupFeaturesAction;
 import cz.jpikl.yafmt.ui.providers.GraphicalEditorContextMenuProvider;
 
@@ -33,6 +34,7 @@ public class FeatureModelEditorContextMenuProvider extends GraphicalEditorContex
         addActionToMenu(menu, GEFActionConstants.GROUP_EDIT, GroupFeaturesAction.ID_OR);
         addActionToMenu(menu, GEFActionConstants.GROUP_EDIT, UngroupFeaturesAction.ID);
         addActionToMenu(menu, GEFActionConstants.GROUP_SAVE, AutoLayoutAction.ID);
+        addActionToMenu(menu, GEFActionConstants.GROUP_SAVE, SetFeatureOptimalSizeAction.ID);
         addActionToMenu(menu, GEFActionConstants.GROUP_SAVE, ExportGraphicalEditorAsImageAction.ID);
     }
 

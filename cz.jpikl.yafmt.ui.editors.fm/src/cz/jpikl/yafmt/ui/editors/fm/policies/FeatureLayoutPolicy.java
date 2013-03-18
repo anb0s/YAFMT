@@ -2,6 +2,7 @@ package cz.jpikl.yafmt.ui.editors.fm.policies;
 
 import java.util.List;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
@@ -75,16 +76,20 @@ public class FeatureLayoutPolicy extends OrderedLayoutEditPolicy {
 
         Attribute attribute = (Attribute) model;
         LayoutData layoutData = ((FeatureEditPart) getHost()).getLayoutData();
-        Feature feature = (Feature) getHost().getModel();
-        List<Attribute> attributes = feature.getAttributes();
+        Feature newFeature = (Feature) getHost().getModel();
+        IFigure newFeatureFigure = getHostFigure();
+        List<Attribute> attributes = newFeature.getAttributes();
 
         int targetIndex = attributes.size();
         if(editPartAfter != null)
             targetIndex = attributes.indexOf(editPartAfter.getModel());
 
-        CompoundCommand command = new CompoundCommand("Move attribute " + attribute.getName() + " to " + feature.getName());
-        command.add(new DeleteAttributeCommand(layoutData, attribute));
-        command.add(new AddAttributeCommand(layoutData, feature, attribute, targetIndex));
+        Feature oldFeature = attribute.getFeature();
+        IFigure oldFeatureFigure = ((GraphicalEditPart) getHost().getRoot().getViewer().getEditPartRegistry().get(oldFeature)).getFigure(); 
+        
+        CompoundCommand command = new CompoundCommand("Move attribute " + attribute.getName() + " to " + newFeature.getName());
+        command.add(new DeleteAttributeCommand(layoutData, oldFeature, oldFeatureFigure, attribute));
+        command.add(new AddAttributeCommand(layoutData, newFeature, newFeatureFigure, attribute, targetIndex));
         return command;
     }
 
@@ -96,9 +101,10 @@ public class FeatureLayoutPolicy extends OrderedLayoutEditPolicy {
             return null;
 
         Feature feature = (Feature) getHost().getModel();
+        IFigure featureFigure = getHostFigure();
         LayoutData layoutData = ((FeatureEditPart) getHost()).getLayoutData();
 
-        return new AddAttributeCommand(layoutData, feature, (Attribute) object);
+        return new AddAttributeCommand(layoutData, feature, featureFigure, (Attribute) object);
     }
 
 }

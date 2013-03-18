@@ -44,6 +44,7 @@ import cz.jpikl.yafmt.ui.editors.fm.actions.DeleteAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.GroupFeaturesAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.SelectAllAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.SetFeatureCardinalityAction;
+import cz.jpikl.yafmt.ui.editors.fm.actions.SetFeatureOptimalSizeAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.UngroupFeaturesAction;
 import cz.jpikl.yafmt.ui.editors.fm.figures.FeatureFigure;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
@@ -181,6 +182,7 @@ public class FeatureModelEditor extends ModelEditor {
         createAction(new GroupFeaturesAction(this, false));
         createAction(new UngroupFeaturesAction(this));
         createAction(new AutoLayoutAction(this));
+        createAction(new SetFeatureOptimalSizeAction(this));
         createAction(new ShowFeatureModelVisualizerAction());
         createAction(new ExportGraphicalEditorAsImageAction(this) {
             @Override

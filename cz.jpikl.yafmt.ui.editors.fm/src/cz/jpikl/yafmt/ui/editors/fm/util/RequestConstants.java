@@ -12,5 +12,6 @@ public interface RequestConstants {
     String REQ_MAKE_FEATURE_MAN = "cz.jpikl.yafmt.ui.editors.fm.requests.MakeFeaturesMandatory";
     String REQ_MAKE_FEATURE_OPT = "cz.jpikl.yafmt.ui.editors.fm.requests.MakeFeaturesOptional";
     String REQ_AUTO_LAYOUT = "cz.jpikl.yafmt.ui.editors.fm.requests.AutoLayout";
+    String REQ_SET_FEATURE_OPTIMAL_SIZE = "cz.jpikl.yafmt.ui.editors.fm.requests.SetFeatureOptimalSize";
 
 }

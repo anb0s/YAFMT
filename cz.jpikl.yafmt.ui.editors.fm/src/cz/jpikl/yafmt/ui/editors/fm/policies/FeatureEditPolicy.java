@@ -1,5 +1,6 @@
 package cz.jpikl.yafmt.ui.editors.fm.policies;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.ComponentEditPolicy;
@@ -8,6 +9,7 @@ import org.eclipse.gef.requests.GroupRequest;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.ui.editors.fm.commands.DeleteFeatureCommand;
 import cz.jpikl.yafmt.ui.editors.fm.commands.SetFeatureCardinalityCommand;
+import cz.jpikl.yafmt.ui.editors.fm.commands.SetFeatureOptimalSizeCommand;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 import cz.jpikl.yafmt.ui.editors.fm.parts.FeatureEditPart;
 import cz.jpikl.yafmt.ui.editors.fm.util.RequestConstants;
@@ -24,6 +26,12 @@ public class FeatureEditPolicy extends ComponentEditPolicy {
         else if(RequestConstants.REQ_MAKE_FEATURE_OPT.equals(type)) {
             Feature feature = (Feature) getHost().getModel();
             return createSetFeatureCardinalityCommand(feature, false);
+        }
+        else if(RequestConstants.REQ_SET_FEATURE_OPTIMAL_SIZE.equals(type)) {
+            LayoutData layoutData =((FeatureEditPart) getHost()).getLayoutData();
+            Feature feature = (Feature) getHost().getModel();
+            IFigure figure = ((FeatureEditPart) getHost()).getFigure();
+            return new SetFeatureOptimalSizeCommand(layoutData, feature, figure);
         }
         return super.getCommand(request);
     }

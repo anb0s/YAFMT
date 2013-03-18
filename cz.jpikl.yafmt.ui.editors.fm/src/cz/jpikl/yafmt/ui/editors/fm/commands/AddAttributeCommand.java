@@ -1,40 +1,49 @@
 package cz.jpikl.yafmt.ui.editors.fm.commands;
 
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 import cz.jpikl.yafmt.model.fm.Attribute;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.ui.commands.RecordingCommand;
-import cz.jpikl.yafmt.ui.editors.fm.figures.AttributeFigure;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 
 public class AddAttributeCommand extends RecordingCommand {
 
-    private ResizeFeatureCommand resizeCommand;
+    private SetFeatureSizeCommand resizeCommand;
     private LayoutData layoutData;
     private Feature feature;
+    private IFigure featureFigure;
     private Attribute attribute;
     private int index;
 
-    public AddAttributeCommand(LayoutData layoutData, Feature feature, Attribute attribute) {
-        this(layoutData, feature, attribute, feature.getAttributes().size());
+    public AddAttributeCommand(LayoutData layoutData, Feature feature, IFigure featureFigure, Attribute attribute) {
+        this(layoutData, feature, featureFigure, attribute, feature.getAttributes().size());
     }
 
-    public AddAttributeCommand(LayoutData layoutData, Feature feature, Attribute attribute, int index) {
+    public AddAttributeCommand(LayoutData layoutData, Feature feature, IFigure featureFigure, Attribute attribute, int index) {
         setLabel("Add Attribute");
         this.layoutData = layoutData;
         this.feature = feature;
+        this.featureFigure = featureFigure;
         this.attribute = attribute;
         this.index = index;
     }
 
-    private void initializeResizeCommand() {
-        Rectangle bounds = layoutData.get(feature);
-        Rectangle deltas = new Rectangle();
-        deltas.height = (feature.getAttributes().isEmpty()) ? AttributeFigure.EXTENDED_HEIGHT : AttributeFigure.HEIGHT;
-        if(bounds.width < AttributeFigure.WIDTH)
-            deltas.width = AttributeFigure.WIDTH - bounds.width;
-        resizeCommand = new ResizeFeatureCommand(layoutData, feature, deltas);
+    private SetFeatureSizeCommand createResizeCommand() {
+        return new SetFeatureOptimalSizeCommand(layoutData, feature, featureFigure) {
+            @Override
+            protected Dimension computeFeaturePreferredSize() {
+                Dimension prefSize = super.computeFeaturePreferredSize();
+                Rectangle bounds = getFeatureOldBounds().getCopy();
+                if(prefSize.width < bounds.width)
+                    prefSize.width = bounds.width;
+                if(prefSize.height < bounds.height)
+                    prefSize.height = bounds.height;
+                return prefSize;
+            }
+        };
     }
 
     @Override
@@ -49,7 +58,7 @@ public class AddAttributeCommand extends RecordingCommand {
 
     @Override
     public void execute() {
-        initializeResizeCommand();
+        resizeCommand = createResizeCommand();
         super.execute();
         resizeCommand.execute();
     }

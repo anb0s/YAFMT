@@ -1,31 +1,44 @@
 package cz.jpikl.yafmt.ui.editors.fm.commands;
 
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import cz.jpikl.yafmt.model.fm.Attribute;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.ui.commands.RecordingCommand;
-import cz.jpikl.yafmt.ui.editors.fm.figures.AttributeFigure;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 
 public class DeleteAttributeCommand extends RecordingCommand {
 
-    private ResizeFeatureCommand resizeCommand;
+    private SetFeatureSizeCommand resizeCommand;
     private LayoutData layoutData;
+    private Feature feature;
+    private IFigure featureFigure;
     private Attribute attribute;
 
-    public DeleteAttributeCommand(LayoutData layoutData, Attribute attribute) {
+    public DeleteAttributeCommand(LayoutData layoutData, Feature feature, IFigure featureFigure, Attribute attribute) {
         setLabel("Delete Attribute " + attribute.getName());
         this.layoutData = layoutData;
+        this.feature = feature;
+        this.featureFigure = featureFigure;
         this.attribute = attribute;
     }
 
-    private void initializeResizeCommand() {
-        Feature feature = (Feature) attribute.eContainer();
-        Rectangle deltas = new Rectangle();
-        deltas.height = -((feature.getAttributes().size() == 1) ? AttributeFigure.EXTENDED_HEIGHT : AttributeFigure.HEIGHT);
-        resizeCommand = new ResizeFeatureCommand(layoutData, feature, deltas);
+    private SetFeatureSizeCommand createResizeCommand() {
+        return new SetFeatureOptimalSizeCommand(layoutData, feature, featureFigure) {
+            @Override
+            protected Dimension computeFeaturePreferredSize() {
+                Dimension prefSize = super.computeFeaturePreferredSize();
+                Rectangle bounds = getFeatureOldBounds().getCopy();
+                if(prefSize.width > bounds.width)
+                    prefSize.width = bounds.width;
+                if(prefSize.height > bounds.height)
+                    prefSize.height = bounds.height;
+                return prefSize;
+            }
+        };
     }
 
     @Override
@@ -40,7 +53,7 @@ public class DeleteAttributeCommand extends RecordingCommand {
 
     @Override
     public void execute() {
-        initializeResizeCommand();
+        resizeCommand = createResizeCommand();
         super.execute();
         resizeCommand.execute();
     }
