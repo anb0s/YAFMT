@@ -17,26 +17,16 @@ public class AttributeDirectEditPolicy extends DirectEditPolicy {
         Attribute attribute = (Attribute) getHost().getModel();
         Object value = request.getCellEditor().getValue();
 
-        // Name input.
-        if(value instanceof String) {
-            String name = (String) value;
-            if(name.isEmpty())
-                return null;
-            return new SetAttributeNameCommand(attribute, name);
-        }
-
-        // Type input.
-        if(value instanceof AttributeType) {
-            AttributeType type = (AttributeType) value;
-            return new SetAttributeTypeCommand(attribute, type);
-        }
-
+        if(value instanceof String)
+            return new SetAttributeNameCommand(attribute, (String) value);
+        if(value instanceof AttributeType)
+            return new SetAttributeTypeCommand(attribute, (AttributeType) value);
         return null;
     }
 
     @Override
     protected void showCurrentEditValue(DirectEditRequest request) {
-        // Feedback only for attribute name input.
+        // Feedback only for text input.
         Object value = request.getCellEditor().getValue();
         if(value == null)
             value = "";

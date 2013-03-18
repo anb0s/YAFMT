@@ -10,6 +10,7 @@ public class SetAttributeTypeCommand extends RecordingCommand {
     private AttributeType type;
 
     public SetAttributeTypeCommand(Attribute attribute, AttributeType type) {
+        setLabel("Set Attribute " + attribute.getName() + " type to " + type.getLiteral());
         this.attribute = attribute;
         this.type = type;
     }

@@ -5,7 +5,6 @@ import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.ATTRIBUTE__NAME;
 import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.ATTRIBUTE__TYPE;
 
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.TextUtilities;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -29,7 +28,6 @@ import cz.jpikl.yafmt.ui.editors.fm.figures.AttributeFigure;
 import cz.jpikl.yafmt.ui.editors.fm.policies.AttributeDirectEditPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.AttributeEditPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.util.AttributeTypeCellEditor;
-import cz.jpikl.yafmt.ui.util.NonEmptyCellEditorValidator;
 import cz.jpikl.yafmt.ui.validation.IProblemManager;
 
 public class AttributeEditPart extends AbstractGraphicalEditPart {
@@ -112,32 +110,31 @@ public class AttributeEditPart extends AbstractGraphicalEditPart {
     }
 
     private void performDirectEditing(Point mouseLocation) {
+        double scale = ((ScalableFreeformRootEditPart) getRoot()).getZoomManager().getZoom();
+        AttributeFigure figure = getFigure();
+        Rectangle figureBounds = figure.getBounds().getCopy();
+        figure.translateToAbsolute(figureBounds);
+        
         String attributeName = attribute.getName();
         AttributeType attributeType = attribute.getType();
-
-        double scale = ((ScalableFreeformRootEditPart) getRoot()).getZoomManager().getZoom();
-        Label label = ((AttributeFigure) getFigure());
-        Rectangle labelBounds = label.getBounds().getCopy();
-        label.translateToAbsolute(labelBounds);
-        
-        int attributeNameWidth = TextUtilities.INSTANCE.getStringExtents(attributeName + ": ", label.getFont()).width;
-        int attributeTypeX = labelBounds.x + (int) (scale * attributeNameWidth);
+        int attributeNameWidth = TextUtilities.INSTANCE.getStringExtents(attributeName + ": ", figure.getFont()).width;
+        int attributeTypeX = figureBounds.x + (int) (scale * attributeNameWidth);
         int mouseX = mouseLocation.x;
-
-        // Name direct edit
+        
+        LabelDirectEditManager manager = null;
+        
         if(mouseX <= attributeTypeX) {
-            LabelDirectEditManager manager = new LabelDirectEditManager(this, label, attributeName);
-            manager.setValidator(new NonEmptyCellEditorValidator());
-            manager.setAlignment(SWT.LEFT | SWT.CENTER);
-            manager.show();
+            // Name direct edit
+            manager = new LabelDirectEditManager(this, figure, attributeName);
         }
-        // Type direct edit.
         else {
-            ComboDirectEditManager manager = new ComboDirectEditManager(this, AttributeTypeCellEditor.class, label, attributeType);
-            manager.setAlignment(SWT.LEFT | SWT.CENTER);
+            // Type direct edit.
+            manager = new ComboDirectEditManager(this, AttributeTypeCellEditor.class, figure, attributeType);
             manager.setXOffset(attributeNameWidth); // Offset must not be scaled
-            manager.show();
         }
+        
+        manager.setAlignment(SWT.LEFT | SWT.CENTER);
+        manager.show();
     }
     
     // ===================================================================

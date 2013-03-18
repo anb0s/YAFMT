@@ -9,9 +9,13 @@ public class SetAttributeNameCommand extends RecordingCommand {
     private String newName;
 
     public SetAttributeNameCommand(Attribute attribute, String newName) {
-        setLabel("Rename Attribute " + attribute.getName() + " to " + newName);
         this.attribute = attribute;
         this.newName = newName;
+    }
+    
+    @Override
+    public boolean canExecute() {
+        return (newName != null) && !newName.isEmpty();
     }
 
     @Override
@@ -21,6 +25,7 @@ public class SetAttributeNameCommand extends RecordingCommand {
 
     @Override
     protected void performRecording() {
+        setLabel("Rename Attribute " + attribute.getName() + " to " + newName);
         attribute.setName(newName);
     }
 

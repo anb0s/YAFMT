@@ -47,7 +47,6 @@ import cz.jpikl.yafmt.ui.editors.fm.policies.ConnectionCreationPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureDirectEditPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureEditPolicy;
 import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureLayoutPolicy;
-import cz.jpikl.yafmt.ui.util.NonEmptyCellEditorValidator;
 import cz.jpikl.yafmt.ui.validation.IProblemManager;
 
 public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEditPart {
@@ -201,7 +200,6 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
     private void performDirectEditing() {
         Label label = ((FeatureFigure) getFigure()).getLabel();
         LabelDirectEditManager manager = new LabelDirectEditManager(this, label);
-        manager.setValidator(new NonEmptyCellEditorValidator());
         manager.setAlignment(SWT.CENTER);
         manager.show();
     }
