@@ -20,7 +20,7 @@ public class SelectAllAction extends org.eclipse.gef.ui.actions.SelectAllAction 
     @Override
     public void run() {
         Control controlWithFocus = Display.getCurrent().getFocusControl();
-        if(controlWithFocus instanceof Table) {System.out.println("all");
+        if(controlWithFocus instanceof Table) {
             // Constraints editor has focus.
             Table table = ((Table) controlWithFocus);
             table.selectAll();
@@ -28,10 +28,8 @@ public class SelectAllAction extends org.eclipse.gef.ui.actions.SelectAllAction 
             // Forward selection to the site selection provider.
             TableItem[] selectedItems = table.getSelection();
             Object[] objects = new Object[selectedItems.length];
-            for(int i = 0; i < objects.length; i++){
+            for(int i = 0; i < objects.length; i++)
                 objects[i] = selectedItems[i].getData();
-                System.out.println(objects[i].getClass().getName());
-            }
 
             ISelection selection = new StructuredSelection(objects);
             part.getSite().getSelectionProvider().setSelection(selection);
