@@ -145,7 +145,8 @@ public class GroupFigure extends Shape {
 
         // Get angle of each group-to-feature connection.
         for(int i = 0; i < size; i++) {
-            Point target = layoutData.get(features.get(i)).getCenter();
+            Rectangle rect = layoutData.get(features.get(i));
+            Point target = (rect != null) ? rect.getCenter() : new Point(0, 0);
             connectionAngles[i] = getAngle(self, target);
         }
 
@@ -194,7 +195,7 @@ public class GroupFigure extends Shape {
     }
 
     private void repositionLabel() {
-        if(label.getText().isEmpty() || label.getParent() == null)
+        if(label.getText().isEmpty() || (label.getParent() == null) || (connectionAngles == null))
             return;
 
         Dimension size = label.getPreferredSize();
