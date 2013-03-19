@@ -1,6 +1,5 @@
 package cz.jpikl.yafmt.ui.views.fm.filters;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -41,14 +40,13 @@ public class ConstraintFilter extends ViewerFilter {
 
         for(Object element: ((IStructuredSelection) selection).toArray()) {
             if(element instanceof Constraint) {
-                Collection<Feature> feautures = constraintCache.getFeaturesAffectedByConstraint((Constraint) element);
-                if((feautures != null) && !feautures.isEmpty())
+                Constraint constraint = (Constraint) element;
+                if(!constraintCache.getFeaturesAffectedByConstraint(constraint).isEmpty())
                     visibleConstraints.add((Constraint) element);
             }
             else if(element instanceof Feature) {
-                Collection<Constraint> constraints = constraintCache.getConstraintsAffectingFeature((Feature) element);
-                if(constraints != null)
-                    visibleConstraints.addAll(constraints);
+                Feature feature = (Feature) element;
+                visibleConstraints.addAll(constraintCache.getConstraintsAffectingFeature(feature));
             }
         }
     }

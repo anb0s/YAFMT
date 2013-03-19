@@ -295,7 +295,7 @@ public class FeatureModelImpl extends EObjectImpl implements FeatureModel {
     public Feature getFeatureById(String id) {
         if(featureCache == null)
             featureCache = new FeatureCache(this);
-        return featureCache.getFeature(id);
+        return featureCache.getFeatureById(id);
     }
 
     /**

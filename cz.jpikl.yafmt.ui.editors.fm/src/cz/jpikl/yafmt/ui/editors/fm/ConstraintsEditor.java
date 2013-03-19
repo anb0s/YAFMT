@@ -2,15 +2,14 @@ package cz.jpikl.yafmt.ui.editors.fm;
 
 import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.CONSTRAINT__LANGUAGE;
 import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.CONSTRAINT__VALUE;
-import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.FEATURE_MODEL__CONSTRAINTS;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.gef.commands.Command;
@@ -26,6 +25,7 @@ import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.TableViewerEditor;
@@ -69,9 +69,9 @@ public class ConstraintsEditor extends SplitterDock implements ISelectionListene
     private FeatureModel featureModel;
     private FeatureModelAdapter featureModelAdapter = new FeatureModelAdapter();
 
-    private ConstraintCache constraintCache = new ConstraintCache();
+    private ConstraintCache constraintCache;
     private Set<Constraint> visibleConstraints = new HashSet<Constraint>();
-    private IStructuredSelection outerSelection;
+    private IStructuredSelection outerSelection = StructuredSelection.EMPTY;
     private boolean blockSelectionEvents = false;
 
     private boolean filterEnabled = false;
@@ -83,14 +83,13 @@ public class ConstraintsEditor extends SplitterDock implements ISelectionListene
     private IContributionItem setLanguageAction;
     private IProblemManager problemManager;
 
-    public ConstraintsEditor(Splitter splitter, GraphicalEditor editor, IProblemManager problemManager) {
+    public ConstraintsEditor(Splitter splitter, GraphicalEditor editor) {
         super(splitter, SWT.NONE);
-        this.commandStack = (CommandStack) editor.getAdapter(CommandStack.class);
-        this.actionRegistry = (ActionRegistry) editor.getAdapter(ActionRegistry.class);
-        this.featureModel = (FeatureModel) editor.getAdapter(FeatureModel.class);
-        this.featureModel.eAdapters().add(featureModelAdapter);
-        this.constraintCache.setFeatureModel(featureModel);
-        this.problemManager = problemManager;
+        commandStack = (CommandStack) editor.getAdapter(CommandStack.class);
+        actionRegistry = (ActionRegistry) editor.getAdapter(ActionRegistry.class);
+        featureModel = (FeatureModel) editor.getAdapter(FeatureModel.class);
+        constraintCache = (ConstraintCache) editor.getAdapter(ConstraintCache.class);
+        problemManager = (IProblemManager) editor.getAdapter(IProblemManager.class);
         initialize();
     }
     
@@ -99,8 +98,10 @@ public class ConstraintsEditor extends SplitterDock implements ISelectionListene
     // ====================================================================
     
     private void initialize() {
-        revalidateModel();
+        // Revalidation happens when adapter is initialized.
         buildControl();
+        featureModel.eAdapters().add(featureModelAdapter); // Must be called after initializing viewer.
+        
         setName("Constraints");
         setImage(FeatureModelEditorPlugin.getAccess().getImage("constraint.png"));
         setOpenToolTipText("Show Constraints");
@@ -232,12 +233,12 @@ public class ConstraintsEditor extends SplitterDock implements ISelectionListene
 
         for(Object object: outerSelection.toArray()) {
             if(object instanceof Constraint) {
-                visibleConstraints.add((Constraint) object);
+                Constraint constraint = (Constraint) object;
+                visibleConstraints.add(constraint);
             }
             else if(object instanceof Feature) {
-                Collection<Constraint> constraints = constraintCache.getConstraintsAffectingFeature((Feature) object);
-                if(constraints != null)
-                    visibleConstraints.addAll(constraints);
+                Feature feature = (Feature) object;
+                visibleConstraints.addAll(constraintCache.getConstraintsAffectingFeature(feature));
             }
         }
     }
@@ -274,6 +275,17 @@ public class ConstraintsEditor extends SplitterDock implements ISelectionListene
             descriptor = iterator.next();
         return (descriptor != null) ? descriptor.getId() : null;
     }
+    
+    // ====================================================================
+    //  Validation
+    // ====================================================================
+        
+    private void revalidateConstraint(Constraint constraint) {
+        problemManager.clearProblems(constraint);
+        BasicDiagnostic diagnostic = new BasicDiagnostic();
+        if(!FeatureModelValidator.INSTANCE.validate(constraint, diagnostic))
+            problemManager.addProblems(diagnostic);
+    }
 
     // ====================================================================
     //  Events
@@ -286,8 +298,7 @@ public class ConstraintsEditor extends SplitterDock implements ISelectionListene
         if((part != activePart) || (part instanceof PropertySheet) || viewer.getSelection().equals(selection))
             return;
 
-        outerSelection = (selection instanceof IStructuredSelection) ? (IStructuredSelection) selection : null;
-
+        outerSelection = (selection instanceof IStructuredSelection) ? (IStructuredSelection) selection : StructuredSelection.EMPTY;
         if(filterEnabled)
             refresh();
         
@@ -300,51 +311,33 @@ public class ConstraintsEditor extends SplitterDock implements ISelectionListene
     private class FeatureModelAdapter extends EContentAdapter {
 
         @Override
+        protected void addAdapter(Notifier notifier) {
+            if(!(notifier instanceof Constraint) && !(notifier instanceof FeatureModel))
+                return;
+            
+            super.addAdapter(notifier);
+            if(notifier instanceof Constraint) {
+                revalidateConstraint((Constraint) notifier);
+                viewer.refresh();
+            }
+        }
+        
+        @Override
+        protected void removeAdapter(Notifier notifier) {
+            super.removeAdapter(notifier);
+            if(notifier instanceof Constraint) {
+                problemManager.clearProblems(notifier);
+                viewer.remove(notifier);
+            }
+        }
+        
+        @Override
         public void notifyChanged(Notification msg) {
             super.notifyChanged(msg);
 
-            constraintCache.invalidate();
-            
             Object notifier = msg.getNotifier();
-            if(notifier instanceof FeatureModel)
-                notifyChangedFromFeatureModel(msg);
-            else if(notifier instanceof Constraint)
+            if(notifier instanceof Constraint)
                 notifyChangedFromConstraint(msg);
-        }
-        
-        private void notifyChangedFromFeatureModel(Notification msg) {
-            switch(msg.getFeatureID(FeatureModel.class)) {
-                case FEATURE_MODEL__CONSTRAINTS:
-                    notifyChangedFromFeatureModelConstraints(msg);
-                    viewer.refresh();
-                    break;
-            }
-        }
-        
-        private void notifyChangedFromFeatureModelConstraints(Notification msg) {
-            switch(msg.getEventType()) {
-                case Notification.ADD:
-                case Notification.ADD_MANY:
-                    if(msg.getNewValue() instanceof Constraint) {
-                        revalidateConstraint((Constraint) msg.getNewValue());
-                    }
-                    else {
-                        for(Object constraint: (Collection<?>) msg.getNewValue())
-                            revalidateConstraint((Constraint) constraint);
-                    }
-                    break;
-                    
-                case Notification.REMOVE:
-                case Notification.REMOVE_MANY:
-                    if(msg.getOldValue() instanceof Constraint) {
-                        problemManager.clearProblems(msg.getOldValue());
-                    }
-                    else {
-                        for(Object constraint: (Collection<?>) msg.getOldValue())
-                            problemManager.clearProblems(constraint);
-                    }
-                    break;
-            }
         }
         
         private void notifyChangedFromConstraint(Notification msg) {
@@ -357,22 +350,6 @@ public class ConstraintsEditor extends SplitterDock implements ISelectionListene
             }
         }
         
-    }
-    
-    // ====================================================================
-    //  Validation
-    // ====================================================================
-    
-    private void revalidateModel() {
-        for(Constraint constraint: featureModel.getConstraints())
-            revalidateConstraint(constraint);
-    }
-    
-    private void revalidateConstraint(Constraint constraint) {
-        problemManager.clearProblems(constraint);
-        BasicDiagnostic diagnostic = new BasicDiagnostic();
-        if(!FeatureModelValidator.INSTANCE.validate(constraint, diagnostic))
-            problemManager.addProblems(diagnostic);
     }
     
     // ====================================================================

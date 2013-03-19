@@ -34,6 +34,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.views.properties.IPropertySourceProvider;
 
+import cz.jpikl.yafmt.clang.util.ConstraintCache;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.provider.util.FeatureModelProviderUtil;
 import cz.jpikl.yafmt.ui.actions.ExportGraphicalEditorAsImageAction;
@@ -61,6 +62,7 @@ public class FeatureModelEditor extends ModelEditor {
     private FeatureModel featureModel;
     private LayoutData layoutData;
     private ConstraintsEditor constraintsEditor;
+    private ConstraintCache constraintCache;
 
     // ==================================================================================
     //  Basic initialization
@@ -97,7 +99,7 @@ public class FeatureModelEditor extends ModelEditor {
     }
 
     private void createConstraintsEditor(Splitter splitter) {
-        constraintsEditor = new ConstraintsEditor(splitter, this, getProblemManager());
+        constraintsEditor = new ConstraintsEditor(splitter, this);
         constraintsEditor.getViewer().addSelectionChangedListener(getSelectionProvider());
         getSite().getPage().addSelectionListener(constraintsEditor);
     }
@@ -113,7 +115,7 @@ public class FeatureModelEditor extends ModelEditor {
 
     @Override
     protected EditPartFactory getEditPartFactory() {
-        return new FeatureModelEditPartFactory(layoutData, getProblemManager());
+        return new FeatureModelEditPartFactory(this);
     }
 
     @Override
@@ -218,6 +220,7 @@ public class FeatureModelEditor extends ModelEditor {
         Resource resource = resourceSet.createResource(URI.createPlatformResourceURI(path, true));
         resource.load(null);
         featureModel = (FeatureModel) resource.getContents().get(0);
+        constraintCache = new ConstraintCache(featureModel);
     }
 
     private void loadLayoutData(ResourceSet resourceSet, String featureModelPath) {
@@ -271,6 +274,10 @@ public class FeatureModelEditor extends ModelEditor {
     public Object getAdapter(Class type) {
         if(type == FeatureModel.class)
             return featureModel;
+        if(type == LayoutData.class)
+            return layoutData;
+        if(type == ConstraintCache.class)
+            return constraintCache;
         return super.getAdapter(type);
     }
 

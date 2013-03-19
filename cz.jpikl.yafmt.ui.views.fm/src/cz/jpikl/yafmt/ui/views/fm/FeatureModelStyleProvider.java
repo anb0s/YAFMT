@@ -187,7 +187,7 @@ public class FeatureModelStyleProvider extends LabelProviderAdapter {
 
     private List<Constraint> getHiddenConstraints(Feature feature) {
         Collection<Constraint> constraints = constraintCache.getConstraintsAffectingFeature(feature);
-        if((constraints == null) || constraints.isEmpty())
+        if(constraints.isEmpty())
             return null;
 
         List<Constraint> hiddenConstraints = new ArrayList<Constraint>(constraints.size()); 

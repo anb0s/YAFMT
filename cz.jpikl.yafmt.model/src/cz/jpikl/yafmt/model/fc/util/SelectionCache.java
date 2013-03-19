@@ -16,16 +16,22 @@ import cz.jpikl.yafmt.model.fc.Selection;
 
 public class SelectionCache {
 
-    private Map<String, EList<Selection>> idToSelections; // Multimap
-    private Adapter adapter;
+    private Map<String, EList<Selection>> idToSelections;
+    private FeatureConfigurationAdapter featureConfigAdapter;
 
     public SelectionCache(FeatureConfiguration featureConfig) {
         if(featureConfig == null)
-            throw new IllegalArgumentException("Argument cannot be null");
+            throw new IllegalArgumentException("Feature configuration cannot be null");
 
         idToSelections = new HashMap<String, EList<Selection>>();
-        adapter = new Adapter();
-        featureConfig.eAdapters().add(adapter);
+        featureConfigAdapter = new FeatureConfigurationAdapter();
+        featureConfig.eAdapters().add(featureConfigAdapter);
+    }
+    
+    public void dispose() {
+        featureConfigAdapter.getTarget().eAdapters().remove(featureConfigAdapter);
+        featureConfigAdapter = null;
+        idToSelections = null;
     }
 
     public EList<Selection> getSelectionsById(String id) {
@@ -34,6 +40,10 @@ public class SelectionCache {
             return selections;
         return ECollections.emptyEList();
     }
+    
+    // =======================================================================
+    //  Helpers
+    // =======================================================================
 
     private void addSelection(Selection selection) {
         String id = selection.getId();
@@ -59,8 +69,12 @@ public class SelectionCache {
         if(selections.isEmpty())
             idToSelections.remove(id);
     }
+    
+    // =======================================================================
+    //  Events
+    // =======================================================================
 
-    private class Adapter extends EContentAdapter {
+    private class FeatureConfigurationAdapter extends EContentAdapter {
 
         @Override
         protected void addAdapter(Notifier notifier) {

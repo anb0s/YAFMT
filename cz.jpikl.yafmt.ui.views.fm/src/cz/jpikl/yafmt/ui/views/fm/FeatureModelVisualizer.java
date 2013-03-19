@@ -231,8 +231,8 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
             return;
         
         if(featureModel != null) {
-            constraintCache.dispose();
             featureModel.eAdapters().remove(featureModelAdapter);
+            constraintCache.dispose();
         }
 
         featureModel = newFeatureModel;
@@ -247,8 +247,8 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         }
 
         if(featureModel != null) {
+            constraintCache.setFeatureModel(newFeatureModel); // Must be called before!
             featureModel.eAdapters().add(featureModelAdapter);
-            constraintCache.setFeatureModel(newFeatureModel);
         }
     }
     
@@ -349,7 +349,6 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
                 case Notification.REMOVE:
                 case Notification.REMOVE_MANY:
                 case Notification.SET:
-                    constraintCache.invalidate();
                     recomputeTreeHeight();
                     resizeGraphView();
                     viewer.refresh();

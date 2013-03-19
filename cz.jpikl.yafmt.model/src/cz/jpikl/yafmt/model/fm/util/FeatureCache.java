@@ -1,5 +1,7 @@
 package cz.jpikl.yafmt.model.fm.util;
 
+import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.FEATURE__ID;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,34 +11,37 @@ import org.eclipse.emf.ecore.util.EContentAdapter;
 
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
-import cz.jpikl.yafmt.model.fm.FeatureModelPackage;
 import cz.jpikl.yafmt.model.fm.Group;
 
 public class FeatureCache {
 
     private Map<String, Feature> idToFeature;
-    private Adapter adapter;
+    private FeatureModelAdapter featureModelAdapter;
 
     public FeatureCache(FeatureModel featureModel) {
         if(featureModel == null)
-            throw new IllegalArgumentException("Argument cannot be null");
+            throw new IllegalArgumentException("Feature model cannot be null");
 
         idToFeature = new HashMap<String, Feature>();
-        adapter = new Adapter();
-        featureModel.eAdapters().add(adapter);
+        featureModelAdapter = new FeatureModelAdapter();
+        featureModel.eAdapters().add(featureModelAdapter);
     }
 
     public void dispose() {
-        adapter.getTarget().eAdapters().remove(adapter);
-        adapter = null;
+        featureModelAdapter.getTarget().eAdapters().remove(featureModelAdapter);
+        featureModelAdapter = null;
         idToFeature = null;
     }
 
-    public Feature getFeature(String id) {
+    public Feature getFeatureById(String id) {
         return idToFeature.get(id);
     }
+    
+    // =======================================================================
+    //  Events
+    // =======================================================================
 
-    private class Adapter extends EContentAdapter {
+    private class FeatureModelAdapter extends EContentAdapter {
 
         @Override
         protected void addAdapter(Notifier notifier) {
@@ -61,7 +66,7 @@ public class FeatureCache {
 
             if(!(notification.getNotifier() instanceof Feature))
                 return;
-            if(notification.getFeatureID(Feature.class) == FeatureModelPackage.FEATURE__ID) {
+            if(notification.getFeatureID(Feature.class) == FEATURE__ID) {
                 Feature feature = idToFeature.remove(notification.getOldStringValue());
                 idToFeature.put(notification.getNewStringValue(), feature);
             }

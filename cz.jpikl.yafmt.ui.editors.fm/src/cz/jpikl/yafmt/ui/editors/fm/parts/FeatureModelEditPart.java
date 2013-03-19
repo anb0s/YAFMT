@@ -6,8 +6,10 @@ import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.FEATURE_MODEL__ROOT;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.draw2d.ConnectionLayer;
 import org.eclipse.draw2d.IFigure;
@@ -29,6 +31,7 @@ import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.model.validation.fm.FeatureModelValidator;
+import cz.jpikl.yafmt.ui.editors.fm.figures.FeatureFigure;
 import cz.jpikl.yafmt.ui.editors.fm.figures.FeatureModelFigure;
 import cz.jpikl.yafmt.ui.editors.fm.figures.GroupFigure;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
@@ -39,21 +42,21 @@ import cz.jpikl.yafmt.ui.validation.IProblemManager;
 public class FeatureModelEditPart extends AbstractGraphicalEditPart {
 
     // Enabling constraint markers may slow down editor when 
-    // editing large feature models with many constraints.
-    // Each time when model modification is performed, constraint cache
-    // and all affected feature figures must be refreshed.
+    // editing large feature models. Each time when model modification  
+    // is performed, all affected feature figures must be refreshed.
     private static final boolean CONSTRAINT_MARKERS_ENABLED = true;
 
     private FeatureModel featureModel;
     private LayoutData layoutData;
-    private IProblemManager problemManager;
     private ConstraintCache constraintCache;
+    private IProblemManager problemManager;
     private Adapter featureModelAdapter;
     private Adapter layoutDataAdapter;
     
-    public FeatureModelEditPart(FeatureModel featureModel, LayoutData layoutData, IProblemManager problemManager) {
+    public FeatureModelEditPart(FeatureModel featureModel, LayoutData layoutData, ConstraintCache constraintCache, IProblemManager problemManager) {
         this.featureModel = featureModel;
         this.layoutData = layoutData;
+        this.constraintCache = constraintCache;
         this.problemManager = problemManager;
         this.featureModelAdapter = new FeatureModelAdapter();
         this.layoutDataAdapter = new LayoutDataAdapter();
@@ -126,25 +129,17 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
         if(!CONSTRAINT_MARKERS_ENABLED)
             return;
         
-        // Reset state of currently marked figures.
-        if(constraintCache == null)
-            constraintCache = new ConstraintCache(featureModel);
-        else
-            setFeatureFiguresConstraintMarker(false);
-         
-        // Set state of newly marked figures.
-        constraintCache.invalidate();
-        setFeatureFiguresConstraintMarker(true);
-    }
-    
-    private void setFeatureFiguresConstraintMarker(boolean constrained) {
-        for(Feature feature: constraintCache.getFeaturesAffectedByConstraint()) {
-            EditPart editPart = getEditPartForObject(feature);
-            if(editPart != null)
-                ((FeatureEditPart) editPart).getFigure().setConstrained(constrained);
+        Collection<Feature> features = constraintCache.getFeaturesAffectedByConstraint();
+        Set<Feature> set = (features instanceof Set<?>) ? (Set<Feature>) features : new HashSet<Feature>(features);  
+        for(Object editPart: getChildren()) {
+            if(editPart instanceof FeatureEditPart) {
+                Feature feature = (Feature) ((FeatureEditPart) editPart).getModel();
+                FeatureFigure figure = ((FeatureEditPart) editPart).getFigure(); 
+                figure.setConstrained(set.contains(feature));
+            }
         }
     }
-    
+        
     public void refreshGroupFigure(Group group) {
         GraphicalEditPart editPart = getEditPartForObject(group);
         if(editPart == null)

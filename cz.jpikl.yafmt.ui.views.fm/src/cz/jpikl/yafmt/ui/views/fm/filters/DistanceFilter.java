@@ -1,6 +1,5 @@
 package cz.jpikl.yafmt.ui.views.fm.filters;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -81,11 +80,7 @@ public class DistanceFilter extends ViewerFilter {
     }
 
     private void processConstraint(Constraint constraint) {
-        Collection<Feature> features = constraintCache.getFeaturesAffectedByConstraint(constraint);
-        if(features == null)
-            return;
-
-        for(Feature feature: features)
+        for(Feature feature: constraintCache.getFeaturesAffectedByConstraint(constraint))
             processFeature(feature, 0, false);
     }
 

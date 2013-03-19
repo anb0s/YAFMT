@@ -1,6 +1,8 @@
 package cz.jpikl.yafmt.ui.views.fm.util;
 
-import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.*;
+import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.ATTRIBUTE;
+import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.FEATURE;
+import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.GROUP;
 
 import java.util.ArrayList;
 import java.util.HashSet;

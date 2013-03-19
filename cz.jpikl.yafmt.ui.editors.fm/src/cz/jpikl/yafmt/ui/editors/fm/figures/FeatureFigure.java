@@ -138,8 +138,10 @@ public class FeatureFigure extends RoundedRectangle {
     }
     
     public void setConstrained(boolean value) {
-        constraintMarker.setVisible(value);
-        markerLayer.refresh();
+        if(constraintMarker.isVisible() != value) {
+            constraintMarker.setVisible(value);
+            markerLayer.refresh();
+        }
     }
     
     public void setOrphaned(boolean value) {
