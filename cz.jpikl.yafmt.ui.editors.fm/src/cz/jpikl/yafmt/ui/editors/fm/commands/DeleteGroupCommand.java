@@ -2,6 +2,7 @@ package cz.jpikl.yafmt.ui.editors.fm.commands;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 
+import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.ui.commands.RecordingCommand;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
@@ -27,8 +28,11 @@ public class DeleteGroupCommand extends RecordingCommand {
 
     @Override
     protected void performRecording() {
-        group.getParent().getFeatures().addAll(group.getFeatures());
-        group.setParent(null);
+        Feature parent = group.getParent();
+        if(parent != null) {
+            group.getParent().getFeatures().addAll(group.getFeatures());
+            group.setParent(null);
+        }
     }
 
     @Override
