@@ -1,26 +1,33 @@
-package cz.jpikl.yafmt.ui.util;
+package cz.jpikl.yafmt.ui.views.fm.util;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.gef.EditPartViewer;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.ui.services.IDisposable;
 
-// Converts between model elements and edit parts selection.
-public class UnwrappingSelectionProvider implements ISelectionProvider, ISelectionChangedListener, IDisposable {
+import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
+
+// Converts between feature model and feature configuration elements selection.
+public class ConvertingSelectionProvider implements ISelectionProvider, ISelectionChangedListener, IDisposable {
 
     private List<ISelectionChangedListener> listeners = new ArrayList<ISelectionChangedListener>();
-    private EditPartViewer viewer;
+    private FeatureConfiguration featureConfig;
+    private Viewer viewer;
 
-    public UnwrappingSelectionProvider(EditPartViewer viewer) {
+    public ConvertingSelectionProvider(Viewer viewer) {
         this.viewer = viewer;
         this.viewer.addSelectionChangedListener(this);
     }
-
+    
+    public void setFeatureConfiguration(FeatureConfiguration featureConfig) {
+        this.featureConfig = featureConfig;
+    }
+    
     @Override
     public void dispose() {
         viewer.removeSelectionChangedListener(this);
@@ -33,12 +40,12 @@ public class UnwrappingSelectionProvider implements ISelectionProvider, ISelecti
 
     @Override
     public ISelection getSelection() {
-        return SelectionWrapper.toModelElementsSelection(viewer.getSelection());
+        return SelectionConverter.fromFeatureModelSelection(viewer.getSelection(), featureConfig);
     }
 
     @Override
     public void setSelection(ISelection selection) {
-        viewer.setSelection(SelectionWrapper.toEditPartsSelection(selection, viewer.getEditPartRegistry()));
+        viewer.setSelection(SelectionConverter.toFeatureModelSelection(selection));
     }
 
     @Override
@@ -58,12 +65,12 @@ public class UnwrappingSelectionProvider implements ISelectionProvider, ISelecti
     @Override
     public void selectionChanged(SelectionChangedEvent event) {
         if(event.getSource() == viewer) {
-            ISelection selection = SelectionWrapper.toModelElementsSelection(event.getSelection());
+            ISelection selection = SelectionConverter.fromFeatureModelSelection(event.getSelection(), featureConfig);
             event = new SelectionChangedEvent(viewer, selection);
         }
 
         for(ISelectionChangedListener listener: listeners)
             listener.selectionChanged(event);
     }
-
+    
 }

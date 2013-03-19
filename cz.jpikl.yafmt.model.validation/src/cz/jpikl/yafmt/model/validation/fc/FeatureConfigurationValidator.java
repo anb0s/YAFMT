@@ -86,10 +86,6 @@ public class FeatureConfigurationValidator extends BasicValidator {
     }
 
     private boolean validateLocalConstraint(FeatureConfiguration featureConfig, Group group, DiagnosticChain diagnostics) {
-        List<Selection> selections = featureConfig.getSelectionsById(group.getParent().getId());
-        if(selections == null)
-            return true;
-
         // Collect children IDs.
         Set<String> groupedFeaturesIds = new HashSet<String>();
         for(Feature childFeature: group.getFeatures())
@@ -101,7 +97,7 @@ public class FeatureConfigurationValidator extends BasicValidator {
         boolean result = true;
 
         // Validate number of grouped selected features in each group.
-        for(Selection selection: selections) {
+        for(Selection selection: featureConfig.getSelectionsById(group.getParent().getId())) {
             int groupSize = 0;
 
             for(Selection childSelection: selection.getSelections()) {

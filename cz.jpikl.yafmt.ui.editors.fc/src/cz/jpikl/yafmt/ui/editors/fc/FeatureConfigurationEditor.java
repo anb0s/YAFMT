@@ -211,6 +211,8 @@ public class FeatureConfigurationEditor extends ModelEditor {
     @Override
     @SuppressWarnings("rawtypes")
     public Object getAdapter(Class type) {
+        if(type == FeatureConfiguration.class)
+            return featureConfig;
         if(type == FeatureModel.class)
             return featureConfig.getFeatureModelCopy();
         return super.getAdapter(type);

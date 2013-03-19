@@ -5,7 +5,6 @@ import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
@@ -26,14 +25,8 @@ import org.eclipse.ui.views.properties.PropertySheet;
 import org.eclipse.zest.core.widgets.ZestStyles;
 
 import cz.jpikl.yafmt.clang.util.ConstraintCache;
-import cz.jpikl.yafmt.model.fc.AttributeValue;
 import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
-import cz.jpikl.yafmt.model.fc.Selection;
-import cz.jpikl.yafmt.model.fm.Attribute;
-import cz.jpikl.yafmt.model.fm.Constraint;
-import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
-import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
 import cz.jpikl.yafmt.ui.util.SWTUtil;
 import cz.jpikl.yafmt.ui.views.fm.filters.ConstraintFilter;
@@ -43,6 +36,8 @@ import cz.jpikl.yafmt.ui.views.fm.graph.DecoratableGraphViewer;
 import cz.jpikl.yafmt.ui.views.fm.graph.LayoutAlgorithmAnimator;
 import cz.jpikl.yafmt.ui.views.fm.settings.ISettingsListener;
 import cz.jpikl.yafmt.ui.views.fm.settings.Settings;
+import cz.jpikl.yafmt.ui.views.fm.util.SelectionConverter;
+import cz.jpikl.yafmt.ui.views.fm.util.ConvertingSelectionProvider;
 
 public class FeatureModelVisualizer extends ViewPart implements ISelectionListener,
                                                                 IPartListener,
@@ -54,10 +49,11 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
 
     private IWorkbenchPart sourcePart;
     private FeatureModel featureModel;
+    private FeatureConfiguration featureConfig;
     private FeatureModelAdapter featureModelAdapter;
-
-    private Settings settings;
     private ConstraintCache constraintCache;
+    
+    private Settings settings;
     private int treeHeight; // Height of the current feature model tree.
 
     private DecoratableGraphViewer viewer;
@@ -74,6 +70,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
     public void init(IViewSite site) throws PartInitException {
         super.init(site);
 
+        featureModelAdapter = new FeatureModelAdapter();
         constraintCache = new ConstraintCache();
         treeHeight = 1;
         currentSelection = StructuredSelection.EMPTY;
@@ -89,7 +86,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
     public void dispose() {
         settings.save(FeatureModelVisualizerPlugin.getAccess().getDialogSettings());
         settings.removeSettingsListener(this);
-        setFeatureModel(null);
+        setSourcePart(null);
 
         getSite().getPage().removeSelectionListener(this);
         getSite().getPage().removePartListener(this);
@@ -156,7 +153,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         });
 
         SWTUtil.enableAntialiasing(viewer.getControl()); // Enable antialiasing on Windows.
-        getSite().setSelectionProvider(viewer);
+        getSite().setSelectionProvider(new ConvertingSelectionProvider(viewer));
     }
 
     // ===========================================================================
@@ -212,24 +209,36 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         if(part == sourcePart)
             return;
 
-        FeatureModel newFeatureModel = (FeatureModel) part.getAdapter(FeatureModel.class);
-        if(newFeatureModel == null)
-            return;
-
+        FeatureModel newFeatureModel = null;
+        FeatureConfiguration newFeatureConfig = null;
+        
+        if(part != null) {
+            newFeatureModel = (FeatureModel) part.getAdapter(FeatureModel.class);
+            newFeatureConfig = (FeatureConfiguration) part.getAdapter(FeatureConfiguration.class);
+            
+            if((newFeatureModel == null) && (newFeatureConfig != null))
+                newFeatureModel = newFeatureConfig.getFeatureModelCopy();
+            if(newFeatureModel == null)
+                return;
+        }
+        
         sourcePart = part;
-        setFeatureModel(newFeatureModel);
+        setInput(newFeatureModel, newFeatureConfig);
     }
 
-    private void setFeatureModel(FeatureModel newFeatureModel) {
-        if(featureModel == newFeatureModel)
+    private void setInput(FeatureModel newFeatureModel, FeatureConfiguration newFeatureConfig) {
+        if((newFeatureModel == featureModel) && (newFeatureConfig == featureConfig))
             return;
-
+        
         if(featureModel != null) {
-            featureModel.eAdapters().remove(featureModelAdapter);
             constraintCache.dispose();
+            featureModel.eAdapters().remove(featureModelAdapter);
         }
 
         featureModel = newFeatureModel;
+        featureConfig = newFeatureConfig;
+        ((ConvertingSelectionProvider) getSite().getSelectionProvider()).setFeatureConfiguration(featureConfig);
+        
         if(!viewer.getControl().isDisposed()) {
             viewer.setInput(featureModel);
             currentSelection = StructuredSelection.EMPTY;
@@ -238,13 +247,11 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         }
 
         if(featureModel != null) {
-            if(featureModelAdapter == null)
-                featureModelAdapter = new FeatureModelAdapter();
             featureModel.eAdapters().add(featureModelAdapter);
             constraintCache.setFeatureModel(newFeatureModel);
         }
     }
-
+    
     private void recomputeTreeHeight() {
         treeHeight = FeatureModelUtil.getTreeHeight(featureModel);
     }
@@ -279,41 +286,6 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         return sourcePart;
     }
 
-    private ISelection unwrapSelection(ISelection selection) {
-        if(!(selection instanceof IStructuredSelection))
-            return null;
-        if(selection.isEmpty())
-            return selection;
-
-        Object[] elements = ((IStructuredSelection) selection).toArray();
-        if(!isValidSelectionElement(elements[0]))
-            return null;
-
-        // Replace selections by features if possible.
-        for(int i = 0; i < elements.length; i++) {
-            Object element = elements[i];
-            if(element instanceof Selection) {
-                Feature feature = ((Selection) element).getFeature();
-                // Selection elements can't be null.
-                if(feature != null)
-                    elements[i] = feature;
-            }
-        }
-
-        return new StructuredSelection(elements);
-    }
-
-    private boolean isValidSelectionElement(Object element) {
-        return (element instanceof FeatureModel) ||
-                (element instanceof Feature) ||
-                (element instanceof Group) ||
-                (element instanceof Constraint) ||
-                (element instanceof Attribute) ||
-                (element instanceof FeatureConfiguration) ||
-                (element instanceof Selection) ||
-                (element instanceof AttributeValue);
-    }
-
     @Override
     public void selectionChanged(IWorkbenchPart part, ISelection selection) {
         // Ignore invalid selections.
@@ -321,7 +293,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         if((part != activePart) || (part == this) || (part instanceof PropertySheet))
             return;
 
-        selection = unwrapSelection(selection);
+        selection = SelectionConverter.toFeatureModelSelection(selection);
         if(selection == null)
             return;
 
@@ -341,10 +313,8 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
     
     @Override
     public void partClosed(IWorkbenchPart part) {
-        if(part == sourcePart) {
-            sourcePart = null;
-            setFeatureModel(null);
-        }
+        if(part == sourcePart)
+            setSourcePart(null);
     }
 
     @Override

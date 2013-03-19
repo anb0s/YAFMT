@@ -11,7 +11,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 
 import cz.jpikl.yafmt.model.fc.Selection;
 import cz.jpikl.yafmt.ui.editors.fc.FeatureConfigurationManager;
-import cz.jpikl.yafmt.ui.util.SelectionConverter;
+import cz.jpikl.yafmt.ui.util.SelectionWrapper;
 
 public abstract class FeatureSelectionAction extends SelectionAction {
 
@@ -27,7 +27,7 @@ public abstract class FeatureSelectionAction extends SelectionAction {
     }
 
     protected List<Selection> getSelectedFeatures() {
-        ISelection selection = SelectionConverter.unwrapSelection(getSelection());
+        ISelection selection = SelectionWrapper.toModelElementsSelection(getSelection());
         if(!(selection instanceof IStructuredSelection))
             return null;
 

@@ -2,14 +2,12 @@ package cz.jpikl.yafmt.clang.xor;
 
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import cz.jpikl.yafmt.clang.EvaluationResult;
 import cz.jpikl.yafmt.clang.Evaluator;
 import cz.jpikl.yafmt.clang.IEvaluationResult;
 import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
-import cz.jpikl.yafmt.model.fc.Selection;
 
 public class XorEvaluator extends Evaluator {
 
@@ -33,11 +31,8 @@ public class XorEvaluator extends Evaluator {
     private IEvaluationResult createFailureResult(FeatureConfiguration featureConfig) {
         EvaluationResult result = new EvaluationResult(createErrorMessage());
         
-        for(String id: featureIds) {
-            List<Selection> selections = featureConfig.getSelectionsById(id);
-            if((selections != null) && !selections.isEmpty())
-                result.getProblemElements().addAll(selections);
-        }
+        for(String id: featureIds)
+            result.getProblemElements().addAll(featureConfig.getSelectionsById(id));
         
         if(result.getProblemElements().isEmpty())
             result.getProblemElements().add(featureConfig.getRoot());
@@ -49,8 +44,7 @@ public class XorEvaluator extends Evaluator {
     public IEvaluationResult evaluate(FeatureConfiguration featureConfig) {
         int count = 0;
         for(String id: featureIds) {
-            List<Selection> selections = featureConfig.getSelectionsById(id);
-            if((selections != null) && !selections.isEmpty()) {
+            if(!featureConfig.getSelectionsById(id).isEmpty()) {
                 count++;
                 if(count > 1)
                     break;

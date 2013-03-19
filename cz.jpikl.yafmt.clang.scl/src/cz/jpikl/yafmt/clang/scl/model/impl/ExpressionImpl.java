@@ -3,7 +3,6 @@
 package cz.jpikl.yafmt.clang.scl.model.impl;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
@@ -45,9 +44,7 @@ public abstract class ExpressionImpl extends MinimalEObjectImpl.Container implem
     
     public List<Selection> getSelections(FeatureConfiguration featureConfig, Selection context, String id) {
         List<Selection> allSelections = featureConfig.getSelectionsById(id);
-        if(allSelections == null)
-            return Collections.emptyList();
-        if((context == null) || (context == featureConfig.getRoot()))
+        if(allSelections.isEmpty() || (context == null) || (context == featureConfig.getRoot()))
             return allSelections;
         
         List<Selection> contextualSelections = new ArrayList<Selection>(allSelections.size());

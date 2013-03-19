@@ -6,6 +6,7 @@ import java.util.Map;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.ECollections;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EContentAdapter;
 
@@ -28,7 +29,10 @@ public class SelectionCache {
     }
 
     public EList<Selection> getSelectionsById(String id) {
-        return idToSelections.get(id);
+        EList<Selection> selections = idToSelections.get(id);
+        if(selections != null)
+            return selections;
+        return ECollections.emptyEList();
     }
 
     private void addSelection(Selection selection) {

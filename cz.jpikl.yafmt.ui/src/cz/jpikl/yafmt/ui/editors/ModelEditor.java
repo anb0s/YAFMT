@@ -53,7 +53,7 @@ import cz.jpikl.yafmt.ui.actions.EditorZoomComboContributioItem;
 import cz.jpikl.yafmt.ui.pages.EditorContentOutlinePage;
 import cz.jpikl.yafmt.ui.pages.EditorPropertySheetPage;
 import cz.jpikl.yafmt.ui.util.EditorAutoCloser;
-import cz.jpikl.yafmt.ui.util.SelectionConverter;
+import cz.jpikl.yafmt.ui.util.SelectionWrapper;
 import cz.jpikl.yafmt.ui.util.UnwrappingSelectionProvider;
 import cz.jpikl.yafmt.ui.validation.IProblemManager;
 import cz.jpikl.yafmt.ui.validation.ModelMarkerDescriptor;
@@ -231,7 +231,7 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette imple
             return;
 
         // Apply selection to the editor if it differs.
-        selection = SelectionConverter.wrapSelection(selection, getGraphicalViewer().getEditPartRegistry());
+        selection = SelectionWrapper.toEditPartsSelection(selection, getGraphicalViewer().getEditPartRegistry());
         if(!getGraphicalViewer().getSelection().equals(selection))
             applySelection(selection);
     }
@@ -310,7 +310,7 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette imple
     
     protected void gotoMarker(List<Object> markerObjects) {
         ISelection selection = new StructuredSelection(markerObjects);
-        applySelection(SelectionConverter.wrapSelection(selection, getGraphicalViewer().getEditPartRegistry()));
+        applySelection(SelectionWrapper.toEditPartsSelection(selection, getGraphicalViewer().getEditPartRegistry()));
     }
 
     // ==================================================================================
