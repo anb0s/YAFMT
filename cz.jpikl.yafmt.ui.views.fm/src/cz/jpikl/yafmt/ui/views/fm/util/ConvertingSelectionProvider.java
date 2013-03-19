@@ -46,6 +46,7 @@ public class ConvertingSelectionProvider implements ISelectionProvider, ISelecti
     @Override
     public void setSelection(ISelection selection) {
         viewer.setSelection(SelectionConverter.toFeatureModelSelection(selection));
+        selectionChanged(new SelectionChangedEvent(this, selection));
     }
 
     @Override

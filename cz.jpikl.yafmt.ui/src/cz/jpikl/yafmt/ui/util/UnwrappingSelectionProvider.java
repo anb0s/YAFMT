@@ -38,7 +38,9 @@ public class UnwrappingSelectionProvider implements ISelectionProvider, ISelecti
 
     @Override
     public void setSelection(ISelection selection) {
+        // It causes calling selectionChanged twice sometimes.
         viewer.setSelection(SelectionWrapper.toEditPartsSelection(selection, viewer.getEditPartRegistry()));
+        selectionChanged(new SelectionChangedEvent(this, selection));
     }
 
     @Override
