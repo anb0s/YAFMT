@@ -1,8 +1,6 @@
 package cz.jpikl.yafmt.ui.editors.fm.parts;
 
 import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.FEATURE_MODEL__NAME;
-import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.FEATURE_MODEL__ORPHANS;
-import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.FEATURE_MODEL__ROOT;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -15,6 +13,7 @@ import org.eclipse.draw2d.ConnectionLayer;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
@@ -27,6 +26,7 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.swt.SWT;
 
 import cz.jpikl.yafmt.clang.util.ConstraintCache;
+import cz.jpikl.yafmt.model.fm.Attribute;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.Group;
@@ -40,11 +40,6 @@ import cz.jpikl.yafmt.ui.editors.fm.policies.FeatureModelLayoutPolicy;
 import cz.jpikl.yafmt.ui.validation.IProblemManager;
 
 public class FeatureModelEditPart extends AbstractGraphicalEditPart {
-
-    // Enabling constraint markers may slow down editor when 
-    // editing large feature models. Each time when model modification  
-    // is performed, all affected feature figures must be refreshed.
-    private static final boolean CONSTRAINT_MARKERS_ENABLED = true;
 
     private FeatureModel featureModel;
     private LayoutData layoutData;
@@ -106,31 +101,19 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
         ((ConnectionLayer) getLayer(LayerConstants.CONNECTION_LAYER)).setAntialias(SWT.ON);
     }
     
-    private void refreshFeatureFiguresOrphanedState(Feature feature) {
+    private void refreshFeatureFigureOrphanedState(Feature feature) {
         GraphicalEditPart editPart = getEditPartForObject(feature);
         if(editPart == null)
             return;
 
-        boolean orphaned = feature.isOrphan();
-        ((FeatureEditPart) editPart).getFigure().setOrphaned(orphaned);
-
-        TreeIterator<EObject> it = feature.eAllContents();
-        while(it.hasNext()) {
-            Object object = it.next();
-            if(object instanceof Feature) {
-                editPart = getEditPartForObject(object);
-                if(editPart != null)
-                    ((FeatureEditPart) editPart).getFigure().setOrphaned(orphaned);
-            }
-        }
+        FeatureFigure figure = ((FeatureEditPart) editPart).getFigure(); 
+        figure.setOrphaned(feature.isOrphan());
     }
 
     private void refreshFeatureFiguresConstraintMarker() {
-        if(!CONSTRAINT_MARKERS_ENABLED)
-            return;
-        
         Collection<Feature> features = constraintCache.getFeaturesAffectedByConstraint();
-        Set<Feature> set = (features instanceof Set<?>) ? (Set<Feature>) features : new HashSet<Feature>(features);  
+        Set<Feature> set = (features instanceof Set<?>) ? (Set<Feature>) features : new HashSet<Feature>(features);
+        
         for(Object editPart: getChildren()) {
             if(editPart instanceof FeatureEditPart) {
                 Feature feature = (Feature) ((FeatureEditPart) editPart).getModel();
@@ -224,53 +207,26 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
     private void addEditPartForObject(Object object) {
         // Create edit part only of it does not exist yet.
         if(getEditPartForObject(object) == null) {
-            if(object instanceof Group) {
-                // Groups go before features. This order is used for rendering objects.
+            // Groups go before features. This order is used for rendering objects.
+            if(object instanceof Group)
                 addChild(createChild(object), 0);
-                // When ChangeRecorder does undo operation, it merge all changes, so previously 
-                // deleted group can be added together with previously deleted features.
-                Group group = (Group) object;
-                for(Feature feature: group.getFeatures())
-                    addEditPartForObject(feature);
-            }
-            if(object instanceof Feature) {
-                // Features go after groups.
+            else if(object instanceof Feature)
                 addChild(createChild(object), getChildren().size());
-                // Same case as mentioned above.
-                Feature feature = (Feature) object;
-                for(Feature child: feature.getFeatures())
-                    addEditPartForObject(child);
-                for(Group group: feature.getGroups())
-                    addEditPartForObject(group);
-            }
         }
-
-        // Make sure that orphaned state of all added feature figures is refreshed.
+        
+        // Must be called even in case edit part already exists.
         if(object instanceof Feature)
-            refreshFeatureFiguresOrphanedState((Feature) object);
-    }
-
-    private void addEditPartsForObjects(Collection<?> objects) {
-        for(Object object: objects)
-            addEditPartForObject(object);
+            refreshFeatureFigureOrphanedState((Feature) object);
     }
 
     private void removeEditPartForObject(Object object) {
         // Ignore non-existing edit parts.
-        EditPart editPart = getEditPartForObject(object);
-        if(editPart == null)
-            return;
-
         // Do not remove edit parts when they are still present in model.
         // This situation usually happens when feature parent was changed,
-        // but feature is stil present in model.
-        if(((EObject) object).eContainer() == null)
+        // but the feature is still present in model.
+        EditPart editPart = getEditPartForObject(object);
+        if((editPart != null) && (((EObject) object).eContainer() == null))
             removeChild(editPart);
-    }
-
-    private void removeEditPartsForObjects(Collection<?> objects) {
-        for(Object object: objects)
-            removeEditPartForObject(object);
     }
     
     // ===================================================================
@@ -290,50 +246,31 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
     class FeatureModelAdapter extends EContentAdapter {
 
         @Override
+        protected void addAdapter(Notifier notifier) {
+            if(notifier instanceof Attribute)
+                return;
+            
+            super.addAdapter(notifier);
+            if((notifier instanceof Feature) || (notifier instanceof Group))
+                addEditPartForObject(notifier);
+        }
+        
+        @Override
+        protected void removeAdapter(Notifier notifier) {
+            super.removeAdapter(notifier);
+            if((notifier instanceof Feature) || (notifier instanceof Group))
+                removeEditPartForObject(notifier);
+        }
+        
+        @Override
         public void notifyChanged(Notification msg) {
             super.notifyChanged(msg);
             
             Object notifier = msg.getNotifier();
-            if(notifier instanceof FeatureModel)
-                notifyChangedFromFeatureModel(msg);
-            else if((notifier instanceof Feature) || (notifier instanceof Group))
-                notifyChangedFromOthers(msg);
+            if((notifier instanceof FeatureModel) && (msg.getFeatureID(FeatureModel.class) == FEATURE_MODEL__NAME))
+                revalidateModel();
 
             refreshFeatureFiguresConstraintMarker();
-        }
-
-        private void notifyChangedFromFeatureModel(Notification msg) {
-            switch(msg.getFeatureID(FeatureModel.class)) {
-                case FEATURE_MODEL__NAME:
-                    revalidateModel();
-                    break;
-                
-                case FEATURE_MODEL__ROOT:
-                case FEATURE_MODEL__ORPHANS:
-                    notifyChangedFromOthers(msg);
-                    break;
-            }
-        }
-        
-        private void notifyChangedFromOthers(Notification msg) {
-            // Features, groups or attributes are added or removed.
-            switch(msg.getEventType()) {
-                case Notification.ADD:
-                    addEditPartForObject(msg.getNewValue());
-                    break;
-
-                case Notification.ADD_MANY:
-                    addEditPartsForObjects((Collection<?>) msg.getNewValue());
-                    break;
-
-                case Notification.REMOVE:
-                    removeEditPartForObject(msg.getOldValue());
-                    break;
-
-                case Notification.REMOVE_MANY:
-                    removeEditPartsForObjects((Collection<?>) msg.getOldValue());
-                    break;
-            }
         }
 
     }

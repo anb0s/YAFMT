@@ -1,5 +1,7 @@
 package cz.jpikl.yafmt.model.fc.util;
 
+import static cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage.SELECTION__ID;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,8 +12,8 @@ import org.eclipse.emf.common.util.ECollections;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EContentAdapter;
 
+import cz.jpikl.yafmt.model.fc.AttributeValue;
 import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
-import cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage;
 import cz.jpikl.yafmt.model.fc.Selection;
 
 public class SelectionCache {
@@ -78,7 +80,7 @@ public class SelectionCache {
 
         @Override
         protected void addAdapter(Notifier notifier) {
-            if(!(notifier instanceof Selection) && !(notifier instanceof FeatureConfiguration))
+            if(notifier instanceof AttributeValue)
                 return;
 
             super.addAdapter(notifier);
@@ -97,9 +99,7 @@ public class SelectionCache {
         public void notifyChanged(Notification notification) {
             super.notifyChanged(notification);
 
-            if(!(notification.getNotifier() instanceof Selection))
-                return;
-            if(notification.getFeatureID(Selection.class) == FeatureConfigurationPackage.SELECTION__ID) {
+            if((notification.getNotifier() instanceof Selection) && (notification.getFeatureID(Selection.class) == SELECTION__ID)) {
                 Selection selection = (Selection) notification.getNotifier();
                 removeSelection(selection, notification.getOldStringValue());
                 addSelection(selection); // Should have the new ID value.

@@ -9,9 +9,9 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.ecore.util.EContentAdapter;
 
+import cz.jpikl.yafmt.model.fm.Attribute;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
-import cz.jpikl.yafmt.model.fm.Group;
 
 public class FeatureCache {
 
@@ -45,7 +45,7 @@ public class FeatureCache {
 
         @Override
         protected void addAdapter(Notifier notifier) {
-            if(!(notifier instanceof Feature) && !(notifier instanceof Group) && !(notifier instanceof FeatureModel))
+            if(notifier instanceof Attribute)
                 return;
 
             super.addAdapter(notifier);
@@ -64,9 +64,7 @@ public class FeatureCache {
         public void notifyChanged(Notification notification) {
             super.notifyChanged(notification);
 
-            if(!(notification.getNotifier() instanceof Feature))
-                return;
-            if(notification.getFeatureID(Feature.class) == FEATURE__ID) {
+            if((notification.getNotifier() instanceof Feature) && (notification.getFeatureID(Feature.class) == FEATURE__ID)) {
                 Feature feature = idToFeature.remove(notification.getOldStringValue());
                 idToFeature.put(notification.getNewStringValue(), feature);
             }
