@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -15,6 +16,7 @@ import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
 import cz.jpikl.yafmt.model.fm.Attribute;
+import cz.jpikl.yafmt.model.fm.Constraint;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.FeatureModelFactory;
@@ -186,5 +188,144 @@ public class FeatureModelUtil {
 
         return maxHeight + 1;
     }
+    
+    // ===============================================================================================
+    //  Comparison utilities
+    // ===============================================================================================
 
+    public static boolean compareFeatureModels(FeatureModel featureModelA, FeatureModel featureModelB, boolean compareOrphanedFeatures) {
+        if(featureModelA == featureModelB)
+            return true;
+        if((featureModelA == null) || (featureModelB == null))
+            return false;
+        
+        if(!compateStrings(featureModelA.getName(), featureModelB.getName()))
+            return false;
+        if(!compateStrings(featureModelA.getDescription(), featureModelB.getDescription()))
+            return false;
+        if(!compateStrings(featureModelA.getVersion(), featureModelB.getVersion()))
+            return false;
+        if(!compareFeatures(featureModelA.getRoot(), featureModelB.getRoot(), true))
+            return false;
+        if(compareOrphanedFeatures && !compareFeatures(featureModelA.getOrphans(), featureModelB.getOrphans(), true))
+            return false;
+        if(!compareConstraints(featureModelA.getConstraints(), featureModelB.getConstraints()))
+            return false;       
+            
+        return true;
+    }
+    
+    public static boolean compareFeatures(Feature featureA, Feature featureB, boolean recursive) {
+        if(featureA == featureB)
+            return true;
+        if((featureA == null) || (featureB == null))
+            return false;
+        
+        if(!compateStrings(featureA.getId(), featureB.getId()))
+            return false;
+        if(!compateStrings(featureA.getName(), featureB.getName()))
+            return false;
+        if(!compateStrings(featureA.getDescription(), featureB.getDescription()))
+            return false;
+        if(featureA.getLower() != featureB.getLower())
+            return false;
+        if(featureA.getUpper() != featureB.getUpper())
+            return false;
+        if(recursive && !compareFeatures(featureA.getFeatures(), featureB.getFeatures(), recursive))
+            return false;
+        if(recursive && !compareGroups(featureA.getGroups(), featureB.getGroups(), recursive))
+            return false;
+        
+        return true;
+    }
+    
+    public static boolean compareFeatures(List<Feature> featuresA, List<Feature> featuresB, boolean recursive) {
+        if(featuresA == featuresB)
+            return true;
+        if((featuresA == null) || (featuresB == null))
+            return false;
+        
+        if(featuresA.size() != featuresB.size())
+            return false;
+        for(int i = 0; i < featuresA.size(); i++) {
+            if(!compareFeatures(featuresA.get(i), featuresB.get(i), recursive))
+                return false;
+        }
+        
+        return true;
+    }
+    
+    public static boolean compareGroups(Group groupA, Group groupB, boolean recursive) {
+        if(groupA == groupB)
+            return true;
+        if((groupA == null) || (groupB == null))
+            return false;
+        
+        if(groupA.getLower() != groupB.getLower())
+            return false;
+        if(groupA.getUpper() != groupB.getUpper())
+            return false;
+        if(recursive && !compareFeatures(groupA.getFeatures(), groupB.getFeatures(), recursive))
+            return false;
+        
+        return true;
+    }
+    
+    public static boolean compareGroups(EList<Group> groupsA, EList<Group> groupsB, boolean recursive) {
+        if(groupsA == groupsB)
+            return true;
+        if((groupsA == null) || (groupsB == null))
+            return false;
+        
+        if(groupsA.size() != groupsB.size())
+            return false;
+        for(int i = 0; i < groupsA.size(); i++) {
+            if(!compareGroups(groupsA.get(i), groupsB.get(i), recursive))
+                return false;
+        }
+        
+        return true;
+    }
+
+    public static boolean compareConstraints(Constraint constraintA, Constraint constraintB) {
+        if(constraintA == constraintB)
+            return true;
+        if((constraintA == null) || (constraintB == null))
+            return false;
+        
+        if(!compateStrings(constraintA.getLanguage(), constraintB.getLanguage()))
+            return false;
+        if(!compateStrings(constraintA.getValue(), constraintB.getValue()))
+            return false;
+        if(!compateStrings(constraintA.getDescription(), constraintB.getDescription()))
+            return false;
+        
+        return true;
+    }
+    
+    public static boolean compareConstraints(List<Constraint> constraintsA, List<Constraint> constraintsB) {
+        if(constraintsA == constraintsB)
+            return true;
+        if((constraintsA == null) || (constraintsB == null))
+            return false;
+        
+        if(constraintsA.size() != constraintsB.size())
+            return false;
+        for(int i = 0; i < constraintsA.size(); i++) {
+            if(!compareConstraints(constraintsA.get(i), constraintsB.get(i)))
+                return false;
+        }
+        
+        return true;
+    }
+    
+    private static boolean compateStrings(String stringA, String stringB) {
+        if(stringA == stringB)
+            return true;
+        if((stringA == null) || (stringB == null))
+            return false;
+        
+        return stringA.equals(stringB);
+    }
+        
 }
