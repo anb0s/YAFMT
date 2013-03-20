@@ -1,4 +1,4 @@
-package cz.jpikl.yafmt.ui.util;
+package cz.jpikl.yafmt.ui.dialogs;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
@@ -9,13 +9,17 @@ import org.eclipse.ui.model.BaseWorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 
 
-public class DialogUtil {
+public class WorkspaceDialog extends ElementTreeSelectionDialog {
 
-    public static String chooseWorkspaceFile(Shell shell, String title, String message) {
-        ElementTreeSelectionDialog dialog = new ElementTreeSelectionDialog(shell, new WorkbenchLabelProvider(), new BaseWorkbenchContentProvider());
+    public WorkspaceDialog(Shell shell) {
+        super(shell, new WorkbenchLabelProvider(), new BaseWorkbenchContentProvider());
+        setInput(ResourcesPlugin.getWorkspace().getRoot());
+    }
+    
+    public static String openFile(Shell shell, String title, String message) {
+        WorkspaceDialog dialog = new WorkspaceDialog(shell);
         dialog.setTitle(title);
         dialog.setMessage(message);
-        dialog.setInput(ResourcesPlugin.getWorkspace().getRoot());
         dialog.setAllowMultiple(false);
         dialog.open();
 
@@ -24,5 +28,5 @@ public class DialogUtil {
             return ((IResource) result).getFullPath().toString();
         return null;
     }
-    
+        
 }

@@ -7,6 +7,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -23,7 +24,6 @@ import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.ISetSelectionTarget;
 
-import cz.jpikl.yafmt.ui.CommonUIPlugin;
 import cz.jpikl.yafmt.ui.operations.ResourceSaveOperation;
 
 public abstract class NewFileWizard extends Wizard implements INewWizard {
@@ -70,7 +70,7 @@ public abstract class NewFileWizard extends Wizard implements INewWizard {
             getContainer().run(false, false, new ResourceSaveOperation(resource));
         }
         catch(Exception ex) {
-            CommonUIPlugin.getAccess().showErrorDialog(window.getShell(), "Unable to create " + file.getName(), ex);
+            MessageDialog.openError(window.getShell(), "Unable to create " + file.getName(), ex.getMessage());
             return false;
         }
 
@@ -94,7 +94,7 @@ public abstract class NewFileWizard extends Wizard implements INewWizard {
                 page.openEditor(input, descriptor.getId());
         }
         catch(PartInitException ex) {
-            CommonUIPlugin.getAccess().showErrorDialog(window.getShell(), "Unable to open " + file.getName(), ex);
+            MessageDialog.openError(window.getShell(), "Unable to open " + file.getName(), ex.getMessage());
             return false;
         }
 

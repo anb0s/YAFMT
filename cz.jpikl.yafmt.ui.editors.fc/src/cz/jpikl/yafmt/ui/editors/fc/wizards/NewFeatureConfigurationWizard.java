@@ -28,7 +28,7 @@ import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
 import cz.jpikl.yafmt.model.fc.util.FeatureConfigurationUtil;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
-import cz.jpikl.yafmt.ui.util.DialogUtil;
+import cz.jpikl.yafmt.ui.dialogs.WorkspaceDialog;
 import cz.jpikl.yafmt.ui.wizards.NewFileWizard;
 
 public class NewFeatureConfigurationWizard extends NewFileWizard {
@@ -226,7 +226,7 @@ public class NewFeatureConfigurationWizard extends NewFileWizard {
         }
 
         private void openFeatureModelOpenDialog() {
-            String path = DialogUtil.chooseWorkspaceFile(getShell(), "Feature Model Selection", "Select the feature model for configuration.");
+            String path = WorkspaceDialog.openFile(getShell(), "Feature Model Selection", "Select the feature model for configuration.");
             if(path != null)
                 featureModelFileText.setText(path);
         }

@@ -5,6 +5,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.EditPartFactory;
 import org.eclipse.gef.GraphicalEditPart;
@@ -20,6 +21,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IFileEditorInput;
@@ -29,8 +31,11 @@ import org.eclipse.ui.views.properties.IPropertySourceProvider;
 import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
 import cz.jpikl.yafmt.model.fc.provider.util.FeatureConfigurationProviderUtil;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
+import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
 import cz.jpikl.yafmt.ui.actions.ExportGraphicalEditorAsImageAction;
 import cz.jpikl.yafmt.ui.actions.ShowFeatureModelVisualizerAction;
+import cz.jpikl.yafmt.ui.dialogs.ChoicesDialog;
+import cz.jpikl.yafmt.ui.dialogs.WorkspaceDialog;
 import cz.jpikl.yafmt.ui.editors.ModelEditor;
 import cz.jpikl.yafmt.ui.editors.fc.actions.DeselectFeaturesAction;
 import cz.jpikl.yafmt.ui.editors.fc.actions.SelectFeaturesAction;
@@ -40,7 +45,6 @@ import cz.jpikl.yafmt.ui.editors.fc.layout.TreeLayout;
 import cz.jpikl.yafmt.ui.editors.fc.layout.VerticalTreeLayout;
 import cz.jpikl.yafmt.ui.editors.fc.parts.FeatureConfigurationEditPartFactory;
 import cz.jpikl.yafmt.ui.operations.ResourceSaveOperation;
-import cz.jpikl.yafmt.ui.util.DialogUtil;
 
 public class FeatureConfigurationEditor extends ModelEditor {
 
@@ -222,7 +226,7 @@ public class FeatureConfigurationEditor extends ModelEditor {
     protected void doSave() throws Exception {
         executeWorkspaceOperation(new ResourceSaveOperation(featureConfig.eResource()));
     }
-    
+        
     // ==================================================================================
     //  Feature Model changes detection and resolution
     // ==================================================================================
@@ -232,19 +236,23 @@ public class FeatureConfigurationEditor extends ModelEditor {
         if(featureConfig.getFeatureModel().getRoot() != null)
             return;
         
-        if(!MessageDialog.openQuestion(getSite().getShell(), "Warning", "The original feature model was not found!\nWould you like to change its location?"))
+        // Ask user for a file.
+        Shell shell = getSite().getShell();
+        String inputName = getEditorInput().getName();
+        if(!MessageDialog.openQuestion(shell, inputName, "The original feature model was not found!\nWould you like to change its location?"))
             return;
         
-        String path = DialogUtil.chooseWorkspaceFile(getSite().getShell(), "Feature Model Selection", "Select feature model new localtion.");
+        // Let user to choose a file.
+        String path = WorkspaceDialog.openFile(shell, "Feature Model Selection", "Select feature model new localtion.");
         if(path == null)
             return;
         
         try {
             featureConfig.setFeatureModel(loadFeatureModel(resourceSet, path));
-            doSave();
+            trySave();
         }
         catch(Exception ex) {
-            FeatureConfigurationEditorPlugin.getAccess().showErrorDialog(getSite().getShell(), "Unable to load " + path, ex);
+            MessageDialog.openError(shell, "Unable to load " + path, ex.getMessage());
         }
     }
 
@@ -252,6 +260,22 @@ public class FeatureConfigurationEditor extends ModelEditor {
         // Root is null when original feature model was not loaded properly.
         if(featureConfig.getFeatureModel().getRoot() == null)
             return;
+        
+        // Look for changes in the original feature model.
+        if(FeatureModelUtil.compareFeatureModels(featureConfig.getFeatureModel(), featureConfig.getFeatureModelCopy(), false))
+            return;
+        
+        // Ask user for what to do.
+        Shell shell = getSite().getShell();
+        String inputName = getEditorInput().getName();
+        String[] choices = { "Ignore changes.", "Merge changes automatically." };
+        
+        int answer = ChoicesDialog.openChoices(shell, inputName, "The original feature model was changed.", choices);
+        if(answer == 1) {
+            // Changes are merged in feature configuration manager (see FeatureConfigurationUtil.repair*() methods).
+            featureConfig.setFeatureModelCopy(EcoreUtil.copy(featureConfig.getFeatureModel()));
+            trySave();
+        }
     }
 
     // ==================================================================================

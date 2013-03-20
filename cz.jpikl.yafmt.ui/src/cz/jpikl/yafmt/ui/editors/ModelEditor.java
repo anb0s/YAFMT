@@ -27,6 +27,7 @@ import org.eclipse.gef.ui.actions.ZoomInAction;
 import org.eclipse.gef.ui.actions.ZoomOutAction;
 import org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ISelection;
@@ -322,16 +323,23 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette imple
 
     protected abstract void doSave() throws Exception;
 
-    @Override
-    public void doSave(IProgressMonitor monitor) {
+    protected boolean trySave() {
         try {
             doSave();
+            return true;
+        }
+        catch(Exception ex) {
+            MessageDialog.openError(getSite().getShell(), "Unable to save " + getEditorInput().getName(), ex.getMessage());
+            return false;
+        }
+    }
+    
+    @Override
+    public void doSave(IProgressMonitor monitor) {
+        if(trySave()) {
             getEditDomain().getCommandStack().markSaveLocation();
             firePropertyChange(PROP_DIRTY);
             problemManager.saveState();
-        }
-        catch(Exception ex) {
-            CommonUIPlugin.getAccess().showErrorDialog(getSite().getShell(), "Unable to save " + getEditorInput().getName(), ex);
         }
     }
 

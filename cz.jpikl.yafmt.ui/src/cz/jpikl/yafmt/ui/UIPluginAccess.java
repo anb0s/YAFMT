@@ -4,12 +4,10 @@ import java.util.Enumeration;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 
@@ -81,23 +79,5 @@ public class UIPluginAccess {
     public void logError(Throwable exception) {
         logError(exception.getMessage(), exception);
     }
-    
-    // ==================================================================================
-    //  Dialog utilities
-    // ==================================================================================
-    
-    public void showErrorDialog(Shell shell, String title, String message, Throwable exception) {
-        String statusMessage = (exception != null) ? exception.getMessage() : message;
-        IStatus status = new Status(IStatus.ERROR, pluginId, statusMessage, exception);
-        ErrorDialog.openError(shell, title, message, status);
-    }
-    
-    public void showErrorDialog(Shell shell, String title, Throwable exception) {
-        showErrorDialog(shell, title, null, exception);
-    }
-    
-    public void showErrorDialog(Shell shell, String title, String message) {
-        showErrorDialog(shell, title, message, null);
-    }
-    
+        
 }

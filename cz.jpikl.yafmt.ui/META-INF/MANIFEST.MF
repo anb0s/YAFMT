@@ -18,6 +18,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: cz.jpikl.yafmt.ui,
  cz.jpikl.yafmt.ui.actions,
  cz.jpikl.yafmt.ui.commands,
+ cz.jpikl.yafmt.ui.dialogs,
  cz.jpikl.yafmt.ui.directediting,
  cz.jpikl.yafmt.ui.editors,
  cz.jpikl.yafmt.ui.figures,
