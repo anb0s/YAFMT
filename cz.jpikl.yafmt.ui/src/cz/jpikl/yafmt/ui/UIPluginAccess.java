@@ -8,8 +8,8 @@ import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
-import org.eclipse.jface.window.IShellProvider;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 
@@ -86,18 +86,18 @@ public class UIPluginAccess {
     //  Dialog utilities
     // ==================================================================================
     
-    public void showErrorDialog(IShellProvider shellProvider, String title, String message, Throwable exception) {
+    public void showErrorDialog(Shell shell, String title, String message, Throwable exception) {
         String statusMessage = (exception != null) ? exception.getMessage() : message;
         IStatus status = new Status(IStatus.ERROR, pluginId, statusMessage, exception);
-        ErrorDialog.openError(shellProvider.getShell(), title, message, status);
+        ErrorDialog.openError(shell, title, message, status);
     }
     
-    public void showErrorDialog(IShellProvider shellProvider, String title, Throwable exception) {
-        showErrorDialog(shellProvider, title, exception.getMessage(), exception);
+    public void showErrorDialog(Shell shell, String title, Throwable exception) {
+        showErrorDialog(shell, title, null, exception);
     }
     
-    public void showErrorDialog(IShellProvider shellProvider, String title, String message) {
-        showErrorDialog(shellProvider, title, message, null);
+    public void showErrorDialog(Shell shell, String title, String message) {
+        showErrorDialog(shell, title, message, null);
     }
     
 }

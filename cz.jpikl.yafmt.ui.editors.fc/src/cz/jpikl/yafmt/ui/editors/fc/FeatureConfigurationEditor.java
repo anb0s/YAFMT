@@ -9,6 +9,7 @@ import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.EditPartFactory;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.swt.SWT;
@@ -22,7 +23,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IFileEditorInput;
-import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.views.properties.IPropertySourceProvider;
 
@@ -40,6 +40,7 @@ import cz.jpikl.yafmt.ui.editors.fc.layout.TreeLayout;
 import cz.jpikl.yafmt.ui.editors.fc.layout.VerticalTreeLayout;
 import cz.jpikl.yafmt.ui.editors.fc.parts.FeatureConfigurationEditPartFactory;
 import cz.jpikl.yafmt.ui.operations.ResourceSaveOperation;
+import cz.jpikl.yafmt.ui.util.DialogUtil;
 
 public class FeatureConfigurationEditor extends ModelEditor {
 
@@ -191,17 +192,66 @@ public class FeatureConfigurationEditor extends ModelEditor {
 
     @Override
     protected void doLoad(IFileEditorInput input) throws Exception {
-        String path = input.getFile().getFullPath().toString();
         ResourceSet resourceSet = new ResourceSetImpl();
+        loadFeatureConfiguration(resourceSet, input.getFile().getFullPath().toString());
+        checkFeatureModelExistence(resourceSet);
+        checkFeatureModelChanges();
+    }
+    
+    private void loadFeatureConfiguration(ResourceSet resourceSet, String path) throws Exception {
         Resource resource = resourceSet.createResource(URI.createPlatformResourceURI(path, true));
         resource.load(null);
-        featureConfig = (FeatureConfiguration) resource.getContents().get(0);
+        
+        EObject content = resource.getContents().get(0);
+        if(!(content instanceof FeatureConfiguration))
+            throw new Exception(path + " does not contain valid feature configuration.");
+        featureConfig = (FeatureConfiguration) content;
+    }
+    
+    private FeatureModel loadFeatureModel(ResourceSet resourceSet, String path) throws Exception {
+        Resource resource = resourceSet.createResource(URI.createPlatformResourceURI(path, true));
+        resource.load(null);
+        
+        EObject content = resource.getContents().get(0);
+        if(!(content instanceof FeatureModel))
+            throw new Exception(path + " does not contain valid feature model.");
+        return (FeatureModel) content;
     }
 
     @Override
     protected void doSave() throws Exception {
-        IWorkbenchWindow window = getSite().getWorkbenchWindow();
-        window.run(true, false, new ResourceSaveOperation(featureConfig.eResource()));
+        executeWorkspaceOperation(new ResourceSaveOperation(featureConfig.eResource()));
+    }
+    
+    // ==================================================================================
+    //  Feature Model changes detection and resolution
+    // ==================================================================================
+    
+    private void checkFeatureModelExistence(ResourceSet resourceSet) {
+        // Root is null when original feature model was not loaded properly. 
+        if(featureConfig.getFeatureModel().getRoot() != null)
+            return;
+        
+        if(!MessageDialog.openQuestion(getSite().getShell(), "Warning", "The original feature model was not found!\nWould you like to change its location?"))
+            return;
+        
+        String path = DialogUtil.chooseWorkspaceFile(getSite().getShell(), "Feature Model Selection", "Select feature model new localtion.");
+        if(path == null)
+            return;
+        
+        try {
+            featureConfig.setFeatureModel(loadFeatureModel(resourceSet, path));
+            doSave();
+        }
+        catch(Exception ex) {
+            FeatureConfigurationEditorPlugin.getAccess().showErrorDialog(getSite().getShell(), "Unable to load " + path, ex);
+        }
+    }
+
+    private void checkFeatureModelChanges() {
+        // Root is null when original feature model was not loaded properly.
+        if(featureConfig.getFeatureModel().getRoot() == null)
+            return;
     }
 
     // ==================================================================================

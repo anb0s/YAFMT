@@ -30,7 +30,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IFileEditorInput;
-import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.views.properties.IPropertySourceProvider;
 
@@ -219,6 +218,11 @@ public class FeatureModelEditor extends ModelEditor {
     private void loadFeatureModel(ResourceSet resourceSet, String path) throws Exception {
         Resource resource = resourceSet.createResource(URI.createPlatformResourceURI(path, true));
         resource.load(null);
+        
+        EObject content = resource.getContents().get(0);
+        if(!(content instanceof FeatureModel))
+            throw new Exception(path + " does not contain valid feature model.");
+        
         featureModel = (FeatureModel) resource.getContents().get(0);
         constraintCache = new ConstraintCache(featureModel);
     }
@@ -243,9 +247,8 @@ public class FeatureModelEditor extends ModelEditor {
 
     @Override
     protected void doSave() throws Exception {
-        IWorkbenchWindow window = getSite().getWorkbenchWindow();
-        window.run(true, false, new ResourceSaveOperation(featureModel.eResource()));
-        window.run(true, false, new ResourceSaveOperation(layoutData.eResource(), createModelLayoytLoadSaveOptions()));
+        executeWorkspaceOperation(new ResourceSaveOperation(featureModel.eResource()));
+        executeWorkspaceOperation(new ResourceSaveOperation(layoutData.eResource(), createModelLayoytLoadSaveOptions()));
     }
 
     @Override

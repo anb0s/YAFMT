@@ -70,7 +70,7 @@ public abstract class NewFileWizard extends Wizard implements INewWizard {
             getContainer().run(false, false, new ResourceSaveOperation(resource));
         }
         catch(Exception ex) {
-            CommonUIPlugin.getAccess().showErrorDialog(window, "Unable to create " + file.getName(), ex);
+            CommonUIPlugin.getAccess().showErrorDialog(window.getShell(), "Unable to create " + file.getName(), ex);
             return false;
         }
 
@@ -94,7 +94,7 @@ public abstract class NewFileWizard extends Wizard implements INewWizard {
                 page.openEditor(input, descriptor.getId());
         }
         catch(PartInitException ex) {
-            CommonUIPlugin.getAccess().showErrorDialog(window, "Unable to open " + file.getName(), ex);
+            CommonUIPlugin.getAccess().showErrorDialog(window.getShell(), "Unable to open " + file.getName(), ex);
             return false;
         }
 

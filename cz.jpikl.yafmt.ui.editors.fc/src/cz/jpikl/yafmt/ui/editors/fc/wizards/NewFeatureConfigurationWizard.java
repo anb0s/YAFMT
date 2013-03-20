@@ -1,7 +1,6 @@
 package cz.jpikl.yafmt.ui.editors.fc.wizards;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -22,16 +21,14 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
-import org.eclipse.ui.model.BaseWorkbenchContentProvider;
-import org.eclipse.ui.model.WorkbenchLabelProvider;
 
 import cz.jpikl.yafmt.model.FeatureModelPlugin;
 import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
 import cz.jpikl.yafmt.model.fc.util.FeatureConfigurationUtil;
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
+import cz.jpikl.yafmt.ui.util.DialogUtil;
 import cz.jpikl.yafmt.ui.wizards.NewFileWizard;
 
 public class NewFeatureConfigurationWizard extends NewFileWizard {
@@ -229,18 +226,9 @@ public class NewFeatureConfigurationWizard extends NewFileWizard {
         }
 
         private void openFeatureModelOpenDialog() {
-            ElementTreeSelectionDialog dialog = new ElementTreeSelectionDialog(getShell(), new WorkbenchLabelProvider(), new BaseWorkbenchContentProvider());
-            dialog.setTitle("Feature Model Selection");
-            dialog.setMessage("Select the feature model for configuration.");
-            dialog.setInput(ResourcesPlugin.getWorkspace().getRoot());
-            dialog.setAllowMultiple(false);
-            dialog.open();
-
-            Object result = dialog.getFirstResult();
-            if((result == null) || !(result instanceof IResource))
-                return;
-
-            featureModelFileText.setText(((IResource) result).getFullPath().toString());
+            String path = DialogUtil.chooseWorkspaceFile(getShell(), "Feature Model Selection", "Select the feature model for configuration.");
+            if(path != null)
+                featureModelFileText.setText(path);
         }
 
         private void revalidatePage() {

@@ -40,6 +40,7 @@ import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.dialogs.SaveAsDialog;
 import org.eclipse.ui.ide.IGotoMarker;
 import org.eclipse.ui.part.FileEditorInput;
@@ -330,7 +331,7 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette imple
             problemManager.saveState();
         }
         catch(Exception ex) {
-            CommonUIPlugin.getAccess().showErrorDialog(getSite(), "Unable to save " + getEditorInput().getName(), ex);
+            CommonUIPlugin.getAccess().showErrorDialog(getSite().getShell(), "Unable to save " + getEditorInput().getName(), ex);
         }
     }
 
@@ -350,6 +351,10 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette imple
 
     public boolean isSaveAsAllowed() {
         return true;
+    }
+    
+    protected void executeWorkspaceOperation(WorkspaceModifyOperation operation) throws Exception {
+        getSite().getWorkbenchWindow().run(true, false, operation);
     }
 
     // ==================================================================================
