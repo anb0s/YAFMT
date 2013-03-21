@@ -154,6 +154,10 @@ public class FeatureFigure extends RoundedRectangle {
     public Label getLabel() {
         return label;
     }
+    
+    public Feature getFeature() {
+        return feature;
+    }
 
     public void refresh() {
         label.setText(feature.getName());

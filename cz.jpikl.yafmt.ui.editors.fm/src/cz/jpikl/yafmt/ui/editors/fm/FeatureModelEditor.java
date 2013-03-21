@@ -31,6 +31,7 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.ui.views.properties.IPropertySourceProvider;
 
 import cz.jpikl.yafmt.clang.util.ConstraintCache;
@@ -62,6 +63,7 @@ public class FeatureModelEditor extends ModelEditor {
     private LayoutData layoutData;
     private ConstraintsEditor constraintsEditor;
     private ConstraintCache constraintCache;
+    private IContentOutlinePage contentOutlinePage;
 
     // ==================================================================================
     //  Basic initialization
@@ -275,12 +277,19 @@ public class FeatureModelEditor extends ModelEditor {
     @Override
     @SuppressWarnings("rawtypes")
     public Object getAdapter(Class type) {
+        if(type == IContentOutlinePage.class) {
+            if(contentOutlinePage == null)
+                contentOutlinePage = new FeatureModelEditorContentOutlinePage(this);
+            return contentOutlinePage;
+        }
+        
         if(type == FeatureModel.class)
             return featureModel;
         if(type == LayoutData.class)
             return layoutData;
         if(type == ConstraintCache.class)
             return constraintCache;
+        
         return super.getAdapter(type);
     }
 

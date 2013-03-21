@@ -1,8 +1,10 @@
 package cz.jpikl.yafmt.ui.pages;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LightweightSystem;
 import org.eclipse.draw2d.Viewport;
 import org.eclipse.draw2d.parts.ScrollableThumbnail;
+import org.eclipse.draw2d.parts.Thumbnail;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.editparts.FreeformGraphicalRootEditPart;
@@ -27,13 +29,12 @@ import org.eclipse.ui.views.properties.PropertySheet;
 public class EditorContentOutlinePage extends ContentOutlinePage implements ISelectionListener {
 
     private CTabFolder tabFolder;
-    private ScrollableThumbnail thumbmail;
-    private Canvas thumbmailCanvas;
-    private FreeformGraphicalRootEditPart rootEditPart;
-
-    private Object input;
-    private IContentProvider contentProvider;
-    private ILabelProvider labelProvider;
+    private ScrollableThumbnail minimapThumbmail;
+    
+    protected FreeformGraphicalRootEditPart rootEditPart;
+    protected Object input;
+    protected IContentProvider contentProvider;
+    protected ILabelProvider labelProvider;
 
     public EditorContentOutlinePage(GraphicalEditor editor, Object input, IContentProvider contentProvider, ILabelProvider labelProvider) {
         this.rootEditPart = (FreeformGraphicalRootEditPart) editor.getAdapter(EditPart.class);
@@ -60,21 +61,23 @@ public class EditorContentOutlinePage extends ContentOutlinePage implements ISel
     @Override
     public void dispose() {
         getSite().getPage().removeSelectionListener(this);
-        thumbmail.deactivate();
-        thumbmailCanvas.dispose();
-        getTreeViewer().getControl().dispose();
+        minimapThumbmail.deactivate();
         super.dispose();
     }
 
     @Override
     public void createControl(Composite parent) {
         tabFolder = new CTabFolder(parent, SWT.BOTTOM); // Use CTabFolder, because TabFolder looks ugly.
-        createTreeView();
-        createMinimap();
+        createTabControls(tabFolder);
         tabFolder.setSelection(0);
     }
 
-    protected void addTabControll(Control control, String title) {
+    protected void createTabControls(Composite parent) {
+        createTreeView();
+        createMinimap(parent);
+    }
+
+    protected void addTabControl(Control control, String title) {
         CTabItem tabItem = new CTabItem(tabFolder, SWT.NONE);
         tabItem.setText(title);
         tabItem.setControl(control);
@@ -92,19 +95,23 @@ public class EditorContentOutlinePage extends ContentOutlinePage implements ISel
         treeViewer.setLabelProvider(labelProvider);
         treeViewer.setInput(input);
 
-        addTabControll(treeViewer.getControl(), "Tree View");
+        addTabControl(treeViewer.getControl(), "Tree View");
     }
 
-    private void createMinimap() {
-        thumbmail = new ScrollableThumbnail();
-        thumbmail.setViewport((Viewport) rootEditPart.getFigure());
-        thumbmail.setSource(rootEditPart.getLayer(LayerConstants.PRINTABLE_LAYERS));
+    private void createMinimap(Composite parent) {
+        minimapThumbmail = new ScrollableThumbnail();
+        minimapThumbmail.setViewport((Viewport) rootEditPart.getFigure());
+        minimapThumbmail.setSource(createMinimapThumbmailFigure(minimapThumbmail, rootEditPart));
 
-        thumbmailCanvas = new Canvas(tabFolder, SWT.NONE);
-        LightweightSystem lightweightSystem = new LightweightSystem(thumbmailCanvas);
-        lightweightSystem.setContents(thumbmail);
+        Canvas canvas = new Canvas(parent, SWT.NONE);
+        LightweightSystem lightweightSystem = new LightweightSystem(canvas);
+        lightweightSystem.setContents(minimapThumbmail);
 
-        addTabControll(thumbmailCanvas, "Minimap");
+        addTabControl(canvas, "Minimap");
+    }
+    
+    protected IFigure createMinimapThumbmailFigure(Thumbnail thumbmail, FreeformGraphicalRootEditPart rootEditPart) {
+        return rootEditPart.getLayer(LayerConstants.PRINTABLE_LAYERS);
     }
     
     // ==================================================================

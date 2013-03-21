@@ -35,597 +35,597 @@ import org.eclipse.swt.graphics.Font;
 
 public class FigureDecorator implements IFigure {
 
-    protected IFigure decoratedFigure;
+    protected IFigure sourceFigure;
     
-    public FigureDecorator(IFigure decoratedFigure) {
-        this.decoratedFigure = decoratedFigure;
+    public FigureDecorator(IFigure sourceFigure) {
+        this.sourceFigure = sourceFigure;
     }
 
     @Override
     public void add(IFigure figure) {
-        decoratedFigure.add(figure);
+        sourceFigure.add(figure);
     }
 
     @Override
     public void add(IFigure figure, int index) {
-        decoratedFigure.add(figure, index);
+        sourceFigure.add(figure, index);
     }
 
     @Override
     public void add(IFigure figure, Object constraint) {
-        decoratedFigure.add(figure, constraint);
+        sourceFigure.add(figure, constraint);
     }
 
     @Override
     public void add(IFigure figure, Object constraint, int index) {
-        decoratedFigure.add(figure, constraint, index);
+        sourceFigure.add(figure, constraint, index);
     }
 
     @Override
     public void addAncestorListener(AncestorListener listener) {
-        decoratedFigure.addAncestorListener(listener);
+        sourceFigure.addAncestorListener(listener);
     }
 
     @Override
     public void addCoordinateListener(CoordinateListener listener) {
-        decoratedFigure.addCoordinateListener(listener);
+        sourceFigure.addCoordinateListener(listener);
     }
 
     @Override
     public void addFigureListener(FigureListener listener) {
-        decoratedFigure.addFigureListener(listener);
+        sourceFigure.addFigureListener(listener);
     }
 
     @Override
     public void addFocusListener(FocusListener listener) {
-        decoratedFigure.addFocusListener(listener);
+        sourceFigure.addFocusListener(listener);
     }
 
     @Override
     public void addKeyListener(KeyListener listener) {
-        decoratedFigure.addKeyListener(listener);
+        sourceFigure.addKeyListener(listener);
     }
 
     @Override
     public void addLayoutListener(LayoutListener listener) {
-        decoratedFigure.addLayoutListener(listener);
+        sourceFigure.addLayoutListener(listener);
     }
 
     @Override
     public void addMouseListener(MouseListener listener) {
-        decoratedFigure.addMouseListener(listener);
+        sourceFigure.addMouseListener(listener);
     }
 
     @Override
     public void addMouseMotionListener(MouseMotionListener listener) {
-        decoratedFigure.addMouseMotionListener(listener);
+        sourceFigure.addMouseMotionListener(listener);
     }
 
     @Override
     public void addNotify() {
-        decoratedFigure.addNotify();
+        sourceFigure.addNotify();
     }
 
     @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
-        decoratedFigure.addPropertyChangeListener(listener);
+        sourceFigure.addPropertyChangeListener(listener);
     }
 
     @Override
     public void addPropertyChangeListener(String property, PropertyChangeListener listener) {
-        decoratedFigure.addPropertyChangeListener(property, listener);
+        sourceFigure.addPropertyChangeListener(property, listener);
     }
 
     @Override
     public boolean containsPoint(int x, int y) {
-        return decoratedFigure.containsPoint(x, y);
+        return sourceFigure.containsPoint(x, y);
     }
 
     @Override
     public boolean containsPoint(Point p) {
-        return decoratedFigure.containsPoint(p);
+        return sourceFigure.containsPoint(p);
     }
 
     @Override
     public void erase() {
-        decoratedFigure.erase();
+        sourceFigure.erase();
     }
 
     @Override
     public IFigure findFigureAt(int x, int y) {
-        return decoratedFigure.findFigureAt(x, y);
+        return sourceFigure.findFigureAt(x, y);
     }
 
     @Override
     public IFigure findFigureAt(int x, int y, TreeSearch search) {
-        return decoratedFigure.findFigureAt(x, y, search);
+        return sourceFigure.findFigureAt(x, y, search);
     }
 
     @Override
     public IFigure findFigureAt(Point p) {
-        return decoratedFigure.findFigureAt(p);
+        return sourceFigure.findFigureAt(p);
     }
 
     @Override
     @SuppressWarnings("rawtypes")
     public IFigure findFigureAtExcluding(int x, int y, Collection collection) {
-        return decoratedFigure.findFigureAtExcluding(x, y, collection);
+        return sourceFigure.findFigureAtExcluding(x, y, collection);
     }
 
     @Override
     public IFigure findMouseEventTargetAt(int x, int y) {
-        return decoratedFigure.findMouseEventTargetAt(x, y);
+        return sourceFigure.findMouseEventTargetAt(x, y);
     }
 
     @Override
     public Color getBackgroundColor() {
-        return decoratedFigure.getBackgroundColor();
+        return sourceFigure.getBackgroundColor();
     }
 
     @Override
     public Border getBorder() {
-        return decoratedFigure.getBorder();
+        return sourceFigure.getBorder();
     }
 
     @Override
     public Rectangle getBounds() {
-        return decoratedFigure.getBounds();
+        return sourceFigure.getBounds();
     }
 
     @Override
     @SuppressWarnings("rawtypes")
     public List getChildren() {
-        return decoratedFigure.getChildren();
+        return sourceFigure.getChildren();
     }
 
     @Override
     public Rectangle getClientArea() {
-        return decoratedFigure.getClientArea();
+        return sourceFigure.getClientArea();
     }
 
     @Override
     public Rectangle getClientArea(Rectangle rect) {
-        return decoratedFigure.getClientArea(rect);
+        return sourceFigure.getClientArea(rect);
     }
 
     @Override
     public IClippingStrategy getClippingStrategy() {
-        return decoratedFigure.getClippingStrategy();
+        return sourceFigure.getClippingStrategy();
     }
 
     @Override
     public Cursor getCursor() {
-        return decoratedFigure.getCursor();
+        return sourceFigure.getCursor();
     }
 
     @Override
     public Font getFont() {
-        return decoratedFigure.getFont();
+        return sourceFigure.getFont();
     }
 
     @Override
     public Color getForegroundColor() {
-        return decoratedFigure.getForegroundColor();
+        return sourceFigure.getForegroundColor();
     }
 
     @Override
     public Insets getInsets() {
-        return decoratedFigure.getInsets();
+        return sourceFigure.getInsets();
     }
 
     @Override
     public LayoutManager getLayoutManager() {
-        return decoratedFigure.getLayoutManager();
+        return sourceFigure.getLayoutManager();
     }
 
     @Override
     public Color getLocalBackgroundColor() {
-        return decoratedFigure.getLocalBackgroundColor();
+        return sourceFigure.getLocalBackgroundColor();
     }
 
     @Override
     public Color getLocalForegroundColor() {
-        return decoratedFigure.getLocalForegroundColor();
+        return sourceFigure.getLocalForegroundColor();
     }
 
     @Override
     public Dimension getMaximumSize() {
-        return decoratedFigure.getMaximumSize();
+        return sourceFigure.getMaximumSize();
     }
 
     @Override
     public Dimension getMinimumSize() {
-        return decoratedFigure.getMinimumSize();
+        return sourceFigure.getMinimumSize();
     }
 
     @Override
     public Dimension getMinimumSize(int wHint, int hHint) {
-        return decoratedFigure.getMinimumSize(wHint, hHint);
+        return sourceFigure.getMinimumSize(wHint, hHint);
     }
 
     @Override
     public IFigure getParent() {
-        return decoratedFigure.getParent();
+        return sourceFigure.getParent();
     }
 
     @Override
     public Dimension getPreferredSize() {
-        return decoratedFigure.getPreferredSize();
+        return sourceFigure.getPreferredSize();
     }
 
     @Override
     public Dimension getPreferredSize(int wHint, int hHint) {
-        return decoratedFigure.getPreferredSize(wHint, hHint);
+        return sourceFigure.getPreferredSize(wHint, hHint);
     }
 
     @Override
     public Dimension getSize() {
-        return decoratedFigure.getSize();
+        return sourceFigure.getSize();
     }
 
     @Override
     public IFigure getToolTip() {
-        return decoratedFigure.getToolTip();
+        return sourceFigure.getToolTip();
     }
 
     @Override
     public UpdateManager getUpdateManager() {
-        return decoratedFigure.getUpdateManager();
+        return sourceFigure.getUpdateManager();
     }
 
     @Override
     public void handleFocusGained(FocusEvent event) {
-        decoratedFigure.handleFocusGained(event);
+        sourceFigure.handleFocusGained(event);
     }
 
     @Override
     public void handleFocusLost(FocusEvent event) {
-        decoratedFigure.handleFocusLost(event);
+        sourceFigure.handleFocusLost(event);
     }
 
     @Override
     public void handleKeyPressed(KeyEvent event) {
-        decoratedFigure.handleKeyPressed(event);
+        sourceFigure.handleKeyPressed(event);
     }
 
     @Override
     public void handleKeyReleased(KeyEvent event) {
-        decoratedFigure.handleKeyReleased(event);
+        sourceFigure.handleKeyReleased(event);
     }
 
     @Override
     public void handleMouseDoubleClicked(MouseEvent event) {
-        decoratedFigure.handleMouseDoubleClicked(event);
+        sourceFigure.handleMouseDoubleClicked(event);
     }
 
     @Override
     public void handleMouseDragged(MouseEvent event) {
-        decoratedFigure.handleMouseDragged(event);
+        sourceFigure.handleMouseDragged(event);
     }
 
     @Override
     public void handleMouseEntered(MouseEvent event) {
-        decoratedFigure.handleMouseEntered(event);
+        sourceFigure.handleMouseEntered(event);
     }
 
     @Override
     public void handleMouseExited(MouseEvent event) {
-        decoratedFigure.handleMouseExited(event);
+        sourceFigure.handleMouseExited(event);
     }
 
     @Override
     public void handleMouseHover(MouseEvent event) {
-        decoratedFigure.handleMouseHover(event);
+        sourceFigure.handleMouseHover(event);
     }
 
     @Override
     public void handleMouseMoved(MouseEvent event) {
-        decoratedFigure.handleMouseMoved(event);
+        sourceFigure.handleMouseMoved(event);
     }
 
     @Override
     public void handleMousePressed(MouseEvent event) {
-        decoratedFigure.handleMousePressed(event);
+        sourceFigure.handleMousePressed(event);
     }
 
     @Override
     public void handleMouseReleased(MouseEvent event) {
-        decoratedFigure.handleMouseReleased(event);
+        sourceFigure.handleMouseReleased(event);
     }
 
     @Override
     public boolean hasFocus() {
-        return decoratedFigure.hasFocus();
+        return sourceFigure.hasFocus();
     }
 
     @Override
     public EventDispatcher internalGetEventDispatcher() {
-        return decoratedFigure.internalGetEventDispatcher();
+        return sourceFigure.internalGetEventDispatcher();
     }
 
     @Override
     public boolean intersects(Rectangle rect) {
-        return decoratedFigure.intersects(rect);
+        return sourceFigure.intersects(rect);
     }
 
     @Override
     public void invalidate() {
-        decoratedFigure.invalidate();
+        sourceFigure.invalidate();
     }
 
     @Override
     public void invalidateTree() {
-        decoratedFigure.invalidateTree();
+        sourceFigure.invalidateTree();
     }
 
     @Override
     public boolean isCoordinateSystem() {
-        return decoratedFigure.isCoordinateSystem();
+        return sourceFigure.isCoordinateSystem();
     }
 
     @Override
     public boolean isEnabled() {
-        return decoratedFigure.isEnabled();
+        return sourceFigure.isEnabled();
     }
 
     @Override
     public boolean isFocusTraversable() {
-        return decoratedFigure.isFocusTraversable();
+        return sourceFigure.isFocusTraversable();
     }
 
     @Override
     public boolean isMirrored() {
-        return decoratedFigure.isMirrored();
+        return sourceFigure.isMirrored();
     }
 
     @Override
     public boolean isOpaque() {
-        return decoratedFigure.isOpaque();
+        return sourceFigure.isOpaque();
     }
 
     @Override
     public boolean isRequestFocusEnabled() {
-        return decoratedFigure.isRequestFocusEnabled();
+        return sourceFigure.isRequestFocusEnabled();
     }
 
     @Override
     public boolean isShowing() {
-        return decoratedFigure.isShowing();
+        return sourceFigure.isShowing();
     }
 
     @Override
     public boolean isVisible() {
-        return decoratedFigure.isVisible();
+        return sourceFigure.isVisible();
     }
 
     @Override
     public void paint(Graphics graphics) {
-        decoratedFigure.paint(graphics);
+        sourceFigure.paint(graphics);
     }
 
     @Override
     public void remove(IFigure figure) {
-        decoratedFigure.remove(figure);
+        sourceFigure.remove(figure);
     }
 
     @Override
     public void removeAncestorListener(AncestorListener listener) {
-        decoratedFigure.removeAncestorListener(listener);
+        sourceFigure.removeAncestorListener(listener);
     }
 
     @Override
     public void removeCoordinateListener(CoordinateListener listener) {
-        decoratedFigure.removeCoordinateListener(listener);
+        sourceFigure.removeCoordinateListener(listener);
     }
 
     @Override
     public void removeFigureListener(FigureListener listener) {
-        decoratedFigure.removeFigureListener(listener);
+        sourceFigure.removeFigureListener(listener);
     }
 
     @Override
     public void removeFocusListener(FocusListener listener) {
-        decoratedFigure.removeFocusListener(listener);
+        sourceFigure.removeFocusListener(listener);
     }
 
     @Override
     public void removeKeyListener(KeyListener listener) {
-        decoratedFigure.removeKeyListener(listener);
+        sourceFigure.removeKeyListener(listener);
     }
 
     @Override
     public void removeLayoutListener(LayoutListener listener) {
-        decoratedFigure.removeLayoutListener(listener);
+        sourceFigure.removeLayoutListener(listener);
     }
 
     @Override
     public void removeMouseListener(MouseListener listener) {
-        decoratedFigure.removeMouseListener(listener);
+        sourceFigure.removeMouseListener(listener);
     }
 
     @Override
     public void removeMouseMotionListener(MouseMotionListener listener) {
-        decoratedFigure.removeMouseMotionListener(listener);
+        sourceFigure.removeMouseMotionListener(listener);
     }
 
     @Override
     public void removeNotify() {
-        decoratedFigure.removeNotify();
+        sourceFigure.removeNotify();
     }
 
     @Override
     public void removePropertyChangeListener(PropertyChangeListener listener) {
-        decoratedFigure.removePropertyChangeListener(listener);
+        sourceFigure.removePropertyChangeListener(listener);
     }
 
     @Override
     public void removePropertyChangeListener(String property, PropertyChangeListener listener) {
-        decoratedFigure.removePropertyChangeListener(property, listener);
+        sourceFigure.removePropertyChangeListener(property, listener);
     }
 
     @Override
     public void repaint() {
-        decoratedFigure.repaint();
+        sourceFigure.repaint();
     }
 
     @Override
     public void repaint(int x, int y, int w, int h) {
-        decoratedFigure.repaint(x, y, w, h);
+        sourceFigure.repaint(x, y, w, h);
     }
 
     @Override
     public void repaint(Rectangle rect) {
-        decoratedFigure.repaint(rect);
+        sourceFigure.repaint(rect);
     }
 
     @Override
     public void requestFocus() {
-        decoratedFigure.requestFocus();
+        sourceFigure.requestFocus();
     }
 
     @Override
     public void revalidate() {
-        decoratedFigure.revalidate();
+        sourceFigure.revalidate();
     }
 
     @Override
     public void setBackgroundColor(Color c) {
-        decoratedFigure.setBackgroundColor(c);
+        sourceFigure.setBackgroundColor(c);
     }
 
     @Override
     public void setBorder(Border b) {
-        decoratedFigure.setBorder(b);
+        sourceFigure.setBorder(b);
     }
 
     @Override
     public void setBounds(Rectangle rect) {
-        decoratedFigure.setBounds(rect);
+        sourceFigure.setBounds(rect);
     }
 
     @Override
     public void setClippingStrategy(IClippingStrategy clippingStrategy) {
-        decoratedFigure.setClippingStrategy(clippingStrategy);
+        sourceFigure.setClippingStrategy(clippingStrategy);
     }
 
     @Override
     public void setConstraint(IFigure child, Object constraint) {
-        decoratedFigure.setConstraint(child, constraint);
+        sourceFigure.setConstraint(child, constraint);
     }
 
     @Override
     public void setCursor(Cursor cursor) {
-        decoratedFigure.setCursor(cursor);
+        sourceFigure.setCursor(cursor);
     }
 
     @Override
     public void setEnabled(boolean value) {
-        decoratedFigure.setEnabled(value);
+        sourceFigure.setEnabled(value);
     }
 
     @Override
     public void setFocusTraversable(boolean value) {
-        decoratedFigure.setFocusTraversable(value);
+        sourceFigure.setFocusTraversable(value);
     }
 
     @Override
     public void setFont(Font f) {
-        decoratedFigure.setFont(f);
+        sourceFigure.setFont(f);
     }
 
     @Override
     public void setForegroundColor(Color c) {
-        decoratedFigure.setForegroundColor(c);
+        sourceFigure.setForegroundColor(c);
     }
 
     @Override
     public void setLayoutManager(LayoutManager lm) {
-        decoratedFigure.setLayoutManager(lm);
+        sourceFigure.setLayoutManager(lm);
     }
 
     @Override
     public void setLocation(Point p) {
-        decoratedFigure.setLocation(p);
+        sourceFigure.setLocation(p);
     }
 
     @Override
     public void setMaximumSize(Dimension size) {
-        decoratedFigure.setMaximumSize(size);
+        sourceFigure.setMaximumSize(size);
     }
 
     @Override
     public void setMinimumSize(Dimension size) {
-        decoratedFigure.setMinimumSize(size);
+        sourceFigure.setMinimumSize(size);
     }
 
     @Override
     public void setOpaque(boolean isOpaque) {
-        decoratedFigure.setOpaque(isOpaque);
+        sourceFigure.setOpaque(isOpaque);
     }
 
     @Override
     public void setParent(IFigure parent) {
-        decoratedFigure.setParent(parent);
+        sourceFigure.setParent(parent);
     }
 
     @Override
     public void setPreferredSize(Dimension size) {
-        decoratedFigure.setPreferredSize(size);
+        sourceFigure.setPreferredSize(size);
     }
 
     @Override
     public void setRequestFocusEnabled(boolean requestFocusEnabled) {
-        decoratedFigure.setRequestFocusEnabled(requestFocusEnabled);
+        sourceFigure.setRequestFocusEnabled(requestFocusEnabled);
     }
 
     @Override
     public void setSize(Dimension d) {
-        decoratedFigure.setSize(d);
+        sourceFigure.setSize(d);
     }
 
     @Override
     public void setSize(int w, int h) {
-        decoratedFigure.setSize(w, h);
+        sourceFigure.setSize(w, h);
     }
 
     @Override
     public void setToolTip(IFigure figure) {
-        decoratedFigure.setToolTip(figure);
+        sourceFigure.setToolTip(figure);
     }
 
     @Override
     public void setVisible(boolean visible) {
-        decoratedFigure.setVisible(visible);
+        sourceFigure.setVisible(visible);
     }
 
     @Override
     public void translate(int x, int y) {
-        decoratedFigure.translate(x, y);
+        sourceFigure.translate(x, y);
     }
 
     @Override
     public void translateFromParent(Translatable t) {
-        decoratedFigure.translateFromParent(t);
+        sourceFigure.translateFromParent(t);
     }
 
     @Override
     public void translateToAbsolute(Translatable t) {
-        decoratedFigure.translateToAbsolute(t);
+        sourceFigure.translateToAbsolute(t);
     }
 
     @Override
     public void translateToParent(Translatable t) {
-        decoratedFigure.translateToParent(t);
+        sourceFigure.translateToParent(t);
     }
 
     @Override
     public void translateToRelative(Translatable t) {
-        decoratedFigure.translateToRelative(t);
+        sourceFigure.translateToRelative(t);
     }
 
     @Override
     public void validate() {
-        decoratedFigure.validate();
+        sourceFigure.validate();
     }
 
 }

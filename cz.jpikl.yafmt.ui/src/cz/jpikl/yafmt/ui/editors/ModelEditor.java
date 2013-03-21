@@ -384,13 +384,10 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette imple
             return contentOutlinePage;
         }
         
-        if(type == ZoomManager.class) {
+        if(type == ZoomManager.class)
             return getRootEditPart().getZoomManager();
-        }
-        
-        if(type == IProblemManager.class) {
+        if(type == IProblemManager.class)
             return problemManager;
-        }
 
         return super.getAdapter(type);
     }
