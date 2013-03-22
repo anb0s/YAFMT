@@ -2,12 +2,12 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Feature Model Validation
 Bundle-SymbolicName: cz.jpikl.yafmt.model.validation;singleton:=true
-Bundle-Version: 0.2.0.qualifier
+Bundle-Version: 0.3.0.qualifier
 Bundle-Activator: cz.jpikl.yafmt.model.validation.FeatureModelValidationPlugin$Implementation
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.core.runtime,
- cz.jpikl.yafmt.clang;bundle-version="0.2.0",
- cz.jpikl.yafmt.model;bundle-version="0.2.0"
+ cz.jpikl.yafmt.clang;bundle-version="0.3.0",
+ cz.jpikl.yafmt.model;bundle-version="0.3.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: cz.jpikl.yafmt.model.validation,

@@ -2,7 +2,7 @@
 <feature
       id="cz.jpikl.yafmt.clang.scl.feature"
       label="Simle Constraint Language"
-      version="0.2.0.qualifier"
+      version="0.3.0.qualifier"
       plugin="cz.jpikl.yafmt.clang.scl">
 
    <description url="https://bitbucket.org/jpikl/yafmt">
@@ -14,10 +14,6 @@
    </license>
 
    <requires>
-      <import plugin="cz.jpikl.yafmt.clang" version="0.2.0" match="greaterOrEqual"/>
-      <import plugin="cz.jpikl.yafmt.model" version="0.2.0" match="greaterOrEqual"/>
-      <import plugin="org.apache.log4j"/>
-      <import plugin="de.itemis.xtext.utils.jface" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.antlr.runtime" version="3.2.0" match="greaterOrEqual"/>
       <import plugin="org.apache.commons.logging" version="1.0.4" match="greaterOrEqual"/>
       <import plugin="org.eclipse.emf.common" version="2.8.0" match="greaterOrEqual"/>
@@ -26,11 +22,15 @@
       <import plugin="org.eclipse.xtext" version="2.3.1" match="greaterOrEqual"/>
       <import plugin="org.eclipse.xtext.util" version="2.3.1" match="greaterOrEqual"/>
       <import plugin="org.eclipse.xtext.generator" version="2.3.1" match="greaterOrEqual"/>
+      <import plugin="org.apache.log4j"/>
       <import plugin="org.eclipse.ui" version="3.103.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.ui.editors" version="3.8.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.xtext.ui" version="2.3.1" match="greaterOrEqual"/>
       <import plugin="org.eclipse.xtext.ui.shared" version="2.3.1" match="greaterOrEqual"/>
-      <import plugin="cz.jpikl.yafmt.clang.scl" version="0.2.0" match="greaterOrEqual"/>
+      <import plugin="de.itemis.xtext.utils.jface" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="cz.jpikl.yafmt.clang" version="0.3.0" match="greaterOrEqual"/>
+      <import plugin="cz.jpikl.yafmt.model" version="0.3.0" match="greaterOrEqual"/>
+      <import plugin="cz.jpikl.yafmt.clang.scl" version="0.3.0" match="greaterOrEqual"/>
    </requires>
 
    <plugin
