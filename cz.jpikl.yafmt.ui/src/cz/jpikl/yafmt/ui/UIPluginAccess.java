@@ -46,6 +46,9 @@ public class UIPluginAccess {
     public void initializeImageRegistry(ImageRegistry registry) {
         // Automatically load all images in icons directory.
         Enumeration<String> iconPaths = plugin.getBundle().getEntryPaths(IMAGE_DIRECTORY);
+        if(iconPaths == null)
+            return;
+        
         while(iconPaths.hasMoreElements()) {
             String iconPath = iconPaths.nextElement();
             if(!iconPath.endsWith(".png") && !iconPath.endsWith(".gif"))
