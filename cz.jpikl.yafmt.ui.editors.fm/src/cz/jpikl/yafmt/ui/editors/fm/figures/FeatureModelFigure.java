@@ -16,7 +16,7 @@ public class FeatureModelFigure extends FreeformLayer {
     @Override
     public void paint(Graphics graphics) {
         // Enable antialiasing.
-        // Antialiasing for connection layer is enabled in FeatureModelEditPart.refreshVisuals.
+        // Antialiasing for connection layer is enabled in FeatureModelEditPart.refreshVisuals().
         graphics.setAntialias(SWT.ON);
         graphics.setTextAntialias(SWT.ON);
         super.paint(graphics);

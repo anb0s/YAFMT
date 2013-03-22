@@ -5,12 +5,15 @@ import static cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage.FEATURE_CONFIG
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.draw2d.ConnectionLayer;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
+import org.eclipse.swt.SWT;
 
 import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
 import cz.jpikl.yafmt.model.fc.Selection;
@@ -58,6 +61,13 @@ public class FeatureConfigurationEditPart extends AbstractGraphicalEditPart {
     @Override
     protected IFigure createFigure() {
         return new FeatureConfigurationFigure();
+    }
+    
+    @Override
+    protected void refreshVisuals() {
+        // Enable antialiasing for connection layer.
+        // Antialiasing for other layers is enabled in FeatureModelFigure.
+        ((ConnectionLayer) getLayer(LayerConstants.CONNECTION_LAYER)).setAntialias(SWT.ON);
     }
     
     // ===================================================================
