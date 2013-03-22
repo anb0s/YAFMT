@@ -128,7 +128,7 @@ public class LabelDirectEditManager extends DirectEditManager {
             else
                 bounds.y += yOffset + (bounds.height - preferredSize.y) / 2;
             
-            bounds.width = preferredSize.x;
+            bounds.width = preferredSize.x + 6; // Extra 4 space for Windows. 
             bounds.height = preferredSize.y;
             
             cellEditor.getControl().setBounds(bounds.x, bounds.y, bounds.width, bounds.height);
