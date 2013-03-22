@@ -23,11 +23,13 @@ public class ConstraintMarker extends MarkerFigure {
     @Override
     protected void paintContents(Graphics graphics) {
         Dimension size = TextUtilities.INSTANCE.getStringExtents(LABEL, DrawUtil.TINY_FONT);
-        double x = bounds.x + 0.5 * (bounds.width - size.width);
-        double y = bounds.y + 0.5 * (bounds.height - size.height);
+        
+        double x = bounds.x + 0.5 * (bounds.width - size.width) - 0.5;
+        double y = bounds.y + 0.5 * (bounds.height - size.height) - 0.25;
+        
         graphics.setForegroundColor(ColorConstants.white);
         graphics.setFont(DrawUtil.TINY_FONT);
-        graphics.drawText("{ }", new PrecisionPoint(x, y));
+        graphics.drawText(LABEL, new PrecisionPoint(x, y));
     }
     
 }
