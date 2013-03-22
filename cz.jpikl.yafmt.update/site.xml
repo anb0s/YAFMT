@@ -9,16 +9,16 @@
    <feature url="features/de.itemis.xtext.utils.jface_1.0.0.201205141449.jar" id="de.itemis.xtext.utils.jface" version="1.0.0.201205141449">
       <category name="dependencies"/>
    </feature>
-   <feature url="features/cz.jpikl.yafmt.clang.scl.feature_0.2.0.201303190005.jar" id="cz.jpikl.yafmt.clang.scl.feature" version="0.2.0.201303190005">
+   <feature url="features/cz.jpikl.yafmt.clang.scl.feature_0.2.0.201303221649.jar" id="cz.jpikl.yafmt.clang.scl.feature" version="0.2.0.201303221649">
       <category name="yafmt"/>
    </feature>
-   <feature url="features/cz.jpikl.yafmt.ui.editors.fc.feature_0.2.0.201303190005.jar" id="cz.jpikl.yafmt.ui.editors.fc.feature" version="0.2.0.201303190005">
+   <feature url="features/cz.jpikl.yafmt.ui.editors.fc.feature_0.2.0.201303221649.jar" id="cz.jpikl.yafmt.ui.editors.fc.feature" version="0.2.0.201303221649">
       <category name="yafmt"/>
    </feature>
-   <feature url="features/cz.jpikl.yafmt.ui.editors.fm.feature_0.2.0.201303190005.jar" id="cz.jpikl.yafmt.ui.editors.fm.feature" version="0.2.0.201303190005">
+   <feature url="features/cz.jpikl.yafmt.ui.editors.fm.feature_0.2.0.201303221649.jar" id="cz.jpikl.yafmt.ui.editors.fm.feature" version="0.2.0.201303221649">
       <category name="yafmt"/>
    </feature>
-   <feature url="features/cz.jpikl.yafmt.ui.views.fm.feature_0.2.0.201303190005.jar" id="cz.jpikl.yafmt.ui.views.fm.feature" version="0.2.0.201303190005">
+   <feature url="features/cz.jpikl.yafmt.ui.views.fm.feature_0.2.0.201303221649.jar" id="cz.jpikl.yafmt.ui.views.fm.feature" version="0.2.0.201303221649">
       <category name="yafmt"/>
    </feature>
    <category-def name="yafmt" label="YAFMT">
