@@ -105,9 +105,7 @@ public class FeatureModelEditorContentOutlinePage extends EditorContentOutlinePa
         public void selectionChanged(SelectionChangedEvent event) {
             if(!(event.getSelection() instanceof IStructuredSelection))
                 return;
-            
-            System.out.println(event.getSource().getClass().getName()+ " .. " + ((IStructuredSelection) event.getSelection()).getFirstElement());
-            
+                        
             // Ignore this kind of selection (constraints editor just lost focus).
             IStructuredSelection newSelection = (IStructuredSelection) event.getSelection();
             if((selectionSource instanceof TableViewer) && (newSelection.getFirstElement() instanceof FeatureModel))

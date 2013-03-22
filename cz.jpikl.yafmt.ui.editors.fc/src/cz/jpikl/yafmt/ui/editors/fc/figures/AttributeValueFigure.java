@@ -97,7 +97,7 @@ public class AttributeValueFigure extends Label {
     }
     
     private String valueToString(Object value) {
-        return (value != null) ? value.toString() : "null";
+        return (value != null) ? value.toString() : "";
     }
     
     // ==================================================================
