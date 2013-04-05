@@ -256,6 +256,8 @@ public class FeatureModelUtil {
             return false;
         if(featureA.getUpper() != featureB.getUpper())
             return false;
+        if(!compareAttributes(featureA.getAttributes(), featureB.getAttributes()))
+            return false;
         if(recursive && !compareFeatures(featureA.getFeatures(), featureB.getFeatures(), recursive))
             return false;
         if(recursive && !compareGroups(featureA.getGroups(), featureB.getGroups(), recursive))
@@ -274,6 +276,42 @@ public class FeatureModelUtil {
             return false;
         for(int i = 0; i < featuresA.size(); i++) {
             if(!compareFeatures(featuresA.get(i), featuresB.get(i), recursive))
+                return false;
+        }
+        
+        return true;
+    }
+    
+    private static boolean compareAttributes(Attribute attributeA, Attribute attributeB) {
+        if(attributeA == attributeB)
+            return true;
+        if((attributeA == null) || (attributeB == null))
+            return false;
+        
+        if(!compareStrings(attributeA.getId(), attributeB.getId()))
+            return false;
+        if(!compareStrings(attributeA.getName(), attributeB.getName()))
+            return false;
+        if(attributeA.getType() != attributeB.getType())
+            return false;
+        if(!compareStrings(attributeA.getDescription(), attributeB.getDescription()))
+            return false;
+        if(!compareStrings(attributeA.getComment(), attributeB.getComment()))
+            return false;
+        
+        return true;
+    }
+    
+    public static boolean compareAttributes(List<Attribute> attributesA, List<Attribute> attributesB) {
+        if(attributesA == attributesB)
+            return true;
+        if((attributesA == null) || (attributesB == null))
+            return false;
+        
+        if(attributesA.size() != attributesB.size())
+            return false;
+        for(int i = 0; i < attributesA.size(); i++) {
+            if(!compareAttributes(attributesA.get(i), attributesB.get(i)))
                 return false;
         }
         
