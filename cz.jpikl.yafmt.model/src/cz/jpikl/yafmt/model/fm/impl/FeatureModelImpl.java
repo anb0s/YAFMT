@@ -34,6 +34,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureModelImpl#getName <em>Name</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureModelImpl#getVersion <em>Version</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureModelImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureModelImpl#getComment <em>Comment</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureModelImpl#getRoot <em>Root</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureModelImpl#getOrphans <em>Orphans</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureModelImpl#getConstraints <em>Constraints</em>}</li>
@@ -102,6 +103,26 @@ public class FeatureModelImpl extends EObjectImpl implements FeatureModel {
      * @ordered
      */
     protected String description = DESCRIPTION_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getComment() <em>Comment</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getComment()
+     * @generated
+     * @ordered
+     */
+    protected static final String COMMENT_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getComment() <em>Comment</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getComment()
+     * @generated
+     * @ordered
+     */
+    protected String comment = COMMENT_EDEFAULT;
 
     /**
      * The cached value of the '{@link #getRoot() <em>Root</em>}' containment reference.
@@ -197,6 +218,27 @@ public class FeatureModelImpl extends EObjectImpl implements FeatureModel {
         description = newDescription;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, FeatureModelPackage.FEATURE_MODEL__DESCRIPTION, oldDescription, description));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getComment() {
+        return comment;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setComment(String newComment) {
+        String oldComment = comment;
+        comment = newComment;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, FeatureModelPackage.FEATURE_MODEL__COMMENT, oldComment, comment));
     }
 
     /**
@@ -330,6 +372,8 @@ public class FeatureModelImpl extends EObjectImpl implements FeatureModel {
                 return getVersion();
             case FeatureModelPackage.FEATURE_MODEL__DESCRIPTION:
                 return getDescription();
+            case FeatureModelPackage.FEATURE_MODEL__COMMENT:
+                return getComment();
             case FeatureModelPackage.FEATURE_MODEL__ROOT:
                 return getRoot();
             case FeatureModelPackage.FEATURE_MODEL__ORPHANS:
@@ -357,6 +401,9 @@ public class FeatureModelImpl extends EObjectImpl implements FeatureModel {
                 return;
             case FeatureModelPackage.FEATURE_MODEL__DESCRIPTION:
                 setDescription((String)newValue);
+                return;
+            case FeatureModelPackage.FEATURE_MODEL__COMMENT:
+                setComment((String)newValue);
                 return;
             case FeatureModelPackage.FEATURE_MODEL__ROOT:
                 setRoot((Feature)newValue);
@@ -390,6 +437,9 @@ public class FeatureModelImpl extends EObjectImpl implements FeatureModel {
             case FeatureModelPackage.FEATURE_MODEL__DESCRIPTION:
                 setDescription(DESCRIPTION_EDEFAULT);
                 return;
+            case FeatureModelPackage.FEATURE_MODEL__COMMENT:
+                setComment(COMMENT_EDEFAULT);
+                return;
             case FeatureModelPackage.FEATURE_MODEL__ROOT:
                 setRoot((Feature)null);
                 return;
@@ -417,6 +467,8 @@ public class FeatureModelImpl extends EObjectImpl implements FeatureModel {
                 return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
             case FeatureModelPackage.FEATURE_MODEL__DESCRIPTION:
                 return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+            case FeatureModelPackage.FEATURE_MODEL__COMMENT:
+                return COMMENT_EDEFAULT == null ? comment != null : !COMMENT_EDEFAULT.equals(comment);
             case FeatureModelPackage.FEATURE_MODEL__ROOT:
                 return root != null;
             case FeatureModelPackage.FEATURE_MODEL__ORPHANS:
@@ -443,6 +495,8 @@ public class FeatureModelImpl extends EObjectImpl implements FeatureModel {
         result.append(version);
         result.append(", description: ");
         result.append(description);
+        result.append(", comment: ");
+        result.append(comment);
         result.append(')');
         return result.toString();
     }

@@ -65,6 +65,10 @@ public class AttributeValueItemProvider
             String description = ((AttributeValue) object).getDescription();
             if((description != null) && !description.isEmpty())
                 addDescriptionPropertyDescriptor(object);
+            
+            String comment = ((AttributeValue) object).getComment();
+            if((comment != null) && !comment.isEmpty())
+                addCommentPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
@@ -136,6 +140,28 @@ public class AttributeValueItemProvider
     }
 
     /**
+     * This adds a property descriptor for the Comment feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addCommentPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_AttributeValue_comment_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_AttributeValue_comment_feature", "_UI_AttributeValue_type"),
+                 FeatureConfigurationPackage.Literals.ATTRIBUTE_VALUE__COMMENT,
+                 false,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
      * @generated NOT
      */
     @Override
@@ -170,6 +196,7 @@ public class AttributeValueItemProvider
             case FeatureConfigurationPackage.ATTRIBUTE_VALUE__ID:
             case FeatureConfigurationPackage.ATTRIBUTE_VALUE__NAME:
             case FeatureConfigurationPackage.ATTRIBUTE_VALUE__DESCRIPTION:
+            case FeatureConfigurationPackage.ATTRIBUTE_VALUE__COMMENT:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
                 return;
         }

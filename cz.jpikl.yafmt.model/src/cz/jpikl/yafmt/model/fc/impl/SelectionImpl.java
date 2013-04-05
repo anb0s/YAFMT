@@ -33,6 +33,7 @@ import cz.jpikl.yafmt.model.fm.Feature;
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#getId <em>Id</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#getName <em>Name</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#getComment <em>Comment</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#getParent <em>Parent</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#isRoot <em>Root</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl#isPresent <em>Present</em>}</li>
@@ -86,6 +87,16 @@ public class SelectionImpl extends EObjectImpl implements Selection {
      * @ordered
      */
     protected static final String DESCRIPTION_EDEFAULT = null;
+
+    /**
+     * The default value of the '{@link #getComment() <em>Comment</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getComment()
+     * @generated
+     * @ordered
+     */
+    protected static final String COMMENT_EDEFAULT = null;
 
     /**
      * The default value of the '{@link #isRoot() <em>Root</em>}' attribute.
@@ -215,6 +226,16 @@ public class SelectionImpl extends EObjectImpl implements Selection {
     public String getDescription() {
         Feature feature = getFeature();
         return (feature != null) ? feature.getDescription() : null;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    public String getComment() {
+        Feature feature = getFeature();
+        return (feature != null) ? feature.getComment() : null;
     }
 
     /**
@@ -467,6 +488,8 @@ public class SelectionImpl extends EObjectImpl implements Selection {
                 return getName();
             case FeatureConfigurationPackage.SELECTION__DESCRIPTION:
                 return getDescription();
+            case FeatureConfigurationPackage.SELECTION__COMMENT:
+                return getComment();
             case FeatureConfigurationPackage.SELECTION__PARENT:
                 return getParent();
             case FeatureConfigurationPackage.SELECTION__ROOT:
@@ -566,6 +589,8 @@ public class SelectionImpl extends EObjectImpl implements Selection {
                 return NAME_EDEFAULT == null ? getName() != null : !NAME_EDEFAULT.equals(getName());
             case FeatureConfigurationPackage.SELECTION__DESCRIPTION:
                 return DESCRIPTION_EDEFAULT == null ? getDescription() != null : !DESCRIPTION_EDEFAULT.equals(getDescription());
+            case FeatureConfigurationPackage.SELECTION__COMMENT:
+                return COMMENT_EDEFAULT == null ? getComment() != null : !COMMENT_EDEFAULT.equals(getComment());
             case FeatureConfigurationPackage.SELECTION__PARENT:
                 return getParent() != null;
             case FeatureConfigurationPackage.SELECTION__ROOT:

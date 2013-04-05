@@ -2,6 +2,7 @@ package cz.jpikl.yafmt.ui.editors.fm.parts;
 
 import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.FEATURE__LOWER;
 import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.FEATURE__UPPER;
+import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.GROUP__DESCRIPTION;
 import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.GROUP__FEATURES;
 import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.GROUP__LOWER;
 import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.GROUP__UPPER;
@@ -190,10 +191,14 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
         private void notifyChangedFromGroup(Notification msg) {
             super.notifyChanged(msg);
             
-            switch(msg.getFeatureID(Group.class)) {
+            switch(msg.getFeatureID(Group.class)) {                
                 case GROUP__LOWER:
                 case GROUP__UPPER:
                     revalidateModel();
+                    refreshVisuals();
+                    break;
+                    
+                case GROUP__DESCRIPTION:
                     refreshVisuals();
                     break;
                     

@@ -35,6 +35,7 @@ public class FeatureModelUtil {
 
     private static ExtendedMetaData createExtendedMetadata() {
         ExtendedMetaData emd = new BasicExtendedMetaData();
+        // Rename some elements.
         emd.setName(Literals.FEATURE_MODEL, "featureModel");
         emd.setName(Literals.FEATURE_MODEL__CONSTRAINTS, "constraint");
         emd.setName(Literals.FEATURE_MODEL__ORPHANS, "orphanedFeature");
@@ -43,7 +44,12 @@ public class FeatureModelUtil {
         emd.setName(Literals.FEATURE__FEATURES, "feature");
         emd.setName(Literals.FEATURE__GROUPS, "group");
         emd.setName(Literals.GROUP__FEATURES, "feature");
-        emd.setFeatureKind(Literals.FEATURE_MODEL__DESCRIPTION, ExtendedMetaData.ELEMENT_FEATURE);
+        // Let comment be element instead of attribute.
+        emd.setFeatureKind(Literals.FEATURE_MODEL__COMMENT, ExtendedMetaData.ELEMENT_FEATURE);
+        emd.setFeatureKind(Literals.FEATURE__COMMENT, ExtendedMetaData.ELEMENT_FEATURE);
+        emd.setFeatureKind(Literals.GROUP__COMMENT, ExtendedMetaData.ELEMENT_FEATURE);
+        emd.setFeatureKind(Literals.ATTRIBUTE__COMMENT, ExtendedMetaData.ELEMENT_FEATURE);
+        emd.setFeatureKind(Literals.CONSTRAINT__COMMENT, ExtendedMetaData.ELEMENT_FEATURE);
         return emd;
     }
 
@@ -162,6 +168,18 @@ public class FeatureModelUtil {
         int upper = group.getUpper();
         return "<" + lower + "-" + ((upper == -1) ? "*" : upper) + ">";
     }
+    
+    public static String getTranslatedCardinality(Group group) {
+        if(group == null)
+            return null;
+        
+        if(group.isOr())
+            return "OR";
+        else if(group.isXor())
+            return "XOR";
+        else
+            return getCardinality(group);
+    }
 
     public static int getTreeHeight(FeatureModel featureModel) {
         if((featureModel == null) || (featureModel.getRoot() == null))
@@ -190,8 +208,11 @@ public class FeatureModelUtil {
     }
     
     // ===============================================================================================
-    //  Comparison utilities
+    //  Comparison utilities 
     // ===============================================================================================
+    
+    // Of course we could use EMF compare, but why another dependency when we just need to test if
+    // models are the same.
 
     public static boolean compareFeatureModels(FeatureModel featureModelA, FeatureModel featureModelB, boolean compareOrphanedFeatures) {
         if(featureModelA == featureModelB)
@@ -199,11 +220,13 @@ public class FeatureModelUtil {
         if((featureModelA == null) || (featureModelB == null))
             return false;
         
-        if(!compateStrings(featureModelA.getName(), featureModelB.getName()))
+        if(!compareStrings(featureModelA.getName(), featureModelB.getName()))
             return false;
-        if(!compateStrings(featureModelA.getDescription(), featureModelB.getDescription()))
+        if(!compareStrings(featureModelA.getVersion(), featureModelB.getVersion()))
             return false;
-        if(!compateStrings(featureModelA.getVersion(), featureModelB.getVersion()))
+        if(!compareStrings(featureModelA.getDescription(), featureModelB.getDescription()))
+            return false;
+        if(!compareStrings(featureModelA.getComment(), featureModelB.getComment()))
             return false;
         if(!compareFeatures(featureModelA.getRoot(), featureModelB.getRoot(), true))
             return false;
@@ -221,11 +244,13 @@ public class FeatureModelUtil {
         if((featureA == null) || (featureB == null))
             return false;
         
-        if(!compateStrings(featureA.getId(), featureB.getId()))
+        if(!compareStrings(featureA.getId(), featureB.getId()))
             return false;
-        if(!compateStrings(featureA.getName(), featureB.getName()))
+        if(!compareStrings(featureA.getName(), featureB.getName()))
             return false;
-        if(!compateStrings(featureA.getDescription(), featureB.getDescription()))
+        if(!compareStrings(featureA.getDescription(), featureB.getDescription()))
+            return false;
+        if(!compareStrings(featureA.getComment(), featureB.getComment()))
             return false;
         if(featureA.getLower() != featureB.getLower())
             return false;
@@ -265,6 +290,10 @@ public class FeatureModelUtil {
             return false;
         if(groupA.getUpper() != groupB.getUpper())
             return false;
+        if(!compareStrings(groupA.getDescription(), groupB.getDescription()))
+            return false;
+        if(!compareStrings(groupA.getComment(), groupB.getComment()))
+            return false;
         if(recursive && !compareFeatures(groupA.getFeatures(), groupB.getFeatures(), recursive))
             return false;
         
@@ -293,11 +322,13 @@ public class FeatureModelUtil {
         if((constraintA == null) || (constraintB == null))
             return false;
         
-        if(!compateStrings(constraintA.getLanguage(), constraintB.getLanguage()))
+        if(!compareStrings(constraintA.getLanguage(), constraintB.getLanguage()))
             return false;
-        if(!compateStrings(constraintA.getValue(), constraintB.getValue()))
+        if(!compareStrings(constraintA.getValue(), constraintB.getValue()))
             return false;
-        if(!compateStrings(constraintA.getDescription(), constraintB.getDescription()))
+        if(!compareStrings(constraintA.getDescription(), constraintB.getDescription()))
+            return false;
+        if(!compareStrings(constraintA.getComment(), constraintB.getComment()))
             return false;
         
         return true;
@@ -319,7 +350,7 @@ public class FeatureModelUtil {
         return true;
     }
     
-    private static boolean compateStrings(String stringA, String stringB) {
+    private static boolean compareStrings(String stringA, String stringB) {
         if(stringA == stringB)
             return true;
         if((stringA == null) || (stringB == null))

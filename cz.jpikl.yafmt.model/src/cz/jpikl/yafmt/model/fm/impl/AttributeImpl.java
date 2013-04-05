@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.AttributeImpl#getName <em>Name</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.AttributeImpl#getType <em>Type</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.AttributeImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fm.impl.AttributeImpl#getComment <em>Comment</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.AttributeImpl#getFeature <em>Feature</em>}</li>
  * </ul>
  * </p>
@@ -116,6 +117,26 @@ public class AttributeImpl extends EObjectImpl implements Attribute {
     protected String description = DESCRIPTION_EDEFAULT;
 
     /**
+     * The default value of the '{@link #getComment() <em>Comment</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getComment()
+     * @generated
+     * @ordered
+     */
+    protected static final String COMMENT_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getComment() <em>Comment</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getComment()
+     * @generated
+     * @ordered
+     */
+    protected String comment = COMMENT_EDEFAULT;
+
+    /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -195,6 +216,27 @@ public class AttributeImpl extends EObjectImpl implements Attribute {
         description = newDescription;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, FeatureModelPackage.ATTRIBUTE__DESCRIPTION, oldDescription, description));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getComment() {
+        return comment;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setComment(String newComment) {
+        String oldComment = comment;
+        comment = newComment;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, FeatureModelPackage.ATTRIBUTE__COMMENT, oldComment, comment));
     }
 
     /**
@@ -319,6 +361,8 @@ public class AttributeImpl extends EObjectImpl implements Attribute {
                 return getType();
             case FeatureModelPackage.ATTRIBUTE__DESCRIPTION:
                 return getDescription();
+            case FeatureModelPackage.ATTRIBUTE__COMMENT:
+                return getComment();
             case FeatureModelPackage.ATTRIBUTE__FEATURE:
                 return getFeature();
         }
@@ -344,6 +388,9 @@ public class AttributeImpl extends EObjectImpl implements Attribute {
                 return;
             case FeatureModelPackage.ATTRIBUTE__DESCRIPTION:
                 setDescription((String)newValue);
+                return;
+            case FeatureModelPackage.ATTRIBUTE__COMMENT:
+                setComment((String)newValue);
                 return;
             case FeatureModelPackage.ATTRIBUTE__FEATURE:
                 setFeature((Feature)newValue);
@@ -372,6 +419,9 @@ public class AttributeImpl extends EObjectImpl implements Attribute {
             case FeatureModelPackage.ATTRIBUTE__DESCRIPTION:
                 setDescription(DESCRIPTION_EDEFAULT);
                 return;
+            case FeatureModelPackage.ATTRIBUTE__COMMENT:
+                setComment(COMMENT_EDEFAULT);
+                return;
             case FeatureModelPackage.ATTRIBUTE__FEATURE:
                 setFeature((Feature)null);
                 return;
@@ -395,6 +445,8 @@ public class AttributeImpl extends EObjectImpl implements Attribute {
                 return type != TYPE_EDEFAULT;
             case FeatureModelPackage.ATTRIBUTE__DESCRIPTION:
                 return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+            case FeatureModelPackage.ATTRIBUTE__COMMENT:
+                return COMMENT_EDEFAULT == null ? comment != null : !COMMENT_EDEFAULT.equals(comment);
             case FeatureModelPackage.ATTRIBUTE__FEATURE:
                 return getFeature() != null;
         }
@@ -419,6 +471,8 @@ public class AttributeImpl extends EObjectImpl implements Attribute {
         result.append(type);
         result.append(", description: ");
         result.append(description);
+        result.append(", comment: ");
+        result.append(comment);
         result.append(')');
         return result.toString();
     }

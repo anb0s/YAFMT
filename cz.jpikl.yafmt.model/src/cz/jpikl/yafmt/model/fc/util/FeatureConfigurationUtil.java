@@ -40,6 +40,7 @@ public class FeatureConfigurationUtil {
 
     private static ExtendedMetaData createExtendedMetadata() {
         ExtendedMetaData emd = new BasicExtendedMetaData();
+        // Rename some elements.
         emd.setName(Literals.FEATURE_CONFIGURATION__ROOT, "rootSelection");
         emd.setName(Literals.SELECTION__SELECTIONS, "selection");
         emd.setName(Literals.SELECTION__VALUES, "attributeValue");
@@ -47,7 +48,8 @@ public class FeatureConfigurationUtil {
         emd.setName(Literals.INTEGER_VALUE, "integer");
         emd.setName(Literals.DOUBLE_VALUE, "double");
         emd.setName(Literals.STRING_VALUE, "string");
-        emd.setFeatureKind(Literals.FEATURE_CONFIGURATION__DESCRIPTION, ExtendedMetaData.ELEMENT_FEATURE);
+        // Let comment be element instead of attribute.
+        emd.setFeatureKind(Literals.FEATURE_CONFIGURATION__COMMENT, ExtendedMetaData.ELEMENT_FEATURE);
         return emd;
     }
 

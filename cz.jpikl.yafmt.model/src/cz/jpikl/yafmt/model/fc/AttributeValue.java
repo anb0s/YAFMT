@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link cz.jpikl.yafmt.model.fc.AttributeValue#getId <em>Id</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.AttributeValue#getName <em>Name</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.AttributeValue#getDescription <em>Description</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fc.AttributeValue#getComment <em>Comment</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.AttributeValue#getSelection <em>Selection</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.AttributeValue#getAttribute <em>Attribute</em>}</li>
  * </ul>
@@ -81,6 +82,21 @@ public interface AttributeValue extends EObject {
      * @generated
      */
     String getDescription();
+
+    /**
+     * Returns the value of the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Comment</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Comment</em>' attribute.
+     * @see cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage#getAttributeValue_Comment()
+     * @model transient="true" changeable="false" volatile="true" derived="true"
+     * @generated
+     */
+    String getComment();
 
     /**
      * Returns the value of the '<em><b>Selection</b></em>' container reference.

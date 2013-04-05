@@ -68,6 +68,10 @@ public class SelectionItemProvider
             String description = ((Selection) object).getDescription();
             if((description != null) && !description.isEmpty())
                 addDescriptionPropertyDescriptor(object);
+            
+            String comment = ((Selection) object).getComment();
+            if((comment != null) && !comment.isEmpty())
+                addCommentPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
@@ -130,6 +134,28 @@ public class SelectionItemProvider
                  getString("_UI_Selection_description_feature"),
                  getString("_UI_PropertyDescriptor_description", "_UI_Selection_description_feature", "_UI_Selection_type"),
                  FeatureConfigurationPackage.Literals.SELECTION__DESCRIPTION,
+                 false,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
+     * This adds a property descriptor for the Comment feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addCommentPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_Selection_comment_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_Selection_comment_feature", "_UI_Selection_type"),
+                 FeatureConfigurationPackage.Literals.SELECTION__COMMENT,
                  false,
                  false,
                  false,
@@ -218,6 +244,7 @@ public class SelectionItemProvider
             case FeatureConfigurationPackage.SELECTION__ID:
             case FeatureConfigurationPackage.SELECTION__NAME:
             case FeatureConfigurationPackage.SELECTION__DESCRIPTION:
+            case FeatureConfigurationPackage.SELECTION__COMMENT:
             case FeatureConfigurationPackage.SELECTION__ROOT:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
                 return;

@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link cz.jpikl.yafmt.model.fc.Selection#getId <em>Id</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.Selection#getName <em>Name</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.Selection#getDescription <em>Description</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fc.Selection#getComment <em>Comment</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.Selection#getParent <em>Parent</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.Selection#isRoot <em>Root</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.Selection#isPresent <em>Present</em>}</li>
@@ -89,6 +90,21 @@ public interface Selection extends EObject {
      * @generated
      */
     String getDescription();
+
+    /**
+     * Returns the value of the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Comment</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Comment</em>' attribute.
+     * @see cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage#getSelection_Comment()
+     * @model transient="true" changeable="false" volatile="true" derived="true"
+     * @generated
+     */
+    String getComment();
 
     /**
      * Returns the value of the '<em><b>Parent</b></em>' container reference.

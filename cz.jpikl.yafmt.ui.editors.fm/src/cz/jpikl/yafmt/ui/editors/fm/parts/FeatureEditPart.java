@@ -2,6 +2,7 @@ package cz.jpikl.yafmt.ui.editors.fm.parts;
 
 import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.ATTRIBUTE__ID;
 import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.FEATURE__ATTRIBUTES;
+import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.FEATURE__DESCRIPTION;
 import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.FEATURE__FEATURES;
 import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.FEATURE__GROUPS;
 import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.FEATURE__LOWER;
@@ -233,6 +234,10 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
                 case FEATURE__LOWER:
                 case FEATURE__UPPER:
                     revalidateModel();
+                    refreshVisuals();
+                    break;
+                    
+                case FEATURE__DESCRIPTION:
                     refreshVisuals();
                     break;
 

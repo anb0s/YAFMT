@@ -16,6 +16,8 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link cz.jpikl.yafmt.model.fm.Group#getLower <em>Lower</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.Group#getUpper <em>Upper</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fm.Group#getDescription <em>Description</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fm.Group#getComment <em>Comment</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.Group#isXor <em>Xor</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.Group#isOr <em>Or</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.Group#getParent <em>Parent</em>}</li>
@@ -81,6 +83,58 @@ public interface Group extends EObject {
      * @generated
      */
     void setUpper(int value);
+
+    /**
+     * Returns the value of the '<em><b>Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Description</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Description</em>' attribute.
+     * @see #setDescription(String)
+     * @see cz.jpikl.yafmt.model.fm.FeatureModelPackage#getGroup_Description()
+     * @model
+     * @generated
+     */
+    String getDescription();
+
+    /**
+     * Sets the value of the '{@link cz.jpikl.yafmt.model.fm.Group#getDescription <em>Description</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Description</em>' attribute.
+     * @see #getDescription()
+     * @generated
+     */
+    void setDescription(String value);
+
+    /**
+     * Returns the value of the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Comment</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Comment</em>' attribute.
+     * @see #setComment(String)
+     * @see cz.jpikl.yafmt.model.fm.FeatureModelPackage#getGroup_Comment()
+     * @model
+     * @generated
+     */
+    String getComment();
+
+    /**
+     * Sets the value of the '{@link cz.jpikl.yafmt.model.fm.Group#getComment <em>Comment</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Comment</em>' attribute.
+     * @see #getComment()
+     * @generated
+     */
+    void setComment(String value);
 
     /**
      * Returns the value of the '<em><b>Xor</b></em>' attribute.

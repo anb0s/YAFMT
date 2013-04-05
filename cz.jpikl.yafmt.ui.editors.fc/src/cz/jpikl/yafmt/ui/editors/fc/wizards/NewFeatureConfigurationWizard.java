@@ -101,12 +101,15 @@ public class NewFeatureConfigurationWizard extends NewFileWizard {
         String name = featureConfigurationPropertiesPage.getFeatureConfigurationName();
         String version = featureConfigurationPropertiesPage.getFeatureConfigurationVersion();
         String description = featureConfigurationPropertiesPage.getFeatureConfigurationDescription();
+        String comment = featureConfigurationPropertiesPage.getFeatureConfigurationComment();
 
         FeatureConfiguration featureConfig = FeatureConfigurationUtil.createEmptyFeatureConfiguration(featureModel, name);
         if(!version.isEmpty())
             featureConfig.setVersion(version);
         if(!description.isEmpty())
             featureConfig.setDescription(description);
+        if(!comment.isEmpty())
+            featureConfig.setComment(comment);
 
         URI uri = URI.createPlatformResourceURI(file.getFullPath().toString(), true);
         Resource resource = featureModel.eResource().getResourceSet().createResource(uri);
@@ -120,6 +123,7 @@ public class NewFeatureConfigurationWizard extends NewFileWizard {
         private Text nameText;
         private Text versionText;
         private Text descriptionText;
+        private Text commentText;
 
         protected FeatureConfigurationPropertiesPage() {
             super("Feature Model Properties Page");
@@ -140,6 +144,7 @@ public class NewFeatureConfigurationWizard extends NewFileWizard {
             createNameRow(panel);
             createVersionRow(panel);
             createDescriptionRow(panel);
+            createCommentRow(panel);
 
             // Must be called after creation of all controls
             IFile featureModelFile = getSelectedFeatureModelFile();
@@ -201,17 +206,28 @@ public class NewFeatureConfigurationWizard extends NewFileWizard {
             versionText.setText("1.0.0");
             versionText.setLayoutData(gridData);
         }
-
+        
         private void createDescriptionRow(Composite parent) {
             Label descriptionLabel = new Label(parent, SWT.NONE);
-            descriptionLabel.setLayoutData(new GridData(SWT.TOP, SWT.LEFT, false, false));
+            descriptionLabel.setText("Description:");
 
-            GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
+            GridData gridData = new GridData(SWT.FILL, SWT.CENTER, true, false);
             gridData.horizontalSpan = 2;
 
-            descriptionLabel.setText("Description:");
-            descriptionText = new Text(parent, SWT.MULTI | SWT.BORDER);
+            descriptionText = new Text(parent, SWT.SINGLE | SWT.BORDER);
             descriptionText.setLayoutData(gridData);
+        }
+
+        private void createCommentRow(Composite parent) {
+            Label commentLabel = new Label(parent, SWT.NONE);
+            commentLabel.setLayoutData(new GridData(SWT.TOP, SWT.LEFT, false, false));
+            commentLabel.setText("Comment:");
+            
+            GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
+            gridData.horizontalSpan = 2;
+            
+            commentText = new Text(parent, SWT.MULTI | SWT.BORDER);
+            commentText.setLayoutData(gridData);
         }
 
         @Override
@@ -270,6 +286,10 @@ public class NewFeatureConfigurationWizard extends NewFileWizard {
 
         public String getFeatureConfigurationDescription() {
             return descriptionText.getText();
+        }
+        
+        public String getFeatureConfigurationComment() {
+            return commentText.getText();
         }
 
     }

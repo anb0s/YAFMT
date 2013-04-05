@@ -16,16 +16,17 @@ public class GroupFigure extends NodeFigure {
         setHightlightColor(DrawUtil.GROUP_LIGHTER_COLOR);
         setBorderStyle(SWT.LINE_CUSTOM);
         setBorderDash(DrawUtil.LINE_DASHED);
-        setText(createCardinalityText(group) + " Group");
+        setText(FeatureModelUtil.getTranslatedCardinality(group) + " Group");
+        setToolTipText(createToolTipText(group));
     }
     
-    private String createCardinalityText(Group group) {
-        if(group.isOr())
-            return "OR";
-        else if(group.isXor())
-            return "XOR";
+    private String createToolTipText(Group group) {
+        String name = FeatureModelUtil.getTranslatedCardinality(group) + " Group";
+        String description = group.getDescription();
+        if((description != null) && !description.isEmpty())
+            return name + " - " + description;
         else
-            return FeatureModelUtil.getCardinality(group);
+            return name;
     }
 
 }

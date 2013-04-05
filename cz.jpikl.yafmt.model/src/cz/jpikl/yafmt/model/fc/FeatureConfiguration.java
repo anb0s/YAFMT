@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link cz.jpikl.yafmt.model.fc.FeatureConfiguration#getName <em>Name</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.FeatureConfiguration#getVersion <em>Version</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.FeatureConfiguration#getDescription <em>Description</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fc.FeatureConfiguration#getComment <em>Comment</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.FeatureConfiguration#getFeatureModel <em>Feature Model</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.FeatureConfiguration#getFeatureModelCopy <em>Feature Model Copy</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.FeatureConfiguration#getRoot <em>Root</em>}</li>
@@ -81,6 +82,32 @@ public interface FeatureConfiguration extends EObject {
      * @generated
      */
     void setDescription(String value);
+
+    /**
+     * Returns the value of the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Comment</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Comment</em>' attribute.
+     * @see #setComment(String)
+     * @see cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage#getFeatureConfiguration_Comment()
+     * @model
+     * @generated
+     */
+    String getComment();
+
+    /**
+     * Sets the value of the '{@link cz.jpikl.yafmt.model.fc.FeatureConfiguration#getComment <em>Comment</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Comment</em>' attribute.
+     * @see #getComment()
+     * @generated
+     */
+    void setComment(String value);
 
     /**
      * Returns the value of the '<em><b>Version</b></em>' attribute.

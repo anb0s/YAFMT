@@ -16,7 +16,8 @@
     <genClasses ecoreClass="FeatureModel.ecore#//FeatureModel">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//FeatureModel/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//FeatureModel/version"/>
-      <genFeatures createChild="false" propertyMultiLine="true" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//FeatureModel/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//FeatureModel/description"/>
+      <genFeatures createChild="false" propertyMultiLine="true" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//FeatureModel/comment"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FeatureModel.ecore#//FeatureModel/root"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FeatureModel.ecore#//FeatureModel/orphans"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FeatureModel.ecore#//FeatureModel/constraints"/>
@@ -28,6 +29,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Feature/id"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Feature/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Feature/description"/>
+      <genFeatures createChild="false" propertyMultiLine="true" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Feature/comment"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Feature/lower"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Feature/upper"/>
       <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Feature/root"/>
@@ -46,6 +48,8 @@
     <genClasses ecoreClass="FeatureModel.ecore#//Group">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Group/lower"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Group/upper"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Group/description"/>
+      <genFeatures createChild="false" propertyMultiLine="true" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Group/comment"/>
       <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Group/xor"/>
       <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Group/or"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference FeatureModel.ecore#//Group/parent"/>
@@ -56,6 +60,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Attribute/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Attribute/type"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Attribute/description"/>
+      <genFeatures createChild="false" propertyMultiLine="true" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Attribute/comment"/>
       <genFeatures property="None" notify="false" createChild="false" propertySortChoices="true"
           ecoreFeature="ecore:EReference FeatureModel.ecore#//Attribute/feature"/>
     </genClasses>
@@ -63,6 +68,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Constraint/value"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Constraint/language"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Constraint/description"/>
+      <genFeatures createChild="false" propertyMultiLine="true" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Constraint/comment"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference FeatureModel.ecore#//Constraint/featureModel"/>
     </genClasses>
   </genPackages>
@@ -71,7 +77,8 @@
     <genClasses ecoreClass="FeatureConfiguration.ecore#//FeatureConfiguration">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//FeatureConfiguration/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//FeatureConfiguration/version"/>
-      <genFeatures createChild="false" propertyMultiLine="true" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//FeatureConfiguration/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//FeatureConfiguration/description"/>
+      <genFeatures createChild="false" propertyMultiLine="true" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//FeatureConfiguration/comment"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference FeatureConfiguration.ecore#//FeatureConfiguration/featureModel"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference FeatureConfiguration.ecore#//FeatureConfiguration/featureModelCopy"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FeatureConfiguration.ecore#//FeatureConfiguration/root"/>
@@ -83,6 +90,7 @@
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//Selection/id"/>
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//Selection/name"/>
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//Selection/description"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//Selection/comment"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference FeatureConfiguration.ecore#//Selection/parent"/>
       <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//Selection/root"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//Selection/present"/>
@@ -96,6 +104,7 @@
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//AttributeValue/id"/>
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//AttributeValue/name"/>
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//AttributeValue/description"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute FeatureConfiguration.ecore#//AttributeValue/comment"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference FeatureConfiguration.ecore#//AttributeValue/selection"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference FeatureConfiguration.ecore#//AttributeValue/attribute"/>
     </genClasses>

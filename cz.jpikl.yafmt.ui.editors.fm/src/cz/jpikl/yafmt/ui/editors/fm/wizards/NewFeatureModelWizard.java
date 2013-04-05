@@ -49,12 +49,15 @@ public class NewFeatureModelWizard extends NewFileWizard {
         String name = featureModelPropertiesPage.getFeatureModelName();
         String version = featureModelPropertiesPage.getFeatureModelVersion();
         String description = featureModelPropertiesPage.getFeatureModelDescription();
+        String comment = featureModelPropertiesPage.getFeatureModelComment();
 
         FeatureModel featureModel = FeatureModelUtil.createEmptyFeatureModel(name);
         if(!version.isEmpty())
             featureModel.setVersion(version);
         if(!description.isEmpty())
             featureModel.setDescription(description);
+        if(!comment.isEmpty())
+            featureModel.setComment(comment);
 
         URI uri = URI.createPlatformResourceURI(file.getFullPath().toString(), true);
         ResourceSet resourceSet = new ResourceSetImpl();
@@ -68,6 +71,7 @@ public class NewFeatureModelWizard extends NewFileWizard {
         private Text nameText;
         private Text versionText;
         private Text descriptionText;
+        private Text commentText;
 
         protected FeatureModelPropertiesPage() {
             super("Feature Model Properties Page");
@@ -87,6 +91,7 @@ public class NewFeatureModelWizard extends NewFileWizard {
             createNameRow(panel);
             createVersionRow(panel);
             createDescriptionRow(panel);
+            createCommentRow(panel);
 
             setControl(panel);
             revalidatePage();
@@ -117,11 +122,19 @@ public class NewFeatureModelWizard extends NewFileWizard {
 
         private void createDescriptionRow(Composite parent) {
             Label descriptionLabel = new Label(parent, SWT.NONE);
-            descriptionLabel.setLayoutData(new GridData(SWT.TOP, SWT.LEFT, false, false));
-
             descriptionLabel.setText("Description:");
-            descriptionText = new Text(parent, SWT.MULTI | SWT.BORDER);
-            descriptionText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+            
+            descriptionText = new Text(parent, SWT.SINGLE | SWT.BORDER);
+            descriptionText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+        }
+        
+        private void createCommentRow(Composite parent) {
+            Label commentLabel = new Label(parent, SWT.NONE);
+            commentLabel.setLayoutData(new GridData(SWT.TOP, SWT.LEFT, false, false));
+            commentLabel.setText("Comment:");
+            
+            commentText = new Text(parent, SWT.MULTI | SWT.BORDER);
+            commentText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         }
 
         @Override
@@ -159,6 +172,10 @@ public class NewFeatureModelWizard extends NewFileWizard {
 
         public String getFeatureModelDescription() {
             return descriptionText.getText();
+        }
+        
+        public String getFeatureModelComment() {
+            return commentText.getText();
         }
 
     }

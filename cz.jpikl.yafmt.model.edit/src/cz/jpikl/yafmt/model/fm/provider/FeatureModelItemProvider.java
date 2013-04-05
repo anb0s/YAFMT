@@ -66,6 +66,7 @@ public class FeatureModelItemProvider
             addNamePropertyDescriptor(object);
             addVersionPropertyDescriptor(object);
             addDescriptionPropertyDescriptor(object);
+            addCommentPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
@@ -106,6 +107,28 @@ public class FeatureModelItemProvider
                  getString("_UI_FeatureModel_description_feature"),
                  getString("_UI_PropertyDescriptor_description", "_UI_FeatureModel_description_feature", "_UI_FeatureModel_type"),
                  FeatureModelPackage.Literals.FEATURE_MODEL__DESCRIPTION,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
+     * This adds a property descriptor for the Comment feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addCommentPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_FeatureModel_comment_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_FeatureModel_comment_feature", "_UI_FeatureModel_type"),
+                 FeatureModelPackage.Literals.FEATURE_MODEL__COMMENT,
                  true,
                  true,
                  false,
@@ -205,6 +228,7 @@ public class FeatureModelItemProvider
             case FeatureModelPackage.FEATURE_MODEL__NAME:
             case FeatureModelPackage.FEATURE_MODEL__VERSION:
             case FeatureModelPackage.FEATURE_MODEL__DESCRIPTION:
+            case FeatureModelPackage.FEATURE_MODEL__COMMENT:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
                 return;
             case FeatureModelPackage.FEATURE_MODEL__ROOT:

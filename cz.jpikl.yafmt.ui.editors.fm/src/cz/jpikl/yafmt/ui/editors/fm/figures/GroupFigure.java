@@ -31,6 +31,7 @@ public class GroupFigure extends Shape {
     private LayoutData layoutData;
     
     private Label label;
+    private Label toolTip;
     private ErrorMarker errorMarker;
     
     private double[] connectionAngles;
@@ -53,15 +54,21 @@ public class GroupFigure extends Shape {
         setLayoutManager(new XYLayout());
         setForegroundColor(ColorConstants.black);
         setOpaque(true);
+        setToolTip(createToolTip());
         createLabel();
         add(createErrorMarker());
     }
 
+    private Label createToolTip() {
+        toolTip = new Label(createDescriptionText());
+        return toolTip;
+    }
+    
     private void createLabel() {
         label = new NonInteractiveLabel();
         label.setForegroundColor(ColorConstants.black);
     }
-    
+        
     private IFigure createErrorMarker() {
         errorMarker = new ErrorMarker();
         return errorMarker;
@@ -93,6 +100,7 @@ public class GroupFigure extends Shape {
     public void refresh() {
         refreshCardinality();
         refreshVisuals();
+        toolTip.setText(createDescriptionText());
     }
 
     private void refreshCardinality() {
@@ -122,6 +130,15 @@ public class GroupFigure extends Shape {
     
     public void setErrors(List<String> messages) {
         errorMarker.setErrors(messages);
+    }
+    
+    private String createDescriptionText() {
+        String name = FeatureModelUtil.getTranslatedCardinality(group) + " Group";
+        String description = group.getDescription();
+        if((description != null) && !description.isEmpty())
+            return name + " - " + description;
+        else
+            return name;
     }
     
     // ==================================================================

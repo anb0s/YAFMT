@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.ConstraintImpl#getValue <em>Value</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.ConstraintImpl#getLanguage <em>Language</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.ConstraintImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fm.impl.ConstraintImpl#getComment <em>Comment</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.ConstraintImpl#getFeatureModel <em>Feature Model</em>}</li>
  * </ul>
  * </p>
@@ -90,6 +91,26 @@ public class ConstraintImpl extends EObjectImpl implements Constraint {
      * @ordered
      */
     protected String description = DESCRIPTION_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getComment() <em>Comment</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getComment()
+     * @generated
+     * @ordered
+     */
+    protected static final String COMMENT_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getComment() <em>Comment</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getComment()
+     * @generated
+     * @ordered
+     */
+    protected String comment = COMMENT_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -178,6 +199,27 @@ public class ConstraintImpl extends EObjectImpl implements Constraint {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getComment() {
+        return comment;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setComment(String newComment) {
+        String oldComment = comment;
+        comment = newComment;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, FeatureModelPackage.CONSTRAINT__COMMENT, oldComment, comment));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public FeatureModel getFeatureModel() {
         FeatureModel featureModel = basicGetFeatureModel();
         return featureModel != null && featureModel.eIsProxy() ? (FeatureModel)eResolveProxy((InternalEObject)featureModel) : featureModel;
@@ -206,6 +248,8 @@ public class ConstraintImpl extends EObjectImpl implements Constraint {
                 return getLanguage();
             case FeatureModelPackage.CONSTRAINT__DESCRIPTION:
                 return getDescription();
+            case FeatureModelPackage.CONSTRAINT__COMMENT:
+                return getComment();
             case FeatureModelPackage.CONSTRAINT__FEATURE_MODEL:
                 if (resolve) return getFeatureModel();
                 return basicGetFeatureModel();
@@ -230,6 +274,9 @@ public class ConstraintImpl extends EObjectImpl implements Constraint {
             case FeatureModelPackage.CONSTRAINT__DESCRIPTION:
                 setDescription((String)newValue);
                 return;
+            case FeatureModelPackage.CONSTRAINT__COMMENT:
+                setComment((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -251,6 +298,9 @@ public class ConstraintImpl extends EObjectImpl implements Constraint {
             case FeatureModelPackage.CONSTRAINT__DESCRIPTION:
                 setDescription(DESCRIPTION_EDEFAULT);
                 return;
+            case FeatureModelPackage.CONSTRAINT__COMMENT:
+                setComment(COMMENT_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -269,6 +319,8 @@ public class ConstraintImpl extends EObjectImpl implements Constraint {
                 return LANGUAGE_EDEFAULT == null ? language != null : !LANGUAGE_EDEFAULT.equals(language);
             case FeatureModelPackage.CONSTRAINT__DESCRIPTION:
                 return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+            case FeatureModelPackage.CONSTRAINT__COMMENT:
+                return COMMENT_EDEFAULT == null ? comment != null : !COMMENT_EDEFAULT.equals(comment);
             case FeatureModelPackage.CONSTRAINT__FEATURE_MODEL:
                 return basicGetFeatureModel() != null;
         }
@@ -291,6 +343,8 @@ public class ConstraintImpl extends EObjectImpl implements Constraint {
         result.append(language);
         result.append(", description: ");
         result.append(description);
+        result.append(", comment: ");
+        result.append(comment);
         result.append(')');
         return result.toString();
     }

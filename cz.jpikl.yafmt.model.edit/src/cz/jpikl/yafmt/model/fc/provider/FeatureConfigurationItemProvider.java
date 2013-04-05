@@ -68,6 +68,7 @@ public class FeatureConfigurationItemProvider
             addNamePropertyDescriptor(object);
             addVersionPropertyDescriptor(object);
             addDescriptionPropertyDescriptor(object);
+            addCommentPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
@@ -108,6 +109,28 @@ public class FeatureConfigurationItemProvider
                  getString("_UI_FeatureConfiguration_description_feature"),
                  getString("_UI_PropertyDescriptor_description", "_UI_FeatureConfiguration_description_feature", "_UI_FeatureConfiguration_type"),
                  FeatureConfigurationPackage.Literals.FEATURE_CONFIGURATION__DESCRIPTION,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
+     * This adds a property descriptor for the Comment feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addCommentPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_FeatureConfiguration_comment_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_FeatureConfiguration_comment_feature", "_UI_FeatureConfiguration_type"),
+                 FeatureConfigurationPackage.Literals.FEATURE_CONFIGURATION__COMMENT,
                  true,
                  true,
                  false,
@@ -208,6 +231,7 @@ public class FeatureConfigurationItemProvider
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__NAME:
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__VERSION:
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__DESCRIPTION:
+            case FeatureConfigurationPackage.FEATURE_CONFIGURATION__COMMENT:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
                 return;
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__ROOT:

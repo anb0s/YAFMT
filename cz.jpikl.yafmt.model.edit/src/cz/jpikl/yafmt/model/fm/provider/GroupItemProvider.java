@@ -66,6 +66,8 @@ public class GroupItemProvider
 
             addLowerPropertyDescriptor(object);
             addUpperPropertyDescriptor(object);
+            addDescriptionPropertyDescriptor(object);
+            addCommentPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
@@ -110,6 +112,50 @@ public class GroupItemProvider
                  false,
                  false,
                  ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
+     * This adds a property descriptor for the Description feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addDescriptionPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_Group_description_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_Group_description_feature", "_UI_Group_type"),
+                 FeatureModelPackage.Literals.GROUP__DESCRIPTION,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
+     * This adds a property descriptor for the Comment feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addCommentPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_Group_comment_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_Group_comment_feature", "_UI_Group_type"),
+                 FeatureModelPackage.Literals.GROUP__COMMENT,
+                 true,
+                 true,
+                 false,
+                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
                  null,
                  null));
     }
@@ -190,6 +236,8 @@ public class GroupItemProvider
         switch (notification.getFeatureID(Group.class)) {
             case FeatureModelPackage.GROUP__LOWER:
             case FeatureModelPackage.GROUP__UPPER:
+            case FeatureModelPackage.GROUP__DESCRIPTION:
+            case FeatureModelPackage.GROUP__COMMENT:
             case FeatureModelPackage.GROUP__XOR:
             case FeatureModelPackage.GROUP__OR:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));

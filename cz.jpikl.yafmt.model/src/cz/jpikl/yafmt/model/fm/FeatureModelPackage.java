@@ -94,13 +94,22 @@ public interface FeatureModelPackage extends EPackage {
     int FEATURE_MODEL__DESCRIPTION = 2;
 
     /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FEATURE_MODEL__COMMENT = 3;
+
+    /**
      * The feature id for the '<em><b>Root</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int FEATURE_MODEL__ROOT = 3;
+    int FEATURE_MODEL__ROOT = 4;
 
     /**
      * The feature id for the '<em><b>Orphans</b></em>' containment reference list.
@@ -109,7 +118,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FEATURE_MODEL__ORPHANS = 4;
+    int FEATURE_MODEL__ORPHANS = 5;
 
     /**
      * The feature id for the '<em><b>Constraints</b></em>' containment reference list.
@@ -118,7 +127,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FEATURE_MODEL__CONSTRAINTS = 5;
+    int FEATURE_MODEL__CONSTRAINTS = 6;
 
     /**
      * The number of structural features of the '<em>Feature Model</em>' class.
@@ -127,7 +136,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FEATURE_MODEL_FEATURE_COUNT = 6;
+    int FEATURE_MODEL_FEATURE_COUNT = 7;
 
     /**
      * The meta object id for the '{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl <em>Feature</em>}' class.
@@ -167,13 +176,22 @@ public interface FeatureModelPackage extends EPackage {
     int FEATURE__DESCRIPTION = 2;
 
     /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FEATURE__COMMENT = 3;
+
+    /**
      * The feature id for the '<em><b>Lower</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int FEATURE__LOWER = 3;
+    int FEATURE__LOWER = 4;
 
     /**
      * The feature id for the '<em><b>Upper</b></em>' attribute.
@@ -182,7 +200,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FEATURE__UPPER = 4;
+    int FEATURE__UPPER = 5;
 
     /**
      * The feature id for the '<em><b>Root</b></em>' attribute.
@@ -191,7 +209,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FEATURE__ROOT = 5;
+    int FEATURE__ROOT = 6;
 
     /**
      * The feature id for the '<em><b>Orphan</b></em>' attribute.
@@ -200,7 +218,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FEATURE__ORPHAN = 6;
+    int FEATURE__ORPHAN = 7;
 
     /**
      * The feature id for the '<em><b>Optional</b></em>' attribute.
@@ -209,7 +227,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FEATURE__OPTIONAL = 7;
+    int FEATURE__OPTIONAL = 8;
 
     /**
      * The feature id for the '<em><b>Mandatory</b></em>' attribute.
@@ -218,7 +236,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FEATURE__MANDATORY = 8;
+    int FEATURE__MANDATORY = 9;
 
     /**
      * The feature id for the '<em><b>Cloneable</b></em>' attribute.
@@ -227,7 +245,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FEATURE__CLONEABLE = 9;
+    int FEATURE__CLONEABLE = 10;
 
     /**
      * The feature id for the '<em><b>Parent</b></em>' reference.
@@ -236,7 +254,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FEATURE__PARENT = 10;
+    int FEATURE__PARENT = 11;
 
     /**
      * The feature id for the '<em><b>Parent Feature</b></em>' container reference.
@@ -245,7 +263,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FEATURE__PARENT_FEATURE = 11;
+    int FEATURE__PARENT_FEATURE = 12;
 
     /**
      * The feature id for the '<em><b>Parent Group</b></em>' container reference.
@@ -254,7 +272,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FEATURE__PARENT_GROUP = 12;
+    int FEATURE__PARENT_GROUP = 13;
 
     /**
      * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
@@ -263,7 +281,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FEATURE__ATTRIBUTES = 13;
+    int FEATURE__ATTRIBUTES = 14;
 
     /**
      * The feature id for the '<em><b>Features</b></em>' containment reference list.
@@ -272,7 +290,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FEATURE__FEATURES = 14;
+    int FEATURE__FEATURES = 15;
 
     /**
      * The feature id for the '<em><b>Groups</b></em>' containment reference list.
@@ -281,7 +299,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FEATURE__GROUPS = 15;
+    int FEATURE__GROUPS = 16;
 
     /**
      * The feature id for the '<em><b>Feature Model</b></em>' reference.
@@ -290,7 +308,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FEATURE__FEATURE_MODEL = 16;
+    int FEATURE__FEATURE_MODEL = 17;
 
     /**
      * The number of structural features of the '<em>Feature</em>' class.
@@ -299,7 +317,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FEATURE_FEATURE_COUNT = 17;
+    int FEATURE_FEATURE_COUNT = 18;
 
     /**
      * The meta object id for the '{@link cz.jpikl.yafmt.model.fm.impl.GroupImpl <em>Group</em>}' class.
@@ -330,13 +348,31 @@ public interface FeatureModelPackage extends EPackage {
     int GROUP__UPPER = 1;
 
     /**
+     * The feature id for the '<em><b>Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int GROUP__DESCRIPTION = 2;
+
+    /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int GROUP__COMMENT = 3;
+
+    /**
      * The feature id for the '<em><b>Xor</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int GROUP__XOR = 2;
+    int GROUP__XOR = 4;
 
     /**
      * The feature id for the '<em><b>Or</b></em>' attribute.
@@ -345,7 +381,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int GROUP__OR = 3;
+    int GROUP__OR = 5;
 
     /**
      * The feature id for the '<em><b>Parent</b></em>' container reference.
@@ -354,7 +390,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int GROUP__PARENT = 4;
+    int GROUP__PARENT = 6;
 
     /**
      * The feature id for the '<em><b>Features</b></em>' containment reference list.
@@ -363,7 +399,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int GROUP__FEATURES = 5;
+    int GROUP__FEATURES = 7;
 
     /**
      * The number of structural features of the '<em>Group</em>' class.
@@ -372,7 +408,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int GROUP_FEATURE_COUNT = 6;
+    int GROUP_FEATURE_COUNT = 8;
 
     /**
      * The meta object id for the '{@link cz.jpikl.yafmt.model.fm.impl.AttributeImpl <em>Attribute</em>}' class.
@@ -421,13 +457,22 @@ public interface FeatureModelPackage extends EPackage {
     int ATTRIBUTE__DESCRIPTION = 3;
 
     /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE__COMMENT = 4;
+
+    /**
      * The feature id for the '<em><b>Feature</b></em>' container reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int ATTRIBUTE__FEATURE = 4;
+    int ATTRIBUTE__FEATURE = 5;
 
     /**
      * The number of structural features of the '<em>Attribute</em>' class.
@@ -436,7 +481,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ATTRIBUTE_FEATURE_COUNT = 5;
+    int ATTRIBUTE_FEATURE_COUNT = 6;
 
     /**
      * The meta object id for the '{@link cz.jpikl.yafmt.model.fm.impl.ConstraintImpl <em>Constraint</em>}' class.
@@ -476,13 +521,22 @@ public interface FeatureModelPackage extends EPackage {
     int CONSTRAINT__DESCRIPTION = 2;
 
     /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONSTRAINT__COMMENT = 3;
+
+    /**
      * The feature id for the '<em><b>Feature Model</b></em>' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int CONSTRAINT__FEATURE_MODEL = 3;
+    int CONSTRAINT__FEATURE_MODEL = 4;
 
     /**
      * The number of structural features of the '<em>Constraint</em>' class.
@@ -491,7 +545,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONSTRAINT_FEATURE_COUNT = 4;
+    int CONSTRAINT_FEATURE_COUNT = 5;
 
     /**
      * The meta object id for the '{@link cz.jpikl.yafmt.model.fm.AttributeType <em>Attribute Type</em>}' enum.
@@ -535,6 +589,17 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      */
     EAttribute getFeatureModel_Description();
+
+    /**
+     * Returns the meta object for the attribute '{@link cz.jpikl.yafmt.model.fm.FeatureModel#getComment <em>Comment</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Comment</em>'.
+     * @see cz.jpikl.yafmt.model.fm.FeatureModel#getComment()
+     * @see #getFeatureModel()
+     * @generated
+     */
+    EAttribute getFeatureModel_Comment();
 
     /**
      * Returns the meta object for the attribute '{@link cz.jpikl.yafmt.model.fm.FeatureModel#getVersion <em>Version</em>}'.
@@ -622,6 +687,17 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      */
     EAttribute getFeature_Description();
+
+    /**
+     * Returns the meta object for the attribute '{@link cz.jpikl.yafmt.model.fm.Feature#getComment <em>Comment</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Comment</em>'.
+     * @see cz.jpikl.yafmt.model.fm.Feature#getComment()
+     * @see #getFeature()
+     * @generated
+     */
+    EAttribute getFeature_Comment();
 
     /**
      * Returns the meta object for the attribute '{@link cz.jpikl.yafmt.model.fm.Feature#getLower <em>Lower</em>}'.
@@ -810,6 +886,28 @@ public interface FeatureModelPackage extends EPackage {
     EAttribute getGroup_Upper();
 
     /**
+     * Returns the meta object for the attribute '{@link cz.jpikl.yafmt.model.fm.Group#getDescription <em>Description</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Description</em>'.
+     * @see cz.jpikl.yafmt.model.fm.Group#getDescription()
+     * @see #getGroup()
+     * @generated
+     */
+    EAttribute getGroup_Description();
+
+    /**
+     * Returns the meta object for the attribute '{@link cz.jpikl.yafmt.model.fm.Group#getComment <em>Comment</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Comment</em>'.
+     * @see cz.jpikl.yafmt.model.fm.Group#getComment()
+     * @see #getGroup()
+     * @generated
+     */
+    EAttribute getGroup_Comment();
+
+    /**
      * Returns the meta object for the attribute '{@link cz.jpikl.yafmt.model.fm.Group#isXor <em>Xor</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -897,6 +995,17 @@ public interface FeatureModelPackage extends EPackage {
     EAttribute getAttribute_Description();
 
     /**
+     * Returns the meta object for the attribute '{@link cz.jpikl.yafmt.model.fm.Attribute#getComment <em>Comment</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Comment</em>'.
+     * @see cz.jpikl.yafmt.model.fm.Attribute#getComment()
+     * @see #getAttribute()
+     * @generated
+     */
+    EAttribute getAttribute_Comment();
+
+    /**
      * Returns the meta object for the container reference '{@link cz.jpikl.yafmt.model.fm.Attribute#getFeature <em>Feature</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -960,6 +1069,17 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      */
     EAttribute getConstraint_Description();
+
+    /**
+     * Returns the meta object for the attribute '{@link cz.jpikl.yafmt.model.fm.Constraint#getComment <em>Comment</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Comment</em>'.
+     * @see cz.jpikl.yafmt.model.fm.Constraint#getComment()
+     * @see #getConstraint()
+     * @generated
+     */
+    EAttribute getConstraint_Comment();
 
     /**
      * Returns the meta object for the reference '{@link cz.jpikl.yafmt.model.fm.Constraint#getFeatureModel <em>Feature Model</em>}'.
@@ -1031,6 +1151,14 @@ public interface FeatureModelPackage extends EPackage {
         EAttribute FEATURE_MODEL__DESCRIPTION = eINSTANCE.getFeatureModel_Description();
 
         /**
+         * The meta object literal for the '<em><b>Comment</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FEATURE_MODEL__COMMENT = eINSTANCE.getFeatureModel_Comment();
+
+        /**
          * The meta object literal for the '<em><b>Version</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -1095,6 +1223,14 @@ public interface FeatureModelPackage extends EPackage {
          * @generated
          */
         EAttribute FEATURE__DESCRIPTION = eINSTANCE.getFeature_Description();
+
+        /**
+         * The meta object literal for the '<em><b>Comment</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FEATURE__COMMENT = eINSTANCE.getFeature_Comment();
 
         /**
          * The meta object literal for the '<em><b>Lower</b></em>' attribute feature.
@@ -1235,6 +1371,22 @@ public interface FeatureModelPackage extends EPackage {
         EAttribute GROUP__UPPER = eINSTANCE.getGroup_Upper();
 
         /**
+         * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute GROUP__DESCRIPTION = eINSTANCE.getGroup_Description();
+
+        /**
+         * The meta object literal for the '<em><b>Comment</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute GROUP__COMMENT = eINSTANCE.getGroup_Comment();
+
+        /**
          * The meta object literal for the '<em><b>Xor</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -1301,6 +1453,14 @@ public interface FeatureModelPackage extends EPackage {
         EAttribute ATTRIBUTE__DESCRIPTION = eINSTANCE.getAttribute_Description();
 
         /**
+         * The meta object literal for the '<em><b>Comment</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ATTRIBUTE__COMMENT = eINSTANCE.getAttribute_Comment();
+
+        /**
          * The meta object literal for the '<em><b>Feature</b></em>' container reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -1349,6 +1509,14 @@ public interface FeatureModelPackage extends EPackage {
          * @generated
          */
         EAttribute CONSTRAINT__DESCRIPTION = eINSTANCE.getConstraint_Description();
+
+        /**
+         * The meta object literal for the '<em><b>Comment</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CONSTRAINT__COMMENT = eINSTANCE.getConstraint_Comment();
 
         /**
          * The meta object literal for the '<em><b>Feature Model</b></em>' reference feature.

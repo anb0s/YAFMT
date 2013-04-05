@@ -26,6 +26,7 @@ import cz.jpikl.yafmt.model.fm.FeatureModel;
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.FeatureConfigurationImpl#getName <em>Name</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.FeatureConfigurationImpl#getVersion <em>Version</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.FeatureConfigurationImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fc.impl.FeatureConfigurationImpl#getComment <em>Comment</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.FeatureConfigurationImpl#getFeatureModel <em>Feature Model</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.FeatureConfigurationImpl#getFeatureModelCopy <em>Feature Model Copy</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.FeatureConfigurationImpl#getRoot <em>Root</em>}</li>
@@ -94,6 +95,26 @@ public class FeatureConfigurationImpl extends EObjectImpl implements FeatureConf
      * @ordered
      */
     protected String description = DESCRIPTION_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getComment() <em>Comment</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getComment()
+     * @generated
+     * @ordered
+     */
+    protected static final String COMMENT_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getComment() <em>Comment</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getComment()
+     * @generated
+     * @ordered
+     */
+    protected String comment = COMMENT_EDEFAULT;
 
     /**
      * The cached value of the '{@link #getFeatureModel() <em>Feature Model</em>}' reference.
@@ -186,6 +207,27 @@ public class FeatureConfigurationImpl extends EObjectImpl implements FeatureConf
         description = newDescription;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, FeatureConfigurationPackage.FEATURE_CONFIGURATION__DESCRIPTION, oldDescription, description));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getComment() {
+        return comment;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setComment(String newComment) {
+        String oldComment = comment;
+        comment = newComment;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, FeatureConfigurationPackage.FEATURE_CONFIGURATION__COMMENT, oldComment, comment));
     }
 
     /**
@@ -374,6 +416,8 @@ public class FeatureConfigurationImpl extends EObjectImpl implements FeatureConf
                 return getVersion();
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__DESCRIPTION:
                 return getDescription();
+            case FeatureConfigurationPackage.FEATURE_CONFIGURATION__COMMENT:
+                return getComment();
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__FEATURE_MODEL:
                 if (resolve) return getFeatureModel();
                 return basicGetFeatureModel();
@@ -401,6 +445,9 @@ public class FeatureConfigurationImpl extends EObjectImpl implements FeatureConf
                 return;
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__DESCRIPTION:
                 setDescription((String)newValue);
+                return;
+            case FeatureConfigurationPackage.FEATURE_CONFIGURATION__COMMENT:
+                setComment((String)newValue);
                 return;
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__FEATURE_MODEL:
                 setFeatureModel((FeatureModel)newValue);
@@ -432,6 +479,9 @@ public class FeatureConfigurationImpl extends EObjectImpl implements FeatureConf
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__DESCRIPTION:
                 setDescription(DESCRIPTION_EDEFAULT);
                 return;
+            case FeatureConfigurationPackage.FEATURE_CONFIGURATION__COMMENT:
+                setComment(COMMENT_EDEFAULT);
+                return;
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__FEATURE_MODEL:
                 setFeatureModel((FeatureModel)null);
                 return;
@@ -459,6 +509,8 @@ public class FeatureConfigurationImpl extends EObjectImpl implements FeatureConf
                 return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__DESCRIPTION:
                 return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+            case FeatureConfigurationPackage.FEATURE_CONFIGURATION__COMMENT:
+                return COMMENT_EDEFAULT == null ? comment != null : !COMMENT_EDEFAULT.equals(comment);
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__FEATURE_MODEL:
                 return featureModel != null;
             case FeatureConfigurationPackage.FEATURE_CONFIGURATION__FEATURE_MODEL_COPY:
@@ -485,6 +537,8 @@ public class FeatureConfigurationImpl extends EObjectImpl implements FeatureConf
         result.append(version);
         result.append(", description: ");
         result.append(description);
+        result.append(", comment: ");
+        result.append(comment);
         result.append(')');
         return result.toString();
     }

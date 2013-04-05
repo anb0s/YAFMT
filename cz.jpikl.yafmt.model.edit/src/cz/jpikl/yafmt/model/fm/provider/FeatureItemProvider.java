@@ -61,6 +61,7 @@ public class FeatureItemProvider
             addIdPropertyDescriptor(object);
             addNamePropertyDescriptor(object);
             addDescriptionPropertyDescriptor(object);
+            addCommentPropertyDescriptor(object);
             
             if(!((Feature) object).isRoot()) {
                 addLowerPropertyDescriptor(object);
@@ -130,6 +131,28 @@ public class FeatureItemProvider
                  FeatureModelPackage.Literals.FEATURE__DESCRIPTION,
                  true,
                  false,
+                 false,
+                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
+     * This adds a property descriptor for the Comment feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addCommentPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_Feature_comment_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_Feature_comment_feature", "_UI_Feature_type"),
+                 FeatureModelPackage.Literals.FEATURE__COMMENT,
+                 true,
+                 true,
                  false,
                  ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
                  null,
@@ -283,6 +306,7 @@ public class FeatureItemProvider
             case FeatureModelPackage.FEATURE__ID:
             case FeatureModelPackage.FEATURE__NAME:
             case FeatureModelPackage.FEATURE__DESCRIPTION:
+            case FeatureModelPackage.FEATURE__COMMENT:
             case FeatureModelPackage.FEATURE__LOWER:
             case FeatureModelPackage.FEATURE__UPPER:
             case FeatureModelPackage.FEATURE__ROOT:

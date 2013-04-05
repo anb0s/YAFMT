@@ -64,6 +64,7 @@ public class AttributeItemProvider
             addNamePropertyDescriptor(object);
             addTypePropertyDescriptor(object);
             addDescriptionPropertyDescriptor(object);
+            addCommentPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
@@ -135,6 +136,28 @@ public class AttributeItemProvider
     }
 
     /**
+     * This adds a property descriptor for the Comment feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addCommentPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_Attribute_comment_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_Attribute_comment_feature", "_UI_Attribute_type"),
+                 FeatureModelPackage.Literals.ATTRIBUTE__COMMENT,
+                 true,
+                 true,
+                 false,
+                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
      * This adds a property descriptor for the Type feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -194,6 +217,7 @@ public class AttributeItemProvider
             case FeatureModelPackage.ATTRIBUTE__NAME:
             case FeatureModelPackage.ATTRIBUTE__TYPE:
             case FeatureModelPackage.ATTRIBUTE__DESCRIPTION:
+            case FeatureModelPackage.ATTRIBUTE__COMMENT:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
                 return;
         }

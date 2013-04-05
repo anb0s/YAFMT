@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link cz.jpikl.yafmt.model.fm.FeatureModel#getName <em>Name</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.FeatureModel#getVersion <em>Version</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.FeatureModel#getDescription <em>Description</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fm.FeatureModel#getComment <em>Comment</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.FeatureModel#getRoot <em>Root</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.FeatureModel#getOrphans <em>Orphans</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.FeatureModel#getConstraints <em>Constraints</em>}</li>
@@ -79,6 +80,32 @@ public interface FeatureModel extends EObject {
      * @generated
      */
     void setDescription(String value);
+
+    /**
+     * Returns the value of the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Comment</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Comment</em>' attribute.
+     * @see #setComment(String)
+     * @see cz.jpikl.yafmt.model.fm.FeatureModelPackage#getFeatureModel_Comment()
+     * @model
+     * @generated
+     */
+    String getComment();
+
+    /**
+     * Sets the value of the '{@link cz.jpikl.yafmt.model.fm.FeatureModel#getComment <em>Comment</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Comment</em>' attribute.
+     * @see #getComment()
+     * @generated
+     */
+    void setComment(String value);
 
     /**
      * Returns the value of the '<em><b>Version</b></em>' attribute.

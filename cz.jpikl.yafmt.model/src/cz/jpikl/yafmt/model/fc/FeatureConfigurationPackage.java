@@ -93,13 +93,22 @@ public interface FeatureConfigurationPackage extends EPackage {
     int FEATURE_CONFIGURATION__DESCRIPTION = 2;
 
     /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FEATURE_CONFIGURATION__COMMENT = 3;
+
+    /**
      * The feature id for the '<em><b>Feature Model</b></em>' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int FEATURE_CONFIGURATION__FEATURE_MODEL = 3;
+    int FEATURE_CONFIGURATION__FEATURE_MODEL = 4;
 
     /**
      * The feature id for the '<em><b>Feature Model Copy</b></em>' containment reference.
@@ -108,7 +117,7 @@ public interface FeatureConfigurationPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FEATURE_CONFIGURATION__FEATURE_MODEL_COPY = 4;
+    int FEATURE_CONFIGURATION__FEATURE_MODEL_COPY = 5;
 
     /**
      * The feature id for the '<em><b>Root</b></em>' containment reference.
@@ -117,7 +126,7 @@ public interface FeatureConfigurationPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FEATURE_CONFIGURATION__ROOT = 5;
+    int FEATURE_CONFIGURATION__ROOT = 6;
 
     /**
      * The number of structural features of the '<em>Feature Configuration</em>' class.
@@ -126,7 +135,7 @@ public interface FeatureConfigurationPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int FEATURE_CONFIGURATION_FEATURE_COUNT = 6;
+    int FEATURE_CONFIGURATION_FEATURE_COUNT = 7;
 
     /**
      * The meta object id for the '{@link cz.jpikl.yafmt.model.fc.impl.SelectionImpl <em>Selection</em>}' class.
@@ -166,13 +175,22 @@ public interface FeatureConfigurationPackage extends EPackage {
     int SELECTION__DESCRIPTION = 2;
 
     /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SELECTION__COMMENT = 3;
+
+    /**
      * The feature id for the '<em><b>Parent</b></em>' container reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int SELECTION__PARENT = 3;
+    int SELECTION__PARENT = 4;
 
     /**
      * The feature id for the '<em><b>Root</b></em>' attribute.
@@ -181,7 +199,7 @@ public interface FeatureConfigurationPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SELECTION__ROOT = 4;
+    int SELECTION__ROOT = 5;
 
     /**
      * The feature id for the '<em><b>Present</b></em>' attribute.
@@ -190,7 +208,7 @@ public interface FeatureConfigurationPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SELECTION__PRESENT = 5;
+    int SELECTION__PRESENT = 6;
 
     /**
      * The feature id for the '<em><b>Enabled</b></em>' attribute.
@@ -199,7 +217,7 @@ public interface FeatureConfigurationPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SELECTION__ENABLED = 6;
+    int SELECTION__ENABLED = 7;
 
     /**
      * The feature id for the '<em><b>Values</b></em>' containment reference list.
@@ -208,7 +226,7 @@ public interface FeatureConfigurationPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SELECTION__VALUES = 7;
+    int SELECTION__VALUES = 8;
 
     /**
      * The feature id for the '<em><b>Selections</b></em>' containment reference list.
@@ -217,7 +235,7 @@ public interface FeatureConfigurationPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SELECTION__SELECTIONS = 8;
+    int SELECTION__SELECTIONS = 9;
 
     /**
      * The feature id for the '<em><b>Feature Configuration</b></em>' reference.
@@ -226,7 +244,7 @@ public interface FeatureConfigurationPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SELECTION__FEATURE_CONFIGURATION = 9;
+    int SELECTION__FEATURE_CONFIGURATION = 10;
 
     /**
      * The feature id for the '<em><b>Feature</b></em>' reference.
@@ -235,7 +253,7 @@ public interface FeatureConfigurationPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SELECTION__FEATURE = 10;
+    int SELECTION__FEATURE = 11;
 
     /**
      * The number of structural features of the '<em>Selection</em>' class.
@@ -244,7 +262,7 @@ public interface FeatureConfigurationPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SELECTION_FEATURE_COUNT = 11;
+    int SELECTION_FEATURE_COUNT = 12;
 
     /**
      * The meta object id for the '{@link cz.jpikl.yafmt.model.fc.impl.AttributeValueImpl <em>Attribute Value</em>}' class.
@@ -284,13 +302,22 @@ public interface FeatureConfigurationPackage extends EPackage {
     int ATTRIBUTE_VALUE__DESCRIPTION = 2;
 
     /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_VALUE__COMMENT = 3;
+
+    /**
      * The feature id for the '<em><b>Selection</b></em>' container reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int ATTRIBUTE_VALUE__SELECTION = 3;
+    int ATTRIBUTE_VALUE__SELECTION = 4;
 
     /**
      * The feature id for the '<em><b>Attribute</b></em>' reference.
@@ -299,7 +326,7 @@ public interface FeatureConfigurationPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ATTRIBUTE_VALUE__ATTRIBUTE = 4;
+    int ATTRIBUTE_VALUE__ATTRIBUTE = 5;
 
     /**
      * The number of structural features of the '<em>Attribute Value</em>' class.
@@ -308,7 +335,7 @@ public interface FeatureConfigurationPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ATTRIBUTE_VALUE_FEATURE_COUNT = 5;
+    int ATTRIBUTE_VALUE_FEATURE_COUNT = 6;
 
     /**
      * The meta object id for the '{@link cz.jpikl.yafmt.model.fc.impl.BooleanValueImpl <em>Boolean Value</em>}' class.
@@ -346,6 +373,15 @@ public interface FeatureConfigurationPackage extends EPackage {
      * @ordered
      */
     int BOOLEAN_VALUE__DESCRIPTION = ATTRIBUTE_VALUE__DESCRIPTION;
+
+    /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BOOLEAN_VALUE__COMMENT = ATTRIBUTE_VALUE__COMMENT;
 
     /**
      * The feature id for the '<em><b>Selection</b></em>' container reference.
@@ -421,6 +457,15 @@ public interface FeatureConfigurationPackage extends EPackage {
     int INTEGER_VALUE__DESCRIPTION = ATTRIBUTE_VALUE__DESCRIPTION;
 
     /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int INTEGER_VALUE__COMMENT = ATTRIBUTE_VALUE__COMMENT;
+
+    /**
      * The feature id for the '<em><b>Selection</b></em>' container reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -492,6 +537,15 @@ public interface FeatureConfigurationPackage extends EPackage {
      * @ordered
      */
     int DOUBLE_VALUE__DESCRIPTION = ATTRIBUTE_VALUE__DESCRIPTION;
+
+    /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOUBLE_VALUE__COMMENT = ATTRIBUTE_VALUE__COMMENT;
 
     /**
      * The feature id for the '<em><b>Selection</b></em>' container reference.
@@ -567,6 +621,15 @@ public interface FeatureConfigurationPackage extends EPackage {
     int STRING_VALUE__DESCRIPTION = ATTRIBUTE_VALUE__DESCRIPTION;
 
     /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int STRING_VALUE__COMMENT = ATTRIBUTE_VALUE__COMMENT;
+
+    /**
      * The feature id for the '<em><b>Selection</b></em>' container reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -634,6 +697,17 @@ public interface FeatureConfigurationPackage extends EPackage {
      * @generated
      */
     EAttribute getFeatureConfiguration_Description();
+
+    /**
+     * Returns the meta object for the attribute '{@link cz.jpikl.yafmt.model.fc.FeatureConfiguration#getComment <em>Comment</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Comment</em>'.
+     * @see cz.jpikl.yafmt.model.fc.FeatureConfiguration#getComment()
+     * @see #getFeatureConfiguration()
+     * @generated
+     */
+    EAttribute getFeatureConfiguration_Comment();
 
     /**
      * Returns the meta object for the attribute '{@link cz.jpikl.yafmt.model.fc.FeatureConfiguration#getVersion <em>Version</em>}'.
@@ -721,6 +795,17 @@ public interface FeatureConfigurationPackage extends EPackage {
      * @generated
      */
     EAttribute getSelection_Description();
+
+    /**
+     * Returns the meta object for the attribute '{@link cz.jpikl.yafmt.model.fc.Selection#getComment <em>Comment</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Comment</em>'.
+     * @see cz.jpikl.yafmt.model.fc.Selection#getComment()
+     * @see #getSelection()
+     * @generated
+     */
+    EAttribute getSelection_Comment();
 
     /**
      * Returns the meta object for the container reference '{@link cz.jpikl.yafmt.model.fc.Selection#getParent <em>Parent</em>}'.
@@ -852,6 +937,17 @@ public interface FeatureConfigurationPackage extends EPackage {
      * @generated
      */
     EAttribute getAttributeValue_Description();
+
+    /**
+     * Returns the meta object for the attribute '{@link cz.jpikl.yafmt.model.fc.AttributeValue#getComment <em>Comment</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Comment</em>'.
+     * @see cz.jpikl.yafmt.model.fc.AttributeValue#getComment()
+     * @see #getAttributeValue()
+     * @generated
+     */
+    EAttribute getAttributeValue_Comment();
 
     /**
      * Returns the meta object for the container reference '{@link cz.jpikl.yafmt.model.fc.AttributeValue#getSelection <em>Selection</em>}'.
@@ -1008,6 +1104,14 @@ public interface FeatureConfigurationPackage extends EPackage {
         EAttribute FEATURE_CONFIGURATION__DESCRIPTION = eINSTANCE.getFeatureConfiguration_Description();
 
         /**
+         * The meta object literal for the '<em><b>Comment</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FEATURE_CONFIGURATION__COMMENT = eINSTANCE.getFeatureConfiguration_Comment();
+
+        /**
          * The meta object literal for the '<em><b>Version</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -1072,6 +1176,14 @@ public interface FeatureConfigurationPackage extends EPackage {
          * @generated
          */
         EAttribute SELECTION__DESCRIPTION = eINSTANCE.getSelection_Description();
+
+        /**
+         * The meta object literal for the '<em><b>Comment</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SELECTION__COMMENT = eINSTANCE.getSelection_Comment();
 
         /**
          * The meta object literal for the '<em><b>Parent</b></em>' container reference feature.
@@ -1170,6 +1282,14 @@ public interface FeatureConfigurationPackage extends EPackage {
          * @generated
          */
         EAttribute ATTRIBUTE_VALUE__DESCRIPTION = eINSTANCE.getAttributeValue_Description();
+
+        /**
+         * The meta object literal for the '<em><b>Comment</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ATTRIBUTE_VALUE__COMMENT = eINSTANCE.getAttributeValue_Comment();
 
         /**
          * The meta object literal for the '<em><b>Selection</b></em>' container reference feature.

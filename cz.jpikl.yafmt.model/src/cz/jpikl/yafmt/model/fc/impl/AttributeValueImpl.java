@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.AttributeValueImpl#getId <em>Id</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.AttributeValueImpl#getName <em>Name</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.AttributeValueImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fc.impl.AttributeValueImpl#getComment <em>Comment</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.AttributeValueImpl#getSelection <em>Selection</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fc.impl.AttributeValueImpl#getAttribute <em>Attribute</em>}</li>
  * </ul>
@@ -77,6 +78,16 @@ public abstract class AttributeValueImpl extends EObjectImpl implements Attribut
      * @ordered
      */
     protected static final String DESCRIPTION_EDEFAULT = null;
+
+    /**
+     * The default value of the '{@link #getComment() <em>Comment</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getComment()
+     * @generated
+     * @ordered
+     */
+    protected static final String COMMENT_EDEFAULT = null;
 
     /**
      * <!-- begin-user-doc -->
@@ -136,6 +147,16 @@ public abstract class AttributeValueImpl extends EObjectImpl implements Attribut
     public String getDescription() {
         Attribute attribute = getAttribute();
         return (attribute != null) ? attribute.getDescription() : null;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    public String getComment() {
+        Attribute attribute = getAttribute();
+        return (attribute != null) ? attribute.getComment() : null;
     }
 
     /**
@@ -268,6 +289,8 @@ public abstract class AttributeValueImpl extends EObjectImpl implements Attribut
                 return getName();
             case FeatureConfigurationPackage.ATTRIBUTE_VALUE__DESCRIPTION:
                 return getDescription();
+            case FeatureConfigurationPackage.ATTRIBUTE_VALUE__COMMENT:
+                return getComment();
             case FeatureConfigurationPackage.ATTRIBUTE_VALUE__SELECTION:
                 return getSelection();
             case FeatureConfigurationPackage.ATTRIBUTE_VALUE__ATTRIBUTE:
@@ -327,6 +350,8 @@ public abstract class AttributeValueImpl extends EObjectImpl implements Attribut
                 return NAME_EDEFAULT == null ? getName() != null : !NAME_EDEFAULT.equals(getName());
             case FeatureConfigurationPackage.ATTRIBUTE_VALUE__DESCRIPTION:
                 return DESCRIPTION_EDEFAULT == null ? getDescription() != null : !DESCRIPTION_EDEFAULT.equals(getDescription());
+            case FeatureConfigurationPackage.ATTRIBUTE_VALUE__COMMENT:
+                return COMMENT_EDEFAULT == null ? getComment() != null : !COMMENT_EDEFAULT.equals(getComment());
             case FeatureConfigurationPackage.ATTRIBUTE_VALUE__SELECTION:
                 return getSelection() != null;
             case FeatureConfigurationPackage.ATTRIBUTE_VALUE__ATTRIBUTE:

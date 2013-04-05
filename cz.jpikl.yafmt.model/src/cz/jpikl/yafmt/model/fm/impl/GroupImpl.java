@@ -32,6 +32,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.GroupImpl#getLower <em>Lower</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.GroupImpl#getUpper <em>Upper</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fm.impl.GroupImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fm.impl.GroupImpl#getComment <em>Comment</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.GroupImpl#isXor <em>Xor</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.GroupImpl#isOr <em>Or</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.GroupImpl#getParent <em>Parent</em>}</li>
@@ -81,6 +83,46 @@ public class GroupImpl extends EObjectImpl implements Group {
      * @ordered
      */
     protected int upper = UPPER_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDescription()
+     * @generated
+     * @ordered
+     */
+    protected static final String DESCRIPTION_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDescription()
+     * @generated
+     * @ordered
+     */
+    protected String description = DESCRIPTION_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getComment() <em>Comment</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getComment()
+     * @generated
+     * @ordered
+     */
+    protected static final String COMMENT_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getComment() <em>Comment</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getComment()
+     * @generated
+     * @ordered
+     */
+    protected String comment = COMMENT_EDEFAULT;
 
     /**
      * The default value of the '{@link #isXor() <em>Xor</em>}' attribute.
@@ -171,6 +213,48 @@ public class GroupImpl extends EObjectImpl implements Group {
         upper = newUpper;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, FeatureModelPackage.GROUP__UPPER, oldUpper, upper));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setDescription(String newDescription) {
+        String oldDescription = description;
+        description = newDescription;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, FeatureModelPackage.GROUP__DESCRIPTION, oldDescription, description));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getComment() {
+        return comment;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setComment(String newComment) {
+        String oldComment = comment;
+        comment = newComment;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, FeatureModelPackage.GROUP__COMMENT, oldComment, comment));
     }
 
     /**
@@ -342,6 +426,10 @@ public class GroupImpl extends EObjectImpl implements Group {
                 return getLower();
             case FeatureModelPackage.GROUP__UPPER:
                 return getUpper();
+            case FeatureModelPackage.GROUP__DESCRIPTION:
+                return getDescription();
+            case FeatureModelPackage.GROUP__COMMENT:
+                return getComment();
             case FeatureModelPackage.GROUP__XOR:
                 return isXor();
             case FeatureModelPackage.GROUP__OR:
@@ -368,6 +456,12 @@ public class GroupImpl extends EObjectImpl implements Group {
                 return;
             case FeatureModelPackage.GROUP__UPPER:
                 setUpper((Integer)newValue);
+                return;
+            case FeatureModelPackage.GROUP__DESCRIPTION:
+                setDescription((String)newValue);
+                return;
+            case FeatureModelPackage.GROUP__COMMENT:
+                setComment((String)newValue);
                 return;
             case FeatureModelPackage.GROUP__XOR:
                 setXor((Boolean)newValue);
@@ -400,6 +494,12 @@ public class GroupImpl extends EObjectImpl implements Group {
             case FeatureModelPackage.GROUP__UPPER:
                 setUpper(UPPER_EDEFAULT);
                 return;
+            case FeatureModelPackage.GROUP__DESCRIPTION:
+                setDescription(DESCRIPTION_EDEFAULT);
+                return;
+            case FeatureModelPackage.GROUP__COMMENT:
+                setComment(COMMENT_EDEFAULT);
+                return;
             case FeatureModelPackage.GROUP__XOR:
                 setXor(XOR_EDEFAULT);
                 return;
@@ -428,6 +528,10 @@ public class GroupImpl extends EObjectImpl implements Group {
                 return lower != LOWER_EDEFAULT;
             case FeatureModelPackage.GROUP__UPPER:
                 return upper != UPPER_EDEFAULT;
+            case FeatureModelPackage.GROUP__DESCRIPTION:
+                return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+            case FeatureModelPackage.GROUP__COMMENT:
+                return COMMENT_EDEFAULT == null ? comment != null : !COMMENT_EDEFAULT.equals(comment);
             case FeatureModelPackage.GROUP__XOR:
                 return isXor() != XOR_EDEFAULT;
             case FeatureModelPackage.GROUP__OR:
@@ -454,6 +558,10 @@ public class GroupImpl extends EObjectImpl implements Group {
         result.append(lower);
         result.append(", upper: ");
         result.append(upper);
+        result.append(", description: ");
+        result.append(description);
+        result.append(", comment: ");
+        result.append(comment);
         result.append(')');
         return result.toString();
     }

@@ -33,6 +33,7 @@ import cz.jpikl.yafmt.model.fm.Group;
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#getId <em>Id</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#getName <em>Name</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#getComment <em>Comment</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#getLower <em>Lower</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#getUpper <em>Upper</em>}</li>
  *   <li>{@link cz.jpikl.yafmt.model.fm.impl.FeatureImpl#isRoot <em>Root</em>}</li>
@@ -112,6 +113,26 @@ public class FeatureImpl extends EObjectImpl implements Feature {
      * @ordered
      */
     protected String description = DESCRIPTION_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getComment() <em>Comment</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getComment()
+     * @generated
+     * @ordered
+     */
+    protected static final String COMMENT_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getComment() <em>Comment</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getComment()
+     * @generated
+     * @ordered
+     */
+    protected String comment = COMMENT_EDEFAULT;
 
     /**
      * The default value of the '{@link #getLower() <em>Lower</em>}' attribute.
@@ -323,6 +344,27 @@ public class FeatureImpl extends EObjectImpl implements Feature {
         description = newDescription;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, FeatureModelPackage.FEATURE__DESCRIPTION, oldDescription, description));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getComment() {
+        return comment;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setComment(String newComment) {
+        String oldComment = comment;
+        comment = newComment;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, FeatureModelPackage.FEATURE__COMMENT, oldComment, comment));
     }
 
     /**
@@ -600,7 +642,7 @@ public class FeatureImpl extends EObjectImpl implements Feature {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     public FeatureModel getFeatureModel() {
         if (featureModel != null && featureModel.eIsProxy()) {
@@ -611,7 +653,7 @@ public class FeatureImpl extends EObjectImpl implements Feature {
                     eNotify(new ENotificationImpl(this, Notification.RESOLVE, FeatureModelPackage.FEATURE__FEATURE_MODEL, oldFeatureModel, featureModel));
             }
         }
-        return basicGetFeatureModel();
+        return basicGetFeatureModel(); // Changed from 'return featureModel;'
     }
 
     /**
@@ -624,7 +666,7 @@ public class FeatureImpl extends EObjectImpl implements Feature {
             featureModel = findFeatureModel();
         return featureModel;
     }
-    
+
     private FeatureModel findFeatureModel() {
         Resource resource = eResource();
         if(resource == null)
@@ -720,6 +762,8 @@ public class FeatureImpl extends EObjectImpl implements Feature {
                 return getName();
             case FeatureModelPackage.FEATURE__DESCRIPTION:
                 return getDescription();
+            case FeatureModelPackage.FEATURE__COMMENT:
+                return getComment();
             case FeatureModelPackage.FEATURE__LOWER:
                 return getLower();
             case FeatureModelPackage.FEATURE__UPPER:
@@ -771,6 +815,9 @@ public class FeatureImpl extends EObjectImpl implements Feature {
                 return;
             case FeatureModelPackage.FEATURE__DESCRIPTION:
                 setDescription((String)newValue);
+                return;
+            case FeatureModelPackage.FEATURE__COMMENT:
+                setComment((String)newValue);
                 return;
             case FeatureModelPackage.FEATURE__LOWER:
                 setLower((Integer)newValue);
@@ -826,6 +873,9 @@ public class FeatureImpl extends EObjectImpl implements Feature {
             case FeatureModelPackage.FEATURE__DESCRIPTION:
                 setDescription(DESCRIPTION_EDEFAULT);
                 return;
+            case FeatureModelPackage.FEATURE__COMMENT:
+                setComment(COMMENT_EDEFAULT);
+                return;
             case FeatureModelPackage.FEATURE__LOWER:
                 setLower(LOWER_EDEFAULT);
                 return;
@@ -874,6 +924,8 @@ public class FeatureImpl extends EObjectImpl implements Feature {
                 return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
             case FeatureModelPackage.FEATURE__DESCRIPTION:
                 return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+            case FeatureModelPackage.FEATURE__COMMENT:
+                return COMMENT_EDEFAULT == null ? comment != null : !COMMENT_EDEFAULT.equals(comment);
             case FeatureModelPackage.FEATURE__LOWER:
                 return lower != LOWER_EDEFAULT;
             case FeatureModelPackage.FEATURE__UPPER:
@@ -922,6 +974,8 @@ public class FeatureImpl extends EObjectImpl implements Feature {
         result.append(name);
         result.append(", description: ");
         result.append(description);
+        result.append(", comment: ");
+        result.append(comment);
         result.append(", lower: ");
         result.append(lower);
         result.append(", upper: ");

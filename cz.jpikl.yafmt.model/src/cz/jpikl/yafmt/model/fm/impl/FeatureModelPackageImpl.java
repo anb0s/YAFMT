@@ -171,6 +171,15 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getFeatureModel_Comment() {
+        return (EAttribute)featureModelEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EAttribute getFeatureModel_Version() {
         return (EAttribute)featureModelEClass.getEStructuralFeatures().get(1);
     }
@@ -181,15 +190,6 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
      * @generated
      */
     public EReference getFeatureModel_Root() {
-        return (EReference)featureModelEClass.getEStructuralFeatures().get(3);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EReference getFeatureModel_Orphans() {
         return (EReference)featureModelEClass.getEStructuralFeatures().get(4);
     }
 
@@ -198,8 +198,17 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getFeatureModel_Constraints() {
+    public EReference getFeatureModel_Orphans() {
         return (EReference)featureModelEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getFeatureModel_Constraints() {
+        return (EReference)featureModelEClass.getEStructuralFeatures().get(6);
     }
 
     /**
@@ -243,7 +252,7 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getFeature_Lower() {
+    public EAttribute getFeature_Comment() {
         return (EAttribute)featureEClass.getEStructuralFeatures().get(3);
     }
 
@@ -252,7 +261,7 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getFeature_Upper() {
+    public EAttribute getFeature_Lower() {
         return (EAttribute)featureEClass.getEStructuralFeatures().get(4);
     }
 
@@ -261,7 +270,7 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getFeature_Root() {
+    public EAttribute getFeature_Upper() {
         return (EAttribute)featureEClass.getEStructuralFeatures().get(5);
     }
 
@@ -270,7 +279,7 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getFeature_Orphan() {
+    public EAttribute getFeature_Root() {
         return (EAttribute)featureEClass.getEStructuralFeatures().get(6);
     }
 
@@ -279,7 +288,7 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getFeature_Optional() {
+    public EAttribute getFeature_Orphan() {
         return (EAttribute)featureEClass.getEStructuralFeatures().get(7);
     }
 
@@ -288,7 +297,7 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getFeature_Mandatory() {
+    public EAttribute getFeature_Optional() {
         return (EAttribute)featureEClass.getEStructuralFeatures().get(8);
     }
 
@@ -297,7 +306,7 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getFeature_Cloneable() {
+    public EAttribute getFeature_Mandatory() {
         return (EAttribute)featureEClass.getEStructuralFeatures().get(9);
     }
 
@@ -306,43 +315,16 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getFeature_Cloneable() {
+        return (EAttribute)featureEClass.getEStructuralFeatures().get(10);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EReference getFeature_Attributes() {
-        return (EReference)featureEClass.getEStructuralFeatures().get(13);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EReference getFeature_Parent() {
-        return (EReference)featureEClass.getEStructuralFeatures().get(10);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EReference getFeature_ParentFeature() {
-        return (EReference)featureEClass.getEStructuralFeatures().get(11);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EReference getFeature_ParentGroup() {
-        return (EReference)featureEClass.getEStructuralFeatures().get(12);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EReference getFeature_Features() {
         return (EReference)featureEClass.getEStructuralFeatures().get(14);
     }
 
@@ -351,7 +333,34 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getFeature_Groups() {
+    public EReference getFeature_Parent() {
+        return (EReference)featureEClass.getEStructuralFeatures().get(11);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getFeature_ParentFeature() {
+        return (EReference)featureEClass.getEStructuralFeatures().get(12);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getFeature_ParentGroup() {
+        return (EReference)featureEClass.getEStructuralFeatures().get(13);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getFeature_Features() {
         return (EReference)featureEClass.getEStructuralFeatures().get(15);
     }
 
@@ -360,8 +369,17 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getFeature_FeatureModel() {
+    public EReference getFeature_Groups() {
         return (EReference)featureEClass.getEStructuralFeatures().get(16);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getFeature_FeatureModel() {
+        return (EReference)featureEClass.getEStructuralFeatures().get(17);
     }
 
     /**
@@ -396,7 +414,7 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getGroup_Xor() {
+    public EAttribute getGroup_Description() {
         return (EAttribute)groupEClass.getEStructuralFeatures().get(2);
     }
 
@@ -405,7 +423,7 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getGroup_Or() {
+    public EAttribute getGroup_Comment() {
         return (EAttribute)groupEClass.getEStructuralFeatures().get(3);
     }
 
@@ -414,8 +432,26 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getGroup_Xor() {
+        return (EAttribute)groupEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getGroup_Or() {
+        return (EAttribute)groupEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EReference getGroup_Parent() {
-        return (EReference)groupEClass.getEStructuralFeatures().get(4);
+        return (EReference)groupEClass.getEStructuralFeatures().get(6);
     }
 
     /**
@@ -424,7 +460,7 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
      * @generated
      */
     public EReference getGroup_Features() {
-        return (EReference)groupEClass.getEStructuralFeatures().get(5);
+        return (EReference)groupEClass.getEStructuralFeatures().get(7);
     }
 
     /**
@@ -468,8 +504,17 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getAttribute_Comment() {
+        return (EAttribute)attributeEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EReference getAttribute_Feature() {
-        return (EReference)attributeEClass.getEStructuralFeatures().get(4);
+        return (EReference)attributeEClass.getEStructuralFeatures().get(5);
     }
 
     /**
@@ -522,8 +567,17 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getConstraint_Comment() {
+        return (EAttribute)constraintEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EReference getConstraint_FeatureModel() {
-        return (EReference)constraintEClass.getEStructuralFeatures().get(3);
+        return (EReference)constraintEClass.getEStructuralFeatures().get(4);
     }
 
     /**
@@ -567,6 +621,7 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
         createEAttribute(featureModelEClass, FEATURE_MODEL__NAME);
         createEAttribute(featureModelEClass, FEATURE_MODEL__VERSION);
         createEAttribute(featureModelEClass, FEATURE_MODEL__DESCRIPTION);
+        createEAttribute(featureModelEClass, FEATURE_MODEL__COMMENT);
         createEReference(featureModelEClass, FEATURE_MODEL__ROOT);
         createEReference(featureModelEClass, FEATURE_MODEL__ORPHANS);
         createEReference(featureModelEClass, FEATURE_MODEL__CONSTRAINTS);
@@ -575,6 +630,7 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
         createEAttribute(featureEClass, FEATURE__ID);
         createEAttribute(featureEClass, FEATURE__NAME);
         createEAttribute(featureEClass, FEATURE__DESCRIPTION);
+        createEAttribute(featureEClass, FEATURE__COMMENT);
         createEAttribute(featureEClass, FEATURE__LOWER);
         createEAttribute(featureEClass, FEATURE__UPPER);
         createEAttribute(featureEClass, FEATURE__ROOT);
@@ -593,6 +649,8 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
         groupEClass = createEClass(GROUP);
         createEAttribute(groupEClass, GROUP__LOWER);
         createEAttribute(groupEClass, GROUP__UPPER);
+        createEAttribute(groupEClass, GROUP__DESCRIPTION);
+        createEAttribute(groupEClass, GROUP__COMMENT);
         createEAttribute(groupEClass, GROUP__XOR);
         createEAttribute(groupEClass, GROUP__OR);
         createEReference(groupEClass, GROUP__PARENT);
@@ -603,12 +661,14 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
         createEAttribute(attributeEClass, ATTRIBUTE__NAME);
         createEAttribute(attributeEClass, ATTRIBUTE__TYPE);
         createEAttribute(attributeEClass, ATTRIBUTE__DESCRIPTION);
+        createEAttribute(attributeEClass, ATTRIBUTE__COMMENT);
         createEReference(attributeEClass, ATTRIBUTE__FEATURE);
 
         constraintEClass = createEClass(CONSTRAINT);
         createEAttribute(constraintEClass, CONSTRAINT__VALUE);
         createEAttribute(constraintEClass, CONSTRAINT__LANGUAGE);
         createEAttribute(constraintEClass, CONSTRAINT__DESCRIPTION);
+        createEAttribute(constraintEClass, CONSTRAINT__COMMENT);
         createEReference(constraintEClass, CONSTRAINT__FEATURE_MODEL);
 
         // Create enums
@@ -649,6 +709,7 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
         initEAttribute(getFeatureModel_Name(), ecorePackage.getEString(), "name", null, 1, 1, FeatureModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getFeatureModel_Version(), ecorePackage.getEString(), "version", null, 0, 1, FeatureModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getFeatureModel_Description(), ecorePackage.getEString(), "description", null, 0, 1, FeatureModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFeatureModel_Comment(), ecorePackage.getEString(), "comment", null, 0, 1, FeatureModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getFeatureModel_Root(), this.getFeature(), null, "root", null, 1, 1, FeatureModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getFeatureModel_Orphans(), this.getFeature(), null, "orphans", null, 0, -1, FeatureModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getFeatureModel_Constraints(), this.getConstraint(), null, "constraints", null, 0, -1, FeatureModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -660,6 +721,7 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
         initEAttribute(getFeature_Id(), ecorePackage.getEString(), "id", null, 1, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getFeature_Name(), ecorePackage.getEString(), "name", null, 1, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getFeature_Description(), ecorePackage.getEString(), "description", null, 0, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFeature_Comment(), ecorePackage.getEString(), "comment", null, 0, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getFeature_Lower(), ecorePackage.getEInt(), "lower", "0", 1, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getFeature_Upper(), ecorePackage.getEInt(), "upper", "1", 1, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getFeature_Root(), ecorePackage.getEBoolean(), "root", null, 1, 1, Feature.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
@@ -678,6 +740,8 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
         initEClass(groupEClass, Group.class, "Group", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getGroup_Lower(), ecorePackage.getEInt(), "lower", "1", 1, 1, Group.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getGroup_Upper(), ecorePackage.getEInt(), "upper", "1", 1, 1, Group.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getGroup_Description(), ecorePackage.getEString(), "description", null, 0, 1, Group.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getGroup_Comment(), ecorePackage.getEString(), "comment", null, 0, 1, Group.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getGroup_Xor(), ecorePackage.getEBoolean(), "xor", null, 1, 1, Group.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
         initEAttribute(getGroup_Or(), ecorePackage.getEBoolean(), "or", null, 1, 1, Group.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
         initEReference(getGroup_Parent(), this.getFeature(), this.getFeature_Groups(), "parent", null, 1, 1, Group.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -688,12 +752,14 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
         initEAttribute(getAttribute_Name(), ecorePackage.getEString(), "name", null, 1, 1, Attribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getAttribute_Type(), this.getAttributeType(), "type", "BOOLEAN", 1, 1, Attribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getAttribute_Description(), ecorePackage.getEString(), "description", null, 0, 1, Attribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getAttribute_Comment(), ecorePackage.getEString(), "comment", null, 0, 1, Attribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getAttribute_Feature(), this.getFeature(), this.getFeature_Attributes(), "feature", null, 1, 1, Attribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(constraintEClass, Constraint.class, "Constraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getConstraint_Value(), ecorePackage.getEString(), "value", null, 1, 1, Constraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getConstraint_Language(), ecorePackage.getEString(), "language", null, 1, 1, Constraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getConstraint_Description(), ecorePackage.getEString(), "description", null, 0, 1, Constraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getConstraint_Comment(), ecorePackage.getEString(), "comment", null, 0, 1, Constraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getConstraint_FeatureModel(), this.getFeatureModel(), null, "featureModel", null, 0, 1, Constraint.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
