@@ -176,7 +176,7 @@ public class FeatureConfigurationManager {
         if(childSelection != null) {
             childSelection.getValues().clear();
             childSelection.getSelections().clear();
-            FeatureConfigurationUtil.repairAttributeValues(childFeature, childSelection);
+            FeatureConfigurationUtil.repairSelection(childFeature, childSelection);
             return childSelection;
         }
         return FeatureConfigurationUtil.createSelection(childFeature);
