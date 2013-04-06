@@ -13,7 +13,7 @@ public class CircleDecoration extends Ellipse implements RotatableDecoration {
     private static final int RADIUS = 5;
 
     public CircleDecoration() {
-        this(false);
+        this(true);
     }
     
     public CircleDecoration(boolean filled) {
