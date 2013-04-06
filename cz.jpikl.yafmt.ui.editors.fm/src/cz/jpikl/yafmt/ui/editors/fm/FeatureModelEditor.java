@@ -242,7 +242,7 @@ public class FeatureModelEditor extends ModelEditor {
             layoutData = LayoutDataFactory.eINSTANCE.createLayoutData();
             resource.getContents().add(layoutData);
             // Set root feature position.
-            Rectangle rootBounds = new Rectangle(320, 32, FeatureFigure.INITIAL_WIDTH, FeatureFigure.INITIAL_HEGHT);
+            Rectangle rootBounds = new Rectangle(160, 32, FeatureFigure.INITIAL_WIDTH, FeatureFigure.INITIAL_HEGHT);
             layoutData.set(featureModel.getRoot(), rootBounds);
         }
     }

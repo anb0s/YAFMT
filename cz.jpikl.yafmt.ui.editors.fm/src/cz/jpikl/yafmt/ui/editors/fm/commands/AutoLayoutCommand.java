@@ -96,6 +96,7 @@ public class AutoLayoutCommand extends Command {
     }
 
     private void calculateLayout(Map<EObject, Integer> subTreeWidth, Feature feature, int xBase, int yBase) {
+        xBase += HORIZONTAL_SPACE / 2;
         Rectangle bounds = oldLayout.get(feature).getCopy();
         bounds.x = xBase + (subTreeWidth.get(feature) - bounds.width) / 2;
         bounds.y = yBase;
