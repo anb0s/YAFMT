@@ -1,6 +1,7 @@
 package cz.jpikl.yafmt.ui.editors.fc.layout;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.draw2d.Connection;
@@ -35,24 +36,36 @@ public class HorizontalTreeLayout extends TreeLayout {
     }
 
     private int calculateSubTreeHeight(Map<IFigure, Integer> subTreeHeight, IFigure figure) {
+        List<IFigure> children = helper.getTreeChildrenFigures(figure);
+        
         int treeHeight = 0;
-        for(IFigure child: helper.getTreeChildrenFigures(figure))
-            treeHeight += calculateSubTreeHeight(subTreeHeight, child);
-        int preferredHeight = computeFigurePreferredSize(figure).height + VERTICAL_SPACE;
-        int height = Math.max(preferredHeight, treeHeight);
-        subTreeHeight.put(figure, height);
-        return height;
+        if(!children.isEmpty()) {
+            for(IFigure child: children)
+                treeHeight += calculateSubTreeHeight(subTreeHeight, child);
+            treeHeight += VERTICAL_SPACE * (children.size() - 1);
+        }
+        subTreeHeight.put(figure, treeHeight);
+        
+        int nodeHeight = computeFigurePreferredSize(figure).height;
+        return Math.max(treeHeight, nodeHeight);
     }
 
     private void layoutTree(Map<IFigure, Integer> subTreeHeight, IFigure figure, int xOffset, int yOffset) {
-        Dimension size = computeFigurePreferredSize(figure);
-        int y = yOffset + (subTreeHeight.get(figure) - size.height) / 2;
-        figure.setBounds(new Rectangle(new Point(xOffset, y), size));
-
-        xOffset += size.width + HORIZONTAL_SPACE;
+        Point nodePosition = new Point(xOffset, yOffset);
+        Dimension nodeSize = computeFigurePreferredSize(figure);
+        
+        int treeHeight = subTreeHeight.get(figure);
+        if(treeHeight > nodeSize.height)
+            nodePosition.y += (treeHeight - nodeSize.height) / 2;
+        else
+            yOffset += (nodeSize.height - treeHeight) / 2;
+        figure.setBounds(new Rectangle(nodePosition, nodeSize));
+        
+        xOffset += nodeSize.width + HORIZONTAL_SPACE;
         for(IFigure child: helper.getTreeChildrenFigures(figure)) {
             layoutTree(subTreeHeight, child, xOffset, yOffset);
-            yOffset += subTreeHeight.get(child);
+            int childHeight = computeFigurePreferredSize(child).height;
+            yOffset += Math.max(subTreeHeight.get(child), childHeight) + VERTICAL_SPACE;
         }
     }
 
