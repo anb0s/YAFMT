@@ -8,6 +8,7 @@ import org.eclipse.draw2d.PolylineConnection;
 
 import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
+import cz.jpikl.yafmt.ui.figures.CircleDecoration;
 import cz.jpikl.yafmt.ui.editors.fm.model.Connection;
 
 public class ConnectionFigure extends PolylineConnection {

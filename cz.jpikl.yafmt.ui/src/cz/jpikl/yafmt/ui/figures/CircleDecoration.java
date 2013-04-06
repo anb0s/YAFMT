@@ -1,4 +1,4 @@
-package cz.jpikl.yafmt.ui.editors.fm.figures;
+package cz.jpikl.yafmt.ui.figures;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Ellipse;
@@ -8,13 +8,18 @@ import org.eclipse.draw2d.geometry.Point;
 
 import cz.jpikl.yafmt.ui.util.DrawUtil;
 
-class CircleDecoration extends Ellipse implements RotatableDecoration {
+public class CircleDecoration extends Ellipse implements RotatableDecoration {
 
     private static final int RADIUS = 5;
 
     public CircleDecoration() {
+        this(false);
+    }
+    
+    public CircleDecoration(boolean filled) {
         setForegroundColor(ColorConstants.black);
         setSize(2 * RADIUS, 2 * RADIUS);
+        setFill(filled);
     }
 
     @Override
