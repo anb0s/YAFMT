@@ -23,8 +23,11 @@ import cz.jpikl.yafmt.ui.views.fm.filters.DistanceFilter;
 public class Settings {
 
     private static final int MAX_SIZE_MULTIPLIER = 5;
+    private static final String[] DISTANCES_ALL = { "infinite", "1", "2" };
+    private static final String[] DISTANCES_NO_INF = { "1", "2" };
 
     private List<ISettingsListener> listeners = new ArrayList<ISettingsListener>();
+    private Combo distancesCombo;
     
     private boolean groupsVisible;         // Are groups visible?
     private boolean constraintsVisible;    // Are constraints visible?
@@ -44,7 +47,7 @@ public class Settings {
         groupsVisible = SettingsUtil.getBoolean(settings, "groupsVisible", true);
         constraintsVisible = SettingsUtil.getBoolean(settings, "constraintsVisible", true);
         viewLocked = SettingsUtil.getBoolean(settings, "viewLocked", false);
-        visibleDistance = SettingsUtil.getInteger(settings, "visibleDistance", DistanceFilter.INFINITE_DISTACE);
+        visibleDistance = SettingsUtil.getInteger(settings, "visibleDistance", DistanceFilter.INF_DISTACE);
         fixedSize = SettingsUtil.getBoolean(settings, "fixedSize", true);
         sizeMultiplier = SettingsUtil.getInteger(settings, "sizeMultiplier", 1);
         animationEnabled = SettingsUtil.getBoolean(settings, "animationEnabled", true);
@@ -143,20 +146,22 @@ public class Settings {
     }
     
     private void createDistanceControlCombo(Composite parent) {
-        Combo combo = new Combo(parent, SWT.READ_ONLY);
-        combo.setItems(new String[] { "infinite", "1", "2" });
-        combo.setText(combo.getItem(Math.max(0, visibleDistance)));
-        combo.addSelectionListener(new SelectionAdapter() {
+        distancesCombo = new Combo(parent, SWT.READ_ONLY);
+        distancesCombo.setItems(DISTANCES_ALL);
+        distancesCombo.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent event) {
-                int index = ((Combo) event.getSource()).getSelectionIndex();
-                visibleDistance = (index > 0) ? index : DistanceFilter.INFINITE_DISTACE;
+                int newVisibleDistance = getSelectedVisibleDistance();
+                if(visibleDistance == newVisibleDistance)
+                    return;
+                visibleDistance = newVisibleDistance;
                 for(ISettingsListener listener: listeners)
-                    listener.visibleDistanceChanged(visibleDistance);
+                    listener.visibleDistanceChanged(visibleDistance, true);
             }
         });
+        setSelectedVisibleDistance(visibleDistance);
     }
-
+    
     private void createSizeControl(Composite parent) {
         Composite panel = new Composite(parent, SWT.NONE);
         panel.setLayout(new GridLayout(2, false));
@@ -184,12 +189,15 @@ public class Settings {
         Combo combo = new Combo(parent, SWT.READ_ONLY);
         for(int i = 1; i <= MAX_SIZE_MULTIPLIER; i++)
             combo.add(i + "x");
-        combo.setText(combo.getItem(sizeMultiplier - 1));
+        combo.select(sizeMultiplier - 1);
         combo.setEnabled(fixedSize);
         combo.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent event) {
-                sizeMultiplier = ((Combo) event.getSource()).getSelectionIndex() + 1;
+                int newSizeMultiplier = ((Combo) event.getSource()).getSelectionIndex() + 1;
+                if(sizeMultiplier == newSizeMultiplier)
+                    return;
+                sizeMultiplier = newSizeMultiplier;
                 for(ISettingsListener listener: listeners)
                     listener.viewSizeChanged(fixedSize, sizeMultiplier);
             }
@@ -224,15 +232,16 @@ public class Settings {
         Combo combo = new Combo(parent, SWT.READ_ONLY);
         for(AnimationSpeed type: AnimationSpeed.values())
             combo.add(type.getName());
-        combo.setText(animationSpeed.getName());
+        combo.select(animationSpeed.ordinal());
         combo.setEnabled(animationEnabled);
         combo.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent event) {
                 int index = ((Combo) event.getSource()).getSelectionIndex();
-                if(animationSpeed == AnimationSpeed.values()[index])
+                AnimationSpeed newAnimationSpeed = AnimationSpeed.values()[index];
+                if(animationSpeed == newAnimationSpeed)
                     return;
-                animationSpeed = AnimationSpeed.values()[index];
+                animationSpeed = newAnimationSpeed;
                 for(ISettingsListener listener: listeners)
                     listener.animationStateChanged(animationEnabled, animationSpeed.getDuration());
             }
@@ -275,6 +284,27 @@ public class Settings {
     public int getAnimationTime() {
         return animationSpeed.getDuration();
     }
+    
+    public boolean isInfiniteVisibleDistanceEnabled() {
+        return distancesCombo.getItems().length == DISTANCES_ALL.length;
+    }
+        
+    public void setInfiniteVisibleDistanceEnabled(boolean enable) {
+        boolean isEnabled = isInfiniteVisibleDistanceEnabled();
+        if(enable == isEnabled)
+            return;
+        
+        // Change combo items (this does not generate event).
+        distancesCombo.setItems(enable ? DISTANCES_ALL : DISTANCES_NO_INF);
+        setSelectedVisibleDistance(visibleDistance);
+        
+        // If infinite was selected and should not be, change it.
+        if(!enable && (visibleDistance == DistanceFilter.INF_DISTACE)) {
+            visibleDistance = getSelectedVisibleDistance();
+            for(ISettingsListener listener: listeners)
+                listener.visibleDistanceChanged(visibleDistance, false);
+        }
+    }
 
     public void addSettingsListener(ISettingsListener listener) {
         listeners.add(listener);
@@ -287,6 +317,24 @@ public class Settings {
     // ========================================================================
     //  Helpers
     // ========================================================================
+        
+    private int getSelectedVisibleDistance() {
+        int index = distancesCombo.getSelectionIndex();
+        if(index < 0)
+            return visibleDistance;
+        
+        if(isInfiniteVisibleDistanceEnabled())
+            return (index == 0) ? DistanceFilter.INF_DISTACE : index;
+        else
+            return index + 1;
+    }
+    
+    private void setSelectedVisibleDistance(int distance) {
+        if(isInfiniteVisibleDistanceEnabled())
+            distancesCombo.select((distance == DistanceFilter.INF_DISTACE) ? 0 : distance);
+        else
+            distancesCombo.select((distance == DistanceFilter.INF_DISTACE) ? (DISTANCES_NO_INF.length - 1) : (distance - 1));
+    }
 
     private static enum AnimationSpeed {
 

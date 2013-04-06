@@ -28,6 +28,7 @@ import cz.jpikl.yafmt.clang.util.ConstraintCache;
 import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
+import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil.TreeInfo;
 import cz.jpikl.yafmt.ui.util.SWTUtil;
 import cz.jpikl.yafmt.ui.views.fm.filters.ConstraintFilter;
 import cz.jpikl.yafmt.ui.views.fm.filters.DistanceFilter;
@@ -46,6 +47,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
 
     public static final String ID = "cz.jpikl.yafmt.ui.views.fm";
     private static final int CONNECTION_LENGHT = 200;
+    private static final int MAX_VISIBLE_NODES = 100;
 
     private IWorkbenchPart sourcePart;
     private FeatureModel featureModel;
@@ -54,7 +56,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
     private ConstraintCache constraintCache;
     
     private Settings settings;
-    private int treeHeight; // Height of the current feature model tree.
+    private TreeInfo treeInfo; // Contains size and height of the current feature model tree.
 
     private DecoratableGraphViewer viewer;
     private DistanceFilter distanceFilter;
@@ -72,7 +74,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
 
         featureModelAdapter = new FeatureModelAdapter();
         constraintCache = new ConstraintCache();
-        treeHeight = 1;
+        treeInfo = new TreeInfo();
         currentSelection = StructuredSelection.EMPTY;
         settings = new Settings();
         settings.addSettingsListener(this);
@@ -188,11 +190,14 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
     }
 
     @Override
-    public void visibleDistanceChanged(int visibleDistance) {
+    public void visibleDistanceChanged(int visibleDistance, boolean userInput) {
         distanceFilter.setDistance(visibleDistance);
         distanceFilter.update(viewer.getSelection(), featureModel);
-        viewer.refresh();
-        viewer.applyLayout();
+        
+        if(userInput) {
+            viewer.refresh();
+            viewer.applyLayout();
+        }
     }
 
     @Override
@@ -242,7 +247,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         if(!viewer.getControl().isDisposed()) {
             viewer.setInput(featureModel);
             currentSelection = StructuredSelection.EMPTY;
-            recomputeTreeHeight();
+            recomputeTreeInfo();
             resizeGraphView();
         }
 
@@ -252,13 +257,15 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         }
     }
     
-    private void recomputeTreeHeight() {
-        treeHeight = FeatureModelUtil.getTreeHeight(featureModel);
+    private void recomputeTreeInfo() {
+        treeInfo = FeatureModelUtil.analyzeTree(featureModel);
+        settings.setInfiniteVisibleDistanceEnabled(treeInfo.size <= MAX_VISIBLE_NODES);
     }
 
     private void resizeGraphView() {
         if(settings.isFixedSize()) {
-            int size = 2 * treeHeight * CONNECTION_LENGHT * settings.getSizeMultiplier();
+            int height = Math.min(treeInfo.height, 1);
+            int size = 2 * height * CONNECTION_LENGHT * settings.getSizeMultiplier();
             viewer.getGraphControl().setPreferredSize(size, size);
         }
         else {
@@ -312,13 +319,15 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
     }
     
     @Override
+    public void partActivated(IWorkbenchPart part) {
+        if(part.getAdapter(FeatureModel.class) != null)
+            setSourcePart(part);
+    }
+    
+    @Override
     public void partClosed(IWorkbenchPart part) {
         if(part == sourcePart)
             setSourcePart(null);
-    }
-
-    @Override
-    public void partActivated(IWorkbenchPart part) {
     }
 
     @Override
@@ -349,7 +358,7 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
                 case Notification.REMOVE:
                 case Notification.REMOVE_MANY:
                 case Notification.SET:
-                    recomputeTreeHeight();
+                    recomputeTreeInfo();
                     resizeGraphView();
                     viewer.refresh();
                     viewer.applyLayout();

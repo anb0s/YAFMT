@@ -10,7 +10,7 @@ public interface ISettingsListener {
 
     void lockedStateChanged(boolean viewLocked);
 
-    void visibleDistanceChanged(int visibleDistance);
+    void visibleDistanceChanged(int visibleDistance, boolean userInput);
 
     void viewSizeChanged(boolean fixedSize, int sizeMultiplier);
 

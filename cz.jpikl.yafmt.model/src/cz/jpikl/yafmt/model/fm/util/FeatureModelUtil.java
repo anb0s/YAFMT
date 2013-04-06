@@ -181,30 +181,40 @@ public class FeatureModelUtil {
             return getCardinality(group);
     }
 
-    public static int getTreeHeight(FeatureModel featureModel) {
-        if((featureModel == null) || (featureModel.getRoot() == null))
-            return 0;
-        return getTreeHeight(featureModel.getRoot());
+    public static TreeInfo analyzeTree(FeatureModel featureModel) {
+        if(featureModel == null)
+            return new TreeInfo();
+        return analyzeTree(featureModel.getRoot());
     }
 
-    public static int getTreeHeight(Feature feature) {
-        int maxHeight = 0;
+    public static TreeInfo analyzeTree(Feature feature) {
+        TreeInfo info = new TreeInfo();
+        if(feature != null)
+            analyzeTreeNode(feature, info, 0);
+        return info;
+    }
+    
+    private static void analyzeTreeNode(Feature feature, TreeInfo info, int currentHeight) {
+        info.size++;
+        
+        currentHeight++;
+        if(currentHeight > info.height)
+            info.height = currentHeight;
 
-        for(Feature child: feature.getFeatures()) {
-            int height = getTreeHeight(child);
-            if(height > maxHeight)
-                height = maxHeight;
-        }
+        for(Feature child: feature.getFeatures())
+            analyzeTreeNode(child, info, currentHeight);
 
         for(Group group: feature.getGroups()) {
-            for(Feature child: group.getFeatures()) {
-                int height = getTreeHeight(child);
-                if(height > maxHeight)
-                    height = maxHeight;
-            }
+            for(Feature child: group.getFeatures())
+                analyzeTreeNode(child, info, currentHeight);
         }
-
-        return maxHeight + 1;
+    }
+    
+    public static class TreeInfo {
+        
+        public int size = 0;
+        public int height = 0;
+        
     }
     
     // ===============================================================================================

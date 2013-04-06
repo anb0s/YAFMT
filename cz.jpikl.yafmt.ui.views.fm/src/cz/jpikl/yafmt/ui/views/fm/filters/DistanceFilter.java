@@ -17,11 +17,11 @@ import cz.jpikl.yafmt.model.fm.Group;
 
 public class DistanceFilter extends ViewerFilter {
 
-    public static final int INFINITE_DISTACE = -1;
+    public static final int INF_DISTACE = -1;
 
     private Set<Feature> visibleFeatures = new HashSet<Feature>();
     private ConstraintCache constraintCache;
-    private int distance = INFINITE_DISTACE;
+    private int distance = INF_DISTACE;
 
     public DistanceFilter(ConstraintCache constraintCache, int distance) {
         this.constraintCache = constraintCache;
@@ -39,7 +39,7 @@ public class DistanceFilter extends ViewerFilter {
     public void update(ISelection selection, FeatureModel featureModel) {
         visibleFeatures.clear();
 
-        if((distance == INFINITE_DISTACE) || !(selection instanceof IStructuredSelection))
+        if((distance == INF_DISTACE) || !(selection instanceof IStructuredSelection))
             return;
 
         for(Object element: ((IStructuredSelection) selection).toArray()) {
@@ -86,7 +86,7 @@ public class DistanceFilter extends ViewerFilter {
 
     @Override
     public boolean select(Viewer viewer, Object parentElement, Object element) {
-        if((distance == INFINITE_DISTACE) || !(element instanceof Feature))
+        if((distance == INF_DISTACE) || !(element instanceof Feature))
             return true;
         return visibleFeatures.contains(element);
     }

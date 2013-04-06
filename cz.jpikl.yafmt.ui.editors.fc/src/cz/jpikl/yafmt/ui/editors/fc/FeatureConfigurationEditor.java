@@ -116,7 +116,7 @@ public class FeatureConfigurationEditor extends ModelEditor {
         visibilityCombo.add("Hide All");
         visibilityCombo.add("Show Only Selectable");
         visibilityCombo.add("Show All");
-        visibilityCombo.setText(visibilityCombo.getItem(1));
+        visibilityCombo.select(1);
         visibilityCombo.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent event) {
