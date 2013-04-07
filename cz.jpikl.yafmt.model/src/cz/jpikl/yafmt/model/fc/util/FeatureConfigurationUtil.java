@@ -137,6 +137,28 @@ public class FeatureConfigurationUtil {
     //  Selection repair utilities
     // ===============================================================================================
 
+    public static void repairConfiguration(FeatureModel featureModel, FeatureConfiguration featureConfig) {
+        if((featureModel == null) || (featureConfig == null))
+            return;
+        
+        Feature rootFeature = featureModel.getRoot();
+        if(rootFeature == null)
+            return;
+        
+        Selection rootSelection = featureConfig.getRoot();
+        if(rootSelection == null) {
+            // Should not happen.
+            rootSelection = createSelection(rootFeature);
+            featureConfig.setRoot(rootSelection);
+        }
+        else if(!rootSelection.getId().equals(rootFeature.getId())) {
+            // Fix ID when changed.
+            rootSelection.setId(rootFeature.getId());
+        }
+        
+        repairSelection(rootFeature, rootSelection);
+    }
+    
     public static void repairSelection(Feature feature, Selection selection) {
         // Check attributes.
         repairAttributeValues(feature, selection);

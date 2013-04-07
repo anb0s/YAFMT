@@ -67,9 +67,7 @@ public class FeatureConfigurationManager {
     
     public void repairFeatureConfiguration() {
         // Repair feature configuration structure against feature model copy.
-        Feature rootFeature = featureConfig.getFeatureModelCopy().getRoot();
-        Selection rootSelection = featureConfig.getRoot();
-        FeatureConfigurationUtil.repairSelection(rootFeature, rootSelection);
+        FeatureConfigurationUtil.repairConfiguration(featureConfig.getFeatureModelCopy(), featureConfig);
     }
 
     public void revalidateFeatureConfiguration() {
