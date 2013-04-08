@@ -24,5 +24,43 @@
             name="Feature Modeling">
       </perspective>
    </extension>
+   <extension
+         point="org.eclipse.ui.navigator.navigatorContent">
+      <commonWizard
+            type="new"
+            wizardId="org.eclipse.ui.wizards.new.project">
+         <enablement>
+            <with
+                  variable="activeWorkbenchWindow.activePerspective">
+               <equals
+                     value="cz.jpikl.yafmt.ui.perspectives.FeatureModelingPerspective">
+               </equals>
+            </with>
+         </enablement>
+      </commonWizard>
+      <commonWizard
+            type="new"
+            wizardId="cz.jpikl.yafmt.ui.editors.fm.wizards.NewFeatureModelWizard">
+         <enablement>
+            <with
+                  variable="activeWorkbenchWindow.activePerspective">
+               <equals
+                     value="cz.jpikl.yafmt.ui.perspectives.FeatureModelingPerspective">
+               </equals>
+            </with></enablement>
+      </commonWizard>
+      <commonWizard
+            type="new"
+            wizardId="cz.jpikl.yafmt.ui.editors.fc.wizards.NewFeatureConfigurationWizard">
+         <enablement>
+            <with
+                  variable="activeWorkbenchWindow.activePerspective">
+               <equals
+                     value="cz.jpikl.yafmt.ui.perspectives.FeatureModelingPerspective">
+               </equals>
+            </with>
+         </enablement>
+      </commonWizard>
+   </extension>
 
 </plugin>

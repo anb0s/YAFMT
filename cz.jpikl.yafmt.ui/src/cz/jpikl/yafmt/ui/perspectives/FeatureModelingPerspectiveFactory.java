@@ -14,6 +14,7 @@ public class FeatureModelingPerspectiveFactory implements IPerspectiveFactory {
     private static final String FM_VISUALIZER_ID = "cz.jpikl.yafmt.ui.views.fm";
     private static final String NEW_FM_WIZARD_ID = "cz.jpikl.yafmt.ui.editors.fm.wizards.NewFeatureModelWizard";
     private static final String NEW_FC_WIZARD_ID = "cz.jpikl.yafmt.ui.editors.fc.wizards.NewFeatureConfigurationWizard";
+    private static final String NEW_PROJECT_WIZARD_ID = "org.eclipse.ui.wizards.new.project";
     
     @Override
     public void createInitialLayout(IPageLayout layout) {
@@ -23,6 +24,7 @@ public class FeatureModelingPerspectiveFactory implements IPerspectiveFactory {
         layout.addShowViewShortcut(IPageLayout.ID_PROP_SHEET);
         layout.addShowViewShortcut(IPageLayout.ID_OUTLINE);
         layout.addShowViewShortcut(IPageLayout.ID_PROBLEM_VIEW);
+        layout.addNewWizardShortcut(NEW_PROJECT_WIZARD_ID);
         layout.addNewWizardShortcut(NEW_FM_WIZARD_ID);
         layout.addNewWizardShortcut(NEW_FC_WIZARD_ID);
         
