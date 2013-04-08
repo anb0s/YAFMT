@@ -15,5 +15,14 @@
             name="cz.jpikl.yafmt.ui.ModelMarker.ObjectsURI">
       </attribute>
    </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="cz.jpikl.yafmt.ui.perspectives.FeatureModelingPerspectiveFactory"
+            icon="icons/fm-perspective.png"
+            id="cz.jpikl.yafmt.ui.perspectives.FeatureModelingPerspective"
+            name="Feature Modeling">
+      </perspective>
+   </extension>
 
 </plugin>
