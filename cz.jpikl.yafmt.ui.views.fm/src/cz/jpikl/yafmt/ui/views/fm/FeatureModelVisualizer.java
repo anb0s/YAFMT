@@ -45,7 +45,6 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
                                                                 ISettingsListener,
                                                                 IContributedContentsView {
 
-    public static final String ID = "cz.jpikl.yafmt.ui.views.fm";
     private static final int CONNECTION_LENGHT = 200;
     private static final int MAX_VISIBLE_NODES = 100;
 

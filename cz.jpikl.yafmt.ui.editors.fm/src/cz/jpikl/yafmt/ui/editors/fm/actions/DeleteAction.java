@@ -7,6 +7,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.actions.ActionFactory;
 
 import cz.jpikl.yafmt.model.fm.Constraint;
 import cz.jpikl.yafmt.ui.editors.fm.commands.DeleteConstraintCommand;
@@ -15,6 +16,7 @@ public class DeleteAction extends org.eclipse.gef.ui.actions.DeleteAction {
 
     public DeleteAction(IWorkbenchPart part) {
         super(part);
+        setActionDefinitionId(ActionFactory.DELETE.getCommandId());
     }
 
     private Command getDeleteConstrainsCommand(Table table) {

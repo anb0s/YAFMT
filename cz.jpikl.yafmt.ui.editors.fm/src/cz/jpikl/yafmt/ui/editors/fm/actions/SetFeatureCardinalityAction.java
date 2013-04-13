@@ -27,11 +27,13 @@ public class SetFeatureCardinalityAction extends SelectionAction {
     private static IAction initAction(IAction action, boolean mandatory) {
         if(mandatory) {
             action.setId(ID_MANDATORY);
+            action.setActionDefinitionId(ID_MANDATORY);
             action.setText("Make Feature Mandatory");
             action.setImageDescriptor(FeatureModelEditorPlugin.getAccess().getImageDescriptor("feature-man.png"));
         }
         else {
             action.setId(ID_OPTIONAL);
+            action.setActionDefinitionId(ID_OPTIONAL);
             action.setText("Make Feature Optional");
             action.setImageDescriptor(FeatureModelEditorPlugin.getAccess().getImageDescriptor("feature-opt.png"));
         }

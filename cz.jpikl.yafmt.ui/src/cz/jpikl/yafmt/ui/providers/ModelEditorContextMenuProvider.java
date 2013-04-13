@@ -8,11 +8,11 @@ import org.eclipse.gef.ui.parts.GraphicalEditor;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 
-public class GraphicalEditorContextMenuProvider extends ContextMenuProvider {
+public class ModelEditorContextMenuProvider extends ContextMenuProvider {
 
     private ActionRegistry registry;
 
-    public GraphicalEditorContextMenuProvider(GraphicalEditor editor) {
+    public ModelEditorContextMenuProvider(GraphicalEditor editor) {
         super((GraphicalViewer) editor.getAdapter(GraphicalViewer.class));
         this.registry = (ActionRegistry) editor.getAdapter(ActionRegistry.class);
     }

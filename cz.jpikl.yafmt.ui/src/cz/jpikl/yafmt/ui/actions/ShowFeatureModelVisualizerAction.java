@@ -13,7 +13,7 @@ import cz.jpikl.yafmt.ui.CommonUIPlugin;
 public class ShowFeatureModelVisualizerAction extends Action {
 
     public static final String ID = "cz.jpikl.yafmt.ui.actions.ShowFeatureModelVisualizerAction";
-    private static final String VIEW_ID = "cz.jpikl.yafmt.ui.views.fm";
+    private static final String VIEW_ID = "cz.jpikl.yafmt.ui.views.fm.FeatureModelVisualizer";
 
     public static RetargetAction createRetargetAction() {
         return (RetargetAction) initAction(new LabelRetargetAction(null, null));

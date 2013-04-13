@@ -28,11 +28,13 @@ public class GroupFeaturesAction extends SelectionAction {
     private static IAction initAction(IAction action, boolean xorGroup) {
         if(xorGroup) {
             action.setId(ID_XOR);
+            action.setActionDefinitionId(ID_XOR);
             action.setText("Make XOR Group");
             action.setImageDescriptor(FeatureModelEditorPlugin.getAccess().getImageDescriptor("group-xor.png"));
         }
         else {
             action.setId(ID_OR);
+            action.setActionDefinitionId(ID_OR);
             action.setText("Make OR Group");
             action.setImageDescriptor(FeatureModelEditorPlugin.getAccess().getImageDescriptor("group-or.png"));
         }

@@ -23,6 +23,7 @@ public class DeselectFeaturesAction extends FeatureSelectionAction {
 
     private static IAction initAction(IAction action) {
         action.setId(ID);
+        action.setActionDefinitionId(ID);
         action.setText("Deselect Features");
         action.setImageDescriptor(FeatureConfigurationEditorPlugin.getAccess().getImageDescriptor("deselect.png"));
         return action;

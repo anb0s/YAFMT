@@ -62,7 +62,7 @@ public class FeatureModelEditor extends ModelEditor {
     private ConstraintsEditor constraintsEditor;
     private ConstraintCache constraintCache;
     private IContentOutlinePage contentOutlinePage;
-
+    
     // ==================================================================================
     //  Basic initialization
     // ==================================================================================

@@ -23,6 +23,7 @@ public class SelectFeaturesAction extends FeatureSelectionAction {
 
     private static IAction initAction(IAction action) {
         action.setId(ID);
+        action.setActionDefinitionId(ID);
         action.setText("Select Features");
         action.setImageDescriptor(FeatureConfigurationEditorPlugin.getAccess().getImageDescriptor("select.png"));
         return action;

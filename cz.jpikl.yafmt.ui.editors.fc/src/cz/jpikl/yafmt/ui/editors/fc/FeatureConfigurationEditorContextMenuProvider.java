@@ -8,9 +8,9 @@ import org.eclipse.ui.actions.ActionFactory;
 import cz.jpikl.yafmt.ui.actions.ExportGraphicalEditorAsImageAction;
 import cz.jpikl.yafmt.ui.editors.fc.actions.SelectFeaturesAction;
 import cz.jpikl.yafmt.ui.editors.fc.actions.DeselectFeaturesAction;
-import cz.jpikl.yafmt.ui.providers.GraphicalEditorContextMenuProvider;
+import cz.jpikl.yafmt.ui.providers.ModelEditorContextMenuProvider;
 
-public class FeatureConfigurationEditorContextMenuProvider extends GraphicalEditorContextMenuProvider {
+public class FeatureConfigurationEditorContextMenuProvider extends ModelEditorContextMenuProvider {
 
     public FeatureConfigurationEditorContextMenuProvider(GraphicalEditor editor) {
         super(editor);

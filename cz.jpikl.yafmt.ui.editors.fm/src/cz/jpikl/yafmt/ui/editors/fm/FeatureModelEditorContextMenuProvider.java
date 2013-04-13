@@ -11,9 +11,9 @@ import cz.jpikl.yafmt.ui.editors.fm.actions.GroupFeaturesAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.SetFeatureCardinalityAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.SetFeatureOptimalSizeAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.UngroupFeaturesAction;
-import cz.jpikl.yafmt.ui.providers.GraphicalEditorContextMenuProvider;
+import cz.jpikl.yafmt.ui.providers.ModelEditorContextMenuProvider;
 
-public class FeatureModelEditorContextMenuProvider extends GraphicalEditorContextMenuProvider {
+public class FeatureModelEditorContextMenuProvider extends ModelEditorContextMenuProvider {
 
     public FeatureModelEditorContextMenuProvider(GraphicalEditor editor) {
         super(editor);

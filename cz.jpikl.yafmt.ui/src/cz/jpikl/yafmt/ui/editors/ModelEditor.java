@@ -41,6 +41,7 @@ import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.dialogs.SaveAsDialog;
 import org.eclipse.ui.ide.IGotoMarker;
@@ -189,11 +190,26 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette imple
     //  Actions
     // ==================================================================================
 
+    private void fixGEFActionDefinitionId(ActionFactory factory) {
+        IAction gefAction = getActionRegistry().getAction(factory.getId());
+        if((gefAction != null) && (gefAction.getActionDefinitionId() == null))
+            gefAction.setActionDefinitionId(factory.getCommandId());
+    }
+    
     @SuppressWarnings("unchecked")
     protected void createAction(IAction action) {
         getActionRegistry().registerAction(action);
         if(action instanceof SelectionAction)
             getSelectionActions().add(action.getId());
+    }
+    
+    @Override
+    protected void createActions() {
+        super.createActions();
+        // GEF actions are missing definitions IDs which are needed to display assigned keyboard shortcuts.
+        fixGEFActionDefinitionId(ActionFactory.UNDO);
+        fixGEFActionDefinitionId(ActionFactory.REDO);
+        fixGEFActionDefinitionId(ActionFactory.DELETE);
     }
 
     protected void createActionsLate() {

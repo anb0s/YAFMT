@@ -11,7 +11,7 @@ public class FeatureModelingPerspectiveFactory implements IPerspectiveFactory {
     private static final String BOTTOM_LEFT_FOLDER_ID = "BottomLeftFolder";
     private static final String BOTTOM_FOLDER_ID = "BottomFolder";
     
-    private static final String FM_VISUALIZER_ID = "cz.jpikl.yafmt.ui.views.fm";
+    private static final String FM_VISUALIZER_ID = "cz.jpikl.yafmt.ui.views.fm.FeatureModelVisualizer";
     private static final String NEW_FM_WIZARD_ID = "cz.jpikl.yafmt.ui.editors.fm.wizards.NewFeatureModelWizard";
     private static final String NEW_FC_WIZARD_ID = "cz.jpikl.yafmt.ui.editors.fc.wizards.NewFeatureConfigurationWizard";
     private static final String NEW_PROJECT_WIZARD_ID = "org.eclipse.ui.wizards.new.project";
