@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.draw2d.PositionConstants;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -47,7 +46,6 @@ import cz.jpikl.yafmt.ui.editors.fm.actions.SelectAllAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.SetFeatureCardinalityAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.SetFeatureOptimalSizeAction;
 import cz.jpikl.yafmt.ui.editors.fm.actions.UngroupFeaturesAction;
-import cz.jpikl.yafmt.ui.editors.fm.figures.FeatureFigure;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutData;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutDataFactory;
 import cz.jpikl.yafmt.ui.editors.fm.layout.LayoutDataPackage;
@@ -241,9 +239,6 @@ public class FeatureModelEditor extends ModelEditor {
         catch(IOException ex) {
             layoutData = LayoutDataFactory.eINSTANCE.createLayoutData();
             resource.getContents().add(layoutData);
-            // Set root feature position.
-            Rectangle rootBounds = new Rectangle(160, 32, FeatureFigure.INITIAL_WIDTH, FeatureFigure.INITIAL_HEGHT);
-            layoutData.set(featureModel.getRoot(), rootBounds);
         }
     }
 

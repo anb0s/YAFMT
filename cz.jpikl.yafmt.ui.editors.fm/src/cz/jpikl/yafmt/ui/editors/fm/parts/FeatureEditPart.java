@@ -17,6 +17,7 @@ import java.util.List;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
@@ -141,7 +142,9 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
     }
     
     private Rectangle createInitialLayoutData() {
-        return new Rectangle(0, 0, FeatureFigure.INITIAL_WIDTH, FeatureFigure.INITIAL_HEGHT);
+        Dimension prefSize = getFigure().getPreferredSize();
+        Dimension minSize = getFigure().getMinimumSize();
+        return new Rectangle(0, 0, Math.max(minSize.width, prefSize.width), Math.max(minSize.height, prefSize.height));
     }
     
     // ===================================================================

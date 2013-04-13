@@ -22,6 +22,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.LayerConstants;
+import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.swt.SWT;
 
@@ -31,6 +32,7 @@ import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.Group;
 import cz.jpikl.yafmt.model.validation.fm.FeatureModelValidator;
+import cz.jpikl.yafmt.ui.editors.fm.commands.AutoLayoutCommand;
 import cz.jpikl.yafmt.ui.editors.fm.figures.FeatureFigure;
 import cz.jpikl.yafmt.ui.editors.fm.figures.FeatureModelFigure;
 import cz.jpikl.yafmt.ui.editors.fm.figures.GroupFigure;
@@ -64,11 +66,20 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
     
     @Override
     public void activate() {
+        // Check if there is a layout (just for the root feature)
+        boolean noLayout = layoutData.get(featureModel.getRoot()) == null;
+        
         // Adapters must be registered before children parts activation!
         featureModel.eAdapters().add(featureModelAdapter);
         layoutData.eAdapters().add(layoutDataAdapter);
         super.activate();
         revalidateModel();
+        
+        // Recover layout if it does not exist.
+        if(noLayout) {
+            Command autoLayoutCommand = new AutoLayoutCommand(featureModel, layoutData);
+            autoLayoutCommand.execute();
+        }
     }
     
     @Override
