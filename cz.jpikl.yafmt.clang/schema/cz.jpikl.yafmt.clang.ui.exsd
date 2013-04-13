@@ -6,7 +6,7 @@
          <meta.schema plugin="cz.jpikl.yafmt.clang" id="cz.jpikl.yafmt.clang.ui" name="YAFMT Constraint Language Editing Support"/>
       </appinfo>
       <documentation>
-         This extension poit allows to add custom editor for existing constraint language for YAFMT plugin.
+         This extension poit allows to add custom editor for an existing constraint language for the YAFMT plugin.
       </documentation>
    </annotation>
 
@@ -83,10 +83,11 @@
          <meta.section type="examples"/>
       </appinfo>
       <documentation>
-         &lt;extension point=&quot;cz.jpikl.yafmt.clang.ui&quot;&gt;
+         &lt;p&gt;&lt;pre&gt;&lt;extension point=&quot;cz.jpikl.yafmt.clang.ui&quot;&gt;
   &lt;editingSupport languageId=&quot;com.example.myclang&quot; 
                   class=&quot;com.example.myclang.ui.MyConstraintLanguageEditingSupport.java&quot;/&gt;
-&lt;/extension&gt;
+&lt;/extension&gt;&lt;/pre&gt;&lt;p&gt;
+
       </documentation>
    </annotation>
 
