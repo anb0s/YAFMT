@@ -28,13 +28,13 @@ public class FeatureModelEditorContextMenuProvider extends GraphicalEditorContex
         addActionToMenu(menu, GEFActionConstants.GROUP_UNDO, ActionFactory.UNDO.getId());
         addActionToMenu(menu, GEFActionConstants.GROUP_UNDO, ActionFactory.REDO.getId());
         addActionToMenu(menu, GEFActionConstants.GROUP_EDIT, ActionFactory.DELETE.getId());
-        addActionToMenu(menu, GEFActionConstants.GROUP_EDIT,  SetFeatureCardinalityAction.ID_OPTIONAL);
+        addActionToMenu(menu, GEFActionConstants.GROUP_EDIT, SetFeatureCardinalityAction.ID_OPTIONAL);
         addActionToMenu(menu, GEFActionConstants.GROUP_EDIT, SetFeatureCardinalityAction.ID_MANDATORY);
         addActionToMenu(menu, GEFActionConstants.GROUP_EDIT, GroupFeaturesAction.ID_XOR);
         addActionToMenu(menu, GEFActionConstants.GROUP_EDIT, GroupFeaturesAction.ID_OR);
         addActionToMenu(menu, GEFActionConstants.GROUP_EDIT, UngroupFeaturesAction.ID);
-        addActionToMenu(menu, GEFActionConstants.GROUP_SAVE, AutoLayoutAction.ID);
         addActionToMenu(menu, GEFActionConstants.GROUP_SAVE, SetFeatureOptimalSizeAction.ID);
+        addActionToMenu(menu, GEFActionConstants.GROUP_SAVE, AutoLayoutAction.ID);
         addActionToMenu(menu, GEFActionConstants.GROUP_SAVE, ExportGraphicalEditorAsImageAction.ID);
     }
 
