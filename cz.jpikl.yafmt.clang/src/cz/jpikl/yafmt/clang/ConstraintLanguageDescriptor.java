@@ -3,6 +3,11 @@ package cz.jpikl.yafmt.clang;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 
+/**
+ * Descriptor of a constraint language extension.
+ * 
+ * @author Jan Pikl
+ */
 public class ConstraintLanguageDescriptor {
 
     private IConfigurationElement element;

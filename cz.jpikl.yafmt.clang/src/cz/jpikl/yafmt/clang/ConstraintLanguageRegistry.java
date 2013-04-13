@@ -8,6 +8,11 @@ import java.util.Map;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.Platform;
 
+/**
+ * Registry containing descriptors of all constraint language extensions.
+ * 
+ * @author Jan Pikl
+ */
 public class ConstraintLanguageRegistry {
 
     private static final String EXTENSION_POINT_ID = "cz.jpikl.yafmt.clang";

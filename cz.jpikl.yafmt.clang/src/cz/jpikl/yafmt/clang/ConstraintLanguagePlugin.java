@@ -6,6 +6,11 @@ import org.osgi.framework.BundleContext;
 
 import cz.jpikl.yafmt.clang.ui.EditingSupportRegistry;
 
+/**
+ * Activator for the constraint language extension point.
+ * 
+ * @author Jan Pikl
+ */
 public class ConstraintLanguagePlugin extends Plugin {
 
     public static final String ID = "cz.jpikl.yafmt.clang";
