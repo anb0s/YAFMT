@@ -22,7 +22,7 @@ public class ConstraintValuePropertyDescriptor extends ValidatingPropertyDescrip
     public CellEditor createPropertyEditor(Composite composite) {
         Constraint constraint = (Constraint) object;
 
-        // Use language custom editor from extension point if possible.
+        // Use custom editor from extension point if possible.
         EditingSupportRegistry registry = ConstraintLanguagePlugin.getDefault().getEditingSupportRegistry();
         IEditingSupport editingSupport = registry.getEditingSupport(constraint.getLanguage());
         if(editingSupport != null) {

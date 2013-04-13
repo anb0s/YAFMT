@@ -66,18 +66,20 @@ public class ConstraintsEditorEditingSupport extends EditingSupport {
         IConstraintLanguage language = clRegistry.getLanguage(languageId);
         IEditingSupport editingSupport = esRegistry.getEditingSupport(languageId);
 
-        // Custom editor.
+        // Use custom editor from extension point if possible.
         if(editingSupport != null) {
             EditingContext context = new EditingContext(getFeatureModel());
             editor = editingSupport.createCellEditor(getTable(), context);
         }
-        // Fallback editor.
         else {
             editor = new TextCellEditor(getTable());
         }
 
-        editor.setValidator(new EditorValidator(language));
-        editor.addListener(new EditorListener(editor));
+        if(editor != null) {
+            editor.setValidator(new EditorValidator(language));
+            editor.addListener(new EditorListener(editor));
+        }
+        
         return editor;
     }
 

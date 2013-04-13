@@ -5,6 +5,11 @@ import org.eclipse.core.runtime.IConfigurationElement;
 
 import cz.jpikl.yafmt.clang.ConstraintLanguagePlugin;
 
+/**
+ * Descriptor of a constraint language extension point.
+ * 
+ * @author Jan Pikl
+ */
 public class EditingSupportDescriptor {
 
     private IConfigurationElement element;

@@ -25,17 +25,21 @@ import cz.jpikl.yafmt.model.fm.Feature;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.Group;
 
-// Cache preserving feature-constraint mapping, indicating which
-// constraints affect which features and vice versa.
+/**
+ * Cache preserving feature-constraint mapping, indicating which constraints
+ * affect which features and vice versa.
+ * 
+ * @author Jan Pikl
+ */
 public class ConstraintCache {
 
     private ConstraintLanguageRegistry registry = ConstraintLanguagePlugin.getDefault().getConstraintLanguageRegistry();
     private FeatureModelAdapter featureModelAdapter = new FeatureModelAdapter();
-    
+
     private Map<Constraint, List<Feature>> constraintToFeatures = new HashMap<Constraint, List<Feature>>();
     private Map<Feature, Set<Constraint>> featureToConstraints = new HashMap<Feature, Set<Constraint>>();
     private Map<Constraint, IEvaluator> constraintToEvaluator = new HashMap<Constraint, IEvaluator>();
-    
+
     private FeatureModel featureModel;
     private boolean valid = false;
 
@@ -54,24 +58,24 @@ public class ConstraintCache {
     public void setFeatureModel(FeatureModel newFeatureModel) {
         if(featureModel == newFeatureModel)
             return;
-        
+
         if(featureModel != null)
             featureModel.eAdapters().remove(featureModelAdapter);
         featureModel = newFeatureModel;
         if(featureModel != null)
             featureModel.eAdapters().add(featureModelAdapter);
-        
+
         invalidate();
     }
-    
+
     public Collection<Feature> getFeaturesAffectedByConstraint() {
         checkValidity();
         return featureToConstraints.keySet();
     }
-    
+
     public Collection<Feature> getFeaturesAffectedByConstraint(Constraint constraint) {
         checkValidity();
-        
+
         Collection<Feature> features = constraintToFeatures.get(constraint);
         if(features != null)
             return features;
@@ -80,13 +84,13 @@ public class ConstraintCache {
 
     public Collection<Constraint> getConstraintsAffectingFeature(Feature feature) {
         checkValidity();
-        
+
         Collection<Constraint> constraints = featureToConstraints.get(feature);
         if(constraints != null)
             return constraints;
         return Collections.emptyList();
     }
-    
+
     // =======================================================================
     //  Cache invalidation/refreshing
     // =======================================================================
@@ -96,20 +100,20 @@ public class ConstraintCache {
         constraintToFeatures.clear();
         valid = false;
     }
-    
+
     private void checkValidity() {
         if(!valid && (featureModel != null)) {
             refresh();
             valid = true;
         }
     }
-    
+
     private void refresh() {
         for(Map.Entry<Constraint, IEvaluator> entry: constraintToEvaluator.entrySet()) {
             Constraint constraint = entry.getKey();
             IEvaluator evaluator = entry.getValue();
             List<Feature> features = evaluator.getAffectedFeatures(featureModel);
-            
+
             constraintToFeatures.put(constraint, features);
 
             for(Feature feature: features) {
@@ -126,21 +130,21 @@ public class ConstraintCache {
     // =======================================================================
     //  Helpers
     // =======================================================================
-    
+
     private boolean setEvaluator(Constraint constraint, IEvaluator evaluator) {
         if(evaluator != null) {
             constraintToEvaluator.put(constraint, evaluator);
             return true;
         }
-        
+
         return constraintToEvaluator.remove(constraint) != null;
     }
-    
+
     private IEvaluator createEvaluator(Constraint constraint) {
         IConstraintLanguage langauge = registry.getLanguage(constraint.getLanguage());
         if(langauge == null)
             return null;
-        
+
         try {
             return langauge.createEvaluator(constraint.getValue());
         }
@@ -148,59 +152,59 @@ public class ConstraintCache {
             return null; // Ignore that.
         }
     }
-    
+
     // =======================================================================
     //  Events
     // =======================================================================
-    
+
     private class FeatureModelAdapter extends EContentAdapter {
-        
+
         @Override
         protected void addAdapter(Notifier notifier) {
             super.addAdapter(notifier);
-            
+
             if(notifier instanceof Constraint) {
                 Constraint constraint = (Constraint) notifier;
                 if(setEvaluator(constraint, createEvaluator(constraint)))
                     invalidate();
             }
         }
-        
+
         @Override
         protected void removeAdapter(Notifier notifier) {
             super.removeAdapter(notifier);
-            
+
             if(notifier instanceof Constraint) {
                 Constraint constraint = (Constraint) notifier;
                 if(setEvaluator(constraint, null))
                     invalidate();
             }
         }
-        
+
         @Override
         public void notifyChanged(Notification msg) {
             super.notifyChanged(msg);
-            
-            EObject notifier = (EObject) msg.getNotifier(); 
+
+            EObject notifier = (EObject) msg.getNotifier();
             switch(notifier.eClass().getClassifierID()) {
                 case FEATURE_MODEL:
                     notifyChangedFromFeatureModel(msg);
                     break;
-                
+
                 case FEATURE:
                     notifyChangedFromFeature(msg);
                     break;
-                    
+
                 case GROUP:
                     notifyChangedFromGroup(msg);
                     break;
-                    
+
                 case CONSTRAINT:
                     notifyChangedFromConstraint(msg);
                     break;
             }
         }
-        
+
         private void notifyChangedFromFeatureModel(Notification msg) {
             switch(msg.getFeatureID(FeatureModel.class)) {
                 case FEATURE_MODEL__ROOT:
@@ -220,7 +224,7 @@ public class ConstraintCache {
                     break;
             }
         }
-        
+
         private void notifyChangedFromGroup(Notification msg) {
             switch(msg.getFeatureID(Group.class)) {
                 case GROUP__FEATURES:
@@ -231,7 +235,7 @@ public class ConstraintCache {
 
         private void notifyChangedFromConstraint(Notification msg) {
             Constraint constraint = (Constraint) msg.getNotifier();
-            
+
             switch(msg.getFeatureID(Constraint.class)) {
                 case CONSTRAINT__LANGUAGE:
                 case CONSTRAINT__VALUE:
@@ -240,7 +244,7 @@ public class ConstraintCache {
                     break;
             }
         }
-        
+
     }
-    
+
 }

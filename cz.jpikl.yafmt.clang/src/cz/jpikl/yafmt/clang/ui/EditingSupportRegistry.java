@@ -8,6 +8,12 @@ import org.eclipse.core.runtime.Platform;
 
 import cz.jpikl.yafmt.clang.ConstraintLanguagePlugin;
 
+/**
+ * Registry containing descriptors of all constraint language editing support
+ * extensions.
+ * 
+ * @author Jan Pikl
+ */
 public class EditingSupportRegistry {
 
     private static final String EXTENSION_POINT_ID = "cz.jpikl.yafmt.clang.ui";
