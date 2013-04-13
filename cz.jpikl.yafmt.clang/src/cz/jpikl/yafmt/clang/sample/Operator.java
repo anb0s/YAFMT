@@ -1,4 +1,4 @@
-package cz.jpikl.yafmt.clang.base;
+package cz.jpikl.yafmt.clang.sample;
 
 
 public enum Operator {

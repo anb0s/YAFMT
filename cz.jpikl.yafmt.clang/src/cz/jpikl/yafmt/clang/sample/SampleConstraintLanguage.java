@@ -1,23 +1,37 @@
-package cz.jpikl.yafmt.clang.base;
+package cz.jpikl.yafmt.clang.sample;
 
 import cz.jpikl.yafmt.clang.ConstraintLanguage;
 import cz.jpikl.yafmt.clang.ConstraintLanguageException;
 import cz.jpikl.yafmt.clang.IEvaluator;
 
-// Dummy constraint language just for testing purpose.
-public class BaseLanguage extends ConstraintLanguage {
+/**
+ * Example implementation of the constraint language extension point. This constraint
+ * language supports only <i>require</i> and <i>mutual exclusion</i> types of constraints.
+ * Its grammar is <code>featureID ('require' | 'mutex-with') featureID</code>.
+ * 
+ * @author Jan Pikl
+ */
+public class SampleConstraintLanguage extends ConstraintLanguage {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public IEvaluator createEvaluator(String constraintValue) throws ConstraintLanguageException {
+        // Check if we got any value.
         if(constraintValue == null)
             throw new ConstraintLanguageException("Missing first operand.");
         
+        // Check if the first operand is present.
         String[] parts = constraintValue.split("\\s+");
         if((parts == null) || parts.length < 1 || (parts[0] == null) || parts[0].trim().isEmpty())
             throw new ConstraintLanguageException("Missing first operand.");
-        if(parts.length == 1)
-            throw new ConstraintLanguageException("Missing operator");
         
+        // Check if there is an operator
+        if(parts.length == 1)
+            throw new ConstraintLanguageException("Missing operator.");
+        
+        // Check if the operator is valid.
         Operator operator;
         if("requires".equals(parts[1]))
             operator = Operator.REQUIRES;
@@ -26,12 +40,16 @@ public class BaseLanguage extends ConstraintLanguage {
         else
             throw new ConstraintLanguageException("Operator must be 'requires' or 'mutex-with'.");
         
+        // Check if the second operand is present.
         if(parts.length == 2)
             throw new ConstraintLanguageException("Missing second operand.");
+        
+        // Check the rest of the constraint.
         if(parts.length > 3)
             throw new ConstraintLanguageException("Unnecessary input at the end.");
         
-        return new BaseEvaluator(parts[0], parts[2], operator);
+        // Create evaluator.
+        return new SampleEvaluator(parts[0], parts[2], operator);
     }
 
 }

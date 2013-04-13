@@ -6,10 +6,10 @@
    <extension
          point="cz.jpikl.yafmt.clang">
       <language
-            class="cz.jpikl.yafmt.clang.base.BaseLanguage"
-            id="cz.jpikl.yafmt.clang.base"
-            name="Base Language"
-            shortName="BL">
+            class="cz.jpikl.yafmt.clang.sample.SampleConstraintLanguage"
+            id="cz.jpikl.yafmt.clang.SampleConstraintLanguage"
+            name="Sample Constraint Language"
+            shortName="SamCL">
       </language>
    </extension>
 
