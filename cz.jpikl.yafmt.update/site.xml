@@ -9,7 +9,7 @@
    <feature url="features/de.itemis.xtext.utils.jface_1.0.0.201205141449.jar" id="de.itemis.xtext.utils.jface" version="1.0.0.201205141449">
       <category name="dependencies"/>
    </feature>
-   <feature url="features/cz.jpikl.yafmt.clang.scl.feature_0.3.0.201304070211.jar" id="cz.jpikl.yafmt.clang.scl.feature" version="0.3.0.201304070211">
+   <feature url="features/cz.jpikl.yafmt.clang.bcl.feature_0.3.0.201304070211.jar" id="cz.jpikl.yafmt.clang.bcl.feature" version="0.3.0.201304070211">
       <category name="yafmt"/>
    </feature>
    <feature url="features/cz.jpikl.yafmt.ui.editors.fc.feature_0.3.0.201304070211.jar" id="cz.jpikl.yafmt.ui.editors.fc.feature" version="0.3.0.201304070211">

@@ -4,7 +4,6 @@ import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.CONSTRAINT__LANGUAGE;
 import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.CONSTRAINT__VALUE;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -263,16 +262,18 @@ public class ConstraintsEditor extends SplitterDock implements ISelectionListene
 
     private String getDefaultConstraintLanguage() {
         // Get last used language for constraint if possible.
+        String languageId = null;
         List<Constraint> constraints = featureModel.getConstraints();
         if(!constraints.isEmpty())
-            return constraints.get(constraints.size() - 1).getLanguage();
+            languageId = constraints.get(constraints.size() - 1).getLanguage();
 
-        // Look for the last language in registry.
+        // Check if that language really exists.
         ConstraintLanguageRegistry registry = ConstraintLanguagePlugin.getDefault().getConstraintLanguageRegistry();
-        ConstraintLanguageDescriptor descriptor = null;
-        Iterator<ConstraintLanguageDescriptor> iterator = registry.getDescriptors().iterator();
-        while(iterator.hasNext())
-            descriptor = iterator.next();
+        if(registry.getDescriptor(languageId) != null)
+            return languageId;
+        
+        // Return the first language in registry.
+        ConstraintLanguageDescriptor descriptor = registry.getDescriptors().iterator().next();
         return (descriptor != null) ? descriptor.getId() : null;
     }
     
