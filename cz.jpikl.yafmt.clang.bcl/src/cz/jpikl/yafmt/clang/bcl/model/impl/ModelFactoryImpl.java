@@ -57,9 +57,9 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
     public EObject create(EClass eClass) {
         switch (eClass.getClassifierID()) {
             case ModelPackage.CONTEXTUAL_EXPRESSION: return createContextualExpression();
+            case ModelPackage.EQUATION: return createEquation();
             case ModelPackage.IMPLICATION: return createImplication();
             case ModelPackage.DISJUNCTION: return createDisjunction();
-            case ModelPackage.EXCLUSIVE_DISJUNCTION: return createExclusiveDisjunction();
             case ModelPackage.CONJUNCTION: return createConjunction();
             case ModelPackage.NEGATION: return createNegation();
             case ModelPackage.PRIMARY_EXPRESSION: return createPrimaryExpression();
@@ -83,6 +83,16 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
      * <!-- end-user-doc -->
      * @generated
      */
+    public Equation createEquation() {
+        EquationImpl equation = new EquationImpl();
+        return equation;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Implication createImplication() {
         ImplicationImpl implication = new ImplicationImpl();
         return implication;
@@ -96,16 +106,6 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
     public Disjunction createDisjunction() {
         DisjunctionImpl disjunction = new DisjunctionImpl();
         return disjunction;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public ExclusiveDisjunction createExclusiveDisjunction() {
-        ExclusiveDisjunctionImpl exclusiveDisjunction = new ExclusiveDisjunctionImpl();
-        return exclusiveDisjunction;
     }
 
     /**

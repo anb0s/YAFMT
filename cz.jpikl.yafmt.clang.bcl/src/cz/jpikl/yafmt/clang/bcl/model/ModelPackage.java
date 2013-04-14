@@ -112,6 +112,43 @@ public interface ModelPackage extends EPackage {
     int CONTEXTUAL_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
 
     /**
+     * The meta object id for the '{@link cz.jpikl.yafmt.clang.bcl.model.impl.EquationImpl <em>Equation</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see cz.jpikl.yafmt.clang.bcl.model.impl.EquationImpl
+     * @see cz.jpikl.yafmt.clang.bcl.model.impl.ModelPackageImpl#getEquation()
+     * @generated
+     */
+    int EQUATION = 2;
+
+    /**
+     * The feature id for the '<em><b>Left Part</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EQUATION__LEFT_PART = EXPRESSION_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Right Part</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EQUATION__RIGHT_PART = EXPRESSION_FEATURE_COUNT + 1;
+
+    /**
+     * The number of structural features of the '<em>Equation</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EQUATION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
+
+    /**
      * The meta object id for the '{@link cz.jpikl.yafmt.clang.bcl.model.impl.ImplicationImpl <em>Implication</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -119,7 +156,7 @@ public interface ModelPackage extends EPackage {
      * @see cz.jpikl.yafmt.clang.bcl.model.impl.ModelPackageImpl#getImplication()
      * @generated
      */
-    int IMPLICATION = 2;
+    int IMPLICATION = 3;
 
     /**
      * The feature id for the '<em><b>Left Part</b></em>' containment reference.
@@ -156,16 +193,25 @@ public interface ModelPackage extends EPackage {
      * @see cz.jpikl.yafmt.clang.bcl.model.impl.ModelPackageImpl#getDisjunction()
      * @generated
      */
-    int DISJUNCTION = 3;
+    int DISJUNCTION = 4;
 
     /**
-     * The feature id for the '<em><b>Parts</b></em>' containment reference list.
+     * The feature id for the '<em><b>Left Part</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int DISJUNCTION__PARTS = EXPRESSION_FEATURE_COUNT + 0;
+    int DISJUNCTION__LEFT_PART = EXPRESSION_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Right Part</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DISJUNCTION__RIGHT_PART = EXPRESSION_FEATURE_COUNT + 1;
 
     /**
      * The number of structural features of the '<em>Disjunction</em>' class.
@@ -174,35 +220,7 @@ public interface ModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DISJUNCTION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
-
-    /**
-     * The meta object id for the '{@link cz.jpikl.yafmt.clang.bcl.model.impl.ExclusiveDisjunctionImpl <em>Exclusive Disjunction</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see cz.jpikl.yafmt.clang.bcl.model.impl.ExclusiveDisjunctionImpl
-     * @see cz.jpikl.yafmt.clang.bcl.model.impl.ModelPackageImpl#getExclusiveDisjunction()
-     * @generated
-     */
-    int EXCLUSIVE_DISJUNCTION = 4;
-
-    /**
-     * The feature id for the '<em><b>Parts</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EXCLUSIVE_DISJUNCTION__PARTS = EXPRESSION_FEATURE_COUNT + 0;
-
-    /**
-     * The number of structural features of the '<em>Exclusive Disjunction</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EXCLUSIVE_DISJUNCTION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
+    int DISJUNCTION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
 
     /**
      * The meta object id for the '{@link cz.jpikl.yafmt.clang.bcl.model.impl.ConjunctionImpl <em>Conjunction</em>}' class.
@@ -215,13 +233,22 @@ public interface ModelPackage extends EPackage {
     int CONJUNCTION = 5;
 
     /**
-     * The feature id for the '<em><b>Parts</b></em>' containment reference list.
+     * The feature id for the '<em><b>Left Part</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int CONJUNCTION__PARTS = EXPRESSION_FEATURE_COUNT + 0;
+    int CONJUNCTION__LEFT_PART = EXPRESSION_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Right Part</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONJUNCTION__RIGHT_PART = EXPRESSION_FEATURE_COUNT + 1;
 
     /**
      * The number of structural features of the '<em>Conjunction</em>' class.
@@ -230,7 +257,7 @@ public interface ModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONJUNCTION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
+    int CONJUNCTION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
 
     /**
      * The meta object id for the '{@link cz.jpikl.yafmt.clang.bcl.model.impl.NegationImpl <em>Negation</em>}' class.
@@ -331,6 +358,38 @@ public interface ModelPackage extends EPackage {
     EReference getContextualExpression_Expression();
 
     /**
+     * Returns the meta object for class '{@link cz.jpikl.yafmt.clang.bcl.model.Equation <em>Equation</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Equation</em>'.
+     * @see cz.jpikl.yafmt.clang.bcl.model.Equation
+     * @generated
+     */
+    EClass getEquation();
+
+    /**
+     * Returns the meta object for the containment reference '{@link cz.jpikl.yafmt.clang.bcl.model.Equation#getLeftPart <em>Left Part</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Left Part</em>'.
+     * @see cz.jpikl.yafmt.clang.bcl.model.Equation#getLeftPart()
+     * @see #getEquation()
+     * @generated
+     */
+    EReference getEquation_LeftPart();
+
+    /**
+     * Returns the meta object for the containment reference '{@link cz.jpikl.yafmt.clang.bcl.model.Equation#getRightPart <em>Right Part</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Right Part</em>'.
+     * @see cz.jpikl.yafmt.clang.bcl.model.Equation#getRightPart()
+     * @see #getEquation()
+     * @generated
+     */
+    EReference getEquation_RightPart();
+
+    /**
      * Returns the meta object for class '{@link cz.jpikl.yafmt.clang.bcl.model.Implication <em>Implication</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -373,36 +432,26 @@ public interface ModelPackage extends EPackage {
     EClass getDisjunction();
 
     /**
-     * Returns the meta object for the containment reference list '{@link cz.jpikl.yafmt.clang.bcl.model.Disjunction#getParts <em>Parts</em>}'.
+     * Returns the meta object for the containment reference '{@link cz.jpikl.yafmt.clang.bcl.model.Disjunction#getLeftPart <em>Left Part</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the containment reference list '<em>Parts</em>'.
-     * @see cz.jpikl.yafmt.clang.bcl.model.Disjunction#getParts()
+     * @return the meta object for the containment reference '<em>Left Part</em>'.
+     * @see cz.jpikl.yafmt.clang.bcl.model.Disjunction#getLeftPart()
      * @see #getDisjunction()
      * @generated
      */
-    EReference getDisjunction_Parts();
+    EReference getDisjunction_LeftPart();
 
     /**
-     * Returns the meta object for class '{@link cz.jpikl.yafmt.clang.bcl.model.ExclusiveDisjunction <em>Exclusive Disjunction</em>}'.
+     * Returns the meta object for the containment reference '{@link cz.jpikl.yafmt.clang.bcl.model.Disjunction#getRightPart <em>Right Part</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for class '<em>Exclusive Disjunction</em>'.
-     * @see cz.jpikl.yafmt.clang.bcl.model.ExclusiveDisjunction
+     * @return the meta object for the containment reference '<em>Right Part</em>'.
+     * @see cz.jpikl.yafmt.clang.bcl.model.Disjunction#getRightPart()
+     * @see #getDisjunction()
      * @generated
      */
-    EClass getExclusiveDisjunction();
-
-    /**
-     * Returns the meta object for the containment reference list '{@link cz.jpikl.yafmt.clang.bcl.model.ExclusiveDisjunction#getParts <em>Parts</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the containment reference list '<em>Parts</em>'.
-     * @see cz.jpikl.yafmt.clang.bcl.model.ExclusiveDisjunction#getParts()
-     * @see #getExclusiveDisjunction()
-     * @generated
-     */
-    EReference getExclusiveDisjunction_Parts();
+    EReference getDisjunction_RightPart();
 
     /**
      * Returns the meta object for class '{@link cz.jpikl.yafmt.clang.bcl.model.Conjunction <em>Conjunction</em>}'.
@@ -415,15 +464,26 @@ public interface ModelPackage extends EPackage {
     EClass getConjunction();
 
     /**
-     * Returns the meta object for the containment reference list '{@link cz.jpikl.yafmt.clang.bcl.model.Conjunction#getParts <em>Parts</em>}'.
+     * Returns the meta object for the containment reference '{@link cz.jpikl.yafmt.clang.bcl.model.Conjunction#getLeftPart <em>Left Part</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the containment reference list '<em>Parts</em>'.
-     * @see cz.jpikl.yafmt.clang.bcl.model.Conjunction#getParts()
+     * @return the meta object for the containment reference '<em>Left Part</em>'.
+     * @see cz.jpikl.yafmt.clang.bcl.model.Conjunction#getLeftPart()
      * @see #getConjunction()
      * @generated
      */
-    EReference getConjunction_Parts();
+    EReference getConjunction_LeftPart();
+
+    /**
+     * Returns the meta object for the containment reference '{@link cz.jpikl.yafmt.clang.bcl.model.Conjunction#getRightPart <em>Right Part</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Right Part</em>'.
+     * @see cz.jpikl.yafmt.clang.bcl.model.Conjunction#getRightPart()
+     * @see #getConjunction()
+     * @generated
+     */
+    EReference getConjunction_RightPart();
 
     /**
      * Returns the meta object for class '{@link cz.jpikl.yafmt.clang.bcl.model.Negation <em>Negation</em>}'.
@@ -526,6 +586,32 @@ public interface ModelPackage extends EPackage {
         EReference CONTEXTUAL_EXPRESSION__EXPRESSION = eINSTANCE.getContextualExpression_Expression();
 
         /**
+         * The meta object literal for the '{@link cz.jpikl.yafmt.clang.bcl.model.impl.EquationImpl <em>Equation</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see cz.jpikl.yafmt.clang.bcl.model.impl.EquationImpl
+         * @see cz.jpikl.yafmt.clang.bcl.model.impl.ModelPackageImpl#getEquation()
+         * @generated
+         */
+        EClass EQUATION = eINSTANCE.getEquation();
+
+        /**
+         * The meta object literal for the '<em><b>Left Part</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference EQUATION__LEFT_PART = eINSTANCE.getEquation_LeftPart();
+
+        /**
+         * The meta object literal for the '<em><b>Right Part</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference EQUATION__RIGHT_PART = eINSTANCE.getEquation_RightPart();
+
+        /**
          * The meta object literal for the '{@link cz.jpikl.yafmt.clang.bcl.model.impl.ImplicationImpl <em>Implication</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -562,30 +648,20 @@ public interface ModelPackage extends EPackage {
         EClass DISJUNCTION = eINSTANCE.getDisjunction();
 
         /**
-         * The meta object literal for the '<em><b>Parts</b></em>' containment reference list feature.
+         * The meta object literal for the '<em><b>Left Part</b></em>' containment reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EReference DISJUNCTION__PARTS = eINSTANCE.getDisjunction_Parts();
+        EReference DISJUNCTION__LEFT_PART = eINSTANCE.getDisjunction_LeftPart();
 
         /**
-         * The meta object literal for the '{@link cz.jpikl.yafmt.clang.bcl.model.impl.ExclusiveDisjunctionImpl <em>Exclusive Disjunction</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @see cz.jpikl.yafmt.clang.bcl.model.impl.ExclusiveDisjunctionImpl
-         * @see cz.jpikl.yafmt.clang.bcl.model.impl.ModelPackageImpl#getExclusiveDisjunction()
-         * @generated
-         */
-        EClass EXCLUSIVE_DISJUNCTION = eINSTANCE.getExclusiveDisjunction();
-
-        /**
-         * The meta object literal for the '<em><b>Parts</b></em>' containment reference list feature.
+         * The meta object literal for the '<em><b>Right Part</b></em>' containment reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EReference EXCLUSIVE_DISJUNCTION__PARTS = eINSTANCE.getExclusiveDisjunction_Parts();
+        EReference DISJUNCTION__RIGHT_PART = eINSTANCE.getDisjunction_RightPart();
 
         /**
          * The meta object literal for the '{@link cz.jpikl.yafmt.clang.bcl.model.impl.ConjunctionImpl <em>Conjunction</em>}' class.
@@ -598,12 +674,20 @@ public interface ModelPackage extends EPackage {
         EClass CONJUNCTION = eINSTANCE.getConjunction();
 
         /**
-         * The meta object literal for the '<em><b>Parts</b></em>' containment reference list feature.
+         * The meta object literal for the '<em><b>Left Part</b></em>' containment reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EReference CONJUNCTION__PARTS = eINSTANCE.getConjunction_Parts();
+        EReference CONJUNCTION__LEFT_PART = eINSTANCE.getConjunction_LeftPart();
+
+        /**
+         * The meta object literal for the '<em><b>Right Part</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference CONJUNCTION__RIGHT_PART = eINSTANCE.getConjunction_RightPart();
 
         /**
          * The meta object literal for the '{@link cz.jpikl.yafmt.clang.bcl.model.impl.NegationImpl <em>Negation</em>}' class.

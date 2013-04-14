@@ -5,40 +5,40 @@ package cz.jpikl.yafmt.clang.bcl.model;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Disjunction</b></em>'.
+ * A representation of the model object '<em><b>Equation</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link cz.jpikl.yafmt.clang.bcl.model.Disjunction#getLeftPart <em>Left Part</em>}</li>
- *   <li>{@link cz.jpikl.yafmt.clang.bcl.model.Disjunction#getRightPart <em>Right Part</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.clang.bcl.model.Equation#getLeftPart <em>Left Part</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.clang.bcl.model.Equation#getRightPart <em>Right Part</em>}</li>
  * </ul>
  * </p>
  *
- * @see cz.jpikl.yafmt.clang.bcl.model.ModelPackage#getDisjunction()
+ * @see cz.jpikl.yafmt.clang.bcl.model.ModelPackage#getEquation()
  * @model
  * @generated
  */
-public interface Disjunction extends Expression {
+public interface Equation extends Expression {
     /**
      * Returns the value of the '<em><b>Left Part</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Left Part</em>' containment reference list isn't clear,
+     * If the meaning of the '<em>Left Part</em>' containment reference isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Left Part</em>' containment reference.
      * @see #setLeftPart(Expression)
-     * @see cz.jpikl.yafmt.clang.bcl.model.ModelPackage#getDisjunction_LeftPart()
+     * @see cz.jpikl.yafmt.clang.bcl.model.ModelPackage#getEquation_LeftPart()
      * @model containment="true"
      * @generated
      */
     Expression getLeftPart();
 
     /**
-     * Sets the value of the '{@link cz.jpikl.yafmt.clang.bcl.model.Disjunction#getLeftPart <em>Left Part</em>}' containment reference.
+     * Sets the value of the '{@link cz.jpikl.yafmt.clang.bcl.model.Equation#getLeftPart <em>Left Part</em>}' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @param value the new value of the '<em>Left Part</em>' containment reference.
@@ -57,14 +57,14 @@ public interface Disjunction extends Expression {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Right Part</em>' containment reference.
      * @see #setRightPart(Expression)
-     * @see cz.jpikl.yafmt.clang.bcl.model.ModelPackage#getDisjunction_RightPart()
+     * @see cz.jpikl.yafmt.clang.bcl.model.ModelPackage#getEquation_RightPart()
      * @model containment="true"
      * @generated
      */
     Expression getRightPart();
 
     /**
-     * Sets the value of the '{@link cz.jpikl.yafmt.clang.bcl.model.Disjunction#getRightPart <em>Right Part</em>}' containment reference.
+     * Sets the value of the '{@link cz.jpikl.yafmt.clang.bcl.model.Equation#getRightPart <em>Right Part</em>}' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @param value the new value of the '<em>Right Part</em>' containment reference.
@@ -73,4 +73,4 @@ public interface Disjunction extends Expression {
      */
     void setRightPart(Expression value);
 
-} // Disjunction
+} // Equation

@@ -31,6 +31,15 @@ public interface ModelFactory extends EFactory {
     ContextualExpression createContextualExpression();
 
     /**
+     * Returns a new object of class '<em>Equation</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Equation</em>'.
+     * @generated
+     */
+    Equation createEquation();
+
+    /**
      * Returns a new object of class '<em>Implication</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -47,15 +56,6 @@ public interface ModelFactory extends EFactory {
      * @generated
      */
     Disjunction createDisjunction();
-
-    /**
-     * Returns a new object of class '<em>Exclusive Disjunction</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return a new object of class '<em>Exclusive Disjunction</em>'.
-     * @generated
-     */
-    ExclusiveDisjunction createExclusiveDisjunction();
 
     /**
      * Returns a new object of class '<em>Conjunction</em>'.

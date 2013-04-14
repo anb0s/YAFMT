@@ -23,10 +23,6 @@ public class BooleanConstraintLanguageGrammarAccess extends AbstractGrammarEleme
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Expression");
 		private final RuleCall cContextualExpressionParserRuleCall = (RuleCall)rule.eContents().get(1);
 		
-		//// Unassigned rule call
-		//// 
-		//// It simply call ContextualExpression rule.
-		//// The return type is Expression (abstract class for all kinds of expressions).
 		//Expression:
 		//	ContextualExpression;
 		public ParserRule getRule() { return rule; }
@@ -45,22 +41,17 @@ public class BooleanConstraintLanguageGrammarAccess extends AbstractGrammarEleme
 		private final RuleCall cContextIdIDTerminalRuleCall_0_2_0 = (RuleCall)cContextIdAssignment_0_2.eContents().get(0);
 		private final Keyword cColonKeyword_0_3 = (Keyword)cGroup_0.eContents().get(3);
 		private final Assignment cExpressionAssignment_0_4 = (Assignment)cGroup_0.eContents().get(4);
-		private final RuleCall cExpressionImplicationParserRuleCall_0_4_0 = (RuleCall)cExpressionAssignment_0_4.eContents().get(0);
-		private final RuleCall cImplicationParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cExpressionEquationParserRuleCall_0_4_0 = (RuleCall)cExpressionAssignment_0_4.eContents().get(0);
+		private final RuleCall cEquationParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
-		//// Uses simple action: {ExplicitReturnType} memberVariable=value.
-		////
-		//// If there is 'context' token at input, instance of ContextualExpression is returned. 
-		//// Value contains the parsed ID and expression contains the result of Implication rule.
-		//// Otherwise (no 'context' found), the result of Implication rule is returned. 
 		//ContextualExpression returns Expression:
-		//	"context" {ContextualExpression} contextId=ID ":" expression=Implication | Implication;
+		//	"context" {ContextualExpression} contextId=ID ":" expression=Equation | Equation;
 		public ParserRule getRule() { return rule; }
 
-		//"context" {ContextualExpression} contextId=ID ":" expression=Implication | Implication
+		//"context" {ContextualExpression} contextId=ID ":" expression=Equation | Equation
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//"context" {ContextualExpression} contextId=ID ":" expression=Implication
+		//"context" {ContextualExpression} contextId=ID ":" expression=Equation
 		public Group getGroup_0() { return cGroup_0; }
 
 		//"context"
@@ -78,14 +69,50 @@ public class BooleanConstraintLanguageGrammarAccess extends AbstractGrammarEleme
 		//":"
 		public Keyword getColonKeyword_0_3() { return cColonKeyword_0_3; }
 
-		//expression=Implication
+		//expression=Equation
 		public Assignment getExpressionAssignment_0_4() { return cExpressionAssignment_0_4; }
 
-		//Implication
-		public RuleCall getExpressionImplicationParserRuleCall_0_4_0() { return cExpressionImplicationParserRuleCall_0_4_0; }
+		//Equation
+		public RuleCall getExpressionEquationParserRuleCall_0_4_0() { return cExpressionEquationParserRuleCall_0_4_0; }
+
+		//Equation
+		public RuleCall getEquationParserRuleCall_1() { return cEquationParserRuleCall_1; }
+	}
+
+	public class EquationElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Equation");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final RuleCall cImplicationParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Action cEquationLeftPartAction_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Keyword cEqualsKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
+		private final Assignment cRightPartAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
+		private final RuleCall cRightPartImplicationParserRuleCall_1_2_0 = (RuleCall)cRightPartAssignment_1_2.eContents().get(0);
+		
+		//Equation returns Expression:
+		//	Implication ({Equation.leftPart=current} "equals" rightPart=Implication)*;
+		public ParserRule getRule() { return rule; }
+
+		//Implication ({Equation.leftPart=current} "equals" rightPart=Implication)*
+		public Group getGroup() { return cGroup; }
 
 		//Implication
-		public RuleCall getImplicationParserRuleCall_1() { return cImplicationParserRuleCall_1; }
+		public RuleCall getImplicationParserRuleCall_0() { return cImplicationParserRuleCall_0; }
+
+		//({Equation.leftPart=current} "equals" rightPart=Implication)*
+		public Group getGroup_1() { return cGroup_1; }
+
+		//{Equation.leftPart=current}
+		public Action getEquationLeftPartAction_1_0() { return cEquationLeftPartAction_1_0; }
+
+		//"equals"
+		public Keyword getEqualsKeyword_1_1() { return cEqualsKeyword_1_1; }
+
+		//rightPart=Implication
+		public Assignment getRightPartAssignment_1_2() { return cRightPartAssignment_1_2; }
+
+		//Implication
+		public RuleCall getRightPartImplicationParserRuleCall_1_2_0() { return cRightPartImplicationParserRuleCall_1_2_0; }
 	}
 
 	public class ImplicationElements extends AbstractParserRuleElementFinder {
@@ -99,16 +126,16 @@ public class BooleanConstraintLanguageGrammarAccess extends AbstractGrammarEleme
 		private final RuleCall cRightPartDisjunctionParserRuleCall_1_2_0 = (RuleCall)cRightPartAssignment_1_2.eContents().get(0);
 		
 		//Implication returns Expression:
-		//	Disjunction ({Implication.leftPart=current} "implies" rightPart=Disjunction)?;
+		//	Disjunction ({Implication.leftPart=current} "implies" rightPart=Disjunction)*;
 		public ParserRule getRule() { return rule; }
 
-		//Disjunction ({Implication.leftPart=current} "implies" rightPart=Disjunction)?
+		//Disjunction ({Implication.leftPart=current} "implies" rightPart=Disjunction)*
 		public Group getGroup() { return cGroup; }
 
 		//Disjunction
 		public RuleCall getDisjunctionParserRuleCall_0() { return cDisjunctionParserRuleCall_0; }
 
-		//({Implication.leftPart=current} "implies" rightPart=Disjunction)?
+		//({Implication.leftPart=current} "implies" rightPart=Disjunction)*
 		public Group getGroup_1() { return cGroup_1; }
 
 		//{Implication.leftPart=current}
@@ -127,92 +154,37 @@ public class BooleanConstraintLanguageGrammarAccess extends AbstractGrammarEleme
 	public class DisjunctionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Disjunction");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cExclusiveDisjunctionParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Action cDisjunctionPartsAction_1_0 = (Action)cGroup_1.eContents().get(0);
-		private final Group cGroup_1_1 = (Group)cGroup_1.eContents().get(1);
-		private final Keyword cOrKeyword_1_1_0 = (Keyword)cGroup_1_1.eContents().get(0);
-		private final Assignment cPartsAssignment_1_1_1 = (Assignment)cGroup_1_1.eContents().get(1);
-		private final RuleCall cPartsExclusiveDisjunctionParserRuleCall_1_1_1_0 = (RuleCall)cPartsAssignment_1_1_1.eContents().get(0);
-		
-		//// Uses assigned action: {ExplicitReturnType.memberVariable=value}.
-		//// This particular case is also called tree rewrite action.
-		////
-		//// If there is no 'or' token, the rule simply returns result of the only one ExclusiveDisjunction rule.
-		////
-		//// Otherwise, instance of Disjunction is returned. Parts array contains results of parsed ExclusiveDisjunction 
-		//// rules. The result of the first one ExclusiveDisjunction (current keyword) was in that case added 
-		//// to the parts array. Current then became the resulting Disjunction.
-		////    Disjunction disjunction = new Disjunction();
-		////    disjunction.getParts().add(current);
-		////    current = disjunction;
-		//Disjunction returns Expression:
-		//	ExclusiveDisjunction ({Disjunction.parts+=current} ("or" parts+=ExclusiveDisjunction)+)?;
-		public ParserRule getRule() { return rule; }
-
-		//ExclusiveDisjunction ({Disjunction.parts+=current} ("or" parts+=ExclusiveDisjunction)+)?
-		public Group getGroup() { return cGroup; }
-
-		//ExclusiveDisjunction
-		public RuleCall getExclusiveDisjunctionParserRuleCall_0() { return cExclusiveDisjunctionParserRuleCall_0; }
-
-		//({Disjunction.parts+=current} ("or" parts+=ExclusiveDisjunction)+)?
-		public Group getGroup_1() { return cGroup_1; }
-
-		//{Disjunction.parts+=current}
-		public Action getDisjunctionPartsAction_1_0() { return cDisjunctionPartsAction_1_0; }
-
-		//("or" parts+=ExclusiveDisjunction)+
-		public Group getGroup_1_1() { return cGroup_1_1; }
-
-		//"or"
-		public Keyword getOrKeyword_1_1_0() { return cOrKeyword_1_1_0; }
-
-		//parts+=ExclusiveDisjunction
-		public Assignment getPartsAssignment_1_1_1() { return cPartsAssignment_1_1_1; }
-
-		//ExclusiveDisjunction
-		public RuleCall getPartsExclusiveDisjunctionParserRuleCall_1_1_1_0() { return cPartsExclusiveDisjunctionParserRuleCall_1_1_1_0; }
-	}
-
-	public class ExclusiveDisjunctionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ExclusiveDisjunction");
-		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final RuleCall cConjunctionParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Action cExclusiveDisjunctionPartsAction_1_0 = (Action)cGroup_1.eContents().get(0);
-		private final Group cGroup_1_1 = (Group)cGroup_1.eContents().get(1);
-		private final Keyword cXorKeyword_1_1_0 = (Keyword)cGroup_1_1.eContents().get(0);
-		private final Assignment cPartsAssignment_1_1_1 = (Assignment)cGroup_1_1.eContents().get(1);
-		private final RuleCall cPartsConjunctionParserRuleCall_1_1_1_0 = (RuleCall)cPartsAssignment_1_1_1.eContents().get(0);
+		private final Action cDisjunctionLeftPartAction_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Keyword cOrKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
+		private final Assignment cRightPartAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
+		private final RuleCall cRightPartConjunctionParserRuleCall_1_2_0 = (RuleCall)cRightPartAssignment_1_2.eContents().get(0);
 		
-		//ExclusiveDisjunction returns Expression:
-		//	Conjunction ({ExclusiveDisjunction.parts+=current} ("xor" parts+=Conjunction)+)?;
+		//Disjunction returns Expression:
+		//	Conjunction ({Disjunction.leftPart=current} "or" rightPart=Conjunction)*;
 		public ParserRule getRule() { return rule; }
 
-		//Conjunction ({ExclusiveDisjunction.parts+=current} ("xor" parts+=Conjunction)+)?
+		//Conjunction ({Disjunction.leftPart=current} "or" rightPart=Conjunction)*
 		public Group getGroup() { return cGroup; }
 
 		//Conjunction
 		public RuleCall getConjunctionParserRuleCall_0() { return cConjunctionParserRuleCall_0; }
 
-		//({ExclusiveDisjunction.parts+=current} ("xor" parts+=Conjunction)+)?
+		//({Disjunction.leftPart=current} "or" rightPart=Conjunction)*
 		public Group getGroup_1() { return cGroup_1; }
 
-		//{ExclusiveDisjunction.parts+=current}
-		public Action getExclusiveDisjunctionPartsAction_1_0() { return cExclusiveDisjunctionPartsAction_1_0; }
+		//{Disjunction.leftPart=current}
+		public Action getDisjunctionLeftPartAction_1_0() { return cDisjunctionLeftPartAction_1_0; }
 
-		//("xor" parts+=Conjunction)+
-		public Group getGroup_1_1() { return cGroup_1_1; }
+		//"or"
+		public Keyword getOrKeyword_1_1() { return cOrKeyword_1_1; }
 
-		//"xor"
-		public Keyword getXorKeyword_1_1_0() { return cXorKeyword_1_1_0; }
-
-		//parts+=Conjunction
-		public Assignment getPartsAssignment_1_1_1() { return cPartsAssignment_1_1_1; }
+		//rightPart=Conjunction
+		public Assignment getRightPartAssignment_1_2() { return cRightPartAssignment_1_2; }
 
 		//Conjunction
-		public RuleCall getPartsConjunctionParserRuleCall_1_1_1_0() { return cPartsConjunctionParserRuleCall_1_1_1_0; }
+		public RuleCall getRightPartConjunctionParserRuleCall_1_2_0() { return cRightPartConjunctionParserRuleCall_1_2_0; }
 	}
 
 	public class ConjunctionElements extends AbstractParserRuleElementFinder {
@@ -220,39 +192,35 @@ public class BooleanConstraintLanguageGrammarAccess extends AbstractGrammarEleme
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final RuleCall cNegationParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Action cConjunctionPartsAction_1_0 = (Action)cGroup_1.eContents().get(0);
-		private final Group cGroup_1_1 = (Group)cGroup_1.eContents().get(1);
-		private final Keyword cAndKeyword_1_1_0 = (Keyword)cGroup_1_1.eContents().get(0);
-		private final Assignment cPartsAssignment_1_1_1 = (Assignment)cGroup_1_1.eContents().get(1);
-		private final RuleCall cPartsNegationParserRuleCall_1_1_1_0 = (RuleCall)cPartsAssignment_1_1_1.eContents().get(0);
+		private final Action cConjunctionLeftPartAction_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Keyword cAndKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
+		private final Assignment cRightPartAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
+		private final RuleCall cRightPartNegationParserRuleCall_1_2_0 = (RuleCall)cRightPartAssignment_1_2.eContents().get(0);
 		
 		//Conjunction returns Expression:
-		//	Negation ({Conjunction.parts+=current} ("and" parts+=Negation)+)?;
+		//	Negation ({Conjunction.leftPart=current} "and" rightPart=Negation)*;
 		public ParserRule getRule() { return rule; }
 
-		//Negation ({Conjunction.parts+=current} ("and" parts+=Negation)+)?
+		//Negation ({Conjunction.leftPart=current} "and" rightPart=Negation)*
 		public Group getGroup() { return cGroup; }
 
 		//Negation
 		public RuleCall getNegationParserRuleCall_0() { return cNegationParserRuleCall_0; }
 
-		//({Conjunction.parts+=current} ("and" parts+=Negation)+)?
+		//({Conjunction.leftPart=current} "and" rightPart=Negation)*
 		public Group getGroup_1() { return cGroup_1; }
 
-		//{Conjunction.parts+=current}
-		public Action getConjunctionPartsAction_1_0() { return cConjunctionPartsAction_1_0; }
-
-		//("and" parts+=Negation)+
-		public Group getGroup_1_1() { return cGroup_1_1; }
+		//{Conjunction.leftPart=current}
+		public Action getConjunctionLeftPartAction_1_0() { return cConjunctionLeftPartAction_1_0; }
 
 		//"and"
-		public Keyword getAndKeyword_1_1_0() { return cAndKeyword_1_1_0; }
+		public Keyword getAndKeyword_1_1() { return cAndKeyword_1_1; }
 
-		//parts+=Negation
-		public Assignment getPartsAssignment_1_1_1() { return cPartsAssignment_1_1_1; }
+		//rightPart=Negation
+		public Assignment getRightPartAssignment_1_2() { return cRightPartAssignment_1_2; }
 
 		//Negation
-		public RuleCall getPartsNegationParserRuleCall_1_1_1_0() { return cPartsNegationParserRuleCall_1_1_1_0; }
+		public RuleCall getRightPartNegationParserRuleCall_1_2_0() { return cRightPartNegationParserRuleCall_1_2_0; }
 	}
 
 	public class NegationElements extends AbstractParserRuleElementFinder {
@@ -338,9 +306,9 @@ public class BooleanConstraintLanguageGrammarAccess extends AbstractGrammarEleme
 	
 	private ExpressionElements pExpression;
 	private ContextualExpressionElements pContextualExpression;
+	private EquationElements pEquation;
 	private ImplicationElements pImplication;
 	private DisjunctionElements pDisjunction;
-	private ExclusiveDisjunctionElements pExclusiveDisjunction;
 	private ConjunctionElements pConjunction;
 	private NegationElements pNegation;
 	private PrimaryExpressionElements pPrimaryExpression;
@@ -383,10 +351,6 @@ public class BooleanConstraintLanguageGrammarAccess extends AbstractGrammarEleme
 	}
 
 	
-	//// Unassigned rule call
-	//// 
-	//// It simply call ContextualExpression rule.
-	//// The return type is Expression (abstract class for all kinds of expressions).
 	//Expression:
 	//	ContextualExpression;
 	public ExpressionElements getExpressionAccess() {
@@ -397,13 +361,8 @@ public class BooleanConstraintLanguageGrammarAccess extends AbstractGrammarEleme
 		return getExpressionAccess().getRule();
 	}
 
-	//// Uses simple action: {ExplicitReturnType} memberVariable=value.
-	////
-	//// If there is 'context' token at input, instance of ContextualExpression is returned. 
-	//// Value contains the parsed ID and expression contains the result of Implication rule.
-	//// Otherwise (no 'context' found), the result of Implication rule is returned. 
 	//ContextualExpression returns Expression:
-	//	"context" {ContextualExpression} contextId=ID ":" expression=Implication | Implication;
+	//	"context" {ContextualExpression} contextId=ID ":" expression=Equation | Equation;
 	public ContextualExpressionElements getContextualExpressionAccess() {
 		return (pContextualExpression != null) ? pContextualExpression : (pContextualExpression = new ContextualExpressionElements());
 	}
@@ -412,8 +371,18 @@ public class BooleanConstraintLanguageGrammarAccess extends AbstractGrammarEleme
 		return getContextualExpressionAccess().getRule();
 	}
 
+	//Equation returns Expression:
+	//	Implication ({Equation.leftPart=current} "equals" rightPart=Implication)*;
+	public EquationElements getEquationAccess() {
+		return (pEquation != null) ? pEquation : (pEquation = new EquationElements());
+	}
+	
+	public ParserRule getEquationRule() {
+		return getEquationAccess().getRule();
+	}
+
 	//Implication returns Expression:
-	//	Disjunction ({Implication.leftPart=current} "implies" rightPart=Disjunction)?;
+	//	Disjunction ({Implication.leftPart=current} "implies" rightPart=Disjunction)*;
 	public ImplicationElements getImplicationAccess() {
 		return (pImplication != null) ? pImplication : (pImplication = new ImplicationElements());
 	}
@@ -422,19 +391,8 @@ public class BooleanConstraintLanguageGrammarAccess extends AbstractGrammarEleme
 		return getImplicationAccess().getRule();
 	}
 
-	//// Uses assigned action: {ExplicitReturnType.memberVariable=value}.
-	//// This particular case is also called tree rewrite action.
-	////
-	//// If there is no 'or' token, the rule simply returns result of the only one ExclusiveDisjunction rule.
-	////
-	//// Otherwise, instance of Disjunction is returned. Parts array contains results of parsed ExclusiveDisjunction 
-	//// rules. The result of the first one ExclusiveDisjunction (current keyword) was in that case added 
-	//// to the parts array. Current then became the resulting Disjunction.
-	////    Disjunction disjunction = new Disjunction();
-	////    disjunction.getParts().add(current);
-	////    current = disjunction;
 	//Disjunction returns Expression:
-	//	ExclusiveDisjunction ({Disjunction.parts+=current} ("or" parts+=ExclusiveDisjunction)+)?;
+	//	Conjunction ({Disjunction.leftPart=current} "or" rightPart=Conjunction)*;
 	public DisjunctionElements getDisjunctionAccess() {
 		return (pDisjunction != null) ? pDisjunction : (pDisjunction = new DisjunctionElements());
 	}
@@ -443,18 +401,8 @@ public class BooleanConstraintLanguageGrammarAccess extends AbstractGrammarEleme
 		return getDisjunctionAccess().getRule();
 	}
 
-	//ExclusiveDisjunction returns Expression:
-	//	Conjunction ({ExclusiveDisjunction.parts+=current} ("xor" parts+=Conjunction)+)?;
-	public ExclusiveDisjunctionElements getExclusiveDisjunctionAccess() {
-		return (pExclusiveDisjunction != null) ? pExclusiveDisjunction : (pExclusiveDisjunction = new ExclusiveDisjunctionElements());
-	}
-	
-	public ParserRule getExclusiveDisjunctionRule() {
-		return getExclusiveDisjunctionAccess().getRule();
-	}
-
 	//Conjunction returns Expression:
-	//	Negation ({Conjunction.parts+=current} ("and" parts+=Negation)+)?;
+	//	Negation ({Conjunction.leftPart=current} "and" rightPart=Negation)*;
 	public ConjunctionElements getConjunctionAccess() {
 		return (pConjunction != null) ? pConjunction : (pConjunction = new ConjunctionElements());
 	}

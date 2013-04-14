@@ -89,10 +89,10 @@ public class InternalBooleanConstraintLanguageLexer extends Lexer {
         try {
             int _type = T__13;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../cz.jpikl.yafmt.clang.bcl/src-gen/cz/jpikl/yafmt/clang/bcl/parser/antlr/internal/InternalBooleanConstraintLanguage.g:13:7: ( 'implies' )
-            // ../cz.jpikl.yafmt.clang.bcl/src-gen/cz/jpikl/yafmt/clang/bcl/parser/antlr/internal/InternalBooleanConstraintLanguage.g:13:9: 'implies'
+            // ../cz.jpikl.yafmt.clang.bcl/src-gen/cz/jpikl/yafmt/clang/bcl/parser/antlr/internal/InternalBooleanConstraintLanguage.g:13:7: ( 'equals' )
+            // ../cz.jpikl.yafmt.clang.bcl/src-gen/cz/jpikl/yafmt/clang/bcl/parser/antlr/internal/InternalBooleanConstraintLanguage.g:13:9: 'equals'
             {
-            match("implies"); 
+            match("equals"); 
 
 
             }
@@ -110,10 +110,10 @@ public class InternalBooleanConstraintLanguageLexer extends Lexer {
         try {
             int _type = T__14;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../cz.jpikl.yafmt.clang.bcl/src-gen/cz/jpikl/yafmt/clang/bcl/parser/antlr/internal/InternalBooleanConstraintLanguage.g:14:7: ( 'or' )
-            // ../cz.jpikl.yafmt.clang.bcl/src-gen/cz/jpikl/yafmt/clang/bcl/parser/antlr/internal/InternalBooleanConstraintLanguage.g:14:9: 'or'
+            // ../cz.jpikl.yafmt.clang.bcl/src-gen/cz/jpikl/yafmt/clang/bcl/parser/antlr/internal/InternalBooleanConstraintLanguage.g:14:7: ( 'implies' )
+            // ../cz.jpikl.yafmt.clang.bcl/src-gen/cz/jpikl/yafmt/clang/bcl/parser/antlr/internal/InternalBooleanConstraintLanguage.g:14:9: 'implies'
             {
-            match("or"); 
+            match("implies"); 
 
 
             }
@@ -131,10 +131,10 @@ public class InternalBooleanConstraintLanguageLexer extends Lexer {
         try {
             int _type = T__15;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../cz.jpikl.yafmt.clang.bcl/src-gen/cz/jpikl/yafmt/clang/bcl/parser/antlr/internal/InternalBooleanConstraintLanguage.g:15:7: ( 'xor' )
-            // ../cz.jpikl.yafmt.clang.bcl/src-gen/cz/jpikl/yafmt/clang/bcl/parser/antlr/internal/InternalBooleanConstraintLanguage.g:15:9: 'xor'
+            // ../cz.jpikl.yafmt.clang.bcl/src-gen/cz/jpikl/yafmt/clang/bcl/parser/antlr/internal/InternalBooleanConstraintLanguage.g:15:7: ( 'or' )
+            // ../cz.jpikl.yafmt.clang.bcl/src-gen/cz/jpikl/yafmt/clang/bcl/parser/antlr/internal/InternalBooleanConstraintLanguage.g:15:9: 'or'
             {
-            match("xor"); 
+            match("or"); 
 
 
             }
@@ -869,30 +869,31 @@ public class InternalBooleanConstraintLanguageLexer extends Lexer {
     protected DFA12 dfa12 = new DFA12(this);
     static final String DFA12_eotS =
         "\1\uffff\1\23\1\uffff\5\23\2\uffff\1\21\2\uffff\3\21\2\uffff\1\23"+
-        "\2\uffff\1\23\1\43\3\23\7\uffff\2\23\1\uffff\1\51\1\52\1\53\2\23"+
-        "\3\uffff\4\23\1\62\1\63\2\uffff";
+        "\2\uffff\2\23\1\44\2\23\7\uffff\3\23\1\uffff\1\52\1\53\3\23\2\uffff"+
+        "\4\23\1\63\1\23\1\65\1\uffff\1\66\2\uffff";
     static final String DFA12_eofS =
-        "\64\uffff";
+        "\67\uffff";
     static final String DFA12_minS =
-        "\1\0\1\157\1\uffff\1\155\1\162\1\157\1\156\1\157\2\uffff\1\101\2"+
-        "\uffff\2\0\1\52\2\uffff\1\156\2\uffff\1\160\1\60\1\162\1\144\1\164"+
-        "\7\uffff\1\164\1\154\1\uffff\3\60\1\145\1\151\3\uffff\1\170\1\145"+
-        "\1\164\1\163\2\60\2\uffff";
+        "\1\0\1\157\1\uffff\1\161\1\155\1\162\1\156\1\157\2\uffff\1\101\2"+
+        "\uffff\2\0\1\52\2\uffff\1\156\2\uffff\1\165\1\160\1\60\1\144\1\164"+
+        "\7\uffff\1\164\1\141\1\154\1\uffff\2\60\1\145\1\154\1\151\2\uffff"+
+        "\1\170\1\163\1\145\1\164\1\60\1\163\1\60\1\uffff\1\60\2\uffff";
     static final String DFA12_maxS =
-        "\1\uffff\1\157\1\uffff\1\155\1\162\1\157\1\156\1\157\2\uffff\1\172"+
-        "\2\uffff\2\uffff\1\57\2\uffff\1\156\2\uffff\1\160\1\172\1\162\1"+
-        "\144\1\164\7\uffff\1\164\1\154\1\uffff\3\172\1\145\1\151\3\uffff"+
-        "\1\170\1\145\1\164\1\163\2\172\2\uffff";
+        "\1\uffff\1\157\1\uffff\1\161\1\155\1\162\1\156\1\157\2\uffff\1\172"+
+        "\2\uffff\2\uffff\1\57\2\uffff\1\156\2\uffff\1\165\1\160\1\172\1"+
+        "\144\1\164\7\uffff\1\164\1\141\1\154\1\uffff\2\172\1\145\1\154\1"+
+        "\151\2\uffff\1\170\1\163\1\145\1\164\1\172\1\163\1\172\1\uffff\1"+
+        "\172\2\uffff";
     static final String DFA12_acceptS =
         "\2\uffff\1\2\5\uffff\1\10\1\11\1\uffff\1\12\1\13\3\uffff\1\17\1"+
         "\20\1\uffff\1\12\1\2\5\uffff\1\10\1\11\1\13\1\14\1\15\1\16\1\17"+
-        "\2\uffff\1\4\5\uffff\1\5\1\6\1\7\6\uffff\1\1\1\3";
+        "\3\uffff\1\5\5\uffff\1\6\1\7\7\uffff\1\3\1\uffff\1\1\1\4";
     static final String DFA12_specialS =
-        "\1\2\14\uffff\1\1\1\0\45\uffff}>";
+        "\1\1\14\uffff\1\2\1\0\50\uffff}>";
     static final String[] DFA12_transitionS = {
             "\11\21\2\20\2\21\1\20\22\21\1\20\1\21\1\15\4\21\1\16\1\10\1"+
             "\11\5\21\1\17\12\14\1\2\6\21\32\13\3\21\1\12\1\13\1\21\1\6\1"+
-            "\13\1\1\5\13\1\3\4\13\1\7\1\4\10\13\1\5\2\13\uff85\21",
+            "\13\1\1\1\13\1\3\3\13\1\4\4\13\1\7\1\5\13\13\uff85\21",
             "\1\22",
             "",
             "\1\25",
@@ -914,8 +915,8 @@ public class InternalBooleanConstraintLanguageLexer extends Lexer {
             "",
             "",
             "\1\42",
+            "\1\43",
             "\12\23\7\uffff\32\23\4\uffff\1\23\1\uffff\32\23",
-            "\1\44",
             "\1\45",
             "\1\46",
             "",
@@ -927,20 +928,23 @@ public class InternalBooleanConstraintLanguageLexer extends Lexer {
             "",
             "\1\47",
             "\1\50",
+            "\1\51",
             "",
-            "\12\23\7\uffff\32\23\4\uffff\1\23\1\uffff\32\23",
             "\12\23\7\uffff\32\23\4\uffff\1\23\1\uffff\32\23",
             "\12\23\7\uffff\32\23\4\uffff\1\23\1\uffff\32\23",
             "\1\54",
             "\1\55",
-            "",
-            "",
-            "",
             "\1\56",
+            "",
+            "",
             "\1\57",
             "\1\60",
             "\1\61",
+            "\1\62",
             "\12\23\7\uffff\32\23\4\uffff\1\23\1\uffff\32\23",
+            "\1\64",
+            "\12\23\7\uffff\32\23\4\uffff\1\23\1\uffff\32\23",
+            "",
             "\12\23\7\uffff\32\23\4\uffff\1\23\1\uffff\32\23",
             "",
             ""
@@ -993,16 +997,6 @@ public class InternalBooleanConstraintLanguageLexer extends Lexer {
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA12_13 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA12_13>='\u0000' && LA12_13<='\uFFFF')) ) {s = 29;}
-
-                        else s = 17;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
                         int LA12_0 = input.LA(1);
 
                         s = -1;
@@ -1010,11 +1004,11 @@ public class InternalBooleanConstraintLanguageLexer extends Lexer {
 
                         else if ( (LA12_0==':') ) {s = 2;}
 
-                        else if ( (LA12_0=='i') ) {s = 3;}
+                        else if ( (LA12_0=='e') ) {s = 3;}
 
-                        else if ( (LA12_0=='o') ) {s = 4;}
+                        else if ( (LA12_0=='i') ) {s = 4;}
 
-                        else if ( (LA12_0=='x') ) {s = 5;}
+                        else if ( (LA12_0=='o') ) {s = 5;}
 
                         else if ( (LA12_0=='a') ) {s = 6;}
 
@@ -1026,7 +1020,7 @@ public class InternalBooleanConstraintLanguageLexer extends Lexer {
 
                         else if ( (LA12_0=='^') ) {s = 10;}
 
-                        else if ( ((LA12_0>='A' && LA12_0<='Z')||LA12_0=='_'||LA12_0=='b'||(LA12_0>='d' && LA12_0<='h')||(LA12_0>='j' && LA12_0<='m')||(LA12_0>='p' && LA12_0<='w')||(LA12_0>='y' && LA12_0<='z')) ) {s = 11;}
+                        else if ( ((LA12_0>='A' && LA12_0<='Z')||LA12_0=='_'||LA12_0=='b'||LA12_0=='d'||(LA12_0>='f' && LA12_0<='h')||(LA12_0>='j' && LA12_0<='m')||(LA12_0>='p' && LA12_0<='z')) ) {s = 11;}
 
                         else if ( ((LA12_0>='0' && LA12_0<='9')) ) {s = 12;}
 
@@ -1039,6 +1033,16 @@ public class InternalBooleanConstraintLanguageLexer extends Lexer {
                         else if ( ((LA12_0>='\t' && LA12_0<='\n')||LA12_0=='\r'||LA12_0==' ') ) {s = 16;}
 
                         else if ( ((LA12_0>='\u0000' && LA12_0<='\b')||(LA12_0>='\u000B' && LA12_0<='\f')||(LA12_0>='\u000E' && LA12_0<='\u001F')||LA12_0=='!'||(LA12_0>='#' && LA12_0<='&')||(LA12_0>='*' && LA12_0<='.')||(LA12_0>=';' && LA12_0<='@')||(LA12_0>='[' && LA12_0<=']')||LA12_0=='`'||(LA12_0>='{' && LA12_0<='\uFFFF')) ) {s = 17;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 2 : 
+                        int LA12_13 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA12_13>='\u0000' && LA12_13<='\uFFFF')) ) {s = 29;}
+
+                        else s = 17;
 
                         if ( s>=0 ) return s;
                         break;

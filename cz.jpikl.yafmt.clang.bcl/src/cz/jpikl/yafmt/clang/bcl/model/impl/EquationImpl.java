@@ -5,33 +5,35 @@ package cz.jpikl.yafmt.clang.bcl.model.impl;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
-import cz.jpikl.yafmt.clang.bcl.model.Conjunction;
+import cz.jpikl.yafmt.clang.bcl.model.Equation;
 import cz.jpikl.yafmt.clang.bcl.model.Expression;
 import cz.jpikl.yafmt.clang.bcl.model.ModelPackage;
 import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
 import cz.jpikl.yafmt.model.fc.Selection;
 
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
+
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Conjunction</b></em>'.
+ * An implementation of the model object '<em><b>Equation</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link cz.jpikl.yafmt.clang.bcl.model.impl.ConjunctionImpl#getLeftPart <em>Left Part</em>}</li>
- *   <li>{@link cz.jpikl.yafmt.clang.bcl.model.impl.ConjunctionImpl#getRightPart <em>Right Part</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.clang.bcl.model.impl.EquationImpl#getLeftPart <em>Left Part</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.clang.bcl.model.impl.EquationImpl#getRightPart <em>Right Part</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class ConjunctionImpl extends ExpressionImpl implements Conjunction {
+public class EquationImpl extends ExpressionImpl implements Equation {
     /**
      * The cached value of the '{@link #getLeftPart() <em>Left Part</em>}' containment reference.
      * <!-- begin-user-doc -->
@@ -41,6 +43,7 @@ public class ConjunctionImpl extends ExpressionImpl implements Conjunction {
      * @ordered
      */
     protected Expression leftPart;
+
     /**
      * The cached value of the '{@link #getRightPart() <em>Right Part</em>}' containment reference.
      * <!-- begin-user-doc -->
@@ -50,12 +53,13 @@ public class ConjunctionImpl extends ExpressionImpl implements Conjunction {
      * @ordered
      */
     protected Expression rightPart;
+
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected ConjunctionImpl() {
+    protected EquationImpl() {
         super();
     }
 
@@ -66,7 +70,7 @@ public class ConjunctionImpl extends ExpressionImpl implements Conjunction {
      */
     @Override
     protected EClass eStaticClass() {
-        return ModelPackage.Literals.CONJUNCTION;
+        return ModelPackage.Literals.EQUATION;
     }
 
     /**
@@ -87,7 +91,7 @@ public class ConjunctionImpl extends ExpressionImpl implements Conjunction {
         Expression oldLeftPart = leftPart;
         leftPart = newLeftPart;
         if (eNotificationRequired()) {
-            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.CONJUNCTION__LEFT_PART, oldLeftPart, newLeftPart);
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.EQUATION__LEFT_PART, oldLeftPart, newLeftPart);
             if (msgs == null) msgs = notification; else msgs.add(notification);
         }
         return msgs;
@@ -102,14 +106,14 @@ public class ConjunctionImpl extends ExpressionImpl implements Conjunction {
         if (newLeftPart != leftPart) {
             NotificationChain msgs = null;
             if (leftPart != null)
-                msgs = ((InternalEObject)leftPart).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.CONJUNCTION__LEFT_PART, null, msgs);
+                msgs = ((InternalEObject)leftPart).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.EQUATION__LEFT_PART, null, msgs);
             if (newLeftPart != null)
-                msgs = ((InternalEObject)newLeftPart).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.CONJUNCTION__LEFT_PART, null, msgs);
+                msgs = ((InternalEObject)newLeftPart).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.EQUATION__LEFT_PART, null, msgs);
             msgs = basicSetLeftPart(newLeftPart, msgs);
             if (msgs != null) msgs.dispatch();
         }
         else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.CONJUNCTION__LEFT_PART, newLeftPart, newLeftPart));
+            eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.EQUATION__LEFT_PART, newLeftPart, newLeftPart));
     }
 
     /**
@@ -130,7 +134,7 @@ public class ConjunctionImpl extends ExpressionImpl implements Conjunction {
         Expression oldRightPart = rightPart;
         rightPart = newRightPart;
         if (eNotificationRequired()) {
-            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.CONJUNCTION__RIGHT_PART, oldRightPart, newRightPart);
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.EQUATION__RIGHT_PART, oldRightPart, newRightPart);
             if (msgs == null) msgs = notification; else msgs.add(notification);
         }
         return msgs;
@@ -145,14 +149,14 @@ public class ConjunctionImpl extends ExpressionImpl implements Conjunction {
         if (newRightPart != rightPart) {
             NotificationChain msgs = null;
             if (rightPart != null)
-                msgs = ((InternalEObject)rightPart).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.CONJUNCTION__RIGHT_PART, null, msgs);
+                msgs = ((InternalEObject)rightPart).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.EQUATION__RIGHT_PART, null, msgs);
             if (newRightPart != null)
-                msgs = ((InternalEObject)newRightPart).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.CONJUNCTION__RIGHT_PART, null, msgs);
+                msgs = ((InternalEObject)newRightPart).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.EQUATION__RIGHT_PART, null, msgs);
             msgs = basicSetRightPart(newRightPart, msgs);
             if (msgs != null) msgs.dispatch();
         }
         else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.CONJUNCTION__RIGHT_PART, newRightPart, newRightPart));
+            eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.EQUATION__RIGHT_PART, newRightPart, newRightPart));
     }
 
     /**
@@ -163,9 +167,9 @@ public class ConjunctionImpl extends ExpressionImpl implements Conjunction {
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case ModelPackage.CONJUNCTION__LEFT_PART:
+            case ModelPackage.EQUATION__LEFT_PART:
                 return basicSetLeftPart(null, msgs);
-            case ModelPackage.CONJUNCTION__RIGHT_PART:
+            case ModelPackage.EQUATION__RIGHT_PART:
                 return basicSetRightPart(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -179,9 +183,9 @@ public class ConjunctionImpl extends ExpressionImpl implements Conjunction {
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ModelPackage.CONJUNCTION__LEFT_PART:
+            case ModelPackage.EQUATION__LEFT_PART:
                 return getLeftPart();
-            case ModelPackage.CONJUNCTION__RIGHT_PART:
+            case ModelPackage.EQUATION__RIGHT_PART:
                 return getRightPart();
         }
         return super.eGet(featureID, resolve, coreType);
@@ -195,10 +199,10 @@ public class ConjunctionImpl extends ExpressionImpl implements Conjunction {
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ModelPackage.CONJUNCTION__LEFT_PART:
+            case ModelPackage.EQUATION__LEFT_PART:
                 setLeftPart((Expression)newValue);
                 return;
-            case ModelPackage.CONJUNCTION__RIGHT_PART:
+            case ModelPackage.EQUATION__RIGHT_PART:
                 setRightPart((Expression)newValue);
                 return;
         }
@@ -213,10 +217,10 @@ public class ConjunctionImpl extends ExpressionImpl implements Conjunction {
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ModelPackage.CONJUNCTION__LEFT_PART:
+            case ModelPackage.EQUATION__LEFT_PART:
                 setLeftPart((Expression)null);
                 return;
-            case ModelPackage.CONJUNCTION__RIGHT_PART:
+            case ModelPackage.EQUATION__RIGHT_PART:
                 setRightPart((Expression)null);
                 return;
         }
@@ -231,9 +235,9 @@ public class ConjunctionImpl extends ExpressionImpl implements Conjunction {
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ModelPackage.CONJUNCTION__LEFT_PART:
+            case ModelPackage.EQUATION__LEFT_PART:
                 return leftPart != null;
-            case ModelPackage.CONJUNCTION__RIGHT_PART:
+            case ModelPackage.EQUATION__RIGHT_PART:
                 return rightPart != null;
         }
         return super.eIsSet(featureID);
@@ -250,14 +254,20 @@ public class ConjunctionImpl extends ExpressionImpl implements Conjunction {
         Set<Selection> internalProblemSelections = new HashSet<Selection>();
 
         // We have to evaluate both parts to gather all problem elements.
-        boolean leftValue = leftPart.evaluate(featureConfig, context, internalProblemSelections, expectedValue);
-        boolean rightValue = rightPart.evaluate(featureConfig, context, internalProblemSelections, expectedValue);
-        boolean value = leftValue && rightValue;
+        boolean leftValue = leftPart.evaluate(featureConfig, context, internalProblemSelections, true);
+        boolean rightValue = rightPart.evaluate(featureConfig, context, internalProblemSelections, true);
+        boolean value = leftValue == rightValue;
 
-        if(value != expectedValue)
+        if(value != expectedValue) {
             problemSelections.addAll(internalProblemSelections);
+            // Gather problem elements again if we guessed the right value.
+            if(leftValue)
+                leftPart.evaluate(featureConfig, context, problemSelections, false);
+            if(rightValue)
+                rightPart.evaluate(featureConfig, context, problemSelections, false);
+        }
 
         return value;
     }
 
-} //ConjunctionImpl
+} //EquationImpl

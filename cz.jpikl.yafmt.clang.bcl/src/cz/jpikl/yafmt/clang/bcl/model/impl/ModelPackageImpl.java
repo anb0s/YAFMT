@@ -11,7 +11,7 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 import cz.jpikl.yafmt.clang.bcl.model.Conjunction;
 import cz.jpikl.yafmt.clang.bcl.model.ContextualExpression;
 import cz.jpikl.yafmt.clang.bcl.model.Disjunction;
-import cz.jpikl.yafmt.clang.bcl.model.ExclusiveDisjunction;
+import cz.jpikl.yafmt.clang.bcl.model.Equation;
 import cz.jpikl.yafmt.clang.bcl.model.Expression;
 import cz.jpikl.yafmt.clang.bcl.model.Implication;
 import cz.jpikl.yafmt.clang.bcl.model.ModelFactory;
@@ -45,6 +45,13 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
      * <!-- end-user-doc -->
      * @generated
      */
+    private EClass equationEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     private EClass implicationEClass = null;
 
     /**
@@ -53,13 +60,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
      * @generated
      */
     private EClass disjunctionEClass = null;
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    private EClass exclusiveDisjunctionEClass = null;
 
     /**
      * <!-- begin-user-doc -->
@@ -184,6 +184,33 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
      * <!-- end-user-doc -->
      * @generated
      */
+    public EClass getEquation() {
+        return equationEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getEquation_LeftPart() {
+        return (EReference)equationEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getEquation_RightPart() {
+        return (EReference)equationEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getImplication() {
         return implicationEClass;
     }
@@ -220,7 +247,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getDisjunction_Parts() {
+    public EReference getDisjunction_LeftPart() {
         return (EReference)disjunctionEClass.getEStructuralFeatures().get(0);
     }
 
@@ -229,17 +256,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EClass getExclusiveDisjunction() {
-        return exclusiveDisjunctionEClass;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EReference getExclusiveDisjunction_Parts() {
-        return (EReference)exclusiveDisjunctionEClass.getEStructuralFeatures().get(0);
+    public EReference getDisjunction_RightPart() {
+        return (EReference)disjunctionEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -256,8 +274,17 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getConjunction_Parts() {
+    public EReference getConjunction_LeftPart() {
         return (EReference)conjunctionEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getConjunction_RightPart() {
+        return (EReference)conjunctionEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -330,18 +357,21 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
         createEAttribute(contextualExpressionEClass, CONTEXTUAL_EXPRESSION__CONTEXT_ID);
         createEReference(contextualExpressionEClass, CONTEXTUAL_EXPRESSION__EXPRESSION);
 
+        equationEClass = createEClass(EQUATION);
+        createEReference(equationEClass, EQUATION__LEFT_PART);
+        createEReference(equationEClass, EQUATION__RIGHT_PART);
+
         implicationEClass = createEClass(IMPLICATION);
         createEReference(implicationEClass, IMPLICATION__LEFT_PART);
         createEReference(implicationEClass, IMPLICATION__RIGHT_PART);
 
         disjunctionEClass = createEClass(DISJUNCTION);
-        createEReference(disjunctionEClass, DISJUNCTION__PARTS);
-
-        exclusiveDisjunctionEClass = createEClass(EXCLUSIVE_DISJUNCTION);
-        createEReference(exclusiveDisjunctionEClass, EXCLUSIVE_DISJUNCTION__PARTS);
+        createEReference(disjunctionEClass, DISJUNCTION__LEFT_PART);
+        createEReference(disjunctionEClass, DISJUNCTION__RIGHT_PART);
 
         conjunctionEClass = createEClass(CONJUNCTION);
-        createEReference(conjunctionEClass, CONJUNCTION__PARTS);
+        createEReference(conjunctionEClass, CONJUNCTION__LEFT_PART);
+        createEReference(conjunctionEClass, CONJUNCTION__RIGHT_PART);
 
         negationEClass = createEClass(NEGATION);
         createEReference(negationEClass, NEGATION__EXPRESSION);
@@ -379,9 +409,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
         // Add supertypes to classes
         contextualExpressionEClass.getESuperTypes().add(this.getExpression());
+        equationEClass.getESuperTypes().add(this.getExpression());
         implicationEClass.getESuperTypes().add(this.getExpression());
         disjunctionEClass.getESuperTypes().add(this.getExpression());
-        exclusiveDisjunctionEClass.getESuperTypes().add(this.getExpression());
         conjunctionEClass.getESuperTypes().add(this.getExpression());
         negationEClass.getESuperTypes().add(this.getExpression());
         primaryExpressionEClass.getESuperTypes().add(this.getExpression());
@@ -393,18 +423,21 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
         initEAttribute(getContextualExpression_ContextId(), ecorePackage.getEString(), "contextId", null, 0, 1, ContextualExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getContextualExpression_Expression(), this.getExpression(), null, "expression", null, 0, 1, ContextualExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+        initEClass(equationEClass, Equation.class, "Equation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getEquation_LeftPart(), this.getExpression(), null, "leftPart", null, 0, 1, Equation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getEquation_RightPart(), this.getExpression(), null, "rightPart", null, 0, 1, Equation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
         initEClass(implicationEClass, Implication.class, "Implication", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getImplication_LeftPart(), this.getExpression(), null, "leftPart", null, 0, 1, Implication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getImplication_RightPart(), this.getExpression(), null, "rightPart", null, 0, 1, Implication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(disjunctionEClass, Disjunction.class, "Disjunction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getDisjunction_Parts(), this.getExpression(), null, "parts", null, 0, -1, Disjunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-        initEClass(exclusiveDisjunctionEClass, ExclusiveDisjunction.class, "ExclusiveDisjunction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getExclusiveDisjunction_Parts(), this.getExpression(), null, "parts", null, 0, -1, ExclusiveDisjunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getDisjunction_LeftPart(), this.getExpression(), null, "leftPart", null, 0, 1, Disjunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getDisjunction_RightPart(), this.getExpression(), null, "rightPart", null, 0, 1, Disjunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(conjunctionEClass, Conjunction.class, "Conjunction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getConjunction_Parts(), this.getExpression(), null, "parts", null, 0, -1, Conjunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getConjunction_LeftPart(), this.getExpression(), null, "leftPart", null, 0, 1, Conjunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getConjunction_RightPart(), this.getExpression(), null, "rightPart", null, 0, 1, Conjunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(negationEClass, Negation.class, "Negation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getNegation_Expression(), this.getExpression(), null, "expression", null, 0, 1, Negation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -252,30 +252,19 @@ public class ContextualExpressionImpl extends ExpressionImpl implements Contextu
     }
     
     @Override
-    public boolean evaluate(FeatureConfiguration featureConfig, Selection context, Set<Selection> problemSelections, boolean expectTrue) {
+    public boolean evaluate(FeatureConfiguration featureConfig, Selection context, Set<Selection> problemSelections, boolean expectedValue) {
+        Set<Selection> internalProblemSelections = new HashSet<Selection>();
         List<Selection> lowerContexts = getSelections(featureConfig, context, contextId);
      
-        // For each context must be true.
-        if(expectTrue) {
-            // Evaluate expression for each context.
-            boolean result = true;
-            for(Selection lowerContext: lowerContexts) {
-                if(!expression.evaluate(featureConfig, lowerContext, problemSelections, true))
-                    result = false;
-            }
-            return result;
-        }
-        // At least for one context must be false.
-        else {
-            // Evaluate expression for each context.
-            Set<Selection> internalProblemSelections = new HashSet<Selection>();
-            for(Selection lowerContext: lowerContexts) {
-                if(expression.evaluate(featureConfig, lowerContext, internalProblemSelections, false))
-                    return true;
-            }
+        // We have to evaluate every context to gather all problem elements.
+        boolean value = true;
+        for(Selection lowerContext: lowerContexts)
+            value &= expression.evaluate(featureConfig, lowerContext, internalProblemSelections, expectedValue);
+        
+        if(value != expectedValue)
             problemSelections.addAll(internalProblemSelections);
-            return false;
-        }
+        
+        return value;
     }
 
 } //ContextualExpressionImpl

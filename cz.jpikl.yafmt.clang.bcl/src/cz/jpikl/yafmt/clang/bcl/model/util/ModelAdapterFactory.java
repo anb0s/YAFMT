@@ -76,16 +76,16 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
                 return createContextualExpressionAdapter();
             }
             @Override
+            public Adapter caseEquation(Equation object) {
+                return createEquationAdapter();
+            }
+            @Override
             public Adapter caseImplication(Implication object) {
                 return createImplicationAdapter();
             }
             @Override
             public Adapter caseDisjunction(Disjunction object) {
                 return createDisjunctionAdapter();
-            }
-            @Override
-            public Adapter caseExclusiveDisjunction(ExclusiveDisjunction object) {
-                return createExclusiveDisjunctionAdapter();
             }
             @Override
             public Adapter caseConjunction(Conjunction object) {
@@ -148,6 +148,20 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
+     * Creates a new adapter for an object of class '{@link cz.jpikl.yafmt.clang.bcl.model.Equation <em>Equation</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see cz.jpikl.yafmt.clang.bcl.model.Equation
+     * @generated
+     */
+    public Adapter createEquationAdapter() {
+        return null;
+    }
+
+    /**
      * Creates a new adapter for an object of class '{@link cz.jpikl.yafmt.clang.bcl.model.Implication <em>Implication</em>}'.
      * <!-- begin-user-doc -->
      * This default implementation returns null so that we can easily ignore cases;
@@ -172,20 +186,6 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createDisjunctionAdapter() {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '{@link cz.jpikl.yafmt.clang.bcl.model.ExclusiveDisjunction <em>Exclusive Disjunction</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see cz.jpikl.yafmt.clang.bcl.model.ExclusiveDisjunction
-     * @generated
-     */
-    public Adapter createExclusiveDisjunctionAdapter() {
         return null;
     }
 

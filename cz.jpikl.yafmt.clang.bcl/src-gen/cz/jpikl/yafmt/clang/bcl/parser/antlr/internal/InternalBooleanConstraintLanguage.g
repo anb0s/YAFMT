@@ -142,9 +142,9 @@ ruleContextualExpression returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getContextualExpressionAccess().getExpressionImplicationParserRuleCall_0_4_0()); 
+	        newCompositeNode(grammarAccess.getContextualExpressionAccess().getExpressionEquationParserRuleCall_0_4_0()); 
 	    }
-		lv_expression_4_0=ruleImplication		{
+		lv_expression_4_0=ruleEquation		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getContextualExpressionRule());
 	        }
@@ -152,7 +152,7 @@ ruleContextualExpression returns [EObject current=null]
        			$current, 
        			"expression",
         		lv_expression_4_0, 
-        		"Implication");
+        		"Equation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -160,14 +160,72 @@ ruleContextualExpression returns [EObject current=null]
 ))
     |
     { 
-        newCompositeNode(grammarAccess.getContextualExpressionAccess().getImplicationParserRuleCall_1()); 
+        newCompositeNode(grammarAccess.getContextualExpressionAccess().getEquationParserRuleCall_1()); 
     }
-    this_Implication_5=ruleImplication
+    this_Equation_5=ruleEquation
     { 
-        $current = $this_Implication_5.current; 
+        $current = $this_Equation_5.current; 
         afterParserOrEnumRuleCall();
     }
 )
+;
+
+
+
+
+
+// Entry rule entryRuleEquation
+entryRuleEquation returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getEquationRule()); }
+	 iv_ruleEquation=ruleEquation 
+	 { $current=$iv_ruleEquation.current; } 
+	 EOF 
+;
+
+// Rule Equation
+ruleEquation returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+    { 
+        newCompositeNode(grammarAccess.getEquationAccess().getImplicationParserRuleCall_0()); 
+    }
+    this_Implication_0=ruleImplication
+    { 
+        $current = $this_Implication_0.current; 
+        afterParserOrEnumRuleCall();
+    }
+((
+    {
+        $current = forceCreateModelElementAndSet(
+            grammarAccess.getEquationAccess().getEquationLeftPartAction_1_0(),
+            $current);
+    }
+)	otherlv_2='equals' 
+    {
+    	newLeafNode(otherlv_2, grammarAccess.getEquationAccess().getEqualsKeyword_1_1());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getEquationAccess().getRightPartImplicationParserRuleCall_1_2_0()); 
+	    }
+		lv_rightPart_3_0=ruleImplication		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getEquationRule());
+	        }
+       		set(
+       			$current, 
+       			"rightPart",
+        		lv_rightPart_3_0, 
+        		"Implication");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))*)
 ;
 
 
@@ -225,7 +283,7 @@ ruleImplication returns [EObject current=null]
 	    }
 
 )
-))?)
+))*)
 ;
 
 
@@ -248,65 +306,7 @@ ruleDisjunction returns [EObject current=null]
     @after { leaveRule(); }:
 (
     { 
-        newCompositeNode(grammarAccess.getDisjunctionAccess().getExclusiveDisjunctionParserRuleCall_0()); 
-    }
-    this_ExclusiveDisjunction_0=ruleExclusiveDisjunction
-    { 
-        $current = $this_ExclusiveDisjunction_0.current; 
-        afterParserOrEnumRuleCall();
-    }
-((
-    {
-        $current = forceCreateModelElementAndAdd(
-            grammarAccess.getDisjunctionAccess().getDisjunctionPartsAction_1_0(),
-            $current);
-    }
-)(	otherlv_2='or' 
-    {
-    	newLeafNode(otherlv_2, grammarAccess.getDisjunctionAccess().getOrKeyword_1_1_0());
-    }
-(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getDisjunctionAccess().getPartsExclusiveDisjunctionParserRuleCall_1_1_1_0()); 
-	    }
-		lv_parts_3_0=ruleExclusiveDisjunction		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getDisjunctionRule());
-	        }
-       		add(
-       			$current, 
-       			"parts",
-        		lv_parts_3_0, 
-        		"ExclusiveDisjunction");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-))+)?)
-;
-
-
-
-
-
-// Entry rule entryRuleExclusiveDisjunction
-entryRuleExclusiveDisjunction returns [EObject current=null] 
-	:
-	{ newCompositeNode(grammarAccess.getExclusiveDisjunctionRule()); }
-	 iv_ruleExclusiveDisjunction=ruleExclusiveDisjunction 
-	 { $current=$iv_ruleExclusiveDisjunction.current; } 
-	 EOF 
-;
-
-// Rule ExclusiveDisjunction
-ruleExclusiveDisjunction returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-(
-    { 
-        newCompositeNode(grammarAccess.getExclusiveDisjunctionAccess().getConjunctionParserRuleCall_0()); 
+        newCompositeNode(grammarAccess.getDisjunctionAccess().getConjunctionParserRuleCall_0()); 
     }
     this_Conjunction_0=ruleConjunction
     { 
@@ -315,33 +315,33 @@ ruleExclusiveDisjunction returns [EObject current=null]
     }
 ((
     {
-        $current = forceCreateModelElementAndAdd(
-            grammarAccess.getExclusiveDisjunctionAccess().getExclusiveDisjunctionPartsAction_1_0(),
+        $current = forceCreateModelElementAndSet(
+            grammarAccess.getDisjunctionAccess().getDisjunctionLeftPartAction_1_0(),
             $current);
     }
-)(	otherlv_2='xor' 
+)	otherlv_2='or' 
     {
-    	newLeafNode(otherlv_2, grammarAccess.getExclusiveDisjunctionAccess().getXorKeyword_1_1_0());
+    	newLeafNode(otherlv_2, grammarAccess.getDisjunctionAccess().getOrKeyword_1_1());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getExclusiveDisjunctionAccess().getPartsConjunctionParserRuleCall_1_1_1_0()); 
+	        newCompositeNode(grammarAccess.getDisjunctionAccess().getRightPartConjunctionParserRuleCall_1_2_0()); 
 	    }
-		lv_parts_3_0=ruleConjunction		{
+		lv_rightPart_3_0=ruleConjunction		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getExclusiveDisjunctionRule());
+	            $current = createModelElementForParent(grammarAccess.getDisjunctionRule());
 	        }
-       		add(
+       		set(
        			$current, 
-       			"parts",
-        		lv_parts_3_0, 
+       			"rightPart",
+        		lv_rightPart_3_0, 
         		"Conjunction");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-))+)?)
+))*)
 ;
 
 
@@ -373,33 +373,33 @@ ruleConjunction returns [EObject current=null]
     }
 ((
     {
-        $current = forceCreateModelElementAndAdd(
-            grammarAccess.getConjunctionAccess().getConjunctionPartsAction_1_0(),
+        $current = forceCreateModelElementAndSet(
+            grammarAccess.getConjunctionAccess().getConjunctionLeftPartAction_1_0(),
             $current);
     }
-)(	otherlv_2='and' 
+)	otherlv_2='and' 
     {
-    	newLeafNode(otherlv_2, grammarAccess.getConjunctionAccess().getAndKeyword_1_1_0());
+    	newLeafNode(otherlv_2, grammarAccess.getConjunctionAccess().getAndKeyword_1_1());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getConjunctionAccess().getPartsNegationParserRuleCall_1_1_1_0()); 
+	        newCompositeNode(grammarAccess.getConjunctionAccess().getRightPartNegationParserRuleCall_1_2_0()); 
 	    }
-		lv_parts_3_0=ruleNegation		{
+		lv_rightPart_3_0=ruleNegation		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getConjunctionRule());
 	        }
-       		add(
+       		set(
        			$current, 
-       			"parts",
-        		lv_parts_3_0, 
+       			"rightPart",
+        		lv_rightPart_3_0, 
         		"Negation");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-))+)?)
+))*)
 ;
 
 

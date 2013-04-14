@@ -5,7 +5,7 @@ import com.google.inject.Provider;
 import cz.jpikl.yafmt.clang.bcl.model.Conjunction;
 import cz.jpikl.yafmt.clang.bcl.model.ContextualExpression;
 import cz.jpikl.yafmt.clang.bcl.model.Disjunction;
-import cz.jpikl.yafmt.clang.bcl.model.ExclusiveDisjunction;
+import cz.jpikl.yafmt.clang.bcl.model.Equation;
 import cz.jpikl.yafmt.clang.bcl.model.Implication;
 import cz.jpikl.yafmt.clang.bcl.model.ModelPackage;
 import cz.jpikl.yafmt.clang.bcl.model.Negation;
@@ -33,12 +33,12 @@ public class BooleanConstraintLanguageSemanticSequencer extends AbstractDelegati
 		if(semanticObject.eClass().getEPackage() == ModelPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
 			case ModelPackage.CONJUNCTION:
 				if(context == grammarAccess.getConjunctionRule() ||
-				   context == grammarAccess.getConjunctionAccess().getConjunctionPartsAction_1_0() ||
+				   context == grammarAccess.getConjunctionAccess().getConjunctionLeftPartAction_1_0() ||
 				   context == grammarAccess.getContextualExpressionRule() ||
 				   context == grammarAccess.getDisjunctionRule() ||
-				   context == grammarAccess.getDisjunctionAccess().getDisjunctionPartsAction_1_0() ||
-				   context == grammarAccess.getExclusiveDisjunctionRule() ||
-				   context == grammarAccess.getExclusiveDisjunctionAccess().getExclusiveDisjunctionPartsAction_1_0() ||
+				   context == grammarAccess.getDisjunctionAccess().getDisjunctionLeftPartAction_1_0() ||
+				   context == grammarAccess.getEquationRule() ||
+				   context == grammarAccess.getEquationAccess().getEquationLeftPartAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getImplicationRule() ||
 				   context == grammarAccess.getImplicationAccess().getImplicationLeftPartAction_1_0() ||
@@ -50,12 +50,12 @@ public class BooleanConstraintLanguageSemanticSequencer extends AbstractDelegati
 				else break;
 			case ModelPackage.CONTEXTUAL_EXPRESSION:
 				if(context == grammarAccess.getConjunctionRule() ||
-				   context == grammarAccess.getConjunctionAccess().getConjunctionPartsAction_1_0() ||
+				   context == grammarAccess.getConjunctionAccess().getConjunctionLeftPartAction_1_0() ||
 				   context == grammarAccess.getContextualExpressionRule() ||
 				   context == grammarAccess.getDisjunctionRule() ||
-				   context == grammarAccess.getDisjunctionAccess().getDisjunctionPartsAction_1_0() ||
-				   context == grammarAccess.getExclusiveDisjunctionRule() ||
-				   context == grammarAccess.getExclusiveDisjunctionAccess().getExclusiveDisjunctionPartsAction_1_0() ||
+				   context == grammarAccess.getDisjunctionAccess().getDisjunctionLeftPartAction_1_0() ||
+				   context == grammarAccess.getEquationRule() ||
+				   context == grammarAccess.getEquationAccess().getEquationLeftPartAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getImplicationRule() ||
 				   context == grammarAccess.getImplicationAccess().getImplicationLeftPartAction_1_0() ||
@@ -67,12 +67,12 @@ public class BooleanConstraintLanguageSemanticSequencer extends AbstractDelegati
 				else break;
 			case ModelPackage.DISJUNCTION:
 				if(context == grammarAccess.getConjunctionRule() ||
-				   context == grammarAccess.getConjunctionAccess().getConjunctionPartsAction_1_0() ||
+				   context == grammarAccess.getConjunctionAccess().getConjunctionLeftPartAction_1_0() ||
 				   context == grammarAccess.getContextualExpressionRule() ||
 				   context == grammarAccess.getDisjunctionRule() ||
-				   context == grammarAccess.getDisjunctionAccess().getDisjunctionPartsAction_1_0() ||
-				   context == grammarAccess.getExclusiveDisjunctionRule() ||
-				   context == grammarAccess.getExclusiveDisjunctionAccess().getExclusiveDisjunctionPartsAction_1_0() ||
+				   context == grammarAccess.getDisjunctionAccess().getDisjunctionLeftPartAction_1_0() ||
+				   context == grammarAccess.getEquationRule() ||
+				   context == grammarAccess.getEquationAccess().getEquationLeftPartAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getImplicationRule() ||
 				   context == grammarAccess.getImplicationAccess().getImplicationLeftPartAction_1_0() ||
@@ -82,31 +82,31 @@ public class BooleanConstraintLanguageSemanticSequencer extends AbstractDelegati
 					return; 
 				}
 				else break;
-			case ModelPackage.EXCLUSIVE_DISJUNCTION:
+			case ModelPackage.EQUATION:
 				if(context == grammarAccess.getConjunctionRule() ||
-				   context == grammarAccess.getConjunctionAccess().getConjunctionPartsAction_1_0() ||
+				   context == grammarAccess.getConjunctionAccess().getConjunctionLeftPartAction_1_0() ||
 				   context == grammarAccess.getContextualExpressionRule() ||
 				   context == grammarAccess.getDisjunctionRule() ||
-				   context == grammarAccess.getDisjunctionAccess().getDisjunctionPartsAction_1_0() ||
-				   context == grammarAccess.getExclusiveDisjunctionRule() ||
-				   context == grammarAccess.getExclusiveDisjunctionAccess().getExclusiveDisjunctionPartsAction_1_0() ||
+				   context == grammarAccess.getDisjunctionAccess().getDisjunctionLeftPartAction_1_0() ||
+				   context == grammarAccess.getEquationRule() ||
+				   context == grammarAccess.getEquationAccess().getEquationLeftPartAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getImplicationRule() ||
 				   context == grammarAccess.getImplicationAccess().getImplicationLeftPartAction_1_0() ||
 				   context == grammarAccess.getNegationRule() ||
 				   context == grammarAccess.getPrimaryExpressionRule()) {
-					sequence_ExclusiveDisjunction(context, (ExclusiveDisjunction) semanticObject); 
+					sequence_Equation(context, (Equation) semanticObject); 
 					return; 
 				}
 				else break;
 			case ModelPackage.IMPLICATION:
 				if(context == grammarAccess.getConjunctionRule() ||
-				   context == grammarAccess.getConjunctionAccess().getConjunctionPartsAction_1_0() ||
+				   context == grammarAccess.getConjunctionAccess().getConjunctionLeftPartAction_1_0() ||
 				   context == grammarAccess.getContextualExpressionRule() ||
 				   context == grammarAccess.getDisjunctionRule() ||
-				   context == grammarAccess.getDisjunctionAccess().getDisjunctionPartsAction_1_0() ||
-				   context == grammarAccess.getExclusiveDisjunctionRule() ||
-				   context == grammarAccess.getExclusiveDisjunctionAccess().getExclusiveDisjunctionPartsAction_1_0() ||
+				   context == grammarAccess.getDisjunctionAccess().getDisjunctionLeftPartAction_1_0() ||
+				   context == grammarAccess.getEquationRule() ||
+				   context == grammarAccess.getEquationAccess().getEquationLeftPartAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getImplicationRule() ||
 				   context == grammarAccess.getImplicationAccess().getImplicationLeftPartAction_1_0() ||
@@ -118,12 +118,12 @@ public class BooleanConstraintLanguageSemanticSequencer extends AbstractDelegati
 				else break;
 			case ModelPackage.NEGATION:
 				if(context == grammarAccess.getConjunctionRule() ||
-				   context == grammarAccess.getConjunctionAccess().getConjunctionPartsAction_1_0() ||
+				   context == grammarAccess.getConjunctionAccess().getConjunctionLeftPartAction_1_0() ||
 				   context == grammarAccess.getContextualExpressionRule() ||
 				   context == grammarAccess.getDisjunctionRule() ||
-				   context == grammarAccess.getDisjunctionAccess().getDisjunctionPartsAction_1_0() ||
-				   context == grammarAccess.getExclusiveDisjunctionRule() ||
-				   context == grammarAccess.getExclusiveDisjunctionAccess().getExclusiveDisjunctionPartsAction_1_0() ||
+				   context == grammarAccess.getDisjunctionAccess().getDisjunctionLeftPartAction_1_0() ||
+				   context == grammarAccess.getEquationRule() ||
+				   context == grammarAccess.getEquationAccess().getEquationLeftPartAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getImplicationRule() ||
 				   context == grammarAccess.getImplicationAccess().getImplicationLeftPartAction_1_0() ||
@@ -135,12 +135,12 @@ public class BooleanConstraintLanguageSemanticSequencer extends AbstractDelegati
 				else break;
 			case ModelPackage.PRIMARY_EXPRESSION:
 				if(context == grammarAccess.getConjunctionRule() ||
-				   context == grammarAccess.getConjunctionAccess().getConjunctionPartsAction_1_0() ||
+				   context == grammarAccess.getConjunctionAccess().getConjunctionLeftPartAction_1_0() ||
 				   context == grammarAccess.getContextualExpressionRule() ||
 				   context == grammarAccess.getDisjunctionRule() ||
-				   context == grammarAccess.getDisjunctionAccess().getDisjunctionPartsAction_1_0() ||
-				   context == grammarAccess.getExclusiveDisjunctionRule() ||
-				   context == grammarAccess.getExclusiveDisjunctionAccess().getExclusiveDisjunctionPartsAction_1_0() ||
+				   context == grammarAccess.getDisjunctionAccess().getDisjunctionLeftPartAction_1_0() ||
+				   context == grammarAccess.getEquationRule() ||
+				   context == grammarAccess.getEquationAccess().getEquationLeftPartAction_1_0() ||
 				   context == grammarAccess.getExpressionRule() ||
 				   context == grammarAccess.getImplicationRule() ||
 				   context == grammarAccess.getImplicationAccess().getImplicationLeftPartAction_1_0() ||
@@ -156,16 +156,26 @@ public class BooleanConstraintLanguageSemanticSequencer extends AbstractDelegati
 	
 	/**
 	 * Constraint:
-	 *     (parts+=Conjunction_Conjunction_1_0 parts+=Negation+)
+	 *     (leftPart=Conjunction_Conjunction_1_0 rightPart=Negation)
 	 */
 	protected void sequence_Conjunction(EObject context, Conjunction semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, ModelPackage.Literals.CONJUNCTION__LEFT_PART) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.CONJUNCTION__LEFT_PART));
+			if(transientValues.isValueTransient(semanticObject, ModelPackage.Literals.CONJUNCTION__RIGHT_PART) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.CONJUNCTION__RIGHT_PART));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getConjunctionAccess().getConjunctionLeftPartAction_1_0(), semanticObject.getLeftPart());
+		feeder.accept(grammarAccess.getConjunctionAccess().getRightPartNegationParserRuleCall_1_2_0(), semanticObject.getRightPart());
+		feeder.finish();
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     (contextId=ID expression=Implication)
+	 *     (contextId=ID expression=Equation)
 	 */
 	protected void sequence_ContextualExpression(EObject context, ContextualExpression semanticObject) {
 		if(errorAcceptor != null) {
@@ -177,26 +187,46 @@ public class BooleanConstraintLanguageSemanticSequencer extends AbstractDelegati
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getContextualExpressionAccess().getContextIdIDTerminalRuleCall_0_2_0(), semanticObject.getContextId());
-		feeder.accept(grammarAccess.getContextualExpressionAccess().getExpressionImplicationParserRuleCall_0_4_0(), semanticObject.getExpression());
+		feeder.accept(grammarAccess.getContextualExpressionAccess().getExpressionEquationParserRuleCall_0_4_0(), semanticObject.getExpression());
 		feeder.finish();
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     (parts+=Disjunction_Disjunction_1_0 parts+=ExclusiveDisjunction+)
+	 *     (leftPart=Disjunction_Disjunction_1_0 rightPart=Conjunction)
 	 */
 	protected void sequence_Disjunction(EObject context, Disjunction semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, ModelPackage.Literals.DISJUNCTION__LEFT_PART) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.DISJUNCTION__LEFT_PART));
+			if(transientValues.isValueTransient(semanticObject, ModelPackage.Literals.DISJUNCTION__RIGHT_PART) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.DISJUNCTION__RIGHT_PART));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getDisjunctionAccess().getDisjunctionLeftPartAction_1_0(), semanticObject.getLeftPart());
+		feeder.accept(grammarAccess.getDisjunctionAccess().getRightPartConjunctionParserRuleCall_1_2_0(), semanticObject.getRightPart());
+		feeder.finish();
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     (parts+=ExclusiveDisjunction_ExclusiveDisjunction_1_0 parts+=Conjunction+)
+	 *     (leftPart=Equation_Equation_1_0 rightPart=Implication)
 	 */
-	protected void sequence_ExclusiveDisjunction(EObject context, ExclusiveDisjunction semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+	protected void sequence_Equation(EObject context, Equation semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, ModelPackage.Literals.EQUATION__LEFT_PART) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.EQUATION__LEFT_PART));
+			if(transientValues.isValueTransient(semanticObject, ModelPackage.Literals.EQUATION__RIGHT_PART) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.EQUATION__RIGHT_PART));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getEquationAccess().getEquationLeftPartAction_1_0(), semanticObject.getLeftPart());
+		feeder.accept(grammarAccess.getEquationAccess().getRightPartImplicationParserRuleCall_1_2_0(), semanticObject.getRightPart());
+		feeder.finish();
 	}
 	
 	

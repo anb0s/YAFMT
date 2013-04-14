@@ -79,6 +79,13 @@ public class ModelSwitch<T> extends Switch<T> {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case ModelPackage.EQUATION: {
+                Equation equation = (Equation)theEObject;
+                T result = caseEquation(equation);
+                if (result == null) result = caseExpression(equation);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             case ModelPackage.IMPLICATION: {
                 Implication implication = (Implication)theEObject;
                 T result = caseImplication(implication);
@@ -90,13 +97,6 @@ public class ModelSwitch<T> extends Switch<T> {
                 Disjunction disjunction = (Disjunction)theEObject;
                 T result = caseDisjunction(disjunction);
                 if (result == null) result = caseExpression(disjunction);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case ModelPackage.EXCLUSIVE_DISJUNCTION: {
-                ExclusiveDisjunction exclusiveDisjunction = (ExclusiveDisjunction)theEObject;
-                T result = caseExclusiveDisjunction(exclusiveDisjunction);
-                if (result == null) result = caseExpression(exclusiveDisjunction);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -156,6 +156,21 @@ public class ModelSwitch<T> extends Switch<T> {
     }
 
     /**
+     * Returns the result of interpreting the object as an instance of '<em>Equation</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Equation</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseEquation(Equation object) {
+        return null;
+    }
+
+    /**
      * Returns the result of interpreting the object as an instance of '<em>Implication</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
@@ -182,21 +197,6 @@ public class ModelSwitch<T> extends Switch<T> {
      * @generated
      */
     public T caseDisjunction(Disjunction object) {
-        return null;
-    }
-
-    /**
-     * Returns the result of interpreting the object as an instance of '<em>Exclusive Disjunction</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
-     * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>Exclusive Disjunction</em>'.
-     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-     * @generated
-     */
-    public T caseExclusiveDisjunction(ExclusiveDisjunction object) {
         return null;
     }
 

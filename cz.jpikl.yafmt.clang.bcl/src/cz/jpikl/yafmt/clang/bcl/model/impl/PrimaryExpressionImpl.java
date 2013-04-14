@@ -170,20 +170,25 @@ public class PrimaryExpressionImpl extends ExpressionImpl implements PrimaryExpr
     }
     
     @Override
-    public boolean evaluate(FeatureConfiguration featureConfig, Selection context, Set<Selection> problemSelections, boolean expectTrue) {
-        // Get all selections with that ID under the specified context.
+    public boolean evaluate(FeatureConfiguration featureConfig, Selection context, Set<Selection> problemSelections, boolean expectedValue) {
+        // Get all selected features with this ID, under the specified context.
         List<Selection> selections = getSelections(featureConfig, context, featureId);
-
-        // Success.
-        if(expectTrue == !selections.isEmpty())
-            return true;
         
-        // Failure.
-        if(expectTrue)
-            problemSelections.add(context);
-        else
-            problemSelections.addAll(selections);
-        return false;
+        // The result value is true if there is at least one selected feature.
+        boolean value = !selections.isEmpty();
+        
+        // Gather problem elements if we expected different result.
+        if(value != expectedValue) {
+            // Mark the context, because no expected feature was selected.
+            if(expectedValue)
+                problemSelections.add(context);
+            // Mark features which should not be selected.
+            else
+                problemSelections.addAll(selections);
+        }
+        
+        // The result value.
+        return value;
     }
 
 
