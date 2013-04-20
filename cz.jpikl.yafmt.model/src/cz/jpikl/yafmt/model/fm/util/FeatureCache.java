@@ -7,6 +7,9 @@ import java.util.Map;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.ECollections;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EContentAdapter;
 
 import cz.jpikl.yafmt.model.fm.Attribute;
@@ -15,14 +18,14 @@ import cz.jpikl.yafmt.model.fm.FeatureModel;
 
 public class FeatureCache {
 
-    private Map<String, Feature> idToFeature;
+    private Map<String, EList<Feature>> idToFeatures;
     private FeatureModelAdapter featureModelAdapter;
 
     public FeatureCache(FeatureModel featureModel) {
         if(featureModel == null)
             throw new IllegalArgumentException("Feature model cannot be null");
 
-        idToFeature = new HashMap<String, Feature>();
+        idToFeatures = new HashMap<String, EList<Feature>>();
         featureModelAdapter = new FeatureModelAdapter();
         featureModel.eAdapters().add(featureModelAdapter);
     }
@@ -30,11 +33,43 @@ public class FeatureCache {
     public void dispose() {
         featureModelAdapter.getTarget().eAdapters().remove(featureModelAdapter);
         featureModelAdapter = null;
-        idToFeature = null;
+        idToFeatures = null;
     }
 
-    public Feature getFeatureById(String id) {
-        return idToFeature.get(id);
+    public EList<Feature> getFeaturesById(String id) {
+        EList<Feature> features = idToFeatures.get(id);
+        if(features != null)
+            return features;
+        return ECollections.emptyEList();
+    }
+    
+    // =======================================================================
+    //  Helpers
+    // =======================================================================
+
+    private void addFeature(Feature feature) {
+        String id = feature.getId();
+        EList<Feature> features = idToFeatures.get(id);
+
+        if(features == null) {
+            features = new BasicEList<Feature>();
+            idToFeatures.put(id, features);
+        }
+
+        features.add(feature);
+    }
+
+    private void removeFeature(Feature feature, String oldId) {
+        String id = (oldId != null) ? oldId : feature.getId();
+        EList<Feature> features = idToFeatures.get(id);
+
+        // Should not happen.
+        if(features == null)
+            return;
+
+        features.remove(feature);
+        if(features.isEmpty())
+            idToFeatures.remove(id);
     }
     
     // =======================================================================
@@ -50,14 +85,14 @@ public class FeatureCache {
 
             super.addAdapter(notifier);
             if(notifier instanceof Feature)
-                idToFeature.put(((Feature) notifier).getId(), (Feature) notifier);
+                addFeature((Feature) notifier);
         }
 
         @Override
         protected void removeAdapter(Notifier notifier) {
             super.removeAdapter(notifier);
             if(notifier instanceof Feature)
-                idToFeature.remove(((Feature) notifier).getId());
+                removeFeature((Feature) notifier, null);
         }
 
         @Override
@@ -65,11 +100,12 @@ public class FeatureCache {
             super.notifyChanged(notification);
 
             if((notification.getNotifier() instanceof Feature) && (notification.getFeatureID(Feature.class) == FEATURE__ID)) {
-                Feature feature = idToFeature.remove(notification.getOldStringValue());
-                idToFeature.put(notification.getNewStringValue(), feature);
+                Feature feature = (Feature) notification.getNotifier();
+                removeFeature(feature, notification.getOldStringValue());
+                addFeature(feature); // Should have the new ID value.
             }
         }
 
     }
-
+    
 }

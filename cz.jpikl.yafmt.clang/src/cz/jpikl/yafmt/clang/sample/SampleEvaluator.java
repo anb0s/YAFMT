@@ -10,6 +10,7 @@ import cz.jpikl.yafmt.clang.IEvaluationResult;
 import cz.jpikl.yafmt.clang.IEvaluator;
 import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
 import cz.jpikl.yafmt.model.fc.Selection;
+import cz.jpikl.yafmt.model.fm.Feature;
 
 /**
  * Example implementation of the {@link IEvaluator} interface for the
@@ -94,7 +95,8 @@ public class SampleEvaluator extends Evaluator {
      * @return name of the feature with the specified ID
      */
     private String getName(FeatureConfiguration featureConfig, String featureId) {
-        return featureConfig.getFeatureModel().getFeatureById(featureId).getName();
+        List<Feature> features = featureConfig.getFeatureModel().getFeaturesById(featureId);
+        return features.isEmpty() ? featureId : features.get(0).getName();
     }
 
     /**

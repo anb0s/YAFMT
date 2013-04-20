@@ -3,6 +3,7 @@
 package cz.jpikl.yafmt.model.fc.impl;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -418,7 +419,8 @@ public class SelectionImpl extends EObjectImpl implements Selection {
         FeatureConfiguration featureConfig = getFeatureConfiguration();
         if(featureConfig == null)
             return null;
-        return featureConfig.getFeatureModelCopy().getFeatureById(getId());
+        List<Feature> features = featureConfig.getFeatureModelCopy().getFeaturesById(getId());
+        return features.isEmpty() ? null : features.get(0);
     }
 
     /**

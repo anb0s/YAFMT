@@ -5,6 +5,7 @@ import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.FEATURE__ATTRIBUTES;
 import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.FEATURE__DESCRIPTION;
 import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.FEATURE__FEATURES;
 import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.FEATURE__GROUPS;
+import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.FEATURE__ID;
 import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.FEATURE__LOWER;
 import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.FEATURE__NAME;
 import static cz.jpikl.yafmt.model.fm.FeatureModelPackage.FEATURE__PARENT_FEATURE;
@@ -233,6 +234,7 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
             super.notifyChanged(msg);
             
             switch(msg.getFeatureID(Feature.class)) {
+                case FEATURE__ID:                
                 case FEATURE__NAME:
                 case FEATURE__LOWER:
                 case FEATURE__UPPER:

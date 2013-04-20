@@ -21,6 +21,8 @@ import static cz.jpikl.yafmt.model.validation.ValidationUtil.checkBounds;
 import static cz.jpikl.yafmt.model.validation.ValidationUtil.checkEmptyValue;
 import static cz.jpikl.yafmt.model.validation.ValidationUtil.checkIdValue;
 
+import java.util.List;
+
 import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -76,7 +78,8 @@ public class FeatureModelValidator extends BasicValidator {
     }
     
     private boolean validateFeature(Feature feature, DiagnosticChain diagnostics) {
-        boolean result = validateStructuralFeature(feature, Literals.FEATURE__NAME, diagnostics);
+        boolean result = validateStructuralFeature(feature, Literals.FEATURE__ID, diagnostics);
+        result &= validateStructuralFeature(feature, Literals.FEATURE__NAME, diagnostics);
         result &= validateStructuralFeature(feature, Literals.FEATURE__LOWER, diagnostics); // Lower bound check includes also upper bound check.
         return result;
     }
@@ -182,8 +185,8 @@ public class FeatureModelValidator extends BasicValidator {
                 FeatureModel featureModel = feature.getFeatureModel();
                 if(featureModel == null)
                     break;
-                Feature otherFeature = featureModel.getFeatureById(id);
-                if((otherFeature != null) && (otherFeature != feature))
+                List<Feature> features = featureModel.getFeaturesById(id); 
+                if((features.size() > 1) || ((features.size() == 1) && (features.get(0) != feature)))
                     throw new Exception(getMessage("Errors_IdNotUnique", getMessage("FeatureModel")));
                 break;
             }

@@ -11,14 +11,13 @@ public class ValidationUtil {
             throw new Exception(getMessage("Errors_EmptyValue", name));
     }
     
-    public static String checkIdValue(String name, String value) throws Exception {
+    public static void checkIdValue(String name, String value) throws Exception {
         checkEmptyValue(name, value);
         if(!Pattern.matches("[a-zA-Z0-9_\\.]+", value))
             throw new Exception(getMessage("Errors_WrongIdFormat"));
-        return null;
     }
     
-    public static String checkBounds(int lower, int upper) throws Exception {
+    public static void checkBounds(int lower, int upper) throws Exception {
         upper = (upper == -1) ? Integer.MAX_VALUE : upper;
         if(lower < 0)
             throw new Exception(getMessage("Errors_NegativeLowerBound"));
@@ -26,7 +25,6 @@ public class ValidationUtil {
             throw new Exception(getMessage("Errors_NegativeUpperBound"));
         if(lower > upper)
             throw new Exception(getMessage("Errors_UpperLowerBoundMismatch"));
-        return null;
     }
     
 }

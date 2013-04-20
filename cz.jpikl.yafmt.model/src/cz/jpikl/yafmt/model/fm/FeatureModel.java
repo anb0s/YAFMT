@@ -194,9 +194,9 @@ public interface FeatureModel extends EObject {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @model
+     * @model many="false"
      * @generated
      */
-    Feature getFeatureById(String id);
+    EList<Feature> getFeaturesById(String id);
 
 } // FeatureModel

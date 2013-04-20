@@ -27,11 +27,8 @@ public abstract class Evaluator implements IEvaluator {
             return null;
 
         List<Feature> features = new ArrayList<Feature>(ids.size());
-        for(String id: ids) {
-            Feature feature = featureModel.getFeatureById(id);
-            if(feature != null)
-                features.add(feature);
-        }
+        for(String id: ids)
+            features.addAll(featureModel.getFeaturesById(id));
         return features;
     }
 
@@ -54,7 +51,7 @@ public abstract class Evaluator implements IEvaluator {
 
         List<String> features = null;
         for(String id: ids) {
-            if(featureModel.getFeatureById(id) == null) {
+            if(featureModel.getFeaturesById(id).isEmpty()) {
                 if(features == null)
                     features = new ArrayList<String>();
                 features.add(id);

@@ -334,10 +334,10 @@ public class FeatureModelImpl extends EObjectImpl implements FeatureModel {
      * <!-- end-user-doc -->
      * @generated NOT
      */
-    public Feature getFeatureById(String id) {
+    public EList<Feature> getFeaturesById(String id) {
         if(featureCache == null)
             featureCache = new FeatureCache(this);
-        return featureCache.getFeatureById(id);
+        return featureCache.getFeaturesById(id);
     }
 
     /**
