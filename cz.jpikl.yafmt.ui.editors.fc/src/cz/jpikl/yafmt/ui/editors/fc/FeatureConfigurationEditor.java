@@ -1,5 +1,10 @@
 package cz.jpikl.yafmt.ui.editors.fc;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.MultiStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.common.util.BasicDiagnostic;
+import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -10,6 +15,7 @@ import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.EditPartFactory;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
+import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
@@ -32,6 +38,7 @@ import cz.jpikl.yafmt.model.fc.FeatureConfiguration;
 import cz.jpikl.yafmt.model.fc.provider.util.FeatureConfigurationProviderUtil;
 import cz.jpikl.yafmt.model.fm.FeatureModel;
 import cz.jpikl.yafmt.model.fm.util.FeatureModelUtil;
+import cz.jpikl.yafmt.model.validation.fm.FeatureModelValidator;
 import cz.jpikl.yafmt.ui.actions.ExportGraphicalEditorAsImageAction;
 import cz.jpikl.yafmt.ui.actions.ShowFeatureModelVisualizerAction;
 import cz.jpikl.yafmt.ui.dialogs.ChoicesDialog;
@@ -200,6 +207,7 @@ public class FeatureConfigurationEditor extends ModelEditor {
         loadFeatureConfiguration(resourceSet, input.getFile().getFullPath().toString());
         checkFeatureModelExistence(resourceSet);
         checkFeatureModelChanges();
+        checkFeatureModelValidity();
     }
     
     private void loadFeatureConfiguration(ResourceSet resourceSet, String path) throws Exception {
@@ -275,6 +283,16 @@ public class FeatureConfigurationEditor extends ModelEditor {
             // Changes are merged in feature configuration manager (see FeatureConfigurationUtil.repair*() methods).
             featureConfig.setFeatureModelCopy(EcoreUtil.copy(featureConfig.getFeatureModel()));
             trySave();
+        }
+    }
+    
+    private void checkFeatureModelValidity() {
+        BasicDiagnostic diagnostic = new BasicDiagnostic();
+        if(!FeatureModelValidator.INSTANCE.validateRecursive(featureConfig.getFeatureModelCopy(), diagnostic)) {
+            MultiStatus status = new MultiStatus(FeatureConfigurationEditorPlugin.PLUGIN_ID, IStatus.WARNING, "The feature model contains validation errors!", null);
+            for(Diagnostic child: diagnostic.getChildren())
+                status.add(new Status(IStatus.ERROR, FeatureConfigurationEditorPlugin.PLUGIN_ID, child.getMessage()));
+            ErrorDialog.openError(getSite().getShell(), "Warning", null, status);
         }
     }
 
