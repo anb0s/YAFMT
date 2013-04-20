@@ -90,6 +90,16 @@ public class ConstraintsEditor extends SplitterDock implements ISelectionListene
         constraintCache = (ConstraintCache) editor.getAdapter(ConstraintCache.class);
         problemManager = (IProblemManager) editor.getAdapter(IProblemManager.class);
         initialize();
+        
+        constraintCache.addListener(new ConstraintCache.Listener() {
+            @Override
+            public void constraintsInvalidated(List<Constraint> constraints) {
+                for(Constraint constraint: constraints) {
+                    revalidateConstraint(constraint);
+                    viewer.refresh(constraint);
+                }
+            }
+        });
     }
     
     // ====================================================================
