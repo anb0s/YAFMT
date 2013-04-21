@@ -22,8 +22,8 @@ public class ChoicesDialog extends MessageDialog {
     private String[] choices;
     private int selectedChoice;
     
-    public ChoicesDialog(Shell shell, String title, String message, String[] choices) {
-        super(shell, title, null, message, QUESTION, BUTTON_LABELS, 0);
+    public ChoicesDialog(Shell shell, String title, String message, String[] choices, boolean isWarning) {
+        super(shell, title, null, message, isWarning ? WARNING : QUESTION, BUTTON_LABELS, 0);
         setShellStyle(getShellStyle() | SWT.SHEET);
         
         if(choices == null)
@@ -69,8 +69,13 @@ public class ChoicesDialog extends MessageDialog {
         return (super.open() == OK) ? selectedChoice : -1; 
     }
     
+    public static int openChoices(Shell shell, String title, String message, String[] choices, boolean isWarning) {
+        ChoicesDialog dialog = new ChoicesDialog(shell, title, message, choices, isWarning);
+        return dialog.open();
+    }
+    
     public static int openChoices(Shell shell, String title, String message, String[] choices) {
-        ChoicesDialog dialog = new ChoicesDialog(shell, title, message, choices);
+        ChoicesDialog dialog = new ChoicesDialog(shell, title, message, choices, false);
         return dialog.open();
     }
 

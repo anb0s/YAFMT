@@ -75,7 +75,7 @@ public class FeatureConfigurationEditor extends ModelEditor {
     // ==================================================================================
 
     @Override
-    public void createPartControl(Composite parent) {
+    public void createModelEditor(Composite parent) {
         Composite panel = new Composite(parent, SWT.NONE);
         panel.setLayout(new GridLayout());
         createFeatureConfigurationEditor(panel);
@@ -265,7 +265,7 @@ public class FeatureConfigurationEditor extends ModelEditor {
     }
 
     private void checkFeatureModelChanges() {
-        // Root is null when original feature model was not loaded properly.
+        // Root is null when the original feature model was not loaded properly.
         if(featureConfig.getFeatureModel().getRoot() == null)
             return;
         
@@ -273,19 +273,25 @@ public class FeatureConfigurationEditor extends ModelEditor {
         if(FeatureModelUtil.compareFeatureModels(featureConfig.getFeatureModel(), featureConfig.getFeatureModelCopy(), false))
             return;
         
+        // The original feature model was changed. Check if the new version is valid. 
+        boolean isValid = FeatureModelValidator.INSTANCE.validateRecursive(featureConfig.getFeatureModel(), new BasicDiagnostic());
+        
         // Ask user for what to do.
         Shell shell = getSite().getShell();
         String inputName = getEditorInput().getName();
+        String question = "The original feature model was changed.";
+        if(!isValid)
+            question += "\nThe new version contains validation errors!";
         String[] choices = { "Ignore changes.", "Merge changes automatically." };
-        
-        int answer = ChoicesDialog.openChoices(shell, inputName, "The original feature model was changed.", choices);
+        int answer = ChoicesDialog.openChoices(shell, inputName, question, choices, !isValid);
         if(answer == 1) {
-            // Changes are merged in feature configuration manager (see FeatureConfigurationUtil.repair*() methods).
+            // Just copy the new version of feature model.
+            // Changes are merged in the FeatureConfigurationManager (see FeatureConfigurationUtil.repair*() methods).
             featureConfig.setFeatureModelCopy(EcoreUtil.copy(featureConfig.getFeatureModel()));
             trySave();
         }
     }
-    
+        
     private void checkFeatureModelValidity() {
         BasicDiagnostic diagnostic = new BasicDiagnostic();
         if(!FeatureModelValidator.INSTANCE.validateRecursive(featureConfig.getFeatureModelCopy(), diagnostic)) {
