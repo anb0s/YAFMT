@@ -23,30 +23,26 @@ import cz.jpikl.yafmt.model.fc.Selection;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link cz.jpikl.yafmt.clang.bcl.model.impl.DisjunctionImpl#getLeftPart
- * <em>Left Part</em>}</li>
- * <li>{@link cz.jpikl.yafmt.clang.bcl.model.impl.DisjunctionImpl#getRightPart
- * <em>Right Part</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.clang.bcl.model.impl.DisjunctionImpl#getLeftPart <em>Left Part</em>}</li>
+ *   <li>{@link cz.jpikl.yafmt.clang.bcl.model.impl.DisjunctionImpl#getRightPart <em>Right Part</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class DisjunctionImpl extends ExpressionImpl implements Disjunction {
 
     /**
-     * The cached value of the '{@link #getLeftPart() <em>Left Part</em>}'
-     * containment reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * The cached value of the '{@link #getLeftPart() <em>Left Part</em>}' containment reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getLeftPart()
      * @generated
      * @ordered
      */
     protected Expression leftPart;
     /**
-     * The cached value of the '{@link #getRightPart() <em>Right Part</em>}'
-     * containment reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * The cached value of the '{@link #getRightPart() <em>Right Part</em>}' containment reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getRightPart()
      * @generated
      * @ordered
@@ -55,7 +51,6 @@ public class DisjunctionImpl extends ExpressionImpl implements Disjunction {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     protected DisjunctionImpl() {
@@ -64,7 +59,6 @@ public class DisjunctionImpl extends ExpressionImpl implements Disjunction {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -74,7 +68,6 @@ public class DisjunctionImpl extends ExpressionImpl implements Disjunction {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Expression getLeftPart() {
@@ -83,45 +76,38 @@ public class DisjunctionImpl extends ExpressionImpl implements Disjunction {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public NotificationChain basicSetLeftPart(Expression newLeftPart, NotificationChain msgs) {
         Expression oldLeftPart = leftPart;
         leftPart = newLeftPart;
-        if(eNotificationRequired()) {
+        if (eNotificationRequired()) {
             ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.DISJUNCTION__LEFT_PART, oldLeftPart, newLeftPart);
-            if(msgs == null)
-                msgs = notification;
-            else
-                msgs.add(notification);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
         }
         return msgs;
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setLeftPart(Expression newLeftPart) {
-        if(newLeftPart != leftPart) {
+        if (newLeftPart != leftPart) {
             NotificationChain msgs = null;
-            if(leftPart != null)
-                msgs = ((InternalEObject) leftPart).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.DISJUNCTION__LEFT_PART, null, msgs);
-            if(newLeftPart != null)
-                msgs = ((InternalEObject) newLeftPart).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.DISJUNCTION__LEFT_PART, null, msgs);
+            if (leftPart != null)
+                msgs = ((InternalEObject)leftPart).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.DISJUNCTION__LEFT_PART, null, msgs);
+            if (newLeftPart != null)
+                msgs = ((InternalEObject)newLeftPart).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.DISJUNCTION__LEFT_PART, null, msgs);
             msgs = basicSetLeftPart(newLeftPart, msgs);
-            if(msgs != null)
-                msgs.dispatch();
+            if (msgs != null) msgs.dispatch();
         }
-        else if(eNotificationRequired())
+        else if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.DISJUNCTION__LEFT_PART, newLeftPart, newLeftPart));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Expression getRightPart() {
@@ -130,50 +116,43 @@ public class DisjunctionImpl extends ExpressionImpl implements Disjunction {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public NotificationChain basicSetRightPart(Expression newRightPart, NotificationChain msgs) {
         Expression oldRightPart = rightPart;
         rightPart = newRightPart;
-        if(eNotificationRequired()) {
+        if (eNotificationRequired()) {
             ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.DISJUNCTION__RIGHT_PART, oldRightPart, newRightPart);
-            if(msgs == null)
-                msgs = notification;
-            else
-                msgs.add(notification);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
         }
         return msgs;
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setRightPart(Expression newRightPart) {
-        if(newRightPart != rightPart) {
+        if (newRightPart != rightPart) {
             NotificationChain msgs = null;
-            if(rightPart != null)
-                msgs = ((InternalEObject) rightPart).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.DISJUNCTION__RIGHT_PART, null, msgs);
-            if(newRightPart != null)
-                msgs = ((InternalEObject) newRightPart).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.DISJUNCTION__RIGHT_PART, null, msgs);
+            if (rightPart != null)
+                msgs = ((InternalEObject)rightPart).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.DISJUNCTION__RIGHT_PART, null, msgs);
+            if (newRightPart != null)
+                msgs = ((InternalEObject)newRightPart).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.DISJUNCTION__RIGHT_PART, null, msgs);
             msgs = basicSetRightPart(newRightPart, msgs);
-            if(msgs != null)
-                msgs.dispatch();
+            if (msgs != null) msgs.dispatch();
         }
-        else if(eNotificationRequired())
+        else if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.DISJUNCTION__RIGHT_PART, newRightPart, newRightPart));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-        switch(featureID) {
+        switch (featureID) {
             case ModelPackage.DISJUNCTION__LEFT_PART:
                 return basicSetLeftPart(null, msgs);
             case ModelPackage.DISJUNCTION__RIGHT_PART:
@@ -184,12 +163,11 @@ public class DisjunctionImpl extends ExpressionImpl implements Disjunction {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-        switch(featureID) {
+        switch (featureID) {
             case ModelPackage.DISJUNCTION__LEFT_PART:
                 return getLeftPart();
             case ModelPackage.DISJUNCTION__RIGHT_PART:
@@ -200,17 +178,16 @@ public class DisjunctionImpl extends ExpressionImpl implements Disjunction {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
     public void eSet(int featureID, Object newValue) {
-        switch(featureID) {
+        switch (featureID) {
             case ModelPackage.DISJUNCTION__LEFT_PART:
-                setLeftPart((Expression) newValue);
+                setLeftPart((Expression)newValue);
                 return;
             case ModelPackage.DISJUNCTION__RIGHT_PART:
-                setRightPart((Expression) newValue);
+                setRightPart((Expression)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -218,17 +195,16 @@ public class DisjunctionImpl extends ExpressionImpl implements Disjunction {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
     public void eUnset(int featureID) {
-        switch(featureID) {
+        switch (featureID) {
             case ModelPackage.DISJUNCTION__LEFT_PART:
-                setLeftPart((Expression) null);
+                setLeftPart((Expression)null);
                 return;
             case ModelPackage.DISJUNCTION__RIGHT_PART:
-                setRightPart((Expression) null);
+                setRightPart((Expression)null);
                 return;
         }
         super.eUnset(featureID);
@@ -236,12 +212,11 @@ public class DisjunctionImpl extends ExpressionImpl implements Disjunction {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
     public boolean eIsSet(int featureID) {
-        switch(featureID) {
+        switch (featureID) {
             case ModelPackage.DISJUNCTION__LEFT_PART:
                 return leftPart != null;
             case ModelPackage.DISJUNCTION__RIGHT_PART:
