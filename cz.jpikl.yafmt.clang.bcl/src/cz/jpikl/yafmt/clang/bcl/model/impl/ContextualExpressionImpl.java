@@ -248,6 +248,7 @@ public class ContextualExpressionImpl extends ExpressionImpl implements Contextu
     
     @Override
     public void retrieveFeatureIds(Set<String> ids) {
+        ids.add(contextId);
         expression.retrieveFeatureIds(ids);
     }
     
