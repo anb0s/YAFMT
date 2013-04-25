@@ -28,9 +28,9 @@ public class FeatureModelingPerspectiveFactory implements IPerspectiveFactory {
         layout.addNewWizardShortcut(NEW_FM_WIZARD_ID);
         layout.addNewWizardShortcut(NEW_FC_WIZARD_ID);
         
-        IFolderLayout topLeftFolder = layout.createFolder(TOP_LEFT_FOLDER_ID, IPageLayout.LEFT, 0.25f, IPageLayout.ID_EDITOR_AREA);
+        IFolderLayout topLeftFolder = layout.createFolder(TOP_LEFT_FOLDER_ID, IPageLayout.LEFT, 0.2f, IPageLayout.ID_EDITOR_AREA);
         IFolderLayout bottomLeftFolder = layout.createFolder(BOTTOM_LEFT_FOLDER_ID, IPageLayout.BOTTOM, 0.5f, TOP_LEFT_FOLDER_ID);
-        IFolderLayout bottomFolder = layout.createFolder(BOTTOM_FOLDER_ID, IPageLayout.BOTTOM, 0.6f, IPageLayout.ID_EDITOR_AREA);
+        IFolderLayout bottomFolder = layout.createFolder(BOTTOM_FOLDER_ID, IPageLayout.BOTTOM, 0.7f, IPageLayout.ID_EDITOR_AREA);
         
         topLeftFolder.addView(IPageLayout.ID_PROJECT_EXPLORER);
         bottomLeftFolder.addView(IPageLayout.ID_OUTLINE);
