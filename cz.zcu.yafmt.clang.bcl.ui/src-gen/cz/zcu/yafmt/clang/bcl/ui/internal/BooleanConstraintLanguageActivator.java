@@ -23,7 +23,7 @@ import com.google.inject.Module;
  */
 public class BooleanConstraintLanguageActivator extends AbstractUIPlugin {
 	
-	public static final String CZ_JPIKL_YAFMT_CLANG_BCL_BOOLEANCONSTRAINTLANGUAGE = "cz.zcu.yafmt.clang.bcl.BooleanConstraintLanguage";
+	public static final String CZ_ZCU_YAFMT_CLANG_BCL_BOOLEANCONSTRAINTLANGUAGE = "cz.zcu.yafmt.clang.bcl.BooleanConstraintLanguage";
 	
 	private static final Logger logger = Logger.getLogger(BooleanConstraintLanguageActivator.class);
 	
@@ -73,7 +73,7 @@ public class BooleanConstraintLanguageActivator extends AbstractUIPlugin {
 	}
 
 	protected Module getRuntimeModule(String grammar) {
-		if (CZ_JPIKL_YAFMT_CLANG_BCL_BOOLEANCONSTRAINTLANGUAGE.equals(grammar)) {
+		if (CZ_ZCU_YAFMT_CLANG_BCL_BOOLEANCONSTRAINTLANGUAGE.equals(grammar)) {
 			return new cz.zcu.yafmt.clang.bcl.BooleanConstraintLanguageRuntimeModule();
 		}
 		
@@ -81,7 +81,7 @@ public class BooleanConstraintLanguageActivator extends AbstractUIPlugin {
 	}
 	
 	protected Module getUiModule(String grammar) {
-		if (CZ_JPIKL_YAFMT_CLANG_BCL_BOOLEANCONSTRAINTLANGUAGE.equals(grammar)) {
+		if (CZ_ZCU_YAFMT_CLANG_BCL_BOOLEANCONSTRAINTLANGUAGE.equals(grammar)) {
 			return new cz.zcu.yafmt.clang.bcl.ui.BooleanConstraintLanguageUiModule(this);
 		}
 		

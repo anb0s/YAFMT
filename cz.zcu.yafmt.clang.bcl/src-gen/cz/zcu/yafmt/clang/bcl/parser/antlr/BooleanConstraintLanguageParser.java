@@ -6,7 +6,6 @@ package cz.zcu.yafmt.clang.bcl.parser.antlr;
 import com.google.inject.Inject;
 
 import org.eclipse.xtext.parser.antlr.XtextTokenStream;
-
 import cz.zcu.yafmt.clang.bcl.services.BooleanConstraintLanguageGrammarAccess;
 
 public class BooleanConstraintLanguageParser extends org.eclipse.xtext.parser.antlr.AbstractAntlrParser {

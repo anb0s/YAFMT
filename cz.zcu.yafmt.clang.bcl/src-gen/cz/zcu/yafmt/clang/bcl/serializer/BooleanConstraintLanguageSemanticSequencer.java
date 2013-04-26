@@ -11,7 +11,6 @@ import cz.zcu.yafmt.clang.bcl.model.ModelPackage;
 import cz.zcu.yafmt.clang.bcl.model.Negation;
 import cz.zcu.yafmt.clang.bcl.model.PrimaryExpression;
 import cz.zcu.yafmt.clang.bcl.services.BooleanConstraintLanguageGrammarAccess;
-
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor;
 import org.eclipse.xtext.serializer.acceptor.SequenceFeeder;

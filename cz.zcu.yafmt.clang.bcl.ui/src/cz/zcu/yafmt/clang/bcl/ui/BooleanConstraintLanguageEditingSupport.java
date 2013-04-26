@@ -47,7 +47,7 @@ public class BooleanConstraintLanguageEditingSupport extends EditingSupport {
     public CellEditor createCellEditor(Composite composite, EditingContext context) {
         initializeEditedFeatureModelIds(context.getFeatureModel());
 
-        String languageId = BooleanConstraintLanguageActivator.CZ_JPIKL_YAFMT_CLANG_BCL_BOOLEANCONSTRAINTLANGUAGE;
+        String languageId = BooleanConstraintLanguageActivator.CZ_ZCU_YAFMT_CLANG_BCL_BOOLEANCONSTRAINTLANGUAGE;
         Injector injector = BooleanConstraintLanguageActivator.getInstance().getInjector(languageId);
 
         XtextStyledTextCellEditor cellEditor = new XtextStyledTextCellEditor(SWT.SINGLE, injector) {

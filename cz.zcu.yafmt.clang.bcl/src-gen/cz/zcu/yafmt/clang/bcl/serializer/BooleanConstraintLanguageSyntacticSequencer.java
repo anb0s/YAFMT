@@ -1,9 +1,7 @@
 package cz.zcu.yafmt.clang.bcl.serializer;
 
 import com.google.inject.Inject;
-
 import cz.zcu.yafmt.clang.bcl.services.BooleanConstraintLanguageGrammarAccess;
-
 import java.util.List;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.IGrammarAccess;

@@ -23,7 +23,7 @@ public class BooleanConstraintLanguageExecutableExtensionFactory extends Abstrac
 	
 	@Override
 	protected Injector getInjector() {
-		return BooleanConstraintLanguageActivator.getInstance().getInjector(BooleanConstraintLanguageActivator.CZ_JPIKL_YAFMT_CLANG_BCL_BOOLEANCONSTRAINTLANGUAGE);
+		return BooleanConstraintLanguageActivator.getInstance().getInjector(BooleanConstraintLanguageActivator.CZ_ZCU_YAFMT_CLANG_BCL_BOOLEANCONSTRAINTLANGUAGE);
 	}
 	
 }
