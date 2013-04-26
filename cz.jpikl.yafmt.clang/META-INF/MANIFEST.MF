@@ -3,21 +3,21 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Constraint Language
 Bundle-SymbolicName: cz.jpikl.yafmt.clang;singleton:=true
 Bundle-Version: 0.3.0.qualifier
-Bundle-Activator: cz.jpikl.yafmt.clang.ConstraintLanguagePlugin
+Bundle-Activator: cz.zcu.yafmt.clang.ConstraintLanguagePlugin
 Require-Bundle: org.eclipse.core.runtime;bundle-version="3.8.0",
  org.eclipse.jface;bundle-version="3.8.0",
  cz.jpikl.yafmt.model;bundle-version="0.3.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: cz.jpikl.yafmt.clang;
+Export-Package: cz.zcu.yafmt.clang;
   uses:="org.eclipse.core.runtime,
    cz.jpikl.yafmt.model.fc,
    org.osgi.framework,
    cz.jpikl.yafmt.clang.ui,
    cz.jpikl.yafmt.model.fm",
- cz.jpikl.yafmt.clang.ui;
+ cz.zcu.yafmt.clang.ui;
   uses:="org.eclipse.core.runtime,
    org.eclipse.jface.viewers,
    org.eclipse.swt.widgets,
    cz.jpikl.yafmt.model.fm",
- cz.jpikl.yafmt.clang.util
+ cz.zcu.yafmt.clang.util

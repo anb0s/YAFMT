@@ -4,24 +4,24 @@ Bundle-Name: %pluginName
 Bundle-SymbolicName: cz.jpikl.yafmt.model.edit;singleton:=true
 Bundle-Version: 0.3.0.qualifier
 Bundle-ClassPath: .
-Bundle-Activator: cz.jpikl.yafmt.model.fm.provider.FeatureModelEditPlugin$Implementation
+Bundle-Activator: cz.zcu.yafmt.model.fm.provider.FeatureModelEditPlugin$Implementation
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: cz.jpikl.yafmt.model.fc.provider;
+Export-Package: cz.zcu.yafmt.model.fc.provider;
   uses:="cz.jpikl.yafmt.model.fc.util,
    org.eclipse.emf.ecore,
    org.eclipse.emf.common.util,
    org.eclipse.emf.edit.provider,
    org.eclipse.emf.common.notify",
- cz.jpikl.yafmt.model.fc.provider.util,
- cz.jpikl.yafmt.model.fm.provider;
+ cz.zcu.yafmt.model.fc.provider.util,
+ cz.zcu.yafmt.model.fm.provider;
   uses:="org.eclipse.emf.ecore,
    org.eclipse.emf.common.util,
    org.eclipse.emf.common,
    cz.jpikl.yafmt.model.fm.util,
    org.eclipse.emf.edit.provider,
    org.eclipse.emf.common.notify",
- cz.jpikl.yafmt.model.fm.provider.util;
+ cz.zcu.yafmt.model.fm.provider.util;
   uses:="org.eclipse.emf.edit.ui.provider,
    cz.jpikl.yafmt.model.validation,
    org.eclipse.ui.views.properties,

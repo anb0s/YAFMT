@@ -12,7 +12,7 @@
             name="Feature Model Visualizer"
             icon="icons/fm-visualizer.png"
             category="cz.jpikl.yafmt.ui.views"
-            class="cz.jpikl.yafmt.ui.views.fm.FeatureModelVisualizer"
+            class="cz.zcu.yafmt.ui.views.fm.FeatureModelVisualizer"
             id="cz.jpikl.yafmt.ui.views.fm.FeatureModelVisualizer">
       </view>
    </extension>

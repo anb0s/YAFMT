@@ -9,14 +9,14 @@
    <extension point="org.eclipse.emf.ecore.generated_package">
       <package
             uri="bitbucket.org/jpikl/yafmt/model/fm"
-            class="cz.jpikl.yafmt.model.fm.FeatureModelPackage"
+            class="cz.zcu.yafmt.model.fm.FeatureModelPackage"
             genModel="model/FeatureModel.genmodel"/>
    </extension>
 
    <extension point="org.eclipse.emf.ecore.generated_package">
       <package
             uri="bitbucket.org/jpikl/yafmt/model/fc"
-            class="cz.jpikl.yafmt.model.fc.FeatureConfigurationPackage"
+            class="cz.zcu.yafmt.model.fc.FeatureConfigurationPackage"
             genModel="model/FeatureModel.genmodel"/>
    </extension>
 

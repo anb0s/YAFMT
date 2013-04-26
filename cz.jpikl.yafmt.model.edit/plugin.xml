@@ -9,7 +9,7 @@
    <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
       <factory
             uri="bitbucket.org/jpikl/yafmt/model/fm"
-            class="cz.jpikl.yafmt.model.fm.provider.FeatureModelItemProviderAdapterFactory"
+            class="cz.zcu.yafmt.model.fm.provider.FeatureModelItemProviderAdapterFactory"
             supportedTypes=
               "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
                org.eclipse.emf.edit.provider.IStructuredItemContentProvider
@@ -21,7 +21,7 @@
    <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
       <factory
             uri="bitbucket.org/jpikl/yafmt/model/fc"
-            class="cz.jpikl.yafmt.model.fc.provider.FeatureConfigurationItemProviderAdapterFactory"
+            class="cz.zcu.yafmt.model.fc.provider.FeatureConfigurationItemProviderAdapterFactory"
             supportedTypes=
               "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
                org.eclipse.emf.edit.provider.IStructuredItemContentProvider

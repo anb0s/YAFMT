@@ -6,7 +6,7 @@
  <extension
        point="cz.jpikl.yafmt.clang.ui">
     <editingSupport
-          class="cz.jpikl.yafmt.clang.bcl.ui.BooleanConstraintLanguageEditingSupport"
+          class="cz.zcu.yafmt.clang.bcl.ui.BooleanConstraintLanguageEditingSupport"
           languageId="cz.jpikl.yafmt.clang.BooleanConstraintLanguage">
     </editingSupport>
  </extension>   

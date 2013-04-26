@@ -6,14 +6,14 @@
   <extension point="org.eclipse.emf.ecore.generated_package">
     <package 
        uri = "https://bitbucket.org/jpikl/yafmt/clang/bcl" 
-       class = "cz.jpikl.yafmt.clang.bcl.model.ModelPackage"
+       class = "cz.zcu.yafmt.clang.bcl.model.ModelPackage"
        genModel = "cz/jpikl/yafmt/clang/bcl/BooleanConstraintLanguage.genmodel" /> 
 	
   </extension>
   <extension
         point="cz.jpikl.yafmt.clang">
      <language
-           class="cz.jpikl.yafmt.clang.bcl.BooleanConstraintLanguage"
+           class="cz.zcu.yafmt.clang.bcl.BooleanConstraintLanguage"
            id="cz.jpikl.yafmt.clang.BooleanConstraintLanguage"
            name="Boolean Constraint Language"
            shortName="BoolCL">

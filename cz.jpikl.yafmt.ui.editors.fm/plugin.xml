@@ -5,8 +5,8 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            class="cz.jpikl.yafmt.ui.editors.fm.FeatureModelEditor"
-            contributorClass="cz.jpikl.yafmt.ui.editors.fm.FeatureModelEditorActionBarContributor"
+            class="cz.zcu.yafmt.ui.editors.fm.FeatureModelEditor"
+            contributorClass="cz.zcu.yafmt.ui.editors.fm.FeatureModelEditorActionBarContributor"
             extensions="yafm"
             icon="icons/fm-file.png"
             id="cz.jpikl.yafmt.ui.editors.fm.FeatureModelEditor"
@@ -21,7 +21,7 @@
       </category>
       <wizard
             category="cz.jpikl.yafmt.ui.wizards"
-            class="cz.jpikl.yafmt.ui.editors.fm.wizards.NewFeatureModelWizard"
+            class="cz.zcu.yafmt.ui.editors.fm.wizards.NewFeatureModelWizard"
             icon="icons/fm-file-new.png"
             id="cz.jpikl.yafmt.ui.editors.fm.wizards.NewFeatureModelWizard"
             name="New Feature Model">

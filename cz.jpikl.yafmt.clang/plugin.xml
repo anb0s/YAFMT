@@ -6,7 +6,7 @@
    <extension
          point="cz.jpikl.yafmt.clang">
       <language
-            class="cz.jpikl.yafmt.clang.sample.SampleConstraintLanguage"
+            class="cz.zcu.yafmt.clang.sample.SampleConstraintLanguage"
             id="cz.jpikl.yafmt.clang.SampleConstraintLanguage"
             name="Sample Constraint Language"
             shortName="SamCL">

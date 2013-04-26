@@ -4,8 +4,8 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            class="cz.jpikl.yafmt.ui.editors.fc.FeatureConfigurationEditor"
-            contributorClass="cz.jpikl.yafmt.ui.editors.fc.FeatureConfigurationEditorActionBarContributor"
+            class="cz.zcu.yafmt.ui.editors.fc.FeatureConfigurationEditor"
+            contributorClass="cz.zcu.yafmt.ui.editors.fc.FeatureConfigurationEditorActionBarContributor"
             extensions="yafc"
             icon="icons/fc-file.png"
             id="cz.jpikl.yafmt.ui.editors.fc.FeatureConfigurationEditor"
@@ -20,7 +20,7 @@
       </category>
       <wizard
             category="cz.jpikl.yafmt.ui.wizards"
-            class="cz.jpikl.yafmt.ui.editors.fc.wizards.NewFeatureConfigurationWizard"
+            class="cz.zcu.yafmt.ui.editors.fc.wizards.NewFeatureConfigurationWizard"
             icon="icons/fc-file-new.png"
             id="cz.jpikl.yafmt.ui.editors.fc.wizards.NewFeatureConfigurationWizard"
             name="New Feature Configuration">

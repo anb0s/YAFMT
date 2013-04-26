@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Common UI
 Bundle-SymbolicName: cz.jpikl.yafmt.ui;singleton:=true
 Bundle-Version: 0.3.0.qualifier
-Bundle-Activator: cz.jpikl.yafmt.ui.CommonUIPlugin
+Bundle-Activator: cz.zcu.yafmt.ui.CommonUIPlugin
 Require-Bundle: org.eclipse.core.runtime;bundle-version="3.8.0",
  org.eclipse.core.resources;bundle-version="3.8.0",
  org.eclipse.emf.ecore;bundle-version="2.8.3",
@@ -16,18 +16,18 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="3.8.0",
  cz.jpikl.yafmt.model;bundle-version="0.3.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: cz.jpikl.yafmt.ui,
- cz.jpikl.yafmt.ui.actions,
- cz.jpikl.yafmt.ui.commands,
- cz.jpikl.yafmt.ui.dialogs,
- cz.jpikl.yafmt.ui.directediting,
- cz.jpikl.yafmt.ui.editors,
- cz.jpikl.yafmt.ui.figures,
- cz.jpikl.yafmt.ui.operations,
- cz.jpikl.yafmt.ui.pages,
- cz.jpikl.yafmt.ui.providers,
- cz.jpikl.yafmt.ui.tools,
- cz.jpikl.yafmt.ui.util,
- cz.jpikl.yafmt.ui.validation,
- cz.jpikl.yafmt.ui.widgets,
- cz.jpikl.yafmt.ui.wizards
+Export-Package: cz.zcu.yafmt.ui,
+ cz.zcu.yafmt.ui.actions,
+ cz.zcu.yafmt.ui.commands,
+ cz.zcu.yafmt.ui.dialogs,
+ cz.zcu.yafmt.ui.directediting,
+ cz.zcu.yafmt.ui.editors,
+ cz.zcu.yafmt.ui.figures,
+ cz.zcu.yafmt.ui.operations,
+ cz.zcu.yafmt.ui.pages,
+ cz.zcu.yafmt.ui.providers,
+ cz.zcu.yafmt.ui.tools,
+ cz.zcu.yafmt.ui.util,
+ cz.zcu.yafmt.ui.validation,
+ cz.zcu.yafmt.ui.widgets,
+ cz.zcu.yafmt.ui.wizards
