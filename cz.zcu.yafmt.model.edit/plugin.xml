@@ -8,7 +8,7 @@
 
    <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
       <factory
-            uri="bitbucket.org/jpikl/yafmt/model/fm"
+            uri="zcu.cz/yafmt/model/fm"
             class="cz.zcu.yafmt.model.fm.provider.FeatureModelItemProviderAdapterFactory"
             supportedTypes=
               "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
@@ -20,7 +20,7 @@
 
    <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
       <factory
-            uri="bitbucket.org/jpikl/yafmt/model/fc"
+            uri="zcu.cz/yafmt/model/fc"
             class="cz.zcu.yafmt.model.fc.provider.FeatureConfigurationItemProviderAdapterFactory"
             supportedTypes=
               "org.eclipse.emf.edit.provider.IEditingDomainItemProvider

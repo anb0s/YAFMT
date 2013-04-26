@@ -29,8 +29,8 @@ public class BooleanConstraintLanguageStandaloneSetupGenerated implements ISetup
 	}
 	
 	public void register(Injector injector) {
-	if (!EPackage.Registry.INSTANCE.containsKey("https://bitbucket.org/jpikl/yafmt/clang/bcl")) {
-		EPackage.Registry.INSTANCE.put("https://bitbucket.org/jpikl/yafmt/clang/bcl", cz.zcu.yafmt.clang.bcl.model.ModelPackage.eINSTANCE);
+	if (!EPackage.Registry.INSTANCE.containsKey("http://zcu.cz/yafmt/clang/bcl")) {
+		EPackage.Registry.INSTANCE.put("http://zcu.cz/yafmt/clang/bcl", cz.zcu.yafmt.clang.bcl.model.ModelPackage.eINSTANCE);
 	}
 
 	}

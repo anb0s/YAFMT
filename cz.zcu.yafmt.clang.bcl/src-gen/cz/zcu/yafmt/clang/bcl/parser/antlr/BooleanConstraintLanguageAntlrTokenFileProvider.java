@@ -10,6 +10,6 @@ public class BooleanConstraintLanguageAntlrTokenFileProvider implements IAntlrTo
 	
 	public InputStream getAntlrTokenFile() {
 		ClassLoader classLoader = getClass().getClassLoader();
-    	return classLoader.getResourceAsStream("cz/jpikl/yafmt/clang/bcl/parser/antlr/internal/InternalBooleanConstraintLanguage.tokens");
+    	return classLoader.getResourceAsStream("cz/zcu/yafmt/clang/bcl/parser/antlr/internal/InternalBooleanConstraintLanguage.tokens");
 	}
 }

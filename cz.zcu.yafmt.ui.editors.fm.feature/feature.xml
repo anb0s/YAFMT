@@ -5,7 +5,7 @@
       version="0.3.0.qualifier"
       plugin="cz.zcu.yafmt.ui.editors.fm">
 
-   <description url="https://bitbucket.org/jpikl/yafmt">
+   <description url="http://zcu.cz/yafmt">
       YAFMT feature model editor.
    </description>
 

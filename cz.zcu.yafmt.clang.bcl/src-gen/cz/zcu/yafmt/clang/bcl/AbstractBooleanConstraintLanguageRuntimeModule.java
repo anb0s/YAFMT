@@ -21,7 +21,7 @@ public abstract class AbstractBooleanConstraintLanguageRuntimeModule extends Def
 
 	@Override
 	public void configure(Binder binder) {
-		properties = tryBindProperties(binder, "cz/jpikl/yafmt/clang/bcl/BooleanConstraintLanguage.properties");
+		properties = tryBindProperties(binder, "cz/zcu/yafmt/clang/bcl/BooleanConstraintLanguage.properties");
 		super.configure(binder);
 	}
 	

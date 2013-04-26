@@ -5,7 +5,7 @@
       version="0.3.0.qualifier"
       plugin="cz.zcu.yafmt.clang.bcl">
 
-   <description url="https://bitbucket.org/jpikl/yafmt">
+   <description url="http://zcu.cz/yafmt">
       Boolean constraint language for YAFMT.
    </description>
 

@@ -28,7 +28,7 @@ public class FeatureModelFactoryImpl extends EFactoryImpl implements FeatureMode
      */
     public static FeatureModelFactory init() {
         try {
-            FeatureModelFactory theFeatureModelFactory = (FeatureModelFactory)EPackage.Registry.INSTANCE.getEFactory("https://bitbucket.org/jpikl/yafmt/model/fm"); 
+            FeatureModelFactory theFeatureModelFactory = (FeatureModelFactory)EPackage.Registry.INSTANCE.getEFactory("http://zcu.cz/yafmt/model/fm"); 
             if (theFeatureModelFactory != null) {
                 return theFeatureModelFactory;
             }

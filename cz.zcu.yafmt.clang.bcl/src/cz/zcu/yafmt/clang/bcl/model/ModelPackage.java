@@ -37,7 +37,7 @@ public interface ModelPackage extends EPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    String eNS_URI = "https://bitbucket.org/jpikl/yafmt/clang/bcl";
+    String eNS_URI = "http://zcu.cz/yafmt/clang/bcl";
 
     /**
      * The package namespace name.

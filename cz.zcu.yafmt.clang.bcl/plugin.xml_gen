@@ -5,9 +5,9 @@
 
   <extension point="org.eclipse.emf.ecore.generated_package">
     <package 
-       uri = "https://bitbucket.org/jpikl/yafmt/clang/bcl" 
+       uri = "http://zcu.cz/yafmt/clang/bcl" 
        class = "cz.zcu.yafmt.clang.bcl.model.ModelPackage"
-       genModel = "cz/jpikl/yafmt/clang/bcl/BooleanConstraintLanguage.genmodel" /> 
+       genModel = "cz/zcu/yafmt/clang/bcl/BooleanConstraintLanguage.genmodel" /> 
 	
   </extension>
 

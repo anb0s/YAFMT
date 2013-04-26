@@ -38,7 +38,7 @@ public interface LayoutDataPackage extends EPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    String eNS_URI = "https://bitbucket.org/jpikl/yafmt/ui/editors/fm/layout";
+    String eNS_URI = "http://zcu.cz/yafmt/ui/editors/fm/layout";
 
     /**
      * The package namespace name.

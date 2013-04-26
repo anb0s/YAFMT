@@ -5,7 +5,7 @@
 grammar cz.zcu.yafmt.clang.bcl.BooleanConstraintLanguage 
    with org.eclipse.xtext.common.Terminals
 
-generate model "https://bitbucket.org/jpikl/yafmt/clang/bcl"
+generate model "http://zcu.cz/yafmt/clang/bcl"
 
 Expression:
     ContextualExpression;	

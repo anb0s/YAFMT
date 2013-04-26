@@ -33,7 +33,7 @@ public class LayoutDataFactoryImpl extends EFactoryImpl implements LayoutDataFac
      */
     public static LayoutDataFactory init() {
         try {
-            LayoutDataFactory theLayoutDataFactory = (LayoutDataFactory)EPackage.Registry.INSTANCE.getEFactory("https://bitbucket.org/jpikl/yafmt/ui/editors/fm/layout"); 
+            LayoutDataFactory theLayoutDataFactory = (LayoutDataFactory)EPackage.Registry.INSTANCE.getEFactory("http://zcu.cz/yafmt/ui/editors/fm/layout"); 
             if (theLayoutDataFactory != null) {
                 return theLayoutDataFactory;
             }
