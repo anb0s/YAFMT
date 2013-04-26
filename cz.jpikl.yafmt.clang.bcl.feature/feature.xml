@@ -3,7 +3,7 @@
       id="cz.jpikl.yafmt.clang.bcl.feature"
       label="Boolean Constraint Language"
       version="0.3.0.qualifier"
-      plugin="cz.jpikl.yafmt.clang.bcl">
+      plugin="cz.zcu.yafmt.clang.bcl">
 
    <description url="https://bitbucket.org/jpikl/yafmt">
       Boolean constraint language for YAFMT.
@@ -115,26 +115,26 @@ This Agreement is governed by the laws of the State of New York and the intellec
       <import plugin="org.eclipse.xtext" version="2.4.1" match="greaterOrEqual"/>
       <import plugin="org.eclipse.xtext.generator" version="2.4.1" match="greaterOrEqual"/>
       <import plugin="org.eclipse.xtext.util" version="2.4.1" match="greaterOrEqual"/>
-      <import plugin="cz.jpikl.yafmt.clang" version="0.3.0" match="greaterOrEqual"/>
-      <import plugin="cz.jpikl.yafmt.model" version="0.3.0" match="greaterOrEqual"/>
       <import plugin="org.apache.log4j"/>
+      <import plugin="org.eclipse.ui" version="3.103.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.ui.editors" version="3.8.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.xtext.ui" version="2.4.1" match="greaterOrEqual"/>
       <import plugin="org.eclipse.xtext.ui.shared" version="2.4.1" match="greaterOrEqual"/>
       <import plugin="de.itemis.xtext.utils.jface" version="2.1.0" match="greaterOrEqual"/>
-      <import plugin="cz.jpikl.yafmt.clang.bcl" version="0.3.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.ui" version="3.103.0" match="greaterOrEqual"/>
+      <import plugin="cz.zcu.yafmt.clang" version="0.3.0" match="greaterOrEqual"/>
+      <import plugin="cz.zcu.yafmt.model" version="0.3.0" match="greaterOrEqual"/>
+      <import plugin="cz.zcu.yafmt.clang.bcl" version="0.3.0" match="greaterOrEqual"/>
    </requires>
 
    <plugin
-         id="cz.jpikl.yafmt.clang.bcl"
+         id="cz.zcu.yafmt.clang.bcl"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="cz.jpikl.yafmt.clang.bcl.ui"
+         id="cz.zcu.yafmt.clang.bcl.ui"
          download-size="0"
          install-size="0"
          version="0.0.0"

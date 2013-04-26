@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Common UI
-Bundle-SymbolicName: cz.jpikl.yafmt.ui;singleton:=true
+Bundle-SymbolicName: cz.zcu.yafmt.ui;singleton:=true
 Bundle-Version: 0.3.0.qualifier
 Bundle-Activator: cz.zcu.yafmt.ui.CommonUIPlugin
 Require-Bundle: org.eclipse.core.runtime;bundle-version="3.8.0",
@@ -13,7 +13,7 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="3.8.0",
  org.eclipse.ui.ide;bundle-version="3.8.0",
  org.eclipse.ui.navigator;bundle-version="3.5.200",
  org.eclipse.ui.views;bundle-version="3.6.100",
- cz.jpikl.yafmt.model;bundle-version="0.3.0"
+ cz.zcu.yafmt.model;bundle-version="0.3.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: cz.zcu.yafmt.ui,
