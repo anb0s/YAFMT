@@ -23,7 +23,7 @@ import com.google.inject.Module;
  */
 public class BooleanConstraintLanguageActivator extends AbstractUIPlugin {
 	
-	public static final String CZ_JPIKL_YAFMT_CLANG_BCL_BOOLEANCONSTRAINTLANGUAGE = "cz.jpikl.yafmt.clang.bcl.BooleanConstraintLanguage";
+	public static final String CZ_JPIKL_YAFMT_CLANG_BCL_BOOLEANCONSTRAINTLANGUAGE = "cz.zcu.yafmt.clang.bcl.BooleanConstraintLanguage";
 	
 	private static final Logger logger = Logger.getLogger(BooleanConstraintLanguageActivator.class);
 	

@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.EValidator;
 
 public abstract class BasicValidator implements EValidator, IStructuralFeatureValidator {
 
-    private static final String DIAGNOSTIC_SOURCE = "cz.jpikl.yafmt.model.validation";
+    private static final String DIAGNOSTIC_SOURCE = "cz.zcu.yafmt.model.validation";
     
     // =============================================================================
     //  Public API

@@ -9,7 +9,7 @@ import org.eclipse.swt.widgets.Control;
 
 public class ExportGraphicalEditorAsImageAction extends ExportAsImageAction {
 
-    public static final String ID = "cz.jpikl.yafmt.ui.actions.ExportGraphicalEditorAsImageAction";
+    public static final String ID = "cz.zcu.yafmt.ui.actions.ExportGraphicalEditorAsImageAction";
 
     private GraphicalEditor editor;
 

@@ -13,7 +13,7 @@ import cz.zcu.yafmt.clang.ui.EditingSupportRegistry;
  */
 public class ConstraintLanguagePlugin extends Plugin {
 
-    public static final String ID = "cz.jpikl.yafmt.clang";
+    public static final String ID = "cz.zcu.yafmt.clang";
     
     private static ConstraintLanguagePlugin instance;
 

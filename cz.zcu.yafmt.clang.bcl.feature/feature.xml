@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="cz.jpikl.yafmt.clang.bcl.feature"
+      id="cz.zcu.yafmt.clang.bcl.feature"
       label="Boolean Constraint Language"
       version="0.3.0.qualifier"
       plugin="cz.zcu.yafmt.clang.bcl">

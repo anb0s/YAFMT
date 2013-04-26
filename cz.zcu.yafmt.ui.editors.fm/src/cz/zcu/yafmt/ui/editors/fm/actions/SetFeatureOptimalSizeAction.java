@@ -14,7 +14,7 @@ import cz.zcu.yafmt.ui.editors.fm.util.RequestConstants;
 
 public class SetFeatureOptimalSizeAction extends SelectionAction {
 
-    public static final String ID = "cz.jpikl.yafmt.ui.editors.fm.actions.SetFeatureOptimalSizeAction";
+    public static final String ID = "cz.zcu.yafmt.ui.editors.fm.actions.SetFeatureOptimalSizeAction";
     
     public SetFeatureOptimalSizeAction(IWorkbenchPart part) {
         super(part);

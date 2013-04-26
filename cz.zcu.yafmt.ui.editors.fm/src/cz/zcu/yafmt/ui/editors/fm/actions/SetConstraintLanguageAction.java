@@ -23,7 +23,7 @@ import cz.zcu.yafmt.ui.editors.fm.commands.SetConstraintLanguageCommand;
 
 public class SetConstraintLanguageAction extends Action {
 
-    public static final String ID = "cz.jpikl.yafmt.ui.editors.fm.actions.SetConstraintLanguageAction";
+    public static final String ID = "cz.zcu.yafmt.ui.editors.fm.actions.SetConstraintLanguageAction";
 
     private Viewer viewer;
     private CommandStack commandStack;

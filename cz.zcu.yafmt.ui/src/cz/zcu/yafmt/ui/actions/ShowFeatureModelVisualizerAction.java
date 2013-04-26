@@ -12,8 +12,8 @@ import cz.zcu.yafmt.ui.CommonUIPlugin;
 
 public class ShowFeatureModelVisualizerAction extends Action {
 
-    public static final String ID = "cz.jpikl.yafmt.ui.actions.ShowFeatureModelVisualizerAction";
-    private static final String VIEW_ID = "cz.jpikl.yafmt.ui.views.fm.FeatureModelVisualizer";
+    public static final String ID = "cz.zcu.yafmt.ui.actions.ShowFeatureModelVisualizerAction";
+    private static final String VIEW_ID = "cz.zcu.yafmt.ui.views.fm.FeatureModelVisualizer";
 
     public static RetargetAction createRetargetAction() {
         return (RetargetAction) initAction(new LabelRetargetAction(null, null));

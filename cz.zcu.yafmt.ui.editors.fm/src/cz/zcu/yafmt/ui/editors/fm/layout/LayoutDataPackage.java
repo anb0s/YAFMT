@@ -160,7 +160,7 @@ public interface LayoutDataPackage extends EPackage {
      * @return the meta object for class '<em>EObject To Rectangle</em>'.
      * @see java.util.Map.Entry
      * @model keyType="org.eclipse.emf.ecore.EObject"
-     *        valueDataType="cz.jpikl.yafmt.ui.editors.fm.layout.Rectangle"
+     *        valueDataType="cz.zcu.yafmt.ui.editors.fm.layout.Rectangle"
      * @generated
      */
     EClass getEObjectToRectangle();

@@ -17,8 +17,8 @@ import cz.zcu.yafmt.ui.editors.fm.util.RequestConstants;
 
 public class SetFeatureCardinalityAction extends SelectionAction {
 
-    public static final String ID_MANDATORY = "cz.jpikl.yafmt.ui.editors.fm.actions.SetFeatureCardinalityAction.Mandatory";
-    public static final String ID_OPTIONAL = "cz.jpikl.yafmt.ui.editors.fm.actions.SetFeatureCardinalityAction.Optional";
+    public static final String ID_MANDATORY = "cz.zcu.yafmt.ui.editors.fm.actions.SetFeatureCardinalityAction.Mandatory";
+    public static final String ID_OPTIONAL = "cz.zcu.yafmt.ui.editors.fm.actions.SetFeatureCardinalityAction.Optional";
 
     public static RetargetAction createRetargetAction(boolean mandatory) {
         return (RetargetAction) initAction(new LabelRetargetAction(null, null), mandatory);

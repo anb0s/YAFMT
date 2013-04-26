@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="cz.jpikl.yafmt.ui.views.fm.feature"
+      id="cz.zcu.yafmt.ui.views.fm.feature"
       label="Feature Model Visualizer"
       version="0.3.0.qualifier"
       plugin="cz.zcu.yafmt.ui.views.fm">

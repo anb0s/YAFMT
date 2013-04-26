@@ -11,7 +11,7 @@ import cz.zcu.yafmt.ui.editors.fm.util.RequestConstants;
 
 public class AutoLayoutAction extends EditorPartAction {
 
-    public static String ID = "cz.jpikl.yafmt.ui.editors.fm.actions.AutoLayoutAction";
+    public static String ID = "cz.zcu.yafmt.ui.editors.fm.actions.AutoLayoutAction";
 
     public AutoLayoutAction(GraphicalEditor editor) {
         super(editor);

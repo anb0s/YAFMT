@@ -15,7 +15,7 @@ import cz.zcu.yafmt.ui.editors.fc.commands.SelectFeatureCommand;
 
 public class SelectFeaturesAction extends FeatureSelectionAction {
 
-    public static final String ID = "cz.jpikl.yafmt.ui.editors.fc.actions.SelectFeaturesAction";
+    public static final String ID = "cz.zcu.yafmt.ui.editors.fc.actions.SelectFeaturesAction";
 
     public static RetargetAction createRetargetAction() {
         return (RetargetAction) initAction(new LabelRetargetAction(null, null));

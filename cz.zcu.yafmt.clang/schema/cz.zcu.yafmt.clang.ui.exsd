@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="cz.jpikl.yafmt.clang" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="cz.zcu.yafmt.clang" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="cz.jpikl.yafmt.clang" id="cz.jpikl.yafmt.clang.ui" name="YAFMT Constraint Language Editing Support"/>
+         <meta.schema plugin="cz.zcu.yafmt.clang" id="cz.zcu.yafmt.clang.ui" name="YAFMT Constraint Language Editing Support"/>
       </appinfo>
       <documentation>
          This extension poit allows to add custom editor for an existing constraint language for the YAFMT plugin.
@@ -62,7 +62,7 @@
                   
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn=":cz.jpikl.yafmt.clang.ui.IEditingSupport"/>
+                  <meta.attribute kind="java" basedOn=":cz.zcu.yafmt.clang.ui.IEditingSupport"/>
                </appinfo>
             </annotation>
          </attribute>
@@ -83,7 +83,7 @@
          <meta.section type="examples"/>
       </appinfo>
       <documentation>
-         &lt;p&gt;&lt;pre&gt;&lt;extension point=&quot;cz.jpikl.yafmt.clang.ui&quot;&gt;
+         &lt;p&gt;&lt;pre&gt;&lt;extension point=&quot;cz.zcu.yafmt.clang.ui&quot;&gt;
   &lt;editingSupport languageId=&quot;com.example.myclang&quot; 
                   class=&quot;com.example.myclang.ui.MyConstraintLanguageEditingSupport.java&quot;/&gt;
 &lt;/extension&gt;&lt;/pre&gt;&lt;p&gt;
@@ -96,7 +96,7 @@
          <meta.section type="apiinfo"/>
       </appinfo>
       <documentation>
-         Plug-ins that want to extend this extension point must implement the &lt;samp&gt;cz.jpikl.yafmt.clang.ui.IEditingSupport&lt;/samp&gt; interface or extend the &lt;samp&gt;cz.jpikl.yafmt.clang.ui.EditingSupport&lt;/samp&gt; abstract class.
+         Plug-ins that want to extend this extension point must implement the &lt;samp&gt;cz.zcu.yafmt.clang.ui.IEditingSupport&lt;/samp&gt; interface or extend the &lt;samp&gt;cz.zcu.yafmt.clang.ui.EditingSupport&lt;/samp&gt; abstract class.
       </documentation>
    </annotation>
 

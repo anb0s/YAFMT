@@ -9,7 +9,7 @@ options {
 }
 
 @lexer::header {
-package cz.jpikl.yafmt.clang.bcl.parser.antlr.internal;
+package cz.zcu.yafmt.clang.bcl.parser.antlr.internal;
 
 // Hack: Use our own Lexer superclass by means of import. 
 // Currently there is no other way to specify the superclass for the lexer.
@@ -17,7 +17,7 @@ import org.eclipse.xtext.parser.antlr.Lexer;
 }
 
 @parser::header {
-package cz.jpikl.yafmt.clang.bcl.parser.antlr.internal; 
+package cz.zcu.yafmt.clang.bcl.parser.antlr.internal; 
 
 import org.eclipse.xtext.*;
 import org.eclipse.xtext.parser.*;
@@ -28,7 +28,7 @@ import org.eclipse.xtext.parser.antlr.AbstractInternalAntlrParser;
 import org.eclipse.xtext.parser.antlr.XtextTokenStream;
 import org.eclipse.xtext.parser.antlr.XtextTokenStream.HiddenTokens;
 import org.eclipse.xtext.parser.antlr.AntlrDatatypeRuleToken;
-import cz.jpikl.yafmt.clang.bcl.services.BooleanConstraintLanguageGrammarAccess;
+import cz.zcu.yafmt.clang.bcl.services.BooleanConstraintLanguageGrammarAccess;
 
 }
 

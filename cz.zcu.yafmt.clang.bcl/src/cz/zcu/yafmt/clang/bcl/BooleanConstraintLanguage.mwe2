@@ -1,4 +1,4 @@
-module cz.jpikl.yafmt.clang.GenerateBooleanConstraintLanguage
+module cz.zcu.yafmt.clang.GenerateBooleanConstraintLanguage
 
 import org.eclipse.emf.mwe.utils.*
 import org.eclipse.xtext.generator.*
@@ -6,7 +6,7 @@ import org.eclipse.xtext.ui.generator.*
 
 var grammarURI = "classpath:/cz/jpikl/yafmt/clang/bcl/BooleanConstraintLanguage.xtext"
 var fileExtension = "bcl"
-var projectName = "cz.jpikl.yafmt.clang.bcl"
+var projectName = "cz.zcu.yafmt.clang.bcl"
 var runtimeProject = "../${projectName}"
 
 Workflow {

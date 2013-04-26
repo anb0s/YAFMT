@@ -2,7 +2,7 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
-         id="cz.jpikl.yafmt.ui.ModelMarker"
+         id="cz.zcu.yafmt.ui.ModelMarker"
          name="Model Problem"
          point="org.eclipse.core.resources.markers">
       <super
@@ -12,7 +12,7 @@
             value="true">
       </persistent>
       <attribute
-            name="cz.jpikl.yafmt.ui.ModelMarker.ObjectsURI">
+            name="cz.zcu.yafmt.ui.ModelMarker.ObjectsURI">
       </attribute>
    </extension>
    <extension
@@ -20,7 +20,7 @@
       <perspective
             class="cz.zcu.yafmt.ui.perspectives.FeatureModelingPerspectiveFactory"
             icon="icons/fm-perspective.png"
-            id="cz.jpikl.yafmt.ui.perspectives.FeatureModelingPerspective"
+            id="cz.zcu.yafmt.ui.perspectives.FeatureModelingPerspective"
             name="Feature Modeling">
       </perspective>
    </extension>
@@ -33,30 +33,30 @@
             <with
                   variable="activeWorkbenchWindow.activePerspective">
                <equals
-                     value="cz.jpikl.yafmt.ui.perspectives.FeatureModelingPerspective">
+                     value="cz.zcu.yafmt.ui.perspectives.FeatureModelingPerspective">
                </equals>
             </with>
          </enablement>
       </commonWizard>
       <commonWizard
             type="new"
-            wizardId="cz.jpikl.yafmt.ui.editors.fm.wizards.NewFeatureModelWizard">
+            wizardId="cz.zcu.yafmt.ui.editors.fm.wizards.NewFeatureModelWizard">
          <enablement>
             <with
                   variable="activeWorkbenchWindow.activePerspective">
                <equals
-                     value="cz.jpikl.yafmt.ui.perspectives.FeatureModelingPerspective">
+                     value="cz.zcu.yafmt.ui.perspectives.FeatureModelingPerspective">
                </equals>
             </with></enablement>
       </commonWizard>
       <commonWizard
             type="new"
-            wizardId="cz.jpikl.yafmt.ui.editors.fc.wizards.NewFeatureConfigurationWizard">
+            wizardId="cz.zcu.yafmt.ui.editors.fc.wizards.NewFeatureConfigurationWizard">
          <enablement>
             <with
                   variable="activeWorkbenchWindow.activePerspective">
                <equals
-                     value="cz.jpikl.yafmt.ui.perspectives.FeatureModelingPerspective">
+                     value="cz.zcu.yafmt.ui.perspectives.FeatureModelingPerspective">
                </equals>
             </with>
          </enablement>

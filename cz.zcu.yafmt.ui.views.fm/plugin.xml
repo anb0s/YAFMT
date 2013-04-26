@@ -6,14 +6,14 @@
          point="org.eclipse.ui.views">
       <category
             name="YAFMT"
-            id="cz.jpikl.yafmt.ui.views">
+            id="cz.zcu.yafmt.ui.views">
       </category>
       <view
             name="Feature Model Visualizer"
             icon="icons/fm-visualizer.png"
-            category="cz.jpikl.yafmt.ui.views"
+            category="cz.zcu.yafmt.ui.views"
             class="cz.zcu.yafmt.ui.views.fm.FeatureModelVisualizer"
-            id="cz.jpikl.yafmt.ui.views.fm.FeatureModelVisualizer">
+            id="cz.zcu.yafmt.ui.views.fm.FeatureModelVisualizer">
       </view>
    </extension>
 

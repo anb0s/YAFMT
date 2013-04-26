@@ -4,10 +4,10 @@
 <plugin>
 
  <extension
-       point="cz.jpikl.yafmt.clang.ui">
+       point="cz.zcu.yafmt.clang.ui">
     <editingSupport
           class="cz.zcu.yafmt.clang.bcl.ui.BooleanConstraintLanguageEditingSupport"
-          languageId="cz.jpikl.yafmt.clang.BooleanConstraintLanguage">
+          languageId="cz.zcu.yafmt.clang.BooleanConstraintLanguage">
     </editingSupport>
  </extension>   
 

@@ -2,7 +2,7 @@
 //  Boolean Constraint Language Grammar
 // ===================================================================
 
-grammar cz.jpikl.yafmt.clang.bcl.BooleanConstraintLanguage 
+grammar cz.zcu.yafmt.clang.bcl.BooleanConstraintLanguage 
    with org.eclipse.xtext.common.Terminals
 
 generate model "https://bitbucket.org/jpikl/yafmt/clang/bcl"

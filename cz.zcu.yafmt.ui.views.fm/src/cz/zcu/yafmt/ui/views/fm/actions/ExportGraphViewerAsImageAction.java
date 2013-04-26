@@ -9,7 +9,7 @@ import cz.zcu.yafmt.ui.actions.ExportAsImageAction;
 
 public class ExportGraphViewerAsImageAction extends ExportAsImageAction {
 
-    public static final String ID = "cz.jpikl.yafmt.ui.views.fm.actions.ExportGraphViewerAsImageAction";
+    public static final String ID = "cz.zcu.yafmt.ui.views.fm.actions.ExportGraphViewerAsImageAction";
 
     private GraphViewer viewer;
 

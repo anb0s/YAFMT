@@ -12,7 +12,7 @@ import com.google.inject.Binder;
 import com.google.inject.name.Names;
 
 /**
- * Manual modifications go to {cz.jpikl.yafmt.clang.bcl.BooleanConstraintLanguageRuntimeModule}
+ * Manual modifications go to {cz.zcu.yafmt.clang.bcl.BooleanConstraintLanguageRuntimeModule}
  */
  @SuppressWarnings("all")
 public abstract class AbstractBooleanConstraintLanguageRuntimeModule extends DefaultRuntimeModule {
@@ -26,7 +26,7 @@ public abstract class AbstractBooleanConstraintLanguageRuntimeModule extends Def
 	}
 	
 	public void configureLanguageName(Binder binder) {
-		binder.bind(String.class).annotatedWith(Names.named(Constants.LANGUAGE_NAME)).toInstance("cz.jpikl.yafmt.clang.bcl.BooleanConstraintLanguage");
+		binder.bind(String.class).annotatedWith(Names.named(Constants.LANGUAGE_NAME)).toInstance("cz.zcu.yafmt.clang.bcl.BooleanConstraintLanguage");
 	}
 	
 	public void configureFileExtensions(Binder binder) {

@@ -18,8 +18,8 @@ import cz.zcu.yafmt.ui.editors.fm.util.RequestConstants;
 
 public class GroupFeaturesAction extends SelectionAction {
 
-    public static final String ID_XOR = "cz.jpikl.yafmt.ui.editors.fm.actions.GroupFeaturesAction.XOR";
-    public static final String ID_OR = "cz.jpikl.yafmt.ui.editors.fm.actions.GroupFeaturesAction.OR";
+    public static final String ID_XOR = "cz.zcu.yafmt.ui.editors.fm.actions.GroupFeaturesAction.XOR";
+    public static final String ID_OR = "cz.zcu.yafmt.ui.editors.fm.actions.GroupFeaturesAction.OR";
 
     public static RetargetAction createRetargetAction(boolean xorGroup) {
         return (RetargetAction) initAction(new LabelRetargetAction(null, null), xorGroup);

@@ -15,7 +15,7 @@ import org.eclipse.core.runtime.Platform;
  */
 public class ConstraintLanguageRegistry {
 
-    private static final String EXTENSION_POINT_ID = "cz.jpikl.yafmt.clang";
+    private static final String EXTENSION_POINT_ID = "cz.zcu.yafmt.clang";
 
     private Map<String, ConstraintLanguageDescriptor> registry = new HashMap<String, ConstraintLanguageDescriptor>();
 

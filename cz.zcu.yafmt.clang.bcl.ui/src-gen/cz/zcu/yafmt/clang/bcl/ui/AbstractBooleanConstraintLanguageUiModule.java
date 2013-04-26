@@ -8,7 +8,7 @@ import org.eclipse.xtext.ui.DefaultUiModule;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 /**
- * Manual modifications go to {cz.jpikl.yafmt.clang.bcl.ui.BooleanConstraintLanguageUiModule}
+ * Manual modifications go to {cz.zcu.yafmt.clang.bcl.ui.BooleanConstraintLanguageUiModule}
  */
 @SuppressWarnings("all")
 public abstract class AbstractBooleanConstraintLanguageUiModule extends DefaultUiModule {

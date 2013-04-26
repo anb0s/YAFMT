@@ -6,48 +6,48 @@
     <extension
             point="org.eclipse.ui.editors">
         <editor
-            class="cz.jpikl.yafmt.clang.bcl.ui.BooleanConstraintLanguageExecutableExtensionFactory:org.eclipse.xtext.ui.editor.XtextEditor"
+            class="cz.zcu.yafmt.clang.bcl.ui.BooleanConstraintLanguageExecutableExtensionFactory:org.eclipse.xtext.ui.editor.XtextEditor"
             contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
             default="true"
             extensions="bcl"
-            id="cz.jpikl.yafmt.clang.bcl.BooleanConstraintLanguage"
+            id="cz.zcu.yafmt.clang.bcl.BooleanConstraintLanguage"
             name="BooleanConstraintLanguage Editor">
         </editor>
     </extension>
     <extension
         point="org.eclipse.ui.handlers">
         <handler
-            class="cz.jpikl.yafmt.clang.bcl.ui.BooleanConstraintLanguageExecutableExtensionFactory:org.eclipse.xtext.ui.editor.hyperlinking.OpenDeclarationHandler"
+            class="cz.zcu.yafmt.clang.bcl.ui.BooleanConstraintLanguageExecutableExtensionFactory:org.eclipse.xtext.ui.editor.hyperlinking.OpenDeclarationHandler"
             commandId="org.eclipse.xtext.ui.editor.hyperlinking.OpenDeclaration">
             <activeWhen>
                 <reference
-                    definitionId="cz.jpikl.yafmt.clang.bcl.BooleanConstraintLanguage.Editor.opened">
+                    definitionId="cz.zcu.yafmt.clang.bcl.BooleanConstraintLanguage.Editor.opened">
                 </reference>
             </activeWhen>
         </handler>
         <handler
-            class="cz.jpikl.yafmt.clang.bcl.ui.BooleanConstraintLanguageExecutableExtensionFactory:org.eclipse.xtext.ui.editor.handler.ValidateActionHandler"
-            commandId="cz.jpikl.yafmt.clang.bcl.BooleanConstraintLanguage.validate">
+            class="cz.zcu.yafmt.clang.bcl.ui.BooleanConstraintLanguageExecutableExtensionFactory:org.eclipse.xtext.ui.editor.handler.ValidateActionHandler"
+            commandId="cz.zcu.yafmt.clang.bcl.BooleanConstraintLanguage.validate">
          <activeWhen>
             <reference
-                    definitionId="cz.jpikl.yafmt.clang.bcl.BooleanConstraintLanguage.Editor.opened">
+                    definitionId="cz.zcu.yafmt.clang.bcl.BooleanConstraintLanguage.Editor.opened">
             </reference>
          </activeWhen>
       	</handler>
       	<!-- copy qualified name -->
         <handler
-            class="cz.jpikl.yafmt.clang.bcl.ui.BooleanConstraintLanguageExecutableExtensionFactory:org.eclipse.xtext.ui.editor.copyqualifiedname.EditorCopyQualifiedNameHandler"
+            class="cz.zcu.yafmt.clang.bcl.ui.BooleanConstraintLanguageExecutableExtensionFactory:org.eclipse.xtext.ui.editor.copyqualifiedname.EditorCopyQualifiedNameHandler"
             commandId="org.eclipse.xtext.ui.editor.copyqualifiedname.EditorCopyQualifiedName">
             <activeWhen>
-				<reference definitionId="cz.jpikl.yafmt.clang.bcl.BooleanConstraintLanguage.Editor.opened" />
+				<reference definitionId="cz.zcu.yafmt.clang.bcl.BooleanConstraintLanguage.Editor.opened" />
             </activeWhen>
         </handler>
         <handler
-            class="cz.jpikl.yafmt.clang.bcl.ui.BooleanConstraintLanguageExecutableExtensionFactory:org.eclipse.xtext.ui.editor.copyqualifiedname.OutlineCopyQualifiedNameHandler"
+            class="cz.zcu.yafmt.clang.bcl.ui.BooleanConstraintLanguageExecutableExtensionFactory:org.eclipse.xtext.ui.editor.copyqualifiedname.OutlineCopyQualifiedNameHandler"
             commandId="org.eclipse.xtext.ui.editor.copyqualifiedname.OutlineCopyQualifiedName">
             <activeWhen>
             	<and>
-            		<reference definitionId="cz.jpikl.yafmt.clang.bcl.BooleanConstraintLanguage.XtextEditor.opened" />
+            		<reference definitionId="cz.zcu.yafmt.clang.bcl.BooleanConstraintLanguage.XtextEditor.opened" />
 	                <iterate>
 						<adapt type="org.eclipse.xtext.ui.editor.outline.IOutlineNode" />
 					</iterate>
@@ -56,22 +56,22 @@
         </handler>
     </extension>
     <extension point="org.eclipse.core.expressions.definitions">
-        <definition id="cz.jpikl.yafmt.clang.bcl.BooleanConstraintLanguage.Editor.opened">
+        <definition id="cz.zcu.yafmt.clang.bcl.BooleanConstraintLanguage.Editor.opened">
             <and>
                 <reference definitionId="isActiveEditorAnInstanceOfXtextEditor"/>
                 <with variable="activeEditor">
                     <test property="org.eclipse.xtext.ui.editor.XtextEditor.languageName" 
-                        value="cz.jpikl.yafmt.clang.bcl.BooleanConstraintLanguage" 
+                        value="cz.zcu.yafmt.clang.bcl.BooleanConstraintLanguage" 
                         forcePluginActivation="true"/>
                 </with>        
             </and>
         </definition>
-        <definition id="cz.jpikl.yafmt.clang.bcl.BooleanConstraintLanguage.XtextEditor.opened">
+        <definition id="cz.zcu.yafmt.clang.bcl.BooleanConstraintLanguage.XtextEditor.opened">
             <and>
                 <reference definitionId="isXtextEditorActive"/>
                 <with variable="activeEditor">
                     <test property="org.eclipse.xtext.ui.editor.XtextEditor.languageName" 
-                        value="cz.jpikl.yafmt.clang.bcl.BooleanConstraintLanguage" 
+                        value="cz.zcu.yafmt.clang.bcl.BooleanConstraintLanguage" 
                         forcePluginActivation="true"/>
                 </with>        
             </and>
@@ -80,33 +80,33 @@
     <extension
             point="org.eclipse.ui.preferencePages">
         <page
-            class="cz.jpikl.yafmt.clang.bcl.ui.BooleanConstraintLanguageExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
-            id="cz.jpikl.yafmt.clang.bcl.BooleanConstraintLanguage"
+            class="cz.zcu.yafmt.clang.bcl.ui.BooleanConstraintLanguageExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
+            id="cz.zcu.yafmt.clang.bcl.BooleanConstraintLanguage"
             name="BooleanConstraintLanguage">
-            <keywordReference id="cz.jpikl.yafmt.clang.bcl.ui.keyword_BooleanConstraintLanguage"/>
+            <keywordReference id="cz.zcu.yafmt.clang.bcl.ui.keyword_BooleanConstraintLanguage"/>
         </page>
         <page
-            category="cz.jpikl.yafmt.clang.bcl.BooleanConstraintLanguage"
-            class="cz.jpikl.yafmt.clang.bcl.ui.BooleanConstraintLanguageExecutableExtensionFactory:org.eclipse.xtext.ui.editor.syntaxcoloring.SyntaxColoringPreferencePage"
-            id="cz.jpikl.yafmt.clang.bcl.BooleanConstraintLanguage.coloring"
+            category="cz.zcu.yafmt.clang.bcl.BooleanConstraintLanguage"
+            class="cz.zcu.yafmt.clang.bcl.ui.BooleanConstraintLanguageExecutableExtensionFactory:org.eclipse.xtext.ui.editor.syntaxcoloring.SyntaxColoringPreferencePage"
+            id="cz.zcu.yafmt.clang.bcl.BooleanConstraintLanguage.coloring"
             name="Syntax Coloring">
-            <keywordReference id="cz.jpikl.yafmt.clang.bcl.ui.keyword_BooleanConstraintLanguage"/>
+            <keywordReference id="cz.zcu.yafmt.clang.bcl.ui.keyword_BooleanConstraintLanguage"/>
         </page>
         <page
-            category="cz.jpikl.yafmt.clang.bcl.BooleanConstraintLanguage"
-            class="cz.jpikl.yafmt.clang.bcl.ui.BooleanConstraintLanguageExecutableExtensionFactory:org.eclipse.xtext.ui.editor.templates.XtextTemplatePreferencePage"
-            id="cz.jpikl.yafmt.clang.bcl.BooleanConstraintLanguage.templates"
+            category="cz.zcu.yafmt.clang.bcl.BooleanConstraintLanguage"
+            class="cz.zcu.yafmt.clang.bcl.ui.BooleanConstraintLanguageExecutableExtensionFactory:org.eclipse.xtext.ui.editor.templates.XtextTemplatePreferencePage"
+            id="cz.zcu.yafmt.clang.bcl.BooleanConstraintLanguage.templates"
             name="Templates">
-            <keywordReference id="cz.jpikl.yafmt.clang.bcl.ui.keyword_BooleanConstraintLanguage"/>
+            <keywordReference id="cz.zcu.yafmt.clang.bcl.ui.keyword_BooleanConstraintLanguage"/>
         </page>
     </extension>
     <extension
             point="org.eclipse.ui.propertyPages">
         <page
-            class="cz.jpikl.yafmt.clang.bcl.ui.BooleanConstraintLanguageExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
-            id="cz.jpikl.yafmt.clang.bcl.BooleanConstraintLanguage"
+            class="cz.zcu.yafmt.clang.bcl.ui.BooleanConstraintLanguageExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
+            id="cz.zcu.yafmt.clang.bcl.BooleanConstraintLanguage"
             name="BooleanConstraintLanguage">
-            <keywordReference id="cz.jpikl.yafmt.clang.bcl.ui.keyword_BooleanConstraintLanguage"/>
+            <keywordReference id="cz.zcu.yafmt.clang.bcl.ui.keyword_BooleanConstraintLanguage"/>
             <enabledWhen>
 	            <adapt type="org.eclipse.core.resources.IProject"/>
 			</enabledWhen>
@@ -116,14 +116,14 @@
     <extension
         point="org.eclipse.ui.keywords">
         <keyword
-            id="cz.jpikl.yafmt.clang.bcl.ui.keyword_BooleanConstraintLanguage"
+            id="cz.zcu.yafmt.clang.bcl.ui.keyword_BooleanConstraintLanguage"
             label="BooleanConstraintLanguage"/>
     </extension>
     <extension
          point="org.eclipse.ui.commands">
       <command
             description="Trigger expensive validation"
-            id="cz.jpikl.yafmt.clang.bcl.BooleanConstraintLanguage.validate"
+            id="cz.zcu.yafmt.clang.bcl.BooleanConstraintLanguage.validate"
             name="Validate">
       </command>
       <!-- copy qualified name -->
@@ -144,12 +144,12 @@
         <menuContribution
             locationURI="popup:#TextEditorContext?after=group.edit">
              <command
-                 commandId="cz.jpikl.yafmt.clang.bcl.BooleanConstraintLanguage.validate"
+                 commandId="cz.zcu.yafmt.clang.bcl.BooleanConstraintLanguage.validate"
                  style="push"
                  tooltip="Trigger expensive validation">
             <visibleWhen checkEnabled="false">
                 <reference
-                    definitionId="cz.jpikl.yafmt.clang.bcl.BooleanConstraintLanguage.Editor.opened">
+                    definitionId="cz.zcu.yafmt.clang.bcl.BooleanConstraintLanguage.Editor.opened">
                 </reference>
             </visibleWhen>
          </command>  
@@ -159,7 +159,7 @@
          	<command commandId="org.eclipse.xtext.ui.editor.copyqualifiedname.EditorCopyQualifiedName" 
          		style="push" tooltip="Copy Qualified Name">
             	<visibleWhen checkEnabled="false">
-                	<reference definitionId="cz.jpikl.yafmt.clang.bcl.BooleanConstraintLanguage.Editor.opened" />
+                	<reference definitionId="cz.zcu.yafmt.clang.bcl.BooleanConstraintLanguage.Editor.opened" />
             	</visibleWhen>
          	</command>  
          </menuContribution>
@@ -167,7 +167,7 @@
          	<command commandId="org.eclipse.xtext.ui.editor.copyqualifiedname.EditorCopyQualifiedName"
             	style="push" tooltip="Copy Qualified Name">
             	<visibleWhen checkEnabled="false">
-                	<reference definitionId="cz.jpikl.yafmt.clang.bcl.BooleanConstraintLanguage.Editor.opened" />
+                	<reference definitionId="cz.zcu.yafmt.clang.bcl.BooleanConstraintLanguage.Editor.opened" />
             	</visibleWhen>
          	</command>  
          </menuContribution>
@@ -176,7 +176,7 @@
 				style="push" tooltip="Copy Qualified Name">
          		<visibleWhen checkEnabled="false">
 	            	<and>
-	            		<reference definitionId="cz.jpikl.yafmt.clang.bcl.BooleanConstraintLanguage.XtextEditor.opened" />
+	            		<reference definitionId="cz.zcu.yafmt.clang.bcl.BooleanConstraintLanguage.XtextEditor.opened" />
 						<iterate>
 							<adapt type="org.eclipse.xtext.ui.editor.outline.IOutlineNode" />
 						</iterate>
@@ -189,7 +189,7 @@
 		<menuContribution locationURI="popup:#TextEditorContext?endof=group.find">
 			<command commandId="org.eclipse.xtext.ui.editor.FindReferences">
 				<visibleWhen checkEnabled="false">
-                	<reference definitionId="cz.jpikl.yafmt.clang.bcl.BooleanConstraintLanguage.Editor.opened">
+                	<reference definitionId="cz.zcu.yafmt.clang.bcl.BooleanConstraintLanguage.Editor.opened">
                 	</reference>
             	</visibleWhen>
 			</command>
@@ -197,11 +197,11 @@
 	</extension>
 	<extension point="org.eclipse.ui.handlers">
 	    <handler
-            class="cz.jpikl.yafmt.clang.bcl.ui.BooleanConstraintLanguageExecutableExtensionFactory:org.eclipse.xtext.ui.editor.findrefs.FindReferencesHandler"
+            class="cz.zcu.yafmt.clang.bcl.ui.BooleanConstraintLanguageExecutableExtensionFactory:org.eclipse.xtext.ui.editor.findrefs.FindReferencesHandler"
             commandId="org.eclipse.xtext.ui.editor.FindReferences">
             <activeWhen>
                 <reference
-                    definitionId="cz.jpikl.yafmt.clang.bcl.BooleanConstraintLanguage.Editor.opened">
+                    definitionId="cz.zcu.yafmt.clang.bcl.BooleanConstraintLanguage.Editor.opened">
                 </reference>
             </activeWhen>
         </handler>

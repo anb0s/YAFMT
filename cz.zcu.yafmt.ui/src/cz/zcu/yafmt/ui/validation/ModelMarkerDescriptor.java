@@ -11,8 +11,8 @@ import org.eclipse.emf.ecore.resource.Resource;
 
 public class ModelMarkerDescriptor implements Cloneable {
     
-    public static final String MARKER_ID = "cz.jpikl.yafmt.ui.ModelMarker";
-    public static final String OBJECTS_URI_ID = "cz.jpikl.yafmt.ui.ModelMarker.ObjectsURI";
+    public static final String MARKER_ID = "cz.zcu.yafmt.ui.ModelMarker";
+    public static final String OBJECTS_URI_ID = "cz.zcu.yafmt.ui.ModelMarker.ObjectsURI";
     public static final String URI_FRAGMENTS_SEPARATOR = ";";
 
     private int referenceCount;

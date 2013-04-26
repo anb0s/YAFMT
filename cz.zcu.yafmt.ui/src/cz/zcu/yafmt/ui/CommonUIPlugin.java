@@ -6,7 +6,7 @@ import org.osgi.framework.BundleContext;
 
 public class CommonUIPlugin extends AbstractUIPlugin {
 
-    public static final String PLUGIN_ID = "cz.jpikl.yafmt.ui"; //$NON-NLS-1$
+    public static final String PLUGIN_ID = "cz.zcu.yafmt.ui"; //$NON-NLS-1$
 
     private static UIPluginAccess access;
     

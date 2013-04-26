@@ -16,7 +16,7 @@ import cz.zcu.yafmt.ui.editors.fm.util.RequestConstants;
 
 public class UngroupFeaturesAction extends SelectionAction {
 
-    public static final String ID = "cz.jpikl.yafmt.ui.editors.fm.actions.UngroupFeaturesAction";
+    public static final String ID = "cz.zcu.yafmt.ui.editors.fm.actions.UngroupFeaturesAction";
 
     public static RetargetAction createRetargetAction() {
         return (RetargetAction) initAction(new LabelRetargetAction(null, null));

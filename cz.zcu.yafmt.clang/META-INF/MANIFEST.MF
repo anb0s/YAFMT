@@ -11,13 +11,13 @@ Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: cz.zcu.yafmt.clang;
   uses:="org.eclipse.core.runtime,
-   cz.jpikl.yafmt.model.fc,
+   cz.zcu.yafmt.model.fc,
    org.osgi.framework,
-   cz.jpikl.yafmt.clang.ui,
-   cz.jpikl.yafmt.model.fm",
+   cz.zcu.yafmt.clang.ui,
+   cz.zcu.yafmt.model.fm",
  cz.zcu.yafmt.clang.ui;
   uses:="org.eclipse.core.runtime,
    org.eclipse.jface.viewers,
    org.eclipse.swt.widgets,
-   cz.jpikl.yafmt.model.fm",
+   cz.zcu.yafmt.model.fm",
  cz.zcu.yafmt.clang.util

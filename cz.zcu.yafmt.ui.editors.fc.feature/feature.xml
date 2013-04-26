@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="cz.jpikl.yafmt.ui.editors.fc.feature"
+      id="cz.zcu.yafmt.ui.editors.fc.feature"
       label="Feature Configuration Editor"
       version="0.3.0.qualifier"
       plugin="cz.zcu.yafmt.ui.editors.fc">

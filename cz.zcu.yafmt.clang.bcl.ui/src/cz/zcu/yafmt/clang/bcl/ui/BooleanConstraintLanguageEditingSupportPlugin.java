@@ -7,7 +7,7 @@ import cz.zcu.yafmt.clang.bcl.ui.internal.BooleanConstraintLanguageActivator;
 
 public class BooleanConstraintLanguageEditingSupportPlugin extends BooleanConstraintLanguageActivator {
 
-    private static final String PLUGIN_ID = "cz.jpikl.yafmt.clang.bcl.ui";
+    private static final String PLUGIN_ID = "cz.zcu.yafmt.clang.bcl.ui";
 
     public static ImageDescriptor getImageDescriptor(String path) {
         return imageDescriptorFromPlugin(PLUGIN_ID, "icons/" + path);

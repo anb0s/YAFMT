@@ -8,7 +8,7 @@ import cz.zcu.yafmt.ui.UIPluginAccess;
 
 public class FeatureConfigurationEditorPlugin extends AbstractUIPlugin {
 
-    public static final String PLUGIN_ID = "cz.jpikl.yafmt.ui.editors.fc"; //$NON-NLS-1$
+    public static final String PLUGIN_ID = "cz.zcu.yafmt.ui.editors.fc"; //$NON-NLS-1$
 
     private static UIPluginAccess access;
 

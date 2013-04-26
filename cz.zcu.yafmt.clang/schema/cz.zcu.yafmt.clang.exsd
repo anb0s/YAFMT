@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="cz.jpikl.yafmt.clang" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="cz.zcu.yafmt.clang" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="cz.jpikl.yafmt.clang" id="cz.jpikl.yafmt.clang" name="YAFMT Constraint Language"/>
+         <meta.schema plugin="cz.zcu.yafmt.clang" id="cz.zcu.yafmt.clang" name="YAFMT Constraint Language"/>
       </appinfo>
       <documentation>
          This extension poit allows to add a new constraint language for the YAFMT plugin.
@@ -79,7 +79,7 @@
                   
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn=":cz.jpikl.yafmt.clang.IConstraintLanguage"/>
+                  <meta.attribute kind="java" basedOn=":cz.zcu.yafmt.clang.IConstraintLanguage"/>
                </appinfo>
             </annotation>
          </attribute>
@@ -100,7 +100,7 @@
          <meta.section type="examples"/>
       </appinfo>
       <documentation>
-         &lt;p&gt;&lt;pre&gt;&lt;extension point=&quot;cz.jpikl.yafmt.clang&quot;&gt;
+         &lt;p&gt;&lt;pre&gt;&lt;extension point=&quot;cz.zcu.yafmt.clang&quot;&gt;
   &lt;language id=&quot;com.example.myclang&quot; 
             name=&quot;My Constraint Language&quot;
             shortName=&quot;MyCL&quot;
@@ -115,7 +115,7 @@
          <meta.section type="apiinfo"/>
       </appinfo>
       <documentation>
-         Plug-ins that want to extend this extension point must implement the &lt;samp&gt;cz.jpikl.yafmt.clang.IConstraintLanguage&lt;/samp&gt; interface or extend the &lt;samp&gt;cz.jpikl.yafmt.clang.ConstraintLanguage&lt;/samp&gt; abstract class.
+         Plug-ins that want to extend this extension point must implement the &lt;samp&gt;cz.zcu.yafmt.clang.IConstraintLanguage&lt;/samp&gt; interface or extend the &lt;samp&gt;cz.zcu.yafmt.clang.ConstraintLanguage&lt;/samp&gt; abstract class.
       </documentation>
    </annotation>
 
@@ -124,7 +124,7 @@
          <meta.section type="implementation"/>
       </appinfo>
       <documentation>
-         See &lt;code&gt;cz.jpikl.yafmt.clang.sample&lt;/code&gt; package in the &lt;code&gt;cz.jpikl.yafmt.clang&lt;/code&gt; plugin for the implementation of the sample constraint language.
+         See &lt;code&gt;cz.zcu.yafmt.clang.sample&lt;/code&gt; package in the &lt;code&gt;cz.zcu.yafmt.clang&lt;/code&gt; plugin for the implementation of the sample constraint language.
       </documentation>
    </annotation>
 

@@ -16,7 +16,7 @@ import cz.zcu.yafmt.clang.ConstraintLanguagePlugin;
  */
 public class EditingSupportRegistry {
 
-    private static final String EXTENSION_POINT_ID = "cz.jpikl.yafmt.clang.ui";
+    private static final String EXTENSION_POINT_ID = "cz.zcu.yafmt.clang.ui";
 
     private Map<String, EditingSupportDescriptor> registry = new HashMap<String, EditingSupportDescriptor>();
 

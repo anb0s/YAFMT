@@ -15,7 +15,7 @@ import cz.zcu.yafmt.ui.editors.fc.commands.DeselectFeatureCommand;
 
 public class DeselectFeaturesAction extends FeatureSelectionAction {
 
-    public static final String ID = "cz.jpikl.yafmt.ui.editors.fc.actions.DeselectFeaturesAction";
+    public static final String ID = "cz.zcu.yafmt.ui.editors.fc.actions.DeselectFeaturesAction";
 
     public static RetargetAction createRetargetAction() {
         return (RetargetAction) initAction(new LabelRetargetAction(null, null));

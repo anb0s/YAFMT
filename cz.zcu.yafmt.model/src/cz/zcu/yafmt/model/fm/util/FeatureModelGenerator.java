@@ -150,7 +150,7 @@ public class FeatureModelGenerator {
     
     private static Constraint generateConstraint(List<Feature> features) {
         Constraint constraint = FeatureModelFactory.eINSTANCE.createConstraint();
-        constraint.setLanguage("cz.jpikl.yafmt.clang.BooleanConstraintLanguage");
+        constraint.setLanguage("cz.zcu.yafmt.clang.BooleanConstraintLanguage");
         
         StringBuilder builder = new StringBuilder(chooseRandomFeatureId(features));
         int numberOfFeatures = randomInt(1, 4);

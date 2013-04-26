@@ -326,7 +326,7 @@ public class BooleanConstraintLanguageGrammarAccess extends AbstractGrammarEleme
 	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
 		Grammar grammar = grammarProvider.getGrammar(this);
 		while (grammar != null) {
-			if ("cz.jpikl.yafmt.clang.bcl.BooleanConstraintLanguage".equals(grammar.getName())) {
+			if ("cz.zcu.yafmt.clang.bcl.BooleanConstraintLanguage".equals(grammar.getName())) {
 				return grammar;
 			}
 			List<Grammar> grammars = grammar.getUsedGrammars();

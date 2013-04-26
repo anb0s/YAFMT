@@ -37,7 +37,7 @@ public interface LayoutData extends EObject {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Mapping</em>' map.
      * @see cz.zcu.yafmt.ui.editors.fm.layout.LayoutDataPackage#getLayoutData_Mapping()
-     * @model mapType="cz.jpikl.yafmt.ui.editors.fm.layout.EObjectToRectangle<org.eclipse.emf.ecore.EObject, cz.jpikl.yafmt.ui.editors.fm.layout.Rectangle>" changeable="false"
+     * @model mapType="cz.zcu.yafmt.ui.editors.fm.layout.EObjectToRectangle<org.eclipse.emf.ecore.EObject, cz.zcu.yafmt.ui.editors.fm.layout.Rectangle>" changeable="false"
      * @generated
      */
     EMap<EObject, Rectangle> getMapping();
@@ -45,7 +45,7 @@ public interface LayoutData extends EObject {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @model boundsDataType="cz.jpikl.yafmt.ui.editors.fm.layout.Rectangle"
+     * @model boundsDataType="cz.zcu.yafmt.ui.editors.fm.layout.Rectangle"
      * @generated
      */
     void set(EObject object, Rectangle bounds);
@@ -53,7 +53,7 @@ public interface LayoutData extends EObject {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @model dataType="cz.jpikl.yafmt.ui.editors.fm.layout.Rectangle"
+     * @model dataType="cz.zcu.yafmt.ui.editors.fm.layout.Rectangle"
      * @generated
      */
     Rectangle get(EObject object);
@@ -61,7 +61,7 @@ public interface LayoutData extends EObject {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @model dataType="cz.jpikl.yafmt.ui.editors.fm.layout.Rectangle"
+     * @model dataType="cz.zcu.yafmt.ui.editors.fm.layout.Rectangle"
      * @generated
      */
     Rectangle remove(EObject object);

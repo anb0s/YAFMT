@@ -11,10 +11,10 @@
 	
   </extension>
   <extension
-        point="cz.jpikl.yafmt.clang">
+        point="cz.zcu.yafmt.clang">
      <language
            class="cz.zcu.yafmt.clang.bcl.BooleanConstraintLanguage"
-           id="cz.jpikl.yafmt.clang.BooleanConstraintLanguage"
+           id="cz.zcu.yafmt.clang.BooleanConstraintLanguage"
            name="Boolean Constraint Language"
            shortName="BoolCL">
      </language>
