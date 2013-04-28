@@ -296,7 +296,6 @@ public class ConstraintsEditor extends SplitterDock implements ISelectionListene
         for(Constraint constraint: featureModel.getConstraints()) {
             problemManager.clearProblems(constraint);
             success &= FeatureModelValidator.INSTANCE.validate(constraint, diagnostic);
-            revalidateConstraint(constraint);
         }
         if(!success)
             problemManager.addProblems(diagnostic);
