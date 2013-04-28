@@ -39,6 +39,7 @@ import cz.zcu.yafmt.ui.editors.fm.figures.GroupFigure;
 import cz.zcu.yafmt.ui.editors.fm.layout.LayoutData;
 import cz.zcu.yafmt.ui.editors.fm.policies.FeatureModelEditPolicy;
 import cz.zcu.yafmt.ui.editors.fm.policies.FeatureModelLayoutPolicy;
+import cz.zcu.yafmt.ui.util.DelayedRunner;
 import cz.zcu.yafmt.ui.validation.IProblemManager;
 
 public class FeatureModelEditPart extends AbstractGraphicalEditPart {
@@ -49,6 +50,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
     private IProblemManager problemManager;
     private Adapter featureModelAdapter;
     private Adapter layoutDataAdapter;
+    private DelayedRunner updateRunner;
     
     public FeatureModelEditPart(FeatureModel featureModel, LayoutData layoutData, ConstraintCache constraintCache, IProblemManager problemManager) {
         this.featureModel = featureModel;
@@ -57,6 +59,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
         this.problemManager = problemManager;
         this.featureModelAdapter = new FeatureModelAdapter();
         this.layoutDataAdapter = new LayoutDataAdapter();
+        updateRunner = new DelayedRunner();
         setModel(featureModel);
     }
 
@@ -281,7 +284,12 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
             if((notifier instanceof FeatureModel) && (msg.getFeatureID(FeatureModel.class) == FEATURE_MODEL__NAME))
                 revalidateModel();
 
-            refreshFeatureFiguresConstraintMarker();
+            updateRunner.run(500, new Runnable() {
+                @Override
+                public void run() {
+                    refreshFeatureFiguresConstraintMarker();
+                }
+            });
         }
 
     }

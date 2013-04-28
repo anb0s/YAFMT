@@ -1,7 +1,7 @@
 package cz.zcu.yafmt.ui.editors.fm;
 
 import static cz.zcu.yafmt.model.fm.FeatureModelPackage.CONSTRAINT__LANGUAGE;
-import static cz.zcu.yafmt.model.fm.FeatureModelPackage.CONSTRAINT__VALUE;
+import static cz.zcu.yafmt.model.fm.FeatureModelPackage.*;
 
 import java.util.HashSet;
 import java.util.List;
@@ -51,6 +51,7 @@ import cz.zcu.yafmt.clang.ConstraintLanguageDescriptor;
 import cz.zcu.yafmt.clang.ConstraintLanguagePlugin;
 import cz.zcu.yafmt.clang.ConstraintLanguageRegistry;
 import cz.zcu.yafmt.clang.util.ConstraintCache;
+import cz.zcu.yafmt.model.fm.Attribute;
 import cz.zcu.yafmt.model.fm.Constraint;
 import cz.zcu.yafmt.model.fm.Feature;
 import cz.zcu.yafmt.model.fm.FeatureModel;
@@ -59,6 +60,7 @@ import cz.zcu.yafmt.model.validation.fm.FeatureModelValidator;
 import cz.zcu.yafmt.ui.actions.DynamicContributionItem;
 import cz.zcu.yafmt.ui.editors.fm.actions.SetConstraintLanguageAction;
 import cz.zcu.yafmt.ui.editors.fm.commands.AddConstraintCommand;
+import cz.zcu.yafmt.ui.util.DelayedRunner;
 import cz.zcu.yafmt.ui.validation.IProblemManager;
 import cz.zcu.yafmt.ui.widgets.Splitter;
 import cz.zcu.yafmt.ui.widgets.SplitterDock;
@@ -90,16 +92,6 @@ public class ConstraintsEditor extends SplitterDock implements ISelectionListene
         constraintCache = (ConstraintCache) editor.getAdapter(ConstraintCache.class);
         problemManager = (IProblemManager) editor.getAdapter(IProblemManager.class);
         initialize();
-        
-        constraintCache.addListener(new ConstraintCache.Listener() {
-            @Override
-            public void constraintsInvalidated(List<Constraint> constraints) {
-                for(Constraint constraint: constraints) {
-                    revalidateConstraint(constraint);
-                    viewer.refresh(constraint);
-                }
-            }
-        });
     }
     
     // ====================================================================
@@ -297,7 +289,19 @@ public class ConstraintsEditor extends SplitterDock implements ISelectionListene
         if(!FeatureModelValidator.INSTANCE.validate(constraint, diagnostic))
             problemManager.addProblems(diagnostic);
     }
-
+    
+    private void revalidateAllConstraints() {
+        BasicDiagnostic diagnostic = new BasicDiagnostic();
+        boolean success = true;
+        for(Constraint constraint: featureModel.getConstraints()) {
+            problemManager.clearProblems(constraint);
+            success &= FeatureModelValidator.INSTANCE.validate(constraint, diagnostic);
+            revalidateConstraint(constraint);
+        }
+        if(!success)
+            problemManager.addProblems(diagnostic);
+    }
+    
     // ====================================================================
     //  Events
     // ====================================================================
@@ -321,15 +325,20 @@ public class ConstraintsEditor extends SplitterDock implements ISelectionListene
 
     private class FeatureModelAdapter extends EContentAdapter {
 
+        private DelayedRunner updateRunner = new DelayedRunner();
+        
         @Override
         protected void addAdapter(Notifier notifier) {
-            if(!(notifier instanceof Constraint) && !(notifier instanceof FeatureModel))
-                return;
-            
             super.addAdapter(notifier);
+
             if(notifier instanceof Constraint) {
                 revalidateConstraint((Constraint) notifier);
-                viewer.refresh();
+                // Because the 'add button', we have to refresh it all.
+                // We cannot use viewer.insert(), since there is a filter set.
+                viewer.refresh(); 
+            }
+            else if((notifier instanceof Feature) || (notifier instanceof Attribute)) {
+                scheduleRevalidaiondOfAllConstraints();
             }
         }
         
@@ -340,6 +349,9 @@ public class ConstraintsEditor extends SplitterDock implements ISelectionListene
                 problemManager.clearProblems(notifier);
                 viewer.remove(notifier);
             }
+            else if((notifier instanceof Feature) || (notifier instanceof Attribute)) {
+                scheduleRevalidaiondOfAllConstraints();
+            }
         }
         
         @Override
@@ -349,6 +361,10 @@ public class ConstraintsEditor extends SplitterDock implements ISelectionListene
             Object notifier = msg.getNotifier();
             if(notifier instanceof Constraint)
                 notifyChangedFromConstraint(msg);
+            if(notifier instanceof Feature)
+                notifyChangedFromFeature(msg);
+            if(notifier instanceof Attribute)
+                notifyChangedFromAttribute(msg);
         }
         
         private void notifyChangedFromConstraint(Notification msg) {
@@ -360,6 +376,34 @@ public class ConstraintsEditor extends SplitterDock implements ISelectionListene
                     break;
             }
         }
+
+        private void notifyChangedFromFeature(Notification msg) {
+            switch(msg.getFeatureID(Feature.class)) {
+                case FEATURE__ID:
+                    scheduleRevalidaiondOfAllConstraints();
+                    break;
+            }
+        }
+        
+        private void notifyChangedFromAttribute(Notification msg) {
+            switch(msg.getFeatureID(Attribute.class)) {
+                case ATTRIBUTE__ID:
+                    scheduleRevalidaiondOfAllConstraints();
+                    break;
+            }
+        }
+
+        private void scheduleRevalidaiondOfAllConstraints() {
+            updateRunner.run(500, new Runnable() {
+                @Override
+                public void run() {
+                    revalidateAllConstraints();
+                    viewer.refresh();
+                }
+            });
+        }
+        
+        
         
     }
     

@@ -2,7 +2,6 @@ package cz.zcu.yafmt.clang.util;
 
 import static cz.zcu.yafmt.model.fm.FeatureModelPackage.*;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -98,6 +97,8 @@ public class ConstraintCache {
 
     private void invalidate() {
         valid = false;
+        constraintToFeatures.clear();
+        featureToConstraints.clear();
     }
 
     private void checkValidity() {
@@ -108,20 +109,10 @@ public class ConstraintCache {
     }
 
     private void refresh() {
-        List<Constraint> invalidatedConstraints = new ArrayList<Constraint>();
-        Map<Constraint, List<Feature>> prevConstraintToFeatures = constraintToFeatures;
-        
-        constraintToFeatures = new HashMap<Constraint, List<Feature>>();
-        featureToConstraints.clear();
-        
         for(Map.Entry<Constraint, IEvaluator> entry: constraintToEvaluator.entrySet()) {
             Constraint constraint = entry.getKey();
             IEvaluator evaluator = entry.getValue();
             List<Feature> features = evaluator.getAffectedFeatures(featureModel);
-            
-            if(!features.equals(prevConstraintToFeatures.get(constraint)))
-                invalidatedConstraints.add(constraint);
-
             constraintToFeatures.put(constraint, features);
 
             for(Feature feature: features) {
@@ -133,9 +124,6 @@ public class ConstraintCache {
                 set.add(constraint);
             }
         }
-        
-        if(!invalidatedConstraints.isEmpty())
-            fireConstraintsInvalidated(invalidatedConstraints);
     }
     
     // =======================================================================
@@ -255,31 +243,6 @@ public class ConstraintCache {
             }
         }
 
-    }
-    
-    // =======================================================================
-    //  Listeners
-    // =======================================================================
-    
-    public static interface Listener {
-        
-        void constraintsInvalidated(List<Constraint> constraints);
-        
-    }
-    
-    private List<Listener> listeners = new ArrayList<ConstraintCache.Listener>();
-    
-    public void addListener(Listener listener) {
-        listeners.add(listener);
-    }
-    
-    public void removeListener(Listener listener) {
-        listeners.remove(listener);
-    }
-    
-    public void fireConstraintsInvalidated(List<Constraint> constraints) {
-        for(Listener listener: listeners)
-            listener.constraintsInvalidated(constraints);
     }
 
 }
