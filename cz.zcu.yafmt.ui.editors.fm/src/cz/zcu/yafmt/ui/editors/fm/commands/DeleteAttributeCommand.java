@@ -31,11 +31,13 @@ public class DeleteAttributeCommand extends RecordingCommand {
             @Override
             protected Dimension computeFeaturePreferredSize() {
                 Dimension prefSize = super.computeFeaturePreferredSize();
-                Rectangle bounds = getFeatureOldBounds().getCopy();
-                if(prefSize.width > bounds.width)
-                    prefSize.width = bounds.width;
-                if(prefSize.height > bounds.height)
-                    prefSize.height = bounds.height;
+                Rectangle bounds = getFeatureOldBounds();
+                if(bounds != null) {
+                    if(prefSize.width > bounds.width)
+                        prefSize.width = bounds.width;
+                    if(prefSize.height > bounds.height)
+                        prefSize.height = bounds.height;
+                }
                 return prefSize;
             }
         };
