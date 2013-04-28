@@ -6,8 +6,12 @@ public class DelayedRunner {
     
     private Thread thread = null;           
     
+    public boolean isActive() {
+        return (thread != null) && thread.isAlive();
+    }
+    
     public void run(final long timeout, final Runnable code) {
-        if((thread == null) || !thread.isAlive()) {
+        if(!isActive()) {
             thread = new InternalThread(timeout, code);
             thread.start();
         }

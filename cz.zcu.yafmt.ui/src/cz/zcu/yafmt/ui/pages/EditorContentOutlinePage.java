@@ -12,6 +12,7 @@ import org.eclipse.gef.ui.parts.GraphicalEditor;
 import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
@@ -26,15 +27,21 @@ import org.eclipse.ui.views.contentoutline.ContentOutline;
 import org.eclipse.ui.views.contentoutline.ContentOutlinePage;
 import org.eclipse.ui.views.properties.PropertySheet;
 
+import cz.zcu.yafmt.ui.util.DelayedRunner;
+
 public class EditorContentOutlinePage extends ContentOutlinePage implements ISelectionListener {
 
     private CTabFolder tabFolder;
     private ScrollableThumbnail minimapThumbmail;
+    private TreeViewer treeViewer;
     
     protected FreeformGraphicalRootEditPart rootEditPart;
     protected Object input;
     protected IContentProvider contentProvider;
     protected ILabelProvider labelProvider;
+    
+    private DelayedRunner refreshDelayedRunner = new DelayedRunner();
+    private DelayedRunner selectionDelayedRunner = new DelayedRunner();
 
     public EditorContentOutlinePage(GraphicalEditor editor, Object input, IContentProvider contentProvider, ILabelProvider labelProvider) {
         this.rootEditPart = (FreeformGraphicalRootEditPart) editor.getAdapter(EditPart.class);
@@ -46,6 +53,27 @@ public class EditorContentOutlinePage extends ContentOutlinePage implements ISel
     @Override
     public Control getControl() {
         return tabFolder;
+    }
+    
+    @Override
+    public void setFocus() {
+        tabFolder.setFocus();
+    }
+    
+    @Override
+    protected TreeViewer getTreeViewer() {
+        return treeViewer;
+    }
+    
+    @Override
+    public ISelection getSelection() {
+        return (treeViewer == null) ? StructuredSelection.EMPTY : treeViewer.getSelection();
+    }
+    
+    @Override
+    public void setSelection(ISelection selection) {
+        if(treeViewer != null)
+            treeViewer.setSelection(selection);
     }
     
     // ==================================================================
@@ -88,9 +116,30 @@ public class EditorContentOutlinePage extends ContentOutlinePage implements ISel
     // ==================================================================
 
     private void createTreeView() {
-        super.createControl(tabFolder); // Creates TreeViewer.
-
-        TreeViewer treeViewer = getTreeViewer();
+        treeViewer = new TreeViewer(tabFolder) {
+            
+            @Override
+            public void refresh(Object element) {
+                refresh(false);
+            }
+            
+            @Override
+            public void refresh(Object element, final boolean updateLabels) {
+                // Sometimes many refresh events are generated at once and it really slows down the work.
+                refreshDelayedRunner.run(500, new Runnable() {
+                    @Override
+                    public void run() {
+                        performRefresh(updateLabels);
+                    }
+                });
+            }
+            
+            private void performRefresh(boolean updateLabels) {
+                super.refresh(getRoot(), updateLabels);
+            }
+            
+        };
+        treeViewer.addSelectionChangedListener(this);
         treeViewer.setContentProvider(contentProvider);
         treeViewer.setLabelProvider(labelProvider);
         treeViewer.setInput(input);
@@ -119,15 +168,20 @@ public class EditorContentOutlinePage extends ContentOutlinePage implements ISel
     // ==================================================================
 
     @Override
-    public void selectionChanged(IWorkbenchPart part, ISelection selection) {
-        // Ignore invalid selections.
-        IWorkbenchPart activePart = getSite().getPage().getActivePart();
-        if((part != activePart) || (part instanceof ContentOutline) || (part instanceof PropertySheet))
-            return;
+    public void selectionChanged(final IWorkbenchPart part, final ISelection selection) {
+        // Sometimes many selection events are generated at once and it really slows down the work.
+        selectionDelayedRunner.run(50, new Runnable() {            
+            @Override
+            public void run() {
+                IWorkbenchPart activePart = getSite().getPage().getActivePart();
+                if((part != activePart) || (part instanceof ContentOutline) || (part instanceof PropertySheet))
+                    return;
 
-        // Forward selection to the TreeViewer.
-        if(!getSelection().equals(selection))
-            setSelection(selection);
+                // Forward selection to the TreeViewer.
+                if(!getSelection().equals(selection))
+                    setSelection(selection);
+            }
+        });
     }
 
 }

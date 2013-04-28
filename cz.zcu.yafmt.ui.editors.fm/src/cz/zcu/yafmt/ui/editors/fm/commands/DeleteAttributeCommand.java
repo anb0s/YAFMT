@@ -26,7 +26,7 @@ public class DeleteAttributeCommand extends RecordingCommand {
         this.attribute = attribute;
     }
 
-    private SetFeatureSizeCommand createResizeCommand() {
+    private SetFeatureSizeCommand createResizeCommand() {       
         return new SetFeatureOptimalSizeCommand(layoutData, feature, featureFigure) {
             @Override
             protected Dimension computeFeaturePreferredSize() {
