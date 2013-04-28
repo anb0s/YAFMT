@@ -50,7 +50,6 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
     private IProblemManager problemManager;
     private Adapter featureModelAdapter;
     private Adapter layoutDataAdapter;
-    private DelayedRunner updateRunner;
     
     public FeatureModelEditPart(FeatureModel featureModel, LayoutData layoutData, ConstraintCache constraintCache, IProblemManager problemManager) {
         this.featureModel = featureModel;
@@ -59,7 +58,6 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
         this.problemManager = problemManager;
         this.featureModelAdapter = new FeatureModelAdapter();
         this.layoutDataAdapter = new LayoutDataAdapter();
-        updateRunner = new DelayedRunner();
         setModel(featureModel);
     }
 
@@ -258,6 +256,8 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
     // ===================================================================
     
     class FeatureModelAdapter extends EContentAdapter {
+        
+        private DelayedRunner delayedRunner = new DelayedRunner();
 
         @Override
         protected void addAdapter(Notifier notifier) {
@@ -284,14 +284,14 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
             if((notifier instanceof FeatureModel) && (msg.getFeatureID(FeatureModel.class) == FEATURE_MODEL__NAME))
                 revalidateModel();
 
-            updateRunner.run(500, new Runnable() {
+            delayedRunner.run(500, new Runnable() {
                 @Override
                 public void run() {
                     refreshFeatureFiguresConstraintMarker();
                 }
             });
         }
-
+        
     }
 
     class LayoutDataAdapter extends EContentAdapter {

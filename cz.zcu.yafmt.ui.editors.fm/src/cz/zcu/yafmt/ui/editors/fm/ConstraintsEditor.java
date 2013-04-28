@@ -325,7 +325,7 @@ public class ConstraintsEditor extends SplitterDock implements ISelectionListene
 
     private class FeatureModelAdapter extends EContentAdapter {
 
-        private DelayedRunner updateRunner = new DelayedRunner();
+        private DelayedRunner delayedRunner = new DelayedRunner();
         
         @Override
         protected void addAdapter(Notifier notifier) {
@@ -394,7 +394,7 @@ public class ConstraintsEditor extends SplitterDock implements ISelectionListene
         }
 
         private void scheduleRevalidaiondOfAllConstraints() {
-            updateRunner.run(500, new Runnable() {
+            delayedRunner.run(500, new Runnable() {
                 @Override
                 public void run() {
                     revalidateAllConstraints();

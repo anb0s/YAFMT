@@ -29,6 +29,7 @@ import cz.zcu.yafmt.model.fc.FeatureConfiguration;
 import cz.zcu.yafmt.model.fm.FeatureModel;
 import cz.zcu.yafmt.model.fm.util.FeatureModelUtil;
 import cz.zcu.yafmt.model.fm.util.FeatureModelUtil.TreeInfo;
+import cz.zcu.yafmt.ui.util.DelayedRunner;
 import cz.zcu.yafmt.ui.util.SWTUtil;
 import cz.zcu.yafmt.ui.views.fm.filters.ConstraintFilter;
 import cz.zcu.yafmt.ui.views.fm.filters.DistanceFilter;
@@ -62,6 +63,8 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
     private GroupFilter groupFilter;
     private ConstraintFilter constraintFilter;
     private ISelection currentSelection; // Viewer may not contain all selected elements, so we have to remember them.
+    private DelayedRunner refreshDelayedRunner;
+    private DelayedRunner resizeDelayedRunner;
 
     // ===========================================================================
     //  Initialization
@@ -78,6 +81,8 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         settings = new Settings();
         settings.addSettingsListener(this);
         settings.init(FeatureModelVisualizerPlugin.getAccess().getDialogSettings());
+        refreshDelayedRunner = new DelayedRunner();
+        resizeDelayedRunner = new DelayedRunner();
 
         site.getPage().addPartListener(this);
         site.getPage().addSelectionListener(this);
@@ -125,8 +130,13 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
             @Override
             public void controlResized(ControlEvent event) {
                 if(!settings.isFixedSize()) {
-                    resizeGraphView();
-                    viewer.applyLayout();
+                    resizeDelayedRunner.run(1000, new Runnable() {
+                        @Override
+                        public void run() {
+                            resizeGraphView();
+                            viewer.applyLayout();
+                        }
+                    });
                 }
             }
         });
@@ -293,28 +303,33 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
     }
 
     @Override
-    public void selectionChanged(IWorkbenchPart part, ISelection selection) {
+    public void selectionChanged(final IWorkbenchPart part, ISelection originalSelection) {
         // Ignore invalid selections.
         IWorkbenchPart activePart = getSite().getPage().getActivePart();
         if((part != activePart) || (part == this) || (part instanceof PropertySheet))
             return;
 
-        selection = SelectionConverter.toFeatureModelSelection(selection);
+        final ISelection selection = SelectionConverter.toFeatureModelSelection(originalSelection);
         if(selection == null)
             return;
 
-        setSourcePart(part);
+        refreshDelayedRunner.run(50, new Runnable() {
+            @Override
+            public void run() {
+                setSourcePart(part);
 
-        if(!currentSelection.equals(selection)) {
-            currentSelection = selection; // Viewer may not contain all selected elements, so we have to remember them.
+                if(!currentSelection.equals(selection)) {
+                    currentSelection = selection; // Viewer may not contain all selected elements, so we have to remember them.
 
-            if(!settings.isViewLocked())
-                refreshAll(selection);
+                    if(!settings.isViewLocked())
+                        refreshAll(selection);
 
-            viewer.setSelection(selection);
-            if(settings.isViewLocked())
-                viewer.moveViewportToSelection(selection); // Do not move viewport when layout animation is in progress!
-        }
+                    viewer.setSelection(selection);
+                    if(settings.isViewLocked())
+                        viewer.moveViewportToSelection(selection); // Do not move viewport when layout animation is in progress!
+                }
+            }
+        });
     }
     
     @Override
@@ -346,6 +361,8 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
     // ===========================================================================
 
     class FeatureModelAdapter extends EContentAdapter {
+        
+        
 
         @Override
         public void notifyChanged(Notification notification) {
@@ -357,10 +374,16 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
                 case Notification.REMOVE:
                 case Notification.REMOVE_MANY:
                 case Notification.SET:
-                    recomputeTreeInfo();
-                    resizeGraphView();
-                    viewer.refresh();
-                    viewer.applyLayout();
+                    refreshDelayedRunner.run(500, new Runnable() {
+                        @Override
+                        public void run() {
+                            recomputeTreeInfo();
+                            resizeGraphView();
+                            constraintFilter.update(currentSelection, featureModel);
+                            viewer.refresh();
+                            viewer.applyLayout();
+                        }
+                    });
                     break;
             }
         }
