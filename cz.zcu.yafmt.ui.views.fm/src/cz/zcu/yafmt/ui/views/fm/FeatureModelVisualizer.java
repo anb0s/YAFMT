@@ -316,6 +316,9 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
         refreshDelayedRunner.run(50, new Runnable() {
             @Override
             public void run() {
+                if(viewer.getControl().isDisposed())
+                    return;
+                
                 setSourcePart(part);
 
                 if(!currentSelection.equals(selection)) {
@@ -377,6 +380,9 @@ public class FeatureModelVisualizer extends ViewPart implements ISelectionListen
                     refreshDelayedRunner.run(500, new Runnable() {
                         @Override
                         public void run() {
+                            if(viewer.getControl().isDisposed())
+                                return;
+                            
                             recomputeTreeInfo();
                             resizeGraphView();
                             constraintFilter.update(currentSelection, featureModel);
