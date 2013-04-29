@@ -125,30 +125,40 @@ public class FeatureConfigurationManager {
 
     private void createVirtualConnections(Feature feature, Selection selection) {
         // This expect that children selections are sorted in order given by feature configuration repair process. 
+        
+        // Process direct children features.
         int startingIndex = 0;
         startingIndex = createVirtualConnections(feature.getFeatures(), startingIndex, selection, Integer.MAX_VALUE);
 
+        // Process children features in each group. 
         for(Group group: feature.getGroups()) {
             int groupUpper = (group.getUpper() == -1) ? Integer.MAX_VALUE : group.getUpper();
             startingIndex = createVirtualConnections(group.getFeatures(), startingIndex, selection, groupUpper);
         }
     }
 
-    private int createVirtualConnections(EList<Feature> childrenFeatures, int startingIndex, Selection parentSelection, int groupUpper) {
-        // This expect that children selections are sorted in order given by feature configuration repair process.
+    private int createVirtualConnections(EList<Feature> childrenFeatures, int startingIndex, Selection parentSelection, int groupUpper) {        
         EList<Selection> childrenSelections = parentSelection.getSelections();
-
+        
+        // Look if group allow one more feature to be selected.
+        int selectionsInGroupCount = countSelectionsInGroup(childrenFeatures, childrenSelections, startingIndex);
+        boolean groupIsFull = selectionsInGroupCount < groupUpper;
+        
+        // This expect that children selections are sorted in order given by feature configuration repair process.
         for(Feature childFeature: childrenFeatures) {
             String id = childFeature.getId();
+            
+            // Look how many time can we clone the feature.
             int allowedFeaturesCount = childFeature.getUpper();
             if(allowedFeaturesCount == -1)
                 allowedFeaturesCount = Integer.MAX_VALUE;
 
-            for(int j = startingIndex; j < childrenSelections.size(); j++) {
-                Selection childSelection = childrenSelections.get(j);
+            // Match selections to features.
+            for(int i = startingIndex; i < childrenSelections.size(); i++) {
+                Selection childSelection = childrenSelections.get(i);
                 if(childSelection.getId().equals(id)) {
-                    createVirtualConnections(childFeature, childSelection);
-                    allowedFeaturesCount--;
+                    createVirtualConnections(childFeature, childSelection); // Process children.
+                    allowedFeaturesCount--; // One feature clone found.
                     startingIndex++;
                 }
                 else {
@@ -157,15 +167,37 @@ public class FeatureConfigurationManager {
             }
 
             // Allow to select feature only if we don't break local constraint.
-            boolean enabled = childrenSelections.size() < groupUpper; // Does group allow one more feature?
-            boolean allowed = (allowedFeaturesCount > 0);             // Is another feature clone allowed?
-            if(allowed && (enabled || makeDisabledVirtualConnetions)) {
+            boolean featureAllowed = (allowedFeaturesCount > 0);  // Is another feature clone allowed?
+            if(featureAllowed && (groupIsFull || makeDisabledVirtualConnetions)) {
                 Selection childSelection = createSelection(parentSelection, childFeature);
-                addVirtualConnection(parentSelection, childSelection, startingIndex, enabled);
+                addVirtualConnection(parentSelection, childSelection, startingIndex, groupIsFull);
             }
         }
 
         return startingIndex;
+    }
+    
+    private int countSelectionsInGroup(EList<Feature> childrenFeatures, EList<Selection> childrenSelections, int startingIndex) {
+        int selectionsCount = 0;
+        
+        // This expect that children selections are sorted in order given by feature configuration repair process.
+        for(Feature childFeature: childrenFeatures) {
+            String id = childFeature.getId();
+            
+            // Match selections to features.
+            for(int i = startingIndex; i < childrenSelections.size(); i++) {
+                Selection childSelection = childrenSelections.get(i);
+                if(childSelection.getId().equals(id)) {
+                    selectionsCount++;
+                    startingIndex++;
+                }
+                else {
+                    break;
+                }
+            }
+        }
+        
+        return selectionsCount;
     }
     
     private Selection createSelection(Selection parentSelection, Feature childFeature) {
