@@ -3,7 +3,6 @@ package cz.zcu.yafmt.ui.editors.fm;
 import org.eclipse.gef.palette.CombinedTemplateCreationEntry;
 import org.eclipse.gef.palette.ConnectionCreationToolEntry;
 import org.eclipse.gef.palette.CreationToolEntry;
-import org.eclipse.gef.palette.MarqueeToolEntry;
 import org.eclipse.gef.palette.PaletteDrawer;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.palette.PanningSelectionToolEntry;
@@ -23,7 +22,6 @@ public class FeatureModelEditorPaletteRoot extends PaletteRoot {
 
     public FeatureModelEditorPaletteRoot() {
         ToolEntry selectionEntry = new PanningSelectionToolEntry();
-        ToolEntry marqueeEntry = new MarqueeToolEntry();
         ToolEntry optionalFeatureCreationEntry = createOptionalFeatureCreationEntry();
         ToolEntry mandatoryFeatureCreationEntry = createMandatoryFeatureCreationEntry();
         ToolEntry attributeCreationEntry = createAttributeCreationEntry();
@@ -31,7 +29,6 @@ public class FeatureModelEditorPaletteRoot extends PaletteRoot {
 
         PaletteDrawer selectionTools = new PaletteDrawer("Selection Tools");
         selectionTools.add(selectionEntry);
-        selectionTools.add(marqueeEntry);
 
         PaletteDrawer cretionTools = new PaletteDrawer("Creation Tools");
         cretionTools.add(optionalFeatureCreationEntry);
