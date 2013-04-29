@@ -20,6 +20,8 @@ import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.EditPartFactory;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
+import org.eclipse.gef.MouseWheelHandler;
+import org.eclipse.gef.MouseWheelZoomHandler;
 import org.eclipse.gef.SnapToGrid;
 import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
 import org.eclipse.gef.editparts.ZoomManager;
@@ -36,6 +38,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
@@ -134,7 +137,9 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette imple
         if(contextMenuProvider != null)
             viewer.setContextMenu(contextMenuProvider);
         
-        viewer.setProperty(SnapToGrid.PROPERTY_GRID_SPACING, new Dimension(15, 15));
+        // Viewer propertis.
+        viewer.setProperty(SnapToGrid.PROPERTY_GRID_SPACING, new Dimension(15, 15)); // Grid size
+        viewer.setProperty(MouseWheelHandler.KeyGenerator.getKey(SWT.MOD1), MouseWheelZoomHandler.SINGLETON); // Zooming with CTRL + mouse wheel.
 
         // Actions need original selection provider.
         createActionsLate();
