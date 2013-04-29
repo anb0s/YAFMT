@@ -9,6 +9,8 @@ import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.palette.PanningSelectionToolEntry;
 import org.eclipse.gef.palette.ToolEntry;
 import org.eclipse.gef.requests.SimpleFactory;
+import org.eclipse.gef.tools.AbstractTool;
+import org.eclipse.gef.tools.ConnectionDragCreationTool;
 import org.eclipse.jface.resource.ImageDescriptor;
 
 import cz.zcu.yafmt.model.fm.Attribute;
@@ -46,30 +48,33 @@ public class FeatureModelEditorPaletteRoot extends PaletteRoot {
         // Use CombinedTemplateCreationEntry instead of CreationToolEntry to support drag and drop
         // via TemplateTransferDragSourceListener and TemplateTransferDropTargetListener.
         ImageDescriptor img = FeatureModelEditorPlugin.getAccess().getImageDescriptor("feature-opt.png");
-        CreationToolEntry featureCreationEntry = new CombinedTemplateCreationEntry(
+        CreationToolEntry entry = new CombinedTemplateCreationEntry(
                 "Optional Feature", "Create optional feature.", new FeatureFactory(false), img, null);
-        featureCreationEntry.setToolClass(CreationToolWithDirectEdit.class);
-        return featureCreationEntry;
+        entry.setToolClass(CreationToolWithDirectEdit.class);
+        return entry;
     }
 
     private ToolEntry createMandatoryFeatureCreationEntry() {
         ImageDescriptor img = FeatureModelEditorPlugin.getAccess().getImageDescriptor("feature-man.png");
-        CreationToolEntry featureCreationEntry = new CombinedTemplateCreationEntry(
+        CreationToolEntry entry = new CombinedTemplateCreationEntry(
                 "Mandatory Feature", "Create mandatory feature.", new FeatureFactory(true), img, null);
-        featureCreationEntry.setToolClass(CreationToolWithDirectEdit.class);
-        return featureCreationEntry;
+        entry.setToolClass(CreationToolWithDirectEdit.class);
+        return entry;
     }
 
     private ToolEntry createAttributeCreationEntry() {
         ImageDescriptor img = FeatureModelEditorPlugin.getAccess().getImageDescriptor("attribute.png");
-        CreationToolEntry attributeCreationEntry = new CombinedTemplateCreationEntry(
+        CreationToolEntry entry = new CombinedTemplateCreationEntry(
                 "Attribute", "Add atribute to a feature.", new AttributeFactory(), img, null);
-        return attributeCreationEntry;
+        return entry;
     }
 
     private ToolEntry createConnectionCreationEntry() {
         ImageDescriptor img = FeatureModelEditorPlugin.getAccess().getImageDescriptor("connection.png");
-        return new ConnectionCreationToolEntry("Connection", "Create connection (from feature to sub-feature).", null, img, null);
+        ConnectionCreationToolEntry entry = new ConnectionCreationToolEntry("Connection", "Create connection (from feature to sub-feature).", null, img, null);
+        entry.setToolClass(ConnectionDragCreationTool.class); // Replace ConnectionCreationTool.
+        entry.setToolProperty(AbstractTool.PROPERTY_UNLOAD_WHEN_FINISHED, Boolean.FALSE); // Keep it selected after user finishes operation.
+        return entry;
     }
 
     private static class FeatureFactory extends SimpleFactory {

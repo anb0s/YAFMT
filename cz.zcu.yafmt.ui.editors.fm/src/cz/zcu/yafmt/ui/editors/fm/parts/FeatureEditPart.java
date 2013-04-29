@@ -65,7 +65,7 @@ public class FeatureEditPart extends BaseGraphicalEditPart implements NodeEditPa
         this.problemManager = problemManager;
         setModel(feature);
     }
-    
+        
     // ===================================================================
     //  Initialization
     // ===================================================================

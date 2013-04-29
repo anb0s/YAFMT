@@ -11,7 +11,7 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.editpolicies.SnapFeedbackPolicy;
 
 public abstract class BaseGraphicalEditPart extends AbstractGraphicalEditPart {
-
+    
     // ===================================================================
     //  Policies
     // ===================================================================
