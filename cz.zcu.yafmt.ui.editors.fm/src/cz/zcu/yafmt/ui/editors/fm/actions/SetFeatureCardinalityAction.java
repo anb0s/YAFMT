@@ -3,9 +3,9 @@ package cz.zcu.yafmt.ui.editors.fm.actions;
 import java.util.List;
 
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
-import org.eclipse.gef.requests.GroupRequest;
 import org.eclipse.gef.ui.actions.SelectionAction;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.ui.IWorkbenchPart;
@@ -56,9 +56,8 @@ public class SetFeatureCardinalityAction extends SelectionAction {
             return null;
 
         String type = mandatory ? RequestConstants.REQ_MAKE_FEATURE_MAN : RequestConstants.REQ_MAKE_FEATURE_OPT;
-        GroupRequest request = new GroupRequest(type);
-        request.setEditParts(objects);
-
+        Request request = new Request(type);
+        
         CompoundCommand command = new CompoundCommand();
         for(Object object: objects)
             command.add(((EditPart) object).getCommand(request));

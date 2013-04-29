@@ -6,6 +6,7 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.ui.actions.ActionFactory;
 
 import cz.zcu.yafmt.ui.actions.ExportGraphicalEditorAsImageAction;
+import cz.zcu.yafmt.ui.editors.fm.actions.GenerateFeatureIdFromNameAction;
 import cz.zcu.yafmt.ui.editors.fm.actions.GroupFeaturesAction;
 import cz.zcu.yafmt.ui.editors.fm.actions.SetFeatureCardinalityAction;
 import cz.zcu.yafmt.ui.editors.fm.actions.UngroupFeaturesAction;
@@ -28,6 +29,7 @@ public class FeatureModelEditorContextMenuProvider extends ModelEditorContextMen
         addActionToMenu(menu, GEFActionConstants.GROUP_EDIT, ActionFactory.DELETE.getId());
         addActionToMenu(menu, GEFActionConstants.GROUP_EDIT, SetFeatureCardinalityAction.ID_OPTIONAL);
         addActionToMenu(menu, GEFActionConstants.GROUP_EDIT, SetFeatureCardinalityAction.ID_MANDATORY);
+        addActionToMenu(menu, GEFActionConstants.GROUP_EDIT, GenerateFeatureIdFromNameAction.ID);
         addActionToMenu(menu, GEFActionConstants.GROUP_EDIT, GroupFeaturesAction.ID_XOR);
         addActionToMenu(menu, GEFActionConstants.GROUP_EDIT, GroupFeaturesAction.ID_OR);
         addActionToMenu(menu, GEFActionConstants.GROUP_EDIT, UngroupFeaturesAction.ID);

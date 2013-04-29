@@ -8,6 +8,7 @@ import org.eclipse.gef.requests.GroupRequest;
 
 import cz.zcu.yafmt.model.fm.Feature;
 import cz.zcu.yafmt.ui.editors.fm.commands.DeleteFeatureCommand;
+import cz.zcu.yafmt.ui.editors.fm.commands.GenerateFeatureIdFromNameCommand;
 import cz.zcu.yafmt.ui.editors.fm.commands.SetFeatureCardinalityCommand;
 import cz.zcu.yafmt.ui.editors.fm.commands.SetFeatureOptimalSizeCommand;
 import cz.zcu.yafmt.ui.editors.fm.layout.LayoutData;
@@ -26,6 +27,10 @@ public class FeatureEditPolicy extends ComponentEditPolicy {
         else if(RequestConstants.REQ_MAKE_FEATURE_OPT.equals(type)) {
             Feature feature = (Feature) getHost().getModel();
             return createSetFeatureCardinalityCommand(feature, false);
+        }
+        else if(RequestConstants.REQ_GEN_FEATURE_ID_FROM_NAME.equals(type)) {
+            Feature feature = (Feature) getHost().getModel();
+            return new GenerateFeatureIdFromNameCommand(feature);
         }
         else if(RequestConstants.REQ_SET_FEATURE_OPTIMAL_SIZE.equals(type)) {
             LayoutData layoutData =((FeatureEditPart) getHost()).getLayoutData();
