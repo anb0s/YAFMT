@@ -384,7 +384,7 @@ public class FeatureConfigurationManager {
     }
 
     public void removeFeatureConfigurationListener(IFeatureConfigurationListener listener) {
-        listeners.add(listener);
+        listeners.remove(listener);
     }
 
     protected void fireFeaturesSelected(List<Selection> selections) {
