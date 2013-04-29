@@ -11,6 +11,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.draw2d.Viewport;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -19,6 +20,7 @@ import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.EditPartFactory;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
+import org.eclipse.gef.SnapToGrid;
 import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
 import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.palette.PaletteRoot;
@@ -131,6 +133,8 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette imple
         ContextMenuProvider contextMenuProvider = getContextMenuProvider();
         if(contextMenuProvider != null)
             viewer.setContextMenu(contextMenuProvider);
+        
+        viewer.setProperty(SnapToGrid.PROPERTY_GRID_SPACING, new Dimension(15, 15));
 
         // Actions need original selection provider.
         createActionsLate();

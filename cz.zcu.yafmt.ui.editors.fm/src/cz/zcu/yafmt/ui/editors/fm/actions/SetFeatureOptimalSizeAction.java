@@ -7,8 +7,12 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.ui.actions.SelectionAction;
+import org.eclipse.jface.action.IAction;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.actions.LabelRetargetAction;
+import org.eclipse.ui.actions.RetargetAction;
 
+import cz.zcu.yafmt.ui.editors.fm.FeatureModelEditorPlugin;
 import cz.zcu.yafmt.ui.editors.fm.util.RequestConstants;
 
 
@@ -16,10 +20,20 @@ public class SetFeatureOptimalSizeAction extends SelectionAction {
 
     public static final String ID = "cz.zcu.yafmt.ui.editors.fm.actions.SetFeatureOptimalSizeAction";
     
+    public static RetargetAction createRetargetAction() {
+        return (RetargetAction) initAction(new LabelRetargetAction(null, null));
+    }
+    
+    private static IAction initAction(IAction action) {
+        action.setId(ID);
+        action.setText("Set Optimal Size");
+        action.setImageDescriptor(FeatureModelEditorPlugin.getAccess().getImageDescriptor("set-optimal-size.png"));
+        return action;
+    }
+    
     public SetFeatureOptimalSizeAction(IWorkbenchPart part) {
         super(part);
-        setId(ID);
-        setText("Set Optimal Size");
+        initAction(this);
     }
 
     private Command getCommand() {

@@ -22,7 +22,6 @@ import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
-import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 import cz.zcu.yafmt.model.fm.Feature;
 import cz.zcu.yafmt.model.fm.Group;
@@ -35,7 +34,7 @@ import cz.zcu.yafmt.ui.editors.fm.policies.GroupEditPolicy;
 import cz.zcu.yafmt.ui.figures.MiddlePointAnchor;
 import cz.zcu.yafmt.ui.validation.IProblemManager;
 
-public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEditPart {
+public class GroupEditPart extends BaseGraphicalEditPart implements NodeEditPart {
 
     private Group group;
     private Adapter groupAdapter;
@@ -163,10 +162,11 @@ public class GroupEditPart extends AbstractGraphicalEditPart implements NodeEdit
 
     @Override
     protected void createEditPolicies() {
+        super.createEditPolicies();
         installEditPolicy(EditPolicy.COMPONENT_ROLE, new GroupEditPolicy());
         installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new ConnectionCreationPolicy());
     }
-
+    
     // ===================================================================
     //  Events
     // ===================================================================

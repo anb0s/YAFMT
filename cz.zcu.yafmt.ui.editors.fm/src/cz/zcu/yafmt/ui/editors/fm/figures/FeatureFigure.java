@@ -27,8 +27,8 @@ import cz.zcu.yafmt.ui.util.DrawUtil;
 
 public class FeatureFigure extends RoundedRectangle {
 
-    public static final int INITIAL_WIDTH = 100;
-    public static final int INITIAL_HEGHT = 25;
+    public static final int INITIAL_WIDTH = 105;
+    public static final int INITIAL_HEGHT = 30;
 
     private Label label;
     private Label toolTip;

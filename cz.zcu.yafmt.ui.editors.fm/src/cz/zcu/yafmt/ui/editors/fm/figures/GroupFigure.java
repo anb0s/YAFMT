@@ -23,7 +23,7 @@ import cz.zcu.yafmt.ui.util.DrawUtil;
 
 public class GroupFigure extends Shape {
 
-    public static final int SIZE = 40;
+    public static final int SIZE = 45;
     private static final int LABEL_DISTANCE = 50;
     private static final int ERROR_MARKER_DISTANCE = 14;
 

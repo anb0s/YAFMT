@@ -23,7 +23,6 @@ import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.commands.Command;
-import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.swt.SWT;
 
 import cz.zcu.yafmt.clang.util.ConstraintCache;
@@ -42,7 +41,7 @@ import cz.zcu.yafmt.ui.editors.fm.policies.FeatureModelLayoutPolicy;
 import cz.zcu.yafmt.ui.util.DelayedRunner;
 import cz.zcu.yafmt.ui.validation.IProblemManager;
 
-public class FeatureModelEditPart extends AbstractGraphicalEditPart {
+public class FeatureModelEditPart extends BaseGraphicalEditPart {
 
     private FeatureModel featureModel;
     private LayoutData layoutData;
@@ -247,10 +246,11 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
     
     @Override
     protected void createEditPolicies() {
+        super.createEditPolicies();
         installEditPolicy(EditPolicy.LAYOUT_ROLE, new FeatureModelLayoutPolicy());
         installEditPolicy(EditPolicy.COMPONENT_ROLE, new FeatureModelEditPolicy());
     }
-    
+        
     // ===================================================================
     //  Events
     // ===================================================================

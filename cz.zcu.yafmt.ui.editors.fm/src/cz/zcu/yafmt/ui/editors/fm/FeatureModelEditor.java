@@ -18,6 +18,8 @@ import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.dnd.TemplateTransferDragSourceListener;
 import org.eclipse.gef.dnd.TemplateTransferDropTargetListener;
 import org.eclipse.gef.palette.PaletteRoot;
+import org.eclipse.gef.ui.actions.ToggleGridAction;
+import org.eclipse.gef.ui.actions.ToggleSnapToGeometryAction;
 import org.eclipse.gef.ui.palette.FlyoutPaletteComposite;
 import org.eclipse.gef.ui.palette.FlyoutPaletteComposite.FlyoutPreferences;
 import org.eclipse.gef.ui.palette.PaletteViewer;
@@ -174,7 +176,6 @@ public class FeatureModelEditor extends ModelEditor {
     @Override
     protected void createActions() {
         super.createActions();
-        
         createAction(new DeleteAction(this));    // Custom delete action.
         createAction(new SelectAllAction(this)); // Custom select all action.
         createAction(new SetFeatureCardinalityAction(this, false));
@@ -191,6 +192,13 @@ public class FeatureModelEditor extends ModelEditor {
                 return featureModel.getName();
             }
         });
+    }
+    
+    @Override
+    protected void createActionsLate() {
+        super.createActionsLate();
+        createAction(new ToggleGridAction(getGraphicalViewer()));
+        createAction(new ToggleSnapToGeometryAction(getGraphicalViewer()));
     }
     
     // ==================================================================================

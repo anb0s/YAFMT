@@ -15,8 +15,8 @@ import cz.zcu.yafmt.ui.editors.fm.layout.LayoutData;
 
 public class AutoLayoutCommand extends Command {
 
-    private static final int HORIZONTAL_SPACE = 20;
-    private static final int VERTICAL_SPACE = 100;
+    private static final int HORIZONTAL_SPACE = 15;
+    private static final int VERTICAL_SPACE = 105;
 
     private FeatureModel featureModel;
     private LayoutData layoutData;

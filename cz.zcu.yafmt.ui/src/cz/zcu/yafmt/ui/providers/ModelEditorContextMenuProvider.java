@@ -25,7 +25,7 @@ public class ModelEditorContextMenuProvider extends ContextMenuProvider {
 
     protected void addActionToMenu(IMenuManager menu, String groupId, String actionId) {
         IAction action = registry.getAction(actionId);
-        if(action.isEnabled())
+        if((action != null) && action.isEnabled())
             menu.appendToGroup(groupId, action);
     }
 

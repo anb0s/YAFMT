@@ -15,8 +15,12 @@ import org.eclipse.ui.actions.RetargetAction;
 
 import cz.zcu.yafmt.ui.actions.EditorZoomComboContributioItem;
 import cz.zcu.yafmt.ui.actions.ShowFeatureModelVisualizerAction;
+import cz.zcu.yafmt.ui.actions.SnapToGeometryRetargetAction;
+import cz.zcu.yafmt.ui.actions.SnapToGridRetargetAction;
+import cz.zcu.yafmt.ui.editors.fm.actions.AutoLayoutAction;
 import cz.zcu.yafmt.ui.editors.fm.actions.GroupFeaturesAction;
 import cz.zcu.yafmt.ui.editors.fm.actions.SetFeatureCardinalityAction;
+import cz.zcu.yafmt.ui.editors.fm.actions.SetFeatureOptimalSizeAction;
 import cz.zcu.yafmt.ui.editors.fm.actions.UngroupFeaturesAction;
 
 public class FeatureModelEditorActionBarContributor extends ActionBarContributor {
@@ -34,6 +38,10 @@ public class FeatureModelEditorActionBarContributor extends ActionBarContributor
         addRetargetAction(new LabelRetargetAction(ActionFactory.SELECT_ALL.getId(), "Select All"));
         addRetargetAction(new ZoomInRetargetAction());
         addRetargetAction(new ZoomOutRetargetAction());
+        addRetargetAction(new SnapToGridRetargetAction());
+        addRetargetAction(new SnapToGeometryRetargetAction());
+        addRetargetAction(SetFeatureOptimalSizeAction.createRetargetAction());
+        addRetargetAction(AutoLayoutAction.createRetargetAction());
         addRetargetAction(SetFeatureCardinalityAction.createRetargetAction(false));
         addRetargetAction(SetFeatureCardinalityAction.createRetargetAction(true));
         addRetargetAction(GroupFeaturesAction.createRetargetAction(true));
@@ -47,6 +55,11 @@ public class FeatureModelEditorActionBarContributor extends ActionBarContributor
         toolBarManager.add(new EditorZoomComboContributioItem(this));
         toolBarManager.add(getAction(GEFActionConstants.ZOOM_IN));
         toolBarManager.add(getAction(GEFActionConstants.ZOOM_OUT));
+        toolBarManager.add(new Separator());
+        toolBarManager.add(getAction(GEFActionConstants.TOGGLE_GRID_VISIBILITY));
+        toolBarManager.add(getAction(GEFActionConstants.TOGGLE_SNAP_TO_GEOMETRY));
+        toolBarManager.add(getAction(SetFeatureOptimalSizeAction.ID));
+        toolBarManager.add(getAction(AutoLayoutAction.ID));
         toolBarManager.add(new Separator());
         toolBarManager.add(getAction(ActionFactory.UNDO.getId()));
         toolBarManager.add(getAction(ActionFactory.REDO.getId()));
