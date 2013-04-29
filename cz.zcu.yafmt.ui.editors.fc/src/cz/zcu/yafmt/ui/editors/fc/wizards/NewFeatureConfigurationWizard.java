@@ -242,7 +242,7 @@ public class NewFeatureConfigurationWizard extends NewFileWizard {
         }
 
         private void openFeatureModelOpenDialog() {
-            String path = WorkspaceDialog.openFile(getShell(), "Feature Model Selection", "Select the feature model for configuration.");
+            String path = WorkspaceDialog.openFile(getShell(), "Feature Model Selection", "Select the feature model for configuration.", FM_FILE_EXTENSION);
             if(path != null)
                 featureModelFileText.setText(path);
         }
