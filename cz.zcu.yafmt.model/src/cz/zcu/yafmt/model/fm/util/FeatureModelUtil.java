@@ -1,5 +1,6 @@
 package cz.zcu.yafmt.model.fm.util;
 
+import java.text.Normalizer;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -104,12 +105,18 @@ public class FeatureModelUtil {
         return featureModel;
     }
     
-    public static String generateFeatureID() {
+    public static String generateFeatureId() {
         return "f_" + Math.abs(random.nextInt());
     }
     
-    public static String generateAttributeID() {
+    public static String generateAttributeId() {
         return "a_" + Math.abs(random.nextInt());
+    }
+    
+    public static String generateIdFromName(String name) {
+        String id = Normalizer.normalize(name, Normalizer.Form.NFD);
+        id = id.replaceAll("^\\s+", "").replaceAll("\\s+$", "").replaceAll("\\s+", "_");
+        return id.replaceAll("[^a-zA-Z0-9_\\.]+", "").toLowerCase();
     }
 
     // ===============================================================================================

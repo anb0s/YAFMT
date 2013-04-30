@@ -86,7 +86,7 @@ public class FeatureModelEditorPaletteRoot extends PaletteRoot {
         @Override
         public Object getNewObject() {
             Feature feature = FeatureModelFactory.eINSTANCE.createFeature();
-            feature.setId(FeatureModelUtil.generateFeatureID());
+            feature.setId(FeatureModelUtil.generateFeatureId());
             feature.setName("New feature");
             feature.setMandatory(mandatoryFeatures);
             return feature;
@@ -103,7 +103,7 @@ public class FeatureModelEditorPaletteRoot extends PaletteRoot {
         @Override
         public Object getNewObject() {
             Attribute atttribute = FeatureModelFactory.eINSTANCE.createAttribute();
-            atttribute.setId(FeatureModelUtil.generateAttributeID());
+            atttribute.setId(FeatureModelUtil.generateAttributeId());
             atttribute.setName("New Attribute");
             return atttribute;
         }

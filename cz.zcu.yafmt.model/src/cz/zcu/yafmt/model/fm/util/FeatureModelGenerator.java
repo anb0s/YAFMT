@@ -106,7 +106,7 @@ public class FeatureModelGenerator {
 
     private static Feature generateFeature() {
         Feature feature = FeatureModelFactory.eINSTANCE.createFeature();
-        feature.setId(FeatureModelUtil.generateFeatureID());
+        feature.setId(FeatureModelUtil.generateFeatureId());
         feature.setName(feature.getId());
         feature.setLower(chance(0.75) ? 0 : 1);
         feature.setUpper(randomInt(1, chance(0.75) ? 1 : 3));
@@ -129,7 +129,7 @@ public class FeatureModelGenerator {
 
     private static final Attribute generateAttribute() {
         Attribute attribute = FeatureModelFactory.eINSTANCE.createAttribute();
-        attribute.setId(FeatureModelUtil.generateAttributeID());
+        attribute.setId(FeatureModelUtil.generateAttributeId());
         attribute.setName(attribute.getId());
         attribute.setType(generateAttributeType());
         return attribute;
