@@ -127,7 +127,7 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette imple
             viewer.setContextMenu(contextMenuProvider);
         
         // Viewer propertis.
-        viewer.setProperty(SnapToGrid.PROPERTY_GRID_SPACING, new Dimension(15, 15)); // Grid size
+        viewer.setProperty(SnapToGrid.PROPERTY_GRID_SPACING, new Dimension(12, 12)); // Grid size
         viewer.setProperty(MouseWheelHandler.KeyGenerator.getKey(SWT.MOD1), MouseWheelZoomHandler.SINGLETON); // Zooming with CTRL + mouse wheel.
 
         // Actions need original selection provider.
