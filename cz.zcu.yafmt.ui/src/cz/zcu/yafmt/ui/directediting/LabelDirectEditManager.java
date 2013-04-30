@@ -16,6 +16,9 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.IActionBars;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.part.CellEditorActionHandler;
 
 public class LabelDirectEditManager extends DirectEditManager {
 
@@ -65,10 +68,16 @@ public class LabelDirectEditManager extends DirectEditManager {
     }
 
     @Override
-    protected void initCellEditor() {
+    protected void initCellEditor() {        
         // Initializes cell editor value from label.
         getCellEditor().setValue(text);
         getCellEditor().setValidator(validator);
+        
+        // This captures and process all keyboard shortcuts like ctrl+c, ctrl+a inside the cell editor.
+        IActionBars bars = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor().getEditorSite().getActionBars();
+        CellEditorActionHandler handler = new CellEditorActionHandler(bars);
+        handler.addCellEditor(getCellEditor());
+        
     }
 
     protected Point computePreferredSize(CellEditor cellEditor) {
