@@ -13,6 +13,6 @@ public interface RequestConstants {
     String REQ_MAKE_FEATURE_OPT = "cz.zcu.yafmt.ui.editors.fm.requests.MakeFeaturesOptional";
     String REQ_AUTO_LAYOUT = "cz.zcu.yafmt.ui.editors.fm.requests.AutoLayout";
     String REQ_SET_FEATURE_OPTIMAL_SIZE = "cz.zcu.yafmt.ui.editors.fm.requests.SetFeatureOptimalSize";
-    String REQ_GEN_FEATURE_ID_FROM_NAME = "cz.zcu.yafmt.ui.editors.fm.requests.GenerateFeatureIdFromName";
+    String REQ_GENERATE_ID_FROM_NAME = "cz.zcu.yafmt.ui.editors.fm.requests.GenerateIdFromName";
 
 }

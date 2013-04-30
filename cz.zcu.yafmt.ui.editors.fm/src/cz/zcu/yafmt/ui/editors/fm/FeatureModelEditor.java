@@ -43,7 +43,7 @@ import cz.zcu.yafmt.ui.actions.ShowFeatureModelVisualizerAction;
 import cz.zcu.yafmt.ui.editors.ModelEditor;
 import cz.zcu.yafmt.ui.editors.fm.actions.AutoLayoutAction;
 import cz.zcu.yafmt.ui.editors.fm.actions.DeleteAction;
-import cz.zcu.yafmt.ui.editors.fm.actions.GenerateFeatureIdFromNameAction;
+import cz.zcu.yafmt.ui.editors.fm.actions.GenerateIdFromNameAction;
 import cz.zcu.yafmt.ui.editors.fm.actions.GroupFeaturesAction;
 import cz.zcu.yafmt.ui.editors.fm.actions.SelectAllAction;
 import cz.zcu.yafmt.ui.editors.fm.actions.SetFeatureCardinalityAction;
@@ -181,7 +181,7 @@ public class FeatureModelEditor extends ModelEditor {
         createAction(new SelectAllAction(this)); // Custom select all action.
         createAction(new SetFeatureCardinalityAction(this, false));
         createAction(new SetFeatureCardinalityAction(this, true));
-        createAction(new GenerateFeatureIdFromNameAction(this));
+        createAction(new GenerateIdFromNameAction(this));
         createAction(new GroupFeaturesAction(this, true));
         createAction(new GroupFeaturesAction(this, false));
         createAction(new UngroupFeaturesAction(this));

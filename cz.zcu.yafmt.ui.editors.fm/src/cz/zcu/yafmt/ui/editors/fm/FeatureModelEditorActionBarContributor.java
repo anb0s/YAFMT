@@ -18,7 +18,7 @@ import cz.zcu.yafmt.ui.actions.ShowFeatureModelVisualizerAction;
 import cz.zcu.yafmt.ui.actions.SnapToGeometryRetargetAction;
 import cz.zcu.yafmt.ui.actions.SnapToGridRetargetAction;
 import cz.zcu.yafmt.ui.editors.fm.actions.AutoLayoutAction;
-import cz.zcu.yafmt.ui.editors.fm.actions.GenerateFeatureIdFromNameAction;
+import cz.zcu.yafmt.ui.editors.fm.actions.GenerateIdFromNameAction;
 import cz.zcu.yafmt.ui.editors.fm.actions.GroupFeaturesAction;
 import cz.zcu.yafmt.ui.editors.fm.actions.SetFeatureCardinalityAction;
 import cz.zcu.yafmt.ui.editors.fm.actions.SetFeatureOptimalSizeAction;
@@ -43,7 +43,7 @@ public class FeatureModelEditorActionBarContributor extends ActionBarContributor
         addRetargetAction(new SnapToGeometryRetargetAction());
         addRetargetAction(SetFeatureOptimalSizeAction.createRetargetAction());
         addRetargetAction(AutoLayoutAction.createRetargetAction());
-        addRetargetAction(GenerateFeatureIdFromNameAction.createRetargetAction());
+        addRetargetAction(GenerateIdFromNameAction.createRetargetAction());
         addRetargetAction(SetFeatureCardinalityAction.createRetargetAction(false));
         addRetargetAction(SetFeatureCardinalityAction.createRetargetAction(true));
         addRetargetAction(GroupFeaturesAction.createRetargetAction(true));
@@ -69,7 +69,7 @@ public class FeatureModelEditorActionBarContributor extends ActionBarContributor
         toolBarManager.add(getAction(ActionFactory.DELETE.getId()));
         toolBarManager.add(getAction(SetFeatureCardinalityAction.ID_OPTIONAL));
         toolBarManager.add(getAction(SetFeatureCardinalityAction.ID_MANDATORY));
-        toolBarManager.add(getAction(GenerateFeatureIdFromNameAction.ID));
+        toolBarManager.add(getAction(GenerateIdFromNameAction.ID));
         toolBarManager.add(getAction(GroupFeaturesAction.ID_XOR));
         toolBarManager.add(getAction(GroupFeaturesAction.ID_OR));
         toolBarManager.add(getAction(UngroupFeaturesAction.ID));

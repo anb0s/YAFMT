@@ -28,7 +28,7 @@ public class FeatureEditPolicy extends ComponentEditPolicy {
             Feature feature = (Feature) getHost().getModel();
             return createSetFeatureCardinalityCommand(feature, false);
         }
-        else if(RequestConstants.REQ_GEN_FEATURE_ID_FROM_NAME.equals(type)) {
+        else if(RequestConstants.REQ_GENERATE_ID_FROM_NAME.equals(type)) {
             Feature feature = (Feature) getHost().getModel();
             return new GenerateFeatureIdFromNameCommand(feature);
         }

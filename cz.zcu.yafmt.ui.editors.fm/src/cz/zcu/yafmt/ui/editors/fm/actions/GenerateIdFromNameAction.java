@@ -16,9 +16,9 @@ import cz.zcu.yafmt.ui.editors.fm.FeatureModelEditorPlugin;
 import cz.zcu.yafmt.ui.editors.fm.util.RequestConstants;
 
 
-public class GenerateFeatureIdFromNameAction extends SelectionAction {
+public class GenerateIdFromNameAction extends SelectionAction {
     
-    public static final String ID = "cz.zcu.yafmt.ui.editors.fm.actions.GenerateFeatureIdFromName";
+    public static final String ID = "cz.zcu.yafmt.ui.editors.fm.actions.GenerateIdFromNameAction";
     
     public static RetargetAction createRetargetAction() {
         return (RetargetAction) initAction(new LabelRetargetAction(null, null));
@@ -26,13 +26,12 @@ public class GenerateFeatureIdFromNameAction extends SelectionAction {
 
     private static IAction initAction(IAction action) {
         action.setId(ID);
-        action.setActionDefinitionId(ID);
         action.setText("Generate ID from Name");
         action.setImageDescriptor(FeatureModelEditorPlugin.getAccess().getImageDescriptor("generate-id.png"));
         return action;
     }
     
-    public GenerateFeatureIdFromNameAction(IWorkbenchPart part) {
+    public GenerateIdFromNameAction(IWorkbenchPart part) {
         super(part);
         initAction(this);
     }
@@ -42,7 +41,7 @@ public class GenerateFeatureIdFromNameAction extends SelectionAction {
         if(objects.isEmpty() || !(objects.get(0) instanceof EditPart))
             return null;
 
-        Request request = new Request(RequestConstants.REQ_GEN_FEATURE_ID_FROM_NAME);
+        Request request = new Request(RequestConstants.REQ_GENERATE_ID_FROM_NAME);
         
         CompoundCommand command = new CompoundCommand();
         for(Object object: objects)
