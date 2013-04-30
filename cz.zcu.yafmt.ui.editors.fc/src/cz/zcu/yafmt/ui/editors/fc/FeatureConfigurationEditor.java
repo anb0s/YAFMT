@@ -75,7 +75,7 @@ public class FeatureConfigurationEditor extends ModelEditor {
     // ==================================================================================
 
     @Override
-    public void createModelEditor(Composite parent) {
+    public void createPartControl(Composite parent) {
         Composite panel = new Composite(parent, SWT.NONE);
         panel.setLayout(new GridLayout());
         createFeatureConfigurationEditor(panel);
@@ -257,7 +257,7 @@ public class FeatureConfigurationEditor extends ModelEditor {
         
         try {
             featureConfig.setFeatureModel(loadFeatureModel(resourceSet, path));
-            trySave();
+            doSave(null);
         }
         catch(Exception ex) {
             MessageDialog.openError(shell, "Unable to load " + path, ex.getMessage());
@@ -288,7 +288,7 @@ public class FeatureConfigurationEditor extends ModelEditor {
             // Just copy the new version of feature model.
             // Changes are merged in the FeatureConfigurationManager (see FeatureConfigurationUtil.repair*() methods).
             featureConfig.setFeatureModelCopy(EcoreUtil.copy(featureConfig.getFeatureModel()));
-            trySave();
+            doSave(null);
         }
     }
         

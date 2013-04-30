@@ -39,7 +39,6 @@ import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorSite;
@@ -114,17 +113,7 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette imple
     // ==================================================================================
     //  Editor initialization
     // ==================================================================================
-    
-    @Override
-    public void createPartControl(Composite parent) {
-        createModelEditor(parent);
-        problemManager.saveState();
-    }
-    
-    protected void createModelEditor(Composite parent) {
-        super.createPartControl(parent);
-    }
-        
+            
     @Override
     protected void configureGraphicalViewer() {
         super.configureGraphicalViewer();
@@ -158,6 +147,7 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette imple
     @Override
     protected void initializeGraphicalViewer() {
         getGraphicalViewer().setContents(getModel());
+        problemManager.saveState();
     }
     
     // ==================================================================================
@@ -347,24 +337,19 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette imple
     protected abstract void doLoad(IFileEditorInput input) throws Exception;
 
     protected abstract void doSave() throws Exception;
-
-    protected boolean trySave() {
-        try {
-            doSave();
-            return true;
-        }
-        catch(Exception ex) {
-            MessageDialog.openError(getSite().getShell(), "Unable to save " + getEditorInput().getName(), ex.getMessage());
-            return false;
-        }
-    }
     
     @Override
     public void doSave(IProgressMonitor monitor) {
-        if(trySave()) {
-            getEditDomain().getCommandStack().markSaveLocation();
-            firePropertyChange(PROP_DIRTY);
-            problemManager.saveState();
+        try {
+            doSave();
+            if(getGraphicalViewer() != null) {
+                getEditDomain().getCommandStack().markSaveLocation();
+                firePropertyChange(PROP_DIRTY);
+                problemManager.saveState();
+            }
+        }
+        catch(Exception ex) {
+            MessageDialog.openError(getSite().getShell(), "Unable to save " + getEditorInput().getName(), ex.getMessage());
         }
     }
 
