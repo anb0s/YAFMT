@@ -17,7 +17,7 @@ import cz.zcu.yafmt.model.fm.Feature;
 import cz.zcu.yafmt.model.fm.FeatureModelFactory;
 import cz.zcu.yafmt.model.fm.util.FeatureModelUtil;
 import cz.zcu.yafmt.ui.tools.CreationToolWithDirectEdit;
-import cz.zcu.yafmt.ui.tools.SelectionToolWithMovement;
+import cz.zcu.yafmt.ui.tools.MiddleButtonPanningSelectionTool;
 
 public class FeatureModelEditorPaletteRoot extends PaletteRoot {
 
@@ -41,7 +41,7 @@ public class FeatureModelEditorPaletteRoot extends PaletteRoot {
     
     private ToolEntry createSelectionToolEntry() {
         selectionToolEntry = new PanningSelectionToolEntry();
-        selectionToolEntry.setToolClass(SelectionToolWithMovement.class);
+        selectionToolEntry.setToolClass(MiddleButtonPanningSelectionTool.class);
         return selectionToolEntry;
     }
 

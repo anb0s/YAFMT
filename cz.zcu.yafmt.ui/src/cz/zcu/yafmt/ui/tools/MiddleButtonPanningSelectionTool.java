@@ -1,26 +1,37 @@
 package cz.zcu.yafmt.ui.tools;
 
+import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.Viewport;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.gef.editparts.FreeformGraphicalRootEditPart;
-import org.eclipse.gef.tools.SelectionTool;
-
-import cz.zcu.yafmt.ui.util.DrawUtil;
+import org.eclipse.gef.SharedCursors;
+import org.eclipse.gef.tools.PanningSelectionTool;
+import org.eclipse.swt.graphics.Cursor;
 
 // Adds support for dragging viewport with middle mouse button.
-public class SelectionToolWithMovement extends SelectionTool {
+public class MiddleButtonPanningSelectionTool extends PanningSelectionTool {
 
     private static final int MIDDLE_MOUSE_BUTTON = 2;
     
     private boolean dragInProgress = false;    
-    private Point dragStartLocation;
+    private Point viewStartLocation;
+    
+    private Viewport getViewport() {
+        return ((FigureCanvas) getCurrentViewer().getControl()).getViewport();
+    }
+    
+    protected Cursor getDefaultCursor() {
+        // Replace default panning cursor (HAND).
+        if(isInState(PAN | PAN_IN_PROGRESS))
+            return SharedCursors.SIZEALL;
+        return super.getDefaultCursor();
+    }
     
     @Override
     protected boolean handleButtonDown(int button) {
         if(button == MIDDLE_MOUSE_BUTTON) {
-            setCursor(DrawUtil.DRAG_CURSOR);
-            dragStartLocation = getLocation().getCopy();
+            setCursor(SharedCursors.SIZEALL);
+            viewStartLocation = getViewport().getViewLocation();
             dragInProgress = true;
             return true;
         }
@@ -44,13 +55,8 @@ public class SelectionToolWithMovement extends SelectionTool {
     @Override
     protected boolean handleDrag() {
         if(dragInProgress) {
-            Point dragEndLocation = getLocation().getCopy();
-            Dimension dragSize = dragStartLocation.getDifference(dragEndLocation);
-            dragStartLocation = dragEndLocation;
-            
-            FreeformGraphicalRootEditPart rootEditPart = (FreeformGraphicalRootEditPart) getCurrentViewer().getRootEditPart();
-            Viewport viewport = (Viewport) rootEditPart.getFigure();
-            viewport.setViewLocation(viewport.getViewLocation().getTranslated(dragSize));
+            Dimension moveDelta = getDragMoveDelta().getNegated();
+            getViewport().setViewLocation(viewStartLocation.getTranslated(moveDelta));
             return true;
         }
         else {

@@ -10,6 +10,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.Viewport;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
@@ -59,7 +60,7 @@ import cz.zcu.yafmt.ui.CommonUIPlugin;
 import cz.zcu.yafmt.ui.actions.EditorZoomComboContributioItem;
 import cz.zcu.yafmt.ui.pages.EditorContentOutlinePage;
 import cz.zcu.yafmt.ui.pages.EditorPropertySheetPage;
-import cz.zcu.yafmt.ui.tools.SelectionToolWithMovement;
+import cz.zcu.yafmt.ui.tools.MiddleButtonPanningSelectionTool;
 import cz.zcu.yafmt.ui.util.EditorAutoCloser;
 import cz.zcu.yafmt.ui.util.SelectionWrapper;
 import cz.zcu.yafmt.ui.util.UnwrappingSelectionProvider;
@@ -82,7 +83,7 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette imple
     
     private DefaultEditDomain createDefaultEditDomain() {
         DefaultEditDomain editDomain = new DefaultEditDomain(this);
-        editDomain.setDefaultTool(new SelectionToolWithMovement());
+        editDomain.setDefaultTool(new MiddleButtonPanningSelectionTool());
         editDomain.setActiveTool(editDomain.getDefaultTool());
         return editDomain;
     }
@@ -279,7 +280,7 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette imple
     }
 
     private void centerViewportToEditPart(GraphicalEditPart editPart) {
-        Viewport viewport = (Viewport) getRootEditPart().getFigure();
+        Viewport viewport = ((FigureCanvas) getGraphicalControl()).getViewport(); 
         Point point = editPart.getFigure().getBounds().getCenter();
         int x = point.x - viewport.getSize().width / 2;
         int y = point.y - viewport.getSize().height / 2;
