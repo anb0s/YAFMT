@@ -2,14 +2,12 @@ package cz.zcu.yafmt.ui.editors.fm;
 
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
-import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.widgets.Table;
-import org.eclipse.ui.PlatformUI;
 
 import cz.zcu.yafmt.clang.ConstraintLanguageException;
 import cz.zcu.yafmt.clang.ConstraintLanguagePlugin;
@@ -22,12 +20,11 @@ import cz.zcu.yafmt.clang.ui.EditingSupportRegistry;
 import cz.zcu.yafmt.clang.ui.IEditingSupport;
 import cz.zcu.yafmt.model.fm.Constraint;
 import cz.zcu.yafmt.model.fm.FeatureModel;
-import cz.zcu.yafmt.model.provider.util.CellEditorValidationMessageProvider;
+import cz.zcu.yafmt.model.provider.util.NonBlockingCellEditorValidatorWithMessage;
 import cz.zcu.yafmt.ui.editors.fm.commands.SetConstraintValueCommand;
 
 public class ConstraintsEditorEditingSupport extends EditingSupport {
 
-    private IStatusLineManager statusLineManager;
     private CommandStack commandStack;
 
     public ConstraintsEditorEditingSupport(ColumnViewer viewer, CommandStack commandStack) {
@@ -41,14 +38,6 @@ public class ConstraintsEditorEditingSupport extends EditingSupport {
 
     private FeatureModel getFeatureModel() {
         return (FeatureModel) getViewer().getInput();
-    }
-
-    private IStatusLineManager getStatusLineManager() {
-        if(statusLineManager == null) {
-            statusLineManager = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().
-                    getActiveEditor().getEditorSite().getActionBars().getStatusLineManager();
-        }
-        return statusLineManager;
     }
 
     // ================================================================================
@@ -75,7 +64,7 @@ public class ConstraintsEditorEditingSupport extends EditingSupport {
         }
 
         if(cellEditor != null)
-            cellEditor.addListener(new ValidationMessageProvider(cellEditor, language));
+            cellEditor.addListener(new ConstraintsValidator(cellEditor, language));
         
         return cellEditor;
     }
@@ -104,33 +93,15 @@ public class ConstraintsEditorEditingSupport extends EditingSupport {
     //  Input validator
     // ================================================================================
 
-    private class ValidationMessageProvider extends CellEditorValidationMessageProvider {
+    private class ConstraintsValidator extends NonBlockingCellEditorValidatorWithMessage {
 
         private IConstraintLanguage language;
 
-        public ValidationMessageProvider(CellEditor cellEditor, IConstraintLanguage language) {
+        public ConstraintsValidator(CellEditor cellEditor, IConstraintLanguage language) {
             super(cellEditor);
             this.language = language;
         }
-        
-        @Override
-        public void applyEditorValue() {
-            super.applyEditorValue();
-            getStatusLineManager().setErrorMessage(null);
-        }
-        
-        @Override
-        public void cancelEditor() {
-            super.cancelEditor();
-            getStatusLineManager().setErrorMessage(null);
-        }
-        
-        @Override
-        public void editorValueChanged(boolean oldValidState, boolean newValidState) {
-            super.editorValueChanged(oldValidState, newValidState);
-            getStatusLineManager().setErrorMessage(cellEditor.getErrorMessage());
-        }
-        
+                
         @Override
         protected String getErrorMessage(Object value) {
             if(language == null)

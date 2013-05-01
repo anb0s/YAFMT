@@ -32,6 +32,7 @@ import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
+import org.eclipse.jface.viewers.ICellEditorValidator;
 import org.eclipse.swt.SWT;
 
 import cz.zcu.yafmt.model.fm.Attribute;
@@ -205,6 +206,12 @@ public class FeatureEditPart extends BaseGraphicalEditPart implements NodeEditPa
     private void performDirectEditing() {
         Label label = ((FeatureFigure) getFigure()).getLabel();
         LabelDirectEditManager manager = new LabelDirectEditManager(this, label);
+        manager.setErrorMessageProvider(new ICellEditorValidator() {
+            @Override
+            public String isValid(Object value) {
+                return ((String) value).isEmpty() ? "Feature name cannot be empty." : null;
+            }
+        });
         manager.setAlignment(SWT.CENTER);
         manager.show();
     }

@@ -17,12 +17,8 @@ public class FeatureDirectEditPolicy extends DirectEditPolicy {
 
     @Override
     protected Command getDirectEditCommand(DirectEditRequest request) {
-        String text = getEnteredText(request);
-        if((text == null) || text.isEmpty())
-            return null;
-
         Feature feature = (Feature) getHost().getModel();
-        return new SetFeatureNameCommand(feature, text);
+        return new SetFeatureNameCommand(feature, getEnteredText(request));
     }
 
     @Override

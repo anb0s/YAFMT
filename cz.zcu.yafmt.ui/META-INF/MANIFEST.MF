@@ -13,7 +13,8 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="3.8.0",
  org.eclipse.ui.ide;bundle-version="3.8.0",
  org.eclipse.ui.navigator;bundle-version="3.5.200",
  org.eclipse.ui.views;bundle-version="3.6.100",
- cz.zcu.yafmt.model;bundle-version="0.3.0"
+ cz.zcu.yafmt.model;bundle-version="0.3.0",
+ cz.zcu.yafmt.model.edit;bundle-version="0.3.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: cz.zcu.yafmt.ui,

@@ -17,6 +17,7 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
 import org.eclipse.gef.requests.SelectionRequest;
+import org.eclipse.jface.viewers.ICellEditorValidator;
 import org.eclipse.swt.SWT;
 
 import cz.zcu.yafmt.model.fm.Attribute;
@@ -126,6 +127,12 @@ public class AttributeEditPart extends AbstractGraphicalEditPart {
         if(mouseX <= attributeTypeX) {
             // Name direct edit
             manager = new LabelDirectEditManager(this, figure, attributeName);
+            manager.setErrorMessageProvider(new ICellEditorValidator() {
+                @Override
+                public String isValid(Object value) {
+                    return ((String) value).isEmpty() ? "Attribute name cannot be empty." : null;
+                }
+            });
         }
         else {
             // Type direct edit.

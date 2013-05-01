@@ -5,26 +5,27 @@ import org.eclipse.jface.viewers.ICellEditorListener;
 import org.eclipse.jface.viewers.ICellEditorValidator;
 
 // Displays validation error message, but allows confirmation of the erroneous value.
-public abstract class CellEditorValidationMessageProvider implements ICellEditorListener, ICellEditorValidator {
+public abstract class NonBlockingCellEditorValidator implements ICellEditorListener, ICellEditorValidator {
 
     protected CellEditor cellEditor;
     private ICellEditorValidator originalValidator;
     private Object currentValue;
-    private boolean performValidation;
+    private boolean enabled;
             
-    public CellEditorValidationMessageProvider(CellEditor cellEditor) {
+    public NonBlockingCellEditorValidator(CellEditor cellEditor) {
         this.cellEditor = cellEditor;
         this.originalValidator = cellEditor.getValidator();
         this.currentValue = cellEditor.getValue();
-        this.performValidation = true;
+        this.enabled = true;
         cellEditor.setValidator(this);
     }
     
     @Override
     public void applyEditorValue() {
         // This causes that is possible to confirm erroneous value.
-        performValidation = false;         // Disable our validator.
-        cellEditor.setValue(currentValue); // Refresh validation error message.
+        enabled = false;                       // Disable our validator.
+        if((cellEditor.getControl() != null) && !cellEditor.getControl().isDisposed())
+            cellEditor.setValue(currentValue); // Refresh validation error message.
     }
 
     @Override
@@ -34,7 +35,7 @@ public abstract class CellEditorValidationMessageProvider implements ICellEditor
     @Override
     public void editorValueChanged(boolean oldValidState, boolean newValidState) {
         // Editor can be reused after apply/cancel value call, so we need to refresh it.
-        performValidation = true;
+        enabled = true;
     }
     
     @Override
@@ -44,7 +45,7 @@ public abstract class CellEditorValidationMessageProvider implements ICellEditor
         String customError = getErrorMessage(value);         // Use new validator.
         
         // Return custom error when allowed or replace the defaul error message.
-        if((customError != null) && (performValidation || (defaultError != null)))
+        if((customError != null) && (enabled || (defaultError != null)))
             return customError;
         return defaultError;
     }

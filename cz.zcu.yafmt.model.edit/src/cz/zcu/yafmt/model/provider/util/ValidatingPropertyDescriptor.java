@@ -25,13 +25,17 @@ public class ValidatingPropertyDescriptor extends PropertyDescriptor {
 
     public CellEditor attachValidator(CellEditor cellEditor) {
         if(cellEditor != null)
-            cellEditor.addListener(new ValidationMessageProvider(cellEditor));
+            cellEditor.addListener(new InputValidator(cellEditor));
         return cellEditor;
     }
     
-    private class ValidationMessageProvider extends CellEditorValidationMessageProvider {
+    // ================================================================================
+    //  Input validator
+    // ================================================================================
+    
+    private class InputValidator extends NonBlockingCellEditorValidator {
 
-        public ValidationMessageProvider(CellEditor cellEditor) {
+        public InputValidator(CellEditor cellEditor) {
             super(cellEditor);
         }
         

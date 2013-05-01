@@ -13,6 +13,11 @@ public class SetFeatureNameCommand extends RecordingCommand {
         this.feature = feature;
         this.newName = newName;
     }
+    
+    @Override
+    public boolean canExecute() {
+        return newName != null; // Can be null when invalid value was entered during direct editing.
+    }
 
     @Override
     protected void initializeRecording() {

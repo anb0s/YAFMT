@@ -20,9 +20,12 @@ import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.CellEditorActionHandler;
 
+import cz.zcu.yafmt.model.provider.util.NonBlockingCellEditorValidator;
+import cz.zcu.yafmt.model.provider.util.NonBlockingCellEditorValidatorWithMessage;
+
 public class LabelDirectEditManager extends DirectEditManager {
 
-    private ICellEditorValidator validator;
+    private ICellEditorValidator errorMessageProvider;
     private int alignment;
     private int xOffset;
     private int yOffset;
@@ -63,21 +66,38 @@ public class LabelDirectEditManager extends DirectEditManager {
         this.yOffset = yOffset;
     }
 
-    public void setValidator(ICellEditorValidator validator) {
-        this.validator = validator;
+    public void setErrorMessageProvider(ICellEditorValidator validator) {
+        this.errorMessageProvider = validator;
     }
 
     @Override
     protected void initCellEditor() {        
-        // Initializes cell editor value from label.
+        // Initialize cell editor value from label.
         getCellEditor().setValue(text);
-        getCellEditor().setValidator(validator);
+
+        // Attache validator.
+        if(errorMessageProvider != null) {
+            getCellEditor().addListener(new NonBlockingCellEditorValidatorWithMessage(getCellEditor()) {
+                @Override
+                protected String getErrorMessage(Object value) {
+                    return errorMessageProvider.isValid(value);
+                }
+            });
+        }
         
         // This captures and processes all keyboard shortcuts like ctrl+c, ctrl+a inside the cell editor.
         IActionBars bars = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor().getEditorSite().getActionBars();
         CellEditorActionHandler handler = new CellEditorActionHandler(bars);
         handler.addCellEditor(getCellEditor());
         
+    }
+    
+    @Override
+    protected void eraseFeedback() {
+        // We must call this manually now, otherwise it is caused only after the cell editor is disposed (which has no effect).
+        if(getCellEditor().getValidator() instanceof NonBlockingCellEditorValidator)
+            ((NonBlockingCellEditorValidator) getCellEditor().getValidator()).applyEditorValue();
+        super.eraseFeedback();
     }
 
     protected Point computePreferredSize(CellEditor cellEditor) {
