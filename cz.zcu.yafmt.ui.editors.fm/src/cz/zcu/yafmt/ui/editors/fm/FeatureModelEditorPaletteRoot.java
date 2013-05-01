@@ -17,62 +17,79 @@ import cz.zcu.yafmt.model.fm.Feature;
 import cz.zcu.yafmt.model.fm.FeatureModelFactory;
 import cz.zcu.yafmt.model.fm.util.FeatureModelUtil;
 import cz.zcu.yafmt.ui.tools.CreationToolWithDirectEdit;
+import cz.zcu.yafmt.ui.tools.SelectionToolWithMovement;
 
 public class FeatureModelEditorPaletteRoot extends PaletteRoot {
 
+    private ToolEntry selectionToolEntry;
+    
     public FeatureModelEditorPaletteRoot() {
-        ToolEntry selectionEntry = new PanningSelectionToolEntry();
-        ToolEntry optionalFeatureCreationEntry = createOptionalFeatureCreationEntry();
-        ToolEntry mandatoryFeatureCreationEntry = createMandatoryFeatureCreationEntry();
-        ToolEntry attributeCreationEntry = createAttributeCreationEntry();
-        ToolEntry connectionCreationEntry = createConnectionCreationEntry();
-
-        PaletteDrawer selectionTools = new PaletteDrawer("Selection Tools");
-        selectionTools.add(selectionEntry);
-
-        PaletteDrawer cretionTools = new PaletteDrawer("Creation Tools");
-        cretionTools.add(optionalFeatureCreationEntry);
-        cretionTools.add(mandatoryFeatureCreationEntry);
-        cretionTools.add(attributeCreationEntry);
-        cretionTools.add(connectionCreationEntry);
-
-        add(selectionTools);
-        add(cretionTools);
-        setDefaultEntry(selectionEntry);
+        add(createSelectionToolsDrawer());
+        add(createCreationToolsDrawer());
+        setDefaultEntry(selectionToolEntry);
+    }
+    
+    // =======================================================================
+    //  Selection Tools
+    // =======================================================================
+    
+    private PaletteDrawer createSelectionToolsDrawer() {
+        PaletteDrawer drawer = new PaletteDrawer("Selection Tools");
+        drawer.add(createSelectionToolEntry());
+        return drawer;
+    }
+    
+    private ToolEntry createSelectionToolEntry() {
+        selectionToolEntry = new PanningSelectionToolEntry();
+        selectionToolEntry.setToolClass(SelectionToolWithMovement.class);
+        return selectionToolEntry;
     }
 
-    private ToolEntry createOptionalFeatureCreationEntry() {
+    // =======================================================================
+    //  Creation Tools
+    // =======================================================================
+    
+    private PaletteDrawer createCreationToolsDrawer() {
+        PaletteDrawer drawer = new PaletteDrawer("Creation Tools");
+        drawer.add(createOptionalFeatureCreationToolEntry());
+        drawer.add(createMandatoryFeatureCreationToolEntry());
+        drawer.add(createAttributeCreationToolEntry());
+        drawer.add(createConnectionCreationToolEntry());
+        return drawer;
+    }
+    private ToolEntry createOptionalFeatureCreationToolEntry() {
         // Use CombinedTemplateCreationEntry instead of CreationToolEntry to support drag and drop
         // via TemplateTransferDragSourceListener and TemplateTransferDropTargetListener.
         ImageDescriptor img = FeatureModelEditorPlugin.getAccess().getImageDescriptor("feature-opt.png");
-        CreationToolEntry entry = new CombinedTemplateCreationEntry(
-                "Optional Feature", "Create optional feature.", new FeatureFactory(false), img, null);
+        CreationToolEntry entry = new CombinedTemplateCreationEntry("Optional Feature", "Create optional feature.", new FeatureFactory(false), img, null);
         entry.setToolClass(CreationToolWithDirectEdit.class);
         return entry;
     }
 
-    private ToolEntry createMandatoryFeatureCreationEntry() {
+    private ToolEntry createMandatoryFeatureCreationToolEntry() {
         ImageDescriptor img = FeatureModelEditorPlugin.getAccess().getImageDescriptor("feature-man.png");
-        CreationToolEntry entry = new CombinedTemplateCreationEntry(
-                "Mandatory Feature", "Create mandatory feature.", new FeatureFactory(true), img, null);
+        ToolEntry entry = new CombinedTemplateCreationEntry("Mandatory Feature", "Create mandatory feature.", new FeatureFactory(true), img, null);
         entry.setToolClass(CreationToolWithDirectEdit.class);
         return entry;
     }
 
-    private ToolEntry createAttributeCreationEntry() {
+    private ToolEntry createAttributeCreationToolEntry() {
         ImageDescriptor img = FeatureModelEditorPlugin.getAccess().getImageDescriptor("attribute.png");
-        CreationToolEntry entry = new CombinedTemplateCreationEntry(
-                "Attribute", "Add atribute to a feature.", new AttributeFactory(), img, null);
+        ToolEntry entry = new CombinedTemplateCreationEntry("Attribute", "Add atribute to a feature.", new AttributeFactory(), img, null);
         return entry;
     }
 
-    private ToolEntry createConnectionCreationEntry() {
+    private ToolEntry createConnectionCreationToolEntry() {
         ImageDescriptor img = FeatureModelEditorPlugin.getAccess().getImageDescriptor("connection.png");
-        ConnectionCreationToolEntry entry = new ConnectionCreationToolEntry("Connection", "Create connection (from feature to sub-feature).", null, img, null);
+        ToolEntry entry = new ConnectionCreationToolEntry("Connection", "Create connection (from feature to sub-feature).", null, img, null);
         entry.setToolClass(ConnectionDragCreationTool.class); // Replace ConnectionCreationTool.
         entry.setToolProperty(AbstractTool.PROPERTY_UNLOAD_WHEN_FINISHED, Boolean.FALSE); // Keep it selected after user finishes operation.
         return entry;
     }
+    
+    // =======================================================================
+    //  Creation Factories
+    // =======================================================================
 
     private static class FeatureFactory extends SimpleFactory {
 

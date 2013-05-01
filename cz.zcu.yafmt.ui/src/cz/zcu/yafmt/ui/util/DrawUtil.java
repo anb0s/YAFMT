@@ -3,6 +3,7 @@ package cz.zcu.yafmt.ui.util;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.widgets.Display;
@@ -14,9 +15,10 @@ public class DrawUtil {
     public static final Font ITALIC_FONT = getModifiedFont(DEFAULT_FONT, SWT.DEFAULT, SWT.ITALIC);
     public static final Font SMALL_FONT = getModifiedFont(DEFAULT_FONT, 7, SWT.DEFAULT);
     public static final Font TINY_FONT = getModifiedFont(DEFAULT_FONT, 6, SWT.DEFAULT);
+    
+    public static final Cursor DRAG_CURSOR = getCursor(SWT.CURSOR_SIZEALL);
 
     public static final Color DARK_RED_COLOR = getColor(128, 0, 0);
-
     public static final Color FEATURE_GRADIENT_COLOR = getColor(175, 201, 235);
     public static final Color FEATURE_COLOR = getColor(0, 0, 127);
     public static final Color FEATURE_LIGHTER_COLOR = getColor(128, 128, 255);
@@ -35,8 +37,9 @@ public class DrawUtil {
         SMALL_FONT.dispose();
         TINY_FONT.dispose();
         
-        DARK_RED_COLOR.dispose();
+        DRAG_CURSOR.dispose();
         
+        DARK_RED_COLOR.dispose();
         FEATURE_GRADIENT_COLOR.dispose();
         FEATURE_COLOR.dispose();
         FEATURE_LIGHTER_COLOR.dispose();
@@ -60,6 +63,10 @@ public class DrawUtil {
                 data.setStyle(style);
         }
         return new Font(Display.getDefault(), fontData);
+    }
+    
+    public static Cursor getCursor(int style) {
+        return new Cursor(Display.getDefault(), style);
     }
 
     public static Color getColor(int r, int g, int b) {

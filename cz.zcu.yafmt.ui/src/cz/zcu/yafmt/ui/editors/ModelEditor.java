@@ -59,6 +59,7 @@ import cz.zcu.yafmt.ui.CommonUIPlugin;
 import cz.zcu.yafmt.ui.actions.EditorZoomComboContributioItem;
 import cz.zcu.yafmt.ui.pages.EditorContentOutlinePage;
 import cz.zcu.yafmt.ui.pages.EditorPropertySheetPage;
+import cz.zcu.yafmt.ui.tools.SelectionToolWithMovement;
 import cz.zcu.yafmt.ui.util.EditorAutoCloser;
 import cz.zcu.yafmt.ui.util.SelectionWrapper;
 import cz.zcu.yafmt.ui.util.UnwrappingSelectionProvider;
@@ -76,7 +77,14 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette imple
 
     public ModelEditor() {
         editorAutoCloser = new EditorAutoCloser(this);
-        setEditDomain(new DefaultEditDomain(this));
+        setEditDomain(createDefaultEditDomain());
+    }
+    
+    private DefaultEditDomain createDefaultEditDomain() {
+        DefaultEditDomain editDomain = new DefaultEditDomain(this);
+        editDomain.setDefaultTool(new SelectionToolWithMovement());
+        editDomain.setActiveTool(editDomain.getDefaultTool());
+        return editDomain;
     }
 
     // ==================================================================================
