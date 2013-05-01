@@ -73,7 +73,7 @@ public class LabelDirectEditManager extends DirectEditManager {
         getCellEditor().setValue(text);
         getCellEditor().setValidator(validator);
         
-        // This captures and process all keyboard shortcuts like ctrl+c, ctrl+a inside the cell editor.
+        // This captures and processes all keyboard shortcuts like ctrl+c, ctrl+a inside the cell editor.
         IActionBars bars = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor().getEditorSite().getActionBars();
         CellEditorActionHandler handler = new CellEditorActionHandler(bars);
         handler.addCellEditor(getCellEditor());

@@ -6,8 +6,6 @@ import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.EditingSupport;
-import org.eclipse.jface.viewers.ICellEditorListener;
-import org.eclipse.jface.viewers.ICellEditorValidator;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.widgets.Table;
@@ -24,6 +22,7 @@ import cz.zcu.yafmt.clang.ui.EditingSupportRegistry;
 import cz.zcu.yafmt.clang.ui.IEditingSupport;
 import cz.zcu.yafmt.model.fm.Constraint;
 import cz.zcu.yafmt.model.fm.FeatureModel;
+import cz.zcu.yafmt.model.provider.util.CellEditorValidationMessageProvider;
 import cz.zcu.yafmt.ui.editors.fm.commands.SetConstraintValueCommand;
 
 public class ConstraintsEditorEditingSupport extends EditingSupport {
@@ -58,7 +57,7 @@ public class ConstraintsEditorEditingSupport extends EditingSupport {
 
     @Override
     protected CellEditor getCellEditor(Object element) {
-        CellEditor editor = null;
+        CellEditor cellEditor = null;
 
         String languageId = ((Constraint) element).getLanguage();
         ConstraintLanguageRegistry clRegistry = ConstraintLanguagePlugin.getDefault().getConstraintLanguageRegistry();
@@ -69,18 +68,16 @@ public class ConstraintsEditorEditingSupport extends EditingSupport {
         // Use custom editor from extension point if possible.
         if(editingSupport != null) {
             EditingContext context = new EditingContext(getFeatureModel());
-            editor = editingSupport.createCellEditor(getTable(), context);
+            cellEditor = editingSupport.createCellEditor(getTable(), context);
         }
         else {
-            editor = new TextCellEditor(getTable());
+            cellEditor = new TextCellEditor(getTable());
         }
 
-        if(editor != null) {
-            editor.setValidator(new EditorValidator(language));
-            editor.addListener(new EditorListener(editor));
-        }
+        if(cellEditor != null)
+            cellEditor.addListener(new ValidationMessageProvider(cellEditor, language));
         
-        return editor;
+        return cellEditor;
     }
 
     @Override
@@ -107,16 +104,35 @@ public class ConstraintsEditorEditingSupport extends EditingSupport {
     //  Input validator
     // ================================================================================
 
-    private class EditorValidator implements ICellEditorValidator {
+    private class ValidationMessageProvider extends CellEditorValidationMessageProvider {
 
         private IConstraintLanguage language;
 
-        public EditorValidator(IConstraintLanguage language) {
+        public ValidationMessageProvider(CellEditor cellEditor, IConstraintLanguage language) {
+            super(cellEditor);
             this.language = language;
         }
-
+        
         @Override
-        public String isValid(Object value) {
+        public void applyEditorValue() {
+            super.applyEditorValue();
+            getStatusLineManager().setErrorMessage(null);
+        }
+        
+        @Override
+        public void cancelEditor() {
+            super.cancelEditor();
+            getStatusLineManager().setErrorMessage(null);
+        }
+        
+        @Override
+        public void editorValueChanged(boolean oldValidState, boolean newValidState) {
+            super.editorValueChanged(oldValidState, newValidState);
+            getStatusLineManager().setErrorMessage(cellEditor.getErrorMessage());
+        }
+        
+        @Override
+        protected String getErrorMessage(Object value) {
             if(language == null)
                 return null;
 
@@ -129,36 +145,7 @@ public class ConstraintsEditorEditingSupport extends EditingSupport {
                 return ex.getMessage();
             }
         }
-
-    }
-
-    // ================================================================================
-    //  Editor listener
-    // ================================================================================
-
-    private class EditorListener implements ICellEditorListener {
-
-        private CellEditor editor;
-
-        public EditorListener(CellEditor editor) {
-            this.editor = editor;
-        }
-
-        @Override
-        public void applyEditorValue() {
-            getStatusLineManager().setErrorMessage(null);
-        }
-
-        @Override
-        public void cancelEditor() {
-            getStatusLineManager().setErrorMessage(null);
-        }
-
-        @Override
-        public void editorValueChanged(boolean oldValidState, boolean newValidState) {
-            getStatusLineManager().setErrorMessage(editor.getErrorMessage());
-        }
-
+        
     }
 
 }

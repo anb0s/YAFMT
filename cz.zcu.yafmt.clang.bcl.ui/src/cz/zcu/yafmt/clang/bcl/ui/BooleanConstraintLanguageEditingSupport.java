@@ -65,7 +65,7 @@ public class BooleanConstraintLanguageEditingSupport extends EditingSupport {
                             return 123456; // This action code should not exist.
                         return super.getKeyBinding(key);
                     }
-
+                    
                     // Called inside handleKey() after getKeyBinding() returns 123456.
                     @Override
                     public void invokeAction(int action) {
@@ -73,6 +73,15 @@ public class BooleanConstraintLanguageEditingSupport extends EditingSupport {
                             return;
                         super.invokeAction(action);
                     }
+                    
+                    // This is also sometimes called when widget is disposed.
+                    @Override
+                    public int getCaretOffset() {
+                        if(isDisposed())
+                            return 0;
+                        return super.getCaretOffset();
+                    }
+                    
                 };
             }
         };
