@@ -16,7 +16,8 @@ import cz.zcu.yafmt.model.fm.Attribute;
 import cz.zcu.yafmt.model.fm.Feature;
 import cz.zcu.yafmt.model.fm.FeatureModelFactory;
 import cz.zcu.yafmt.model.fm.util.FeatureModelUtil;
-import cz.zcu.yafmt.ui.tools.CreationToolWithDirectEdit;
+import cz.zcu.yafmt.ui.tools.CreationToolWithReactivation;
+import cz.zcu.yafmt.ui.tools.CreationToolWithReactivationAndDirectEdit;
 import cz.zcu.yafmt.ui.tools.MiddleButtonPanningSelectionTool;
 
 public class FeatureModelEditorPaletteRoot extends PaletteRoot {
@@ -61,27 +62,28 @@ public class FeatureModelEditorPaletteRoot extends PaletteRoot {
         // Use CombinedTemplateCreationEntry instead of CreationToolEntry to support drag and drop
         // via TemplateTransferDragSourceListener and TemplateTransferDropTargetListener.
         ImageDescriptor img = FeatureModelEditorPlugin.getAccess().getImageDescriptor("feature-opt.png");
-        CreationToolEntry entry = new CombinedTemplateCreationEntry("Optional Feature", "Create optional feature.", new FeatureFactory(false), img, null);
-        entry.setToolClass(CreationToolWithDirectEdit.class);
+        CreationToolEntry entry = new CombinedTemplateCreationEntry("Optional Feature", "Create optional feature (hold shift for repeat use).", new FeatureFactory(false), img, img);
+        entry.setToolClass(CreationToolWithReactivationAndDirectEdit.class);
         return entry;
     }
 
     private ToolEntry createMandatoryFeatureCreationToolEntry() {
         ImageDescriptor img = FeatureModelEditorPlugin.getAccess().getImageDescriptor("feature-man.png");
-        ToolEntry entry = new CombinedTemplateCreationEntry("Mandatory Feature", "Create mandatory feature.", new FeatureFactory(true), img, null);
-        entry.setToolClass(CreationToolWithDirectEdit.class);
+        ToolEntry entry = new CombinedTemplateCreationEntry("Mandatory Feature", "Create mandatory feature (hold shift for repeat use).", new FeatureFactory(true), img, img);
+        entry.setToolClass(CreationToolWithReactivationAndDirectEdit.class);
         return entry;
     }
 
     private ToolEntry createAttributeCreationToolEntry() {
         ImageDescriptor img = FeatureModelEditorPlugin.getAccess().getImageDescriptor("attribute.png");
-        ToolEntry entry = new CombinedTemplateCreationEntry("Attribute", "Add atribute to a feature.", new AttributeFactory(), img, null);
+        ToolEntry entry = new CombinedTemplateCreationEntry("Attribute", "Add atribute to a feature (hold shift for repeat use).", new AttributeFactory(), img, img);
+        entry.setToolClass(CreationToolWithReactivation.class);
         return entry;
     }
 
     private ToolEntry createConnectionCreationToolEntry() {
         ImageDescriptor img = FeatureModelEditorPlugin.getAccess().getImageDescriptor("connection.png");
-        ToolEntry entry = new ConnectionCreationToolEntry("Connection", "Create connection (from feature to sub-feature).", null, img, null);
+        ToolEntry entry = new ConnectionCreationToolEntry("Connection", "Create connection (from feature to sub-feature).", null, img, img);
         entry.setToolClass(ConnectionDragCreationTool.class); // Replace ConnectionCreationTool.
         entry.setToolProperty(AbstractTool.PROPERTY_UNLOAD_WHEN_FINISHED, Boolean.FALSE); // Keep it selected after user finishes operation.
         return entry;

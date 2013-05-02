@@ -3,10 +3,9 @@ package cz.zcu.yafmt.ui.tools;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.Request;
-import org.eclipse.gef.tools.CreationTool;
 import org.eclipse.swt.widgets.Display;
 
-public class CreationToolWithDirectEdit extends CreationTool {
+public class CreationToolWithReactivationAndDirectEdit extends CreationToolWithReactivation {
 
     @Override
     protected void performCreation(int button) {
