@@ -11,6 +11,7 @@ import java.util.Set;
 
 import org.eclipse.draw2d.ConnectionLayer;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.LayoutAnimator;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
@@ -80,6 +81,8 @@ public class FeatureModelEditPart extends BaseGraphicalEditPart {
             Command autoLayoutCommand = new AutoLayoutCommand(featureModel, layoutData);
             autoLayoutCommand.execute();
         }
+        
+        getFigure().addLayoutListener(LayoutAnimator.getDefault());
     }
     
     @Override
@@ -90,6 +93,7 @@ public class FeatureModelEditPart extends BaseGraphicalEditPart {
 
     @Override
     public void deactivate() {
+        getFigure().removeLayoutListener(LayoutAnimator.getDefault());
         problemManager.clearProblems(featureModel);
         featureModel.eAdapters().remove(featureModelAdapter);
         layoutData.eAdapters().remove(layoutDataAdapter);

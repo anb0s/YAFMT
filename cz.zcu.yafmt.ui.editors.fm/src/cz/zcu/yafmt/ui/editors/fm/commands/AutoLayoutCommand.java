@@ -3,6 +3,7 @@ package cz.zcu.yafmt.ui.editors.fm.commands;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.draw2d.Animation;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.commands.Command;
@@ -37,7 +38,9 @@ public class AutoLayoutCommand extends Command {
         calculateSubTreeWidth(subTreeWidth);
         calculateLayout(subTreeWidth);
 
+        Animation.markBegin();
         redo();
+        Animation.run();
     }
 
     @Override
