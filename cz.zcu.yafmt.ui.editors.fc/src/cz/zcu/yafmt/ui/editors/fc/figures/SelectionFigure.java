@@ -141,6 +141,11 @@ public class SelectionFigure extends RoundedRectangle {
         markerLayer.refresh();
     }
     
+    @Override
+    public Dimension getPreferredSize(int wHint, int hHint) {
+        return super.getPreferredSize(wHint, hHint).getExpanded(24, 0);
+    }
+    
     // =================================================================
     //  Drawing
     // =================================================================

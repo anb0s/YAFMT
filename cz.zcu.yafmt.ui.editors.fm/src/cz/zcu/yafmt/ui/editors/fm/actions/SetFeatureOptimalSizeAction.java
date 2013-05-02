@@ -2,6 +2,7 @@ package cz.zcu.yafmt.ui.editors.fm.actions;
 
 import java.util.List;
 
+import org.eclipse.draw2d.Animation;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
@@ -56,7 +57,9 @@ public class SetFeatureOptimalSizeAction extends SelectionAction {
     
     @Override
     public void run() {
+        Animation.markBegin();
         execute(getCommand());
+        Animation.run();
     }
 
 }

@@ -172,6 +172,11 @@ public class FeatureFigure extends RoundedRectangle {
             return feature.getId();
     }
     
+    @Override
+    public Dimension getPreferredSize(int wHint, int hHint) {
+        return super.getPreferredSize(wHint, hHint).getExpanded(24, 0);
+    }
+    
     // ==================================================================
     //  Drawing
     // ==================================================================

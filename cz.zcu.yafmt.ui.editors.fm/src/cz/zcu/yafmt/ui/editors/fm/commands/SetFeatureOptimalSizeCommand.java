@@ -33,5 +33,5 @@ public class SetFeatureOptimalSizeCommand extends SetFeatureSizeCommand {
     protected Dimension computeFeaturePreferredSize() {
         return figure.getPreferredSize();
     }
-    
+        
 }
