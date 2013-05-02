@@ -30,7 +30,7 @@ public class GenerateAttributeIdFromName extends RecordingCommand {
         if(feature != null) {
             for(Attribute other: feature.getAttributes()) {
                 if((other != attribute) && other.getId().equals(id))
-                    id = id + "_" + (new Random()).nextInt();
+                    id = id + "_" + (new Random()).nextInt(Short.MAX_VALUE);
             }
         }
 

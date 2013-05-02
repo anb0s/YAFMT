@@ -30,7 +30,7 @@ public class GenerateFeatureIdFromNameCommand extends RecordingCommand {
         if(featureModel != null) {
             List<Feature> features = featureModel.getFeaturesById(id);
             if((features.size() > 1) || ((features.size() == 1) && (features.get(0) != feature)))
-                id = id + "_" + (new Random()).nextInt();
+                id = id + "_" + (new Random()).nextInt(Short.MAX_VALUE);
         }
 
         feature.setId(id);
