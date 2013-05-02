@@ -62,21 +62,21 @@ public class FeatureModelEditorPaletteRoot extends PaletteRoot {
         // Use CombinedTemplateCreationEntry instead of CreationToolEntry to support drag and drop
         // via TemplateTransferDragSourceListener and TemplateTransferDropTargetListener.
         ImageDescriptor img = FeatureModelEditorPlugin.getAccess().getImageDescriptor("feature-opt.png");
-        CreationToolEntry entry = new CombinedTemplateCreationEntry("Optional Feature", "Create optional feature (hold shift for repeat use).", new FeatureFactory(false), img, img);
+        CreationToolEntry entry = new CombinedTemplateCreationEntry("Optional Feature", "Create optional feature (hold shift for reuse).", new FeatureFactory(false), img, img);
         entry.setToolClass(CreationToolWithReactivationAndDirectEdit.class);
         return entry;
     }
 
     private ToolEntry createMandatoryFeatureCreationToolEntry() {
         ImageDescriptor img = FeatureModelEditorPlugin.getAccess().getImageDescriptor("feature-man.png");
-        ToolEntry entry = new CombinedTemplateCreationEntry("Mandatory Feature", "Create mandatory feature (hold shift for repeat use).", new FeatureFactory(true), img, img);
+        ToolEntry entry = new CombinedTemplateCreationEntry("Mandatory Feature", "Create mandatory feature (hold shift for reuse).", new FeatureFactory(true), img, img);
         entry.setToolClass(CreationToolWithReactivationAndDirectEdit.class);
         return entry;
     }
 
     private ToolEntry createAttributeCreationToolEntry() {
         ImageDescriptor img = FeatureModelEditorPlugin.getAccess().getImageDescriptor("attribute.png");
-        ToolEntry entry = new CombinedTemplateCreationEntry("Attribute", "Add atribute to a feature (hold shift for repeat use).", new AttributeFactory(), img, img);
+        ToolEntry entry = new CombinedTemplateCreationEntry("Attribute", "Add atribute to a feature (hold shift for reuse).", new AttributeFactory(), img, img);
         entry.setToolClass(CreationToolWithReactivation.class);
         return entry;
     }
