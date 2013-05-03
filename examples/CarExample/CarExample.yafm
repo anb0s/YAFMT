@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fm:featureModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:fm="http://zcu.cz/yafmt/model/fm" name="CarExample" version="1.0.0" description="This is a very simple example of a feature model.">
+  <rootFeature id="car" name="Car" lower="1" upper="1">
+    <attribute id="name" name="Name" type="string" description="Car name."/>
+    <feature id="engine" name="Engine" description="Car engine." lower="1" upper="1">
+      <attribute id="hp" name="Horsepower" type="integer" description="Engine horsepower."/>
+      <group lower="1" upper="-1">
+        <feature id="elec_eng" name="Electric" description="Electric engine." lower="0" upper="1"/>
+        <feature id="dies_eng" name="Diesel" lower="0" upper="1"/>
+        <feature id="gas_eng" name="Gasoline" description="Gasoline engine." lower="0" upper="1"/>
+      </group>
+    </feature>
+    <feature id="transm" name="Transmission" description="Transmission type." lower="1" upper="1">
+      <group lower="1" upper="1">
+        <feature id="auto_tr" name="Automatic" description="Automatic transmission." lower="0" upper="1"/>
+        <feature id="man_tr" name="Manual" description="Manual transmission." lower="0" upper="1"/>
+      </group>
+    </feature>
+    <feature id="pw_locks" name="Power Locks" description="Allows to lock or unlock all the doors simultaneously." lower="0" upper="1"/>
+    <feature id="kl_entry" name="Keyless Entry" description="Allows to lock or unlock all the doors remotely." lower="0" upper="1"/>
+    <feature id="sunroof" name="Sunroof" description="Car sunroof." lower="0" upper="1"/>
+    <feature id="door" name="Door" lower="3" upper="5"/>
+  </rootFeature>
+  <constraint value="kl_entry implies pw_locks" language="cz.zcu.yafmt.clang.BooleanConstraintLanguage" description="Keyless entry requires power locks."/>
+  <constraint value="not (elec_eng and man_tr)" language="cz.zcu.yafmt.clang.BooleanConstraintLanguage" description="Electric engine cannot have manual transmission."/>
+  <constraint value="not (gas_eng and dies_eng)" language="cz.zcu.yafmt.clang.BooleanConstraintLanguage" description="Gas and Diesel engine cannot be combined together."/>
+</fm:featureModel>

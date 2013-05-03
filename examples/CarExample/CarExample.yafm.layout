@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ASCII"?>
+<layout:LayoutData xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:layout="http://zcu.cz/yafmt/ui/editors/fm/layout">
+  <mapping value="252 22 114 53">
+    <key href="CarExample.yafm#//@root"/>
+  </mapping>
+  <mapping value="153 166 153 53">
+    <key href="CarExample.yafm#//@root/@features.0"/>
+  </mapping>
+  <mapping value="77 322 96 25">
+    <key href="CarExample.yafm#//@root/@features.0/@groups.0/@features.2"/>
+  </mapping>
+  <mapping value="286 322 96 25">
+    <key href="CarExample.yafm#//@root/@features.0/@groups.0/@features.0"/>
+  </mapping>
+  <mapping value="447 167 117 25">
+    <key href="CarExample.yafm#//@root/@features.1"/>
+  </mapping>
+  <mapping value="524 322 98 25">
+    <key href="CarExample.yafm#//@root/@features.1/@groups.0/@features.0"/>
+  </mapping>
+  <mapping/>
+  <mapping value="389 180 40 40"/>
+  <mapping value="103 197 45 45"/>
+  <mapping value="400 322 96 25">
+    <key href="CarExample.yafm#//@root/@features.1/@groups.0/@features.1"/>
+  </mapping>
+  <mapping value="454 64 118 25">
+    <key href="CarExample.yafm#//@root/@features.3"/>
+  </mapping>
+  <mapping value="35 167 96 25">
+    <key href="CarExample.yafm#//@root/@features.4"/>
+  </mapping>
+  <mapping value="484 170 45 45">
+    <key href="CarExample.yafm#//@root/@features.1/@groups.0"/>
+  </mapping>
+  <mapping value="49 64 115 25">
+    <key href="CarExample.yafm#//@root/@features.2"/>
+  </mapping>
+  <mapping value="333 169 96 24">
+    <key href="CarExample.yafm#//@root/@features.5"/>
+  </mapping>
+  <mapping value="182 322 96 25">
+    <key href="CarExample.yafm#//@root/@features.0/@groups.0/@features.1"/>
+  </mapping>
+  <mapping value="207 197 45 45">
+    <key href="CarExample.yafm#//@root/@features.0/@groups.0"/>
+  </mapping>
+</layout:LayoutData>
