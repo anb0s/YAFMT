@@ -59,6 +59,11 @@ public class FeatureConfigurationEditPart extends AbstractGraphicalEditPart {
     // ===================================================================
 
     @Override
+    public boolean isSelectable() {
+        return false; // Must not be selectable by the marquee selection tool.
+    }
+    
+    @Override
     protected IFigure createFigure() {
         return new FeatureConfigurationFigure();
     }
