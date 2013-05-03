@@ -152,8 +152,9 @@ public class LabelDirectEditManager extends DirectEditManager {
 
     @Override
     protected void bringDown() {
-        if(getCellEditor() != null) {
+        if((getCellEditor() != null) && (nonBlockingValidator != null)) {
             getCellEditor().removeListener(nonBlockingValidator);
+            nonBlockingValidator = null;
         }
         if(actionHandler != null) {
             actionHandler.dispose();

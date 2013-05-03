@@ -13,6 +13,7 @@ import org.eclipse.gef.tools.ConnectionDragCreationTool;
 import org.eclipse.jface.resource.ImageDescriptor;
 
 import cz.zcu.yafmt.model.fm.Attribute;
+import cz.zcu.yafmt.model.fm.AttributeType;
 import cz.zcu.yafmt.model.fm.Feature;
 import cz.zcu.yafmt.model.fm.FeatureModelFactory;
 import cz.zcu.yafmt.model.fm.util.FeatureModelUtil;
@@ -124,6 +125,7 @@ public class FeatureModelEditorPaletteRoot extends PaletteRoot {
             Attribute atttribute = FeatureModelFactory.eINSTANCE.createAttribute();
             atttribute.setId(FeatureModelUtil.generateAttributeId());
             atttribute.setName("New Attribute");
+            atttribute.setType(AttributeType.STRING);
             return atttribute;
         }
 
