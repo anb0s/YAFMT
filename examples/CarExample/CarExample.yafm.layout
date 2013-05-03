@@ -15,13 +15,13 @@
   <mapping value="447 167 117 25">
     <key href="CarExample.yafm#//@root/@features.1"/>
   </mapping>
-  <mapping value="524 322 98 25">
+  <mapping value="518 322 98 25">
     <key href="CarExample.yafm#//@root/@features.1/@groups.0/@features.0"/>
   </mapping>
   <mapping/>
   <mapping value="389 180 40 40"/>
   <mapping value="103 197 45 45"/>
-  <mapping value="400 322 96 25">
+  <mapping value="411 322 96 25">
     <key href="CarExample.yafm#//@root/@features.1/@groups.0/@features.1"/>
   </mapping>
   <mapping value="454 64 118 25">

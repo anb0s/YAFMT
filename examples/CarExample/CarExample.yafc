@@ -30,9 +30,9 @@
   <rootSelection id="car">
     <attributeValue xsi:type="fc:string" id="name" value="Example Car"/>
     <selection id="engine">
-      <attributeValue xsi:type="fc:integer" id="hp" value="50"/>
+      <attributeValue xsi:type="fc:integer" id="hp" value="120"/>
       <selection id="elec_eng"/>
-      <selection id="gas_eng"/>
+      <selection id="dies_eng"/>
     </selection>
     <selection id="transm">
       <selection id="auto_tr"/>

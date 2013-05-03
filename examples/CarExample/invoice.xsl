@@ -84,7 +84,7 @@
   </xsl:template>
 
   <xsl:template match="selection[@id='engine']">
-    <item>
+    <xsl:variable name="engine">
       <xsl:choose>
         <xsl:when test="selection[@id='elec_eng'] and selection[@id!='gas_eng']">
           <description>Hybrid Engine</description>
@@ -103,6 +103,18 @@
           <price>1000</price>
         </xsl:when>
       </xsl:choose>
+      <hp>
+          <xsl:value-of select="attributeValue[@id='hp']/@value"/>
+      </hp>
+    </xsl:variable>
+    <item>
+      <description>
+          <xsl:value-of select="$engine/description"/>
+          <xsl:text> (</xsl:text>
+          <xsl:value-of select="$engine/hp"/>
+          <xsl:text> HP)</xsl:text>
+      </description>
+      <price><xsl:value-of select="$engine/price * ($engine/hp div 100)"/></price>
       <quantity>1</quantity>
     </item>
   </xsl:template>
