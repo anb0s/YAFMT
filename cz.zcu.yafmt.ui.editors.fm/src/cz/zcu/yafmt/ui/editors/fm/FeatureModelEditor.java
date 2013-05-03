@@ -40,6 +40,7 @@ import cz.zcu.yafmt.model.fm.FeatureModel;
 import cz.zcu.yafmt.model.fm.provider.util.FeatureModelProviderUtil;
 import cz.zcu.yafmt.ui.actions.ExportGraphicalEditorAsImageAction;
 import cz.zcu.yafmt.ui.actions.ShowFeatureModelVisualizerAction;
+import cz.zcu.yafmt.ui.actions.ShowPropertiesAction;
 import cz.zcu.yafmt.ui.editors.ModelEditor;
 import cz.zcu.yafmt.ui.editors.fm.actions.AutoLayoutAction;
 import cz.zcu.yafmt.ui.editors.fm.actions.DeleteAction;
@@ -188,6 +189,7 @@ public class FeatureModelEditor extends ModelEditor {
         createAction(new AutoLayoutAction(this));
         createAction(new SetFeatureOptimalSizeAction(this));
         createAction(new ShowFeatureModelVisualizerAction());
+        createAction(new ShowPropertiesAction());
         createAction(new ExportGraphicalEditorAsImageAction(this) {
             @Override
             protected String getDefaultName() {
