@@ -28,9 +28,9 @@ import cz.zcu.yafmt.clang.IEvaluationResult;
 import cz.zcu.yafmt.clang.IEvaluator;
 import cz.zcu.yafmt.model.fc.DoubleValue;
 import cz.zcu.yafmt.model.fc.FeatureConfiguration;
+import cz.zcu.yafmt.model.fc.FeatureConfigurationPackage.Literals;
 import cz.zcu.yafmt.model.fc.IntegerValue;
 import cz.zcu.yafmt.model.fc.Selection;
-import cz.zcu.yafmt.model.fc.FeatureConfigurationPackage.Literals;
 import cz.zcu.yafmt.model.fm.Constraint;
 import cz.zcu.yafmt.model.fm.Feature;
 import cz.zcu.yafmt.model.fm.FeatureModel;
@@ -39,10 +39,22 @@ import cz.zcu.yafmt.model.validation.BasicValidator;
 
 public class FeatureConfigurationValidator extends BasicValidator {
     
+    private static class Pair {
+        
+        public Constraint constraint;
+        public IEvaluator evaluator;
+        
+        public Pair(Constraint constraint, IEvaluator evalutor) {
+            this.constraint = constraint;
+            this.evaluator = evalutor;
+        }
+                
+    }
+    
     public static final FeatureConfigurationValidator INSTANCE = new FeatureConfigurationValidator();
         
     private FeatureConfiguration lastValidatedFeatureConfig;
-    private List<IEvaluator> evaluatorsCache;
+    private List<Pair> evaluatorsCache;
     
     // ===========================================================================
     //  Object validation
@@ -139,7 +151,7 @@ public class FeatureConfigurationValidator extends BasicValidator {
         return validateGlobalConstraints(featureConfig, createEvaluators(featureConfig), diagnostics);
     }
     
-    private List<IEvaluator> createEvaluators(FeatureConfiguration featureConfig) {
+    private List<Pair> createEvaluators(FeatureConfiguration featureConfig) {
         // If we do not use global instance, we can reuse already created evaluators.
         if(this != INSTANCE) {
             if((lastValidatedFeatureConfig == featureConfig) && (evaluatorsCache != null))
@@ -150,7 +162,7 @@ public class FeatureConfigurationValidator extends BasicValidator {
         ConstraintLanguageRegistry registry = ConstraintLanguagePlugin.getDefault().getConstraintLanguageRegistry();
         
         List<Constraint> constraints = featureModel.getConstraints();
-        List<IEvaluator> evaluators = new ArrayList<IEvaluator>(constraints.size());
+        List<Pair> evaluators = new ArrayList<Pair>(constraints.size());
         
         for(Constraint constraint: constraints) {
             try {
@@ -160,7 +172,7 @@ public class FeatureConfigurationValidator extends BasicValidator {
                     continue;
                 IEvaluator evaluator = language.createEvaluator(constraint.getValue());
                 if(evaluator.validate(featureModel).isSuccess())
-                    evaluators.add(evaluator);
+                    evaluators.add(new Pair(constraint, evaluator));
             }
             catch(ConstraintLanguageException ex) {
                 // Ignore it.
@@ -176,14 +188,14 @@ public class FeatureConfigurationValidator extends BasicValidator {
         return evaluators;
     }
     
-    private boolean validateGlobalConstraints(FeatureConfiguration featureConfig, List<IEvaluator> evaluators, DiagnosticChain diagnostics) {
+    private boolean validateGlobalConstraints(FeatureConfiguration featureConfig, List<Pair> evaluators, DiagnosticChain diagnostics) {
         boolean result = true;
-        for(IEvaluator evaluator: evaluators)
-            result &= validateGlobalContraint(featureConfig, evaluator, diagnostics);
+        for(Pair pair: evaluators)
+            result &= validateGlobalContraint(featureConfig, pair.constraint, pair.evaluator, diagnostics);
         return result;
     }
 
-    private boolean validateGlobalContraint(FeatureConfiguration featureConfig, IEvaluator evaluator, DiagnosticChain diagnostics) {
+    private boolean validateGlobalContraint(FeatureConfiguration featureConfig, Constraint constraint, IEvaluator evaluator, DiagnosticChain diagnostics) {
         IEvaluationResult result = evaluator.evaluate(featureConfig);
         if(result.isSuccess())
             return true;
@@ -191,6 +203,10 @@ public class FeatureConfigurationValidator extends BasicValidator {
         String message = result.getErrorMessage();
         if((message == null) || (message.isEmpty()))
             message = "Global constraint is violated";
+        
+        String description = constraint.getDescription();
+        if((description != null) && !description.isEmpty())
+            message += " " + description; 
         
         List<Object> problemElements = result.getProblemElements();
         if(problemElements == null)
