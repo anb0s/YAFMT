@@ -60,6 +60,7 @@ import cz.zcu.yafmt.ui.CommonUIPlugin;
 import cz.zcu.yafmt.ui.actions.EditorZoomComboContributioItem;
 import cz.zcu.yafmt.ui.pages.EditorContentOutlinePage;
 import cz.zcu.yafmt.ui.pages.EditorPropertySheetPage;
+import cz.zcu.yafmt.ui.parts.EditorRootEditPart;
 import cz.zcu.yafmt.ui.tools.MiddleButtonPanningSelectionTool;
 import cz.zcu.yafmt.ui.util.EditorAutoCloser;
 import cz.zcu.yafmt.ui.util.SelectionWrapper;
@@ -128,7 +129,7 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette imple
         super.configureGraphicalViewer();
 
         GraphicalViewer viewer = getGraphicalViewer();
-        viewer.setRootEditPart(new ScalableFreeformRootEditPart());
+        viewer.setRootEditPart(new EditorRootEditPart());
         viewer.setEditPartFactory(getEditPartFactory());
 
         ContextMenuProvider contextMenuProvider = getContextMenuProvider();
@@ -222,6 +223,7 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette imple
 
     protected void createActionsLate() {
         ZoomManager zoomManager = getRootEditPart().getZoomManager();
+        zoomManager.setZoomLevels(new double[] { 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.85, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.25, 2.5, 2.75, 3.0, 3.5, 4.0, 5.0 });
         EditorZoomComboContributioItem.contributeZoomLevels(zoomManager);
         createAction(new ZoomInAction(zoomManager));
         createAction(new ZoomOutAction(zoomManager));
