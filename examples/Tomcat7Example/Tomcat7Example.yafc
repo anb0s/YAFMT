@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fc:FeatureConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fc="http://zcu.cz/yafmt/model/fc" name="Tomcat7Example" version="1.0.0" description="Sample Tomcat 7 Configuration.">
+  <featureModel href="Tomcat7Example.yafm#/"/>
+  <featureModelCopy name="Tomcat 7 Example" version="1.0.0" description="Feature model of Tomcat 7 setup.">
+    <rootFeature id="server" name="Server" lower="1" upper="1">
+      <attribute id="port" name="Port" type="integer"/>
+      <attribute id="shutdown" name="Shutdown Command" type="string"/>
+      <feature id="service" name="Service" lower="1" upper="-1">
+        <attribute id="name" name="Name" type="string"/>
+      </feature>
+      <feature id="global_naming" name="Global Naming" lower="0" upper="1">
+        <feature id="environment" name="Environment" lower="0" upper="-1">
+          <attribute id="name" name="Name" type="string"/>
+          <attribute id="value" name="Value" type="string"/>
+          <feature id="env_override" name="Override" lower="0" upper="1"/>
+          <group lower="1" upper="1">
+            <feature id="env_bool" name="Boolean" lower="0" upper="1"/>
+            <feature id="env_int" name="Integer" lower="0" upper="1"/>
+            <feature id="env_str" name="String" lower="0" upper="1"/>
+          </group>
+        </feature>
+        <feature id="resource" name="Resource" lower="0" upper="-1">
+          <attribute id="name" name="Name" type="string"/>
+          <attribute id="type" name="Type" type="string"/>
+          <feature id="res_single" name="Singleton" lower="0" upper="1">
+            <attribute id="closeMethod" name="Close Method" type="string"/>
+          </feature>
+          <feature id="res_scope" name="Scope" lower="0" upper="1">
+            <group lower="1" upper="1">
+              <feature id="res_scope_unsh" name="Unshareable" lower="0" upper="1"/>
+              <feature id="res_scope_sh" name="Shareable" lower="0" upper="1"/>
+            </group>
+          </feature>
+          <feature id="res_auth" name="Authentication" lower="0" upper="1">
+            <group lower="1" upper="1">
+              <feature id="res_auth_app" name="Application" lower="0" upper="1"/>
+              <feature id="res_auth_cont" name="Container" lower="0" upper="1"/>
+            </group>
+          </feature>
+        </feature>
+      </feature>
+    </rootFeature>
+  </featureModelCopy>
+  <rootSelection id="server">
+    <attributeValue xsi:type="fc:integer" id="port" value="80"/>
+    <attributeValue xsi:type="fc:string" id="shutdown" value="SHUTDOWN"/>
+    <selection id="service">
+      <attributeValue xsi:type="fc:string" id="name" value="My Service"/>
+    </selection>
+    <selection id="global_naming">
+      <selection id="environment">
+        <attributeValue xsi:type="fc:string" id="name" value="My Env"/>
+        <attributeValue xsi:type="fc:string" id="value" value="My Type"/>
+        <selection id="env_override"/>
+        <selection id="env_int"/>
+      </selection>
+      <selection id="resource">
+        <attributeValue xsi:type="fc:string" id="name" value="My Res"/>
+        <attributeValue xsi:type="fc:string" id="type" value="My Type"/>
+        <selection id="res_single">
+          <attributeValue xsi:type="fc:string" id="closeMethod" value="close"/>
+        </selection>
+        <selection id="res_scope">
+          <selection id="res_scope_sh"/>
+        </selection>
+        <selection id="res_auth">
+          <selection id="res_auth_app"/>
+        </selection>
+      </selection>
+    </selection>
+  </rootSelection>
+</fc:FeatureConfiguration>

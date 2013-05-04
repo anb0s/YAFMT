@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fm:featureModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:fm="http://zcu.cz/yafmt/model/fm" name="Tomcat 7 Example" version="1.0.0" description="Feature model of Tomcat 7 setup.">
+  <rootFeature id="server" name="Server" lower="1" upper="1">
+    <attribute id="port" name="Port" type="integer"/>
+    <attribute id="shutdown" name="Shutdown Command" type="string"/>
+    <feature id="service" name="Service" lower="1" upper="-1">
+      <attribute id="name" name="Name" type="string"/>
+    </feature>
+    <feature id="global_naming" name="Global Naming" lower="0" upper="1">
+      <feature id="environment" name="Environment" lower="0" upper="-1">
+        <attribute id="name" name="Name" type="string"/>
+        <attribute id="value" name="Value" type="string"/>
+        <feature id="env_override" name="Override" lower="0" upper="1"/>
+        <group lower="1" upper="1">
+          <feature id="env_bool" name="Boolean" lower="0" upper="1"/>
+          <feature id="env_int" name="Integer" lower="0" upper="1"/>
+          <feature id="env_str" name="String" lower="0" upper="1"/>
+        </group>
+      </feature>
+      <feature id="resource" name="Resource" lower="0" upper="-1">
+        <attribute id="name" name="Name" type="string"/>
+        <attribute id="type" name="Type" type="string"/>
+        <feature id="res_single" name="Singleton" lower="0" upper="1">
+          <attribute id="closeMethod" name="Close Method" type="string"/>
+        </feature>
+        <feature id="res_scope" name="Scope" lower="0" upper="1">
+          <group lower="1" upper="1">
+            <feature id="res_scope_unsh" name="Unshareable" lower="0" upper="1"/>
+            <feature id="res_scope_sh" name="Shareable" lower="0" upper="1"/>
+          </group>
+        </feature>
+        <feature id="res_auth" name="Authentication" lower="0" upper="1">
+          <group lower="1" upper="1">
+            <feature id="res_auth_app" name="Application" lower="0" upper="1"/>
+            <feature id="res_auth_cont" name="Container" lower="0" upper="1"/>
+          </group>
+        </feature>
+      </feature>
+    </feature>
+  </rootFeature>
+</fm:featureModel>
