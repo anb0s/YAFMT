@@ -15,7 +15,7 @@ import cz.zcu.yafmt.ui.figures.MiddleSideAnchor;
 
 public class HorizontalTreeLayout extends TreeLayout {
 
-    private static final int HORIZONTAL_SPACE = 50;
+    private static final int HORIZONTAL_SPACE = 60;
     private static final int VERTICAL_SPACE = 10;
 
     public HorizontalTreeLayout(Helper helper) {

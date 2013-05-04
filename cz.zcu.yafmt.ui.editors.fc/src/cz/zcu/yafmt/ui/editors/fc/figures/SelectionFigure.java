@@ -28,8 +28,8 @@ import cz.zcu.yafmt.ui.util.DrawUtil;
 
 public class SelectionFigure extends RoundedRectangle {
     
-    private static final int MIN_WIDTH = 96;
-    private static final int MIN_HEIGHT = 24;
+    private static final int MIN_WIDTH = 90;
+    private static final int MIN_HEIGHT = 30;
 
     private Selection selection;
     

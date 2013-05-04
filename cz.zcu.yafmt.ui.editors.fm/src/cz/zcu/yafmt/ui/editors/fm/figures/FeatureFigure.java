@@ -27,8 +27,10 @@ import cz.zcu.yafmt.ui.util.DrawUtil;
 
 public class FeatureFigure extends RoundedRectangle {
 
-    public static final int INITIAL_WIDTH = 96;
-    public static final int INITIAL_HEGHT = 24;
+    public static final int INITIAL_WIDTH = 120;
+    public static final int INITIAL_HEGHT = 30;
+    public static final int MIN_WIDTH = 90;
+    public static final int MIN_HEGHT = 30;
 
     private Label label;
     private Label toolTip;
@@ -57,7 +59,7 @@ public class FeatureFigure extends RoundedRectangle {
         setForegroundColor(ColorConstants.black);
         setLayoutManager(new StackLayout());
         setToolTip(createToolTip());
-        setMinimumSize(new Dimension(INITIAL_WIDTH, INITIAL_HEGHT));
+        setMinimumSize(new Dimension(MIN_WIDTH, MIN_HEGHT));
         add(createMainLayer());
         add(createMarkerLayer());
     }
