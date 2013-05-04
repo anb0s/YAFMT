@@ -5,13 +5,24 @@
     <rootFeature id="server" name="Server" lower="1" upper="1">
       <attribute id="port" name="Port" type="integer"/>
       <attribute id="shutdown" name="Shutdown Command" type="string"/>
-      <feature id="service" name="Service" lower="1" upper="-1">
-        <attribute id="name" name="Name" type="string"/>
-        <feature id="engine" name="Engine" lower="1" upper="1">
-          <attribute id="name" name="Name" type="string"/>
-          <attribute id="default_host" name="Default Host" type="string"/>
-          <feature id="host" name="Host" lower="1" upper="-1"/>
+      <feature id="jasper_jsp" name="Jasper JSP" lower="0" upper="1"/>
+      <feature id="apr" name="Apache Portable Runtime" lower="0" upper="1">
+        <feature id="apr_ssl" name="SSL" lower="0" upper="1">
+          <group lower="0" upper="1">
+            <feature id="apr_ssl_urandom" name="/dev/urandom seed" lower="0" upper="1"/>
+            <feature id="apr_ssl_builtin" name="Builtin Random Seed" lower="0" upper="1"/>
+          </group>
         </feature>
+      </feature>
+      <feature id="security_lifecycle" name="Security Lifecycle" lower="0" upper="1"/>
+      <feature id="thread_local_leak_prevention" name="Thread Local Leak Prevention" lower="0" upper="1"/>
+      <feature id="ml_prevention" name="Memery Leak Prevention" lower="0" upper="1">
+        <feature id="ml_lda_pool" name="LDA Pool" lower="0" upper="1"/>
+        <feature id="ml_url_cache" name="URL Cache" lower="0" upper="1"/>
+        <feature id="ml_app_context" name="App Context" lower="0" upper="1"/>
+        <feature id="ml_gc_deamon" name="GC Deamon" lower="0" upper="1"/>
+        <feature id="ml_xml_parsing" name="XML Parsing" lower="0" upper="1"/>
+        <feature id="ml_driver_manager" name="Driver Manager" lower="0" upper="1"/>
       </feature>
       <feature id="global_naming" name="Global Naming" lower="0" upper="1">
         <feature id="environment" name="Environment" lower="0" upper="-1">
@@ -47,37 +58,81 @@
           <attribute id="factory" name="factory" type="string"/>
         </feature>
       </feature>
-      <feature id="jasper_jsp" name="Jasper JSP" lower="0" upper="1"/>
-      <feature id="apr" name="Apache Portable Runtime" lower="0" upper="1">
-        <feature id="apr_ssl" name="SSL" lower="0" upper="1">
-          <group lower="0" upper="1">
-            <feature id="apr_ssl_urandom" name="/dev/urandom seed" lower="0" upper="1"/>
-            <feature id="apr_ssl_builtin" name="Builtin Random Seed" lower="0" upper="1"/>
-          </group>
+      <feature id="service" name="Service" lower="1" upper="-1">
+        <attribute id="name" name="Name" type="string"/>
+        <feature id="connector" name="Connector" lower="1" upper="-1">
+          <attribute id="port" name="Port" type="integer"/>
+          <feature id="conn_proto" name="Protocol" lower="1" upper="1">
+            <group lower="1" upper="1">
+              <feature id="conn_http" name="HTTP" lower="0" upper="1"/>
+              <feature id="conn_ajp" name="AJP" lower="0" upper="1"/>
+            </group>
+          </feature>
+          <feature id="conn_impl" name="Implementation" lower="0" upper="1">
+            <group lower="1" upper="1">
+              <feature id="conn_bio" name="BIO" lower="0" upper="1"/>
+              <feature id="conn_nio" name="NIO" lower="0" upper="1"/>
+              <feature id="conn_apr" name="APR" lower="0" upper="1"/>
+            </group>
+          </feature>
+          <feature id="conn_redirect" name="Redirect" lower="0" upper="1">
+            <attribute id="port" name="port" type="integer"/>
+          </feature>
+          <feature id="conn_timeout" name="Connection Timeout" lower="0" upper="1">
+            <attribute id="timeout" name="timeout" type="integer"/>
+          </feature>
+          <feature id="conn_lookup" name="DNS Lookups" lower="0" upper="1"/>
+          <feature id="conn_ssl" name="SSL" lower="0" upper="1"/>
+        </feature>
+        <feature id="engine" name="Engine" lower="1" upper="1">
+          <attribute id="name" name="Name" type="string"/>
+          <attribute id="default_host" name="Default Host" type="string"/>
+          <feature id="host" name="Host" lower="1" upper="-1">
+            <attribute id="name" name="Name" type="string"/>
+            <attribute id="application_base" name="Application Base" type="string"/>
+          </feature>
+          <feature id="realm" name="Realm" lower="0" upper="1">
+            <group lower="1" upper="1">
+              <feature id="realm_jdbc" name="JDBC Database" lower="0" upper="1">
+                <attribute id="connection_name" name="Connection Name" type="string"/>
+                <attribute id="connection_password" name="Connection Password" type="string"/>
+                <attribute id="connection_url" name="Connection URL" type="string"/>
+                <attribute id="driver_name" name="Driver Name" type="string"/>
+                <attribute id="user_table" name="User Table" type="string"/>
+                <attribute id="user_credentials_column" name="User Credentials Column" type="string"/>
+                <attribute id="user_names_column" name="User Names Column" type="string"/>
+              </feature>
+              <feature id="realm_ds" name="DataSource Database" lower="0" upper="1">
+                <attribute id="data_source_name" name="Data Source Name" type="string"/>
+                <attribute id="user_table" name="User Table" type="string"/>
+                <attribute id="user_credentials_column" name="User Credentials Column" type="string"/>
+                <attribute id="user_names_column" name="User Names Column" type="string"/>
+              </feature>
+              <feature id="realm_jndi" name="JNDI Directory" lower="0" upper="1">
+                <attribute id="connection_url" name="Connection URL" type="string"/>
+              </feature>
+            </group>
+          </feature>
         </feature>
       </feature>
-      <feature id="security_lifecycle" name="Security Lifecycle" lower="0" upper="1"/>
-      <feature id="thread_local_leak_prevention" name="Thread Local Leak Prevention" lower="0" upper="1"/>
-      <feature id="ml_prevention" name="Memery Leak Prevention" lower="0" upper="1">
-        <feature id="ml_lda_pool" name="LDA Pool" lower="0" upper="1"/>
-        <feature id="ml_url_cache" name="URL Cache" lower="0" upper="1"/>
-        <feature id="ml_app_context" name="App Context" lower="0" upper="1"/>
-        <feature id="ml_gc_deamon" name="GC Deamon" lower="0" upper="1"/>
-        <feature id="ml_xml_parsing" name="XML Parsing" lower="0" upper="1"/>
-        <feature id="ml_driver_manager" name="Driver Manager" lower="0" upper="1"/>
-      </feature>
     </rootFeature>
+    <constraint value="conn_apr implies apr" language="cz.zcu.yafmt.clang.BooleanConstraintLanguage"/>
+    <constraint value="(exists connector: conn_apr and conn_ssl) implies apr_ssl" language="cz.zcu.yafmt.clang.BooleanConstraintLanguage"/>
   </featureModelCopy>
   <rootSelection id="server">
     <attributeValue xsi:type="fc:integer" id="port" value="80"/>
     <attributeValue xsi:type="fc:string" id="shutdown" value="SHUTDOWN"/>
-    <selection id="service">
-      <attributeValue xsi:type="fc:string" id="name" value="My Service"/>
-      <selection id="engine">
-        <attributeValue xsi:type="fc:string" id="name" value=""/>
-        <attributeValue xsi:type="fc:string" id="default_host" value=""/>
-        <selection id="host"/>
+    <selection id="jasper_jsp"/>
+    <selection id="apr">
+      <selection id="apr_ssl">
+        <selection id="apr_ssl_urandom"/>
       </selection>
+    </selection>
+    <selection id="thread_local_leak_prevention"/>
+    <selection id="ml_prevention">
+      <selection id="ml_lda_pool"/>
+      <selection id="ml_url_cache"/>
+      <selection id="ml_app_context"/>
     </selection>
     <selection id="global_naming">
       <selection id="environment">
@@ -103,17 +158,48 @@
         <attributeValue xsi:type="fc:string" id="factory" value="My Factory"/>
       </selection>
     </selection>
-    <selection id="jasper_jsp"/>
-    <selection id="apr">
-      <selection id="apr_ssl">
-        <selection id="apr_ssl_builtin"/>
+    <selection id="service">
+      <attributeValue xsi:type="fc:string" id="name" value="My Service"/>
+      <selection id="connector">
+        <attributeValue xsi:type="fc:integer" id="port" value="80"/>
+        <selection id="conn_proto">
+          <selection id="conn_http"/>
+        </selection>
+        <selection id="conn_redirect">
+          <attributeValue xsi:type="fc:integer" id="port" value="8080"/>
+        </selection>
+        <selection id="conn_timeout">
+          <attributeValue xsi:type="fc:integer" id="timeout" value="4000"/>
+        </selection>
+        <selection id="conn_lookup"/>
+        <selection id="conn_ssl"/>
+      </selection>
+      <selection id="connector">
+        <attributeValue xsi:type="fc:integer" id="port" value="90"/>
+        <selection id="conn_proto">
+          <selection id="conn_ajp"/>
+        </selection>
+        <selection id="conn_impl">
+          <selection id="conn_apr"/>
+        </selection>
+        <selection id="conn_ssl"/>
+      </selection>
+      <selection id="engine">
+        <attributeValue xsi:type="fc:string" id="name" value="My Engine"/>
+        <attributeValue xsi:type="fc:string" id="default_host" value="My Host"/>
+        <selection id="host">
+          <attributeValue xsi:type="fc:string" id="name" value="My Host"/>
+          <attributeValue xsi:type="fc:string" id="application_base" value="My Base"/>
+        </selection>
+        <selection id="realm">
+          <selection id="realm_ds">
+            <attributeValue xsi:type="fc:string" id="data_source_name" value="My Datasource"/>
+            <attributeValue xsi:type="fc:string" id="user_table" value="users"/>
+            <attributeValue xsi:type="fc:string" id="user_credentials_column" value="credentials"/>
+            <attributeValue xsi:type="fc:string" id="user_names_column" value="name"/>
+          </selection>
+        </selection>
       </selection>
     </selection>
-    <selection id="ml_prevention">
-      <selection id="ml_lda_pool"/>
-      <selection id="ml_url_cache"/>
-      <selection id="ml_app_context"/>
-    </selection>
-    <selection id="thread_local_leak_prevention"/>
   </rootSelection>
 </fc:FeatureConfiguration>
