@@ -22,6 +22,7 @@ package cz.zcu.yafmt.model.fc;
 public interface BooleanValue extends AttributeValue {
     /**
      * Returns the value of the '<em><b>Value</b></em>' attribute.
+     * The default value is <code>"false"</code>.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Value</em>' attribute isn't clear,
@@ -31,7 +32,7 @@ public interface BooleanValue extends AttributeValue {
      * @return the value of the '<em>Value</em>' attribute.
      * @see #setValue(boolean)
      * @see cz.zcu.yafmt.model.fc.FeatureConfigurationPackage#getBooleanValue_Value()
-     * @model required="true"
+     * @model default="false" required="true"
      * @generated
      */
     boolean isValue();

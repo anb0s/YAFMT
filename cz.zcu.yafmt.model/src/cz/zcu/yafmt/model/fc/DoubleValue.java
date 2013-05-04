@@ -22,6 +22,7 @@ package cz.zcu.yafmt.model.fc;
 public interface DoubleValue extends AttributeValue {
     /**
      * Returns the value of the '<em><b>Value</b></em>' attribute.
+     * The default value is <code>"0.0"</code>.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Value</em>' attribute isn't clear,
@@ -31,7 +32,7 @@ public interface DoubleValue extends AttributeValue {
      * @return the value of the '<em>Value</em>' attribute.
      * @see #setValue(double)
      * @see cz.zcu.yafmt.model.fc.FeatureConfigurationPackage#getDoubleValue_Value()
-     * @model required="true"
+     * @model default="0.0" required="true"
      * @generated
      */
     double getValue();
