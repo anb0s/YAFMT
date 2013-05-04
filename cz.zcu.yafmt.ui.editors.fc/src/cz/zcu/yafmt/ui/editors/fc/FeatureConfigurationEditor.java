@@ -56,7 +56,7 @@ import cz.zcu.yafmt.ui.operations.ResourceSaveOperation;
 public class FeatureConfigurationEditor extends ModelEditor {
 
     private FeatureConfigurationLayoutHelper layoutHelper = new FeatureConfigurationLayoutHelper();
-    private TreeLayout[] EDITOR_LAYOUTS = { new VerticalTreeLayout(layoutHelper), new HorizontalTreeLayout(layoutHelper) };
+    private TreeLayout[] EDITOR_LAYOUTS = { new HorizontalTreeLayout(layoutHelper), new VerticalTreeLayout(layoutHelper) };
     private FeatureConfiguration featureConfig;
     private FeatureConfigurationManager featureConfigManager;
 
