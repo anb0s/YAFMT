@@ -7,6 +7,11 @@
       <attribute id="shutdown" name="Shutdown Command" type="string"/>
       <feature id="service" name="Service" lower="1" upper="-1">
         <attribute id="name" name="Name" type="string"/>
+        <feature id="engine" name="Engine" lower="1" upper="1">
+          <attribute id="name" name="Name" type="string"/>
+          <attribute id="default_host" name="Default Host" type="string"/>
+          <feature id="host" name="Host" lower="1" upper="-1"/>
+        </feature>
       </feature>
       <feature id="global_naming" name="Global Naming" lower="0" upper="1">
         <feature id="environment" name="Environment" lower="0" upper="-1">
@@ -38,6 +43,28 @@
             </group>
           </feature>
         </feature>
+        <feature id="transaction" name="Transaction" lower="0" upper="1">
+          <attribute id="factory" name="factory" type="string"/>
+        </feature>
+      </feature>
+      <feature id="jasper_jsp" name="Jasper JSP" lower="0" upper="1"/>
+      <feature id="apr" name="Apache Portable Runtime" lower="0" upper="1">
+        <feature id="apr_ssl" name="SSL" lower="0" upper="1">
+          <group lower="0" upper="1">
+            <feature id="apr_ssl_urandom" name="/dev/urandom seed" lower="0" upper="1"/>
+            <feature id="apr_ssl_builtin" name="Builtin Random Seed" lower="0" upper="1"/>
+          </group>
+        </feature>
+      </feature>
+      <feature id="security_lifecycle" name="Security Lifecycle" lower="0" upper="1"/>
+      <feature id="thread_local_leak_prevention" name="Thread Local Leak Prevention" lower="0" upper="1"/>
+      <feature id="ml_prevention" name="Memery Leak Prevention" lower="0" upper="1">
+        <feature id="ml_lda_pool" name="LDA Pool" lower="0" upper="1"/>
+        <feature id="ml_url_cache" name="URL Cache" lower="0" upper="1"/>
+        <feature id="ml_app_context" name="App Context" lower="0" upper="1"/>
+        <feature id="ml_gc_deamon" name="GC Deamon" lower="0" upper="1"/>
+        <feature id="ml_xml_parsing" name="XML Parsing" lower="0" upper="1"/>
+        <feature id="ml_driver_manager" name="Driver Manager" lower="0" upper="1"/>
       </feature>
     </rootFeature>
   </featureModelCopy>
@@ -46,6 +73,11 @@
     <attributeValue xsi:type="fc:string" id="shutdown" value="SHUTDOWN"/>
     <selection id="service">
       <attributeValue xsi:type="fc:string" id="name" value="My Service"/>
+      <selection id="engine">
+        <attributeValue xsi:type="fc:string" id="name" value=""/>
+        <attributeValue xsi:type="fc:string" id="default_host" value=""/>
+        <selection id="host"/>
+      </selection>
     </selection>
     <selection id="global_naming">
       <selection id="environment">
@@ -67,6 +99,21 @@
           <selection id="res_auth_app"/>
         </selection>
       </selection>
+      <selection id="transaction">
+        <attributeValue xsi:type="fc:string" id="factory" value="My Factory"/>
+      </selection>
     </selection>
+    <selection id="jasper_jsp"/>
+    <selection id="apr">
+      <selection id="apr_ssl">
+        <selection id="apr_ssl_builtin"/>
+      </selection>
+    </selection>
+    <selection id="ml_prevention">
+      <selection id="ml_lda_pool"/>
+      <selection id="ml_url_cache"/>
+      <selection id="ml_app_context"/>
+    </selection>
+    <selection id="thread_local_leak_prevention"/>
   </rootSelection>
 </fc:FeatureConfiguration>

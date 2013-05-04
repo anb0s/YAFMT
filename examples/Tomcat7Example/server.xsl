@@ -32,6 +32,7 @@
   </xsl:template>
 
   <xsl:template match="selection[@id='global_naming']">
+    <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener"/>
     <GlobalNamingResources>
       <xsl:apply-templates/>
     </GlobalNamingResources>
@@ -100,6 +101,68 @@
         <xsl:value-of select="attributeValue[@id='closeMethod']/@value"/>
       </xsl:attribute>
     </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="selection[@id='transaction']">
+    <Transaction>
+      <xsl:attribute name="factory">
+        <xsl:value-of select="attributeValue[@id='factory']/@value"/>
+      </xsl:attribute>
+    </Transaction>
+  </xsl:template>
+
+  <xsl:template match="selection[@id='jasper_jsp']">
+    <Listener className="org.apache.catalina.core.JasperListener" />
+  </xsl:template>
+
+  <xsl:template match="selection[@id='apr']">
+    <Listener className="org.apache.catalina.core.AprLifecycleListener">
+      <xsl:apply-templates/>
+    </Listener>
+  </xsl:template>
+
+  <xsl:template match="selection[@id='apr_ssl']">
+    <xsl:attribute name="SSLEngine">on</xsl:attribute>
+    <xsl:apply-templates/>
+  </xsl:template>
+
+  <xsl:template match="selection[@id='apr_ssl_builtin']">
+    <xsl:attribute name="SSLRandomSeed">builtin</xsl:attribute>
+  </xsl:template>
+
+  <xsl:template match="selection[@id='apr_ssl_urandom']">
+    <xsl:attribute name="SSLRandomSeed">/dev/urandom</xsl:attribute>
+  </xsl:template>
+
+  <xsl:template match="selection[@id='ml_prevention']">
+    <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener">
+      <xsl:attribute name="ldapPoolProtection">
+        <xsl:value-of select="string(exists(selection[@id='ml_lda_pool']))"/>
+      </xsl:attribute>
+      <xsl:attribute name="urlCacheProtection">
+        <xsl:value-of select="string(exists(selection[@id='ml_url_cache']))"/>
+      </xsl:attribute>
+      <xsl:attribute name="appContextProtection">
+        <xsl:value-of select="string(exists(selection[@id='ml_app_context']))"/>
+      </xsl:attribute>
+      <xsl:attribute name="gcDaemonProtection">
+        <xsl:value-of select="string(exists(selection[@id='ml_gc_deamon']))"/>
+      </xsl:attribute>
+      <xsl:attribute name="xmlParsingProtection">
+        <xsl:value-of select="string(exists(selection[@id='ml_xml_parsing']))"/>
+      </xsl:attribute>
+      <xsl:attribute name="driverManagerProtection">
+        <xsl:value-of select="string(exists(selection[@id='ml_driver_manager']))"/>
+      </xsl:attribute>
+    </Listener>
+  </xsl:template>
+
+  <xsl:template match="selection[@id='security_lifecycle']">
+    <Listener className="org.apache.catalina.security.SecurityListener" />
+  </xsl:template>
+
+  <xsl:template match="selection[@id='thread_local_leak_prevention']">
+    <Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener" />
   </xsl:template>
 
 </xsl:stylesheet>

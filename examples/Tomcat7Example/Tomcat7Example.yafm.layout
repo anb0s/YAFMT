@@ -1,61 +1,115 @@
 <?xml version="1.0" encoding="ASCII"?>
 <layout:LayoutData xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:layout="http://zcu.cz/yafmt/ui/editors/fm/layout">
-  <mapping value="567 15 200 70">
+  <mapping value="1538 15 200 70">
     <key href="Tomcat7Example.yafm#//@root"/>
   </mapping>
-  <mapping value="36 175 114 53">
+  <mapping value="54 175 114 53">
     <key href="Tomcat7Example.yafm#//@root/@features.0"/>
   </mapping>
-  <mapping value="666 175 129 30">
+  <mapping value="789 175 129 30">
     <key href="Tomcat7Example.yafm#//@root/@features.1"/>
   </mapping>
-  <mapping value="325 295 114 70">
+  <mapping value="361 295 114 70">
     <key href="Tomcat7Example.yafm#//@root/@features.1/@features.0"/>
   </mapping>
-  <mapping value="179 455 90 30">
+  <mapping value="215 455 90 30">
     <key href="Tomcat7Example.yafm#//@root/@features.1/@features.0/@groups.0/@features.0"/>
   </mapping>
-  <mapping value="284 455 90 30">
+  <mapping value="320 455 90 30">
     <key href="Tomcat7Example.yafm#//@root/@features.1/@features.0/@groups.0/@features.1"/>
   </mapping>
-  <mapping value="389 455 90 30">
+  <mapping value="425 455 90 30">
     <key href="Tomcat7Example.yafm#//@root/@features.1/@features.0/@groups.0/@features.2"/>
   </mapping>
   <mapping/>
-  <mapping value="344 343 45 45">
+  <mapping value="380 343 45 45">
     <key href="Tomcat7Example.yafm#//@root/@features.1/@features.0/@groups.0"/>
   </mapping>
-  <mapping value="891 295 114 70">
+  <mapping value="927 295 114 70">
     <key href="Tomcat7Example.yafm#//@root/@features.1/@features.1"/>
   </mapping>
-  <mapping value="614 455 160 53">
+  <mapping value="650 455 160 53">
     <key href="Tomcat7Example.yafm#//@root/@features.1/@features.1/@features.0"/>
   </mapping>
-  <mapping value="866 455 90 30">
+  <mapping value="902 455 90 30">
     <key href="Tomcat7Example.yafm#//@root/@features.1/@features.1/@features.1"/>
   </mapping>
-  <mapping value="925 575 100 30">
+  <mapping value="961 575 100 30">
     <key href="Tomcat7Example.yafm#//@root/@features.1/@features.1/@features.1/@groups.0/@features.1"/>
   </mapping>
-  <mapping value="796 575 114 30">
+  <mapping value="832 575 114 30">
     <key href="Tomcat7Example.yafm#//@root/@features.1/@features.1/@features.1/@groups.0/@features.0"/>
   </mapping>
-  <mapping value="886 463 45 45">
+  <mapping value="922 463 45 45">
     <key href="Tomcat7Example.yafm#//@root/@features.1/@features.1/@features.1/@groups.0"/>
   </mapping>
-  <mapping value="1101 455 126 30">
+  <mapping value="1137 455 126 30">
     <key href="Tomcat7Example.yafm#//@root/@features.1/@features.1/@features.2"/>
   </mapping>
-  <mapping value="1055 575 106 30">
+  <mapping value="1091 575 106 30">
     <key href="Tomcat7Example.yafm#//@root/@features.1/@features.1/@features.2/@groups.0/@features.0"/>
   </mapping>
-  <mapping value="1176 575 96 30">
+  <mapping value="1212 575 96 30">
     <key href="Tomcat7Example.yafm#//@root/@features.1/@features.1/@features.2/@groups.0/@features.1"/>
   </mapping>
-  <mapping value="1138 463 45 45">
+  <mapping value="1174 463 45 45">
     <key href="Tomcat7Example.yafm#//@root/@features.1/@features.1/@features.2/@groups.0"/>
   </mapping>
-  <mapping value="494 455 90 30">
+  <mapping value="530 455 90 30">
     <key href="Tomcat7Example.yafm#//@root/@features.1/@features.0/@features.0"/>
+  </mapping>
+  <mapping value="1339 295 158 53">
+    <key href="Tomcat7Example.yafm#//@root/@features.1/@features.2"/>
+  </mapping>
+  <mapping value="32 318 158 70">
+    <key href="Tomcat7Example.yafm#//@root/@features.0/@features.0"/>
+  </mapping>
+  <mapping value="50 478 120 30">
+    <key href="Tomcat7Example.yafm#//@root/@features.0/@features.0/@features.0"/>
+  </mapping>
+  <mapping value="1520 175 105 30">
+    <key href="Tomcat7Example.yafm#//@root/@features.2"/>
+  </mapping>
+  <mapping value="1727 175 197 30">
+    <key href="Tomcat7Example.yafm#//@root/@features.3"/>
+  </mapping>
+  <mapping value="1780 295 90 30">
+    <key href="Tomcat7Example.yafm#//@root/@features.3/@features.0"/>
+  </mapping>
+  <mapping value="1825 415 169 30">
+    <key href="Tomcat7Example.yafm#//@root/@features.3/@features.0/@groups.0/@features.1"/>
+  </mapping>
+  <mapping value="1654 415 156 30">
+    <key href="Tomcat7Example.yafm#//@root/@features.3/@features.0/@groups.0/@features.0"/>
+  </mapping>
+  <mapping value="1801 303 45 45">
+    <key href="Tomcat7Example.yafm#//@root/@features.3/@features.0/@groups.0"/>
+  </mapping>
+  <mapping value="2737 175 193 30">
+    <key href="Tomcat7Example.yafm#//@root/@features.6"/>
+  </mapping>
+  <mapping value="2705 295 120 30">
+    <key href="Tomcat7Example.yafm#//@root/@features.6/@features.2"/>
+  </mapping>
+  <mapping value="3110 295 120 30">
+    <key href="Tomcat7Example.yafm#//@root/@features.6/@features.5"/>
+  </mapping>
+  <mapping value="2840 295 120 30">
+    <key href="Tomcat7Example.yafm#//@root/@features.6/@features.3"/>
+  </mapping>
+  <mapping value="2435 295 120 30">
+    <key href="Tomcat7Example.yafm#//@root/@features.6/@features.0"/>
+  </mapping>
+  <mapping value="2570 295 120 30">
+    <key href="Tomcat7Example.yafm#//@root/@features.6/@features.1"/>
+  </mapping>
+  <mapping value="2975 295 120 30">
+    <key href="Tomcat7Example.yafm#//@root/@features.6/@features.4"/>
+  </mapping>
+  <mapping value="2025 175 147 30">
+    <key href="Tomcat7Example.yafm#//@root/@features.4"/>
+  </mapping>
+  <mapping value="2187 175 226 30">
+    <key href="Tomcat7Example.yafm#//@root/@features.5"/>
   </mapping>
 </layout:LayoutData>
