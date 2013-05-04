@@ -75,14 +75,14 @@ public interface ModelPackage extends EPackage {
     int EXPRESSION_FEATURE_COUNT = 0;
 
     /**
-     * The meta object id for the '{@link cz.zcu.yafmt.clang.bcl.model.impl.ContextualExpressionImpl <em>Contextual Expression</em>}' class.
+     * The meta object id for the '{@link cz.zcu.yafmt.clang.bcl.model.impl.ForAllContextualExpressionImpl <em>For All Contextual Expression</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see cz.zcu.yafmt.clang.bcl.model.impl.ContextualExpressionImpl
-     * @see cz.zcu.yafmt.clang.bcl.model.impl.ModelPackageImpl#getContextualExpression()
+     * @see cz.zcu.yafmt.clang.bcl.model.impl.ForAllContextualExpressionImpl
+     * @see cz.zcu.yafmt.clang.bcl.model.impl.ModelPackageImpl#getForAllContextualExpression()
      * @generated
      */
-    int CONTEXTUAL_EXPRESSION = 1;
+    int FOR_ALL_CONTEXTUAL_EXPRESSION = 1;
 
     /**
      * The feature id for the '<em><b>Context Id</b></em>' attribute.
@@ -91,7 +91,7 @@ public interface ModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONTEXTUAL_EXPRESSION__CONTEXT_ID = EXPRESSION_FEATURE_COUNT + 0;
+    int FOR_ALL_CONTEXTUAL_EXPRESSION__CONTEXT_ID = EXPRESSION_FEATURE_COUNT + 0;
 
     /**
      * The feature id for the '<em><b>Expression</b></em>' containment reference.
@@ -100,16 +100,53 @@ public interface ModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONTEXTUAL_EXPRESSION__EXPRESSION = EXPRESSION_FEATURE_COUNT + 1;
+    int FOR_ALL_CONTEXTUAL_EXPRESSION__EXPRESSION = EXPRESSION_FEATURE_COUNT + 1;
 
     /**
-     * The number of structural features of the '<em>Contextual Expression</em>' class.
+     * The number of structural features of the '<em>For All Contextual Expression</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int CONTEXTUAL_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
+    int FOR_ALL_CONTEXTUAL_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
+
+    /**
+     * The meta object id for the '{@link cz.zcu.yafmt.clang.bcl.model.impl.ExistsContextualExpressionImpl <em>Exists Contextual Expression</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see cz.zcu.yafmt.clang.bcl.model.impl.ExistsContextualExpressionImpl
+     * @see cz.zcu.yafmt.clang.bcl.model.impl.ModelPackageImpl#getExistsContextualExpression()
+     * @generated
+     */
+    int EXISTS_CONTEXTUAL_EXPRESSION = 2;
+
+    /**
+     * The feature id for the '<em><b>Context Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXISTS_CONTEXTUAL_EXPRESSION__CONTEXT_ID = EXPRESSION_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Expression</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXISTS_CONTEXTUAL_EXPRESSION__EXPRESSION = EXPRESSION_FEATURE_COUNT + 1;
+
+    /**
+     * The number of structural features of the '<em>Exists Contextual Expression</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXISTS_CONTEXTUAL_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
 
     /**
      * The meta object id for the '{@link cz.zcu.yafmt.clang.bcl.model.impl.EquationImpl <em>Equation</em>}' class.
@@ -119,7 +156,7 @@ public interface ModelPackage extends EPackage {
      * @see cz.zcu.yafmt.clang.bcl.model.impl.ModelPackageImpl#getEquation()
      * @generated
      */
-    int EQUATION = 2;
+    int EQUATION = 3;
 
     /**
      * The feature id for the '<em><b>Left Part</b></em>' containment reference.
@@ -156,7 +193,7 @@ public interface ModelPackage extends EPackage {
      * @see cz.zcu.yafmt.clang.bcl.model.impl.ModelPackageImpl#getImplication()
      * @generated
      */
-    int IMPLICATION = 3;
+    int IMPLICATION = 4;
 
     /**
      * The feature id for the '<em><b>Left Part</b></em>' containment reference.
@@ -193,7 +230,7 @@ public interface ModelPackage extends EPackage {
      * @see cz.zcu.yafmt.clang.bcl.model.impl.ModelPackageImpl#getDisjunction()
      * @generated
      */
-    int DISJUNCTION = 4;
+    int DISJUNCTION = 5;
 
     /**
      * The feature id for the '<em><b>Left Part</b></em>' containment reference.
@@ -230,7 +267,7 @@ public interface ModelPackage extends EPackage {
      * @see cz.zcu.yafmt.clang.bcl.model.impl.ModelPackageImpl#getConjunction()
      * @generated
      */
-    int CONJUNCTION = 5;
+    int CONJUNCTION = 6;
 
     /**
      * The feature id for the '<em><b>Left Part</b></em>' containment reference.
@@ -267,7 +304,7 @@ public interface ModelPackage extends EPackage {
      * @see cz.zcu.yafmt.clang.bcl.model.impl.ModelPackageImpl#getNegation()
      * @generated
      */
-    int NEGATION = 6;
+    int NEGATION = 7;
 
     /**
      * The feature id for the '<em><b>Expression</b></em>' containment reference.
@@ -295,7 +332,7 @@ public interface ModelPackage extends EPackage {
      * @see cz.zcu.yafmt.clang.bcl.model.impl.ModelPackageImpl#getPrimaryExpression()
      * @generated
      */
-    int PRIMARY_EXPRESSION = 7;
+    int PRIMARY_EXPRESSION = 8;
 
     /**
      * The feature id for the '<em><b>Feature Id</b></em>' attribute.
@@ -326,36 +363,68 @@ public interface ModelPackage extends EPackage {
     EClass getExpression();
 
     /**
-     * Returns the meta object for class '{@link cz.zcu.yafmt.clang.bcl.model.ContextualExpression <em>Contextual Expression</em>}'.
+     * Returns the meta object for class '{@link cz.zcu.yafmt.clang.bcl.model.ForAllContextualExpression <em>For All Contextual Expression</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for class '<em>Contextual Expression</em>'.
-     * @see cz.zcu.yafmt.clang.bcl.model.ContextualExpression
+     * @return the meta object for class '<em>For All Contextual Expression</em>'.
+     * @see cz.zcu.yafmt.clang.bcl.model.ForAllContextualExpression
      * @generated
      */
-    EClass getContextualExpression();
+    EClass getForAllContextualExpression();
 
     /**
-     * Returns the meta object for the attribute '{@link cz.zcu.yafmt.clang.bcl.model.ContextualExpression#getContextId <em>Context Id</em>}'.
+     * Returns the meta object for the attribute '{@link cz.zcu.yafmt.clang.bcl.model.ForAllContextualExpression#getContextId <em>Context Id</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Context Id</em>'.
-     * @see cz.zcu.yafmt.clang.bcl.model.ContextualExpression#getContextId()
-     * @see #getContextualExpression()
+     * @see cz.zcu.yafmt.clang.bcl.model.ForAllContextualExpression#getContextId()
+     * @see #getForAllContextualExpression()
      * @generated
      */
-    EAttribute getContextualExpression_ContextId();
+    EAttribute getForAllContextualExpression_ContextId();
 
     /**
-     * Returns the meta object for the containment reference '{@link cz.zcu.yafmt.clang.bcl.model.ContextualExpression#getExpression <em>Expression</em>}'.
+     * Returns the meta object for the containment reference '{@link cz.zcu.yafmt.clang.bcl.model.ForAllContextualExpression#getExpression <em>Expression</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @return the meta object for the containment reference '<em>Expression</em>'.
-     * @see cz.zcu.yafmt.clang.bcl.model.ContextualExpression#getExpression()
-     * @see #getContextualExpression()
+     * @see cz.zcu.yafmt.clang.bcl.model.ForAllContextualExpression#getExpression()
+     * @see #getForAllContextualExpression()
      * @generated
      */
-    EReference getContextualExpression_Expression();
+    EReference getForAllContextualExpression_Expression();
+
+    /**
+     * Returns the meta object for class '{@link cz.zcu.yafmt.clang.bcl.model.ExistsContextualExpression <em>Exists Contextual Expression</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Exists Contextual Expression</em>'.
+     * @see cz.zcu.yafmt.clang.bcl.model.ExistsContextualExpression
+     * @generated
+     */
+    EClass getExistsContextualExpression();
+
+    /**
+     * Returns the meta object for the attribute '{@link cz.zcu.yafmt.clang.bcl.model.ExistsContextualExpression#getContextId <em>Context Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Context Id</em>'.
+     * @see cz.zcu.yafmt.clang.bcl.model.ExistsContextualExpression#getContextId()
+     * @see #getExistsContextualExpression()
+     * @generated
+     */
+    EAttribute getExistsContextualExpression_ContextId();
+
+    /**
+     * Returns the meta object for the containment reference '{@link cz.zcu.yafmt.clang.bcl.model.ExistsContextualExpression#getExpression <em>Expression</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Expression</em>'.
+     * @see cz.zcu.yafmt.clang.bcl.model.ExistsContextualExpression#getExpression()
+     * @see #getExistsContextualExpression()
+     * @generated
+     */
+    EReference getExistsContextualExpression_Expression();
 
     /**
      * Returns the meta object for class '{@link cz.zcu.yafmt.clang.bcl.model.Equation <em>Equation</em>}'.
@@ -560,14 +629,14 @@ public interface ModelPackage extends EPackage {
         EClass EXPRESSION = eINSTANCE.getExpression();
 
         /**
-         * The meta object literal for the '{@link cz.zcu.yafmt.clang.bcl.model.impl.ContextualExpressionImpl <em>Contextual Expression</em>}' class.
+         * The meta object literal for the '{@link cz.zcu.yafmt.clang.bcl.model.impl.ForAllContextualExpressionImpl <em>For All Contextual Expression</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @see cz.zcu.yafmt.clang.bcl.model.impl.ContextualExpressionImpl
-         * @see cz.zcu.yafmt.clang.bcl.model.impl.ModelPackageImpl#getContextualExpression()
+         * @see cz.zcu.yafmt.clang.bcl.model.impl.ForAllContextualExpressionImpl
+         * @see cz.zcu.yafmt.clang.bcl.model.impl.ModelPackageImpl#getForAllContextualExpression()
          * @generated
          */
-        EClass CONTEXTUAL_EXPRESSION = eINSTANCE.getContextualExpression();
+        EClass FOR_ALL_CONTEXTUAL_EXPRESSION = eINSTANCE.getForAllContextualExpression();
 
         /**
          * The meta object literal for the '<em><b>Context Id</b></em>' attribute feature.
@@ -575,7 +644,7 @@ public interface ModelPackage extends EPackage {
          * <!-- end-user-doc -->
          * @generated
          */
-        EAttribute CONTEXTUAL_EXPRESSION__CONTEXT_ID = eINSTANCE.getContextualExpression_ContextId();
+        EAttribute FOR_ALL_CONTEXTUAL_EXPRESSION__CONTEXT_ID = eINSTANCE.getForAllContextualExpression_ContextId();
 
         /**
          * The meta object literal for the '<em><b>Expression</b></em>' containment reference feature.
@@ -583,7 +652,33 @@ public interface ModelPackage extends EPackage {
          * <!-- end-user-doc -->
          * @generated
          */
-        EReference CONTEXTUAL_EXPRESSION__EXPRESSION = eINSTANCE.getContextualExpression_Expression();
+        EReference FOR_ALL_CONTEXTUAL_EXPRESSION__EXPRESSION = eINSTANCE.getForAllContextualExpression_Expression();
+
+        /**
+         * The meta object literal for the '{@link cz.zcu.yafmt.clang.bcl.model.impl.ExistsContextualExpressionImpl <em>Exists Contextual Expression</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see cz.zcu.yafmt.clang.bcl.model.impl.ExistsContextualExpressionImpl
+         * @see cz.zcu.yafmt.clang.bcl.model.impl.ModelPackageImpl#getExistsContextualExpression()
+         * @generated
+         */
+        EClass EXISTS_CONTEXTUAL_EXPRESSION = eINSTANCE.getExistsContextualExpression();
+
+        /**
+         * The meta object literal for the '<em><b>Context Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXISTS_CONTEXTUAL_EXPRESSION__CONTEXT_ID = eINSTANCE.getExistsContextualExpression_ContextId();
+
+        /**
+         * The meta object literal for the '<em><b>Expression</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference EXISTS_CONTEXTUAL_EXPRESSION__EXPRESSION = eINSTANCE.getExistsContextualExpression_Expression();
 
         /**
          * The meta object literal for the '{@link cz.zcu.yafmt.clang.bcl.model.impl.EquationImpl <em>Equation</em>}' class.

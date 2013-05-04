@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import cz.zcu.yafmt.clang.bcl.model.ContextualExpression;
+import cz.zcu.yafmt.clang.bcl.model.ExistsContextualExpression;
 import cz.zcu.yafmt.clang.bcl.model.Expression;
 import cz.zcu.yafmt.clang.bcl.model.ModelPackage;
 import cz.zcu.yafmt.model.fc.FeatureConfiguration;
@@ -22,19 +22,19 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Contextual Expression</b></em>'.
+ * An implementation of the model object '<em><b>Exists Contextual Expression</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link cz.zcu.yafmt.clang.bcl.model.impl.ContextualExpressionImpl#getContextId <em>Context Id</em>}</li>
- *   <li>{@link cz.zcu.yafmt.clang.bcl.model.impl.ContextualExpressionImpl#getExpression <em>Expression</em>}</li>
+ *   <li>{@link cz.zcu.yafmt.clang.bcl.model.impl.ExistsContextualExpressionImpl#getContextId <em>Context Id</em>}</li>
+ *   <li>{@link cz.zcu.yafmt.clang.bcl.model.impl.ExistsContextualExpressionImpl#getExpression <em>Expression</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class ContextualExpressionImpl extends ExpressionImpl implements ContextualExpression {
+public class ExistsContextualExpressionImpl extends ExpressionImpl implements ExistsContextualExpression {
     /**
      * The default value of the '{@link #getContextId() <em>Context Id</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -70,7 +70,7 @@ public class ContextualExpressionImpl extends ExpressionImpl implements Contextu
      * <!-- end-user-doc -->
      * @generated
      */
-    protected ContextualExpressionImpl() {
+    protected ExistsContextualExpressionImpl() {
         super();
     }
 
@@ -81,7 +81,7 @@ public class ContextualExpressionImpl extends ExpressionImpl implements Contextu
      */
     @Override
     protected EClass eStaticClass() {
-        return ModelPackage.Literals.CONTEXTUAL_EXPRESSION;
+        return ModelPackage.Literals.EXISTS_CONTEXTUAL_EXPRESSION;
     }
 
     /**
@@ -102,7 +102,7 @@ public class ContextualExpressionImpl extends ExpressionImpl implements Contextu
         String oldContextId = contextId;
         contextId = newContextId;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.CONTEXTUAL_EXPRESSION__CONTEXT_ID, oldContextId, contextId));
+            eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.EXISTS_CONTEXTUAL_EXPRESSION__CONTEXT_ID, oldContextId, contextId));
     }
 
     /**
@@ -123,7 +123,7 @@ public class ContextualExpressionImpl extends ExpressionImpl implements Contextu
         Expression oldExpression = expression;
         expression = newExpression;
         if (eNotificationRequired()) {
-            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.CONTEXTUAL_EXPRESSION__EXPRESSION, oldExpression, newExpression);
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.EXISTS_CONTEXTUAL_EXPRESSION__EXPRESSION, oldExpression, newExpression);
             if (msgs == null) msgs = notification; else msgs.add(notification);
         }
         return msgs;
@@ -138,14 +138,14 @@ public class ContextualExpressionImpl extends ExpressionImpl implements Contextu
         if (newExpression != expression) {
             NotificationChain msgs = null;
             if (expression != null)
-                msgs = ((InternalEObject)expression).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.CONTEXTUAL_EXPRESSION__EXPRESSION, null, msgs);
+                msgs = ((InternalEObject)expression).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.EXISTS_CONTEXTUAL_EXPRESSION__EXPRESSION, null, msgs);
             if (newExpression != null)
-                msgs = ((InternalEObject)newExpression).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.CONTEXTUAL_EXPRESSION__EXPRESSION, null, msgs);
+                msgs = ((InternalEObject)newExpression).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.EXISTS_CONTEXTUAL_EXPRESSION__EXPRESSION, null, msgs);
             msgs = basicSetExpression(newExpression, msgs);
             if (msgs != null) msgs.dispatch();
         }
         else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.CONTEXTUAL_EXPRESSION__EXPRESSION, newExpression, newExpression));
+            eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.EXISTS_CONTEXTUAL_EXPRESSION__EXPRESSION, newExpression, newExpression));
     }
 
     /**
@@ -156,7 +156,7 @@ public class ContextualExpressionImpl extends ExpressionImpl implements Contextu
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case ModelPackage.CONTEXTUAL_EXPRESSION__EXPRESSION:
+            case ModelPackage.EXISTS_CONTEXTUAL_EXPRESSION__EXPRESSION:
                 return basicSetExpression(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -170,9 +170,9 @@ public class ContextualExpressionImpl extends ExpressionImpl implements Contextu
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ModelPackage.CONTEXTUAL_EXPRESSION__CONTEXT_ID:
+            case ModelPackage.EXISTS_CONTEXTUAL_EXPRESSION__CONTEXT_ID:
                 return getContextId();
-            case ModelPackage.CONTEXTUAL_EXPRESSION__EXPRESSION:
+            case ModelPackage.EXISTS_CONTEXTUAL_EXPRESSION__EXPRESSION:
                 return getExpression();
         }
         return super.eGet(featureID, resolve, coreType);
@@ -186,10 +186,10 @@ public class ContextualExpressionImpl extends ExpressionImpl implements Contextu
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ModelPackage.CONTEXTUAL_EXPRESSION__CONTEXT_ID:
+            case ModelPackage.EXISTS_CONTEXTUAL_EXPRESSION__CONTEXT_ID:
                 setContextId((String)newValue);
                 return;
-            case ModelPackage.CONTEXTUAL_EXPRESSION__EXPRESSION:
+            case ModelPackage.EXISTS_CONTEXTUAL_EXPRESSION__EXPRESSION:
                 setExpression((Expression)newValue);
                 return;
         }
@@ -204,10 +204,10 @@ public class ContextualExpressionImpl extends ExpressionImpl implements Contextu
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ModelPackage.CONTEXTUAL_EXPRESSION__CONTEXT_ID:
+            case ModelPackage.EXISTS_CONTEXTUAL_EXPRESSION__CONTEXT_ID:
                 setContextId(CONTEXT_ID_EDEFAULT);
                 return;
-            case ModelPackage.CONTEXTUAL_EXPRESSION__EXPRESSION:
+            case ModelPackage.EXISTS_CONTEXTUAL_EXPRESSION__EXPRESSION:
                 setExpression((Expression)null);
                 return;
         }
@@ -222,9 +222,9 @@ public class ContextualExpressionImpl extends ExpressionImpl implements Contextu
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ModelPackage.CONTEXTUAL_EXPRESSION__CONTEXT_ID:
+            case ModelPackage.EXISTS_CONTEXTUAL_EXPRESSION__CONTEXT_ID:
                 return CONTEXT_ID_EDEFAULT == null ? contextId != null : !CONTEXT_ID_EDEFAULT.equals(contextId);
-            case ModelPackage.CONTEXTUAL_EXPRESSION__EXPRESSION:
+            case ModelPackage.EXISTS_CONTEXTUAL_EXPRESSION__EXPRESSION:
                 return expression != null;
         }
         return super.eIsSet(featureID);
@@ -258,9 +258,9 @@ public class ContextualExpressionImpl extends ExpressionImpl implements Contextu
         List<Selection> lowerContexts = getSelections(featureConfig, context, contextId);
      
         // We have to evaluate every context to gather all problem elements.
-        boolean value = true;
+        boolean value = false;
         for(Selection lowerContext: lowerContexts)
-            value &= expression.evaluate(featureConfig, lowerContext, internalProblemSelections, expectedValue);
+            value |= expression.evaluate(featureConfig, lowerContext, internalProblemSelections, expectedValue);
         
         if(value != expectedValue)
             problemSelections.addAll(internalProblemSelections);
@@ -268,4 +268,4 @@ public class ContextualExpressionImpl extends ExpressionImpl implements Contextu
         return value;
     }
 
-} //ContextualExpressionImpl
+} //ExistsContextualExpressionImpl

@@ -11,7 +11,9 @@ Expression:
     ContextualExpression;	
 
 ContextualExpression returns Expression:
-    'context' {ContextualExpression} contextId=ID ':' expression=Equation | Equation;
+    'forall' {ForAllContextualExpression} contextId=ID ':' expression=Equation |
+    'exists' {ExistsContextualExpression} contextId=ID ':' expression=Equation |
+    Equation;
 
 Equation returns Expression:
     Implication ({Equation.leftPart=current} 'equals' rightPart=Implication)*;

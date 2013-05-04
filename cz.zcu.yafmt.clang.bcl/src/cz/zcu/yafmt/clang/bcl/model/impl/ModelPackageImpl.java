@@ -9,10 +9,11 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import cz.zcu.yafmt.clang.bcl.model.Conjunction;
-import cz.zcu.yafmt.clang.bcl.model.ContextualExpression;
 import cz.zcu.yafmt.clang.bcl.model.Disjunction;
 import cz.zcu.yafmt.clang.bcl.model.Equation;
+import cz.zcu.yafmt.clang.bcl.model.ExistsContextualExpression;
 import cz.zcu.yafmt.clang.bcl.model.Expression;
+import cz.zcu.yafmt.clang.bcl.model.ForAllContextualExpression;
 import cz.zcu.yafmt.clang.bcl.model.Implication;
 import cz.zcu.yafmt.clang.bcl.model.ModelFactory;
 import cz.zcu.yafmt.clang.bcl.model.ModelPackage;
@@ -38,7 +39,14 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    private EClass contextualExpressionEClass = null;
+    private EClass forAllContextualExpressionEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass existsContextualExpressionEClass = null;
 
     /**
      * <!-- begin-user-doc -->
@@ -157,8 +165,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EClass getContextualExpression() {
-        return contextualExpressionEClass;
+    public EClass getForAllContextualExpression() {
+        return forAllContextualExpressionEClass;
     }
 
     /**
@@ -166,8 +174,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getContextualExpression_ContextId() {
-        return (EAttribute)contextualExpressionEClass.getEStructuralFeatures().get(0);
+    public EAttribute getForAllContextualExpression_ContextId() {
+        return (EAttribute)forAllContextualExpressionEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -175,8 +183,35 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getContextualExpression_Expression() {
-        return (EReference)contextualExpressionEClass.getEStructuralFeatures().get(1);
+    public EReference getForAllContextualExpression_Expression() {
+        return (EReference)forAllContextualExpressionEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getExistsContextualExpression() {
+        return existsContextualExpressionEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExistsContextualExpression_ContextId() {
+        return (EAttribute)existsContextualExpressionEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getExistsContextualExpression_Expression() {
+        return (EReference)existsContextualExpressionEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -353,9 +388,13 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
         // Create classes and their features
         expressionEClass = createEClass(EXPRESSION);
 
-        contextualExpressionEClass = createEClass(CONTEXTUAL_EXPRESSION);
-        createEAttribute(contextualExpressionEClass, CONTEXTUAL_EXPRESSION__CONTEXT_ID);
-        createEReference(contextualExpressionEClass, CONTEXTUAL_EXPRESSION__EXPRESSION);
+        forAllContextualExpressionEClass = createEClass(FOR_ALL_CONTEXTUAL_EXPRESSION);
+        createEAttribute(forAllContextualExpressionEClass, FOR_ALL_CONTEXTUAL_EXPRESSION__CONTEXT_ID);
+        createEReference(forAllContextualExpressionEClass, FOR_ALL_CONTEXTUAL_EXPRESSION__EXPRESSION);
+
+        existsContextualExpressionEClass = createEClass(EXISTS_CONTEXTUAL_EXPRESSION);
+        createEAttribute(existsContextualExpressionEClass, EXISTS_CONTEXTUAL_EXPRESSION__CONTEXT_ID);
+        createEReference(existsContextualExpressionEClass, EXISTS_CONTEXTUAL_EXPRESSION__EXPRESSION);
 
         equationEClass = createEClass(EQUATION);
         createEReference(equationEClass, EQUATION__LEFT_PART);
@@ -408,7 +447,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
         // Set bounds for type parameters
 
         // Add supertypes to classes
-        contextualExpressionEClass.getESuperTypes().add(this.getExpression());
+        forAllContextualExpressionEClass.getESuperTypes().add(this.getExpression());
+        existsContextualExpressionEClass.getESuperTypes().add(this.getExpression());
         equationEClass.getESuperTypes().add(this.getExpression());
         implicationEClass.getESuperTypes().add(this.getExpression());
         disjunctionEClass.getESuperTypes().add(this.getExpression());
@@ -419,9 +459,13 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
         // Initialize classes and features; add operations and parameters
         initEClass(expressionEClass, Expression.class, "Expression", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-        initEClass(contextualExpressionEClass, ContextualExpression.class, "ContextualExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getContextualExpression_ContextId(), ecorePackage.getEString(), "contextId", null, 0, 1, ContextualExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getContextualExpression_Expression(), this.getExpression(), null, "expression", null, 0, 1, ContextualExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(forAllContextualExpressionEClass, ForAllContextualExpression.class, "ForAllContextualExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getForAllContextualExpression_ContextId(), ecorePackage.getEString(), "contextId", null, 0, 1, ForAllContextualExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getForAllContextualExpression_Expression(), this.getExpression(), null, "expression", null, 0, 1, ForAllContextualExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(existsContextualExpressionEClass, ExistsContextualExpression.class, "ExistsContextualExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getExistsContextualExpression_ContextId(), ecorePackage.getEString(), "contextId", null, 0, 1, ExistsContextualExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getExistsContextualExpression_Expression(), this.getExpression(), null, "expression", null, 0, 1, ExistsContextualExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(equationEClass, Equation.class, "Equation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getEquation_LeftPart(), this.getExpression(), null, "leftPart", null, 0, 1, Equation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

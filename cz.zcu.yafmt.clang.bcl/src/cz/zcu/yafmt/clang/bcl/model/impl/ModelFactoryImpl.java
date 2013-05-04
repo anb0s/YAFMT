@@ -56,7 +56,8 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
     @Override
     public EObject create(EClass eClass) {
         switch (eClass.getClassifierID()) {
-            case ModelPackage.CONTEXTUAL_EXPRESSION: return createContextualExpression();
+            case ModelPackage.FOR_ALL_CONTEXTUAL_EXPRESSION: return createForAllContextualExpression();
+            case ModelPackage.EXISTS_CONTEXTUAL_EXPRESSION: return createExistsContextualExpression();
             case ModelPackage.EQUATION: return createEquation();
             case ModelPackage.IMPLICATION: return createImplication();
             case ModelPackage.DISJUNCTION: return createDisjunction();
@@ -73,9 +74,19 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
      * <!-- end-user-doc -->
      * @generated
      */
-    public ContextualExpression createContextualExpression() {
-        ContextualExpressionImpl contextualExpression = new ContextualExpressionImpl();
-        return contextualExpression;
+    public ForAllContextualExpression createForAllContextualExpression() {
+        ForAllContextualExpressionImpl forAllContextualExpression = new ForAllContextualExpressionImpl();
+        return forAllContextualExpression;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ExistsContextualExpression createExistsContextualExpression() {
+        ExistsContextualExpressionImpl existsContextualExpression = new ExistsContextualExpressionImpl();
+        return existsContextualExpression;
     }
 
     /**

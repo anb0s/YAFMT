@@ -72,10 +72,17 @@ public class ModelSwitch<T> extends Switch<T> {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
-            case ModelPackage.CONTEXTUAL_EXPRESSION: {
-                ContextualExpression contextualExpression = (ContextualExpression)theEObject;
-                T result = caseContextualExpression(contextualExpression);
-                if (result == null) result = caseExpression(contextualExpression);
+            case ModelPackage.FOR_ALL_CONTEXTUAL_EXPRESSION: {
+                ForAllContextualExpression forAllContextualExpression = (ForAllContextualExpression)theEObject;
+                T result = caseForAllContextualExpression(forAllContextualExpression);
+                if (result == null) result = caseExpression(forAllContextualExpression);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case ModelPackage.EXISTS_CONTEXTUAL_EXPRESSION: {
+                ExistsContextualExpression existsContextualExpression = (ExistsContextualExpression)theEObject;
+                T result = caseExistsContextualExpression(existsContextualExpression);
+                if (result == null) result = caseExpression(existsContextualExpression);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -141,17 +148,32 @@ public class ModelSwitch<T> extends Switch<T> {
     }
 
     /**
-     * Returns the result of interpreting the object as an instance of '<em>Contextual Expression</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>For All Contextual Expression</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>Contextual Expression</em>'.
+     * @return the result of interpreting the object as an instance of '<em>For All Contextual Expression</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public T caseContextualExpression(ContextualExpression object) {
+    public T caseForAllContextualExpression(ForAllContextualExpression object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Exists Contextual Expression</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Exists Contextual Expression</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseExistsContextualExpression(ExistsContextualExpression object) {
         return null;
     }
 

@@ -3,9 +3,10 @@ package cz.zcu.yafmt.clang.bcl.serializer;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import cz.zcu.yafmt.clang.bcl.model.Conjunction;
-import cz.zcu.yafmt.clang.bcl.model.ContextualExpression;
 import cz.zcu.yafmt.clang.bcl.model.Disjunction;
 import cz.zcu.yafmt.clang.bcl.model.Equation;
+import cz.zcu.yafmt.clang.bcl.model.ExistsContextualExpression;
+import cz.zcu.yafmt.clang.bcl.model.ForAllContextualExpression;
 import cz.zcu.yafmt.clang.bcl.model.Implication;
 import cz.zcu.yafmt.clang.bcl.model.ModelPackage;
 import cz.zcu.yafmt.clang.bcl.model.Negation;
@@ -48,23 +49,6 @@ public class BooleanConstraintLanguageSemanticSequencer extends AbstractDelegati
 					return; 
 				}
 				else break;
-			case ModelPackage.CONTEXTUAL_EXPRESSION:
-				if(context == grammarAccess.getConjunctionRule() ||
-				   context == grammarAccess.getConjunctionAccess().getConjunctionLeftPartAction_1_0() ||
-				   context == grammarAccess.getContextualExpressionRule() ||
-				   context == grammarAccess.getDisjunctionRule() ||
-				   context == grammarAccess.getDisjunctionAccess().getDisjunctionLeftPartAction_1_0() ||
-				   context == grammarAccess.getEquationRule() ||
-				   context == grammarAccess.getEquationAccess().getEquationLeftPartAction_1_0() ||
-				   context == grammarAccess.getExpressionRule() ||
-				   context == grammarAccess.getImplicationRule() ||
-				   context == grammarAccess.getImplicationAccess().getImplicationLeftPartAction_1_0() ||
-				   context == grammarAccess.getNegationRule() ||
-				   context == grammarAccess.getPrimaryExpressionRule()) {
-					sequence_ContextualExpression(context, (ContextualExpression) semanticObject); 
-					return; 
-				}
-				else break;
 			case ModelPackage.DISJUNCTION:
 				if(context == grammarAccess.getConjunctionRule() ||
 				   context == grammarAccess.getConjunctionAccess().getConjunctionLeftPartAction_1_0() ||
@@ -96,6 +80,40 @@ public class BooleanConstraintLanguageSemanticSequencer extends AbstractDelegati
 				   context == grammarAccess.getNegationRule() ||
 				   context == grammarAccess.getPrimaryExpressionRule()) {
 					sequence_Equation(context, (Equation) semanticObject); 
+					return; 
+				}
+				else break;
+			case ModelPackage.EXISTS_CONTEXTUAL_EXPRESSION:
+				if(context == grammarAccess.getConjunctionRule() ||
+				   context == grammarAccess.getConjunctionAccess().getConjunctionLeftPartAction_1_0() ||
+				   context == grammarAccess.getContextualExpressionRule() ||
+				   context == grammarAccess.getDisjunctionRule() ||
+				   context == grammarAccess.getDisjunctionAccess().getDisjunctionLeftPartAction_1_0() ||
+				   context == grammarAccess.getEquationRule() ||
+				   context == grammarAccess.getEquationAccess().getEquationLeftPartAction_1_0() ||
+				   context == grammarAccess.getExpressionRule() ||
+				   context == grammarAccess.getImplicationRule() ||
+				   context == grammarAccess.getImplicationAccess().getImplicationLeftPartAction_1_0() ||
+				   context == grammarAccess.getNegationRule() ||
+				   context == grammarAccess.getPrimaryExpressionRule()) {
+					sequence_ContextualExpression(context, (ExistsContextualExpression) semanticObject); 
+					return; 
+				}
+				else break;
+			case ModelPackage.FOR_ALL_CONTEXTUAL_EXPRESSION:
+				if(context == grammarAccess.getConjunctionRule() ||
+				   context == grammarAccess.getConjunctionAccess().getConjunctionLeftPartAction_1_0() ||
+				   context == grammarAccess.getContextualExpressionRule() ||
+				   context == grammarAccess.getDisjunctionRule() ||
+				   context == grammarAccess.getDisjunctionAccess().getDisjunctionLeftPartAction_1_0() ||
+				   context == grammarAccess.getEquationRule() ||
+				   context == grammarAccess.getEquationAccess().getEquationLeftPartAction_1_0() ||
+				   context == grammarAccess.getExpressionRule() ||
+				   context == grammarAccess.getImplicationRule() ||
+				   context == grammarAccess.getImplicationAccess().getImplicationLeftPartAction_1_0() ||
+				   context == grammarAccess.getNegationRule() ||
+				   context == grammarAccess.getPrimaryExpressionRule()) {
+					sequence_ContextualExpression(context, (ForAllContextualExpression) semanticObject); 
 					return; 
 				}
 				else break;
@@ -177,12 +195,31 @@ public class BooleanConstraintLanguageSemanticSequencer extends AbstractDelegati
 	 * Constraint:
 	 *     (contextId=ID expression=Equation)
 	 */
-	protected void sequence_ContextualExpression(EObject context, ContextualExpression semanticObject) {
+	protected void sequence_ContextualExpression(EObject context, ExistsContextualExpression semanticObject) {
 		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, ModelPackage.Literals.CONTEXTUAL_EXPRESSION__CONTEXT_ID) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.CONTEXTUAL_EXPRESSION__CONTEXT_ID));
-			if(transientValues.isValueTransient(semanticObject, ModelPackage.Literals.CONTEXTUAL_EXPRESSION__EXPRESSION) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.CONTEXTUAL_EXPRESSION__EXPRESSION));
+			if(transientValues.isValueTransient(semanticObject, ModelPackage.Literals.EXISTS_CONTEXTUAL_EXPRESSION__CONTEXT_ID) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.EXISTS_CONTEXTUAL_EXPRESSION__CONTEXT_ID));
+			if(transientValues.isValueTransient(semanticObject, ModelPackage.Literals.EXISTS_CONTEXTUAL_EXPRESSION__EXPRESSION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.EXISTS_CONTEXTUAL_EXPRESSION__EXPRESSION));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getContextualExpressionAccess().getContextIdIDTerminalRuleCall_1_2_0(), semanticObject.getContextId());
+		feeder.accept(grammarAccess.getContextualExpressionAccess().getExpressionEquationParserRuleCall_1_4_0(), semanticObject.getExpression());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (contextId=ID expression=Equation)
+	 */
+	protected void sequence_ContextualExpression(EObject context, ForAllContextualExpression semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, ModelPackage.Literals.FOR_ALL_CONTEXTUAL_EXPRESSION__CONTEXT_ID) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.FOR_ALL_CONTEXTUAL_EXPRESSION__CONTEXT_ID));
+			if(transientValues.isValueTransient(semanticObject, ModelPackage.Literals.FOR_ALL_CONTEXTUAL_EXPRESSION__EXPRESSION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.FOR_ALL_CONTEXTUAL_EXPRESSION__EXPRESSION));
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);

@@ -34,30 +34,40 @@ public class BooleanConstraintLanguageGrammarAccess extends AbstractGrammarEleme
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ContextualExpression");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
-		private final Keyword cContextKeyword_0_0 = (Keyword)cGroup_0.eContents().get(0);
-		private final Action cContextualExpressionAction_0_1 = (Action)cGroup_0.eContents().get(1);
+		private final Keyword cForallKeyword_0_0 = (Keyword)cGroup_0.eContents().get(0);
+		private final Action cForAllContextualExpressionAction_0_1 = (Action)cGroup_0.eContents().get(1);
 		private final Assignment cContextIdAssignment_0_2 = (Assignment)cGroup_0.eContents().get(2);
 		private final RuleCall cContextIdIDTerminalRuleCall_0_2_0 = (RuleCall)cContextIdAssignment_0_2.eContents().get(0);
 		private final Keyword cColonKeyword_0_3 = (Keyword)cGroup_0.eContents().get(3);
 		private final Assignment cExpressionAssignment_0_4 = (Assignment)cGroup_0.eContents().get(4);
 		private final RuleCall cExpressionEquationParserRuleCall_0_4_0 = (RuleCall)cExpressionAssignment_0_4.eContents().get(0);
-		private final RuleCall cEquationParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
+		private final Keyword cExistsKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final Action cExistsContextualExpressionAction_1_1 = (Action)cGroup_1.eContents().get(1);
+		private final Assignment cContextIdAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
+		private final RuleCall cContextIdIDTerminalRuleCall_1_2_0 = (RuleCall)cContextIdAssignment_1_2.eContents().get(0);
+		private final Keyword cColonKeyword_1_3 = (Keyword)cGroup_1.eContents().get(3);
+		private final Assignment cExpressionAssignment_1_4 = (Assignment)cGroup_1.eContents().get(4);
+		private final RuleCall cExpressionEquationParserRuleCall_1_4_0 = (RuleCall)cExpressionAssignment_1_4.eContents().get(0);
+		private final RuleCall cEquationParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		
 		//ContextualExpression returns Expression:
-		//	"context" {ContextualExpression} contextId=ID ":" expression=Equation | Equation;
+		//	"forall" {ForAllContextualExpression} contextId=ID ":" expression=Equation | "exists" {ExistsContextualExpression}
+		//	contextId=ID ":" expression=Equation | Equation;
 		public ParserRule getRule() { return rule; }
 
-		//"context" {ContextualExpression} contextId=ID ":" expression=Equation | Equation
+		//"forall" {ForAllContextualExpression} contextId=ID ":" expression=Equation | "exists" {ExistsContextualExpression}
+		//contextId=ID ":" expression=Equation | Equation
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//"context" {ContextualExpression} contextId=ID ":" expression=Equation
+		//"forall" {ForAllContextualExpression} contextId=ID ":" expression=Equation
 		public Group getGroup_0() { return cGroup_0; }
 
-		//"context"
-		public Keyword getContextKeyword_0_0() { return cContextKeyword_0_0; }
+		//"forall"
+		public Keyword getForallKeyword_0_0() { return cForallKeyword_0_0; }
 
-		//{ContextualExpression}
-		public Action getContextualExpressionAction_0_1() { return cContextualExpressionAction_0_1; }
+		//{ForAllContextualExpression}
+		public Action getForAllContextualExpressionAction_0_1() { return cForAllContextualExpressionAction_0_1; }
 
 		//contextId=ID
 		public Assignment getContextIdAssignment_0_2() { return cContextIdAssignment_0_2; }
@@ -74,8 +84,32 @@ public class BooleanConstraintLanguageGrammarAccess extends AbstractGrammarEleme
 		//Equation
 		public RuleCall getExpressionEquationParserRuleCall_0_4_0() { return cExpressionEquationParserRuleCall_0_4_0; }
 
+		//"exists" {ExistsContextualExpression} contextId=ID ":" expression=Equation
+		public Group getGroup_1() { return cGroup_1; }
+
+		//"exists"
+		public Keyword getExistsKeyword_1_0() { return cExistsKeyword_1_0; }
+
+		//{ExistsContextualExpression}
+		public Action getExistsContextualExpressionAction_1_1() { return cExistsContextualExpressionAction_1_1; }
+
+		//contextId=ID
+		public Assignment getContextIdAssignment_1_2() { return cContextIdAssignment_1_2; }
+
+		//ID
+		public RuleCall getContextIdIDTerminalRuleCall_1_2_0() { return cContextIdIDTerminalRuleCall_1_2_0; }
+
+		//":"
+		public Keyword getColonKeyword_1_3() { return cColonKeyword_1_3; }
+
+		//expression=Equation
+		public Assignment getExpressionAssignment_1_4() { return cExpressionAssignment_1_4; }
+
 		//Equation
-		public RuleCall getEquationParserRuleCall_1() { return cEquationParserRuleCall_1; }
+		public RuleCall getExpressionEquationParserRuleCall_1_4_0() { return cExpressionEquationParserRuleCall_1_4_0; }
+
+		//Equation
+		public RuleCall getEquationParserRuleCall_2() { return cEquationParserRuleCall_2; }
 	}
 
 	public class EquationElements extends AbstractParserRuleElementFinder {
@@ -361,7 +395,8 @@ public class BooleanConstraintLanguageGrammarAccess extends AbstractGrammarEleme
 	}
 
 	//ContextualExpression returns Expression:
-	//	"context" {ContextualExpression} contextId=ID ":" expression=Equation | Equation;
+	//	"forall" {ForAllContextualExpression} contextId=ID ":" expression=Equation | "exists" {ExistsContextualExpression}
+	//	contextId=ID ":" expression=Equation | Equation;
 	public ContextualExpressionElements getContextualExpressionAccess() {
 		return (pContextualExpression != null) ? pContextualExpression : (pContextualExpression = new ContextualExpressionElements());
 	}

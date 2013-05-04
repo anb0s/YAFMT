@@ -72,8 +72,12 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
                 return createExpressionAdapter();
             }
             @Override
-            public Adapter caseContextualExpression(ContextualExpression object) {
-                return createContextualExpressionAdapter();
+            public Adapter caseForAllContextualExpression(ForAllContextualExpression object) {
+                return createForAllContextualExpressionAdapter();
+            }
+            @Override
+            public Adapter caseExistsContextualExpression(ExistsContextualExpression object) {
+                return createExistsContextualExpressionAdapter();
             }
             @Override
             public Adapter caseEquation(Equation object) {
@@ -134,16 +138,30 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link cz.zcu.yafmt.clang.bcl.model.ContextualExpression <em>Contextual Expression</em>}'.
+     * Creates a new adapter for an object of class '{@link cz.zcu.yafmt.clang.bcl.model.ForAllContextualExpression <em>For All Contextual Expression</em>}'.
      * <!-- begin-user-doc -->
      * This default implementation returns null so that we can easily ignore cases;
      * it's useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
      * @return the new adapter.
-     * @see cz.zcu.yafmt.clang.bcl.model.ContextualExpression
+     * @see cz.zcu.yafmt.clang.bcl.model.ForAllContextualExpression
      * @generated
      */
-    public Adapter createContextualExpressionAdapter() {
+    public Adapter createForAllContextualExpressionAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link cz.zcu.yafmt.clang.bcl.model.ExistsContextualExpression <em>Exists Contextual Expression</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see cz.zcu.yafmt.clang.bcl.model.ExistsContextualExpression
+     * @generated
+     */
+    public Adapter createExistsContextualExpressionAdapter() {
         return null;
     }
 

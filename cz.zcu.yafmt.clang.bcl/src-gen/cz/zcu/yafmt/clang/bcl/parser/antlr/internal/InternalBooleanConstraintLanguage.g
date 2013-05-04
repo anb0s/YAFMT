@@ -107,14 +107,14 @@ ruleContextualExpression returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-((	otherlv_0='context' 
+((	otherlv_0='forall' 
     {
-    	newLeafNode(otherlv_0, grammarAccess.getContextualExpressionAccess().getContextKeyword_0_0());
+    	newLeafNode(otherlv_0, grammarAccess.getContextualExpressionAccess().getForallKeyword_0_0());
     }
 (
     {
         $current = forceCreateModelElement(
-            grammarAccess.getContextualExpressionAccess().getContextualExpressionAction_0_1(),
+            grammarAccess.getContextualExpressionAccess().getForAllContextualExpressionAction_0_1(),
             $current);
     }
 )(
@@ -158,13 +158,64 @@ ruleContextualExpression returns [EObject current=null]
 
 )
 ))
+    |(	otherlv_5='exists' 
+    {
+    	newLeafNode(otherlv_5, grammarAccess.getContextualExpressionAccess().getExistsKeyword_1_0());
+    }
+(
+    {
+        $current = forceCreateModelElement(
+            grammarAccess.getContextualExpressionAccess().getExistsContextualExpressionAction_1_1(),
+            $current);
+    }
+)(
+(
+		lv_contextId_7_0=RULE_ID
+		{
+			newLeafNode(lv_contextId_7_0, grammarAccess.getContextualExpressionAccess().getContextIdIDTerminalRuleCall_1_2_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getContextualExpressionRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"contextId",
+        		lv_contextId_7_0, 
+        		"ID");
+	    }
+
+)
+)	otherlv_8=':' 
+    {
+    	newLeafNode(otherlv_8, grammarAccess.getContextualExpressionAccess().getColonKeyword_1_3());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getContextualExpressionAccess().getExpressionEquationParserRuleCall_1_4_0()); 
+	    }
+		lv_expression_9_0=ruleEquation		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getContextualExpressionRule());
+	        }
+       		set(
+       			$current, 
+       			"expression",
+        		lv_expression_9_0, 
+        		"Equation");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))
     |
     { 
-        newCompositeNode(grammarAccess.getContextualExpressionAccess().getEquationParserRuleCall_1()); 
+        newCompositeNode(grammarAccess.getContextualExpressionAccess().getEquationParserRuleCall_2()); 
     }
-    this_Equation_5=ruleEquation
+    this_Equation_10=ruleEquation
     { 
-        $current = $this_Equation_5.current; 
+        $current = $this_Equation_10.current; 
         afterParserOrEnumRuleCall();
     }
 )

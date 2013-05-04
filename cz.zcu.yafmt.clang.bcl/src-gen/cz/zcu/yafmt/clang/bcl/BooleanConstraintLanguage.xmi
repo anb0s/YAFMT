@@ -16,10 +16,25 @@
       </type>
       <alternatives xsi:type="xtext:Alternatives">
         <elements xsi:type="xtext:Group">
-          <elements xsi:type="xtext:Keyword" value="context"/>
+          <elements xsi:type="xtext:Keyword" value="forall"/>
           <elements xsi:type="xtext:Action">
             <type metamodel="/0/@metamodelDeclarations.0">
-              <classifier xsi:type="ecore:EClass" href="http://zcu.cz/yafmt/clang/bcl#//ContextualExpression"/>
+              <classifier xsi:type="ecore:EClass" href="http://zcu.cz/yafmt/clang/bcl#//ForAllContextualExpression"/>
+            </type>
+          </elements>
+          <elements xsi:type="xtext:Assignment" feature="contextId" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.0"/>
+          </elements>
+          <elements xsi:type="xtext:Keyword" value=":"/>
+          <elements xsi:type="xtext:Assignment" feature="expression" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.2"/>
+          </elements>
+        </elements>
+        <elements xsi:type="xtext:Group">
+          <elements xsi:type="xtext:Keyword" value="exists"/>
+          <elements xsi:type="xtext:Action">
+            <type metamodel="/0/@metamodelDeclarations.0">
+              <classifier xsi:type="ecore:EClass" href="http://zcu.cz/yafmt/clang/bcl#//ExistsContextualExpression"/>
             </type>
           </elements>
           <elements xsi:type="xtext:Assignment" feature="contextId" operator="=">

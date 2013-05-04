@@ -22,10 +22,11 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalBooleanConstraintLanguageParser extends AbstractInternalContentAssistParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'context'", "':'", "'equals'", "'implies'", "'or'", "'and'", "'not'", "'('", "')'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'forall'", "':'", "'exists'", "'equals'", "'implies'", "'or'", "'and'", "'not'", "'('", "')'"
     };
     public static final int RULE_ID=4;
     public static final int RULE_ANY_OTHER=10;
+    public static final int T__20=20;
     public static final int EOF=-1;
     public static final int RULE_SL_COMMENT=8;
     public static final int RULE_ML_COMMENT=7;
@@ -690,28 +691,39 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__ContextualExpression__Alternatives"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:284:1: rule__ContextualExpression__Alternatives : ( ( ( rule__ContextualExpression__Group_0__0 ) ) | ( ruleEquation ) );
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:284:1: rule__ContextualExpression__Alternatives : ( ( ( rule__ContextualExpression__Group_0__0 ) ) | ( ( rule__ContextualExpression__Group_1__0 ) ) | ( ruleEquation ) );
     public final void rule__ContextualExpression__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:288:1: ( ( ( rule__ContextualExpression__Group_0__0 ) ) | ( ruleEquation ) )
-            int alt1=2;
-            int LA1_0 = input.LA(1);
-
-            if ( (LA1_0==11) ) {
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:288:1: ( ( ( rule__ContextualExpression__Group_0__0 ) ) | ( ( rule__ContextualExpression__Group_1__0 ) ) | ( ruleEquation ) )
+            int alt1=3;
+            switch ( input.LA(1) ) {
+            case 11:
+                {
                 alt1=1;
-            }
-            else if ( (LA1_0==RULE_ID||(LA1_0>=17 && LA1_0<=18)) ) {
+                }
+                break;
+            case 13:
+                {
                 alt1=2;
-            }
-            else {
+                }
+                break;
+            case RULE_ID:
+            case 18:
+            case 19:
+                {
+                alt1=3;
+                }
+                break;
+            default:
                 NoViableAltException nvae =
                     new NoViableAltException("", 1, 0, input);
 
                 throw nvae;
             }
+
             switch (alt1) {
                 case 1 :
                     // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:289:1: ( ( rule__ContextualExpression__Group_0__0 ) )
@@ -739,18 +751,43 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
                     }
                     break;
                 case 2 :
-                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:295:6: ( ruleEquation )
+                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:295:6: ( ( rule__ContextualExpression__Group_1__0 ) )
                     {
-                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:295:6: ( ruleEquation )
-                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:296:1: ruleEquation
+                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:295:6: ( ( rule__ContextualExpression__Group_1__0 ) )
+                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:296:1: ( rule__ContextualExpression__Group_1__0 )
                     {
-                     before(grammarAccess.getContextualExpressionAccess().getEquationParserRuleCall_1()); 
-                    pushFollow(FOLLOW_ruleEquation_in_rule__ContextualExpression__Alternatives567);
+                     before(grammarAccess.getContextualExpressionAccess().getGroup_1()); 
+                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:297:1: ( rule__ContextualExpression__Group_1__0 )
+                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:297:2: rule__ContextualExpression__Group_1__0
+                    {
+                    pushFollow(FOLLOW_rule__ContextualExpression__Group_1__0_in_rule__ContextualExpression__Alternatives567);
+                    rule__ContextualExpression__Group_1__0();
+
+                    state._fsp--;
+
+
+                    }
+
+                     after(grammarAccess.getContextualExpressionAccess().getGroup_1()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 3 :
+                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:301:6: ( ruleEquation )
+                    {
+                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:301:6: ( ruleEquation )
+                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:302:1: ruleEquation
+                    {
+                     before(grammarAccess.getContextualExpressionAccess().getEquationParserRuleCall_2()); 
+                    pushFollow(FOLLOW_ruleEquation_in_rule__ContextualExpression__Alternatives585);
                     ruleEquation();
 
                     state._fsp--;
 
-                     after(grammarAccess.getContextualExpressionAccess().getEquationParserRuleCall_1()); 
+                     after(grammarAccess.getContextualExpressionAccess().getEquationParserRuleCall_2()); 
 
                     }
 
@@ -775,20 +812,20 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Negation__Alternatives"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:306:1: rule__Negation__Alternatives : ( ( rulePrimaryExpression ) | ( ( rule__Negation__Group_1__0 ) ) );
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:312:1: rule__Negation__Alternatives : ( ( rulePrimaryExpression ) | ( ( rule__Negation__Group_1__0 ) ) );
     public final void rule__Negation__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:310:1: ( ( rulePrimaryExpression ) | ( ( rule__Negation__Group_1__0 ) ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:316:1: ( ( rulePrimaryExpression ) | ( ( rule__Negation__Group_1__0 ) ) )
             int alt2=2;
             int LA2_0 = input.LA(1);
 
-            if ( (LA2_0==RULE_ID||LA2_0==18) ) {
+            if ( (LA2_0==RULE_ID||LA2_0==19) ) {
                 alt2=1;
             }
-            else if ( (LA2_0==17) ) {
+            else if ( (LA2_0==18) ) {
                 alt2=2;
             }
             else {
@@ -799,13 +836,13 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
             }
             switch (alt2) {
                 case 1 :
-                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:311:1: ( rulePrimaryExpression )
+                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:317:1: ( rulePrimaryExpression )
                     {
-                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:311:1: ( rulePrimaryExpression )
-                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:312:1: rulePrimaryExpression
+                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:317:1: ( rulePrimaryExpression )
+                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:318:1: rulePrimaryExpression
                     {
                      before(grammarAccess.getNegationAccess().getPrimaryExpressionParserRuleCall_0()); 
-                    pushFollow(FOLLOW_rulePrimaryExpression_in_rule__Negation__Alternatives599);
+                    pushFollow(FOLLOW_rulePrimaryExpression_in_rule__Negation__Alternatives617);
                     rulePrimaryExpression();
 
                     state._fsp--;
@@ -818,16 +855,16 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
                     }
                     break;
                 case 2 :
-                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:317:6: ( ( rule__Negation__Group_1__0 ) )
+                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:323:6: ( ( rule__Negation__Group_1__0 ) )
                     {
-                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:317:6: ( ( rule__Negation__Group_1__0 ) )
-                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:318:1: ( rule__Negation__Group_1__0 )
+                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:323:6: ( ( rule__Negation__Group_1__0 ) )
+                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:324:1: ( rule__Negation__Group_1__0 )
                     {
                      before(grammarAccess.getNegationAccess().getGroup_1()); 
-                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:319:1: ( rule__Negation__Group_1__0 )
-                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:319:2: rule__Negation__Group_1__0
+                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:325:1: ( rule__Negation__Group_1__0 )
+                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:325:2: rule__Negation__Group_1__0
                     {
-                    pushFollow(FOLLOW_rule__Negation__Group_1__0_in_rule__Negation__Alternatives616);
+                    pushFollow(FOLLOW_rule__Negation__Group_1__0_in_rule__Negation__Alternatives634);
                     rule__Negation__Group_1__0();
 
                     state._fsp--;
@@ -860,20 +897,20 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__PrimaryExpression__Alternatives"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:328:1: rule__PrimaryExpression__Alternatives : ( ( ( rule__PrimaryExpression__Group_0__0 ) ) | ( ( rule__PrimaryExpression__Group_1__0 ) ) );
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:334:1: rule__PrimaryExpression__Alternatives : ( ( ( rule__PrimaryExpression__Group_0__0 ) ) | ( ( rule__PrimaryExpression__Group_1__0 ) ) );
     public final void rule__PrimaryExpression__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:332:1: ( ( ( rule__PrimaryExpression__Group_0__0 ) ) | ( ( rule__PrimaryExpression__Group_1__0 ) ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:338:1: ( ( ( rule__PrimaryExpression__Group_0__0 ) ) | ( ( rule__PrimaryExpression__Group_1__0 ) ) )
             int alt3=2;
             int LA3_0 = input.LA(1);
 
             if ( (LA3_0==RULE_ID) ) {
                 alt3=1;
             }
-            else if ( (LA3_0==18) ) {
+            else if ( (LA3_0==19) ) {
                 alt3=2;
             }
             else {
@@ -884,16 +921,16 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
             }
             switch (alt3) {
                 case 1 :
-                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:333:1: ( ( rule__PrimaryExpression__Group_0__0 ) )
+                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:339:1: ( ( rule__PrimaryExpression__Group_0__0 ) )
                     {
-                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:333:1: ( ( rule__PrimaryExpression__Group_0__0 ) )
-                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:334:1: ( rule__PrimaryExpression__Group_0__0 )
+                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:339:1: ( ( rule__PrimaryExpression__Group_0__0 ) )
+                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:340:1: ( rule__PrimaryExpression__Group_0__0 )
                     {
                      before(grammarAccess.getPrimaryExpressionAccess().getGroup_0()); 
-                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:335:1: ( rule__PrimaryExpression__Group_0__0 )
-                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:335:2: rule__PrimaryExpression__Group_0__0
+                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:341:1: ( rule__PrimaryExpression__Group_0__0 )
+                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:341:2: rule__PrimaryExpression__Group_0__0
                     {
-                    pushFollow(FOLLOW_rule__PrimaryExpression__Group_0__0_in_rule__PrimaryExpression__Alternatives649);
+                    pushFollow(FOLLOW_rule__PrimaryExpression__Group_0__0_in_rule__PrimaryExpression__Alternatives667);
                     rule__PrimaryExpression__Group_0__0();
 
                     state._fsp--;
@@ -909,16 +946,16 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
                     }
                     break;
                 case 2 :
-                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:339:6: ( ( rule__PrimaryExpression__Group_1__0 ) )
+                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:345:6: ( ( rule__PrimaryExpression__Group_1__0 ) )
                     {
-                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:339:6: ( ( rule__PrimaryExpression__Group_1__0 ) )
-                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:340:1: ( rule__PrimaryExpression__Group_1__0 )
+                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:345:6: ( ( rule__PrimaryExpression__Group_1__0 ) )
+                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:346:1: ( rule__PrimaryExpression__Group_1__0 )
                     {
                      before(grammarAccess.getPrimaryExpressionAccess().getGroup_1()); 
-                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:341:1: ( rule__PrimaryExpression__Group_1__0 )
-                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:341:2: rule__PrimaryExpression__Group_1__0
+                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:347:1: ( rule__PrimaryExpression__Group_1__0 )
+                    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:347:2: rule__PrimaryExpression__Group_1__0
                     {
-                    pushFollow(FOLLOW_rule__PrimaryExpression__Group_1__0_in_rule__PrimaryExpression__Alternatives667);
+                    pushFollow(FOLLOW_rule__PrimaryExpression__Group_1__0_in_rule__PrimaryExpression__Alternatives685);
                     rule__PrimaryExpression__Group_1__0();
 
                     state._fsp--;
@@ -951,21 +988,21 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__ContextualExpression__Group_0__0"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:352:1: rule__ContextualExpression__Group_0__0 : rule__ContextualExpression__Group_0__0__Impl rule__ContextualExpression__Group_0__1 ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:358:1: rule__ContextualExpression__Group_0__0 : rule__ContextualExpression__Group_0__0__Impl rule__ContextualExpression__Group_0__1 ;
     public final void rule__ContextualExpression__Group_0__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:356:1: ( rule__ContextualExpression__Group_0__0__Impl rule__ContextualExpression__Group_0__1 )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:357:2: rule__ContextualExpression__Group_0__0__Impl rule__ContextualExpression__Group_0__1
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:362:1: ( rule__ContextualExpression__Group_0__0__Impl rule__ContextualExpression__Group_0__1 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:363:2: rule__ContextualExpression__Group_0__0__Impl rule__ContextualExpression__Group_0__1
             {
-            pushFollow(FOLLOW_rule__ContextualExpression__Group_0__0__Impl_in_rule__ContextualExpression__Group_0__0698);
+            pushFollow(FOLLOW_rule__ContextualExpression__Group_0__0__Impl_in_rule__ContextualExpression__Group_0__0716);
             rule__ContextualExpression__Group_0__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ContextualExpression__Group_0__1_in_rule__ContextualExpression__Group_0__0701);
+            pushFollow(FOLLOW_rule__ContextualExpression__Group_0__1_in_rule__ContextualExpression__Group_0__0719);
             rule__ContextualExpression__Group_0__1();
 
             state._fsp--;
@@ -989,21 +1026,21 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__ContextualExpression__Group_0__0__Impl"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:364:1: rule__ContextualExpression__Group_0__0__Impl : ( 'context' ) ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:370:1: rule__ContextualExpression__Group_0__0__Impl : ( 'forall' ) ;
     public final void rule__ContextualExpression__Group_0__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:368:1: ( ( 'context' ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:369:1: ( 'context' )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:374:1: ( ( 'forall' ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:375:1: ( 'forall' )
             {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:369:1: ( 'context' )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:370:1: 'context'
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:375:1: ( 'forall' )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:376:1: 'forall'
             {
-             before(grammarAccess.getContextualExpressionAccess().getContextKeyword_0_0()); 
-            match(input,11,FOLLOW_11_in_rule__ContextualExpression__Group_0__0__Impl729); 
-             after(grammarAccess.getContextualExpressionAccess().getContextKeyword_0_0()); 
+             before(grammarAccess.getContextualExpressionAccess().getForallKeyword_0_0()); 
+            match(input,11,FOLLOW_11_in_rule__ContextualExpression__Group_0__0__Impl747); 
+             after(grammarAccess.getContextualExpressionAccess().getForallKeyword_0_0()); 
 
             }
 
@@ -1026,21 +1063,21 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__ContextualExpression__Group_0__1"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:383:1: rule__ContextualExpression__Group_0__1 : rule__ContextualExpression__Group_0__1__Impl rule__ContextualExpression__Group_0__2 ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:389:1: rule__ContextualExpression__Group_0__1 : rule__ContextualExpression__Group_0__1__Impl rule__ContextualExpression__Group_0__2 ;
     public final void rule__ContextualExpression__Group_0__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:387:1: ( rule__ContextualExpression__Group_0__1__Impl rule__ContextualExpression__Group_0__2 )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:388:2: rule__ContextualExpression__Group_0__1__Impl rule__ContextualExpression__Group_0__2
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:393:1: ( rule__ContextualExpression__Group_0__1__Impl rule__ContextualExpression__Group_0__2 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:394:2: rule__ContextualExpression__Group_0__1__Impl rule__ContextualExpression__Group_0__2
             {
-            pushFollow(FOLLOW_rule__ContextualExpression__Group_0__1__Impl_in_rule__ContextualExpression__Group_0__1760);
+            pushFollow(FOLLOW_rule__ContextualExpression__Group_0__1__Impl_in_rule__ContextualExpression__Group_0__1778);
             rule__ContextualExpression__Group_0__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ContextualExpression__Group_0__2_in_rule__ContextualExpression__Group_0__1763);
+            pushFollow(FOLLOW_rule__ContextualExpression__Group_0__2_in_rule__ContextualExpression__Group_0__1781);
             rule__ContextualExpression__Group_0__2();
 
             state._fsp--;
@@ -1064,25 +1101,25 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__ContextualExpression__Group_0__1__Impl"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:395:1: rule__ContextualExpression__Group_0__1__Impl : ( () ) ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:401:1: rule__ContextualExpression__Group_0__1__Impl : ( () ) ;
     public final void rule__ContextualExpression__Group_0__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:399:1: ( ( () ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:400:1: ( () )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:405:1: ( ( () ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:406:1: ( () )
             {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:400:1: ( () )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:401:1: ()
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:406:1: ( () )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:407:1: ()
             {
-             before(grammarAccess.getContextualExpressionAccess().getContextualExpressionAction_0_1()); 
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:402:1: ()
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:404:1: 
+             before(grammarAccess.getContextualExpressionAccess().getForAllContextualExpressionAction_0_1()); 
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:408:1: ()
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:410:1: 
             {
             }
 
-             after(grammarAccess.getContextualExpressionAccess().getContextualExpressionAction_0_1()); 
+             after(grammarAccess.getContextualExpressionAccess().getForAllContextualExpressionAction_0_1()); 
 
             }
 
@@ -1101,21 +1138,21 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__ContextualExpression__Group_0__2"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:414:1: rule__ContextualExpression__Group_0__2 : rule__ContextualExpression__Group_0__2__Impl rule__ContextualExpression__Group_0__3 ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:420:1: rule__ContextualExpression__Group_0__2 : rule__ContextualExpression__Group_0__2__Impl rule__ContextualExpression__Group_0__3 ;
     public final void rule__ContextualExpression__Group_0__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:418:1: ( rule__ContextualExpression__Group_0__2__Impl rule__ContextualExpression__Group_0__3 )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:419:2: rule__ContextualExpression__Group_0__2__Impl rule__ContextualExpression__Group_0__3
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:424:1: ( rule__ContextualExpression__Group_0__2__Impl rule__ContextualExpression__Group_0__3 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:425:2: rule__ContextualExpression__Group_0__2__Impl rule__ContextualExpression__Group_0__3
             {
-            pushFollow(FOLLOW_rule__ContextualExpression__Group_0__2__Impl_in_rule__ContextualExpression__Group_0__2821);
+            pushFollow(FOLLOW_rule__ContextualExpression__Group_0__2__Impl_in_rule__ContextualExpression__Group_0__2839);
             rule__ContextualExpression__Group_0__2__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ContextualExpression__Group_0__3_in_rule__ContextualExpression__Group_0__2824);
+            pushFollow(FOLLOW_rule__ContextualExpression__Group_0__3_in_rule__ContextualExpression__Group_0__2842);
             rule__ContextualExpression__Group_0__3();
 
             state._fsp--;
@@ -1139,23 +1176,23 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__ContextualExpression__Group_0__2__Impl"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:426:1: rule__ContextualExpression__Group_0__2__Impl : ( ( rule__ContextualExpression__ContextIdAssignment_0_2 ) ) ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:432:1: rule__ContextualExpression__Group_0__2__Impl : ( ( rule__ContextualExpression__ContextIdAssignment_0_2 ) ) ;
     public final void rule__ContextualExpression__Group_0__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:430:1: ( ( ( rule__ContextualExpression__ContextIdAssignment_0_2 ) ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:431:1: ( ( rule__ContextualExpression__ContextIdAssignment_0_2 ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:436:1: ( ( ( rule__ContextualExpression__ContextIdAssignment_0_2 ) ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:437:1: ( ( rule__ContextualExpression__ContextIdAssignment_0_2 ) )
             {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:431:1: ( ( rule__ContextualExpression__ContextIdAssignment_0_2 ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:432:1: ( rule__ContextualExpression__ContextIdAssignment_0_2 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:437:1: ( ( rule__ContextualExpression__ContextIdAssignment_0_2 ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:438:1: ( rule__ContextualExpression__ContextIdAssignment_0_2 )
             {
              before(grammarAccess.getContextualExpressionAccess().getContextIdAssignment_0_2()); 
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:433:1: ( rule__ContextualExpression__ContextIdAssignment_0_2 )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:433:2: rule__ContextualExpression__ContextIdAssignment_0_2
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:439:1: ( rule__ContextualExpression__ContextIdAssignment_0_2 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:439:2: rule__ContextualExpression__ContextIdAssignment_0_2
             {
-            pushFollow(FOLLOW_rule__ContextualExpression__ContextIdAssignment_0_2_in_rule__ContextualExpression__Group_0__2__Impl851);
+            pushFollow(FOLLOW_rule__ContextualExpression__ContextIdAssignment_0_2_in_rule__ContextualExpression__Group_0__2__Impl869);
             rule__ContextualExpression__ContextIdAssignment_0_2();
 
             state._fsp--;
@@ -1186,21 +1223,21 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__ContextualExpression__Group_0__3"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:443:1: rule__ContextualExpression__Group_0__3 : rule__ContextualExpression__Group_0__3__Impl rule__ContextualExpression__Group_0__4 ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:449:1: rule__ContextualExpression__Group_0__3 : rule__ContextualExpression__Group_0__3__Impl rule__ContextualExpression__Group_0__4 ;
     public final void rule__ContextualExpression__Group_0__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:447:1: ( rule__ContextualExpression__Group_0__3__Impl rule__ContextualExpression__Group_0__4 )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:448:2: rule__ContextualExpression__Group_0__3__Impl rule__ContextualExpression__Group_0__4
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:453:1: ( rule__ContextualExpression__Group_0__3__Impl rule__ContextualExpression__Group_0__4 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:454:2: rule__ContextualExpression__Group_0__3__Impl rule__ContextualExpression__Group_0__4
             {
-            pushFollow(FOLLOW_rule__ContextualExpression__Group_0__3__Impl_in_rule__ContextualExpression__Group_0__3881);
+            pushFollow(FOLLOW_rule__ContextualExpression__Group_0__3__Impl_in_rule__ContextualExpression__Group_0__3899);
             rule__ContextualExpression__Group_0__3__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ContextualExpression__Group_0__4_in_rule__ContextualExpression__Group_0__3884);
+            pushFollow(FOLLOW_rule__ContextualExpression__Group_0__4_in_rule__ContextualExpression__Group_0__3902);
             rule__ContextualExpression__Group_0__4();
 
             state._fsp--;
@@ -1224,20 +1261,20 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__ContextualExpression__Group_0__3__Impl"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:455:1: rule__ContextualExpression__Group_0__3__Impl : ( ':' ) ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:461:1: rule__ContextualExpression__Group_0__3__Impl : ( ':' ) ;
     public final void rule__ContextualExpression__Group_0__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:459:1: ( ( ':' ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:460:1: ( ':' )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:465:1: ( ( ':' ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:466:1: ( ':' )
             {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:460:1: ( ':' )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:461:1: ':'
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:466:1: ( ':' )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:467:1: ':'
             {
              before(grammarAccess.getContextualExpressionAccess().getColonKeyword_0_3()); 
-            match(input,12,FOLLOW_12_in_rule__ContextualExpression__Group_0__3__Impl912); 
+            match(input,12,FOLLOW_12_in_rule__ContextualExpression__Group_0__3__Impl930); 
              after(grammarAccess.getContextualExpressionAccess().getColonKeyword_0_3()); 
 
             }
@@ -1261,16 +1298,16 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__ContextualExpression__Group_0__4"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:474:1: rule__ContextualExpression__Group_0__4 : rule__ContextualExpression__Group_0__4__Impl ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:480:1: rule__ContextualExpression__Group_0__4 : rule__ContextualExpression__Group_0__4__Impl ;
     public final void rule__ContextualExpression__Group_0__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:478:1: ( rule__ContextualExpression__Group_0__4__Impl )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:479:2: rule__ContextualExpression__Group_0__4__Impl
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:484:1: ( rule__ContextualExpression__Group_0__4__Impl )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:485:2: rule__ContextualExpression__Group_0__4__Impl
             {
-            pushFollow(FOLLOW_rule__ContextualExpression__Group_0__4__Impl_in_rule__ContextualExpression__Group_0__4943);
+            pushFollow(FOLLOW_rule__ContextualExpression__Group_0__4__Impl_in_rule__ContextualExpression__Group_0__4961);
             rule__ContextualExpression__Group_0__4__Impl();
 
             state._fsp--;
@@ -1294,23 +1331,23 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__ContextualExpression__Group_0__4__Impl"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:485:1: rule__ContextualExpression__Group_0__4__Impl : ( ( rule__ContextualExpression__ExpressionAssignment_0_4 ) ) ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:491:1: rule__ContextualExpression__Group_0__4__Impl : ( ( rule__ContextualExpression__ExpressionAssignment_0_4 ) ) ;
     public final void rule__ContextualExpression__Group_0__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:489:1: ( ( ( rule__ContextualExpression__ExpressionAssignment_0_4 ) ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:490:1: ( ( rule__ContextualExpression__ExpressionAssignment_0_4 ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:495:1: ( ( ( rule__ContextualExpression__ExpressionAssignment_0_4 ) ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:496:1: ( ( rule__ContextualExpression__ExpressionAssignment_0_4 ) )
             {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:490:1: ( ( rule__ContextualExpression__ExpressionAssignment_0_4 ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:491:1: ( rule__ContextualExpression__ExpressionAssignment_0_4 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:496:1: ( ( rule__ContextualExpression__ExpressionAssignment_0_4 ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:497:1: ( rule__ContextualExpression__ExpressionAssignment_0_4 )
             {
              before(grammarAccess.getContextualExpressionAccess().getExpressionAssignment_0_4()); 
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:492:1: ( rule__ContextualExpression__ExpressionAssignment_0_4 )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:492:2: rule__ContextualExpression__ExpressionAssignment_0_4
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:498:1: ( rule__ContextualExpression__ExpressionAssignment_0_4 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:498:2: rule__ContextualExpression__ExpressionAssignment_0_4
             {
-            pushFollow(FOLLOW_rule__ContextualExpression__ExpressionAssignment_0_4_in_rule__ContextualExpression__Group_0__4__Impl970);
+            pushFollow(FOLLOW_rule__ContextualExpression__ExpressionAssignment_0_4_in_rule__ContextualExpression__Group_0__4__Impl988);
             rule__ContextualExpression__ExpressionAssignment_0_4();
 
             state._fsp--;
@@ -1340,22 +1377,412 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
     // $ANTLR end "rule__ContextualExpression__Group_0__4__Impl"
 
 
+    // $ANTLR start "rule__ContextualExpression__Group_1__0"
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:518:1: rule__ContextualExpression__Group_1__0 : rule__ContextualExpression__Group_1__0__Impl rule__ContextualExpression__Group_1__1 ;
+    public final void rule__ContextualExpression__Group_1__0() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:522:1: ( rule__ContextualExpression__Group_1__0__Impl rule__ContextualExpression__Group_1__1 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:523:2: rule__ContextualExpression__Group_1__0__Impl rule__ContextualExpression__Group_1__1
+            {
+            pushFollow(FOLLOW_rule__ContextualExpression__Group_1__0__Impl_in_rule__ContextualExpression__Group_1__01028);
+            rule__ContextualExpression__Group_1__0__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_rule__ContextualExpression__Group_1__1_in_rule__ContextualExpression__Group_1__01031);
+            rule__ContextualExpression__Group_1__1();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ContextualExpression__Group_1__0"
+
+
+    // $ANTLR start "rule__ContextualExpression__Group_1__0__Impl"
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:530:1: rule__ContextualExpression__Group_1__0__Impl : ( 'exists' ) ;
+    public final void rule__ContextualExpression__Group_1__0__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:534:1: ( ( 'exists' ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:535:1: ( 'exists' )
+            {
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:535:1: ( 'exists' )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:536:1: 'exists'
+            {
+             before(grammarAccess.getContextualExpressionAccess().getExistsKeyword_1_0()); 
+            match(input,13,FOLLOW_13_in_rule__ContextualExpression__Group_1__0__Impl1059); 
+             after(grammarAccess.getContextualExpressionAccess().getExistsKeyword_1_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ContextualExpression__Group_1__0__Impl"
+
+
+    // $ANTLR start "rule__ContextualExpression__Group_1__1"
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:549:1: rule__ContextualExpression__Group_1__1 : rule__ContextualExpression__Group_1__1__Impl rule__ContextualExpression__Group_1__2 ;
+    public final void rule__ContextualExpression__Group_1__1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:553:1: ( rule__ContextualExpression__Group_1__1__Impl rule__ContextualExpression__Group_1__2 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:554:2: rule__ContextualExpression__Group_1__1__Impl rule__ContextualExpression__Group_1__2
+            {
+            pushFollow(FOLLOW_rule__ContextualExpression__Group_1__1__Impl_in_rule__ContextualExpression__Group_1__11090);
+            rule__ContextualExpression__Group_1__1__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_rule__ContextualExpression__Group_1__2_in_rule__ContextualExpression__Group_1__11093);
+            rule__ContextualExpression__Group_1__2();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ContextualExpression__Group_1__1"
+
+
+    // $ANTLR start "rule__ContextualExpression__Group_1__1__Impl"
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:561:1: rule__ContextualExpression__Group_1__1__Impl : ( () ) ;
+    public final void rule__ContextualExpression__Group_1__1__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:565:1: ( ( () ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:566:1: ( () )
+            {
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:566:1: ( () )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:567:1: ()
+            {
+             before(grammarAccess.getContextualExpressionAccess().getExistsContextualExpressionAction_1_1()); 
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:568:1: ()
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:570:1: 
+            {
+            }
+
+             after(grammarAccess.getContextualExpressionAccess().getExistsContextualExpressionAction_1_1()); 
+
+            }
+
+
+            }
+
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ContextualExpression__Group_1__1__Impl"
+
+
+    // $ANTLR start "rule__ContextualExpression__Group_1__2"
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:580:1: rule__ContextualExpression__Group_1__2 : rule__ContextualExpression__Group_1__2__Impl rule__ContextualExpression__Group_1__3 ;
+    public final void rule__ContextualExpression__Group_1__2() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:584:1: ( rule__ContextualExpression__Group_1__2__Impl rule__ContextualExpression__Group_1__3 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:585:2: rule__ContextualExpression__Group_1__2__Impl rule__ContextualExpression__Group_1__3
+            {
+            pushFollow(FOLLOW_rule__ContextualExpression__Group_1__2__Impl_in_rule__ContextualExpression__Group_1__21151);
+            rule__ContextualExpression__Group_1__2__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_rule__ContextualExpression__Group_1__3_in_rule__ContextualExpression__Group_1__21154);
+            rule__ContextualExpression__Group_1__3();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ContextualExpression__Group_1__2"
+
+
+    // $ANTLR start "rule__ContextualExpression__Group_1__2__Impl"
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:592:1: rule__ContextualExpression__Group_1__2__Impl : ( ( rule__ContextualExpression__ContextIdAssignment_1_2 ) ) ;
+    public final void rule__ContextualExpression__Group_1__2__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:596:1: ( ( ( rule__ContextualExpression__ContextIdAssignment_1_2 ) ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:597:1: ( ( rule__ContextualExpression__ContextIdAssignment_1_2 ) )
+            {
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:597:1: ( ( rule__ContextualExpression__ContextIdAssignment_1_2 ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:598:1: ( rule__ContextualExpression__ContextIdAssignment_1_2 )
+            {
+             before(grammarAccess.getContextualExpressionAccess().getContextIdAssignment_1_2()); 
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:599:1: ( rule__ContextualExpression__ContextIdAssignment_1_2 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:599:2: rule__ContextualExpression__ContextIdAssignment_1_2
+            {
+            pushFollow(FOLLOW_rule__ContextualExpression__ContextIdAssignment_1_2_in_rule__ContextualExpression__Group_1__2__Impl1181);
+            rule__ContextualExpression__ContextIdAssignment_1_2();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getContextualExpressionAccess().getContextIdAssignment_1_2()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ContextualExpression__Group_1__2__Impl"
+
+
+    // $ANTLR start "rule__ContextualExpression__Group_1__3"
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:609:1: rule__ContextualExpression__Group_1__3 : rule__ContextualExpression__Group_1__3__Impl rule__ContextualExpression__Group_1__4 ;
+    public final void rule__ContextualExpression__Group_1__3() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:613:1: ( rule__ContextualExpression__Group_1__3__Impl rule__ContextualExpression__Group_1__4 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:614:2: rule__ContextualExpression__Group_1__3__Impl rule__ContextualExpression__Group_1__4
+            {
+            pushFollow(FOLLOW_rule__ContextualExpression__Group_1__3__Impl_in_rule__ContextualExpression__Group_1__31211);
+            rule__ContextualExpression__Group_1__3__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_rule__ContextualExpression__Group_1__4_in_rule__ContextualExpression__Group_1__31214);
+            rule__ContextualExpression__Group_1__4();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ContextualExpression__Group_1__3"
+
+
+    // $ANTLR start "rule__ContextualExpression__Group_1__3__Impl"
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:621:1: rule__ContextualExpression__Group_1__3__Impl : ( ':' ) ;
+    public final void rule__ContextualExpression__Group_1__3__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:625:1: ( ( ':' ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:626:1: ( ':' )
+            {
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:626:1: ( ':' )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:627:1: ':'
+            {
+             before(grammarAccess.getContextualExpressionAccess().getColonKeyword_1_3()); 
+            match(input,12,FOLLOW_12_in_rule__ContextualExpression__Group_1__3__Impl1242); 
+             after(grammarAccess.getContextualExpressionAccess().getColonKeyword_1_3()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ContextualExpression__Group_1__3__Impl"
+
+
+    // $ANTLR start "rule__ContextualExpression__Group_1__4"
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:640:1: rule__ContextualExpression__Group_1__4 : rule__ContextualExpression__Group_1__4__Impl ;
+    public final void rule__ContextualExpression__Group_1__4() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:644:1: ( rule__ContextualExpression__Group_1__4__Impl )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:645:2: rule__ContextualExpression__Group_1__4__Impl
+            {
+            pushFollow(FOLLOW_rule__ContextualExpression__Group_1__4__Impl_in_rule__ContextualExpression__Group_1__41273);
+            rule__ContextualExpression__Group_1__4__Impl();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ContextualExpression__Group_1__4"
+
+
+    // $ANTLR start "rule__ContextualExpression__Group_1__4__Impl"
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:651:1: rule__ContextualExpression__Group_1__4__Impl : ( ( rule__ContextualExpression__ExpressionAssignment_1_4 ) ) ;
+    public final void rule__ContextualExpression__Group_1__4__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:655:1: ( ( ( rule__ContextualExpression__ExpressionAssignment_1_4 ) ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:656:1: ( ( rule__ContextualExpression__ExpressionAssignment_1_4 ) )
+            {
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:656:1: ( ( rule__ContextualExpression__ExpressionAssignment_1_4 ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:657:1: ( rule__ContextualExpression__ExpressionAssignment_1_4 )
+            {
+             before(grammarAccess.getContextualExpressionAccess().getExpressionAssignment_1_4()); 
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:658:1: ( rule__ContextualExpression__ExpressionAssignment_1_4 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:658:2: rule__ContextualExpression__ExpressionAssignment_1_4
+            {
+            pushFollow(FOLLOW_rule__ContextualExpression__ExpressionAssignment_1_4_in_rule__ContextualExpression__Group_1__4__Impl1300);
+            rule__ContextualExpression__ExpressionAssignment_1_4();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getContextualExpressionAccess().getExpressionAssignment_1_4()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ContextualExpression__Group_1__4__Impl"
+
+
     // $ANTLR start "rule__Equation__Group__0"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:512:1: rule__Equation__Group__0 : rule__Equation__Group__0__Impl rule__Equation__Group__1 ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:678:1: rule__Equation__Group__0 : rule__Equation__Group__0__Impl rule__Equation__Group__1 ;
     public final void rule__Equation__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:516:1: ( rule__Equation__Group__0__Impl rule__Equation__Group__1 )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:517:2: rule__Equation__Group__0__Impl rule__Equation__Group__1
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:682:1: ( rule__Equation__Group__0__Impl rule__Equation__Group__1 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:683:2: rule__Equation__Group__0__Impl rule__Equation__Group__1
             {
-            pushFollow(FOLLOW_rule__Equation__Group__0__Impl_in_rule__Equation__Group__01010);
+            pushFollow(FOLLOW_rule__Equation__Group__0__Impl_in_rule__Equation__Group__01340);
             rule__Equation__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Equation__Group__1_in_rule__Equation__Group__01013);
+            pushFollow(FOLLOW_rule__Equation__Group__1_in_rule__Equation__Group__01343);
             rule__Equation__Group__1();
 
             state._fsp--;
@@ -1379,20 +1806,20 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Equation__Group__0__Impl"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:524:1: rule__Equation__Group__0__Impl : ( ruleImplication ) ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:690:1: rule__Equation__Group__0__Impl : ( ruleImplication ) ;
     public final void rule__Equation__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:528:1: ( ( ruleImplication ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:529:1: ( ruleImplication )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:694:1: ( ( ruleImplication ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:695:1: ( ruleImplication )
             {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:529:1: ( ruleImplication )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:530:1: ruleImplication
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:695:1: ( ruleImplication )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:696:1: ruleImplication
             {
              before(grammarAccess.getEquationAccess().getImplicationParserRuleCall_0()); 
-            pushFollow(FOLLOW_ruleImplication_in_rule__Equation__Group__0__Impl1040);
+            pushFollow(FOLLOW_ruleImplication_in_rule__Equation__Group__0__Impl1370);
             ruleImplication();
 
             state._fsp--;
@@ -1420,16 +1847,16 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Equation__Group__1"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:541:1: rule__Equation__Group__1 : rule__Equation__Group__1__Impl ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:707:1: rule__Equation__Group__1 : rule__Equation__Group__1__Impl ;
     public final void rule__Equation__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:545:1: ( rule__Equation__Group__1__Impl )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:546:2: rule__Equation__Group__1__Impl
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:711:1: ( rule__Equation__Group__1__Impl )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:712:2: rule__Equation__Group__1__Impl
             {
-            pushFollow(FOLLOW_rule__Equation__Group__1__Impl_in_rule__Equation__Group__11069);
+            pushFollow(FOLLOW_rule__Equation__Group__1__Impl_in_rule__Equation__Group__11399);
             rule__Equation__Group__1__Impl();
 
             state._fsp--;
@@ -1453,35 +1880,35 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Equation__Group__1__Impl"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:552:1: rule__Equation__Group__1__Impl : ( ( rule__Equation__Group_1__0 )* ) ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:718:1: rule__Equation__Group__1__Impl : ( ( rule__Equation__Group_1__0 )* ) ;
     public final void rule__Equation__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:556:1: ( ( ( rule__Equation__Group_1__0 )* ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:557:1: ( ( rule__Equation__Group_1__0 )* )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:722:1: ( ( ( rule__Equation__Group_1__0 )* ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:723:1: ( ( rule__Equation__Group_1__0 )* )
             {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:557:1: ( ( rule__Equation__Group_1__0 )* )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:558:1: ( rule__Equation__Group_1__0 )*
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:723:1: ( ( rule__Equation__Group_1__0 )* )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:724:1: ( rule__Equation__Group_1__0 )*
             {
              before(grammarAccess.getEquationAccess().getGroup_1()); 
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:559:1: ( rule__Equation__Group_1__0 )*
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:725:1: ( rule__Equation__Group_1__0 )*
             loop4:
             do {
                 int alt4=2;
                 int LA4_0 = input.LA(1);
 
-                if ( (LA4_0==13) ) {
+                if ( (LA4_0==14) ) {
                     alt4=1;
                 }
 
 
                 switch (alt4) {
             	case 1 :
-            	    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:559:2: rule__Equation__Group_1__0
+            	    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:725:2: rule__Equation__Group_1__0
             	    {
-            	    pushFollow(FOLLOW_rule__Equation__Group_1__0_in_rule__Equation__Group__1__Impl1096);
+            	    pushFollow(FOLLOW_rule__Equation__Group_1__0_in_rule__Equation__Group__1__Impl1426);
             	    rule__Equation__Group_1__0();
 
             	    state._fsp--;
@@ -1518,21 +1945,21 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Equation__Group_1__0"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:573:1: rule__Equation__Group_1__0 : rule__Equation__Group_1__0__Impl rule__Equation__Group_1__1 ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:739:1: rule__Equation__Group_1__0 : rule__Equation__Group_1__0__Impl rule__Equation__Group_1__1 ;
     public final void rule__Equation__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:577:1: ( rule__Equation__Group_1__0__Impl rule__Equation__Group_1__1 )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:578:2: rule__Equation__Group_1__0__Impl rule__Equation__Group_1__1
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:743:1: ( rule__Equation__Group_1__0__Impl rule__Equation__Group_1__1 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:744:2: rule__Equation__Group_1__0__Impl rule__Equation__Group_1__1
             {
-            pushFollow(FOLLOW_rule__Equation__Group_1__0__Impl_in_rule__Equation__Group_1__01131);
+            pushFollow(FOLLOW_rule__Equation__Group_1__0__Impl_in_rule__Equation__Group_1__01461);
             rule__Equation__Group_1__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Equation__Group_1__1_in_rule__Equation__Group_1__01134);
+            pushFollow(FOLLOW_rule__Equation__Group_1__1_in_rule__Equation__Group_1__01464);
             rule__Equation__Group_1__1();
 
             state._fsp--;
@@ -1556,21 +1983,21 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Equation__Group_1__0__Impl"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:585:1: rule__Equation__Group_1__0__Impl : ( () ) ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:751:1: rule__Equation__Group_1__0__Impl : ( () ) ;
     public final void rule__Equation__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:589:1: ( ( () ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:590:1: ( () )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:755:1: ( ( () ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:756:1: ( () )
             {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:590:1: ( () )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:591:1: ()
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:756:1: ( () )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:757:1: ()
             {
              before(grammarAccess.getEquationAccess().getEquationLeftPartAction_1_0()); 
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:592:1: ()
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:594:1: 
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:758:1: ()
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:760:1: 
             {
             }
 
@@ -1593,21 +2020,21 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Equation__Group_1__1"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:604:1: rule__Equation__Group_1__1 : rule__Equation__Group_1__1__Impl rule__Equation__Group_1__2 ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:770:1: rule__Equation__Group_1__1 : rule__Equation__Group_1__1__Impl rule__Equation__Group_1__2 ;
     public final void rule__Equation__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:608:1: ( rule__Equation__Group_1__1__Impl rule__Equation__Group_1__2 )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:609:2: rule__Equation__Group_1__1__Impl rule__Equation__Group_1__2
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:774:1: ( rule__Equation__Group_1__1__Impl rule__Equation__Group_1__2 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:775:2: rule__Equation__Group_1__1__Impl rule__Equation__Group_1__2
             {
-            pushFollow(FOLLOW_rule__Equation__Group_1__1__Impl_in_rule__Equation__Group_1__11192);
+            pushFollow(FOLLOW_rule__Equation__Group_1__1__Impl_in_rule__Equation__Group_1__11522);
             rule__Equation__Group_1__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Equation__Group_1__2_in_rule__Equation__Group_1__11195);
+            pushFollow(FOLLOW_rule__Equation__Group_1__2_in_rule__Equation__Group_1__11525);
             rule__Equation__Group_1__2();
 
             state._fsp--;
@@ -1631,20 +2058,20 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Equation__Group_1__1__Impl"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:616:1: rule__Equation__Group_1__1__Impl : ( 'equals' ) ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:782:1: rule__Equation__Group_1__1__Impl : ( 'equals' ) ;
     public final void rule__Equation__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:620:1: ( ( 'equals' ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:621:1: ( 'equals' )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:786:1: ( ( 'equals' ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:787:1: ( 'equals' )
             {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:621:1: ( 'equals' )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:622:1: 'equals'
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:787:1: ( 'equals' )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:788:1: 'equals'
             {
              before(grammarAccess.getEquationAccess().getEqualsKeyword_1_1()); 
-            match(input,13,FOLLOW_13_in_rule__Equation__Group_1__1__Impl1223); 
+            match(input,14,FOLLOW_14_in_rule__Equation__Group_1__1__Impl1553); 
              after(grammarAccess.getEquationAccess().getEqualsKeyword_1_1()); 
 
             }
@@ -1668,16 +2095,16 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Equation__Group_1__2"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:635:1: rule__Equation__Group_1__2 : rule__Equation__Group_1__2__Impl ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:801:1: rule__Equation__Group_1__2 : rule__Equation__Group_1__2__Impl ;
     public final void rule__Equation__Group_1__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:639:1: ( rule__Equation__Group_1__2__Impl )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:640:2: rule__Equation__Group_1__2__Impl
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:805:1: ( rule__Equation__Group_1__2__Impl )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:806:2: rule__Equation__Group_1__2__Impl
             {
-            pushFollow(FOLLOW_rule__Equation__Group_1__2__Impl_in_rule__Equation__Group_1__21254);
+            pushFollow(FOLLOW_rule__Equation__Group_1__2__Impl_in_rule__Equation__Group_1__21584);
             rule__Equation__Group_1__2__Impl();
 
             state._fsp--;
@@ -1701,23 +2128,23 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Equation__Group_1__2__Impl"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:646:1: rule__Equation__Group_1__2__Impl : ( ( rule__Equation__RightPartAssignment_1_2 ) ) ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:812:1: rule__Equation__Group_1__2__Impl : ( ( rule__Equation__RightPartAssignment_1_2 ) ) ;
     public final void rule__Equation__Group_1__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:650:1: ( ( ( rule__Equation__RightPartAssignment_1_2 ) ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:651:1: ( ( rule__Equation__RightPartAssignment_1_2 ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:816:1: ( ( ( rule__Equation__RightPartAssignment_1_2 ) ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:817:1: ( ( rule__Equation__RightPartAssignment_1_2 ) )
             {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:651:1: ( ( rule__Equation__RightPartAssignment_1_2 ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:652:1: ( rule__Equation__RightPartAssignment_1_2 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:817:1: ( ( rule__Equation__RightPartAssignment_1_2 ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:818:1: ( rule__Equation__RightPartAssignment_1_2 )
             {
              before(grammarAccess.getEquationAccess().getRightPartAssignment_1_2()); 
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:653:1: ( rule__Equation__RightPartAssignment_1_2 )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:653:2: rule__Equation__RightPartAssignment_1_2
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:819:1: ( rule__Equation__RightPartAssignment_1_2 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:819:2: rule__Equation__RightPartAssignment_1_2
             {
-            pushFollow(FOLLOW_rule__Equation__RightPartAssignment_1_2_in_rule__Equation__Group_1__2__Impl1281);
+            pushFollow(FOLLOW_rule__Equation__RightPartAssignment_1_2_in_rule__Equation__Group_1__2__Impl1611);
             rule__Equation__RightPartAssignment_1_2();
 
             state._fsp--;
@@ -1748,21 +2175,21 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Implication__Group__0"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:669:1: rule__Implication__Group__0 : rule__Implication__Group__0__Impl rule__Implication__Group__1 ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:835:1: rule__Implication__Group__0 : rule__Implication__Group__0__Impl rule__Implication__Group__1 ;
     public final void rule__Implication__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:673:1: ( rule__Implication__Group__0__Impl rule__Implication__Group__1 )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:674:2: rule__Implication__Group__0__Impl rule__Implication__Group__1
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:839:1: ( rule__Implication__Group__0__Impl rule__Implication__Group__1 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:840:2: rule__Implication__Group__0__Impl rule__Implication__Group__1
             {
-            pushFollow(FOLLOW_rule__Implication__Group__0__Impl_in_rule__Implication__Group__01317);
+            pushFollow(FOLLOW_rule__Implication__Group__0__Impl_in_rule__Implication__Group__01647);
             rule__Implication__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Implication__Group__1_in_rule__Implication__Group__01320);
+            pushFollow(FOLLOW_rule__Implication__Group__1_in_rule__Implication__Group__01650);
             rule__Implication__Group__1();
 
             state._fsp--;
@@ -1786,20 +2213,20 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Implication__Group__0__Impl"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:681:1: rule__Implication__Group__0__Impl : ( ruleDisjunction ) ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:847:1: rule__Implication__Group__0__Impl : ( ruleDisjunction ) ;
     public final void rule__Implication__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:685:1: ( ( ruleDisjunction ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:686:1: ( ruleDisjunction )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:851:1: ( ( ruleDisjunction ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:852:1: ( ruleDisjunction )
             {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:686:1: ( ruleDisjunction )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:687:1: ruleDisjunction
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:852:1: ( ruleDisjunction )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:853:1: ruleDisjunction
             {
              before(grammarAccess.getImplicationAccess().getDisjunctionParserRuleCall_0()); 
-            pushFollow(FOLLOW_ruleDisjunction_in_rule__Implication__Group__0__Impl1347);
+            pushFollow(FOLLOW_ruleDisjunction_in_rule__Implication__Group__0__Impl1677);
             ruleDisjunction();
 
             state._fsp--;
@@ -1827,16 +2254,16 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Implication__Group__1"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:698:1: rule__Implication__Group__1 : rule__Implication__Group__1__Impl ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:864:1: rule__Implication__Group__1 : rule__Implication__Group__1__Impl ;
     public final void rule__Implication__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:702:1: ( rule__Implication__Group__1__Impl )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:703:2: rule__Implication__Group__1__Impl
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:868:1: ( rule__Implication__Group__1__Impl )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:869:2: rule__Implication__Group__1__Impl
             {
-            pushFollow(FOLLOW_rule__Implication__Group__1__Impl_in_rule__Implication__Group__11376);
+            pushFollow(FOLLOW_rule__Implication__Group__1__Impl_in_rule__Implication__Group__11706);
             rule__Implication__Group__1__Impl();
 
             state._fsp--;
@@ -1860,35 +2287,35 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Implication__Group__1__Impl"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:709:1: rule__Implication__Group__1__Impl : ( ( rule__Implication__Group_1__0 )* ) ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:875:1: rule__Implication__Group__1__Impl : ( ( rule__Implication__Group_1__0 )* ) ;
     public final void rule__Implication__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:713:1: ( ( ( rule__Implication__Group_1__0 )* ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:714:1: ( ( rule__Implication__Group_1__0 )* )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:879:1: ( ( ( rule__Implication__Group_1__0 )* ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:880:1: ( ( rule__Implication__Group_1__0 )* )
             {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:714:1: ( ( rule__Implication__Group_1__0 )* )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:715:1: ( rule__Implication__Group_1__0 )*
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:880:1: ( ( rule__Implication__Group_1__0 )* )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:881:1: ( rule__Implication__Group_1__0 )*
             {
              before(grammarAccess.getImplicationAccess().getGroup_1()); 
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:716:1: ( rule__Implication__Group_1__0 )*
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:882:1: ( rule__Implication__Group_1__0 )*
             loop5:
             do {
                 int alt5=2;
                 int LA5_0 = input.LA(1);
 
-                if ( (LA5_0==14) ) {
+                if ( (LA5_0==15) ) {
                     alt5=1;
                 }
 
 
                 switch (alt5) {
             	case 1 :
-            	    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:716:2: rule__Implication__Group_1__0
+            	    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:882:2: rule__Implication__Group_1__0
             	    {
-            	    pushFollow(FOLLOW_rule__Implication__Group_1__0_in_rule__Implication__Group__1__Impl1403);
+            	    pushFollow(FOLLOW_rule__Implication__Group_1__0_in_rule__Implication__Group__1__Impl1733);
             	    rule__Implication__Group_1__0();
 
             	    state._fsp--;
@@ -1925,21 +2352,21 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Implication__Group_1__0"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:730:1: rule__Implication__Group_1__0 : rule__Implication__Group_1__0__Impl rule__Implication__Group_1__1 ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:896:1: rule__Implication__Group_1__0 : rule__Implication__Group_1__0__Impl rule__Implication__Group_1__1 ;
     public final void rule__Implication__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:734:1: ( rule__Implication__Group_1__0__Impl rule__Implication__Group_1__1 )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:735:2: rule__Implication__Group_1__0__Impl rule__Implication__Group_1__1
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:900:1: ( rule__Implication__Group_1__0__Impl rule__Implication__Group_1__1 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:901:2: rule__Implication__Group_1__0__Impl rule__Implication__Group_1__1
             {
-            pushFollow(FOLLOW_rule__Implication__Group_1__0__Impl_in_rule__Implication__Group_1__01438);
+            pushFollow(FOLLOW_rule__Implication__Group_1__0__Impl_in_rule__Implication__Group_1__01768);
             rule__Implication__Group_1__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Implication__Group_1__1_in_rule__Implication__Group_1__01441);
+            pushFollow(FOLLOW_rule__Implication__Group_1__1_in_rule__Implication__Group_1__01771);
             rule__Implication__Group_1__1();
 
             state._fsp--;
@@ -1963,21 +2390,21 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Implication__Group_1__0__Impl"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:742:1: rule__Implication__Group_1__0__Impl : ( () ) ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:908:1: rule__Implication__Group_1__0__Impl : ( () ) ;
     public final void rule__Implication__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:746:1: ( ( () ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:747:1: ( () )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:912:1: ( ( () ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:913:1: ( () )
             {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:747:1: ( () )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:748:1: ()
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:913:1: ( () )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:914:1: ()
             {
              before(grammarAccess.getImplicationAccess().getImplicationLeftPartAction_1_0()); 
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:749:1: ()
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:751:1: 
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:915:1: ()
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:917:1: 
             {
             }
 
@@ -2000,21 +2427,21 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Implication__Group_1__1"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:761:1: rule__Implication__Group_1__1 : rule__Implication__Group_1__1__Impl rule__Implication__Group_1__2 ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:927:1: rule__Implication__Group_1__1 : rule__Implication__Group_1__1__Impl rule__Implication__Group_1__2 ;
     public final void rule__Implication__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:765:1: ( rule__Implication__Group_1__1__Impl rule__Implication__Group_1__2 )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:766:2: rule__Implication__Group_1__1__Impl rule__Implication__Group_1__2
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:931:1: ( rule__Implication__Group_1__1__Impl rule__Implication__Group_1__2 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:932:2: rule__Implication__Group_1__1__Impl rule__Implication__Group_1__2
             {
-            pushFollow(FOLLOW_rule__Implication__Group_1__1__Impl_in_rule__Implication__Group_1__11499);
+            pushFollow(FOLLOW_rule__Implication__Group_1__1__Impl_in_rule__Implication__Group_1__11829);
             rule__Implication__Group_1__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Implication__Group_1__2_in_rule__Implication__Group_1__11502);
+            pushFollow(FOLLOW_rule__Implication__Group_1__2_in_rule__Implication__Group_1__11832);
             rule__Implication__Group_1__2();
 
             state._fsp--;
@@ -2038,20 +2465,20 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Implication__Group_1__1__Impl"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:773:1: rule__Implication__Group_1__1__Impl : ( 'implies' ) ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:939:1: rule__Implication__Group_1__1__Impl : ( 'implies' ) ;
     public final void rule__Implication__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:777:1: ( ( 'implies' ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:778:1: ( 'implies' )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:943:1: ( ( 'implies' ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:944:1: ( 'implies' )
             {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:778:1: ( 'implies' )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:779:1: 'implies'
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:944:1: ( 'implies' )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:945:1: 'implies'
             {
              before(grammarAccess.getImplicationAccess().getImpliesKeyword_1_1()); 
-            match(input,14,FOLLOW_14_in_rule__Implication__Group_1__1__Impl1530); 
+            match(input,15,FOLLOW_15_in_rule__Implication__Group_1__1__Impl1860); 
              after(grammarAccess.getImplicationAccess().getImpliesKeyword_1_1()); 
 
             }
@@ -2075,16 +2502,16 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Implication__Group_1__2"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:792:1: rule__Implication__Group_1__2 : rule__Implication__Group_1__2__Impl ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:958:1: rule__Implication__Group_1__2 : rule__Implication__Group_1__2__Impl ;
     public final void rule__Implication__Group_1__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:796:1: ( rule__Implication__Group_1__2__Impl )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:797:2: rule__Implication__Group_1__2__Impl
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:962:1: ( rule__Implication__Group_1__2__Impl )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:963:2: rule__Implication__Group_1__2__Impl
             {
-            pushFollow(FOLLOW_rule__Implication__Group_1__2__Impl_in_rule__Implication__Group_1__21561);
+            pushFollow(FOLLOW_rule__Implication__Group_1__2__Impl_in_rule__Implication__Group_1__21891);
             rule__Implication__Group_1__2__Impl();
 
             state._fsp--;
@@ -2108,23 +2535,23 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Implication__Group_1__2__Impl"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:803:1: rule__Implication__Group_1__2__Impl : ( ( rule__Implication__RightPartAssignment_1_2 ) ) ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:969:1: rule__Implication__Group_1__2__Impl : ( ( rule__Implication__RightPartAssignment_1_2 ) ) ;
     public final void rule__Implication__Group_1__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:807:1: ( ( ( rule__Implication__RightPartAssignment_1_2 ) ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:808:1: ( ( rule__Implication__RightPartAssignment_1_2 ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:973:1: ( ( ( rule__Implication__RightPartAssignment_1_2 ) ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:974:1: ( ( rule__Implication__RightPartAssignment_1_2 ) )
             {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:808:1: ( ( rule__Implication__RightPartAssignment_1_2 ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:809:1: ( rule__Implication__RightPartAssignment_1_2 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:974:1: ( ( rule__Implication__RightPartAssignment_1_2 ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:975:1: ( rule__Implication__RightPartAssignment_1_2 )
             {
              before(grammarAccess.getImplicationAccess().getRightPartAssignment_1_2()); 
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:810:1: ( rule__Implication__RightPartAssignment_1_2 )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:810:2: rule__Implication__RightPartAssignment_1_2
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:976:1: ( rule__Implication__RightPartAssignment_1_2 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:976:2: rule__Implication__RightPartAssignment_1_2
             {
-            pushFollow(FOLLOW_rule__Implication__RightPartAssignment_1_2_in_rule__Implication__Group_1__2__Impl1588);
+            pushFollow(FOLLOW_rule__Implication__RightPartAssignment_1_2_in_rule__Implication__Group_1__2__Impl1918);
             rule__Implication__RightPartAssignment_1_2();
 
             state._fsp--;
@@ -2155,21 +2582,21 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Disjunction__Group__0"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:826:1: rule__Disjunction__Group__0 : rule__Disjunction__Group__0__Impl rule__Disjunction__Group__1 ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:992:1: rule__Disjunction__Group__0 : rule__Disjunction__Group__0__Impl rule__Disjunction__Group__1 ;
     public final void rule__Disjunction__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:830:1: ( rule__Disjunction__Group__0__Impl rule__Disjunction__Group__1 )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:831:2: rule__Disjunction__Group__0__Impl rule__Disjunction__Group__1
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:996:1: ( rule__Disjunction__Group__0__Impl rule__Disjunction__Group__1 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:997:2: rule__Disjunction__Group__0__Impl rule__Disjunction__Group__1
             {
-            pushFollow(FOLLOW_rule__Disjunction__Group__0__Impl_in_rule__Disjunction__Group__01624);
+            pushFollow(FOLLOW_rule__Disjunction__Group__0__Impl_in_rule__Disjunction__Group__01954);
             rule__Disjunction__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Disjunction__Group__1_in_rule__Disjunction__Group__01627);
+            pushFollow(FOLLOW_rule__Disjunction__Group__1_in_rule__Disjunction__Group__01957);
             rule__Disjunction__Group__1();
 
             state._fsp--;
@@ -2193,20 +2620,20 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Disjunction__Group__0__Impl"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:838:1: rule__Disjunction__Group__0__Impl : ( ruleConjunction ) ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1004:1: rule__Disjunction__Group__0__Impl : ( ruleConjunction ) ;
     public final void rule__Disjunction__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:842:1: ( ( ruleConjunction ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:843:1: ( ruleConjunction )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1008:1: ( ( ruleConjunction ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1009:1: ( ruleConjunction )
             {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:843:1: ( ruleConjunction )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:844:1: ruleConjunction
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1009:1: ( ruleConjunction )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1010:1: ruleConjunction
             {
              before(grammarAccess.getDisjunctionAccess().getConjunctionParserRuleCall_0()); 
-            pushFollow(FOLLOW_ruleConjunction_in_rule__Disjunction__Group__0__Impl1654);
+            pushFollow(FOLLOW_ruleConjunction_in_rule__Disjunction__Group__0__Impl1984);
             ruleConjunction();
 
             state._fsp--;
@@ -2234,16 +2661,16 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Disjunction__Group__1"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:855:1: rule__Disjunction__Group__1 : rule__Disjunction__Group__1__Impl ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1021:1: rule__Disjunction__Group__1 : rule__Disjunction__Group__1__Impl ;
     public final void rule__Disjunction__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:859:1: ( rule__Disjunction__Group__1__Impl )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:860:2: rule__Disjunction__Group__1__Impl
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1025:1: ( rule__Disjunction__Group__1__Impl )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1026:2: rule__Disjunction__Group__1__Impl
             {
-            pushFollow(FOLLOW_rule__Disjunction__Group__1__Impl_in_rule__Disjunction__Group__11683);
+            pushFollow(FOLLOW_rule__Disjunction__Group__1__Impl_in_rule__Disjunction__Group__12013);
             rule__Disjunction__Group__1__Impl();
 
             state._fsp--;
@@ -2267,35 +2694,35 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Disjunction__Group__1__Impl"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:866:1: rule__Disjunction__Group__1__Impl : ( ( rule__Disjunction__Group_1__0 )* ) ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1032:1: rule__Disjunction__Group__1__Impl : ( ( rule__Disjunction__Group_1__0 )* ) ;
     public final void rule__Disjunction__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:870:1: ( ( ( rule__Disjunction__Group_1__0 )* ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:871:1: ( ( rule__Disjunction__Group_1__0 )* )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1036:1: ( ( ( rule__Disjunction__Group_1__0 )* ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1037:1: ( ( rule__Disjunction__Group_1__0 )* )
             {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:871:1: ( ( rule__Disjunction__Group_1__0 )* )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:872:1: ( rule__Disjunction__Group_1__0 )*
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1037:1: ( ( rule__Disjunction__Group_1__0 )* )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1038:1: ( rule__Disjunction__Group_1__0 )*
             {
              before(grammarAccess.getDisjunctionAccess().getGroup_1()); 
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:873:1: ( rule__Disjunction__Group_1__0 )*
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1039:1: ( rule__Disjunction__Group_1__0 )*
             loop6:
             do {
                 int alt6=2;
                 int LA6_0 = input.LA(1);
 
-                if ( (LA6_0==15) ) {
+                if ( (LA6_0==16) ) {
                     alt6=1;
                 }
 
 
                 switch (alt6) {
             	case 1 :
-            	    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:873:2: rule__Disjunction__Group_1__0
+            	    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1039:2: rule__Disjunction__Group_1__0
             	    {
-            	    pushFollow(FOLLOW_rule__Disjunction__Group_1__0_in_rule__Disjunction__Group__1__Impl1710);
+            	    pushFollow(FOLLOW_rule__Disjunction__Group_1__0_in_rule__Disjunction__Group__1__Impl2040);
             	    rule__Disjunction__Group_1__0();
 
             	    state._fsp--;
@@ -2332,21 +2759,21 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Disjunction__Group_1__0"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:887:1: rule__Disjunction__Group_1__0 : rule__Disjunction__Group_1__0__Impl rule__Disjunction__Group_1__1 ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1053:1: rule__Disjunction__Group_1__0 : rule__Disjunction__Group_1__0__Impl rule__Disjunction__Group_1__1 ;
     public final void rule__Disjunction__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:891:1: ( rule__Disjunction__Group_1__0__Impl rule__Disjunction__Group_1__1 )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:892:2: rule__Disjunction__Group_1__0__Impl rule__Disjunction__Group_1__1
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1057:1: ( rule__Disjunction__Group_1__0__Impl rule__Disjunction__Group_1__1 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1058:2: rule__Disjunction__Group_1__0__Impl rule__Disjunction__Group_1__1
             {
-            pushFollow(FOLLOW_rule__Disjunction__Group_1__0__Impl_in_rule__Disjunction__Group_1__01745);
+            pushFollow(FOLLOW_rule__Disjunction__Group_1__0__Impl_in_rule__Disjunction__Group_1__02075);
             rule__Disjunction__Group_1__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Disjunction__Group_1__1_in_rule__Disjunction__Group_1__01748);
+            pushFollow(FOLLOW_rule__Disjunction__Group_1__1_in_rule__Disjunction__Group_1__02078);
             rule__Disjunction__Group_1__1();
 
             state._fsp--;
@@ -2370,21 +2797,21 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Disjunction__Group_1__0__Impl"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:899:1: rule__Disjunction__Group_1__0__Impl : ( () ) ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1065:1: rule__Disjunction__Group_1__0__Impl : ( () ) ;
     public final void rule__Disjunction__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:903:1: ( ( () ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:904:1: ( () )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1069:1: ( ( () ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1070:1: ( () )
             {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:904:1: ( () )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:905:1: ()
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1070:1: ( () )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1071:1: ()
             {
              before(grammarAccess.getDisjunctionAccess().getDisjunctionLeftPartAction_1_0()); 
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:906:1: ()
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:908:1: 
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1072:1: ()
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1074:1: 
             {
             }
 
@@ -2407,21 +2834,21 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Disjunction__Group_1__1"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:918:1: rule__Disjunction__Group_1__1 : rule__Disjunction__Group_1__1__Impl rule__Disjunction__Group_1__2 ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1084:1: rule__Disjunction__Group_1__1 : rule__Disjunction__Group_1__1__Impl rule__Disjunction__Group_1__2 ;
     public final void rule__Disjunction__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:922:1: ( rule__Disjunction__Group_1__1__Impl rule__Disjunction__Group_1__2 )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:923:2: rule__Disjunction__Group_1__1__Impl rule__Disjunction__Group_1__2
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1088:1: ( rule__Disjunction__Group_1__1__Impl rule__Disjunction__Group_1__2 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1089:2: rule__Disjunction__Group_1__1__Impl rule__Disjunction__Group_1__2
             {
-            pushFollow(FOLLOW_rule__Disjunction__Group_1__1__Impl_in_rule__Disjunction__Group_1__11806);
+            pushFollow(FOLLOW_rule__Disjunction__Group_1__1__Impl_in_rule__Disjunction__Group_1__12136);
             rule__Disjunction__Group_1__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Disjunction__Group_1__2_in_rule__Disjunction__Group_1__11809);
+            pushFollow(FOLLOW_rule__Disjunction__Group_1__2_in_rule__Disjunction__Group_1__12139);
             rule__Disjunction__Group_1__2();
 
             state._fsp--;
@@ -2445,20 +2872,20 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Disjunction__Group_1__1__Impl"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:930:1: rule__Disjunction__Group_1__1__Impl : ( 'or' ) ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1096:1: rule__Disjunction__Group_1__1__Impl : ( 'or' ) ;
     public final void rule__Disjunction__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:934:1: ( ( 'or' ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:935:1: ( 'or' )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1100:1: ( ( 'or' ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1101:1: ( 'or' )
             {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:935:1: ( 'or' )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:936:1: 'or'
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1101:1: ( 'or' )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1102:1: 'or'
             {
              before(grammarAccess.getDisjunctionAccess().getOrKeyword_1_1()); 
-            match(input,15,FOLLOW_15_in_rule__Disjunction__Group_1__1__Impl1837); 
+            match(input,16,FOLLOW_16_in_rule__Disjunction__Group_1__1__Impl2167); 
              after(grammarAccess.getDisjunctionAccess().getOrKeyword_1_1()); 
 
             }
@@ -2482,16 +2909,16 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Disjunction__Group_1__2"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:949:1: rule__Disjunction__Group_1__2 : rule__Disjunction__Group_1__2__Impl ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1115:1: rule__Disjunction__Group_1__2 : rule__Disjunction__Group_1__2__Impl ;
     public final void rule__Disjunction__Group_1__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:953:1: ( rule__Disjunction__Group_1__2__Impl )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:954:2: rule__Disjunction__Group_1__2__Impl
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1119:1: ( rule__Disjunction__Group_1__2__Impl )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1120:2: rule__Disjunction__Group_1__2__Impl
             {
-            pushFollow(FOLLOW_rule__Disjunction__Group_1__2__Impl_in_rule__Disjunction__Group_1__21868);
+            pushFollow(FOLLOW_rule__Disjunction__Group_1__2__Impl_in_rule__Disjunction__Group_1__22198);
             rule__Disjunction__Group_1__2__Impl();
 
             state._fsp--;
@@ -2515,23 +2942,23 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Disjunction__Group_1__2__Impl"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:960:1: rule__Disjunction__Group_1__2__Impl : ( ( rule__Disjunction__RightPartAssignment_1_2 ) ) ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1126:1: rule__Disjunction__Group_1__2__Impl : ( ( rule__Disjunction__RightPartAssignment_1_2 ) ) ;
     public final void rule__Disjunction__Group_1__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:964:1: ( ( ( rule__Disjunction__RightPartAssignment_1_2 ) ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:965:1: ( ( rule__Disjunction__RightPartAssignment_1_2 ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1130:1: ( ( ( rule__Disjunction__RightPartAssignment_1_2 ) ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1131:1: ( ( rule__Disjunction__RightPartAssignment_1_2 ) )
             {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:965:1: ( ( rule__Disjunction__RightPartAssignment_1_2 ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:966:1: ( rule__Disjunction__RightPartAssignment_1_2 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1131:1: ( ( rule__Disjunction__RightPartAssignment_1_2 ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1132:1: ( rule__Disjunction__RightPartAssignment_1_2 )
             {
              before(grammarAccess.getDisjunctionAccess().getRightPartAssignment_1_2()); 
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:967:1: ( rule__Disjunction__RightPartAssignment_1_2 )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:967:2: rule__Disjunction__RightPartAssignment_1_2
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1133:1: ( rule__Disjunction__RightPartAssignment_1_2 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1133:2: rule__Disjunction__RightPartAssignment_1_2
             {
-            pushFollow(FOLLOW_rule__Disjunction__RightPartAssignment_1_2_in_rule__Disjunction__Group_1__2__Impl1895);
+            pushFollow(FOLLOW_rule__Disjunction__RightPartAssignment_1_2_in_rule__Disjunction__Group_1__2__Impl2225);
             rule__Disjunction__RightPartAssignment_1_2();
 
             state._fsp--;
@@ -2562,21 +2989,21 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Conjunction__Group__0"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:983:1: rule__Conjunction__Group__0 : rule__Conjunction__Group__0__Impl rule__Conjunction__Group__1 ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1149:1: rule__Conjunction__Group__0 : rule__Conjunction__Group__0__Impl rule__Conjunction__Group__1 ;
     public final void rule__Conjunction__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:987:1: ( rule__Conjunction__Group__0__Impl rule__Conjunction__Group__1 )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:988:2: rule__Conjunction__Group__0__Impl rule__Conjunction__Group__1
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1153:1: ( rule__Conjunction__Group__0__Impl rule__Conjunction__Group__1 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1154:2: rule__Conjunction__Group__0__Impl rule__Conjunction__Group__1
             {
-            pushFollow(FOLLOW_rule__Conjunction__Group__0__Impl_in_rule__Conjunction__Group__01931);
+            pushFollow(FOLLOW_rule__Conjunction__Group__0__Impl_in_rule__Conjunction__Group__02261);
             rule__Conjunction__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Conjunction__Group__1_in_rule__Conjunction__Group__01934);
+            pushFollow(FOLLOW_rule__Conjunction__Group__1_in_rule__Conjunction__Group__02264);
             rule__Conjunction__Group__1();
 
             state._fsp--;
@@ -2600,20 +3027,20 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Conjunction__Group__0__Impl"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:995:1: rule__Conjunction__Group__0__Impl : ( ruleNegation ) ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1161:1: rule__Conjunction__Group__0__Impl : ( ruleNegation ) ;
     public final void rule__Conjunction__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:999:1: ( ( ruleNegation ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1000:1: ( ruleNegation )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1165:1: ( ( ruleNegation ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1166:1: ( ruleNegation )
             {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1000:1: ( ruleNegation )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1001:1: ruleNegation
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1166:1: ( ruleNegation )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1167:1: ruleNegation
             {
              before(grammarAccess.getConjunctionAccess().getNegationParserRuleCall_0()); 
-            pushFollow(FOLLOW_ruleNegation_in_rule__Conjunction__Group__0__Impl1961);
+            pushFollow(FOLLOW_ruleNegation_in_rule__Conjunction__Group__0__Impl2291);
             ruleNegation();
 
             state._fsp--;
@@ -2641,16 +3068,16 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Conjunction__Group__1"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1012:1: rule__Conjunction__Group__1 : rule__Conjunction__Group__1__Impl ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1178:1: rule__Conjunction__Group__1 : rule__Conjunction__Group__1__Impl ;
     public final void rule__Conjunction__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1016:1: ( rule__Conjunction__Group__1__Impl )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1017:2: rule__Conjunction__Group__1__Impl
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1182:1: ( rule__Conjunction__Group__1__Impl )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1183:2: rule__Conjunction__Group__1__Impl
             {
-            pushFollow(FOLLOW_rule__Conjunction__Group__1__Impl_in_rule__Conjunction__Group__11990);
+            pushFollow(FOLLOW_rule__Conjunction__Group__1__Impl_in_rule__Conjunction__Group__12320);
             rule__Conjunction__Group__1__Impl();
 
             state._fsp--;
@@ -2674,35 +3101,35 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Conjunction__Group__1__Impl"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1023:1: rule__Conjunction__Group__1__Impl : ( ( rule__Conjunction__Group_1__0 )* ) ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1189:1: rule__Conjunction__Group__1__Impl : ( ( rule__Conjunction__Group_1__0 )* ) ;
     public final void rule__Conjunction__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1027:1: ( ( ( rule__Conjunction__Group_1__0 )* ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1028:1: ( ( rule__Conjunction__Group_1__0 )* )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1193:1: ( ( ( rule__Conjunction__Group_1__0 )* ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1194:1: ( ( rule__Conjunction__Group_1__0 )* )
             {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1028:1: ( ( rule__Conjunction__Group_1__0 )* )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1029:1: ( rule__Conjunction__Group_1__0 )*
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1194:1: ( ( rule__Conjunction__Group_1__0 )* )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1195:1: ( rule__Conjunction__Group_1__0 )*
             {
              before(grammarAccess.getConjunctionAccess().getGroup_1()); 
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1030:1: ( rule__Conjunction__Group_1__0 )*
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1196:1: ( rule__Conjunction__Group_1__0 )*
             loop7:
             do {
                 int alt7=2;
                 int LA7_0 = input.LA(1);
 
-                if ( (LA7_0==16) ) {
+                if ( (LA7_0==17) ) {
                     alt7=1;
                 }
 
 
                 switch (alt7) {
             	case 1 :
-            	    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1030:2: rule__Conjunction__Group_1__0
+            	    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1196:2: rule__Conjunction__Group_1__0
             	    {
-            	    pushFollow(FOLLOW_rule__Conjunction__Group_1__0_in_rule__Conjunction__Group__1__Impl2017);
+            	    pushFollow(FOLLOW_rule__Conjunction__Group_1__0_in_rule__Conjunction__Group__1__Impl2347);
             	    rule__Conjunction__Group_1__0();
 
             	    state._fsp--;
@@ -2739,21 +3166,21 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Conjunction__Group_1__0"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1044:1: rule__Conjunction__Group_1__0 : rule__Conjunction__Group_1__0__Impl rule__Conjunction__Group_1__1 ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1210:1: rule__Conjunction__Group_1__0 : rule__Conjunction__Group_1__0__Impl rule__Conjunction__Group_1__1 ;
     public final void rule__Conjunction__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1048:1: ( rule__Conjunction__Group_1__0__Impl rule__Conjunction__Group_1__1 )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1049:2: rule__Conjunction__Group_1__0__Impl rule__Conjunction__Group_1__1
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1214:1: ( rule__Conjunction__Group_1__0__Impl rule__Conjunction__Group_1__1 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1215:2: rule__Conjunction__Group_1__0__Impl rule__Conjunction__Group_1__1
             {
-            pushFollow(FOLLOW_rule__Conjunction__Group_1__0__Impl_in_rule__Conjunction__Group_1__02052);
+            pushFollow(FOLLOW_rule__Conjunction__Group_1__0__Impl_in_rule__Conjunction__Group_1__02382);
             rule__Conjunction__Group_1__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Conjunction__Group_1__1_in_rule__Conjunction__Group_1__02055);
+            pushFollow(FOLLOW_rule__Conjunction__Group_1__1_in_rule__Conjunction__Group_1__02385);
             rule__Conjunction__Group_1__1();
 
             state._fsp--;
@@ -2777,21 +3204,21 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Conjunction__Group_1__0__Impl"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1056:1: rule__Conjunction__Group_1__0__Impl : ( () ) ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1222:1: rule__Conjunction__Group_1__0__Impl : ( () ) ;
     public final void rule__Conjunction__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1060:1: ( ( () ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1061:1: ( () )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1226:1: ( ( () ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1227:1: ( () )
             {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1061:1: ( () )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1062:1: ()
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1227:1: ( () )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1228:1: ()
             {
              before(grammarAccess.getConjunctionAccess().getConjunctionLeftPartAction_1_0()); 
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1063:1: ()
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1065:1: 
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1229:1: ()
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1231:1: 
             {
             }
 
@@ -2814,21 +3241,21 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Conjunction__Group_1__1"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1075:1: rule__Conjunction__Group_1__1 : rule__Conjunction__Group_1__1__Impl rule__Conjunction__Group_1__2 ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1241:1: rule__Conjunction__Group_1__1 : rule__Conjunction__Group_1__1__Impl rule__Conjunction__Group_1__2 ;
     public final void rule__Conjunction__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1079:1: ( rule__Conjunction__Group_1__1__Impl rule__Conjunction__Group_1__2 )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1080:2: rule__Conjunction__Group_1__1__Impl rule__Conjunction__Group_1__2
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1245:1: ( rule__Conjunction__Group_1__1__Impl rule__Conjunction__Group_1__2 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1246:2: rule__Conjunction__Group_1__1__Impl rule__Conjunction__Group_1__2
             {
-            pushFollow(FOLLOW_rule__Conjunction__Group_1__1__Impl_in_rule__Conjunction__Group_1__12113);
+            pushFollow(FOLLOW_rule__Conjunction__Group_1__1__Impl_in_rule__Conjunction__Group_1__12443);
             rule__Conjunction__Group_1__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Conjunction__Group_1__2_in_rule__Conjunction__Group_1__12116);
+            pushFollow(FOLLOW_rule__Conjunction__Group_1__2_in_rule__Conjunction__Group_1__12446);
             rule__Conjunction__Group_1__2();
 
             state._fsp--;
@@ -2852,20 +3279,20 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Conjunction__Group_1__1__Impl"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1087:1: rule__Conjunction__Group_1__1__Impl : ( 'and' ) ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1253:1: rule__Conjunction__Group_1__1__Impl : ( 'and' ) ;
     public final void rule__Conjunction__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1091:1: ( ( 'and' ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1092:1: ( 'and' )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1257:1: ( ( 'and' ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1258:1: ( 'and' )
             {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1092:1: ( 'and' )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1093:1: 'and'
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1258:1: ( 'and' )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1259:1: 'and'
             {
              before(grammarAccess.getConjunctionAccess().getAndKeyword_1_1()); 
-            match(input,16,FOLLOW_16_in_rule__Conjunction__Group_1__1__Impl2144); 
+            match(input,17,FOLLOW_17_in_rule__Conjunction__Group_1__1__Impl2474); 
              after(grammarAccess.getConjunctionAccess().getAndKeyword_1_1()); 
 
             }
@@ -2889,16 +3316,16 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Conjunction__Group_1__2"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1106:1: rule__Conjunction__Group_1__2 : rule__Conjunction__Group_1__2__Impl ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1272:1: rule__Conjunction__Group_1__2 : rule__Conjunction__Group_1__2__Impl ;
     public final void rule__Conjunction__Group_1__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1110:1: ( rule__Conjunction__Group_1__2__Impl )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1111:2: rule__Conjunction__Group_1__2__Impl
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1276:1: ( rule__Conjunction__Group_1__2__Impl )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1277:2: rule__Conjunction__Group_1__2__Impl
             {
-            pushFollow(FOLLOW_rule__Conjunction__Group_1__2__Impl_in_rule__Conjunction__Group_1__22175);
+            pushFollow(FOLLOW_rule__Conjunction__Group_1__2__Impl_in_rule__Conjunction__Group_1__22505);
             rule__Conjunction__Group_1__2__Impl();
 
             state._fsp--;
@@ -2922,23 +3349,23 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Conjunction__Group_1__2__Impl"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1117:1: rule__Conjunction__Group_1__2__Impl : ( ( rule__Conjunction__RightPartAssignment_1_2 ) ) ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1283:1: rule__Conjunction__Group_1__2__Impl : ( ( rule__Conjunction__RightPartAssignment_1_2 ) ) ;
     public final void rule__Conjunction__Group_1__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1121:1: ( ( ( rule__Conjunction__RightPartAssignment_1_2 ) ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1122:1: ( ( rule__Conjunction__RightPartAssignment_1_2 ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1287:1: ( ( ( rule__Conjunction__RightPartAssignment_1_2 ) ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1288:1: ( ( rule__Conjunction__RightPartAssignment_1_2 ) )
             {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1122:1: ( ( rule__Conjunction__RightPartAssignment_1_2 ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1123:1: ( rule__Conjunction__RightPartAssignment_1_2 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1288:1: ( ( rule__Conjunction__RightPartAssignment_1_2 ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1289:1: ( rule__Conjunction__RightPartAssignment_1_2 )
             {
              before(grammarAccess.getConjunctionAccess().getRightPartAssignment_1_2()); 
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1124:1: ( rule__Conjunction__RightPartAssignment_1_2 )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1124:2: rule__Conjunction__RightPartAssignment_1_2
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1290:1: ( rule__Conjunction__RightPartAssignment_1_2 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1290:2: rule__Conjunction__RightPartAssignment_1_2
             {
-            pushFollow(FOLLOW_rule__Conjunction__RightPartAssignment_1_2_in_rule__Conjunction__Group_1__2__Impl2202);
+            pushFollow(FOLLOW_rule__Conjunction__RightPartAssignment_1_2_in_rule__Conjunction__Group_1__2__Impl2532);
             rule__Conjunction__RightPartAssignment_1_2();
 
             state._fsp--;
@@ -2969,21 +3396,21 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Negation__Group_1__0"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1140:1: rule__Negation__Group_1__0 : rule__Negation__Group_1__0__Impl rule__Negation__Group_1__1 ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1306:1: rule__Negation__Group_1__0 : rule__Negation__Group_1__0__Impl rule__Negation__Group_1__1 ;
     public final void rule__Negation__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1144:1: ( rule__Negation__Group_1__0__Impl rule__Negation__Group_1__1 )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1145:2: rule__Negation__Group_1__0__Impl rule__Negation__Group_1__1
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1310:1: ( rule__Negation__Group_1__0__Impl rule__Negation__Group_1__1 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1311:2: rule__Negation__Group_1__0__Impl rule__Negation__Group_1__1
             {
-            pushFollow(FOLLOW_rule__Negation__Group_1__0__Impl_in_rule__Negation__Group_1__02238);
+            pushFollow(FOLLOW_rule__Negation__Group_1__0__Impl_in_rule__Negation__Group_1__02568);
             rule__Negation__Group_1__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Negation__Group_1__1_in_rule__Negation__Group_1__02241);
+            pushFollow(FOLLOW_rule__Negation__Group_1__1_in_rule__Negation__Group_1__02571);
             rule__Negation__Group_1__1();
 
             state._fsp--;
@@ -3007,20 +3434,20 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Negation__Group_1__0__Impl"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1152:1: rule__Negation__Group_1__0__Impl : ( 'not' ) ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1318:1: rule__Negation__Group_1__0__Impl : ( 'not' ) ;
     public final void rule__Negation__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1156:1: ( ( 'not' ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1157:1: ( 'not' )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1322:1: ( ( 'not' ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1323:1: ( 'not' )
             {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1157:1: ( 'not' )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1158:1: 'not'
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1323:1: ( 'not' )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1324:1: 'not'
             {
              before(grammarAccess.getNegationAccess().getNotKeyword_1_0()); 
-            match(input,17,FOLLOW_17_in_rule__Negation__Group_1__0__Impl2269); 
+            match(input,18,FOLLOW_18_in_rule__Negation__Group_1__0__Impl2599); 
              after(grammarAccess.getNegationAccess().getNotKeyword_1_0()); 
 
             }
@@ -3044,21 +3471,21 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Negation__Group_1__1"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1171:1: rule__Negation__Group_1__1 : rule__Negation__Group_1__1__Impl rule__Negation__Group_1__2 ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1337:1: rule__Negation__Group_1__1 : rule__Negation__Group_1__1__Impl rule__Negation__Group_1__2 ;
     public final void rule__Negation__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1175:1: ( rule__Negation__Group_1__1__Impl rule__Negation__Group_1__2 )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1176:2: rule__Negation__Group_1__1__Impl rule__Negation__Group_1__2
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1341:1: ( rule__Negation__Group_1__1__Impl rule__Negation__Group_1__2 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1342:2: rule__Negation__Group_1__1__Impl rule__Negation__Group_1__2
             {
-            pushFollow(FOLLOW_rule__Negation__Group_1__1__Impl_in_rule__Negation__Group_1__12300);
+            pushFollow(FOLLOW_rule__Negation__Group_1__1__Impl_in_rule__Negation__Group_1__12630);
             rule__Negation__Group_1__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Negation__Group_1__2_in_rule__Negation__Group_1__12303);
+            pushFollow(FOLLOW_rule__Negation__Group_1__2_in_rule__Negation__Group_1__12633);
             rule__Negation__Group_1__2();
 
             state._fsp--;
@@ -3082,21 +3509,21 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Negation__Group_1__1__Impl"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1183:1: rule__Negation__Group_1__1__Impl : ( () ) ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1349:1: rule__Negation__Group_1__1__Impl : ( () ) ;
     public final void rule__Negation__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1187:1: ( ( () ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1188:1: ( () )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1353:1: ( ( () ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1354:1: ( () )
             {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1188:1: ( () )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1189:1: ()
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1354:1: ( () )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1355:1: ()
             {
              before(grammarAccess.getNegationAccess().getNegationAction_1_1()); 
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1190:1: ()
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1192:1: 
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1356:1: ()
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1358:1: 
             {
             }
 
@@ -3119,16 +3546,16 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Negation__Group_1__2"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1202:1: rule__Negation__Group_1__2 : rule__Negation__Group_1__2__Impl ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1368:1: rule__Negation__Group_1__2 : rule__Negation__Group_1__2__Impl ;
     public final void rule__Negation__Group_1__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1206:1: ( rule__Negation__Group_1__2__Impl )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1207:2: rule__Negation__Group_1__2__Impl
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1372:1: ( rule__Negation__Group_1__2__Impl )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1373:2: rule__Negation__Group_1__2__Impl
             {
-            pushFollow(FOLLOW_rule__Negation__Group_1__2__Impl_in_rule__Negation__Group_1__22361);
+            pushFollow(FOLLOW_rule__Negation__Group_1__2__Impl_in_rule__Negation__Group_1__22691);
             rule__Negation__Group_1__2__Impl();
 
             state._fsp--;
@@ -3152,23 +3579,23 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Negation__Group_1__2__Impl"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1213:1: rule__Negation__Group_1__2__Impl : ( ( rule__Negation__ExpressionAssignment_1_2 ) ) ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1379:1: rule__Negation__Group_1__2__Impl : ( ( rule__Negation__ExpressionAssignment_1_2 ) ) ;
     public final void rule__Negation__Group_1__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1217:1: ( ( ( rule__Negation__ExpressionAssignment_1_2 ) ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1218:1: ( ( rule__Negation__ExpressionAssignment_1_2 ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1383:1: ( ( ( rule__Negation__ExpressionAssignment_1_2 ) ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1384:1: ( ( rule__Negation__ExpressionAssignment_1_2 ) )
             {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1218:1: ( ( rule__Negation__ExpressionAssignment_1_2 ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1219:1: ( rule__Negation__ExpressionAssignment_1_2 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1384:1: ( ( rule__Negation__ExpressionAssignment_1_2 ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1385:1: ( rule__Negation__ExpressionAssignment_1_2 )
             {
              before(grammarAccess.getNegationAccess().getExpressionAssignment_1_2()); 
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1220:1: ( rule__Negation__ExpressionAssignment_1_2 )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1220:2: rule__Negation__ExpressionAssignment_1_2
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1386:1: ( rule__Negation__ExpressionAssignment_1_2 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1386:2: rule__Negation__ExpressionAssignment_1_2
             {
-            pushFollow(FOLLOW_rule__Negation__ExpressionAssignment_1_2_in_rule__Negation__Group_1__2__Impl2388);
+            pushFollow(FOLLOW_rule__Negation__ExpressionAssignment_1_2_in_rule__Negation__Group_1__2__Impl2718);
             rule__Negation__ExpressionAssignment_1_2();
 
             state._fsp--;
@@ -3199,21 +3626,21 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__PrimaryExpression__Group_0__0"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1236:1: rule__PrimaryExpression__Group_0__0 : rule__PrimaryExpression__Group_0__0__Impl rule__PrimaryExpression__Group_0__1 ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1402:1: rule__PrimaryExpression__Group_0__0 : rule__PrimaryExpression__Group_0__0__Impl rule__PrimaryExpression__Group_0__1 ;
     public final void rule__PrimaryExpression__Group_0__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1240:1: ( rule__PrimaryExpression__Group_0__0__Impl rule__PrimaryExpression__Group_0__1 )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1241:2: rule__PrimaryExpression__Group_0__0__Impl rule__PrimaryExpression__Group_0__1
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1406:1: ( rule__PrimaryExpression__Group_0__0__Impl rule__PrimaryExpression__Group_0__1 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1407:2: rule__PrimaryExpression__Group_0__0__Impl rule__PrimaryExpression__Group_0__1
             {
-            pushFollow(FOLLOW_rule__PrimaryExpression__Group_0__0__Impl_in_rule__PrimaryExpression__Group_0__02424);
+            pushFollow(FOLLOW_rule__PrimaryExpression__Group_0__0__Impl_in_rule__PrimaryExpression__Group_0__02754);
             rule__PrimaryExpression__Group_0__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__PrimaryExpression__Group_0__1_in_rule__PrimaryExpression__Group_0__02427);
+            pushFollow(FOLLOW_rule__PrimaryExpression__Group_0__1_in_rule__PrimaryExpression__Group_0__02757);
             rule__PrimaryExpression__Group_0__1();
 
             state._fsp--;
@@ -3237,21 +3664,21 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__PrimaryExpression__Group_0__0__Impl"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1248:1: rule__PrimaryExpression__Group_0__0__Impl : ( () ) ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1414:1: rule__PrimaryExpression__Group_0__0__Impl : ( () ) ;
     public final void rule__PrimaryExpression__Group_0__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1252:1: ( ( () ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1253:1: ( () )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1418:1: ( ( () ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1419:1: ( () )
             {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1253:1: ( () )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1254:1: ()
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1419:1: ( () )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1420:1: ()
             {
              before(grammarAccess.getPrimaryExpressionAccess().getPrimaryExpressionAction_0_0()); 
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1255:1: ()
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1257:1: 
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1421:1: ()
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1423:1: 
             {
             }
 
@@ -3274,16 +3701,16 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__PrimaryExpression__Group_0__1"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1267:1: rule__PrimaryExpression__Group_0__1 : rule__PrimaryExpression__Group_0__1__Impl ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1433:1: rule__PrimaryExpression__Group_0__1 : rule__PrimaryExpression__Group_0__1__Impl ;
     public final void rule__PrimaryExpression__Group_0__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1271:1: ( rule__PrimaryExpression__Group_0__1__Impl )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1272:2: rule__PrimaryExpression__Group_0__1__Impl
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1437:1: ( rule__PrimaryExpression__Group_0__1__Impl )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1438:2: rule__PrimaryExpression__Group_0__1__Impl
             {
-            pushFollow(FOLLOW_rule__PrimaryExpression__Group_0__1__Impl_in_rule__PrimaryExpression__Group_0__12485);
+            pushFollow(FOLLOW_rule__PrimaryExpression__Group_0__1__Impl_in_rule__PrimaryExpression__Group_0__12815);
             rule__PrimaryExpression__Group_0__1__Impl();
 
             state._fsp--;
@@ -3307,23 +3734,23 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__PrimaryExpression__Group_0__1__Impl"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1278:1: rule__PrimaryExpression__Group_0__1__Impl : ( ( rule__PrimaryExpression__FeatureIdAssignment_0_1 ) ) ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1444:1: rule__PrimaryExpression__Group_0__1__Impl : ( ( rule__PrimaryExpression__FeatureIdAssignment_0_1 ) ) ;
     public final void rule__PrimaryExpression__Group_0__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1282:1: ( ( ( rule__PrimaryExpression__FeatureIdAssignment_0_1 ) ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1283:1: ( ( rule__PrimaryExpression__FeatureIdAssignment_0_1 ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1448:1: ( ( ( rule__PrimaryExpression__FeatureIdAssignment_0_1 ) ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1449:1: ( ( rule__PrimaryExpression__FeatureIdAssignment_0_1 ) )
             {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1283:1: ( ( rule__PrimaryExpression__FeatureIdAssignment_0_1 ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1284:1: ( rule__PrimaryExpression__FeatureIdAssignment_0_1 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1449:1: ( ( rule__PrimaryExpression__FeatureIdAssignment_0_1 ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1450:1: ( rule__PrimaryExpression__FeatureIdAssignment_0_1 )
             {
              before(grammarAccess.getPrimaryExpressionAccess().getFeatureIdAssignment_0_1()); 
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1285:1: ( rule__PrimaryExpression__FeatureIdAssignment_0_1 )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1285:2: rule__PrimaryExpression__FeatureIdAssignment_0_1
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1451:1: ( rule__PrimaryExpression__FeatureIdAssignment_0_1 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1451:2: rule__PrimaryExpression__FeatureIdAssignment_0_1
             {
-            pushFollow(FOLLOW_rule__PrimaryExpression__FeatureIdAssignment_0_1_in_rule__PrimaryExpression__Group_0__1__Impl2512);
+            pushFollow(FOLLOW_rule__PrimaryExpression__FeatureIdAssignment_0_1_in_rule__PrimaryExpression__Group_0__1__Impl2842);
             rule__PrimaryExpression__FeatureIdAssignment_0_1();
 
             state._fsp--;
@@ -3354,21 +3781,21 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__PrimaryExpression__Group_1__0"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1299:1: rule__PrimaryExpression__Group_1__0 : rule__PrimaryExpression__Group_1__0__Impl rule__PrimaryExpression__Group_1__1 ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1465:1: rule__PrimaryExpression__Group_1__0 : rule__PrimaryExpression__Group_1__0__Impl rule__PrimaryExpression__Group_1__1 ;
     public final void rule__PrimaryExpression__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1303:1: ( rule__PrimaryExpression__Group_1__0__Impl rule__PrimaryExpression__Group_1__1 )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1304:2: rule__PrimaryExpression__Group_1__0__Impl rule__PrimaryExpression__Group_1__1
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1469:1: ( rule__PrimaryExpression__Group_1__0__Impl rule__PrimaryExpression__Group_1__1 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1470:2: rule__PrimaryExpression__Group_1__0__Impl rule__PrimaryExpression__Group_1__1
             {
-            pushFollow(FOLLOW_rule__PrimaryExpression__Group_1__0__Impl_in_rule__PrimaryExpression__Group_1__02546);
+            pushFollow(FOLLOW_rule__PrimaryExpression__Group_1__0__Impl_in_rule__PrimaryExpression__Group_1__02876);
             rule__PrimaryExpression__Group_1__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__PrimaryExpression__Group_1__1_in_rule__PrimaryExpression__Group_1__02549);
+            pushFollow(FOLLOW_rule__PrimaryExpression__Group_1__1_in_rule__PrimaryExpression__Group_1__02879);
             rule__PrimaryExpression__Group_1__1();
 
             state._fsp--;
@@ -3392,20 +3819,20 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__PrimaryExpression__Group_1__0__Impl"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1311:1: rule__PrimaryExpression__Group_1__0__Impl : ( '(' ) ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1477:1: rule__PrimaryExpression__Group_1__0__Impl : ( '(' ) ;
     public final void rule__PrimaryExpression__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1315:1: ( ( '(' ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1316:1: ( '(' )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1481:1: ( ( '(' ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1482:1: ( '(' )
             {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1316:1: ( '(' )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1317:1: '('
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1482:1: ( '(' )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1483:1: '('
             {
              before(grammarAccess.getPrimaryExpressionAccess().getLeftParenthesisKeyword_1_0()); 
-            match(input,18,FOLLOW_18_in_rule__PrimaryExpression__Group_1__0__Impl2577); 
+            match(input,19,FOLLOW_19_in_rule__PrimaryExpression__Group_1__0__Impl2907); 
              after(grammarAccess.getPrimaryExpressionAccess().getLeftParenthesisKeyword_1_0()); 
 
             }
@@ -3429,21 +3856,21 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__PrimaryExpression__Group_1__1"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1330:1: rule__PrimaryExpression__Group_1__1 : rule__PrimaryExpression__Group_1__1__Impl rule__PrimaryExpression__Group_1__2 ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1496:1: rule__PrimaryExpression__Group_1__1 : rule__PrimaryExpression__Group_1__1__Impl rule__PrimaryExpression__Group_1__2 ;
     public final void rule__PrimaryExpression__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1334:1: ( rule__PrimaryExpression__Group_1__1__Impl rule__PrimaryExpression__Group_1__2 )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1335:2: rule__PrimaryExpression__Group_1__1__Impl rule__PrimaryExpression__Group_1__2
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1500:1: ( rule__PrimaryExpression__Group_1__1__Impl rule__PrimaryExpression__Group_1__2 )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1501:2: rule__PrimaryExpression__Group_1__1__Impl rule__PrimaryExpression__Group_1__2
             {
-            pushFollow(FOLLOW_rule__PrimaryExpression__Group_1__1__Impl_in_rule__PrimaryExpression__Group_1__12608);
+            pushFollow(FOLLOW_rule__PrimaryExpression__Group_1__1__Impl_in_rule__PrimaryExpression__Group_1__12938);
             rule__PrimaryExpression__Group_1__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__PrimaryExpression__Group_1__2_in_rule__PrimaryExpression__Group_1__12611);
+            pushFollow(FOLLOW_rule__PrimaryExpression__Group_1__2_in_rule__PrimaryExpression__Group_1__12941);
             rule__PrimaryExpression__Group_1__2();
 
             state._fsp--;
@@ -3467,20 +3894,20 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__PrimaryExpression__Group_1__1__Impl"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1342:1: rule__PrimaryExpression__Group_1__1__Impl : ( ruleExpression ) ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1508:1: rule__PrimaryExpression__Group_1__1__Impl : ( ruleExpression ) ;
     public final void rule__PrimaryExpression__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1346:1: ( ( ruleExpression ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1347:1: ( ruleExpression )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1512:1: ( ( ruleExpression ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1513:1: ( ruleExpression )
             {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1347:1: ( ruleExpression )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1348:1: ruleExpression
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1513:1: ( ruleExpression )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1514:1: ruleExpression
             {
              before(grammarAccess.getPrimaryExpressionAccess().getExpressionParserRuleCall_1_1()); 
-            pushFollow(FOLLOW_ruleExpression_in_rule__PrimaryExpression__Group_1__1__Impl2638);
+            pushFollow(FOLLOW_ruleExpression_in_rule__PrimaryExpression__Group_1__1__Impl2968);
             ruleExpression();
 
             state._fsp--;
@@ -3508,16 +3935,16 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__PrimaryExpression__Group_1__2"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1359:1: rule__PrimaryExpression__Group_1__2 : rule__PrimaryExpression__Group_1__2__Impl ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1525:1: rule__PrimaryExpression__Group_1__2 : rule__PrimaryExpression__Group_1__2__Impl ;
     public final void rule__PrimaryExpression__Group_1__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1363:1: ( rule__PrimaryExpression__Group_1__2__Impl )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1364:2: rule__PrimaryExpression__Group_1__2__Impl
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1529:1: ( rule__PrimaryExpression__Group_1__2__Impl )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1530:2: rule__PrimaryExpression__Group_1__2__Impl
             {
-            pushFollow(FOLLOW_rule__PrimaryExpression__Group_1__2__Impl_in_rule__PrimaryExpression__Group_1__22667);
+            pushFollow(FOLLOW_rule__PrimaryExpression__Group_1__2__Impl_in_rule__PrimaryExpression__Group_1__22997);
             rule__PrimaryExpression__Group_1__2__Impl();
 
             state._fsp--;
@@ -3541,20 +3968,20 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__PrimaryExpression__Group_1__2__Impl"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1370:1: rule__PrimaryExpression__Group_1__2__Impl : ( ')' ) ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1536:1: rule__PrimaryExpression__Group_1__2__Impl : ( ')' ) ;
     public final void rule__PrimaryExpression__Group_1__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1374:1: ( ( ')' ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1375:1: ( ')' )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1540:1: ( ( ')' ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1541:1: ( ')' )
             {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1375:1: ( ')' )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1376:1: ')'
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1541:1: ( ')' )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1542:1: ')'
             {
              before(grammarAccess.getPrimaryExpressionAccess().getRightParenthesisKeyword_1_2()); 
-            match(input,19,FOLLOW_19_in_rule__PrimaryExpression__Group_1__2__Impl2695); 
+            match(input,20,FOLLOW_20_in_rule__PrimaryExpression__Group_1__2__Impl3025); 
              after(grammarAccess.getPrimaryExpressionAccess().getRightParenthesisKeyword_1_2()); 
 
             }
@@ -3578,20 +4005,20 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__ContextualExpression__ContextIdAssignment_0_2"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1396:1: rule__ContextualExpression__ContextIdAssignment_0_2 : ( RULE_ID ) ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1562:1: rule__ContextualExpression__ContextIdAssignment_0_2 : ( RULE_ID ) ;
     public final void rule__ContextualExpression__ContextIdAssignment_0_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1400:1: ( ( RULE_ID ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1401:1: ( RULE_ID )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1566:1: ( ( RULE_ID ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1567:1: ( RULE_ID )
             {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1401:1: ( RULE_ID )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1402:1: RULE_ID
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1567:1: ( RULE_ID )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1568:1: RULE_ID
             {
              before(grammarAccess.getContextualExpressionAccess().getContextIdIDTerminalRuleCall_0_2_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ContextualExpression__ContextIdAssignment_0_22737); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ContextualExpression__ContextIdAssignment_0_23067); 
              after(grammarAccess.getContextualExpressionAccess().getContextIdIDTerminalRuleCall_0_2_0()); 
 
             }
@@ -3615,20 +4042,20 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__ContextualExpression__ExpressionAssignment_0_4"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1411:1: rule__ContextualExpression__ExpressionAssignment_0_4 : ( ruleEquation ) ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1577:1: rule__ContextualExpression__ExpressionAssignment_0_4 : ( ruleEquation ) ;
     public final void rule__ContextualExpression__ExpressionAssignment_0_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1415:1: ( ( ruleEquation ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1416:1: ( ruleEquation )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1581:1: ( ( ruleEquation ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1582:1: ( ruleEquation )
             {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1416:1: ( ruleEquation )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1417:1: ruleEquation
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1582:1: ( ruleEquation )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1583:1: ruleEquation
             {
              before(grammarAccess.getContextualExpressionAccess().getExpressionEquationParserRuleCall_0_4_0()); 
-            pushFollow(FOLLOW_ruleEquation_in_rule__ContextualExpression__ExpressionAssignment_0_42768);
+            pushFollow(FOLLOW_ruleEquation_in_rule__ContextualExpression__ExpressionAssignment_0_43098);
             ruleEquation();
 
             state._fsp--;
@@ -3655,21 +4082,99 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
     // $ANTLR end "rule__ContextualExpression__ExpressionAssignment_0_4"
 
 
+    // $ANTLR start "rule__ContextualExpression__ContextIdAssignment_1_2"
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1592:1: rule__ContextualExpression__ContextIdAssignment_1_2 : ( RULE_ID ) ;
+    public final void rule__ContextualExpression__ContextIdAssignment_1_2() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1596:1: ( ( RULE_ID ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1597:1: ( RULE_ID )
+            {
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1597:1: ( RULE_ID )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1598:1: RULE_ID
+            {
+             before(grammarAccess.getContextualExpressionAccess().getContextIdIDTerminalRuleCall_1_2_0()); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ContextualExpression__ContextIdAssignment_1_23129); 
+             after(grammarAccess.getContextualExpressionAccess().getContextIdIDTerminalRuleCall_1_2_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ContextualExpression__ContextIdAssignment_1_2"
+
+
+    // $ANTLR start "rule__ContextualExpression__ExpressionAssignment_1_4"
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1607:1: rule__ContextualExpression__ExpressionAssignment_1_4 : ( ruleEquation ) ;
+    public final void rule__ContextualExpression__ExpressionAssignment_1_4() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1611:1: ( ( ruleEquation ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1612:1: ( ruleEquation )
+            {
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1612:1: ( ruleEquation )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1613:1: ruleEquation
+            {
+             before(grammarAccess.getContextualExpressionAccess().getExpressionEquationParserRuleCall_1_4_0()); 
+            pushFollow(FOLLOW_ruleEquation_in_rule__ContextualExpression__ExpressionAssignment_1_43160);
+            ruleEquation();
+
+            state._fsp--;
+
+             after(grammarAccess.getContextualExpressionAccess().getExpressionEquationParserRuleCall_1_4_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ContextualExpression__ExpressionAssignment_1_4"
+
+
     // $ANTLR start "rule__Equation__RightPartAssignment_1_2"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1426:1: rule__Equation__RightPartAssignment_1_2 : ( ruleImplication ) ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1622:1: rule__Equation__RightPartAssignment_1_2 : ( ruleImplication ) ;
     public final void rule__Equation__RightPartAssignment_1_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1430:1: ( ( ruleImplication ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1431:1: ( ruleImplication )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1626:1: ( ( ruleImplication ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1627:1: ( ruleImplication )
             {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1431:1: ( ruleImplication )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1432:1: ruleImplication
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1627:1: ( ruleImplication )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1628:1: ruleImplication
             {
              before(grammarAccess.getEquationAccess().getRightPartImplicationParserRuleCall_1_2_0()); 
-            pushFollow(FOLLOW_ruleImplication_in_rule__Equation__RightPartAssignment_1_22799);
+            pushFollow(FOLLOW_ruleImplication_in_rule__Equation__RightPartAssignment_1_23191);
             ruleImplication();
 
             state._fsp--;
@@ -3697,20 +4202,20 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Implication__RightPartAssignment_1_2"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1441:1: rule__Implication__RightPartAssignment_1_2 : ( ruleDisjunction ) ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1637:1: rule__Implication__RightPartAssignment_1_2 : ( ruleDisjunction ) ;
     public final void rule__Implication__RightPartAssignment_1_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1445:1: ( ( ruleDisjunction ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1446:1: ( ruleDisjunction )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1641:1: ( ( ruleDisjunction ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1642:1: ( ruleDisjunction )
             {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1446:1: ( ruleDisjunction )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1447:1: ruleDisjunction
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1642:1: ( ruleDisjunction )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1643:1: ruleDisjunction
             {
              before(grammarAccess.getImplicationAccess().getRightPartDisjunctionParserRuleCall_1_2_0()); 
-            pushFollow(FOLLOW_ruleDisjunction_in_rule__Implication__RightPartAssignment_1_22830);
+            pushFollow(FOLLOW_ruleDisjunction_in_rule__Implication__RightPartAssignment_1_23222);
             ruleDisjunction();
 
             state._fsp--;
@@ -3738,20 +4243,20 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Disjunction__RightPartAssignment_1_2"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1456:1: rule__Disjunction__RightPartAssignment_1_2 : ( ruleConjunction ) ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1652:1: rule__Disjunction__RightPartAssignment_1_2 : ( ruleConjunction ) ;
     public final void rule__Disjunction__RightPartAssignment_1_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1460:1: ( ( ruleConjunction ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1461:1: ( ruleConjunction )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1656:1: ( ( ruleConjunction ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1657:1: ( ruleConjunction )
             {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1461:1: ( ruleConjunction )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1462:1: ruleConjunction
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1657:1: ( ruleConjunction )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1658:1: ruleConjunction
             {
              before(grammarAccess.getDisjunctionAccess().getRightPartConjunctionParserRuleCall_1_2_0()); 
-            pushFollow(FOLLOW_ruleConjunction_in_rule__Disjunction__RightPartAssignment_1_22861);
+            pushFollow(FOLLOW_ruleConjunction_in_rule__Disjunction__RightPartAssignment_1_23253);
             ruleConjunction();
 
             state._fsp--;
@@ -3779,20 +4284,20 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Conjunction__RightPartAssignment_1_2"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1471:1: rule__Conjunction__RightPartAssignment_1_2 : ( ruleNegation ) ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1667:1: rule__Conjunction__RightPartAssignment_1_2 : ( ruleNegation ) ;
     public final void rule__Conjunction__RightPartAssignment_1_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1475:1: ( ( ruleNegation ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1476:1: ( ruleNegation )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1671:1: ( ( ruleNegation ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1672:1: ( ruleNegation )
             {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1476:1: ( ruleNegation )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1477:1: ruleNegation
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1672:1: ( ruleNegation )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1673:1: ruleNegation
             {
              before(grammarAccess.getConjunctionAccess().getRightPartNegationParserRuleCall_1_2_0()); 
-            pushFollow(FOLLOW_ruleNegation_in_rule__Conjunction__RightPartAssignment_1_22892);
+            pushFollow(FOLLOW_ruleNegation_in_rule__Conjunction__RightPartAssignment_1_23284);
             ruleNegation();
 
             state._fsp--;
@@ -3820,20 +4325,20 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__Negation__ExpressionAssignment_1_2"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1486:1: rule__Negation__ExpressionAssignment_1_2 : ( rulePrimaryExpression ) ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1682:1: rule__Negation__ExpressionAssignment_1_2 : ( rulePrimaryExpression ) ;
     public final void rule__Negation__ExpressionAssignment_1_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1490:1: ( ( rulePrimaryExpression ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1491:1: ( rulePrimaryExpression )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1686:1: ( ( rulePrimaryExpression ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1687:1: ( rulePrimaryExpression )
             {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1491:1: ( rulePrimaryExpression )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1492:1: rulePrimaryExpression
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1687:1: ( rulePrimaryExpression )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1688:1: rulePrimaryExpression
             {
              before(grammarAccess.getNegationAccess().getExpressionPrimaryExpressionParserRuleCall_1_2_0()); 
-            pushFollow(FOLLOW_rulePrimaryExpression_in_rule__Negation__ExpressionAssignment_1_22923);
+            pushFollow(FOLLOW_rulePrimaryExpression_in_rule__Negation__ExpressionAssignment_1_23315);
             rulePrimaryExpression();
 
             state._fsp--;
@@ -3861,20 +4366,20 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
 
 
     // $ANTLR start "rule__PrimaryExpression__FeatureIdAssignment_0_1"
-    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1501:1: rule__PrimaryExpression__FeatureIdAssignment_0_1 : ( RULE_ID ) ;
+    // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1697:1: rule__PrimaryExpression__FeatureIdAssignment_0_1 : ( RULE_ID ) ;
     public final void rule__PrimaryExpression__FeatureIdAssignment_0_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1505:1: ( ( RULE_ID ) )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1506:1: ( RULE_ID )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1701:1: ( ( RULE_ID ) )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1702:1: ( RULE_ID )
             {
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1506:1: ( RULE_ID )
-            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1507:1: RULE_ID
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1702:1: ( RULE_ID )
+            // ../cz.zcu.yafmt.clang.bcl.ui/src-gen/cz/zcu/yafmt/clang/bcl/ui/contentassist/antlr/internal/InternalBooleanConstraintLanguage.g:1703:1: RULE_ID
             {
              before(grammarAccess.getPrimaryExpressionAccess().getFeatureIdIDTerminalRuleCall_0_1_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__PrimaryExpression__FeatureIdAssignment_0_12954); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__PrimaryExpression__FeatureIdAssignment_0_13346); 
              after(grammarAccess.getPrimaryExpressionAccess().getFeatureIdIDTerminalRuleCall_0_1_0()); 
 
             }
@@ -3926,98 +4431,114 @@ public class InternalBooleanConstraintLanguageParser extends AbstractInternalCon
     public static final BitSet FOLLOW_EOF_in_entryRulePrimaryExpression487 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PrimaryExpression__Alternatives_in_rulePrimaryExpression513 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ContextualExpression__Group_0__0_in_rule__ContextualExpression__Alternatives549 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEquation_in_rule__ContextualExpression__Alternatives567 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePrimaryExpression_in_rule__Negation__Alternatives599 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Negation__Group_1__0_in_rule__Negation__Alternatives616 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PrimaryExpression__Group_0__0_in_rule__PrimaryExpression__Alternatives649 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PrimaryExpression__Group_1__0_in_rule__PrimaryExpression__Alternatives667 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ContextualExpression__Group_0__0__Impl_in_rule__ContextualExpression__Group_0__0698 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__ContextualExpression__Group_0__1_in_rule__ContextualExpression__Group_0__0701 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_11_in_rule__ContextualExpression__Group_0__0__Impl729 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ContextualExpression__Group_0__1__Impl_in_rule__ContextualExpression__Group_0__1760 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__ContextualExpression__Group_0__2_in_rule__ContextualExpression__Group_0__1763 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ContextualExpression__Group_0__2__Impl_in_rule__ContextualExpression__Group_0__2821 = new BitSet(new long[]{0x0000000000001000L});
-    public static final BitSet FOLLOW_rule__ContextualExpression__Group_0__3_in_rule__ContextualExpression__Group_0__2824 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ContextualExpression__ContextIdAssignment_0_2_in_rule__ContextualExpression__Group_0__2__Impl851 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ContextualExpression__Group_0__3__Impl_in_rule__ContextualExpression__Group_0__3881 = new BitSet(new long[]{0x0000000000060010L});
-    public static final BitSet FOLLOW_rule__ContextualExpression__Group_0__4_in_rule__ContextualExpression__Group_0__3884 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_12_in_rule__ContextualExpression__Group_0__3__Impl912 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ContextualExpression__Group_0__4__Impl_in_rule__ContextualExpression__Group_0__4943 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ContextualExpression__ExpressionAssignment_0_4_in_rule__ContextualExpression__Group_0__4__Impl970 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Equation__Group__0__Impl_in_rule__Equation__Group__01010 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_rule__Equation__Group__1_in_rule__Equation__Group__01013 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleImplication_in_rule__Equation__Group__0__Impl1040 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Equation__Group__1__Impl_in_rule__Equation__Group__11069 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Equation__Group_1__0_in_rule__Equation__Group__1__Impl1096 = new BitSet(new long[]{0x0000000000002002L});
-    public static final BitSet FOLLOW_rule__Equation__Group_1__0__Impl_in_rule__Equation__Group_1__01131 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_rule__Equation__Group_1__1_in_rule__Equation__Group_1__01134 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Equation__Group_1__1__Impl_in_rule__Equation__Group_1__11192 = new BitSet(new long[]{0x0000000000060010L});
-    public static final BitSet FOLLOW_rule__Equation__Group_1__2_in_rule__Equation__Group_1__11195 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_13_in_rule__Equation__Group_1__1__Impl1223 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Equation__Group_1__2__Impl_in_rule__Equation__Group_1__21254 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Equation__RightPartAssignment_1_2_in_rule__Equation__Group_1__2__Impl1281 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Implication__Group__0__Impl_in_rule__Implication__Group__01317 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_rule__Implication__Group__1_in_rule__Implication__Group__01320 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDisjunction_in_rule__Implication__Group__0__Impl1347 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Implication__Group__1__Impl_in_rule__Implication__Group__11376 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Implication__Group_1__0_in_rule__Implication__Group__1__Impl1403 = new BitSet(new long[]{0x0000000000004002L});
-    public static final BitSet FOLLOW_rule__Implication__Group_1__0__Impl_in_rule__Implication__Group_1__01438 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_rule__Implication__Group_1__1_in_rule__Implication__Group_1__01441 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Implication__Group_1__1__Impl_in_rule__Implication__Group_1__11499 = new BitSet(new long[]{0x0000000000060010L});
-    public static final BitSet FOLLOW_rule__Implication__Group_1__2_in_rule__Implication__Group_1__11502 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_14_in_rule__Implication__Group_1__1__Impl1530 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Implication__Group_1__2__Impl_in_rule__Implication__Group_1__21561 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Implication__RightPartAssignment_1_2_in_rule__Implication__Group_1__2__Impl1588 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Disjunction__Group__0__Impl_in_rule__Disjunction__Group__01624 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_rule__Disjunction__Group__1_in_rule__Disjunction__Group__01627 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleConjunction_in_rule__Disjunction__Group__0__Impl1654 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Disjunction__Group__1__Impl_in_rule__Disjunction__Group__11683 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Disjunction__Group_1__0_in_rule__Disjunction__Group__1__Impl1710 = new BitSet(new long[]{0x0000000000008002L});
-    public static final BitSet FOLLOW_rule__Disjunction__Group_1__0__Impl_in_rule__Disjunction__Group_1__01745 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_rule__Disjunction__Group_1__1_in_rule__Disjunction__Group_1__01748 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Disjunction__Group_1__1__Impl_in_rule__Disjunction__Group_1__11806 = new BitSet(new long[]{0x0000000000060010L});
-    public static final BitSet FOLLOW_rule__Disjunction__Group_1__2_in_rule__Disjunction__Group_1__11809 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_15_in_rule__Disjunction__Group_1__1__Impl1837 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Disjunction__Group_1__2__Impl_in_rule__Disjunction__Group_1__21868 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Disjunction__RightPartAssignment_1_2_in_rule__Disjunction__Group_1__2__Impl1895 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Conjunction__Group__0__Impl_in_rule__Conjunction__Group__01931 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_rule__Conjunction__Group__1_in_rule__Conjunction__Group__01934 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNegation_in_rule__Conjunction__Group__0__Impl1961 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Conjunction__Group__1__Impl_in_rule__Conjunction__Group__11990 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Conjunction__Group_1__0_in_rule__Conjunction__Group__1__Impl2017 = new BitSet(new long[]{0x0000000000010002L});
-    public static final BitSet FOLLOW_rule__Conjunction__Group_1__0__Impl_in_rule__Conjunction__Group_1__02052 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_rule__Conjunction__Group_1__1_in_rule__Conjunction__Group_1__02055 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Conjunction__Group_1__1__Impl_in_rule__Conjunction__Group_1__12113 = new BitSet(new long[]{0x0000000000060010L});
-    public static final BitSet FOLLOW_rule__Conjunction__Group_1__2_in_rule__Conjunction__Group_1__12116 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_16_in_rule__Conjunction__Group_1__1__Impl2144 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Conjunction__Group_1__2__Impl_in_rule__Conjunction__Group_1__22175 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Conjunction__RightPartAssignment_1_2_in_rule__Conjunction__Group_1__2__Impl2202 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Negation__Group_1__0__Impl_in_rule__Negation__Group_1__02238 = new BitSet(new long[]{0x0000000000040010L});
-    public static final BitSet FOLLOW_rule__Negation__Group_1__1_in_rule__Negation__Group_1__02241 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_17_in_rule__Negation__Group_1__0__Impl2269 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Negation__Group_1__1__Impl_in_rule__Negation__Group_1__12300 = new BitSet(new long[]{0x0000000000040010L});
-    public static final BitSet FOLLOW_rule__Negation__Group_1__2_in_rule__Negation__Group_1__12303 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Negation__Group_1__2__Impl_in_rule__Negation__Group_1__22361 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Negation__ExpressionAssignment_1_2_in_rule__Negation__Group_1__2__Impl2388 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PrimaryExpression__Group_0__0__Impl_in_rule__PrimaryExpression__Group_0__02424 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__PrimaryExpression__Group_0__1_in_rule__PrimaryExpression__Group_0__02427 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PrimaryExpression__Group_0__1__Impl_in_rule__PrimaryExpression__Group_0__12485 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PrimaryExpression__FeatureIdAssignment_0_1_in_rule__PrimaryExpression__Group_0__1__Impl2512 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PrimaryExpression__Group_1__0__Impl_in_rule__PrimaryExpression__Group_1__02546 = new BitSet(new long[]{0x0000000000060810L});
-    public static final BitSet FOLLOW_rule__PrimaryExpression__Group_1__1_in_rule__PrimaryExpression__Group_1__02549 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_18_in_rule__PrimaryExpression__Group_1__0__Impl2577 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PrimaryExpression__Group_1__1__Impl_in_rule__PrimaryExpression__Group_1__12608 = new BitSet(new long[]{0x0000000000080000L});
-    public static final BitSet FOLLOW_rule__PrimaryExpression__Group_1__2_in_rule__PrimaryExpression__Group_1__12611 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExpression_in_rule__PrimaryExpression__Group_1__1__Impl2638 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PrimaryExpression__Group_1__2__Impl_in_rule__PrimaryExpression__Group_1__22667 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_19_in_rule__PrimaryExpression__Group_1__2__Impl2695 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__ContextualExpression__ContextIdAssignment_0_22737 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEquation_in_rule__ContextualExpression__ExpressionAssignment_0_42768 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleImplication_in_rule__Equation__RightPartAssignment_1_22799 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDisjunction_in_rule__Implication__RightPartAssignment_1_22830 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleConjunction_in_rule__Disjunction__RightPartAssignment_1_22861 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNegation_in_rule__Conjunction__RightPartAssignment_1_22892 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePrimaryExpression_in_rule__Negation__ExpressionAssignment_1_22923 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__PrimaryExpression__FeatureIdAssignment_0_12954 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ContextualExpression__Group_1__0_in_rule__ContextualExpression__Alternatives567 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleEquation_in_rule__ContextualExpression__Alternatives585 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulePrimaryExpression_in_rule__Negation__Alternatives617 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Negation__Group_1__0_in_rule__Negation__Alternatives634 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PrimaryExpression__Group_0__0_in_rule__PrimaryExpression__Alternatives667 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PrimaryExpression__Group_1__0_in_rule__PrimaryExpression__Alternatives685 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ContextualExpression__Group_0__0__Impl_in_rule__ContextualExpression__Group_0__0716 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_rule__ContextualExpression__Group_0__1_in_rule__ContextualExpression__Group_0__0719 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_11_in_rule__ContextualExpression__Group_0__0__Impl747 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ContextualExpression__Group_0__1__Impl_in_rule__ContextualExpression__Group_0__1778 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_rule__ContextualExpression__Group_0__2_in_rule__ContextualExpression__Group_0__1781 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ContextualExpression__Group_0__2__Impl_in_rule__ContextualExpression__Group_0__2839 = new BitSet(new long[]{0x0000000000001000L});
+    public static final BitSet FOLLOW_rule__ContextualExpression__Group_0__3_in_rule__ContextualExpression__Group_0__2842 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ContextualExpression__ContextIdAssignment_0_2_in_rule__ContextualExpression__Group_0__2__Impl869 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ContextualExpression__Group_0__3__Impl_in_rule__ContextualExpression__Group_0__3899 = new BitSet(new long[]{0x00000000000C0010L});
+    public static final BitSet FOLLOW_rule__ContextualExpression__Group_0__4_in_rule__ContextualExpression__Group_0__3902 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_12_in_rule__ContextualExpression__Group_0__3__Impl930 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ContextualExpression__Group_0__4__Impl_in_rule__ContextualExpression__Group_0__4961 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ContextualExpression__ExpressionAssignment_0_4_in_rule__ContextualExpression__Group_0__4__Impl988 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ContextualExpression__Group_1__0__Impl_in_rule__ContextualExpression__Group_1__01028 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_rule__ContextualExpression__Group_1__1_in_rule__ContextualExpression__Group_1__01031 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_13_in_rule__ContextualExpression__Group_1__0__Impl1059 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ContextualExpression__Group_1__1__Impl_in_rule__ContextualExpression__Group_1__11090 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_rule__ContextualExpression__Group_1__2_in_rule__ContextualExpression__Group_1__11093 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ContextualExpression__Group_1__2__Impl_in_rule__ContextualExpression__Group_1__21151 = new BitSet(new long[]{0x0000000000001000L});
+    public static final BitSet FOLLOW_rule__ContextualExpression__Group_1__3_in_rule__ContextualExpression__Group_1__21154 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ContextualExpression__ContextIdAssignment_1_2_in_rule__ContextualExpression__Group_1__2__Impl1181 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ContextualExpression__Group_1__3__Impl_in_rule__ContextualExpression__Group_1__31211 = new BitSet(new long[]{0x00000000000C0010L});
+    public static final BitSet FOLLOW_rule__ContextualExpression__Group_1__4_in_rule__ContextualExpression__Group_1__31214 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_12_in_rule__ContextualExpression__Group_1__3__Impl1242 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ContextualExpression__Group_1__4__Impl_in_rule__ContextualExpression__Group_1__41273 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ContextualExpression__ExpressionAssignment_1_4_in_rule__ContextualExpression__Group_1__4__Impl1300 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Equation__Group__0__Impl_in_rule__Equation__Group__01340 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_rule__Equation__Group__1_in_rule__Equation__Group__01343 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleImplication_in_rule__Equation__Group__0__Impl1370 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Equation__Group__1__Impl_in_rule__Equation__Group__11399 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Equation__Group_1__0_in_rule__Equation__Group__1__Impl1426 = new BitSet(new long[]{0x0000000000004002L});
+    public static final BitSet FOLLOW_rule__Equation__Group_1__0__Impl_in_rule__Equation__Group_1__01461 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_rule__Equation__Group_1__1_in_rule__Equation__Group_1__01464 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Equation__Group_1__1__Impl_in_rule__Equation__Group_1__11522 = new BitSet(new long[]{0x00000000000C0010L});
+    public static final BitSet FOLLOW_rule__Equation__Group_1__2_in_rule__Equation__Group_1__11525 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_14_in_rule__Equation__Group_1__1__Impl1553 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Equation__Group_1__2__Impl_in_rule__Equation__Group_1__21584 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Equation__RightPartAssignment_1_2_in_rule__Equation__Group_1__2__Impl1611 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Implication__Group__0__Impl_in_rule__Implication__Group__01647 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_rule__Implication__Group__1_in_rule__Implication__Group__01650 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDisjunction_in_rule__Implication__Group__0__Impl1677 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Implication__Group__1__Impl_in_rule__Implication__Group__11706 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Implication__Group_1__0_in_rule__Implication__Group__1__Impl1733 = new BitSet(new long[]{0x0000000000008002L});
+    public static final BitSet FOLLOW_rule__Implication__Group_1__0__Impl_in_rule__Implication__Group_1__01768 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_rule__Implication__Group_1__1_in_rule__Implication__Group_1__01771 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Implication__Group_1__1__Impl_in_rule__Implication__Group_1__11829 = new BitSet(new long[]{0x00000000000C0010L});
+    public static final BitSet FOLLOW_rule__Implication__Group_1__2_in_rule__Implication__Group_1__11832 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_15_in_rule__Implication__Group_1__1__Impl1860 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Implication__Group_1__2__Impl_in_rule__Implication__Group_1__21891 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Implication__RightPartAssignment_1_2_in_rule__Implication__Group_1__2__Impl1918 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Disjunction__Group__0__Impl_in_rule__Disjunction__Group__01954 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_rule__Disjunction__Group__1_in_rule__Disjunction__Group__01957 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleConjunction_in_rule__Disjunction__Group__0__Impl1984 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Disjunction__Group__1__Impl_in_rule__Disjunction__Group__12013 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Disjunction__Group_1__0_in_rule__Disjunction__Group__1__Impl2040 = new BitSet(new long[]{0x0000000000010002L});
+    public static final BitSet FOLLOW_rule__Disjunction__Group_1__0__Impl_in_rule__Disjunction__Group_1__02075 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_rule__Disjunction__Group_1__1_in_rule__Disjunction__Group_1__02078 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Disjunction__Group_1__1__Impl_in_rule__Disjunction__Group_1__12136 = new BitSet(new long[]{0x00000000000C0010L});
+    public static final BitSet FOLLOW_rule__Disjunction__Group_1__2_in_rule__Disjunction__Group_1__12139 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_16_in_rule__Disjunction__Group_1__1__Impl2167 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Disjunction__Group_1__2__Impl_in_rule__Disjunction__Group_1__22198 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Disjunction__RightPartAssignment_1_2_in_rule__Disjunction__Group_1__2__Impl2225 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Conjunction__Group__0__Impl_in_rule__Conjunction__Group__02261 = new BitSet(new long[]{0x0000000000020000L});
+    public static final BitSet FOLLOW_rule__Conjunction__Group__1_in_rule__Conjunction__Group__02264 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNegation_in_rule__Conjunction__Group__0__Impl2291 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Conjunction__Group__1__Impl_in_rule__Conjunction__Group__12320 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Conjunction__Group_1__0_in_rule__Conjunction__Group__1__Impl2347 = new BitSet(new long[]{0x0000000000020002L});
+    public static final BitSet FOLLOW_rule__Conjunction__Group_1__0__Impl_in_rule__Conjunction__Group_1__02382 = new BitSet(new long[]{0x0000000000020000L});
+    public static final BitSet FOLLOW_rule__Conjunction__Group_1__1_in_rule__Conjunction__Group_1__02385 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Conjunction__Group_1__1__Impl_in_rule__Conjunction__Group_1__12443 = new BitSet(new long[]{0x00000000000C0010L});
+    public static final BitSet FOLLOW_rule__Conjunction__Group_1__2_in_rule__Conjunction__Group_1__12446 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_17_in_rule__Conjunction__Group_1__1__Impl2474 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Conjunction__Group_1__2__Impl_in_rule__Conjunction__Group_1__22505 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Conjunction__RightPartAssignment_1_2_in_rule__Conjunction__Group_1__2__Impl2532 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Negation__Group_1__0__Impl_in_rule__Negation__Group_1__02568 = new BitSet(new long[]{0x0000000000080010L});
+    public static final BitSet FOLLOW_rule__Negation__Group_1__1_in_rule__Negation__Group_1__02571 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_18_in_rule__Negation__Group_1__0__Impl2599 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Negation__Group_1__1__Impl_in_rule__Negation__Group_1__12630 = new BitSet(new long[]{0x0000000000080010L});
+    public static final BitSet FOLLOW_rule__Negation__Group_1__2_in_rule__Negation__Group_1__12633 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Negation__Group_1__2__Impl_in_rule__Negation__Group_1__22691 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Negation__ExpressionAssignment_1_2_in_rule__Negation__Group_1__2__Impl2718 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PrimaryExpression__Group_0__0__Impl_in_rule__PrimaryExpression__Group_0__02754 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_rule__PrimaryExpression__Group_0__1_in_rule__PrimaryExpression__Group_0__02757 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PrimaryExpression__Group_0__1__Impl_in_rule__PrimaryExpression__Group_0__12815 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PrimaryExpression__FeatureIdAssignment_0_1_in_rule__PrimaryExpression__Group_0__1__Impl2842 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PrimaryExpression__Group_1__0__Impl_in_rule__PrimaryExpression__Group_1__02876 = new BitSet(new long[]{0x00000000000C2810L});
+    public static final BitSet FOLLOW_rule__PrimaryExpression__Group_1__1_in_rule__PrimaryExpression__Group_1__02879 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_19_in_rule__PrimaryExpression__Group_1__0__Impl2907 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PrimaryExpression__Group_1__1__Impl_in_rule__PrimaryExpression__Group_1__12938 = new BitSet(new long[]{0x0000000000100000L});
+    public static final BitSet FOLLOW_rule__PrimaryExpression__Group_1__2_in_rule__PrimaryExpression__Group_1__12941 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExpression_in_rule__PrimaryExpression__Group_1__1__Impl2968 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PrimaryExpression__Group_1__2__Impl_in_rule__PrimaryExpression__Group_1__22997 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_20_in_rule__PrimaryExpression__Group_1__2__Impl3025 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__ContextualExpression__ContextIdAssignment_0_23067 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleEquation_in_rule__ContextualExpression__ExpressionAssignment_0_43098 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__ContextualExpression__ContextIdAssignment_1_23129 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleEquation_in_rule__ContextualExpression__ExpressionAssignment_1_43160 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleImplication_in_rule__Equation__RightPartAssignment_1_23191 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDisjunction_in_rule__Implication__RightPartAssignment_1_23222 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleConjunction_in_rule__Disjunction__RightPartAssignment_1_23253 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNegation_in_rule__Conjunction__RightPartAssignment_1_23284 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulePrimaryExpression_in_rule__Negation__ExpressionAssignment_1_23315 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__PrimaryExpression__FeatureIdAssignment_0_13346 = new BitSet(new long[]{0x0000000000000002L});
 
 }

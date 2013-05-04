@@ -41,6 +41,7 @@ public class BooleanConstraintLanguageParser extends AbstractContentAssistParser
 					put(grammarAccess.getNegationAccess().getAlternatives(), "rule__Negation__Alternatives");
 					put(grammarAccess.getPrimaryExpressionAccess().getAlternatives(), "rule__PrimaryExpression__Alternatives");
 					put(grammarAccess.getContextualExpressionAccess().getGroup_0(), "rule__ContextualExpression__Group_0__0");
+					put(grammarAccess.getContextualExpressionAccess().getGroup_1(), "rule__ContextualExpression__Group_1__0");
 					put(grammarAccess.getEquationAccess().getGroup(), "rule__Equation__Group__0");
 					put(grammarAccess.getEquationAccess().getGroup_1(), "rule__Equation__Group_1__0");
 					put(grammarAccess.getImplicationAccess().getGroup(), "rule__Implication__Group__0");
@@ -54,6 +55,8 @@ public class BooleanConstraintLanguageParser extends AbstractContentAssistParser
 					put(grammarAccess.getPrimaryExpressionAccess().getGroup_1(), "rule__PrimaryExpression__Group_1__0");
 					put(grammarAccess.getContextualExpressionAccess().getContextIdAssignment_0_2(), "rule__ContextualExpression__ContextIdAssignment_0_2");
 					put(grammarAccess.getContextualExpressionAccess().getExpressionAssignment_0_4(), "rule__ContextualExpression__ExpressionAssignment_0_4");
+					put(grammarAccess.getContextualExpressionAccess().getContextIdAssignment_1_2(), "rule__ContextualExpression__ContextIdAssignment_1_2");
+					put(grammarAccess.getContextualExpressionAccess().getExpressionAssignment_1_4(), "rule__ContextualExpression__ExpressionAssignment_1_4");
 					put(grammarAccess.getEquationAccess().getRightPartAssignment_1_2(), "rule__Equation__RightPartAssignment_1_2");
 					put(grammarAccess.getImplicationAccess().getRightPartAssignment_1_2(), "rule__Implication__RightPartAssignment_1_2");
 					put(grammarAccess.getDisjunctionAccess().getRightPartAssignment_1_2(), "rule__Disjunction__RightPartAssignment_1_2");

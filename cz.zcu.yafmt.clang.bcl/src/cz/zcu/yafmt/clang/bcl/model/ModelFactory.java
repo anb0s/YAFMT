@@ -22,13 +22,22 @@ public interface ModelFactory extends EFactory {
     ModelFactory eINSTANCE = cz.zcu.yafmt.clang.bcl.model.impl.ModelFactoryImpl.init();
 
     /**
-     * Returns a new object of class '<em>Contextual Expression</em>'.
+     * Returns a new object of class '<em>For All Contextual Expression</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return a new object of class '<em>Contextual Expression</em>'.
+     * @return a new object of class '<em>For All Contextual Expression</em>'.
      * @generated
      */
-    ContextualExpression createContextualExpression();
+    ForAllContextualExpression createForAllContextualExpression();
+
+    /**
+     * Returns a new object of class '<em>Exists Contextual Expression</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Exists Contextual Expression</em>'.
+     * @generated
+     */
+    ExistsContextualExpression createExistsContextualExpression();
 
     /**
      * Returns a new object of class '<em>Equation</em>'.
