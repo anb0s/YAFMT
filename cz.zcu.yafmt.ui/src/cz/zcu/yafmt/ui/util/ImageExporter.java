@@ -2,8 +2,9 @@ package cz.zcu.yafmt.ui.util;
 
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Layer;
 import org.eclipse.draw2d.SWTGraphics;
-import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Drawable;
 import org.eclipse.swt.graphics.GC;
@@ -16,21 +17,15 @@ public class ImageExporter {
 
     public static final int[] SUPPORTED_FORMATS = { SWT.IMAGE_PNG, SWT.IMAGE_JPEG, SWT.IMAGE_BMP };
     public static final String[] FORMAT_EXTENSIONS = { "*.png", "*.jpeg", "*.bmp", };
+    private static final int IMAGE_BORDER_SIZE = 10;
 
-    /*
-    public static boolean save(IWorkbenchPart part, GraphicalViewer viewer, String fileName) {
-        LayerManager rootEditPart = (LayerManager) viewer.getEditPartRegistry().get(LayerManager.ID);
-        IFigure rootFigure = rootEditPart.getLayer(LayerConstants.PRINTABLE_LAYERS);
-        Rectangle rootFigureBounds = rootFigure.getBounds();
+    public static void save(Drawable component, IFigure figure, String filePath, int format) {        
+        Rectangle boundingBox = getBoundingBox(figure);
+        if(boundingBox == null)
+            return;
         
-        Image image = new Image(null, rootFigureBounds.width, rootFigureBounds.height);
-        GC figureGC = new GC(viewer.getControl());
-        GC imageGC = new GC(image); 
-    }*/
-
-    public static void save(Drawable component, IFigure figure, String filePath, int format) {
-        Dimension size = figure.getSize();
-        Image image = new Image(null, size.width, size.height);
+        boundingBox.expand(IMAGE_BORDER_SIZE, IMAGE_BORDER_SIZE);
+        Image image = new Image(null, boundingBox.width, boundingBox.height);
         GC figureGC = new GC(component);
         GC imageGC = new GC(image);
 
@@ -42,6 +37,7 @@ public class ImageExporter {
         //imageGC.setXORMode(figureCanvasGC.getXORMode());
 
         Graphics imageGraphics = new SWTGraphics(imageGC);
+        imageGraphics.translate(-boundingBox.x, -boundingBox.y);
         figure.paint(imageGraphics);
 
         ImageLoader imageLoader = new ImageLoader();
@@ -51,6 +47,25 @@ public class ImageExporter {
         figureGC.dispose();
         imageGC.dispose();
         image.dispose();
+    }
+
+    private static Rectangle getBoundingBox(IFigure figure) {
+        Rectangle boundingBox = null;
+
+        for(Object child: figure.getChildren()) {
+            Rectangle bounds;
+            if(child instanceof Layer)
+                bounds = getBoundingBox((IFigure) child);
+            else
+                bounds = ((IFigure) child).getBounds().getCopy();
+
+            if(boundingBox != null)
+                boundingBox.union(bounds);
+            else
+                boundingBox = bounds;
+        }
+        
+        return boundingBox;
     }
 
 }

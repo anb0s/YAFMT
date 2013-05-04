@@ -60,7 +60,7 @@ public class FeatureModelEditPart extends BaseGraphicalEditPart {
         this.layoutDataAdapter = new LayoutDataAdapter();
         setModel(featureModel);
     }
-        
+    
     // ===================================================================
     //  Initialization
     // ===================================================================
