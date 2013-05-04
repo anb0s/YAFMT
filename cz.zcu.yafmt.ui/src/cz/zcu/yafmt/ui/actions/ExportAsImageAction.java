@@ -1,7 +1,10 @@
 package cz.zcu.yafmt.ui.actions;
 
+import java.io.File;
+
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.FileDialog;
@@ -39,8 +42,15 @@ public abstract class ExportAsImageAction extends Action {
 
         FileDialog fileDialog = createFileDialog(control.getShell(), defaultName);
         String filePath = fileDialog.open();
-        if(filePath != null)
-            ImageExporter.save(control, figure, filePath, getImageFormat(fileDialog, filePath));
+        if(filePath == null)
+            return;
+        
+        if((new File(filePath)).exists()) {
+            if(!MessageDialog.openQuestion(control.getShell(), "Warning", "Override existing file?"))
+                return;
+        }
+        
+        ImageExporter.save(control, figure, filePath, getImageFormat(fileDialog, filePath));
     }
 
     private FileDialog createFileDialog(Shell shell, String defaultName) {
