@@ -1,135 +1,139 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fc:FeatureConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fc="http://zcu.cz/yafmt/model/fc" name="Tomcat7Example" version="1.0.0" description="Sample Tomcat 7 Configuration.">
+<fc:FeatureConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fc="http://zcu.cz/yafmt/model/fc" name="Tomcat7Example" version="1.0.0" description="Sample configuration of Tomcat 7 server.">
   <featureModel href="Tomcat7Example.yafm#/"/>
-  <featureModelCopy name="Tomcat 7 Example" version="1.0.0" description="Feature model of Tomcat 7 setup.">
-    <rootFeature id="server" name="Server" lower="1" upper="1">
-      <attribute id="port" name="Port" type="integer"/>
-      <attribute id="shutdown" name="Shutdown Command" type="string"/>
-      <feature id="jasper_jsp" name="Jasper JSP" lower="0" upper="1"/>
-      <feature id="apr" name="Apache Portable Runtime" lower="0" upper="1">
-        <feature id="apr_ssl" name="SSL" lower="0" upper="1">
+  <featureModelCopy name="Tomcat 7 Example" version="1.0.0" description="Feature model representing a subset of Tomcat 7 configuration options.">
+    <rootFeature id="server" name="Server" description="Catalina servlet container." lower="1" upper="1">
+      <attribute id="port" name="Port" type="integer" description="The TCP/IP port number on which this server waits for a shutdown command."/>
+      <attribute id="shutdown" name="Shutdown Command" type="string" description="The command string that must be received via in order to shut down Tomcat."/>
+      <feature id="jasper_jsp" name="Jasper JSP Engine" description="Early initialization of the Jasper 2 JSP engine." lower="0" upper="1"/>
+      <feature id="apr" name="Apache Portable Runtime" description="Loads the APR/native library if it is present." lower="0" upper="1">
+        <feature id="apr_ssl" name="SSL" description="Native SSL engine." lower="0" upper="1">
           <group lower="0" upper="1">
-            <feature id="apr_ssl_urandom" name="/dev/urandom seed" lower="0" upper="1"/>
-            <feature id="apr_ssl_builtin" name="Builtin Random Seed" lower="0" upper="1"/>
+            <feature id="apr_ssl_urandom" name="/dev/urandom seed" description="Uses /dev/urandom device as SSL engine's random generator seed." lower="0" upper="1">
+              <comment>This option might be faster than builting random seed.</comment>
+            </feature>
+            <feature id="apr_ssl_builtin" name="Builtin Random Seed" description="Uses builtin entropy source as SSL engine's random generator seed." lower="0" upper="1"/>
           </group>
         </feature>
       </feature>
-      <feature id="security_lifecycle" name="Security Lifecycle" lower="0" upper="1"/>
-      <feature id="thread_local_leak_prevention" name="Thread Local Leak Prevention" lower="0" upper="1"/>
-      <feature id="ml_prevention" name="Memery Leak Prevention" lower="0" upper="1">
-        <feature id="ml_lda_pool" name="LDA Pool" lower="0" upper="1"/>
-        <feature id="ml_url_cache" name="URL Cache" lower="0" upper="1"/>
-        <feature id="ml_app_context" name="App Context" lower="0" upper="1"/>
-        <feature id="ml_gc_deamon" name="GC Deamon" lower="0" upper="1"/>
-        <feature id="ml_xml_parsing" name="XML Parsing" lower="0" upper="1"/>
-        <feature id="ml_driver_manager" name="Driver Manager" lower="0" upper="1"/>
+      <feature id="security_lifecycle" name="Security Lifecycle" description="Performs a number of security checks when Tomcat starts and prevents Tomcat from starting if they fail." lower="0" upper="1"/>
+      <feature id="thread_local_leak_prevention" name="Thread Local Leak Prevention" description="Triggers the renewal of threads to avoid thread-local related memory leaks" lower="0" upper="1"/>
+      <feature id="ml_prevention" name="Memery Leak Prevention" description="Work-arounds for possible JRE class loader memory leaks." lower="0" upper="1">
+        <feature id="ml_lda_pool" name="LDA Pool" description="com.sun.jndi.ldap.LdapPoolManager memory leaks protection." lower="0" upper="1"/>
+        <feature id="ml_url_cache" name="URL Cache" description="Protection against JAR files being locked by java.net.URLConnections." lower="0" upper="1"/>
+        <feature id="ml_app_context" name="App Context" description="sun.awt.AppContext.getAppContext() memory leak protection." lower="0" upper="1"/>
+        <feature id="ml_gc_deamon" name="GC Deamon" description="sun.misc.GC.requestLatency() memory leak protection." lower="0" upper="1"/>
+        <feature id="ml_xml_parsing" name="XML Parsing" description="XML files parsing memory leak protection." lower="0" upper="1"/>
+        <feature id="ml_driver_manager" name="Driver Manager" description="java.sql.DriverManager memory leak protection." lower="0" upper="1"/>
       </feature>
-      <feature id="global_naming" name="Global Naming" lower="0" upper="1">
-        <feature id="environment" name="Environment" lower="0" upper="-1">
-          <attribute id="name" name="Name" type="string"/>
-          <attribute id="value" name="Value" type="string"/>
-          <feature id="env_override" name="Override" lower="0" upper="1"/>
+      <feature id="global_naming" name="Global Naming" description="Global JNDI resources for the Server." lower="0" upper="1">
+        <feature id="environment" name="Environment" description="Environment entry." lower="0" upper="-1">
+          <attribute id="name" name="Name" type="string" description="Name of the entry."/>
+          <attribute id="value" name="Value" type="string" description="Value of the entry."/>
+          <feature id="env_override" name="Override" description="Allows overriding this entry in web application deployment descriptor." lower="0" upper="1"/>
           <group lower="1" upper="1">
-            <feature id="env_bool" name="Boolean" lower="0" upper="1"/>
-            <feature id="env_int" name="Integer" lower="0" upper="1"/>
-            <feature id="env_str" name="String" lower="0" upper="1"/>
+            <feature id="env_bool" name="Boolean" description="Entry of java.lang.Boolean type." lower="0" upper="1"/>
+            <feature id="env_int" name="Integer" description="Entry of java.lang.Integer type." lower="0" upper="1"/>
+            <feature id="env_str" name="String" description="Entry of java.lang.String type." lower="0" upper="1"/>
           </group>
         </feature>
-        <feature id="resource" name="Resource" lower="0" upper="-1">
-          <attribute id="name" name="Name" type="string"/>
-          <attribute id="type" name="Type" type="string"/>
-          <feature id="res_single" name="Singleton" lower="0" upper="1">
-            <attribute id="closeMethod" name="Close Method" type="string"/>
+        <feature id="resource" name="Resource" description="Resource definition." lower="0" upper="-1">
+          <attribute id="name" name="Name" type="string" description="The name of the resource, relative to the java:comp/env context."/>
+          <attribute id="type" name="Type" type="string" description="The fully qualified Java class name expected by the web application."/>
+          <feature id="res_single" name="Singleton" description="Makes this resource definition of a singleton resource" lower="0" upper="1">
+            <attribute id="close_method" name="Close Method" type="string" description="Zero-argument method to call on a singleton resource when it is no longer required.">
+              <comment>If not specificed, no default is defined and no close method will be called.</comment>
+            </attribute>
           </feature>
-          <feature id="res_scope" name="Scope" lower="0" upper="1">
+          <feature id="res_scope" name="Scope" description="The way how resource manager connections are shared." lower="0" upper="1">
             <group lower="1" upper="1">
-              <feature id="res_scope_unsh" name="Unshareable" lower="0" upper="1"/>
-              <feature id="res_scope_sh" name="Shareable" lower="0" upper="1"/>
+              <feature id="res_scope_unsh" name="Unshareable" description="Connections obtained through resource manager are not shared." lower="0" upper="1"/>
+              <feature id="res_scope_sh" name="Shareable" description="Connections obtained through resource manager can be shared." lower="0" upper="1"/>
             </group>
           </feature>
-          <feature id="res_auth" name="Authentication" lower="0" upper="1">
+          <feature id="res_auth" name="Authentication" description="Specifies the object that signs on to the corresponding resource manager." lower="0" upper="1">
             <group lower="1" upper="1">
-              <feature id="res_auth_app" name="Application" lower="0" upper="1"/>
-              <feature id="res_auth_cont" name="Container" lower="0" upper="1"/>
+              <feature id="res_auth_app" name="Application" description="Application does the autentication." lower="0" upper="1"/>
+              <feature id="res_auth_cont" name="Container" description="Container does the autentication." lower="0" upper="1"/>
             </group>
           </feature>
         </feature>
-        <feature id="transaction" name="Transaction" lower="0" upper="1">
-          <attribute id="factory" name="factory" type="string"/>
+        <feature id="transaction" name="Transaction" description="UserTransaction to be returned for JNDI lookup for java:comp/UserTransaction." lower="0" upper="1">
+          <attribute id="factory" name="factory" type="string" description="The class name for the JNDI object factory."/>
         </feature>
       </feature>
-      <feature id="service" name="Service" lower="1" upper="-1">
-        <attribute id="name" name="Name" type="string"/>
-        <feature id="connector" name="Connector" lower="1" upper="-1">
-          <attribute id="port" name="Port" type="integer"/>
-          <feature id="conn_proto" name="Protocol" lower="1" upper="1">
+      <feature id="service" name="Service" description="Combination of one or more Connector components that share a single Engine." lower="1" upper="-1">
+        <attribute id="name" name="Name" type="string" description="The display name of this Service."/>
+        <feature id="connector" name="Connector" description="Component that receives incoming requests, and creates the corresponding responses." lower="1" upper="-1">
+          <attribute id="port" name="Port" type="integer" description="The TCP port number of this connector."/>
+          <feature id="conn_proto" name="Protocol" description="The protocol the Connector uses." lower="1" upper="1">
             <group lower="1" upper="1">
-              <feature id="conn_http" name="HTTP" lower="0" upper="1"/>
-              <feature id="conn_ajp" name="AJP" lower="0" upper="1"/>
+              <feature id="conn_http" name="HTTP" description="HTTP 1.1 protocol." lower="0" upper="1"/>
+              <feature id="conn_ajp" name="AJP" description="AJP 1.3 protocol." lower="0" upper="1"/>
             </group>
           </feature>
-          <feature id="conn_impl" name="Implementation" lower="0" upper="1">
+          <feature id="conn_impl" name="Implementation" description="Specific connector implementation." lower="0" upper="1">
             <group lower="1" upper="1">
-              <feature id="conn_bio" name="BIO" lower="0" upper="1"/>
-              <feature id="conn_nio" name="NIO" lower="0" upper="1"/>
-              <feature id="conn_apr" name="APR" lower="0" upper="1"/>
+              <feature id="conn_bio" name="BIO" description="Blocking Java connector." lower="0" upper="1"/>
+              <feature id="conn_nio" name="NIO" description="Non blocking Java connector." lower="0" upper="1"/>
+              <feature id="conn_apr" name="APR" description="The APR/native connector." lower="0" upper="1"/>
             </group>
           </feature>
-          <feature id="conn_redirect" name="Redirect" lower="0" upper="1">
-            <attribute id="port" name="port" type="integer"/>
+          <feature id="conn_redirect" name="Redirect" description="Redirection for specified non-SSL requests." lower="0" upper="1">
+            <attribute id="port" name="port" type="integer" description="TCP port number to redirect requests."/>
           </feature>
-          <feature id="conn_timeout" name="Connection Timeout" lower="0" upper="1">
-            <attribute id="timeout" name="timeout" type="integer"/>
+          <feature id="conn_timeout" name="Connection Timeout" description="Limits time the Connector waits after accepting a connection." lower="0" upper="1">
+            <attribute id="timeout" name="timeout" type="integer" description="The number of milliseconds the timeout."/>
           </feature>
-          <feature id="conn_lookup" name="DNS Lookups" lower="0" upper="1"/>
-          <feature id="conn_ssl" name="SSL" lower="0" upper="1"/>
+          <feature id="conn_lookups" name="DNS Lookups" description="Enables DNS lookups in order to return the actual host name of the remote client." lower="0" upper="1"/>
+          <feature id="conn_ssl" name="SSL" description="Enables SSL traffic on a connector." lower="0" upper="1"/>
         </feature>
-        <feature id="engine" name="Engine" lower="1" upper="1">
-          <attribute id="name" name="Name" type="string"/>
-          <attribute id="default_host" name="Default Host" type="string"/>
-          <feature id="host" name="Host" lower="1" upper="-1">
-            <attribute id="name" name="Name" type="string"/>
-            <attribute id="application_base" name="Application Base" type="string"/>
-            <feature id="context" name="Context" lower="0" upper="-1">
-              <attribute id="document_base" name="Document Base" type="string"/>
-              <feature id="reloadable" name="Reloadable" lower="0" upper="1"/>
-              <feature id="cookies" name="Cookies" lower="0" upper="1"/>
-              <feature id="alias" name="Alias" lower="0" upper="-1">
-                <attribute id="alias" name="Alias" type="string"/>
-                <attribute id="path" name="Path" type="string"/>
+        <feature id="engine" name="Engine" description="Component that processes all requests from one or more Connectors." lower="1" upper="1">
+          <attribute id="name" name="Name" type="string" description="Logical name of this Engine."/>
+          <attribute id="default_host" name="Default Host" type="string" description="The name of the default Host to process requests."/>
+          <feature id="host" name="Host" description="Virtual host (association of a network name for a server on which Tomcat is running)." lower="1" upper="-1">
+            <attribute id="name" name="Name" type="string" description="The network name of this virtual host."/>
+            <attribute id="app_base" name="Application Base" type="string" description="The Application Base directory for this virtual host."/>
+            <feature id="context" name="Context" description="Web application, which is run within the Host." lower="0" upper="-1">
+              <attribute id="document_base" name="Document Base" type="string" description="Directory for this web application."/>
+              <feature id="reloadable" name="Reloadable" description="Enables automatical reloading of web application when one of its classes or libraries changes." lower="0" upper="1"/>
+              <feature id="cookies" name="Cookies" description="Enables cookies to be used for session identifier communication." lower="0" upper="1"/>
+              <feature id="alias" name="Alias" description="External location from which to load resources for this context." lower="0" upper="-1">
+                <attribute id="alias" name="Alias" type="string" description="Location alias."/>
+                <attribute id="path" name="Path" type="string" description="The target location."/>
               </feature>
             </feature>
-            <feature id="auto_deploy" name="Auto Deploy" lower="0" upper="1"/>
-            <feature id="unpack_wars" name="Unpack WARs" lower="0" upper="1"/>
-            <feature id="access_logging" name="Access Logging" lower="0" upper="1">
-              <attribute id="directory" name="Directory" type="string"/>
-              <attribute id="prefix" name="Prefix" type="string"/>
-              <attribute id="suffix" name="Suffix" type="string"/>
-              <feature id="access_logging_pattern" name="Custom Pattern" lower="0" upper="1">
-                <attribute id="pattern" name="Pattern" type="string"/>
+            <feature id="auto_deploy" name="Auto Deploy" description="Makes Tomcat check periodically for new or updated web applications " lower="0" upper="1"/>
+            <feature id="unpack_wars" name="Unpack WARs" description="Unpacks automaticaly all WAR files placed inside the application base directory." lower="0" upper="1"/>
+            <feature id="access_logging" name="Access Logging" description="Enables access log generation for all incoming requests." lower="0" upper="1">
+              <attribute id="directory" name="Directory" type="string" description="A directory in which log files will be placed."/>
+              <attribute id="prefix" name="Prefix" type="string" description="The prefix added to the start of each log file's name."/>
+              <attribute id="suffix" name="Suffix" type="string" description="The suffix added to the end of each log file's name."/>
+              <feature id="access_logging_pattern" name="Custom Pattern" description="Enables custom log entry pattern." lower="0" upper="1">
+                <attribute id="pattern" name="Pattern" type="string" description="Log entry pattern."/>
               </feature>
             </feature>
-            <feature id="single_sing_on" name="Single Sing On" lower="0" upper="1"/>
+            <feature id="single_sing_on" name="Single Sing On" description="Enables single sing on to any of the web applications on the Host." lower="0" upper="1"/>
           </feature>
-          <feature id="realm" name="Realm" lower="0" upper="1">
+          <feature id="realm" name="Realm" description="Database of usernames, passwords, and roles assigned to those users." lower="0" upper="1">
             <group lower="1" upper="1">
-              <feature id="realm_jdbc" name="JDBC Database" lower="0" upper="1">
-                <attribute id="connection_name" name="Connection Name" type="string"/>
-                <attribute id="connection_password" name="Connection Password" type="string"/>
-                <attribute id="connection_url" name="Connection URL" type="string"/>
-                <attribute id="driver_name" name="Driver Name" type="string"/>
-                <attribute id="user_table" name="User Table" type="string"/>
-                <attribute id="user_credentials_column" name="User Credentials Column" type="string"/>
-                <attribute id="user_names_column" name="User Names Column" type="string"/>
+              <feature id="realm_jdbc" name="JDBC Database" description="Relational database, accessed through an appropriate JDBC driver." lower="0" upper="1">
+                <attribute id="connection_name" name="Connection Name" type="string" description="The database username to use when establishing the JDBC connection."/>
+                <attribute id="connection_password" name="Connection Password" type="string" description="The database password to use when establishing the JDBC connection."/>
+                <attribute id="connection_url" name="Connection URL" type="string" description="The connection URL to be passed to the JDBC driver when establishing a database connection."/>
+                <attribute id="driver_name" name="Driver Name" type="string" description="Fully qualified Java class name of the JDBC driver to be used to connect to the authentication database."/>
+                <attribute id="user_table" name="User Table" type="string" description="Name of the &quot;users&quot; table, which must contain user name and credentials columns."/>
+                <attribute id="user_names_column" name="User Names Column" type="string" description="Name of the column, in the &quot;users&quot; table, that contains the user's username."/>
+                <attribute id="user_credentials_column" name="User Credentials Column" type="string" description="Name of the column, in the &quot;users&quot; table, which contains the user's credentials (i.e. password)."/>
               </feature>
-              <feature id="realm_ds" name="DataSource Database" lower="0" upper="1">
-                <attribute id="data_source_name" name="Data Source Name" type="string"/>
-                <attribute id="user_table" name="User Table" type="string"/>
-                <attribute id="user_credentials_column" name="User Credentials Column" type="string"/>
-                <attribute id="user_names_column" name="User Names Column" type="string"/>
+              <feature id="realm_ds" name="DataSource Database" description="Relational database, accessed through a JNDI named JDBC DataSource." lower="0" upper="1">
+                <attribute id="data_source_name" name="Data Source Name" type="string" description="The name of the JNDI JDBC DataSource for this Realm."/>
+                <attribute id="user_table" name="User Table" type="string" description="Name of the &quot;users&quot; table, which must contain user name and credentials columns."/>
+                <attribute id="user_credentials_column" name="User Credentials Column" type="string" description="Name of the column, in the &quot;users&quot; table, that contains the user's username."/>
+                <attribute id="user_names_column" name="User Names Column" type="string" description="Name of the column, in the &quot;users&quot; table, which contains the user's credentials (i.e. password)."/>
               </feature>
-              <feature id="realm_jndi" name="JNDI Directory" lower="0" upper="1">
-                <attribute id="connection_url" name="Connection URL" type="string"/>
+              <feature id="realm_jndi" name="JNDI Directory" description="LDAP Directory, accessed through an appropriate JNDI driver." lower="0" upper="1">
+                <attribute id="connection_url" name="Connection URL" type="string" description="The connection URL to be passed to the JNDI driver when establishing a connection to the directory."/>
               </feature>
             </group>
           </feature>
@@ -138,14 +142,15 @@
     </rootFeature>
     <constraint value="conn_apr implies apr" language="cz.zcu.yafmt.clang.BooleanConstraintLanguage"/>
     <constraint value="(exists connector: conn_apr and conn_ssl) implies apr_ssl" language="cz.zcu.yafmt.clang.BooleanConstraintLanguage"/>
+    <comment>You should never use the generated server.xml configuration on your server.
+This is just an example of YAFMT usage.</comment>
   </featureModelCopy>
   <rootSelection id="server">
-    <attributeValue xsi:type="fc:integer" id="port" value="80"/>
-    <attributeValue xsi:type="fc:string" id="shutdown" value="SHUTDOWN"/>
-    <selection id="jasper_jsp"/>
+    <attributeValue xsi:type="fc:integer" id="port" value="300"/>
+    <attributeValue xsi:type="fc:string" id="shutdown" value="shutdown"/>
     <selection id="apr">
       <selection id="apr_ssl">
-        <selection id="apr_ssl_urandom"/>
+        <selection id="apr_ssl_builtin"/>
       </selection>
     </selection>
     <selection id="thread_local_leak_prevention"/>
@@ -153,45 +158,57 @@
       <selection id="ml_lda_pool"/>
       <selection id="ml_url_cache"/>
       <selection id="ml_app_context"/>
+      <selection id="ml_gc_deamon"/>
+      <selection id="ml_xml_parsing"/>
+      <selection id="ml_driver_manager"/>
     </selection>
     <selection id="global_naming">
       <selection id="environment">
-        <attributeValue xsi:type="fc:string" id="name" value="My Env"/>
-        <attributeValue xsi:type="fc:string" id="value" value="My Type"/>
+        <attributeValue xsi:type="fc:string" id="name" value="my_var"/>
+        <attributeValue xsi:type="fc:string" id="value" value="true"/>
         <selection id="env_override"/>
+        <selection id="env_bool"/>
+      </selection>
+      <selection id="environment">
+        <attributeValue xsi:type="fc:string" id="name" value="my_var_2"/>
+        <attributeValue xsi:type="fc:string" id="value" value="10"/>
         <selection id="env_int"/>
       </selection>
       <selection id="resource">
-        <attributeValue xsi:type="fc:string" id="name" value="My Res"/>
-        <attributeValue xsi:type="fc:string" id="type" value="My Type"/>
+        <attributeValue xsi:type="fc:string" id="name" value="MyResource"/>
+        <attributeValue xsi:type="fc:string" id="type" value="ResourceType"/>
         <selection id="res_single">
-          <attributeValue xsi:type="fc:string" id="closeMethod" value="close"/>
+          <attributeValue xsi:type="fc:string" id="close_method" value="close"/>
         </selection>
         <selection id="res_scope">
-          <selection id="res_scope_sh"/>
+          <selection id="res_scope_unsh"/>
         </selection>
         <selection id="res_auth">
           <selection id="res_auth_app"/>
         </selection>
       </selection>
+      <selection id="resource">
+        <attributeValue xsi:type="fc:string" id="name" value="MyResource2"/>
+        <attributeValue xsi:type="fc:string" id="type" value="ResourceType"/>
+      </selection>
       <selection id="transaction">
-        <attributeValue xsi:type="fc:string" id="factory" value="My Factory"/>
+        <attributeValue xsi:type="fc:string" id="factory" value="FactoryClass"/>
       </selection>
     </selection>
     <selection id="service">
-      <attributeValue xsi:type="fc:string" id="name" value="My Service"/>
+      <attributeValue xsi:type="fc:string" id="name" value="MyService"/>
       <selection id="connector">
         <attributeValue xsi:type="fc:integer" id="port" value="80"/>
         <selection id="conn_proto">
           <selection id="conn_http"/>
         </selection>
-        <selection id="conn_redirect">
-          <attributeValue xsi:type="fc:integer" id="port" value="8080"/>
+        <selection id="conn_impl">
+          <selection id="conn_apr"/>
         </selection>
         <selection id="conn_timeout">
-          <attributeValue xsi:type="fc:integer" id="timeout" value="4000"/>
+          <attributeValue xsi:type="fc:integer" id="timeout" value="1000"/>
         </selection>
-        <selection id="conn_lookup"/>
+        <selection id="conn_lookups"/>
         <selection id="conn_ssl"/>
       </selection>
       <selection id="connector">
@@ -199,55 +216,62 @@
         <selection id="conn_proto">
           <selection id="conn_ajp"/>
         </selection>
-        <selection id="conn_impl">
-          <selection id="conn_apr"/>
+        <selection id="conn_redirect">
+          <attributeValue xsi:type="fc:integer" id="port" value="91"/>
         </selection>
         <selection id="conn_ssl"/>
       </selection>
       <selection id="engine">
-        <attributeValue xsi:type="fc:string" id="name" value="My Engine"/>
-        <attributeValue xsi:type="fc:string" id="default_host" value="My Host"/>
+        <attributeValue xsi:type="fc:string" id="name" value="MyEngine"/>
+        <attributeValue xsi:type="fc:string" id="default_host" value="MyHost"/>
         <selection id="host">
-          <attributeValue xsi:type="fc:string" id="name" value="My Host"/>
-          <attributeValue xsi:type="fc:string" id="application_base" value="My Base"/>
+          <attributeValue xsi:type="fc:string" id="name" value="MyHost"/>
+          <attributeValue xsi:type="fc:string" id="app_base" value="/web"/>
           <selection id="context">
-            <attributeValue xsi:type="fc:string" id="document_base" value="My Web"/>
+            <attributeValue xsi:type="fc:string" id="document_base" value="/app"/>
             <selection id="reloadable"/>
             <selection id="cookies"/>
             <selection id="alias">
-              <attributeValue xsi:type="fc:string" id="alias" value="/my_files"/>
-              <attributeValue xsi:type="fc:string" id="path" value="/files"/>
+              <attributeValue xsi:type="fc:string" id="alias" value="/images"/>
+              <attributeValue xsi:type="fc:string" id="path" value="/data/images"/>
             </selection>
             <selection id="alias">
-              <attributeValue xsi:type="fc:string" id="alias" value="/my_images"/>
-              <attributeValue xsi:type="fc:string" id="path" value="/images"/>
+              <attributeValue xsi:type="fc:string" id="alias" value="/files"/>
+              <attributeValue xsi:type="fc:string" id="path" value="/data/files"/>
             </selection>
           </selection>
+          <selection id="context">
+            <attributeValue xsi:type="fc:string" id="document_base" value="/app2"/>
+          </selection>
           <selection id="auto_deploy"/>
+          <selection id="unpack_wars"/>
           <selection id="access_logging">
-            <attributeValue xsi:type="fc:string" id="directory" value="logs"/>
+            <attributeValue xsi:type="fc:string" id="directory" value="/var/log"/>
             <attributeValue xsi:type="fc:string" id="prefix" value="access_"/>
             <attributeValue xsi:type="fc:string" id="suffix" value=".log"/>
             <selection id="access_logging_pattern">
               <attributeValue xsi:type="fc:string" id="pattern" value="%h %l %u %t &amp;quot;%r&amp;quot; %s %b"/>
             </selection>
           </selection>
+          <selection id="single_sing_on"/>
         </selection>
         <selection id="host">
-          <attributeValue xsi:type="fc:string" id="name" value="Second"/>
-          <attributeValue xsi:type="fc:string" id="application_base" value="/web"/>
-          <selection id="auto_deploy"/>
-          <selection id="unpack_wars"/>
+          <attributeValue xsi:type="fc:string" id="name" value="MyHost2"/>
+          <attributeValue xsi:type="fc:string" id="app_base" value="/web2"/>
+          <selection id="access_logging">
+            <attributeValue xsi:type="fc:string" id="directory" value="/var/log"/>
+            <attributeValue xsi:type="fc:string" id="prefix" value="access_"/>
+            <attributeValue xsi:type="fc:string" id="suffix" value=".log"/>
+          </selection>
         </selection>
         <selection id="realm">
-          <selection id="realm_ds">
-            <attributeValue xsi:type="fc:string" id="data_source_name" value="My Datasource"/>
-            <attributeValue xsi:type="fc:string" id="user_table" value="users"/>
-            <attributeValue xsi:type="fc:string" id="user_credentials_column" value="credentials"/>
-            <attributeValue xsi:type="fc:string" id="user_names_column" value="name"/>
+          <selection id="realm_jndi">
+            <attributeValue xsi:type="fc:string" id="connection_url" value="http://myserver.org/jndi"/>
           </selection>
         </selection>
       </selection>
     </selection>
   </rootSelection>
+  <comment>You should never use the generated server.xml configuration on your server.
+This is just an example of YAFMT usage.</comment>
 </fc:FeatureConfiguration>

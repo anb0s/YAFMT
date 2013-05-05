@@ -27,6 +27,160 @@
   </xsl:template>
 
   <!--=======================================================================
+       Listeners
+      =======================================================================-->
+
+  <xsl:template match="selection[@id='security_lifecycle']">
+    <Listener className="org.apache.catalina.security.SecurityListener" />
+  </xsl:template>
+
+  <xsl:template match="selection[@id='thread_local_leak_prevention']">
+    <Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener" />
+  </xsl:template>
+
+  <xsl:template match="selection[@id='jasper_jsp']">
+    <Listener className="org.apache.catalina.core.JasperListener" />
+  </xsl:template>
+
+  <xsl:template match="selection[@id='ml_prevention']">
+    <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener">
+      <xsl:attribute name="ldapPoolProtection">
+        <xsl:value-of select="string(exists(selection[@id='ml_lda_pool']))"/>
+      </xsl:attribute>
+      <xsl:attribute name="urlCacheProtection">
+        <xsl:value-of select="string(exists(selection[@id='ml_url_cache']))"/>
+      </xsl:attribute>
+      <xsl:attribute name="appContextProtection">
+        <xsl:value-of select="string(exists(selection[@id='ml_app_context']))"/>
+      </xsl:attribute>
+      <xsl:attribute name="gcDaemonProtection">
+        <xsl:value-of select="string(exists(selection[@id='ml_gc_deamon']))"/>
+      </xsl:attribute>
+      <xsl:attribute name="xmlParsingProtection">
+        <xsl:value-of select="string(exists(selection[@id='ml_xml_parsing']))"/>
+      </xsl:attribute>
+      <xsl:attribute name="driverManagerProtection">
+        <xsl:value-of select="string(exists(selection[@id='ml_driver_manager']))"/>
+      </xsl:attribute>
+    </Listener>
+  </xsl:template>
+
+  <xsl:template match="selection[@id='apr']">
+    <Listener className="org.apache.catalina.core.AprLifecycleListener">
+      <xsl:apply-templates/>
+    </Listener>
+  </xsl:template>
+
+  <xsl:template match="selection[@id='apr_ssl']">
+    <xsl:attribute name="SSLEngine">on</xsl:attribute>
+    <xsl:apply-templates/>
+  </xsl:template>
+
+  <xsl:template match="selection[@id='apr_ssl_builtin']">
+    <xsl:attribute name="SSLRandomSeed">builtin</xsl:attribute>
+  </xsl:template>
+
+  <xsl:template match="selection[@id='apr_ssl_urandom']">
+    <xsl:attribute name="SSLRandomSeed">/dev/urandom</xsl:attribute>
+  </xsl:template>
+
+  <!--=======================================================================
+       Global Naming Resources
+      =======================================================================-->
+
+  <xsl:template match="selection[@id='global_naming']">
+    <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener"/>
+    <GlobalNamingResources>
+      <xsl:apply-templates/>
+    </GlobalNamingResources>
+  </xsl:template>
+
+  <!--=======================================================================
+       Environment
+      =======================================================================-->
+
+  <xsl:template match="selection[@id='environment']">
+    <Environment>
+      <xsl:attribute name="name">
+        <xsl:value-of select="attributeValue[@id='name']/@value"/>
+      </xsl:attribute>
+      <xsl:attribute name="value">
+        <xsl:value-of select="attributeValue[@id='value']/@value"/>
+      </xsl:attribute>
+      <xsl:apply-templates/>
+    </Environment>
+  </xsl:template>
+
+  <xsl:template match="selection[@id='env_override']">
+    <xsl:attribute name="override">true</xsl:attribute>
+  </xsl:template>
+
+  <xsl:template match="selection[@id='env_bool']">
+    <xsl:attribute name="type">java.lang.Boolean</xsl:attribute>
+  </xsl:template>
+
+  <xsl:template match="selection[@id='env_int']">
+    <xsl:attribute name="type">java.lang.Integer</xsl:attribute>
+  </xsl:template>
+
+  <xsl:template match="selection[@id='env_str']">
+    <xsl:attribute name="type">java.lang.String</xsl:attribute>
+  </xsl:template>
+
+  <!--=======================================================================
+       Transaction
+      =======================================================================-->
+
+  <xsl:template match="selection[@id='transaction']">
+    <Transaction>
+      <xsl:attribute name="factory">
+        <xsl:value-of select="attributeValue[@id='factory']/@value"/>
+      </xsl:attribute>
+    </Transaction>
+  </xsl:template>
+
+  <!--=======================================================================
+       Resource
+      =======================================================================-->
+
+  <xsl:template match="selection[@id='resource']">
+    <Resource>
+      <xsl:attribute name="name">
+        <xsl:value-of select="attributeValue[@id='name']/@value"/>
+      </xsl:attribute>
+      <xsl:attribute name="type">
+        <xsl:value-of select="attributeValue[@id='type']/@value"/>
+      </xsl:attribute>
+      <xsl:apply-templates/>
+    </Resource>
+  </xsl:template>
+
+  <xsl:template match="selection[@id='res_scope_unsh']">
+    <xsl:attribute name="scope">Unshareable</xsl:attribute>
+  </xsl:template>
+
+  <xsl:template match="selection[@id='res_scope_sh']">
+    <xsl:attribute name="scope">Shareable</xsl:attribute>
+  </xsl:template>
+
+  <xsl:template match="selection[@id='res_single']">
+    <xsl:attribute name="singleton">true</xsl:attribute>
+    <xsl:if test="attributeValue[@id='close_method']/@value != ''">
+      <xsl:attribute name="closeMethod">
+        <xsl:value-of select="attributeValue[@id='close_method']/@value"/>
+      </xsl:attribute>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="selection[@id='res_auth_app']">
+    <xsl:attribute name="auth">Application</xsl:attribute>
+  </xsl:template>
+
+  <xsl:template match="selection[@id='res_auth_cont']">
+    <xsl:attribute name="auth">Container</xsl:attribute>
+  </xsl:template>
+
+  <!--=======================================================================
        Service
       =======================================================================-->
 
@@ -35,6 +189,11 @@
       <xsl:attribute name="name">
         <xsl:value-of select="attributeValue[@id='name']/@value"/>
       </xsl:attribute>
+      <xsl:text>
+      </xsl:text>
+      <xsl:comment>Note: SSL support needs additional attributes to be specified.</xsl:comment>
+      <xsl:text>
+      </xsl:text>
       <xsl:apply-templates select="selection[@id='connector']"/>
       <xsl:apply-templates select="selection[@id='engine']"/>
     </Service>
@@ -45,27 +204,12 @@
       =======================================================================-->
 
   <xsl:template match="selection[@id='connector']">
-    <xsl:text>
-    </xsl:text>
-    <xsl:comment>Note: SSL support needs additional attributes to be specified.</xsl:comment>
-    <xsl:text>
-    </xsl:text>
     <Connector>
       <xsl:attribute name="port">
         <xsl:value-of select="attributeValue[@id='port']/@value"/>
       </xsl:attribute>
       <xsl:choose>
-        <xsl:when test="exists(selection[@id='conn_proto']/selection[@id='conn_ajp'])">
-          <xsl:choose>
-            <xsl:when test="exists(selection[@id='conn_impl'])">
-              <xsl:apply-templates mode="ajp"/>
-            </xsl:when>
-            <xsl:otherwise>
-              <xsl:attribute name="protocol">AJP/1.3</xsl:attribute>
-            </xsl:otherwise>
-          </xsl:choose>
-        </xsl:when>
-        <xsl:otherwise>
+        <xsl:when test="exists(selection[@id='conn_proto']/selection[@id='conn_http'])">
           <xsl:choose>
             <xsl:when test="exists(selection[@id='conn_impl'])">
               <xsl:apply-templates mode="http"/>
@@ -74,10 +218,32 @@
               <xsl:attribute name="protocol">HTTP/1.1</xsl:attribute>
             </xsl:otherwise>
           </xsl:choose>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:choose>
+            <xsl:when test="exists(selection[@id='conn_impl'])">
+              <xsl:apply-templates mode="ajp"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:attribute name="protocol">AJP/1.3</xsl:attribute>
+            </xsl:otherwise>
+          </xsl:choose>
         </xsl:otherwise>
       </xsl:choose>
       <xsl:apply-templates/>
     </Connector>
+  </xsl:template>
+
+  <xsl:template match="selection[@id='conn_redirect']">
+    <xsl:attribute name="redirectPort">
+      <xsl:value-of select="attributeValue[@id='port']/@value"/>
+    </xsl:attribute>
+  </xsl:template>
+
+  <xsl:template match="selection[@id='conn_timeout']">
+    <xsl:attribute name="connectionTimeout">
+      <xsl:value-of select="attributeValue[@id='timeout']/@value"/>
+    </xsl:attribute>
   </xsl:template>
 
   <xsl:template match="selection[@id='conn_bio']" mode="http">
@@ -104,20 +270,8 @@
     <xsl:attribute name="protocol">org.apache.coyote.ajp.AjpAprProtocol</xsl:attribute>
   </xsl:template>
 
-  <xsl:template match="selection[@id='conn_lookup']">
+  <xsl:template match="selection[@id='conn_lookups']">
     <xsl:attribute name="enableLookups">true</xsl:attribute>
-  </xsl:template>
-
-  <xsl:template match="selection[@id='conn_timeout']">
-    <xsl:attribute name="connectionTimeout">
-      <xsl:value-of select="attributeValue[@id='timeout']/@value"/>
-    </xsl:attribute>
-  </xsl:template>
-
-  <xsl:template match="selection[@id='conn_redirect']">
-    <xsl:attribute name="redirectPort">
-      <xsl:value-of select="attributeValue[@id='port']/@value"/>
-    </xsl:attribute>
   </xsl:template>
 
   <xsl:template match="selection[@id='conn_ssl']">
@@ -143,74 +297,16 @@
   </xsl:template>
 
   <!--=======================================================================
-       Realm
-      =======================================================================-->
-
-  <xsl:template match="selection[@id='realm']">
-    <Realm>
-      <xsl:apply-templates/>
-    </Realm>
-  </xsl:template>
-
-  <xsl:template match="selection[@id='realm_jdbc']">
-    <xsl:attribute name="className">org.apache.catalina.realm.JDBCRealm</xsl:attribute>
-    <xsl:attribute name="connectionName">
-      <xsl:value-of select="attributeValue[@id='connection_name']/@value"/>
-    </xsl:attribute>
-    <xsl:attribute name="connectionPassword">
-      <xsl:value-of select="attributeValue[@id='connection_password']/@value"/>
-    </xsl:attribute>
-    <xsl:attribute name="connectionURL">
-      <xsl:value-of select="attributeValue[@id='connection_url']/@value"/>
-    </xsl:attribute>
-    <xsl:attribute name="driverName">
-      <xsl:value-of select="attributeValue[@id='driver_name']/@value"/>
-    </xsl:attribute>
-    <xsl:attribute name="userTable">
-      <xsl:value-of select="attributeValue[@id='user_table']/@value"/>
-    </xsl:attribute>
-    <xsl:attribute name="userCredCol">
-      <xsl:value-of select="attributeValue[@id='user_credentials_column']/@value"/>
-    </xsl:attribute>
-    <xsl:attribute name="userNameCol">
-      <xsl:value-of select="attributeValue[@id='user_names_column']/@value"/>
-    </xsl:attribute>
-  </xsl:template>
-
-  <xsl:template match="selection[@id='realm_ds']">
-    <xsl:attribute name="className">org.apache.catalina.realm.DataSourceRealm</xsl:attribute>
-    <xsl:attribute name="dataSourceName">
-      <xsl:value-of select="attributeValue[@id='data_source_name']/@value"/>
-    </xsl:attribute>
-    <xsl:attribute name="userTable">
-      <xsl:value-of select="attributeValue[@id='user_table']/@value"/>
-    </xsl:attribute>
-    <xsl:attribute name="userCredCol">
-      <xsl:value-of select="attributeValue[@id='user_credentials_column']/@value"/>
-    </xsl:attribute>
-    <xsl:attribute name="userNameCol">
-      <xsl:value-of select="attributeValue[@id='user_names_column']/@value"/>
-    </xsl:attribute>
-  </xsl:template>
-
-  <xsl:template match="selection[@id='realm_jndi']">
-    <xsl:attribute name="className">org.apache.catalina.realm.JNDIRealm</xsl:attribute>
-    <xsl:attribute name="connectionURL">
-      <xsl:value-of select="attributeValue[@id='connection_url']/@value"/>
-    </xsl:attribute>
-  </xsl:template>
-
-  <!--=======================================================================
        Host
       =======================================================================-->
 
   <xsl:template match="selection[@id='host']">
     <Host>
-      <xsl:attribute name="appBase">
-        <xsl:value-of select="attributeValue[@id='application_base']/@value"/>
-      </xsl:attribute>
       <xsl:attribute name="name">
         <xsl:value-of select="attributeValue[@id='name']/@value"/>
+      </xsl:attribute>
+      <xsl:attribute name="appBase">
+        <xsl:value-of select="attributeValue[@id='app_base']/@value"/>
       </xsl:attribute>
       <xsl:attribute name="autoDeploy">
         <xsl:value-of select="string(exists(selection[@id='auto_deploy']))"/>
@@ -262,9 +358,11 @@
       <xsl:attribute name="cookies">
         <xsl:value-of select="string(exists(selection[@id='cookies']))"/>
       </xsl:attribute>
-      <xsl:attribute name="aliases">
-        <xsl:apply-templates select="selection[@id='alias']"/>
-      </xsl:attribute>
+      <xsl:if test="exists(selection[@id='alias'])">
+        <xsl:attribute name="aliases">
+          <xsl:apply-templates select="selection[@id='alias']"/>
+        </xsl:attribute>
+      </xsl:if>
     </Context>
   </xsl:template>
 
@@ -278,157 +376,61 @@
   </xsl:template>
 
   <!--=======================================================================
-       Global Naming Resources
+       Realm
       =======================================================================-->
 
-  <xsl:template match="selection[@id='global_naming']">
-    <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener"/>
-    <GlobalNamingResources>
+  <xsl:template match="selection[@id='realm']">
+    <Realm>
       <xsl:apply-templates/>
-    </GlobalNamingResources>
+    </Realm>
   </xsl:template>
 
-  <!--=======================================================================
-       Environment
-      =======================================================================-->
-
-  <xsl:template match="selection[@id='environment']">
-    <Environment>
-      <xsl:attribute name="name">
-        <xsl:value-of select="attributeValue[@id='name']/@value"/>
-      </xsl:attribute>
-      <xsl:attribute name="value">
-        <xsl:value-of select="attributeValue[@id='value']/@value"/>
-      </xsl:attribute>
-      <xsl:apply-templates/>
-    </Environment>
+  <xsl:template match="selection[@id='realm_jdbc']">
+    <xsl:attribute name="className">org.apache.catalina.realm.JDBCRealm</xsl:attribute>
+    <xsl:attribute name="connectionName">
+      <xsl:value-of select="attributeValue[@id='connection_name']/@value"/>
+    </xsl:attribute>
+    <xsl:attribute name="connectionPassword">
+      <xsl:value-of select="attributeValue[@id='connection_password']/@value"/>
+    </xsl:attribute>
+    <xsl:attribute name="connectionURL">
+      <xsl:value-of select="attributeValue[@id='connection_url']/@value"/>
+    </xsl:attribute>
+    <xsl:attribute name="driverName">
+      <xsl:value-of select="attributeValue[@id='driver_name']/@value"/>
+    </xsl:attribute>
+    <xsl:attribute name="userTable">
+      <xsl:value-of select="attributeValue[@id='user_table']/@value"/>
+    </xsl:attribute>
+    <xsl:attribute name="userNameCol">
+      <xsl:value-of select="attributeValue[@id='user_names_column']/@value"/>
+    </xsl:attribute>
+    <xsl:attribute name="userCredCol">
+      <xsl:value-of select="attributeValue[@id='user_credentials_column']/@value"/>
+    </xsl:attribute>
   </xsl:template>
 
-  <xsl:template match="selection[@id='env_override']">
-    <xsl:attribute name="override">true</xsl:attribute>
+  <xsl:template match="selection[@id='realm_ds']">
+    <xsl:attribute name="className">org.apache.catalina.realm.DataSourceRealm</xsl:attribute>
+    <xsl:attribute name="dataSourceName">
+      <xsl:value-of select="attributeValue[@id='data_source_name']/@value"/>
+    </xsl:attribute>
+    <xsl:attribute name="userTable">
+      <xsl:value-of select="attributeValue[@id='user_table']/@value"/>
+    </xsl:attribute>
+    <xsl:attribute name="userNameCol">
+      <xsl:value-of select="attributeValue[@id='user_names_column']/@value"/>
+    </xsl:attribute>
+    <xsl:attribute name="userCredCol">
+      <xsl:value-of select="attributeValue[@id='user_credentials_column']/@value"/>
+    </xsl:attribute>
   </xsl:template>
 
-  <xsl:template match="selection[@id='env_bool']">
-    <xsl:attribute name="type">java.lang.Boolean</xsl:attribute>
-  </xsl:template>
-
-  <xsl:template match="selection[@id='env_int']">
-    <xsl:attribute name="type">java.lang.Integer</xsl:attribute>
-  </xsl:template>
-
-  <xsl:template match="selection[@id='env_str']">
-    <xsl:attribute name="type">java.lang.String</xsl:attribute>
-  </xsl:template>
-
-  <!--=======================================================================
-       Resource
-      =======================================================================-->
-
-  <xsl:template match="selection[@id='resource']">
-    <Resource>
-      <xsl:attribute name="name">
-        <xsl:value-of select="attributeValue[@id='name']/@value"/>
-      </xsl:attribute>
-      <xsl:attribute name="type">
-        <xsl:value-of select="attributeValue[@id='type']/@value"/>
-      </xsl:attribute>
-      <xsl:apply-templates/>
-    </Resource>
-  </xsl:template>
-
-  <xsl:template match="selection[@id='res_auth_app']">
-    <xsl:attribute name="type">Application</xsl:attribute>
-  </xsl:template>
-
-  <xsl:template match="selection[@id='res_auth_cont']">
-    <xsl:attribute name="type">Container</xsl:attribute>
-  </xsl:template>
-
-  <xsl:template match="selection[@id='res_scope_unsh']">
-    <xsl:attribute name="scope">Unshareable</xsl:attribute>
-  </xsl:template>
-
-  <xsl:template match="selection[@id='res_scope_sh']">
-    <xsl:attribute name="scope">Shareable</xsl:attribute>
-  </xsl:template>
-
-  <xsl:template match="selection[@id='res_single']">
-    <xsl:attribute name="singletor">true</xsl:attribute>
-    <xsl:if test="attributeValue[@id='closeMethod']/@value != ''">
-      <xsl:attribute name="closeMethod">
-        <xsl:value-of select="attributeValue[@id='closeMethod']/@value"/>
-      </xsl:attribute>
-    </xsl:if>
-  </xsl:template>
-
-  <!--=======================================================================
-       Transaction
-      =======================================================================-->
-
-  <xsl:template match="selection[@id='transaction']">
-    <Transaction>
-      <xsl:attribute name="factory">
-        <xsl:value-of select="attributeValue[@id='factory']/@value"/>
-      </xsl:attribute>
-    </Transaction>
-  </xsl:template>
-
-  <!--=======================================================================
-       Listeners
-      =======================================================================-->
-
-  <xsl:template match="selection[@id='jasper_jsp']">
-    <Listener className="org.apache.catalina.core.JasperListener" />
-  </xsl:template>
-
-  <xsl:template match="selection[@id='apr']">
-    <Listener className="org.apache.catalina.core.AprLifecycleListener">
-      <xsl:apply-templates/>
-    </Listener>
-  </xsl:template>
-
-  <xsl:template match="selection[@id='apr_ssl']">
-    <xsl:attribute name="SSLEngine">on</xsl:attribute>
-    <xsl:apply-templates/>
-  </xsl:template>
-
-  <xsl:template match="selection[@id='apr_ssl_builtin']">
-    <xsl:attribute name="SSLRandomSeed">builtin</xsl:attribute>
-  </xsl:template>
-
-  <xsl:template match="selection[@id='apr_ssl_urandom']">
-    <xsl:attribute name="SSLRandomSeed">/dev/urandom</xsl:attribute>
-  </xsl:template>
-
-  <xsl:template match="selection[@id='ml_prevention']">
-    <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener">
-      <xsl:attribute name="ldapPoolProtection">
-        <xsl:value-of select="string(exists(selection[@id='ml_lda_pool']))"/>
-      </xsl:attribute>
-      <xsl:attribute name="urlCacheProtection">
-        <xsl:value-of select="string(exists(selection[@id='ml_url_cache']))"/>
-      </xsl:attribute>
-      <xsl:attribute name="appContextProtection">
-        <xsl:value-of select="string(exists(selection[@id='ml_app_context']))"/>
-      </xsl:attribute>
-      <xsl:attribute name="gcDaemonProtection">
-        <xsl:value-of select="string(exists(selection[@id='ml_gc_deamon']))"/>
-      </xsl:attribute>
-      <xsl:attribute name="xmlParsingProtection">
-        <xsl:value-of select="string(exists(selection[@id='ml_xml_parsing']))"/>
-      </xsl:attribute>
-      <xsl:attribute name="driverManagerProtection">
-        <xsl:value-of select="string(exists(selection[@id='ml_driver_manager']))"/>
-      </xsl:attribute>
-    </Listener>
-  </xsl:template>
-
-  <xsl:template match="selection[@id='security_lifecycle']">
-    <Listener className="org.apache.catalina.security.SecurityListener" />
-  </xsl:template>
-
-  <xsl:template match="selection[@id='thread_local_leak_prevention']">
-    <Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener" />
+  <xsl:template match="selection[@id='realm_jndi']">
+    <xsl:attribute name="className">org.apache.catalina.realm.JNDIRealm</xsl:attribute>
+    <xsl:attribute name="connectionURL">
+      <xsl:value-of select="attributeValue[@id='connection_url']/@value"/>
+    </xsl:attribute>
   </xsl:template>
 
 </xsl:stylesheet>
