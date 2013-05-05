@@ -201,6 +201,83 @@
   </xsl:template>
 
   <!--=======================================================================
+       Host
+      =======================================================================-->
+
+  <xsl:template match="selection[@id='host']">
+    <Host>
+      <xsl:attribute name="appBase">
+        <xsl:value-of select="attributeValue[@id='application_base']/@value"/>
+      </xsl:attribute>
+      <xsl:attribute name="name">
+        <xsl:value-of select="attributeValue[@id='name']/@value"/>
+      </xsl:attribute>
+      <xsl:attribute name="autoDeploy">
+        <xsl:value-of select="string(exists(selection[@id='auto_deploy']))"/>
+      </xsl:attribute>
+      <xsl:attribute name="unpackWARs">
+        <xsl:value-of select="string(exists(selection[@id='unpack_wars']))"/>
+      </xsl:attribute>
+      <xsl:apply-templates/>
+    </Host>
+  </xsl:template>
+
+  <xsl:template match="selection[@id='access_logging']">
+    <Valve className="org.apache.catalina.valves.AccessLogValve">
+      <xsl:attribute name="directory">
+        <xsl:value-of select="attributeValue[@id='directory']/@value"/>
+      </xsl:attribute>
+      <xsl:attribute name="prefix">
+        <xsl:value-of select="attributeValue[@id='prefix']/@value"/>
+      </xsl:attribute>
+      <xsl:attribute name="suffix">
+        <xsl:value-of select="attributeValue[@id='suffix']/@value"/>
+      </xsl:attribute>
+      <xsl:apply-templates/>
+    </Valve>
+  </xsl:template>
+
+  <xsl:template match="selection[@id='access_logging_pattern']">
+      <xsl:attribute name="pattern">
+        <xsl:value-of select="attributeValue[@id='pattern']/@value"/>
+      </xsl:attribute>
+  </xsl:template>
+
+  <xsl:template match="selection[@id='single_sing_on']">
+    <Valve className="org.apache.catalina.authenticator.SingleSignOn"/>
+  </xsl:template>
+
+  <!--=======================================================================
+       Context
+      =======================================================================-->
+
+  <xsl:template match="selection[@id='context']">
+    <Context>
+      <xsl:attribute name="docBase">
+        <xsl:value-of select="attributeValue[@id='document_base']/@value"/>
+      </xsl:attribute>
+      <xsl:attribute name="reloadable">
+        <xsl:value-of select="string(exists(selection[@id='reloadable']))"/>
+      </xsl:attribute>
+      <xsl:attribute name="cookies">
+        <xsl:value-of select="string(exists(selection[@id='cookies']))"/>
+      </xsl:attribute>
+      <xsl:attribute name="aliases">
+        <xsl:apply-templates select="selection[@id='alias']"/>
+      </xsl:attribute>
+    </Context>
+  </xsl:template>
+
+  <xsl:template match="selection[@id='alias']">
+      <xsl:value-of select="attributeValue[@id='alias']/@value"/>
+      <xsl:text>=</xsl:text>
+      <xsl:value-of select="attributeValue[@id='path']/@value"/>
+      <xsl:if test="not(position()=last())">
+        <xsl:text>,</xsl:text>
+      </xsl:if>
+  </xsl:template>
+
+  <!--=======================================================================
        Global Naming Resources
       =======================================================================-->
 

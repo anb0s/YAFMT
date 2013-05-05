@@ -90,6 +90,26 @@
           <feature id="host" name="Host" lower="1" upper="-1">
             <attribute id="name" name="Name" type="string"/>
             <attribute id="application_base" name="Application Base" type="string"/>
+            <feature id="context" name="Context" lower="0" upper="-1">
+              <attribute id="document_base" name="Document Base" type="string"/>
+              <feature id="reloadable" name="Reloadable" lower="0" upper="1"/>
+              <feature id="cookies" name="Cookies" lower="0" upper="1"/>
+              <feature id="alias" name="Alias" lower="0" upper="-1">
+                <attribute id="alias" name="Alias" type="string"/>
+                <attribute id="path" name="Path" type="string"/>
+              </feature>
+            </feature>
+            <feature id="auto_deploy" name="Auto Deploy" lower="0" upper="1"/>
+            <feature id="unpack_wars" name="Unpack WARs" lower="0" upper="1"/>
+            <feature id="access_logging" name="Access Logging" lower="0" upper="1">
+              <attribute id="directory" name="Directory" type="string"/>
+              <attribute id="prefix" name="Prefix" type="string"/>
+              <attribute id="suffix" name="Suffix" type="string"/>
+              <feature id="access_logging_pattern" name="Custom Pattern" lower="0" upper="1">
+                <attribute id="pattern" name="Pattern" type="string"/>
+              </feature>
+            </feature>
+            <feature id="single_sing_on" name="Single Sing On" lower="0" upper="1"/>
           </feature>
           <feature id="realm" name="Realm" lower="0" upper="1">
             <group lower="1" upper="1">
@@ -190,6 +210,34 @@
         <selection id="host">
           <attributeValue xsi:type="fc:string" id="name" value="My Host"/>
           <attributeValue xsi:type="fc:string" id="application_base" value="My Base"/>
+          <selection id="context">
+            <attributeValue xsi:type="fc:string" id="document_base" value="My Web"/>
+            <selection id="reloadable"/>
+            <selection id="cookies"/>
+            <selection id="alias">
+              <attributeValue xsi:type="fc:string" id="alias" value="/my_files"/>
+              <attributeValue xsi:type="fc:string" id="path" value="/files"/>
+            </selection>
+            <selection id="alias">
+              <attributeValue xsi:type="fc:string" id="alias" value="/my_images"/>
+              <attributeValue xsi:type="fc:string" id="path" value="/images"/>
+            </selection>
+          </selection>
+          <selection id="auto_deploy"/>
+          <selection id="access_logging">
+            <attributeValue xsi:type="fc:string" id="directory" value="logs"/>
+            <attributeValue xsi:type="fc:string" id="prefix" value="access_"/>
+            <attributeValue xsi:type="fc:string" id="suffix" value=".log"/>
+            <selection id="access_logging_pattern">
+              <attributeValue xsi:type="fc:string" id="pattern" value="%h %l %u %t &amp;quot;%r&amp;quot; %s %b"/>
+            </selection>
+          </selection>
+        </selection>
+        <selection id="host">
+          <attributeValue xsi:type="fc:string" id="name" value="Second"/>
+          <attributeValue xsi:type="fc:string" id="application_base" value="/web"/>
+          <selection id="auto_deploy"/>
+          <selection id="unpack_wars"/>
         </selection>
         <selection id="realm">
           <selection id="realm_ds">
