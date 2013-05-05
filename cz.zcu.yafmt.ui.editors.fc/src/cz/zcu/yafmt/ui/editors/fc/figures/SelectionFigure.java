@@ -9,25 +9,23 @@ import org.eclipse.draw2d.GridData;
 import org.eclipse.draw2d.GridLayout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
-import org.eclipse.draw2d.RoundedRectangle;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Pattern;
-import org.eclipse.swt.widgets.Display;
 
 import cz.zcu.yafmt.model.fc.Selection;
 import cz.zcu.yafmt.ui.figures.ErrorMarker;
 import cz.zcu.yafmt.ui.figures.MarkerLayer;
+import cz.zcu.yafmt.ui.figures.RoundedRectangleWithGradient;
 import cz.zcu.yafmt.ui.figures.SeparatorFigure;
 import cz.zcu.yafmt.ui.figures.TooltipFigure;
 import cz.zcu.yafmt.ui.figures.VerticalToolbarFigure;
 import cz.zcu.yafmt.ui.util.DrawUtil;
 
-public class SelectionFigure extends RoundedRectangle {
+public class SelectionFigure extends RoundedRectangleWithGradient {
     
     private static final int MIN_WIDTH = 90;
     private static final int MIN_HEIGHT = 30;
@@ -160,16 +158,8 @@ public class SelectionFigure extends RoundedRectangle {
 
     @Override
     protected void fillShape(Graphics graphics) {
-        Pattern pattern = createBackgroundPattern(graphics);
-        if(pattern != null)
-            graphics.setBackgroundPattern(pattern);
-            
+        setTopBackgroundColor(computeTopBackgroundColor());
         super.fillShape(graphics);
-        
-        if(pattern != null) {
-            graphics.setBackgroundPattern(null);
-            pattern.dispose();
-        }
     }
         
     @Override
@@ -188,25 +178,12 @@ public class SelectionFigure extends RoundedRectangle {
         graphics.drawLine(rect.getBottomLeft(), rect.getTopRight());
     }
     
+    private Color computeTopBackgroundColor() {
+        return selection.isPresent() ? DrawUtil.FEATURE_GRADIENT_COLOR : ColorConstants.white;
+    }
+    
     private Color computeForgroundColor() {
         return selection.isPresent() ? ColorConstants.black : ColorConstants.lightGray;
-    }
-
-    private Pattern createBackgroundPattern(Graphics graphics) {
-        if(!selection.isPresent())
-            return null;
-        
-        Point top = bounds.getTop();
-        Point bottom = bounds.getBottom();
-        double scale = graphics.getAbsoluteScale();
-
-        // Apply scale.
-        int topX = (int) (scale * top.x);
-        int topY = (int) (scale * top.y);
-        int bottomX = (int) (scale * bottom.x);
-        int bottomY = (int) (scale * bottom.y);
-
-        return new Pattern(Display.getCurrent(), topX, topY, bottomX, bottomY, DrawUtil.FEATURE_GRADIENT_COLOR, ColorConstants.white);
     }
     
     // ==================================================================

@@ -9,24 +9,22 @@ import org.eclipse.draw2d.GridData;
 import org.eclipse.draw2d.GridLayout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
-import org.eclipse.draw2d.RoundedRectangle;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Pattern;
-import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.graphics.Color;
 
 import cz.zcu.yafmt.model.fm.Feature;
 import cz.zcu.yafmt.ui.figures.ConstraintMarker;
 import cz.zcu.yafmt.ui.figures.ErrorMarker;
 import cz.zcu.yafmt.ui.figures.MarkerLayer;
+import cz.zcu.yafmt.ui.figures.RoundedRectangleWithGradient;
 import cz.zcu.yafmt.ui.figures.SeparatorFigure;
 import cz.zcu.yafmt.ui.figures.TooltipFigure;
 import cz.zcu.yafmt.ui.figures.VerticalToolbarFigure;
 import cz.zcu.yafmt.ui.util.DrawUtil;
 
-public class FeatureFigure extends RoundedRectangle {
+public class FeatureFigure extends RoundedRectangleWithGradient {
 
     public static final int INITIAL_WIDTH = 120;
     public static final int INITIAL_HEGHT = 30;
@@ -57,6 +55,8 @@ public class FeatureFigure extends RoundedRectangle {
     // ==================================================================
     
     private void initialize() {
+        setTopBackgroundColor(computeTopBackgroundColor());
+        setBottomBackgroundColor(ColorConstants.white);
         setForegroundColor(ColorConstants.black);
         setLayoutManager(new StackLayout());
         setToolTip(createToolTip());
@@ -150,7 +150,7 @@ public class FeatureFigure extends RoundedRectangle {
     public void setOrphaned(boolean value) {
         if(orphaned != value) {
             orphaned = value;
-            repaint();
+            setTopBackgroundColor(computeTopBackgroundColor());
         }
     }
     
@@ -180,6 +180,10 @@ public class FeatureFigure extends RoundedRectangle {
         return super.getPreferredSize(wHint, hHint).getExpanded(24, 0);
     }
     
+    private Color computeTopBackgroundColor() {
+        return orphaned ? ColorConstants.white : DrawUtil.FEATURE_GRADIENT_COLOR;
+    }
+    
     // ==================================================================
     //  Drawing
     // ==================================================================
@@ -189,21 +193,7 @@ public class FeatureFigure extends RoundedRectangle {
         DrawUtil.fixScaledFigureLocation(graphics);
         super.paint(graphics);
     }
-
-    @Override
-    protected void fillShape(Graphics graphics) {
-        Pattern pattern = createBackgroundPattern(graphics);
-        if(pattern != null)
-            graphics.setBackgroundPattern(pattern);
-
-        super.fillShape(graphics);
-        
-        if(pattern != null) {
-            graphics.setBackgroundPattern(null);
-            pattern.dispose();
-        }
-    }
-        
+       
     @Override
     protected void outlineShape(Graphics graphics) {
         if(orphaned) {
@@ -211,23 +201,6 @@ public class FeatureFigure extends RoundedRectangle {
             graphics.setLineDash(DrawUtil.LINE_DASHED);
         }
         super.outlineShape(graphics);
-    }
-
-    private Pattern createBackgroundPattern(Graphics graphics) {
-        if(orphaned)
-            return null;
-        
-        Point top = bounds.getTop();
-        Point bottom = bounds.getBottom();
-        double scale = graphics.getAbsoluteScale();
-
-        // Apply scale.
-        int topX = (int) (scale * top.x);
-        int topY = (int) (scale * top.y);
-        int bottomX = (int) (scale * bottom.x);
-        int bottomY = (int) (scale * bottom.y);
-
-        return new Pattern(Display.getCurrent(), topX, topY, bottomX, bottomY,  DrawUtil.FEATURE_GRADIENT_COLOR, ColorConstants.white);
     }
 
     // ==================================================================
