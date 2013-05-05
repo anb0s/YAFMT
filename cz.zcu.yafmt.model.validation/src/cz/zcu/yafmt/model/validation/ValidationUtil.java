@@ -13,7 +13,7 @@ public class ValidationUtil {
     
     public static void checkIdValue(String name, String value) throws Exception {
         checkEmptyValue(name, value);
-        if(!Pattern.matches("[a-zA-Z0-9_\\.]+", value))
+        if(!Pattern.matches("[a-zA-Z_][0-9a-zA-Z_]*", value))
             throw new Exception(getMessage("Errors_WrongIdFormat"));
     }
     
