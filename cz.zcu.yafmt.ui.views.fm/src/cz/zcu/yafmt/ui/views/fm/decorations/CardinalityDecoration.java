@@ -33,7 +33,7 @@ public class CardinalityDecoration extends Label implements IDecoration {
     // ===============================================================
     
     private Label getToolTip(int lower, int upper) {
-        if(upper > 1)
+        if((upper > 1) || (upper == -1))
             return (lower == 0) ? OPTIONAL_CLONNABLE_TOOL_TIP : MANDATORY_CLONNABLE_TOOL_TIP;
         else
             return (lower == 0) ? OPTIONAL_TOOL_TIP : MANDATORY_TOOL_TIP;
