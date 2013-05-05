@@ -9,6 +9,7 @@ import org.eclipse.draw2d.Label;
 import cz.zcu.yafmt.model.fm.Attribute;
 import cz.zcu.yafmt.model.fm.AttributeType;
 import cz.zcu.yafmt.ui.figures.ErrorMarker;
+import cz.zcu.yafmt.ui.figures.TooltipFigure;
 
 public class AttributeFigure extends Label {
 
@@ -17,6 +18,7 @@ public class AttributeFigure extends Label {
     public static int EXTENDED_HEIGHT = 28;
 
     private Attribute attribute;
+    private TooltipFigure toolTip;
     private ErrorMarker errorMarker;
     
     public AttributeFigure(Attribute attribute) {
@@ -31,9 +33,15 @@ public class AttributeFigure extends Label {
     
     private void initialize() {
         setForegroundColor(ColorConstants.black);
+        setToolTip(createTooltip());
         add(createErrorMarker());
     }
     
+    private IFigure createTooltip() {
+        toolTip = new TooltipFigure();
+        return toolTip;
+    }
+
     private IFigure createErrorMarker() {
         errorMarker = new ErrorMarker();
         return errorMarker;
@@ -49,8 +57,9 @@ public class AttributeFigure extends Label {
         
     public void refresh() {
         setNameAndType(attribute.getName(), attribute.getType());
+        toolTip.setText(createDescriptionText());
     }
-
+    
     public void setName(String name) {
         setNameAndType(name, attribute.getType());
     }
@@ -72,6 +81,14 @@ public class AttributeFigure extends Label {
             default:
                 return "Unknown";
         }
+    }
+    
+    private String createDescriptionText() {
+        String description = attribute.getDescription() ;
+        if((description != null) && !description.isEmpty())
+            return "[" + attribute.getId() + "] " + description;
+        else
+            return "[" + attribute.getId() + "] ";
     }
     
 }

@@ -18,9 +18,9 @@ public class FeatureFigure extends DecoratableNodeFigure {
     private String createToolTipText(Feature feature) {
         String description = feature.getDescription();
         if((description != null) && !description.isEmpty())
-            return feature.getId() + " - " + description;
+            return "[" + feature.getId() + "] " + description;
         else
-            return feature.getId();
+            return "[" + feature.getId() + "]";
     }
 
 }

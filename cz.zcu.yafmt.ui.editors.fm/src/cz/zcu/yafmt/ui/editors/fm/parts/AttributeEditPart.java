@@ -1,6 +1,7 @@
 package cz.zcu.yafmt.ui.editors.fm.parts;
 
 import static cz.zcu.yafmt.model.fm.FeatureModelPackage.ATTRIBUTE__ID;
+import static cz.zcu.yafmt.model.fm.FeatureModelPackage.ATTRIBUTE__DESCRIPTION;
 import static cz.zcu.yafmt.model.fm.FeatureModelPackage.ATTRIBUTE__NAME;
 import static cz.zcu.yafmt.model.fm.FeatureModelPackage.ATTRIBUTE__TYPE;
 
@@ -160,6 +161,7 @@ public class AttributeEditPart extends AbstractGraphicalEditPart {
                     break;
                     
                 case ATTRIBUTE__TYPE:
+                case ATTRIBUTE__DESCRIPTION:
                     refreshVisuals();
                     break;
             }

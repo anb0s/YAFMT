@@ -21,10 +21,10 @@ public class GroupFigure extends NodeFigure {
     }
     
     private String createToolTipText(Group group) {
-        String name = FeatureModelUtil.getTranslatedCardinality(group) + " Group";
+        String name = FeatureModelUtil.getTranslatedCardinality(group) + " Group.";
         String description = group.getDescription();
         if((description != null) && !description.isEmpty())
-            return name + " - " + description;
+            return name + " " + description;
         else
             return name;
     }

@@ -10,6 +10,7 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.LineAttributes;
 
+import cz.zcu.yafmt.ui.figures.TooltipFigure;
 import cz.zcu.yafmt.ui.util.DrawUtil;
 
 public class NodeFigure extends Label implements IFigureWithAlpha {
@@ -73,7 +74,7 @@ public class NodeFigure extends Label implements IFigureWithAlpha {
 
     public void setToolTipText(String text) {
         if((text != null) && !text.isEmpty())
-            setToolTip(new Label(text));
+            setToolTip(new TooltipFigure(text));
         else
             setToolTip(null);
     }

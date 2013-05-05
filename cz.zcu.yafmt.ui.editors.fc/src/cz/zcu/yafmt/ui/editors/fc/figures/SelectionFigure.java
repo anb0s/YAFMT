@@ -23,6 +23,7 @@ import cz.zcu.yafmt.model.fc.Selection;
 import cz.zcu.yafmt.ui.figures.ErrorMarker;
 import cz.zcu.yafmt.ui.figures.MarkerLayer;
 import cz.zcu.yafmt.ui.figures.SeparatorFigure;
+import cz.zcu.yafmt.ui.figures.TooltipFigure;
 import cz.zcu.yafmt.ui.figures.VerticalToolbarFigure;
 import cz.zcu.yafmt.ui.util.DrawUtil;
 
@@ -59,16 +60,16 @@ public class SelectionFigure extends RoundedRectangle {
         add(createMarkerLayer());        
     }
     
-    private Label createToolTip() {
-        return new Label(createToolTipText());
+    private TooltipFigure createToolTip() {
+        return new TooltipFigure(createToolTipText());
     }
     
     private String createToolTipText() {
         String description = selection.getDescription();
         if((description != null) && !description.isEmpty())
-            return selection.getId() + " - " + description;
+            return "[" + selection.getId() + "] " + description;
         else
-            return selection.getId();
+            return "[" + selection.getId() + "]";
     }
     
     // ==================================================================

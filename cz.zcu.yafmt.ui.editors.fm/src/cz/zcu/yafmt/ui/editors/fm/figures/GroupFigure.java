@@ -19,6 +19,7 @@ import cz.zcu.yafmt.model.fm.util.FeatureModelUtil;
 import cz.zcu.yafmt.ui.editors.fm.layout.LayoutData;
 import cz.zcu.yafmt.ui.figures.ErrorMarker;
 import cz.zcu.yafmt.ui.figures.NonInteractiveLabel;
+import cz.zcu.yafmt.ui.figures.TooltipFigure;
 import cz.zcu.yafmt.ui.util.DrawUtil;
 
 public class GroupFigure extends Shape {
@@ -31,7 +32,7 @@ public class GroupFigure extends Shape {
     private LayoutData layoutData;
     
     private Label label;
-    private Label toolTip;
+    private TooltipFigure toolTip;
     private ErrorMarker errorMarker;
     
     private double[] connectionAngles;
@@ -59,8 +60,8 @@ public class GroupFigure extends Shape {
         add(createErrorMarker());
     }
 
-    private Label createToolTip() {
-        toolTip = new Label(createDescriptionText());
+    private TooltipFigure createToolTip() {
+        toolTip = new TooltipFigure(createDescriptionText());
         return toolTip;
     }
     
@@ -133,10 +134,10 @@ public class GroupFigure extends Shape {
     }
     
     private String createDescriptionText() {
-        String name = FeatureModelUtil.getTranslatedCardinality(group) + " Group";
+        String name = FeatureModelUtil.getTranslatedCardinality(group) + " Group.";
         String description = group.getDescription();
         if((description != null) && !description.isEmpty())
-            return name + " - " + description;
+            return name + " " + description;
         else
             return name;
     }

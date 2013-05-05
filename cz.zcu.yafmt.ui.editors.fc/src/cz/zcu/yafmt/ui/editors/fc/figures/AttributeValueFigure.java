@@ -19,6 +19,7 @@ import cz.zcu.yafmt.model.fc.DoubleValue;
 import cz.zcu.yafmt.model.fc.IntegerValue;
 import cz.zcu.yafmt.model.fc.StringValue;
 import cz.zcu.yafmt.ui.figures.ErrorMarker;
+import cz.zcu.yafmt.ui.figures.TooltipFigure;
 import cz.zcu.yafmt.ui.util.DrawUtil;
 
 
@@ -41,7 +42,20 @@ public class AttributeValueFigure extends Label {
     
     private void initialize() {
         setForegroundColor(ColorConstants.black);
+        setToolTip(createToolTip());
         add(createErrorMarker());
+    }
+    
+    private TooltipFigure createToolTip() {
+        return new TooltipFigure(createToolTipText());
+    }
+    
+    private String createToolTipText() {
+        String description = attributeValue.getDescription();
+        if((description != null) && !description.isEmpty())
+            return "[" + attributeValue.getId() + "] " + description;
+        else
+            return "[" + attributeValue.getId() + "]";
     }
     
     private IFigure createErrorMarker() {

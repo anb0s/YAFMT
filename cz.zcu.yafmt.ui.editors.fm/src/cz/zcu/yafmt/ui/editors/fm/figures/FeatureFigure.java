@@ -22,6 +22,7 @@ import cz.zcu.yafmt.ui.figures.ConstraintMarker;
 import cz.zcu.yafmt.ui.figures.ErrorMarker;
 import cz.zcu.yafmt.ui.figures.MarkerLayer;
 import cz.zcu.yafmt.ui.figures.SeparatorFigure;
+import cz.zcu.yafmt.ui.figures.TooltipFigure;
 import cz.zcu.yafmt.ui.figures.VerticalToolbarFigure;
 import cz.zcu.yafmt.ui.util.DrawUtil;
 
@@ -33,7 +34,7 @@ public class FeatureFigure extends RoundedRectangle {
     public static final int MIN_HEGHT = 30;
 
     private Label label;
-    private Label toolTip;
+    private TooltipFigure toolTip;
     private Figure mainLayer;
     private MarkerLayer markerLayer;
     private Figure separatorFigure;
@@ -65,7 +66,7 @@ public class FeatureFigure extends RoundedRectangle {
     }
 
     private IFigure createToolTip() {
-        toolTip = new Label();
+        toolTip = new TooltipFigure();
         return toolTip;
     }
 
@@ -167,11 +168,11 @@ public class FeatureFigure extends RoundedRectangle {
     }
     
     private String createDescriptionText() {
-        String description = feature.getDescription();
+        String description = feature.getDescription() ;
         if((description != null) && !description.isEmpty())
-            return feature.getId() + " - " + description;
+            return "[" + feature.getId() + "] " + description;
         else
-            return feature.getId();
+            return "[" + feature.getId() + "] ";
     }
     
     @Override
