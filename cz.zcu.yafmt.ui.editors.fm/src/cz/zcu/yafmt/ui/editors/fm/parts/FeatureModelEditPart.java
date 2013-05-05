@@ -19,11 +19,17 @@ import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EContentAdapter;
+import org.eclipse.gef.CompoundSnapToHelper;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.LayerConstants;
+import org.eclipse.gef.SnapToGeometry;
+import org.eclipse.gef.SnapToGrid;
+import org.eclipse.gef.SnapToHelper;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
+import org.eclipse.gef.editpolicies.SnapFeedbackPolicy;
 import org.eclipse.swt.SWT;
 
 import cz.zcu.yafmt.clang.util.ConstraintCache;
@@ -42,7 +48,7 @@ import cz.zcu.yafmt.ui.editors.fm.policies.FeatureModelLayoutPolicy;
 import cz.zcu.yafmt.ui.util.DelayedRunner;
 import cz.zcu.yafmt.ui.validation.IProblemManager;
 
-public class FeatureModelEditPart extends BaseGraphicalEditPart {
+public class FeatureModelEditPart extends AbstractGraphicalEditPart {
 
     private FeatureModel featureModel;
     private LayoutData layoutData;
@@ -255,9 +261,9 @@ public class FeatureModelEditPart extends BaseGraphicalEditPart {
     
     @Override
     protected void createEditPolicies() {
-        super.createEditPolicies();
         installEditPolicy(EditPolicy.LAYOUT_ROLE, new FeatureModelLayoutPolicy());
         installEditPolicy(EditPolicy.COMPONENT_ROLE, new FeatureModelEditPolicy());
+        installEditPolicy("Snap Feedback", new SnapFeedbackPolicy()); // Policy for 'snap to grid' and 'snap to geometry' functions.
     }
         
     // ===================================================================
@@ -320,6 +326,28 @@ public class FeatureModelEditPart extends BaseGraphicalEditPart {
             }
         }
 
+    }
+    
+    // ===================================================================
+    //  Adapters
+    // =================================================================== 
+    
+    @Override
+    @SuppressWarnings("rawtypes")
+    public Object getAdapter(Class type) {
+        // Helper for 'snap to grid' and 'snap to geometry' functions. 
+        if(type == SnapToHelper.class) {
+            List<SnapToHelper> helpers = new ArrayList<SnapToHelper>(2);
+            if(Boolean.TRUE.equals(getViewer().getProperty(SnapToGeometry.PROPERTY_SNAP_ENABLED)))
+                helpers.add(new SnapToGeometry(this));
+            if(Boolean.TRUE.equals(getViewer().getProperty(SnapToGrid.PROPERTY_GRID_ENABLED)))
+                helpers.add(new SnapToGrid(this));
+            if(helpers.size() == 0)
+                return null;
+            else
+                return new CompoundSnapToHelper(helpers.toArray(new SnapToHelper[helpers.size()]));
+        }
+        return super.getAdapter(type);
     }
 
 }

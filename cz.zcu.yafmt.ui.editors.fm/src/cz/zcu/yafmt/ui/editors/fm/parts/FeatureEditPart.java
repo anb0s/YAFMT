@@ -32,6 +32,7 @@ import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
+import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.jface.viewers.ICellEditorValidator;
 import org.eclipse.swt.SWT;
 
@@ -52,7 +53,7 @@ import cz.zcu.yafmt.ui.editors.fm.policies.FeatureEditPolicy;
 import cz.zcu.yafmt.ui.editors.fm.policies.FeatureLayoutPolicy;
 import cz.zcu.yafmt.ui.validation.IProblemManager;
 
-public class FeatureEditPart extends BaseGraphicalEditPart implements NodeEditPart {
+public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEditPart {
 
     private Feature feature;
     private Adapter featureAdapter;
@@ -190,7 +191,6 @@ public class FeatureEditPart extends BaseGraphicalEditPart implements NodeEditPa
 
     @Override
     protected void createEditPolicies() {
-        super.createEditPolicies();
         installEditPolicy(EditPolicy.COMPONENT_ROLE, new FeatureEditPolicy());
         installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new FeatureDirectEditPolicy());
         installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new ConnectionCreationPolicy());
