@@ -1,7 +1,6 @@
 package cz.zcu.yafmt.ui.figures;
 
 import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.RoundedRectangle;
 import org.eclipse.draw2d.geometry.Dimension;
 
@@ -13,7 +12,7 @@ public class MarkerFigure extends RoundedRectangle {
     private static final Dimension CORNER_DIMENSION = new Dimension(4, 4);
     public static final int SIZE = 12; 
        
-    private Label toolTip;
+    private TooltipFigure toolTip;
     
     public MarkerFigure() {
         setSize(SIZE, SIZE);
@@ -23,7 +22,7 @@ public class MarkerFigure extends RoundedRectangle {
     public void setToolTipText(String text) {
         if((text != null) && !text.isEmpty()) {
             if(toolTip == null)
-                toolTip = new Label();
+                toolTip = new TooltipFigure();
             toolTip.setText(text);
             setToolTip(toolTip);
         }
