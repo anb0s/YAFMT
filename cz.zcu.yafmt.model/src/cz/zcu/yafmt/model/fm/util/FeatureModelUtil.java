@@ -94,7 +94,7 @@ public class FeatureModelUtil {
         FeatureModelFactory factory = FeatureModelFactory.eINSTANCE;
 
         Feature rootFeature = factory.createFeature();
-        rootFeature.setId(name.trim().replaceAll("\\s+", ".").toLowerCase());
+        rootFeature.setId(generateIdFromName(name));
         rootFeature.setName(name);
         rootFeature.setLower(1);
         rootFeature.setUpper(1);
@@ -116,7 +116,7 @@ public class FeatureModelUtil {
     public static String generateIdFromName(String name) {
         String id = Normalizer.normalize(name, Normalizer.Form.NFD);
         id = id.replaceAll("^\\s+", "").replaceAll("\\s+$", "").replaceAll("\\s+", "_");
-        return id.replaceAll("[^a-zA-Z0-9_\\.]+", "").toLowerCase();
+        return id.replaceAll("[^a-zA-Z0-9_]+", "").toLowerCase();
     }
 
     // ===============================================================================================
