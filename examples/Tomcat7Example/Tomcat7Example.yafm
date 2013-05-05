@@ -138,8 +138,8 @@
       </feature>
     </feature>
   </rootFeature>
-  <constraint value="conn_apr implies apr" language="cz.zcu.yafmt.clang.BooleanConstraintLanguage"/>
-  <constraint value="(exists connector: conn_apr and conn_ssl) implies apr_ssl" language="cz.zcu.yafmt.clang.BooleanConstraintLanguage"/>
+  <constraint value="conn_apr implies apr" language="cz.zcu.yafmt.clang.BooleanConstraintLanguage" description="When using APR/native connector, the APR must be enabled."/>
+  <constraint value="(exists connector: conn_apr and conn_ssl) implies apr_ssl" language="cz.zcu.yafmt.clang.BooleanConstraintLanguage" description="When using APR/native connector with SSL, the APR and SSL must be enabled."/>
   <comment>You should never use the generated server.xml configuration on your server.
 This is just an example of YAFMT usage.</comment>
 </fm:featureModel>
