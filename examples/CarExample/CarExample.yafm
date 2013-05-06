@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fm:featureModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:fm="http://zcu.cz/yafmt/model/fm" name="CarExample" version="1.0.0" description="This is a very simple example of a feature model.">
+<fm:featureModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:fm="http://zcu.cz/yafmt/model/fm" name="Car Example" version="1.0.0" description="This is a very simple example of feature model of a car.">
   <rootFeature id="car" name="Car" lower="1" upper="1">
     <attribute id="name" name="Name" type="string" description="Car name."/>
     <feature id="engine" name="Engine" description="Car engine." lower="1" upper="1">

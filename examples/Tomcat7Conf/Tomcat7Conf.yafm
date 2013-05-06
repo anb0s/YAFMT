@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fm:featureModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:fm="http://zcu.cz/yafmt/model/fm" name="Tomcat 7 Example" version="1.0.0" description="Feature model representing a subset of Tomcat 7 configuration options.">
+<fm:featureModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:fm="http://zcu.cz/yafmt/model/fm" name="Tomcat 7 Configuration" version="1.0.0" description="Feature model representing subset of Tomcat 7 configuration options.">
   <rootFeature id="server" name="Server" description="Catalina servlet container." lower="1" upper="1">
     <attribute id="port" name="Port" type="integer" description="The TCP/IP port number on which this server waits for a shutdown command."/>
     <attribute id="shutdown" name="Shutdown Command" type="string" description="The command string that must be received via in order to shut down Tomcat."/>

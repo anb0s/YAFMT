@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fc:FeatureConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:fc="http://zcu.cz/yafmt/model/fc" name="jQueryUIExample" version="1.0.0">
-  <featureModel href="jQueryUIExample.yafm#/"/>
-  <featureModelCopy name="jQueryUIExample" version="1.0.0" description="Feature model of jQuery UI custom build.">
-    <rootFeature id="jquery_ui" name="jQuery UI" description="jQuery UI custom build." lower="1" upper="1">
+<fc:FeatureConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:fc="http://zcu.cz/yafmt/model/fc" name="jQuery UI Builder" version="1.0.0" description="Sample jQuery UI build.">
+  <featureModel href="jQueryUIBuilder.yafm#/"/>
+  <featureModelCopy name="jQuery UI Builder" version="1.0.0" description="Feature model of jQuery UI custom build.">
+    <rootFeature id="jquery_ui" name="jQuery UI" description="Feature model of jQuery UI custom build." lower="1" upper="1">
       <feature id="version" name="Version" description="jQuery version." lower="1" upper="1">
         <group lower="1" upper="1">
           <feature id="version_legacy" name="Legacy" description="Old stable version (1.9.2)." lower="0" upper="1"/>

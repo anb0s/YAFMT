@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fc:FeatureConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fc="http://zcu.cz/yafmt/model/fc" name="Tomcat7Example" version="1.0.0" description="Sample configuration of Tomcat 7 server.">
-  <featureModel href="Tomcat7Example.yafm#/"/>
-  <featureModelCopy name="Tomcat 7 Example" version="1.0.0" description="Feature model representing a subset of Tomcat 7 configuration options.">
+<fc:FeatureConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fc="http://zcu.cz/yafmt/model/fc" name="Tomcat 7 Configuration" version="1.0.0" description="Sample configuration of Tomcat 7 server.">
+  <featureModel href="Tomcat7Conf.yafm#/"/>
+  <featureModelCopy name="Tomcat 7 Configuration" version="1.0.0" description="Feature model representing subset of Tomcat 7 configuration options.">
     <rootFeature id="server" name="Server" description="Catalina servlet container." lower="1" upper="1">
       <attribute id="port" name="Port" type="integer" description="The TCP/IP port number on which this server waits for a shutdown command."/>
       <attribute id="shutdown" name="Shutdown Command" type="string" description="The command string that must be received via in order to shut down Tomcat."/>

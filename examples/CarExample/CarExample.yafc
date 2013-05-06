@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fc:FeatureConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fc="http://zcu.cz/yafmt/model/fc" name="CarExample" version="1.0.0">
+<fc:FeatureConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fc="http://zcu.cz/yafmt/model/fc" name="Car Example" version="1.0.0" description="Sample car configuration.">
   <featureModel href="CarExample.yafm#/"/>
-  <featureModelCopy name="CarExample" version="1.0.0" description="This is a very simple example of a feature model.">
+  <featureModelCopy name="Car Example" version="1.0.0" description="This is a very simple example of feature model of a car.">
     <rootFeature id="car" name="Car" lower="1" upper="1">
       <attribute id="name" name="Name" type="string" description="Car name."/>
       <feature id="engine" name="Engine" description="Car engine." lower="1" upper="1">

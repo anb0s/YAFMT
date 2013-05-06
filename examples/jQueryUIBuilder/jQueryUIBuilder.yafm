@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fm:featureModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:fm="http://zcu.cz/yafmt/model/fm" name="jQueryUIExample" version="1.0.0" description="Feature model of jQuery UI custom build.">
-  <rootFeature id="jquery_ui" name="jQuery UI" description="jQuery UI custom build." lower="1" upper="1">
+<fm:featureModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:fm="http://zcu.cz/yafmt/model/fm" name="jQuery UI Builder" version="1.0.0" description="Feature model of jQuery UI custom build.">
+  <rootFeature id="jquery_ui" name="jQuery UI" description="Feature model of jQuery UI custom build." lower="1" upper="1">
     <feature id="version" name="Version" description="jQuery version." lower="1" upper="1">
       <group lower="1" upper="1">
         <feature id="version_legacy" name="Legacy" description="Old stable version (1.9.2)." lower="0" upper="1"/>
