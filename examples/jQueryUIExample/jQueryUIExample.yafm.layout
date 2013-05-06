@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="ASCII"?>
+<layout:LayoutData xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:layout="http://zcu.cz/yafmt/ui/editors/fm/layout">
+  <mapping value="631 410 93 30">
+    <key href="jQueryUIExample.yafm#//@root"/>
+  </mapping>
+  <mapping value="766 534 90 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.0"/>
+  </mapping>
+  <mapping value="825 634 90 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.0/@groups.0/@features.1"/>
+  </mapping>
+  <mapping value="715 634 90 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.0/@groups.0/@features.0"/>
+  </mapping>
+  <mapping/>
+  <mapping value="786 542 45 45">
+    <key href="jQueryUIExample.yafm#//@root/@features.0/@groups.0"/>
+  </mapping>
+  <mapping value="297 895 108 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.1/@features.0/@features.8/@features.0"/>
+  </mapping>
+  <mapping value="306 531 90 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.1/@features.0"/>
+  </mapping>
+  <mapping value="1231 410 109 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.3"/>
+  </mapping>
+  <mapping value="631 245 90 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.4"/>
+  </mapping>
+  <mapping value="331 170 107 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.4/@groups.0/@features.0"/>
+  </mapping>
+  <mapping value="399 95 107 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.4/@groups.0/@features.1"/>
+  </mapping>
+  <mapping value="496 41 111 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.4/@groups.0/@features.2"/>
+  </mapping>
+  <mapping value="626 19 90 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.4/@groups.0/@features.3"/>
+  </mapping>
+  <mapping value="748 45 91 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.4/@groups.0/@features.4"/>
+  </mapping>
+  <mapping value="840 101 90 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.4/@groups.0/@features.5"/>
+  </mapping>
+  <mapping value="893 176 90 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.4/@groups.0/@features.6"/>
+  </mapping>
+  <mapping value="651 223 45 45">
+    <key href="jQueryUIExample.yafm#//@root/@features.4/@groups.0"/>
+  </mapping>
+  <mapping value="483 534 90 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.1"/>
+  </mapping>
+  <mapping value="306 784 90 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.1/@features.0/@features.8"/>
+  </mapping>
+  <mapping value="633 534 90 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.2"/>
+  </mapping>
+  <mapping value="296 1051 108 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.1/@features.0/@features.8/@features.0/@groups.0/@features.2"/>
+  </mapping>
+  <mapping value="89 1012 100 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.1/@features.0/@features.8/@features.0/@groups.0/@features.0"/>
+  </mapping>
+  <mapping value="523 1012 96 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.1/@features.0/@features.8/@features.0/@groups.0/@features.4"/>
+  </mapping>
+  <mapping value="414 1041 102 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.1/@features.0/@features.8/@features.0/@groups.0/@features.3"/>
+  </mapping>
+  <mapping value="197 1041 90 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.1/@features.0/@features.8/@features.0/@groups.0/@features.1"/>
+  </mapping>
+  <mapping value="56 404 98 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.1/@features.0/@features.0"/>
+  </mapping>
+  <mapping value="135 321 122 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.1/@features.0/@features.1"/>
+  </mapping>
+  <mapping value="287 290 90 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.1/@features.0/@features.2"/>
+  </mapping>
+  <mapping value="477 637 102 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.1/@features.1"/>
+  </mapping>
+  <mapping value="483 826 90 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.1/@features.0/@features.8/@features.1"/>
+  </mapping>
+  <mapping value="407 323 90 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.1/@features.0/@features.3"/>
+  </mapping>
+  <mapping value="25 498 110 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.1/@features.0/@features.4"/>
+  </mapping>
+  <mapping value="483 745 90 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.1/@features.0/@features.8/@features.2"/>
+  </mapping>
+  <mapping value="28 583 90 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.1/@features.0/@features.5"/>
+  </mapping>
+  <mapping value="59 663 90 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.1/@features.0/@features.6"/>
+  </mapping>
+  <mapping value="149 732 90 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.1/@features.0/@features.7"/>
+  </mapping>
+  <mapping value="995 333 106 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.3/@features.0"/>
+  </mapping>
+  <mapping value="1033 218 121 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.3/@features.1"/>
+  </mapping>
+  <mapping value="1154 165 98 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.3/@features.2"/>
+  </mapping>
+  <mapping value="1295 158 103 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.3/@features.3"/>
+  </mapping>
+  <mapping value="1405 196 125 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.3/@features.4"/>
+  </mapping>
+  <mapping value="1528 276 105 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.3/@features.5"/>
+  </mapping>
+  <mapping value="1557 372 101 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.3/@features.6"/>
+  </mapping>
+  <mapping value="1014 494 130 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.3/@features.7"/>
+  </mapping>
+  <mapping value="1094 597 120 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.3/@features.8"/>
+  </mapping>
+  <mapping value="1235 637 109 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.3/@features.9"/>
+  </mapping>
+  <mapping value="1389 634 113 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.3/@features.10"/>
+  </mapping>
+  <mapping value="1518 566 106 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.3/@features.11"/>
+  </mapping>
+  <mapping value="1573 461 125 30">
+    <key href="jQueryUIExample.yafm#//@root/@features.3/@features.12"/>
+  </mapping>
+  <mapping value="327 903 45 45">
+    <key href="jQueryUIExample.yafm#//@root/@features.1/@features.0/@features.8/@features.0/@groups.0"/>
+  </mapping>
+</layout:LayoutData>

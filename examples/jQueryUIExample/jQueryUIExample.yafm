@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fm:featureModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:fm="http://zcu.cz/yafmt/model/fm" name="jQueryUIExample" version="1.0.0" description="Feature model of jQuery UI custom build.">
+  <rootFeature id="jquery_ui" name="jQuery UI" description="jQuery UI custom build." lower="1" upper="1">
+    <feature id="version" name="Version" description="jQuery version." lower="1" upper="1">
+      <group lower="1" upper="1">
+        <feature id="version_legacy" name="Legacy" description="Old stable version (1.9.2)." lower="0" upper="1"/>
+        <feature id="version_stable" name="Stable" description="Current stable version (1.10.3)." lower="0" upper="1"/>
+      </group>
+    </feature>
+    <feature id="core" name="Core" description="The core of jQuery UI, required for all interactions and widgets." lower="0" upper="1">
+      <feature id="widget" name="Widget" description="Provides a factory for creating stateful widgets with a common API." lower="0" upper="1">
+        <feature id="accordion" name="Accordion" description="Displays collapsible content panels for presenting information in a limited amount of space." lower="0" upper="1"/>
+        <feature id="autocomplete" name="Autocomplete" description="Lists suggested words as the user is typing." lower="0" upper="1"/>
+        <feature id="button" name="Button" description="Enhances a form with themable buttons." lower="0" upper="1"/>
+        <feature id="menu" name="Menu" description="Creates nestable menus." lower="0" upper="1"/>
+        <feature id="progressbar" name="Progressbar" description="Displays a status indicator for loading state, standard percentage, and other progress indicators." lower="0" upper="1"/>
+        <feature id="spinner" name="Spinner" description="Displays buttons to easily input numbers via the keyboard or mouse." lower="0" upper="1"/>
+        <feature id="tabs" name="Tabs" description="Transforms a set of container elements into a tab structure." lower="0" upper="1"/>
+        <feature id="tooltip" name="Tooltip" description="Shows additional information for any element on hover or focus." lower="0" upper="1"/>
+        <feature id="mouse" name="Mouse" description="Abstracts mouse-based interactions to assist in creating certain widgets." lower="0" upper="1">
+          <feature id="interactions" name="Interactions" lower="0" upper="1">
+            <group lower="1" upper="-1">
+              <feature id="droppable" name="Droppable" lower="0" upper="1"/>
+              <feature id="sortable" name="Sortable" lower="0" upper="1"/>
+              <feature id="draggeable" name="Draggeable" lower="0" upper="1"/>
+              <feature id="selectable" name="Selectable" lower="0" upper="1"/>
+              <feature id="resizable" name="Resizable" lower="0" upper="1"/>
+            </group>
+          </feature>
+          <feature id="dialog" name="Dialog" description="Displays customizable dialog windows." lower="0" upper="1"/>
+          <feature id="slider" name="Slider" description="Displays a flexible slider with ranges and accessibility via keyboard." lower="0" upper="1"/>
+        </feature>
+      </feature>
+      <feature id="datepicker" name="Datepicker" description="Displays a calendar from an input or inline for selecting dates." lower="0" upper="1"/>
+    </feature>
+    <feature id="position" name="Position" description="Positions elements relative to other elements." lower="0" upper="1"/>
+    <feature id="effects" name="Effects Core" description="Extends the internal jQuery effects. Includes morphing and easing. Required by all other effects." lower="0" upper="1">
+      <feature id="blind_effect" name="Blind Effect" description="Blinds the element." lower="0" upper="1"/>
+      <feature id="bounce_effect" name="Bounce Effect" description="Bounces an element horizontally or vertically n times." lower="0" upper="1"/>
+      <feature id="clip_effect" name="Clip Effect" description="Clips the element on and off like an old TV." lower="0" upper="1"/>
+      <feature id="drop_effect" name="Drop Effect" description="Moves an element in one direction and hides it at the same time." lower="0" upper="1"/>
+      <feature id="explode_effect" name="Explode Effect" description="Explodes an element in all directions into n pieces. Implodes an element to its original wholeness." lower="0" upper="1"/>
+      <feature id="fade_effect" name="Fade Effect" description="Fades an element." lower="0" upper="1"/>
+      <feature id="fold_effect" name="Fold Effect" description="Folds an element first horizontally and then vertically." lower="0" upper="1"/>
+      <feature id="highlight_effect" name="Highlight Effect" description="Highlights the background of an element in a defined color for a custom duration." lower="0" upper="1"/>
+      <feature id="pulsate_effect" name="Pulsate Effect" description="Pulsates an element n times by changing the opacity to zero and back." lower="0" upper="1"/>
+      <feature id="scale_effect" name="Scale Effect" description="Grows or shrinks an element and its content. Restores an elemnt to its original size." lower="0" upper="1"/>
+      <feature id="shake_effect" name="Shake Effect" description="Shakes an element horizontally or vertically n times." lower="0" upper="1"/>
+      <feature id="slide_effect" name="Slide Effect" description="Slides an element in and out of the viewport." lower="0" upper="1"/>
+      <feature id="transfer_effect" name="Transfer Effect" description="Displays a transfer effect from one element to another." lower="0" upper="1"/>
+    </feature>
+    <feature id="theme" name="Theme" description="Custom UI theme." lower="0" upper="1">
+      <group lower="1" upper="1">
+        <feature id="theme_ui_lightness" name="UI lightness" lower="0" upper="1"/>
+        <feature id="theme_ui_darkness" name="UI darkness" lower="0" upper="1"/>
+        <feature id="theme_smoothness" name="Smoothness" lower="0" upper="1"/>
+        <feature id="theme_start" name="Start" lower="0" upper="1"/>
+        <feature id="theme_redmont" name="Redmont" lower="0" upper="1"/>
+        <feature id="theme_sunny" name="Sunny" lower="0" upper="1"/>
+        <feature id="theme_overcast" name="Overcast" lower="0" upper="1"/>
+      </group>
+    </feature>
+  </rootFeature>
+  <constraint value="droppable implies draggeable" language="cz.zcu.yafmt.clang.BooleanConstraintLanguage" description="Droppable effect requires Draggeable effect."/>
+  <constraint value="autocomplete implies position" language="cz.zcu.yafmt.clang.BooleanConstraintLanguage" description="Autocomplete widget requires Position."/>
+  <constraint value="dialog implies (draggeable and droppable)" language="cz.zcu.yafmt.clang.BooleanConstraintLanguage" description="Dialog widget requires Draggeable and Droppable effects."/>
+  <constraint value="menu implies position" language="cz.zcu.yafmt.clang.BooleanConstraintLanguage" description="Menu widget requires Position."/>
+  <constraint value="tooltip implies position" language="cz.zcu.yafmt.clang.BooleanConstraintLanguage" description="Tooltip widget requires Position."/>
+  <comment>There is a small simplification - Widget actually does not depend on Core.</comment>
+</fm:featureModel>
