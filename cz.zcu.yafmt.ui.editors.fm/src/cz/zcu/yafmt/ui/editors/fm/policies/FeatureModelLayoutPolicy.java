@@ -18,7 +18,8 @@ import cz.zcu.yafmt.model.fm.Feature;
 import cz.zcu.yafmt.model.fm.FeatureModel;
 import cz.zcu.yafmt.model.fm.Group;
 import cz.zcu.yafmt.ui.editors.fm.commands.AddFeatureCommand;
-import cz.zcu.yafmt.ui.editors.fm.commands.AutoLayoutCommand;
+import cz.zcu.yafmt.ui.editors.fm.commands.ApplyHorizontalTreeLayoutCommand;
+import cz.zcu.yafmt.ui.editors.fm.commands.ApplyVerticalTreeLayoutCommand;
 import cz.zcu.yafmt.ui.editors.fm.commands.MoveFeatureCommand;
 import cz.zcu.yafmt.ui.editors.fm.commands.MoveGroupCommand;
 import cz.zcu.yafmt.ui.editors.fm.commands.ResizeFeatureCommand;
@@ -30,16 +31,23 @@ public class FeatureModelLayoutPolicy extends XYLayoutEditPolicy {
 
     @Override
     public Command getCommand(Request request) {
-        if(RequestConstants.REQ_AUTO_LAYOUT.equals(request.getType()))
-            return createAutoLayoutCommand();
+        if(RequestConstants.REQ_APPLY_VER_TREE_LAYOUT.equals(request.getType()))
+            return createApplyVertivalTreeLayoutCommand();
+        else if(RequestConstants.REQ_APPLY_HOR_TREE_LAYOUT.equals(request.getType()))
+            return createApplyHorizontalTreeLayoutCommand();
         return super.getCommand(request);
     }
 
-    // Auto layout.
-    private Command createAutoLayoutCommand() {
+    private Command createApplyVertivalTreeLayoutCommand() {
         FeatureModel featureModel = (FeatureModel) getHost().getModel();
         LayoutData layoutData = ((FeatureModelEditPart) getHost()).getLayoutData();
-        return new AutoLayoutCommand(featureModel, layoutData);
+        return new ApplyVerticalTreeLayoutCommand(featureModel, layoutData);
+    }
+
+    private Command createApplyHorizontalTreeLayoutCommand() {
+        FeatureModel featureModel = (FeatureModel) getHost().getModel();
+        LayoutData layoutData = ((FeatureModelEditPart) getHost()).getLayoutData();
+        return new ApplyHorizontalTreeLayoutCommand(featureModel, layoutData);
     }
 
     // Add new feature.

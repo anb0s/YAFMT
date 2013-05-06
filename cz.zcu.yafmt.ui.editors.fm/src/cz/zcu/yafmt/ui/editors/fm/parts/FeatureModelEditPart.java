@@ -38,7 +38,7 @@ import cz.zcu.yafmt.model.fm.Feature;
 import cz.zcu.yafmt.model.fm.FeatureModel;
 import cz.zcu.yafmt.model.fm.Group;
 import cz.zcu.yafmt.model.validation.fm.FeatureModelValidator;
-import cz.zcu.yafmt.ui.editors.fm.commands.AutoLayoutCommand;
+import cz.zcu.yafmt.ui.editors.fm.commands.ApplyVerticalTreeLayoutCommand;
 import cz.zcu.yafmt.ui.editors.fm.figures.FeatureFigure;
 import cz.zcu.yafmt.ui.editors.fm.figures.FeatureModelFigure;
 import cz.zcu.yafmt.ui.editors.fm.figures.GroupFigure;
@@ -84,7 +84,7 @@ public class FeatureModelEditPart extends AbstractGraphicalEditPart {
         
         // Recover layout if it does not exist.
         if(noLayout) {
-            Command autoLayoutCommand = new AutoLayoutCommand(featureModel, layoutData);
+            Command autoLayoutCommand = new ApplyVerticalTreeLayoutCommand(featureModel, layoutData);
             autoLayoutCommand.execute();
         }
         

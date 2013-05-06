@@ -17,9 +17,9 @@ import cz.zcu.yafmt.ui.actions.EditorZoomComboContributioItem;
 import cz.zcu.yafmt.ui.actions.ShowFeatureModelVisualizerAction;
 import cz.zcu.yafmt.ui.actions.SnapToGeometryRetargetAction;
 import cz.zcu.yafmt.ui.actions.SnapToGridRetargetAction;
-import cz.zcu.yafmt.ui.editors.fm.actions.AutoLayoutAction;
 import cz.zcu.yafmt.ui.editors.fm.actions.GenerateIdFromNameAction;
 import cz.zcu.yafmt.ui.editors.fm.actions.GroupFeaturesAction;
+import cz.zcu.yafmt.ui.editors.fm.actions.ApplyLayoutAction;
 import cz.zcu.yafmt.ui.editors.fm.actions.SetFeatureCardinalityAction;
 import cz.zcu.yafmt.ui.editors.fm.actions.SetFeatureOptimalSizeAction;
 import cz.zcu.yafmt.ui.editors.fm.actions.UngroupFeaturesAction;
@@ -42,7 +42,7 @@ public class FeatureModelEditorActionBarContributor extends ActionBarContributor
         addRetargetAction(new SnapToGridRetargetAction());
         addRetargetAction(new SnapToGeometryRetargetAction());
         addRetargetAction(SetFeatureOptimalSizeAction.createRetargetAction());
-        addRetargetAction(AutoLayoutAction.createRetargetAction());
+        addRetargetAction(ApplyLayoutAction.createRetargetAction());
         addRetargetAction(GenerateIdFromNameAction.createRetargetAction());
         addRetargetAction(SetFeatureCardinalityAction.createRetargetAction(false));
         addRetargetAction(SetFeatureCardinalityAction.createRetargetAction(true));
@@ -61,7 +61,7 @@ public class FeatureModelEditorActionBarContributor extends ActionBarContributor
         toolBarManager.add(getAction(GEFActionConstants.TOGGLE_GRID_VISIBILITY));
         toolBarManager.add(getAction(GEFActionConstants.TOGGLE_SNAP_TO_GEOMETRY));
         toolBarManager.add(getAction(SetFeatureOptimalSizeAction.ID));
-        toolBarManager.add(getAction(AutoLayoutAction.ID));
+        toolBarManager.add(getAction(ApplyLayoutAction.ID));
         toolBarManager.add(new Separator());
         toolBarManager.add(getAction(ActionFactory.UNDO.getId()));
         toolBarManager.add(getAction(ActionFactory.REDO.getId()));

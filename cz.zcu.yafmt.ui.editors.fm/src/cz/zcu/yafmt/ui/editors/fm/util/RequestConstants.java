@@ -11,7 +11,8 @@ public interface RequestConstants {
     String REQ_MAKE_GROUP_OR = "cz.zcu.yafmt.ui.editors.fm.requests.MakeGroup.OR";
     String REQ_MAKE_FEATURE_MAN = "cz.zcu.yafmt.ui.editors.fm.requests.MakeFeaturesMandatory";
     String REQ_MAKE_FEATURE_OPT = "cz.zcu.yafmt.ui.editors.fm.requests.MakeFeaturesOptional";
-    String REQ_AUTO_LAYOUT = "cz.zcu.yafmt.ui.editors.fm.requests.AutoLayout";
+    String REQ_APPLY_VER_TREE_LAYOUT = "cz.zcu.yafmt.ui.editors.fm.requests.ApplyVerticalTreeLayout";
+    String REQ_APPLY_HOR_TREE_LAYOUT = "cz.zcu.yafmt.ui.editors.fm.requests.ApplyHorizontalTreeLayout";
     String REQ_SET_FEATURE_OPTIMAL_SIZE = "cz.zcu.yafmt.ui.editors.fm.requests.SetFeatureOptimalSize";
     String REQ_GENERATE_ID_FROM_NAME = "cz.zcu.yafmt.ui.editors.fm.requests.GenerateIdFromName";
 

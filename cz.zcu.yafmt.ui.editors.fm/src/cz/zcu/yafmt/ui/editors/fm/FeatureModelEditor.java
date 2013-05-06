@@ -42,7 +42,7 @@ import cz.zcu.yafmt.ui.actions.ExportGraphicalEditorAsImageAction;
 import cz.zcu.yafmt.ui.actions.ShowFeatureModelVisualizerAction;
 import cz.zcu.yafmt.ui.actions.ShowPropertiesAction;
 import cz.zcu.yafmt.ui.editors.ModelEditor;
-import cz.zcu.yafmt.ui.editors.fm.actions.AutoLayoutAction;
+import cz.zcu.yafmt.ui.editors.fm.actions.ApplyLayoutAction;
 import cz.zcu.yafmt.ui.editors.fm.actions.DeleteAction;
 import cz.zcu.yafmt.ui.editors.fm.actions.GenerateIdFromNameAction;
 import cz.zcu.yafmt.ui.editors.fm.actions.GroupFeaturesAction;
@@ -186,7 +186,7 @@ public class FeatureModelEditor extends ModelEditor {
         createAction(new GroupFeaturesAction(this, true));
         createAction(new GroupFeaturesAction(this, false));
         createAction(new UngroupFeaturesAction(this));
-        createAction(new AutoLayoutAction(this));
+        createAction(new ApplyLayoutAction(this));
         createAction(new SetFeatureOptimalSizeAction(this));
         createAction(new ShowFeatureModelVisualizerAction());
         createAction(new ShowPropertiesAction());

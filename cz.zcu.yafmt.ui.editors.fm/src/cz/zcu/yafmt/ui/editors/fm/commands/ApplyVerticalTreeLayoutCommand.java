@@ -3,10 +3,8 @@ package cz.zcu.yafmt.ui.editors.fm.commands;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.draw2d.Animation;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.gef.commands.Command;
 
 import cz.zcu.yafmt.model.fm.Feature;
 import cz.zcu.yafmt.model.fm.FeatureModel;
@@ -14,43 +12,21 @@ import cz.zcu.yafmt.model.fm.Group;
 import cz.zcu.yafmt.ui.editors.fm.figures.GroupFigure;
 import cz.zcu.yafmt.ui.editors.fm.layout.LayoutData;
 
-public class AutoLayoutCommand extends Command {
+public class ApplyVerticalTreeLayoutCommand extends ApplyLayoutCommand {
 
     private static final int HORIZONTAL_SPACE = 15;
     private static final int VERTICAL_SPACE = 90;
 
-    private FeatureModel featureModel;
-    private LayoutData layoutData;
-    private Map<EObject, Rectangle> oldLayout;
-    private Map<EObject, Rectangle> newLayout;
-
-    public AutoLayoutCommand(FeatureModel featureModel, LayoutData layoutData) {
-        this.featureModel = featureModel;
-        this.layoutData = layoutData;
+    public ApplyVerticalTreeLayoutCommand(FeatureModel featureModel, LayoutData layoutData) {
+        super(featureModel, layoutData);
+        setLabel("Apply Vertical Tree Layout");
     }
 
     @Override
-    public void execute() {
-        oldLayout = new HashMap<EObject, Rectangle>(layoutData.getMapping().map());
-        newLayout = new HashMap<EObject, Rectangle>();
-
+    protected void applyLayout() {
         Map<EObject, Integer> subTreeWidth = new HashMap<EObject, Integer>();
         calculateSubTreeWidth(subTreeWidth);
         calculateLayout(subTreeWidth);
-
-        Animation.markBegin();
-        redo();
-        Animation.run();
-    }
-
-    @Override
-    public void redo() {
-        layoutData.getMapping().putAll(newLayout);
-    }
-
-    @Override
-    public void undo() {
-        layoutData.getMapping().putAll(oldLayout);
     }
 
     private int calculateSubTreeWidth(Map<EObject, Integer> subTreeWidth) {
@@ -105,8 +81,8 @@ public class AutoLayoutCommand extends Command {
         bounds.y = yBase;
         newLayout.put(feature, bounds);
 
-        int y = yBase + bounds.height + VERTICAL_SPACE;
         int x = xBase;
+        int y = yBase + bounds.height + VERTICAL_SPACE;
 
         for(Group group: feature.getGroups()) {
             double rx = (x - xBase + 0.5 * subTreeWidth.get(group)) / (double) subTreeWidth.get(feature);
