@@ -9,6 +9,7 @@
               indent="yes"/>
 
   <xsl:strip-space elements="*"/>
+  <xsl:template match="text()"/>
 
   <!--=======================================================================
        Server

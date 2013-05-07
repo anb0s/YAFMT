@@ -9,6 +9,7 @@
               indent="yes"/>
 
   <xsl:strip-space elements="*"/>
+  <xsl:template match="text()"/>
 
   <xsl:template match="/fc:FeatureConfiguration/rootSelection">
     <xsl:text disable-output-escaping="yes">&lt;!DOCTYPE html&gt;
