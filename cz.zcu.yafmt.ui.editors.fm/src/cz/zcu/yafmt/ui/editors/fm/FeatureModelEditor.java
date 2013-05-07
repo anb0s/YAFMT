@@ -78,7 +78,8 @@ public class FeatureModelEditor extends ModelEditor {
     }
     
     public void dispose() {
-        getSite().getPage().removeSelectionListener(constraintsEditor);
+        if(constraintsEditor != null) // When input cannot be loaded.
+            getSite().getPage().removeSelectionListener(constraintsEditor);
         super.dispose();
     }
     
