@@ -63,7 +63,7 @@
         </group>
       </feature>
     </rootFeature>
-    <constraint value="droppable implies draggeable" language="cz.zcu.yafmt.clang.BooleanConstraintLanguage" description="Droppable effect requires Draggeable effect."/>
+    <constraint value="droppable implies draggeable" language="cz.zcu.yafmt.clang.BooleanConstraintLanguage" description="Droppable interaction requires Draggeable interaction."/>
     <constraint value="autocomplete implies position" language="cz.zcu.yafmt.clang.BooleanConstraintLanguage" description="Autocomplete widget requires Position."/>
     <constraint value="dialog implies (draggeable and droppable)" language="cz.zcu.yafmt.clang.BooleanConstraintLanguage" description="Dialog widget requires Draggeable and Droppable interactions."/>
     <constraint value="menu implies position" language="cz.zcu.yafmt.clang.BooleanConstraintLanguage" description="Menu widget requires Position."/>
@@ -91,7 +91,7 @@
     </selection>
     <selection id="position"/>
     <selection id="theme">
-      <selection id="theme_start"/>
+      <selection id="theme_ui_lightness"/>
     </selection>
   </rootSelection>
 </fc:FeatureConfiguration>
