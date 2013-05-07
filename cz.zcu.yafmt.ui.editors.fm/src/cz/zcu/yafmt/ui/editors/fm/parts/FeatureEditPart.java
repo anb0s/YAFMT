@@ -111,6 +111,8 @@ public class FeatureEditPart extends AbstractGraphicalEditPart implements NodeEd
     @Override
     public ConnectionAnchor getSourceConnectionAnchor(ConnectionEditPart connection) {
         return new ShrinkedChopboxAnchor(getFigure(), 1);
+        // Experimental stuff.
+        // return new SmartFeatureSourceAnchor(getFigure(), feature, layoutData);
     }
 
     @Override
