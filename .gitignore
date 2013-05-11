@@ -1,9 +1,9 @@
-/.metadata
 /*/bin/
 /**/*.jar
-/cz.jpikl.yafmt.update/binary
-/cz.jpikl.yafmt.update/features
-/cz.jpikl.yafmt.update/plugins
-/runtime
-/manual
-/wiki
+/.metadata/
+/runtime/
+/manual/
+/wiki/
+/cz.zcu.yafmt.update/binary/
+/cz.zcu.yafmt.update/features/
+/cz.zcu.yafmt.update/plugins/
