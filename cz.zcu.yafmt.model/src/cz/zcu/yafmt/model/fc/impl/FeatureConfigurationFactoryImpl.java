@@ -20,131 +20,131 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
  */
 public class FeatureConfigurationFactoryImpl extends EFactoryImpl implements FeatureConfigurationFactory {
     /**
-     * Creates the default factory implementation.
-     * <!-- begin-user-doc -->
+	 * Creates the default factory implementation.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public static FeatureConfigurationFactory init() {
-        try {
-            FeatureConfigurationFactory theFeatureConfigurationFactory = (FeatureConfigurationFactory)EPackage.Registry.INSTANCE.getEFactory("http://zcu.cz/yafmt/model/fc"); 
-            if (theFeatureConfigurationFactory != null) {
-                return theFeatureConfigurationFactory;
-            }
-        }
-        catch (Exception exception) {
-            EcorePlugin.INSTANCE.log(exception);
-        }
-        return new FeatureConfigurationFactoryImpl();
-    }
+		try {
+			FeatureConfigurationFactory theFeatureConfigurationFactory = (FeatureConfigurationFactory)EPackage.Registry.INSTANCE.getEFactory(FeatureConfigurationPackage.eNS_URI);
+			if (theFeatureConfigurationFactory != null) {
+				return theFeatureConfigurationFactory;
+			}
+		}
+		catch (Exception exception) {
+			EcorePlugin.INSTANCE.log(exception);
+		}
+		return new FeatureConfigurationFactoryImpl();
+	}
 
     /**
-     * Creates an instance of the factory.
-     * <!-- begin-user-doc -->
+	 * Creates an instance of the factory.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public FeatureConfigurationFactoryImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public EObject create(EClass eClass) {
-        switch (eClass.getClassifierID()) {
-            case FeatureConfigurationPackage.FEATURE_CONFIGURATION: return createFeatureConfiguration();
-            case FeatureConfigurationPackage.SELECTION: return createSelection();
-            case FeatureConfigurationPackage.BOOLEAN_VALUE: return createBooleanValue();
-            case FeatureConfigurationPackage.INTEGER_VALUE: return createIntegerValue();
-            case FeatureConfigurationPackage.DOUBLE_VALUE: return createDoubleValue();
-            case FeatureConfigurationPackage.STRING_VALUE: return createStringValue();
-            default:
-                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
-        }
-    }
+		switch (eClass.getClassifierID()) {
+			case FeatureConfigurationPackage.FEATURE_CONFIGURATION: return createFeatureConfiguration();
+			case FeatureConfigurationPackage.SELECTION: return createSelection();
+			case FeatureConfigurationPackage.BOOLEAN_VALUE: return createBooleanValue();
+			case FeatureConfigurationPackage.INTEGER_VALUE: return createIntegerValue();
+			case FeatureConfigurationPackage.DOUBLE_VALUE: return createDoubleValue();
+			case FeatureConfigurationPackage.STRING_VALUE: return createStringValue();
+			default:
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+		}
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public FeatureConfiguration createFeatureConfiguration() {
-        FeatureConfigurationImpl featureConfiguration = new FeatureConfigurationImpl();
-        return featureConfiguration;
-    }
+		FeatureConfigurationImpl featureConfiguration = new FeatureConfigurationImpl();
+		return featureConfiguration;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public Selection createSelection() {
-        SelectionImpl selection = new SelectionImpl();
-        return selection;
-    }
+		SelectionImpl selection = new SelectionImpl();
+		return selection;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public BooleanValue createBooleanValue() {
-        BooleanValueImpl booleanValue = new BooleanValueImpl();
-        return booleanValue;
-    }
+		BooleanValueImpl booleanValue = new BooleanValueImpl();
+		return booleanValue;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public IntegerValue createIntegerValue() {
-        IntegerValueImpl integerValue = new IntegerValueImpl();
-        return integerValue;
-    }
+		IntegerValueImpl integerValue = new IntegerValueImpl();
+		return integerValue;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public DoubleValue createDoubleValue() {
-        DoubleValueImpl doubleValue = new DoubleValueImpl();
-        return doubleValue;
-    }
+		DoubleValueImpl doubleValue = new DoubleValueImpl();
+		return doubleValue;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public StringValue createStringValue() {
-        StringValueImpl stringValue = new StringValueImpl();
-        return stringValue;
-    }
+		StringValueImpl stringValue = new StringValueImpl();
+		return stringValue;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public FeatureConfigurationPackage getFeatureConfigurationPackage() {
-        return (FeatureConfigurationPackage)getEPackage();
-    }
+		return (FeatureConfigurationPackage)getEPackage();
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @deprecated
-     * @generated
-     */
+	 * @deprecated
+	 * @generated
+	 */
     @Deprecated
     public static FeatureConfigurationPackage getPackage() {
-        return FeatureConfigurationPackage.eINSTANCE;
-    }
+		return FeatureConfigurationPackage.eINSTANCE;
+	}
 
 } //FeatureConfigurationFactoryImpl

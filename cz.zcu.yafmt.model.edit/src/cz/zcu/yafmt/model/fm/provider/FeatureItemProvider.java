@@ -38,14 +38,14 @@ public class FeatureItemProvider
         IItemLabelProvider,
         IItemPropertySource {
     /**
-     * This constructs an instance from a factory and a notifier.
-     * <!-- begin-user-doc -->
+	 * This constructs an instance from a factory and a notifier.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public FeatureItemProvider(AdapterFactory adapterFactory) {
-        super(adapterFactory);
-    }
+		super(adapterFactory);
+	}
 
     /**
      * This returns the property descriptors for the adapted class.
@@ -72,190 +72,190 @@ public class FeatureItemProvider
     }
 
     /**
-     * This adds a property descriptor for the Id feature.
-     * <!-- begin-user-doc -->
+	 * This adds a property descriptor for the Id feature.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected void addIdPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_Feature_id_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_Feature_id_feature", "_UI_Feature_type"),
-                 FeatureModelPackage.Literals.FEATURE__ID,
-                 true,
-                 false,
-                 false,
-                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-                 null,
-                 null));
-    }
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Feature_id_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Feature_id_feature", "_UI_Feature_type"),
+				 FeatureModelPackage.Literals.FEATURE__ID,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
 
     /**
-     * This adds a property descriptor for the Name feature.
-     * <!-- begin-user-doc -->
+	 * This adds a property descriptor for the Name feature.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected void addNamePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_Feature_name_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_Feature_name_feature", "_UI_Feature_type"),
-                 FeatureModelPackage.Literals.FEATURE__NAME,
-                 true,
-                 false,
-                 false,
-                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-                 null,
-                 null));
-    }
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Feature_name_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Feature_name_feature", "_UI_Feature_type"),
+				 FeatureModelPackage.Literals.FEATURE__NAME,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
 
     /**
-     * This adds a property descriptor for the Description feature.
-     * <!-- begin-user-doc -->
+	 * This adds a property descriptor for the Description feature.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected void addDescriptionPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_Feature_description_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_Feature_description_feature", "_UI_Feature_type"),
-                 FeatureModelPackage.Literals.FEATURE__DESCRIPTION,
-                 true,
-                 false,
-                 false,
-                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-                 null,
-                 null));
-    }
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Feature_description_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Feature_description_feature", "_UI_Feature_type"),
+				 FeatureModelPackage.Literals.FEATURE__DESCRIPTION,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
 
     /**
-     * This adds a property descriptor for the Comment feature.
-     * <!-- begin-user-doc -->
+	 * This adds a property descriptor for the Comment feature.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected void addCommentPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_Feature_comment_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_Feature_comment_feature", "_UI_Feature_type"),
-                 FeatureModelPackage.Literals.FEATURE__COMMENT,
-                 true,
-                 true,
-                 false,
-                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-                 null,
-                 null));
-    }
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Feature_comment_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Feature_comment_feature", "_UI_Feature_type"),
+				 FeatureModelPackage.Literals.FEATURE__COMMENT,
+				 true,
+				 true,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
 
     /**
-     * This adds a property descriptor for the Lower feature.
-     * <!-- begin-user-doc -->
+	 * This adds a property descriptor for the Lower feature.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected void addLowerPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_Feature_lower_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_Feature_lower_feature", "_UI_Feature_type"),
-                 FeatureModelPackage.Literals.FEATURE__LOWER,
-                 true,
-                 false,
-                 false,
-                 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
-                 null,
-                 null));
-    }
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Feature_lower_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Feature_lower_feature", "_UI_Feature_type"),
+				 FeatureModelPackage.Literals.FEATURE__LOWER,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
 
     /**
-     * This adds a property descriptor for the Upper feature.
-     * <!-- begin-user-doc -->
+	 * This adds a property descriptor for the Upper feature.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected void addUpperPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_Feature_upper_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_Feature_upper_feature", "_UI_Feature_type"),
-                 FeatureModelPackage.Literals.FEATURE__UPPER,
-                 true,
-                 false,
-                 false,
-                 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
-                 null,
-                 null));
-    }
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Feature_upper_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Feature_upper_feature", "_UI_Feature_type"),
+				 FeatureModelPackage.Literals.FEATURE__UPPER,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
 
     /**
-     * This adds a property descriptor for the Cloneable feature.
-     * <!-- begin-user-doc -->
+	 * This adds a property descriptor for the Cloneable feature.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected void addCloneablePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_Feature_cloneable_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_Feature_cloneable_feature", "_UI_Feature_type"),
-                 FeatureModelPackage.Literals.FEATURE__CLONEABLE,
-                 false,
-                 false,
-                 false,
-                 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-                 null,
-                 null));
-    }
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Feature_cloneable_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Feature_cloneable_feature", "_UI_Feature_type"),
+				 FeatureModelPackage.Literals.FEATURE__CLONEABLE,
+				 false,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
 
     /**
-     * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
-     * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-     * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
-     * <!-- begin-user-doc -->
+	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
+	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
+	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
-        if (childrenFeatures == null) {
-            super.getChildrenFeatures(object);
-            childrenFeatures.add(FeatureModelPackage.Literals.FEATURE__ATTRIBUTES);
-            childrenFeatures.add(FeatureModelPackage.Literals.FEATURE__FEATURES);
-            childrenFeatures.add(FeatureModelPackage.Literals.FEATURE__GROUPS);
-        }
-        return childrenFeatures;
-    }
+		if (childrenFeatures == null) {
+			super.getChildrenFeatures(object);
+			childrenFeatures.add(FeatureModelPackage.Literals.FEATURE__ATTRIBUTES);
+			childrenFeatures.add(FeatureModelPackage.Literals.FEATURE__FEATURES);
+			childrenFeatures.add(FeatureModelPackage.Literals.FEATURE__GROUPS);
+		}
+		return childrenFeatures;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     protected EStructuralFeature getChildFeature(Object object, Object child) {
-        // Check the type of the specified child object and return the proper feature to use for
-        // adding (see {@link AddCommand}) it as a child.
+		// Check the type of the specified child object and return the proper feature to use for
+		// adding (see {@link AddCommand}) it as a child.
 
-        return super.getChildFeature(object, child);
-    }
+		return super.getChildFeature(object, child);
+	}
 
     /**
      * This returns Feature.gif.
@@ -292,75 +292,75 @@ public class FeatureItemProvider
     }
 
     /**
-     * This handles model notifications by calling {@link #updateChildren} to update any cached
-     * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
-     * <!-- begin-user-doc -->
+	 * This handles model notifications by calling {@link #updateChildren} to update any cached
+	 * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public void notifyChanged(Notification notification) {
-        updateChildren(notification);
+		updateChildren(notification);
 
-        switch (notification.getFeatureID(Feature.class)) {
-            case FeatureModelPackage.FEATURE__ID:
-            case FeatureModelPackage.FEATURE__NAME:
-            case FeatureModelPackage.FEATURE__DESCRIPTION:
-            case FeatureModelPackage.FEATURE__COMMENT:
-            case FeatureModelPackage.FEATURE__LOWER:
-            case FeatureModelPackage.FEATURE__UPPER:
-            case FeatureModelPackage.FEATURE__ROOT:
-            case FeatureModelPackage.FEATURE__ORPHAN:
-            case FeatureModelPackage.FEATURE__OPTIONAL:
-            case FeatureModelPackage.FEATURE__MANDATORY:
-            case FeatureModelPackage.FEATURE__CLONEABLE:
-                fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-                return;
-            case FeatureModelPackage.FEATURE__ATTRIBUTES:
-            case FeatureModelPackage.FEATURE__FEATURES:
-            case FeatureModelPackage.FEATURE__GROUPS:
-                fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
-                return;
-        }
-        super.notifyChanged(notification);
-    }
+		switch (notification.getFeatureID(Feature.class)) {
+			case FeatureModelPackage.FEATURE__ID:
+			case FeatureModelPackage.FEATURE__NAME:
+			case FeatureModelPackage.FEATURE__DESCRIPTION:
+			case FeatureModelPackage.FEATURE__COMMENT:
+			case FeatureModelPackage.FEATURE__LOWER:
+			case FeatureModelPackage.FEATURE__UPPER:
+			case FeatureModelPackage.FEATURE__ROOT:
+			case FeatureModelPackage.FEATURE__ORPHAN:
+			case FeatureModelPackage.FEATURE__OPTIONAL:
+			case FeatureModelPackage.FEATURE__MANDATORY:
+			case FeatureModelPackage.FEATURE__CLONEABLE:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+			case FeatureModelPackage.FEATURE__ATTRIBUTES:
+			case FeatureModelPackage.FEATURE__FEATURES:
+			case FeatureModelPackage.FEATURE__GROUPS:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+				return;
+		}
+		super.notifyChanged(notification);
+	}
 
     /**
-     * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children
-     * that can be created under this object.
-     * <!-- begin-user-doc -->
+	 * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children
+	 * that can be created under this object.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
-        super.collectNewChildDescriptors(newChildDescriptors, object);
+		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-        newChildDescriptors.add
-            (createChildParameter
-                (FeatureModelPackage.Literals.FEATURE__ATTRIBUTES,
-                 FeatureModelFactory.eINSTANCE.createAttribute()));
+		newChildDescriptors.add
+			(createChildParameter
+				(FeatureModelPackage.Literals.FEATURE__ATTRIBUTES,
+				 FeatureModelFactory.eINSTANCE.createAttribute()));
 
-        newChildDescriptors.add
-            (createChildParameter
-                (FeatureModelPackage.Literals.FEATURE__FEATURES,
-                 FeatureModelFactory.eINSTANCE.createFeature()));
+		newChildDescriptors.add
+			(createChildParameter
+				(FeatureModelPackage.Literals.FEATURE__FEATURES,
+				 FeatureModelFactory.eINSTANCE.createFeature()));
 
-        newChildDescriptors.add
-            (createChildParameter
-                (FeatureModelPackage.Literals.FEATURE__GROUPS,
-                 FeatureModelFactory.eINSTANCE.createGroup()));
-    }
+		newChildDescriptors.add
+			(createChildParameter
+				(FeatureModelPackage.Literals.FEATURE__GROUPS,
+				 FeatureModelFactory.eINSTANCE.createGroup()));
+	}
 
     /**
-     * Return the resource locator for this item provider's resources.
-     * <!-- begin-user-doc -->
+	 * Return the resource locator for this item provider's resources.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public ResourceLocator getResourceLocator() {
-        return FeatureModelEditPlugin.INSTANCE;
-    }
+		return FeatureModelEditPlugin.INSTANCE;
+	}
 
 }

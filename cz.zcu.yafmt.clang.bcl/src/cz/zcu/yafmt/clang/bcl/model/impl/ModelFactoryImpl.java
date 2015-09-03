@@ -20,153 +20,153 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
  */
 public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
     /**
-     * Creates the default factory implementation.
-     * <!-- begin-user-doc -->
+	 * Creates the default factory implementation.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public static ModelFactory init() {
-        try {
-            ModelFactory theModelFactory = (ModelFactory)EPackage.Registry.INSTANCE.getEFactory("http://zcu.cz/yafmt/clang/bcl"); 
-            if (theModelFactory != null) {
-                return theModelFactory;
-            }
-        }
-        catch (Exception exception) {
-            EcorePlugin.INSTANCE.log(exception);
-        }
-        return new ModelFactoryImpl();
-    }
+		try {
+			ModelFactory theModelFactory = (ModelFactory)EPackage.Registry.INSTANCE.getEFactory(ModelPackage.eNS_URI);
+			if (theModelFactory != null) {
+				return theModelFactory;
+			}
+		}
+		catch (Exception exception) {
+			EcorePlugin.INSTANCE.log(exception);
+		}
+		return new ModelFactoryImpl();
+	}
 
     /**
-     * Creates an instance of the factory.
-     * <!-- begin-user-doc -->
+	 * Creates an instance of the factory.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public ModelFactoryImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public EObject create(EClass eClass) {
-        switch (eClass.getClassifierID()) {
-            case ModelPackage.FOR_ALL_CONTEXTUAL_EXPRESSION: return createForAllContextualExpression();
-            case ModelPackage.EXISTS_CONTEXTUAL_EXPRESSION: return createExistsContextualExpression();
-            case ModelPackage.EQUATION: return createEquation();
-            case ModelPackage.IMPLICATION: return createImplication();
-            case ModelPackage.DISJUNCTION: return createDisjunction();
-            case ModelPackage.CONJUNCTION: return createConjunction();
-            case ModelPackage.NEGATION: return createNegation();
-            case ModelPackage.PRIMARY_EXPRESSION: return createPrimaryExpression();
-            default:
-                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
-        }
-    }
+		switch (eClass.getClassifierID()) {
+			case ModelPackage.FOR_ALL_CONTEXTUAL_EXPRESSION: return createForAllContextualExpression();
+			case ModelPackage.EXISTS_CONTEXTUAL_EXPRESSION: return createExistsContextualExpression();
+			case ModelPackage.EQUATION: return createEquation();
+			case ModelPackage.IMPLICATION: return createImplication();
+			case ModelPackage.DISJUNCTION: return createDisjunction();
+			case ModelPackage.CONJUNCTION: return createConjunction();
+			case ModelPackage.NEGATION: return createNegation();
+			case ModelPackage.PRIMARY_EXPRESSION: return createPrimaryExpression();
+			default:
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+		}
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public ForAllContextualExpression createForAllContextualExpression() {
-        ForAllContextualExpressionImpl forAllContextualExpression = new ForAllContextualExpressionImpl();
-        return forAllContextualExpression;
-    }
+		ForAllContextualExpressionImpl forAllContextualExpression = new ForAllContextualExpressionImpl();
+		return forAllContextualExpression;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public ExistsContextualExpression createExistsContextualExpression() {
-        ExistsContextualExpressionImpl existsContextualExpression = new ExistsContextualExpressionImpl();
-        return existsContextualExpression;
-    }
+		ExistsContextualExpressionImpl existsContextualExpression = new ExistsContextualExpressionImpl();
+		return existsContextualExpression;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public Equation createEquation() {
-        EquationImpl equation = new EquationImpl();
-        return equation;
-    }
+		EquationImpl equation = new EquationImpl();
+		return equation;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public Implication createImplication() {
-        ImplicationImpl implication = new ImplicationImpl();
-        return implication;
-    }
+		ImplicationImpl implication = new ImplicationImpl();
+		return implication;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public Disjunction createDisjunction() {
-        DisjunctionImpl disjunction = new DisjunctionImpl();
-        return disjunction;
-    }
+		DisjunctionImpl disjunction = new DisjunctionImpl();
+		return disjunction;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public Conjunction createConjunction() {
-        ConjunctionImpl conjunction = new ConjunctionImpl();
-        return conjunction;
-    }
+		ConjunctionImpl conjunction = new ConjunctionImpl();
+		return conjunction;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public Negation createNegation() {
-        NegationImpl negation = new NegationImpl();
-        return negation;
-    }
+		NegationImpl negation = new NegationImpl();
+		return negation;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public PrimaryExpression createPrimaryExpression() {
-        PrimaryExpressionImpl primaryExpression = new PrimaryExpressionImpl();
-        return primaryExpression;
-    }
+		PrimaryExpressionImpl primaryExpression = new PrimaryExpressionImpl();
+		return primaryExpression;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public ModelPackage getModelPackage() {
-        return (ModelPackage)getEPackage();
-    }
+		return (ModelPackage)getEPackage();
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @deprecated
-     * @generated
-     */
+	 * @deprecated
+	 * @generated
+	 */
     @Deprecated
     public static ModelPackage getPackage() {
-        return ModelPackage.eINSTANCE;
-    }
+		return ModelPackage.eINSTANCE;
+	}
 
 } //ModelFactoryImpl
