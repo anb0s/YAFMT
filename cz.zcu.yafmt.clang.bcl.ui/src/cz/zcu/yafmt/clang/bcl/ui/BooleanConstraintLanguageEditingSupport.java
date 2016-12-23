@@ -12,12 +12,12 @@ import org.eclipse.swt.widgets.Composite;
 
 import com.google.inject.Injector;
 
+import cz.zcu.yafmt.clang.bcl.ui.externals.XtextStyledTextCellEditor;
 import cz.zcu.yafmt.clang.bcl.ui.internal.BooleanConstraintLanguageActivator;
 import cz.zcu.yafmt.clang.ui.EditingContext;
 import cz.zcu.yafmt.clang.ui.EditingSupport;
 import cz.zcu.yafmt.model.fm.Feature;
 import cz.zcu.yafmt.model.fm.FeatureModel;
-import org.yakindu.base.xtext.utils.jface.viewers.XtextStyledTextCellEditor;
 
 public class BooleanConstraintLanguageEditingSupport extends EditingSupport {
 
