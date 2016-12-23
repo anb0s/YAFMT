@@ -8,5 +8,9 @@
 <unit id="org.eclipse.zest.sdk.feature.group" version="0.0.0"/>
 <repository location="http://download.eclipse.org/releases/luna/"/>
 </location>
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.yakindu.base.feature.group" version="0.0.0"/>
+<repository location="http://updates.yakindu.org/sct/luna/releases/"/>
+</location>
 </locations>
 </target>
