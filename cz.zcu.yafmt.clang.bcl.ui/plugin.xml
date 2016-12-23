@@ -9,6 +9,12 @@
           class="cz.zcu.yafmt.clang.bcl.ui.BooleanConstraintLanguageEditingSupport"
           languageId="cz.zcu.yafmt.clang.BooleanConstraintLanguage">
     </editingSupport>
- </extension>   
+ </extension>
+ <extension
+       point="org.eclipse.ui.startup">
+      <startup
+            class="cz.zcu.yafmt.clang.bcl.ui.externals.ActiveEditorTracker">
+      </startup>
+ </extension>
 
 </plugin>
