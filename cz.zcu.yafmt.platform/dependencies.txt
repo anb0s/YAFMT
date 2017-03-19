@@ -1,0 +1,22 @@
+from original YAFMT:
+--------------------
+Eclipse 4.2 or higher.
+GEF 3.9 and Zest 1.5 (update site) : http://download.eclipse.org/tools/gef/updates/milestones/
+Xtext 2.4.1 or higher (update site) :http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/ 
+Xtext JFace Integration 2.1 or higher (update site) : http://updates.yakindu.org/sct/luna/releases/
+
+from my fork:
+-------------
+I will support Eclipse 4.4 and greater only and try to use one update site from corresponding release train:
+Eclipse 4.4: http://download.eclipse.org/releases/luna/
+Eclipse 4.5: http://download.eclipse.org/releases/mars/
+Eclipse 4.6: http://download.eclipse.org/releases/neon/
+Eclipse 4.7: http://download.eclipse.org/releases/oxygen/
+
+Additionally i will not use exact the version needed -> just use the version included in the main update site:
+<unit id="org.eclipse.sdk.ide" version="0.0.0"/>
+<unit id="org.eclipse.xtext.sdk.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.gef.sdk.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.zest.sdk.feature.group" version="0.0.0"/>
+
+2017-03-19 anb0s
