@@ -1,8 +1,8 @@
 from original YAFMT:
 --------------------
 Eclipse 4.2 or higher.
-GEF 3.9 and Zest 1.5 (update site) : http://download.eclipse.org/tools/gef/updates/milestones/
-Xtext 2.4.1 or higher (update site) :http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/ 
+GEF 3.9 and Zest 1.5 (update site)  : http://download.eclipse.org/tools/gef/updates/milestones/
+Xtext 2.4.1 or higher (update site) : http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/
 Xtext JFace Integration 2.1 or higher (update site) : http://updates.yakindu.org/sct/luna/releases/
 
 from my fork:

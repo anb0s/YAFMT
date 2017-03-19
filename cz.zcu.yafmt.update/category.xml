@@ -17,4 +17,7 @@
          Yet Another Feature Modeling Tool. Collection of Eclipse plug-ins for feature modeling.
       </description>
    </category-def>
+   <repository-reference location="http://download.eclipse.org/tools/gef/updates/milestones/" enabled="true" />
+   <repository-reference location="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/" enabled="true" />
+   <repository-reference location="http://updates.yakindu.org/sct/luna/releases/" enabled="true" />
 </site>
