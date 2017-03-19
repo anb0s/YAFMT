@@ -13,3 +13,4 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: cz.zcu.yafmt.model.validation,
  cz.zcu.yafmt.model.validation.fc,
  cz.zcu.yafmt.model.validation.fm
+Bundle-Vendor: Andre Bossert

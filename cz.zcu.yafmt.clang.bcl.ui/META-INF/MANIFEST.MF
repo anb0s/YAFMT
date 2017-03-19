@@ -18,3 +18,4 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-Activator: cz.zcu.yafmt.clang.bcl.ui.BooleanConstraintLanguageEditingSupportPlugin
 Export-Package: cz.zcu.yafmt.clang.bcl.ui.contentassist,
  cz.zcu.yafmt.clang.bcl.ui.contentassist.antlr
+Bundle-Vendor: Andre Bossert

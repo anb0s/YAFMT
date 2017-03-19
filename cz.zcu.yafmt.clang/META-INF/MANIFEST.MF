@@ -21,3 +21,4 @@ Export-Package: cz.zcu.yafmt.clang;
    org.eclipse.swt.widgets,
    cz.zcu.yafmt.model.fm",
  cz.zcu.yafmt.clang.util
+Bundle-Vendor: Andre Bossert

@@ -23,3 +23,4 @@ Export-Package: cz.zcu.yafmt.clang.bcl;uses:="org.eclipse.xtext,org.eclipse.xtex
  cz.zcu.yafmt.clang.bcl.parser.antlr.internal,
  cz.zcu.yafmt.clang.bcl.serializer,
  cz.zcu.yafmt.clang.bcl.services;uses:="org.eclipse.xtext,org.eclipse.xtext.common.services,org.eclipse.xtext.service"
+Bundle-Vendor: Andre Bossert

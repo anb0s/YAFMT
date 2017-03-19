@@ -32,3 +32,4 @@ Export-Package: cz.zcu.yafmt.ui,
  cz.zcu.yafmt.ui.validation,
  cz.zcu.yafmt.ui.widgets,
  cz.zcu.yafmt.ui.wizards
+Bundle-Vendor: Andre Bossert

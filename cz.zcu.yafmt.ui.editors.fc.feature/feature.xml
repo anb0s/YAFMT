@@ -3,16 +3,18 @@
       id="cz.zcu.yafmt.ui.editors.fc.feature"
       label="Feature Configuration Editor"
       version="0.3.1.qualifier"
+      provider-name="Andre Bossert"
       plugin="cz.zcu.yafmt.ui.editors.fc">
 
-   <description url="http://zcu.cz/yafmt">
+   <description url="https://anb0s.github.io/YAFMT">
       YAFMT feature configuration editor.
    </description>
 
    <copyright>
       Copyright (c) 2012-2013 Jan Pikl and contributors.
+Copyright (c) 2015-2017 Andre Bossert and contributors.
 All rights reserved. This program and the accompanying materials
-are made available under the terms of the Eclipse Public License 
+are made available under the terms of the Eclipse Public License
 v1.0 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v10.html
    </copyright>
