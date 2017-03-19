@@ -14,7 +14,7 @@ Require-Bundle: org.antlr.runtime;bundle-version="3.2.0",
  cz.zcu.yafmt.model;bundle-version="0.3.0",
  org.yakindu.base.xtext.utils.jface;bundle-version="2.5.0"
 Import-Package: org.apache.log4j
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-Activator: cz.zcu.yafmt.clang.bcl.ui.BooleanConstraintLanguageEditingSupportPlugin
 Export-Package: cz.zcu.yafmt.clang.bcl.ui.contentassist,
  cz.zcu.yafmt.clang.bcl.ui.contentassist.antlr
