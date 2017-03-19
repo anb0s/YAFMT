@@ -12,12 +12,12 @@ import org.eclipse.swt.widgets.Composite;
 
 import com.google.inject.Injector;
 
+import cz.zcu.yafmt.clang.bcl.ui.externals.XtextStyledTextCellEditor;
 import cz.zcu.yafmt.clang.bcl.ui.internal.BooleanConstraintLanguageActivator;
 import cz.zcu.yafmt.clang.ui.EditingContext;
 import cz.zcu.yafmt.clang.ui.EditingSupport;
 import cz.zcu.yafmt.model.fm.Feature;
 import cz.zcu.yafmt.model.fm.FeatureModel;
-import de.itemis.xtext.utils.jface.viewers.XtextStyledTextCellEditor;
 
 public class BooleanConstraintLanguageEditingSupport extends EditingSupport {
 
@@ -65,7 +65,7 @@ public class BooleanConstraintLanguageEditingSupport extends EditingSupport {
                             return 123456; // This action code should not exist.
                         return super.getKeyBinding(key);
                     }
-                    
+
                     // Called inside handleKey() after getKeyBinding() returns 123456.
                     @Override
                     public void invokeAction(int action) {
@@ -73,7 +73,7 @@ public class BooleanConstraintLanguageEditingSupport extends EditingSupport {
                             return;
                         super.invokeAction(action);
                     }
-                    
+
                     // This is also sometimes called when widget is disposed.
                     @Override
                     public int getCaretOffset() {
@@ -81,7 +81,7 @@ public class BooleanConstraintLanguageEditingSupport extends EditingSupport {
                             return 0;
                         return super.getCaretOffset();
                     }
-                    
+
                 };
             }
         };
