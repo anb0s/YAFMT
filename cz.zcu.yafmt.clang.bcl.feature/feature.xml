@@ -2,7 +2,7 @@
 <feature
       id="cz.zcu.yafmt.clang.bcl.feature"
       label="Boolean Constraint Language"
-      version="0.3.0.qualifier"
+      version="0.3.1.qualifier"
       plugin="cz.zcu.yafmt.clang.bcl">
 
    <description url="http://zcu.cz/yafmt">
