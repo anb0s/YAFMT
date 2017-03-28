@@ -10,11 +10,11 @@ package cz.zcu.yafmt.clang.bcl.model;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link cz.zcu.yafmt.clang.bcl.model.ExistsContextualExpression#getContextId <em>Context Id</em>}</li>
  *   <li>{@link cz.zcu.yafmt.clang.bcl.model.ExistsContextualExpression#getExpression <em>Expression</em>}</li>
  * </ul>
- * </p>
  *
  * @see cz.zcu.yafmt.clang.bcl.model.ModelPackage#getExistsContextualExpression()
  * @model

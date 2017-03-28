@@ -10,11 +10,11 @@ package cz.zcu.yafmt.clang.bcl.model;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link cz.zcu.yafmt.clang.bcl.model.Equation#getLeftPart <em>Left Part</em>}</li>
  *   <li>{@link cz.zcu.yafmt.clang.bcl.model.Equation#getRightPart <em>Right Part</em>}</li>
  * </ul>
- * </p>
  *
  * @see cz.zcu.yafmt.clang.bcl.model.ModelPackage#getEquation()
  * @model

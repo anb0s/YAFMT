@@ -7,7 +7,7 @@
     <package 
        uri = "http://zcu.cz/yafmt/clang/bcl" 
        class = "cz.zcu.yafmt.clang.bcl.model.ModelPackage"
-       genModel = "cz/zcu/yafmt/clang/bcl/BooleanConstraintLanguage.genmodel" /> 
+       genModel = "model/BooleanConstraintLanguage.genmodel" /> 
 	
   </extension>
   <extension

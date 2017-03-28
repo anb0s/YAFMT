@@ -26,11 +26,11 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link cz.zcu.yafmt.clang.bcl.model.impl.ExistsContextualExpressionImpl#getContextId <em>Context Id</em>}</li>
  *   <li>{@link cz.zcu.yafmt.clang.bcl.model.impl.ExistsContextualExpressionImpl#getExpression <em>Expression</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

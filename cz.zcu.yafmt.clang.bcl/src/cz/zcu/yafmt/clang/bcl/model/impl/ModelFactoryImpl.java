@@ -27,7 +27,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
      */
     public static ModelFactory init() {
         try {
-            ModelFactory theModelFactory = (ModelFactory)EPackage.Registry.INSTANCE.getEFactory("http://zcu.cz/yafmt/clang/bcl"); 
+            ModelFactory theModelFactory = (ModelFactory)EPackage.Registry.INSTANCE.getEFactory(ModelPackage.eNS_URI);
             if (theModelFactory != null) {
                 return theModelFactory;
             }

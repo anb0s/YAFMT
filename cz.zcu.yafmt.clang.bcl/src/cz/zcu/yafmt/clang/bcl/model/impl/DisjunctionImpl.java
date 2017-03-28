@@ -22,11 +22,11 @@ import cz.zcu.yafmt.model.fc.Selection;
  * <em><b>Disjunction</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link cz.zcu.yafmt.clang.bcl.model.impl.DisjunctionImpl#getLeftPart <em>Left Part</em>}</li>
  *   <li>{@link cz.zcu.yafmt.clang.bcl.model.impl.DisjunctionImpl#getRightPart <em>Right Part</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

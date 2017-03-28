@@ -25,11 +25,11 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link cz.zcu.yafmt.clang.bcl.model.impl.ImplicationImpl#getLeftPart <em>Left Part</em>}</li>
  *   <li>{@link cz.zcu.yafmt.clang.bcl.model.impl.ImplicationImpl#getRightPart <em>Right Part</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
