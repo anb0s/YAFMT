@@ -22,6 +22,7 @@ import cz.zcu.yafmt.model.fm.FeatureModel;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link cz.zcu.yafmt.model.fc.impl.FeatureConfigurationImpl#getName <em>Name</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fc.impl.FeatureConfigurationImpl#getVersion <em>Version</em>}</li>
@@ -31,7 +32,6 @@ import cz.zcu.yafmt.model.fm.FeatureModel;
  *   <li>{@link cz.zcu.yafmt.model.fc.impl.FeatureConfigurationImpl#getFeatureModelCopy <em>Feature Model Copy</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fc.impl.FeatureConfigurationImpl#getRoot <em>Root</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

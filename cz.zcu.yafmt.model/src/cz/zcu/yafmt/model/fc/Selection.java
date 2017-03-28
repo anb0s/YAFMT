@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link cz.zcu.yafmt.model.fc.Selection#getId <em>Id</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fc.Selection#getName <em>Name</em>}</li>
@@ -29,7 +30,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link cz.zcu.yafmt.model.fc.Selection#getFeatureConfiguration <em>Feature Configuration</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fc.Selection#getFeature <em>Feature</em>}</li>
  * </ul>
- * </p>
  *
  * @see cz.zcu.yafmt.model.fc.FeatureConfigurationPackage#getSelection()
  * @model

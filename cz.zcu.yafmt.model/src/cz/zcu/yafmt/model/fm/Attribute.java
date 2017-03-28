@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link cz.zcu.yafmt.model.fm.Attribute#getId <em>Id</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fm.Attribute#getName <em>Name</em>}</li>
@@ -19,7 +20,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link cz.zcu.yafmt.model.fm.Attribute#getComment <em>Comment</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fm.Attribute#getFeature <em>Feature</em>}</li>
  * </ul>
- * </p>
  *
  * @see cz.zcu.yafmt.model.fm.FeatureModelPackage#getAttribute()
  * @model
@@ -160,7 +160,7 @@ public interface Attribute extends EObject {
 
     /**
      * Returns the value of the '<em><b>Type</b></em>' attribute.
-     * The default value is <code>"BOOLEAN"</code>.
+     * The default value is <code>"boolean"</code>.
      * The literals are from the enumeration {@link cz.zcu.yafmt.model.fm.AttributeType}.
      * <!-- begin-user-doc -->
      * <p>
@@ -172,7 +172,7 @@ public interface Attribute extends EObject {
      * @see cz.zcu.yafmt.model.fm.AttributeType
      * @see #setType(AttributeType)
      * @see cz.zcu.yafmt.model.fm.FeatureModelPackage#getAttribute_Type()
-     * @model default="BOOLEAN" required="true"
+     * @model default="boolean" required="true"
      * @generated
      */
     AttributeType getType();

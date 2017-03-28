@@ -15,10 +15,10 @@ import cz.zcu.yafmt.model.fc.StringValue;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link cz.zcu.yafmt.model.fc.impl.StringValueImpl#getValue <em>Value</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

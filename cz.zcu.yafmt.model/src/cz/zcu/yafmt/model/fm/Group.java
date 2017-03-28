@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link cz.zcu.yafmt.model.fm.Group#getLower <em>Lower</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fm.Group#getUpper <em>Upper</em>}</li>
@@ -23,7 +24,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link cz.zcu.yafmt.model.fm.Group#getParent <em>Parent</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fm.Group#getFeatures <em>Features</em>}</li>
  * </ul>
- * </p>
  *
  * @see cz.zcu.yafmt.model.fm.FeatureModelPackage#getGroup()
  * @model

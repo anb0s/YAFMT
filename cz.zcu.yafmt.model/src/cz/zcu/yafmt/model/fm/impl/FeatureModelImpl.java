@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link cz.zcu.yafmt.model.fm.impl.FeatureModelImpl#getName <em>Name</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fm.impl.FeatureModelImpl#getVersion <em>Version</em>}</li>
@@ -39,7 +40,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link cz.zcu.yafmt.model.fm.impl.FeatureModelImpl#getOrphans <em>Orphans</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fm.impl.FeatureModelImpl#getConstraints <em>Constraints</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

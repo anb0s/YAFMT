@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link cz.zcu.yafmt.model.fm.impl.AttributeImpl#getId <em>Id</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fm.impl.AttributeImpl#getName <em>Name</em>}</li>
@@ -31,7 +32,6 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  *   <li>{@link cz.zcu.yafmt.model.fm.impl.AttributeImpl#getComment <em>Comment</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fm.impl.AttributeImpl#getFeature <em>Feature</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -246,7 +246,7 @@ public class AttributeImpl extends EObjectImpl implements Attribute {
      */
     public Feature getFeature() {
         if (eContainerFeatureID() != FeatureModelPackage.ATTRIBUTE__FEATURE) return null;
-        return (Feature)eContainer();
+        return (Feature)eInternalContainer();
     }
 
     /**

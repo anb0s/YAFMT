@@ -29,6 +29,7 @@ import cz.zcu.yafmt.model.fm.Group;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link cz.zcu.yafmt.model.fm.impl.FeatureImpl#getId <em>Id</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fm.impl.FeatureImpl#getName <em>Name</em>}</li>
@@ -49,7 +50,6 @@ import cz.zcu.yafmt.model.fm.Group;
  *   <li>{@link cz.zcu.yafmt.model.fm.impl.FeatureImpl#getGroups <em>Groups</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fm.impl.FeatureImpl#getFeatureModel <em>Feature Model</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -540,7 +540,7 @@ public class FeatureImpl extends EObjectImpl implements Feature {
      */
     public Feature getParentFeature() {
         if (eContainerFeatureID() != FeatureModelPackage.FEATURE__PARENT_FEATURE) return null;
-        return (Feature)eContainer();
+        return (Feature)eInternalContainer();
     }
 
     /**
@@ -581,7 +581,7 @@ public class FeatureImpl extends EObjectImpl implements Feature {
      */
     public Group getParentGroup() {
         if (eContainerFeatureID() != FeatureModelPackage.FEATURE__PARENT_GROUP) return null;
-        return (Group)eContainer();
+        return (Group)eInternalContainer();
     }
 
     /**

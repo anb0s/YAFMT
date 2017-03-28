@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link cz.zcu.yafmt.model.fm.impl.ConstraintImpl#getValue <em>Value</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fm.impl.ConstraintImpl#getLanguage <em>Language</em>}</li>
@@ -27,7 +28,6 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link cz.zcu.yafmt.model.fm.impl.ConstraintImpl#getComment <em>Comment</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fm.impl.ConstraintImpl#getFeatureModel <em>Feature Model</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

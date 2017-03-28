@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link cz.zcu.yafmt.model.fc.AttributeValue#getId <em>Id</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fc.AttributeValue#getName <em>Name</em>}</li>
@@ -21,7 +22,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link cz.zcu.yafmt.model.fc.AttributeValue#getSelection <em>Selection</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fc.AttributeValue#getAttribute <em>Attribute</em>}</li>
  * </ul>
- * </p>
  *
  * @see cz.zcu.yafmt.model.fc.FeatureConfigurationPackage#getAttributeValue()
  * @model abstract="true"

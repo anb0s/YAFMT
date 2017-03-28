@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link cz.zcu.yafmt.model.fc.FeatureConfiguration#getName <em>Name</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fc.FeatureConfiguration#getVersion <em>Version</em>}</li>
@@ -24,7 +25,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link cz.zcu.yafmt.model.fc.FeatureConfiguration#getFeatureModelCopy <em>Feature Model Copy</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fc.FeatureConfiguration#getRoot <em>Root</em>}</li>
  * </ul>
- * </p>
  *
  * @see cz.zcu.yafmt.model.fc.FeatureConfigurationPackage#getFeatureConfiguration()
  * @model

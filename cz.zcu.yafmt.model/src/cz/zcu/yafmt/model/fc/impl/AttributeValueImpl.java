@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link cz.zcu.yafmt.model.fc.impl.AttributeValueImpl#getId <em>Id</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fc.impl.AttributeValueImpl#getName <em>Name</em>}</li>
@@ -34,7 +35,6 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  *   <li>{@link cz.zcu.yafmt.model.fc.impl.AttributeValueImpl#getSelection <em>Selection</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fc.impl.AttributeValueImpl#getAttribute <em>Attribute</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -166,7 +166,7 @@ public abstract class AttributeValueImpl extends EObjectImpl implements Attribut
      */
     public Selection getSelection() {
         if (eContainerFeatureID() != FeatureConfigurationPackage.ATTRIBUTE_VALUE__SELECTION) return null;
-        return (Selection)eContainer();
+        return (Selection)eInternalContainer();
     }
 
     /**

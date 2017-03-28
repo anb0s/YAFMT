@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link cz.zcu.yafmt.model.fm.FeatureModel#getName <em>Name</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fm.FeatureModel#getVersion <em>Version</em>}</li>
@@ -22,7 +23,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link cz.zcu.yafmt.model.fm.FeatureModel#getOrphans <em>Orphans</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fm.FeatureModel#getConstraints <em>Constraints</em>}</li>
  * </ul>
- * </p>
  *
  * @see cz.zcu.yafmt.model.fm.FeatureModelPackage#getFeatureModel()
  * @model

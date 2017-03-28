@@ -27,7 +27,7 @@ public class FeatureConfigurationFactoryImpl extends EFactoryImpl implements Fea
      */
     public static FeatureConfigurationFactory init() {
         try {
-            FeatureConfigurationFactory theFeatureConfigurationFactory = (FeatureConfigurationFactory)EPackage.Registry.INSTANCE.getEFactory("http://zcu.cz/yafmt/model/fc"); 
+            FeatureConfigurationFactory theFeatureConfigurationFactory = (FeatureConfigurationFactory)EPackage.Registry.INSTANCE.getEFactory(FeatureConfigurationPackage.eNS_URI);
             if (theFeatureConfigurationFactory != null) {
                 return theFeatureConfigurationFactory;
             }

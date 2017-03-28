@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link cz.zcu.yafmt.model.fm.impl.GroupImpl#getLower <em>Lower</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fm.impl.GroupImpl#getUpper <em>Upper</em>}</li>
@@ -39,7 +40,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link cz.zcu.yafmt.model.fm.impl.GroupImpl#getParent <em>Parent</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fm.impl.GroupImpl#getFeatures <em>Features</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -319,7 +319,7 @@ public class GroupImpl extends EObjectImpl implements Group {
      */
     public Feature getParent() {
         if (eContainerFeatureID() != FeatureModelPackage.GROUP__PARENT) return null;
-        return (Feature)eContainer();
+        return (Feature)eInternalContainer();
     }
 
     /**

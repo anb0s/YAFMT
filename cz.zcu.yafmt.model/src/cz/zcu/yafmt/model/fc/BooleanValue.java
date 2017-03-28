@@ -10,10 +10,10 @@ package cz.zcu.yafmt.model.fc;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link cz.zcu.yafmt.model.fc.BooleanValue#isValue <em>Value</em>}</li>
  * </ul>
- * </p>
  *
  * @see cz.zcu.yafmt.model.fc.FeatureConfigurationPackage#getBooleanValue()
  * @model

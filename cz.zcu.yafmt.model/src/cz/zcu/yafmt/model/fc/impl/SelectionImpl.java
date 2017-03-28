@@ -30,6 +30,7 @@ import cz.zcu.yafmt.model.fm.Feature;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link cz.zcu.yafmt.model.fc.impl.SelectionImpl#getId <em>Id</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fc.impl.SelectionImpl#getName <em>Name</em>}</li>
@@ -44,7 +45,6 @@ import cz.zcu.yafmt.model.fm.Feature;
  *   <li>{@link cz.zcu.yafmt.model.fc.impl.SelectionImpl#getFeatureConfiguration <em>Feature Configuration</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fc.impl.SelectionImpl#getFeature <em>Feature</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -246,7 +246,7 @@ public class SelectionImpl extends EObjectImpl implements Selection {
      */
     public Selection getParent() {
         if (eContainerFeatureID() != FeatureConfigurationPackage.SELECTION__PARENT) return null;
-        return (Selection)eContainer();
+        return (Selection)eInternalContainer();
     }
 
     /**

@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link cz.zcu.yafmt.model.fm.Constraint#getValue <em>Value</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fm.Constraint#getLanguage <em>Language</em>}</li>
@@ -18,7 +19,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link cz.zcu.yafmt.model.fm.Constraint#getComment <em>Comment</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fm.Constraint#getFeatureModel <em>Feature Model</em>}</li>
  * </ul>
- * </p>
  *
  * @see cz.zcu.yafmt.model.fm.FeatureModelPackage#getConstraint()
  * @model
