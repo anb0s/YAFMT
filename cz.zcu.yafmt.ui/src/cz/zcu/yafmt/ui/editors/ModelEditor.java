@@ -115,7 +115,9 @@ public abstract class ModelEditor extends GraphicalEditorWithFlyoutPalette imple
 
     @Override
     public void dispose() {
-        problemManager.restoreState();
+        if (problemManager != null) {
+            problemManager.restoreState();
+        }
         ResourcesPlugin.getWorkspace().removeResourceChangeListener(editorAutoCloser);
         super.dispose();
     }
