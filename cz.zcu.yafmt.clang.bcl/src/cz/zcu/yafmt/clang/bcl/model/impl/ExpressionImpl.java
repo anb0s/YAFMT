@@ -17,30 +17,28 @@ import cz.zcu.yafmt.model.fc.Selection;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Expression</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */
 public abstract class ExpressionImpl extends MinimalEObjectImpl.Container implements Expression {
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected ExpressionImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     protected EClass eStaticClass() {
-        return ModelPackage.Literals.EXPRESSION;
-    }
+		return ModelPackage.Literals.EXPRESSION;
+	}
     
     public List<Selection> getSelections(FeatureConfiguration featureConfig, Selection context, String id) {
         List<Selection> allSelections = featureConfig.getSelectionsById(id);

@@ -21,170 +21,170 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
  */
 public class FeatureModelFactoryImpl extends EFactoryImpl implements FeatureModelFactory {
     /**
-     * Creates the default factory implementation.
-     * <!-- begin-user-doc -->
+	 * Creates the default factory implementation.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public static FeatureModelFactory init() {
-        try {
-            FeatureModelFactory theFeatureModelFactory = (FeatureModelFactory)EPackage.Registry.INSTANCE.getEFactory("http://zcu.cz/yafmt/model/fm"); 
-            if (theFeatureModelFactory != null) {
-                return theFeatureModelFactory;
-            }
-        }
-        catch (Exception exception) {
-            EcorePlugin.INSTANCE.log(exception);
-        }
-        return new FeatureModelFactoryImpl();
-    }
+		try {
+			FeatureModelFactory theFeatureModelFactory = (FeatureModelFactory)EPackage.Registry.INSTANCE.getEFactory(FeatureModelPackage.eNS_URI);
+			if (theFeatureModelFactory != null) {
+				return theFeatureModelFactory;
+			}
+		}
+		catch (Exception exception) {
+			EcorePlugin.INSTANCE.log(exception);
+		}
+		return new FeatureModelFactoryImpl();
+	}
 
     /**
-     * Creates an instance of the factory.
-     * <!-- begin-user-doc -->
+	 * Creates an instance of the factory.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public FeatureModelFactoryImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public EObject create(EClass eClass) {
-        switch (eClass.getClassifierID()) {
-            case FeatureModelPackage.FEATURE_MODEL: return createFeatureModel();
-            case FeatureModelPackage.FEATURE: return createFeature();
-            case FeatureModelPackage.GROUP: return createGroup();
-            case FeatureModelPackage.ATTRIBUTE: return createAttribute();
-            case FeatureModelPackage.CONSTRAINT: return createConstraint();
-            default:
-                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
-        }
-    }
+		switch (eClass.getClassifierID()) {
+			case FeatureModelPackage.FEATURE_MODEL: return createFeatureModel();
+			case FeatureModelPackage.FEATURE: return createFeature();
+			case FeatureModelPackage.GROUP: return createGroup();
+			case FeatureModelPackage.ATTRIBUTE: return createAttribute();
+			case FeatureModelPackage.CONSTRAINT: return createConstraint();
+			default:
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+		}
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public Object createFromString(EDataType eDataType, String initialValue) {
-        switch (eDataType.getClassifierID()) {
-            case FeatureModelPackage.ATTRIBUTE_TYPE:
-                return createAttributeTypeFromString(eDataType, initialValue);
-            default:
-                throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
-        }
-    }
+		switch (eDataType.getClassifierID()) {
+			case FeatureModelPackage.ATTRIBUTE_TYPE:
+				return createAttributeTypeFromString(eDataType, initialValue);
+			default:
+				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+		}
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public String convertToString(EDataType eDataType, Object instanceValue) {
-        switch (eDataType.getClassifierID()) {
-            case FeatureModelPackage.ATTRIBUTE_TYPE:
-                return convertAttributeTypeToString(eDataType, instanceValue);
-            default:
-                throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
-        }
-    }
+		switch (eDataType.getClassifierID()) {
+			case FeatureModelPackage.ATTRIBUTE_TYPE:
+				return convertAttributeTypeToString(eDataType, instanceValue);
+			default:
+				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+		}
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public FeatureModel createFeatureModel() {
-        FeatureModelImpl featureModel = new FeatureModelImpl();
-        return featureModel;
-    }
+		FeatureModelImpl featureModel = new FeatureModelImpl();
+		return featureModel;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public Feature createFeature() {
-        FeatureImpl feature = new FeatureImpl();
-        return feature;
-    }
+		FeatureImpl feature = new FeatureImpl();
+		return feature;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public Group createGroup() {
-        GroupImpl group = new GroupImpl();
-        return group;
-    }
+		GroupImpl group = new GroupImpl();
+		return group;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public Attribute createAttribute() {
-        AttributeImpl attribute = new AttributeImpl();
-        return attribute;
-    }
+		AttributeImpl attribute = new AttributeImpl();
+		return attribute;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public Constraint createConstraint() {
-        ConstraintImpl constraint = new ConstraintImpl();
-        return constraint;
-    }
+		ConstraintImpl constraint = new ConstraintImpl();
+		return constraint;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public AttributeType createAttributeTypeFromString(EDataType eDataType, String initialValue) {
-        AttributeType result = AttributeType.get(initialValue);
-        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-        return result;
-    }
+		AttributeType result = AttributeType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String convertAttributeTypeToString(EDataType eDataType, Object instanceValue) {
-        return instanceValue == null ? null : instanceValue.toString();
-    }
+		return instanceValue == null ? null : instanceValue.toString();
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public FeatureModelPackage getFeatureModelPackage() {
-        return (FeatureModelPackage)getEPackage();
-    }
+		return (FeatureModelPackage)getEPackage();
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @deprecated
-     * @generated
-     */
+	 * @deprecated
+	 * @generated
+	 */
     @Deprecated
     public static FeatureModelPackage getPackage() {
-        return FeatureModelPackage.eINSTANCE;
-    }
+		return FeatureModelPackage.eINSTANCE;
+	}
 
 } //FeatureModelFactoryImpl

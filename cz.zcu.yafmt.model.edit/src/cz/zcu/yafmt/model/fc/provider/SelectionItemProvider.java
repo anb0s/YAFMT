@@ -42,14 +42,14 @@ public class SelectionItemProvider
         IItemLabelProvider,
         IItemPropertySource {
     /**
-     * This constructs an instance from a factory and a notifier.
-     * <!-- begin-user-doc -->
+	 * This constructs an instance from a factory and a notifier.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public SelectionItemProvider(AdapterFactory adapterFactory) {
-        super(adapterFactory);
-    }
+		super(adapterFactory);
+	}
 
     /**
      * This returns the property descriptors for the adapted class.
@@ -77,123 +77,123 @@ public class SelectionItemProvider
     }
 
     /**
-     * This adds a property descriptor for the Id feature.
-     * <!-- begin-user-doc -->
+	 * This adds a property descriptor for the Id feature.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected void addIdPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_Selection_id_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_Selection_id_feature", "_UI_Selection_type"),
-                 FeatureConfigurationPackage.Literals.SELECTION__ID,
-                 false,
-                 false,
-                 false,
-                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-                 null,
-                 null));
-    }
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Selection_id_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Selection_id_feature", "_UI_Selection_type"),
+				 FeatureConfigurationPackage.Literals.SELECTION__ID,
+				 false,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
 
     /**
-     * This adds a property descriptor for the Name feature.
-     * <!-- begin-user-doc -->
+	 * This adds a property descriptor for the Name feature.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected void addNamePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_Selection_name_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_Selection_name_feature", "_UI_Selection_type"),
-                 FeatureConfigurationPackage.Literals.SELECTION__NAME,
-                 false,
-                 false,
-                 false,
-                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-                 null,
-                 null));
-    }
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Selection_name_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Selection_name_feature", "_UI_Selection_type"),
+				 FeatureConfigurationPackage.Literals.SELECTION__NAME,
+				 false,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
 
     /**
-     * This adds a property descriptor for the Description feature.
-     * <!-- begin-user-doc -->
+	 * This adds a property descriptor for the Description feature.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected void addDescriptionPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_Selection_description_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_Selection_description_feature", "_UI_Selection_type"),
-                 FeatureConfigurationPackage.Literals.SELECTION__DESCRIPTION,
-                 false,
-                 false,
-                 false,
-                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-                 null,
-                 null));
-    }
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Selection_description_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Selection_description_feature", "_UI_Selection_type"),
+				 FeatureConfigurationPackage.Literals.SELECTION__DESCRIPTION,
+				 false,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
 
     /**
-     * This adds a property descriptor for the Comment feature.
-     * <!-- begin-user-doc -->
+	 * This adds a property descriptor for the Comment feature.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected void addCommentPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_Selection_comment_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_Selection_comment_feature", "_UI_Selection_type"),
-                 FeatureConfigurationPackage.Literals.SELECTION__COMMENT,
-                 false,
-                 false,
-                 false,
-                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-                 null,
-                 null));
-    }
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Selection_comment_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Selection_comment_feature", "_UI_Selection_type"),
+				 FeatureConfigurationPackage.Literals.SELECTION__COMMENT,
+				 false,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
 
     /**
-     * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
-     * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-     * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
-     * <!-- begin-user-doc -->
+	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
+	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
+	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
-        if (childrenFeatures == null) {
-            super.getChildrenFeatures(object);
-            childrenFeatures.add(FeatureConfigurationPackage.Literals.SELECTION__VALUES);
-            childrenFeatures.add(FeatureConfigurationPackage.Literals.SELECTION__SELECTIONS);
-        }
-        return childrenFeatures;
-    }
+		if (childrenFeatures == null) {
+			super.getChildrenFeatures(object);
+			childrenFeatures.add(FeatureConfigurationPackage.Literals.SELECTION__VALUES);
+			childrenFeatures.add(FeatureConfigurationPackage.Literals.SELECTION__SELECTIONS);
+		}
+		return childrenFeatures;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     protected EStructuralFeature getChildFeature(Object object, Object child) {
-        // Check the type of the specified child object and return the proper feature to use for
-        // adding (see {@link AddCommand}) it as a child.
+		// Check the type of the specified child object and return the proper feature to use for
+		// adding (see {@link AddCommand}) it as a child.
 
-        return super.getChildFeature(object, child);
-    }
+		return super.getChildFeature(object, child);
+	}
 
     /**
      * This returns Selection.gif.
@@ -230,78 +230,78 @@ public class SelectionItemProvider
     }
 
     /**
-     * This handles model notifications by calling {@link #updateChildren} to update any cached
-     * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
-     * <!-- begin-user-doc -->
+	 * This handles model notifications by calling {@link #updateChildren} to update any cached
+	 * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public void notifyChanged(Notification notification) {
-        updateChildren(notification);
+		updateChildren(notification);
 
-        switch (notification.getFeatureID(Selection.class)) {
-            case FeatureConfigurationPackage.SELECTION__ID:
-            case FeatureConfigurationPackage.SELECTION__NAME:
-            case FeatureConfigurationPackage.SELECTION__DESCRIPTION:
-            case FeatureConfigurationPackage.SELECTION__COMMENT:
-            case FeatureConfigurationPackage.SELECTION__ROOT:
-                fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-                return;
-            case FeatureConfigurationPackage.SELECTION__VALUES:
-            case FeatureConfigurationPackage.SELECTION__SELECTIONS:
-                fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
-                return;
-        }
-        super.notifyChanged(notification);
-    }
+		switch (notification.getFeatureID(Selection.class)) {
+			case FeatureConfigurationPackage.SELECTION__ID:
+			case FeatureConfigurationPackage.SELECTION__NAME:
+			case FeatureConfigurationPackage.SELECTION__DESCRIPTION:
+			case FeatureConfigurationPackage.SELECTION__COMMENT:
+			case FeatureConfigurationPackage.SELECTION__ROOT:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+			case FeatureConfigurationPackage.SELECTION__VALUES:
+			case FeatureConfigurationPackage.SELECTION__SELECTIONS:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+				return;
+		}
+		super.notifyChanged(notification);
+	}
 
     /**
-     * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children
-     * that can be created under this object.
-     * <!-- begin-user-doc -->
+	 * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children
+	 * that can be created under this object.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
-        super.collectNewChildDescriptors(newChildDescriptors, object);
+		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-        newChildDescriptors.add
-            (createChildParameter
-                (FeatureConfigurationPackage.Literals.SELECTION__VALUES,
-                 FeatureConfigurationFactory.eINSTANCE.createBooleanValue()));
+		newChildDescriptors.add
+			(createChildParameter
+				(FeatureConfigurationPackage.Literals.SELECTION__VALUES,
+				 FeatureConfigurationFactory.eINSTANCE.createBooleanValue()));
 
-        newChildDescriptors.add
-            (createChildParameter
-                (FeatureConfigurationPackage.Literals.SELECTION__VALUES,
-                 FeatureConfigurationFactory.eINSTANCE.createIntegerValue()));
+		newChildDescriptors.add
+			(createChildParameter
+				(FeatureConfigurationPackage.Literals.SELECTION__VALUES,
+				 FeatureConfigurationFactory.eINSTANCE.createIntegerValue()));
 
-        newChildDescriptors.add
-            (createChildParameter
-                (FeatureConfigurationPackage.Literals.SELECTION__VALUES,
-                 FeatureConfigurationFactory.eINSTANCE.createDoubleValue()));
+		newChildDescriptors.add
+			(createChildParameter
+				(FeatureConfigurationPackage.Literals.SELECTION__VALUES,
+				 FeatureConfigurationFactory.eINSTANCE.createDoubleValue()));
 
-        newChildDescriptors.add
-            (createChildParameter
-                (FeatureConfigurationPackage.Literals.SELECTION__VALUES,
-                 FeatureConfigurationFactory.eINSTANCE.createStringValue()));
+		newChildDescriptors.add
+			(createChildParameter
+				(FeatureConfigurationPackage.Literals.SELECTION__VALUES,
+				 FeatureConfigurationFactory.eINSTANCE.createStringValue()));
 
-        newChildDescriptors.add
-            (createChildParameter
-                (FeatureConfigurationPackage.Literals.SELECTION__SELECTIONS,
-                 FeatureConfigurationFactory.eINSTANCE.createSelection()));
-    }
+		newChildDescriptors.add
+			(createChildParameter
+				(FeatureConfigurationPackage.Literals.SELECTION__SELECTIONS,
+				 FeatureConfigurationFactory.eINSTANCE.createSelection()));
+	}
 
     /**
-     * Return the resource locator for this item provider's resources.
-     * <!-- begin-user-doc -->
+	 * Return the resource locator for this item provider's resources.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public ResourceLocator getResourceLocator() {
-        return FeatureModelEditPlugin.INSTANCE;
-    }
+		return FeatureModelEditPlugin.INSTANCE;
+	}
 
 }

@@ -30,6 +30,7 @@ import cz.zcu.yafmt.model.fm.Feature;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link cz.zcu.yafmt.model.fc.impl.SelectionImpl#getId <em>Id</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fc.impl.SelectionImpl#getName <em>Name</em>}</li>
@@ -44,170 +45,169 @@ import cz.zcu.yafmt.model.fm.Feature;
  *   <li>{@link cz.zcu.yafmt.model.fc.impl.SelectionImpl#getFeatureConfiguration <em>Feature Configuration</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fc.impl.SelectionImpl#getFeature <em>Feature</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
 public class SelectionImpl extends EObjectImpl implements Selection {
     /**
-     * The default value of the '{@link #getId() <em>Id</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getId()
-     * @generated
-     * @ordered
-     */
+	 * @see #getId()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String ID_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getId()
-     * @generated
-     * @ordered
-     */
+	 * @see #getId()
+	 * @generated
+	 * @ordered
+	 */
     protected String id = ID_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getName()
-     * @generated
-     * @ordered
-     */
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String NAME_EDEFAULT = null;
 
     /**
-     * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getDescription()
-     * @generated
-     * @ordered
-     */
+	 * @see #getDescription()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String DESCRIPTION_EDEFAULT = null;
 
     /**
-     * The default value of the '{@link #getComment() <em>Comment</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getComment() <em>Comment</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getComment()
-     * @generated
-     * @ordered
-     */
+	 * @see #getComment()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String COMMENT_EDEFAULT = null;
 
     /**
-     * The default value of the '{@link #isRoot() <em>Root</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #isRoot() <em>Root</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #isRoot()
-     * @generated
-     * @ordered
-     */
+	 * @see #isRoot()
+	 * @generated
+	 * @ordered
+	 */
     protected static final boolean ROOT_EDEFAULT = false;
 
     /**
-     * The default value of the '{@link #isPresent() <em>Present</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #isPresent() <em>Present</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #isPresent()
-     * @generated
-     * @ordered
-     */
+	 * @see #isPresent()
+	 * @generated
+	 * @ordered
+	 */
     protected static final boolean PRESENT_EDEFAULT = false;
 
     /**
-     * The default value of the '{@link #isEnabled() <em>Enabled</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #isEnabled() <em>Enabled</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #isEnabled()
-     * @generated
-     * @ordered
-     */
+	 * @see #isEnabled()
+	 * @generated
+	 * @ordered
+	 */
     protected static final boolean ENABLED_EDEFAULT = true;
 
     /**
-     * The cached value of the '{@link #isEnabled() <em>Enabled</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #isEnabled() <em>Enabled</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #isEnabled()
-     * @generated
-     * @ordered
-     */
+	 * @see #isEnabled()
+	 * @generated
+	 * @ordered
+	 */
     protected boolean enabled = ENABLED_EDEFAULT;
 
     /**
-     * The cached value of the '{@link #getValues() <em>Values</em>}' containment reference list.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getValues() <em>Values</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getValues()
-     * @generated
-     * @ordered
-     */
+	 * @see #getValues()
+	 * @generated
+	 * @ordered
+	 */
     protected EList<AttributeValue> values;
 
     /**
-     * The cached value of the '{@link #getSelections() <em>Selections</em>}' containment reference list.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getSelections() <em>Selections</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getSelections()
-     * @generated
-     * @ordered
-     */
+	 * @see #getSelections()
+	 * @generated
+	 * @ordered
+	 */
     protected EList<Selection> selections;
 
     /**
-     * The cached value of the '{@link #getFeatureConfiguration() <em>Feature Configuration</em>}' reference.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getFeatureConfiguration() <em>Feature Configuration</em>}' reference.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getFeatureConfiguration()
-     * @generated
-     * @ordered
-     */
+	 * @see #getFeatureConfiguration()
+	 * @generated
+	 * @ordered
+	 */
     protected FeatureConfiguration featureConfiguration;
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected SelectionImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     protected EClass eStaticClass() {
-        return FeatureConfigurationPackage.Literals.SELECTION;
-    }
+		return FeatureConfigurationPackage.Literals.SELECTION;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String getId() {
-        return id;
-    }
+		return id;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setId(String newId) {
-        String oldId = id;
-        id = newId;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, FeatureConfigurationPackage.SELECTION__ID, oldId, id));
-    }
+		String oldId = id;
+		id = newId;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, FeatureConfigurationPackage.SELECTION__ID, oldId, id));
+	}
 
     /**
      * <!-- begin-user-doc -->
@@ -240,45 +240,45 @@ public class SelectionImpl extends EObjectImpl implements Selection {
     }
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public Selection getParent() {
-        if (eContainerFeatureID() != FeatureConfigurationPackage.SELECTION__PARENT) return null;
-        return (Selection)eContainer();
-    }
+		if (eContainerFeatureID() != FeatureConfigurationPackage.SELECTION__PARENT) return null;
+		return (Selection)eInternalContainer();
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public NotificationChain basicSetParent(Selection newParent, NotificationChain msgs) {
-        msgs = eBasicSetContainer((InternalEObject)newParent, FeatureConfigurationPackage.SELECTION__PARENT, msgs);
-        return msgs;
-    }
+		msgs = eBasicSetContainer((InternalEObject)newParent, FeatureConfigurationPackage.SELECTION__PARENT, msgs);
+		return msgs;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setParent(Selection newParent) {
-        if (newParent != eInternalContainer() || (eContainerFeatureID() != FeatureConfigurationPackage.SELECTION__PARENT && newParent != null)) {
-            if (EcoreUtil.isAncestor(this, newParent))
-                throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
-            NotificationChain msgs = null;
-            if (eInternalContainer() != null)
-                msgs = eBasicRemoveFromContainer(msgs);
-            if (newParent != null)
-                msgs = ((InternalEObject)newParent).eInverseAdd(this, FeatureConfigurationPackage.SELECTION__SELECTIONS, Selection.class, msgs);
-            msgs = basicSetParent(newParent, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, FeatureConfigurationPackage.SELECTION__PARENT, newParent, newParent));
-    }
+		if (newParent != eInternalContainer() || (eContainerFeatureID() != FeatureConfigurationPackage.SELECTION__PARENT && newParent != null)) {
+			if (EcoreUtil.isAncestor(this, newParent))
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+			NotificationChain msgs = null;
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			if (newParent != null)
+				msgs = ((InternalEObject)newParent).eInverseAdd(this, FeatureConfigurationPackage.SELECTION__SELECTIONS, Selection.class, msgs);
+			msgs = basicSetParent(newParent, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, FeatureConfigurationPackage.SELECTION__PARENT, newParent, newParent));
+	}
 
     /**
      * <!-- begin-user-doc -->
@@ -300,49 +300,49 @@ public class SelectionImpl extends EObjectImpl implements Selection {
     }
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public boolean isEnabled() {
-        return enabled;
-    }
+		return enabled;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setEnabled(boolean newEnabled) {
-        boolean oldEnabled = enabled;
-        enabled = newEnabled;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, FeatureConfigurationPackage.SELECTION__ENABLED, oldEnabled, enabled));
-    }
+		boolean oldEnabled = enabled;
+		enabled = newEnabled;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, FeatureConfigurationPackage.SELECTION__ENABLED, oldEnabled, enabled));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public EList<Selection> getSelections() {
-        if (selections == null) {
-            selections = new EObjectContainmentWithInverseEList<Selection>(Selection.class, this, FeatureConfigurationPackage.SELECTION__SELECTIONS, FeatureConfigurationPackage.SELECTION__PARENT);
-        }
-        return selections;
-    }
+		if (selections == null) {
+			selections = new EObjectContainmentWithInverseEList<Selection>(Selection.class, this, FeatureConfigurationPackage.SELECTION__SELECTIONS, FeatureConfigurationPackage.SELECTION__PARENT);
+		}
+		return selections;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public EList<AttributeValue> getValues() {
-        if (values == null) {
-            values = new EObjectContainmentWithInverseEList<AttributeValue>(AttributeValue.class, this, FeatureConfigurationPackage.SELECTION__VALUES, FeatureConfigurationPackage.ATTRIBUTE_VALUE__SELECTION);
-        }
-        return values;
-    }
+		if (values == null) {
+			values = new EObjectContainmentWithInverseEList<AttributeValue>(AttributeValue.class, this, FeatureConfigurationPackage.SELECTION__VALUES, FeatureConfigurationPackage.ATTRIBUTE_VALUE__SELECTION);
+		}
+		return values;
+	}
 
     /**
      * <!-- begin-user-doc -->
@@ -389,26 +389,26 @@ public class SelectionImpl extends EObjectImpl implements Selection {
     }
     
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setFeatureConfiguration(FeatureConfiguration newFeatureConfiguration) {
-        FeatureConfiguration oldFeatureConfiguration = featureConfiguration;
-        featureConfiguration = newFeatureConfiguration;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, FeatureConfigurationPackage.SELECTION__FEATURE_CONFIGURATION, oldFeatureConfiguration, featureConfiguration));
-    }
+		FeatureConfiguration oldFeatureConfiguration = featureConfiguration;
+		featureConfiguration = newFeatureConfiguration;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, FeatureConfigurationPackage.SELECTION__FEATURE_CONFIGURATION, oldFeatureConfiguration, featureConfiguration));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public Feature getFeature() {
-        Feature feature = basicGetFeature();
-        return feature != null && feature.eIsProxy() ? (Feature)eResolveProxy((InternalEObject)feature) : feature;
-    }
+		Feature feature = basicGetFeature();
+		return feature != null && feature.eIsProxy() ? (Feature)eResolveProxy((InternalEObject)feature) : feature;
+	}
 
     /**
      * <!-- begin-user-doc -->
@@ -424,211 +424,211 @@ public class SelectionImpl extends EObjectImpl implements Selection {
     }
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-        switch (featureID) {
-            case FeatureConfigurationPackage.SELECTION__PARENT:
-                if (eInternalContainer() != null)
-                    msgs = eBasicRemoveFromContainer(msgs);
-                return basicSetParent((Selection)otherEnd, msgs);
-            case FeatureConfigurationPackage.SELECTION__VALUES:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getValues()).basicAdd(otherEnd, msgs);
-            case FeatureConfigurationPackage.SELECTION__SELECTIONS:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getSelections()).basicAdd(otherEnd, msgs);
-        }
-        return super.eInverseAdd(otherEnd, featureID, msgs);
-    }
+		switch (featureID) {
+			case FeatureConfigurationPackage.SELECTION__PARENT:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetParent((Selection)otherEnd, msgs);
+			case FeatureConfigurationPackage.SELECTION__VALUES:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getValues()).basicAdd(otherEnd, msgs);
+			case FeatureConfigurationPackage.SELECTION__SELECTIONS:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getSelections()).basicAdd(otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-        switch (featureID) {
-            case FeatureConfigurationPackage.SELECTION__PARENT:
-                return basicSetParent(null, msgs);
-            case FeatureConfigurationPackage.SELECTION__VALUES:
-                return ((InternalEList<?>)getValues()).basicRemove(otherEnd, msgs);
-            case FeatureConfigurationPackage.SELECTION__SELECTIONS:
-                return ((InternalEList<?>)getSelections()).basicRemove(otherEnd, msgs);
-        }
-        return super.eInverseRemove(otherEnd, featureID, msgs);
-    }
+		switch (featureID) {
+			case FeatureConfigurationPackage.SELECTION__PARENT:
+				return basicSetParent(null, msgs);
+			case FeatureConfigurationPackage.SELECTION__VALUES:
+				return ((InternalEList<?>)getValues()).basicRemove(otherEnd, msgs);
+			case FeatureConfigurationPackage.SELECTION__SELECTIONS:
+				return ((InternalEList<?>)getSelections()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-        switch (eContainerFeatureID()) {
-            case FeatureConfigurationPackage.SELECTION__PARENT:
-                return eInternalContainer().eInverseRemove(this, FeatureConfigurationPackage.SELECTION__SELECTIONS, Selection.class, msgs);
-        }
-        return super.eBasicRemoveFromContainerFeature(msgs);
-    }
+		switch (eContainerFeatureID()) {
+			case FeatureConfigurationPackage.SELECTION__PARENT:
+				return eInternalContainer().eInverseRemove(this, FeatureConfigurationPackage.SELECTION__SELECTIONS, Selection.class, msgs);
+		}
+		return super.eBasicRemoveFromContainerFeature(msgs);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-        switch (featureID) {
-            case FeatureConfigurationPackage.SELECTION__ID:
-                return getId();
-            case FeatureConfigurationPackage.SELECTION__NAME:
-                return getName();
-            case FeatureConfigurationPackage.SELECTION__DESCRIPTION:
-                return getDescription();
-            case FeatureConfigurationPackage.SELECTION__COMMENT:
-                return getComment();
-            case FeatureConfigurationPackage.SELECTION__PARENT:
-                return getParent();
-            case FeatureConfigurationPackage.SELECTION__ROOT:
-                return isRoot();
-            case FeatureConfigurationPackage.SELECTION__PRESENT:
-                return isPresent();
-            case FeatureConfigurationPackage.SELECTION__ENABLED:
-                return isEnabled();
-            case FeatureConfigurationPackage.SELECTION__VALUES:
-                return getValues();
-            case FeatureConfigurationPackage.SELECTION__SELECTIONS:
-                return getSelections();
-            case FeatureConfigurationPackage.SELECTION__FEATURE_CONFIGURATION:
-                if (resolve) return getFeatureConfiguration();
-                return basicGetFeatureConfiguration();
-            case FeatureConfigurationPackage.SELECTION__FEATURE:
-                if (resolve) return getFeature();
-                return basicGetFeature();
-        }
-        return super.eGet(featureID, resolve, coreType);
-    }
+		switch (featureID) {
+			case FeatureConfigurationPackage.SELECTION__ID:
+				return getId();
+			case FeatureConfigurationPackage.SELECTION__NAME:
+				return getName();
+			case FeatureConfigurationPackage.SELECTION__DESCRIPTION:
+				return getDescription();
+			case FeatureConfigurationPackage.SELECTION__COMMENT:
+				return getComment();
+			case FeatureConfigurationPackage.SELECTION__PARENT:
+				return getParent();
+			case FeatureConfigurationPackage.SELECTION__ROOT:
+				return isRoot();
+			case FeatureConfigurationPackage.SELECTION__PRESENT:
+				return isPresent();
+			case FeatureConfigurationPackage.SELECTION__ENABLED:
+				return isEnabled();
+			case FeatureConfigurationPackage.SELECTION__VALUES:
+				return getValues();
+			case FeatureConfigurationPackage.SELECTION__SELECTIONS:
+				return getSelections();
+			case FeatureConfigurationPackage.SELECTION__FEATURE_CONFIGURATION:
+				if (resolve) return getFeatureConfiguration();
+				return basicGetFeatureConfiguration();
+			case FeatureConfigurationPackage.SELECTION__FEATURE:
+				if (resolve) return getFeature();
+				return basicGetFeature();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
-        switch (featureID) {
-            case FeatureConfigurationPackage.SELECTION__ID:
-                setId((String)newValue);
-                return;
-            case FeatureConfigurationPackage.SELECTION__PARENT:
-                setParent((Selection)newValue);
-                return;
-            case FeatureConfigurationPackage.SELECTION__ENABLED:
-                setEnabled((Boolean)newValue);
-                return;
-            case FeatureConfigurationPackage.SELECTION__VALUES:
-                getValues().clear();
-                getValues().addAll((Collection<? extends AttributeValue>)newValue);
-                return;
-            case FeatureConfigurationPackage.SELECTION__SELECTIONS:
-                getSelections().clear();
-                getSelections().addAll((Collection<? extends Selection>)newValue);
-                return;
-            case FeatureConfigurationPackage.SELECTION__FEATURE_CONFIGURATION:
-                setFeatureConfiguration((FeatureConfiguration)newValue);
-                return;
-        }
-        super.eSet(featureID, newValue);
-    }
+		switch (featureID) {
+			case FeatureConfigurationPackage.SELECTION__ID:
+				setId((String)newValue);
+				return;
+			case FeatureConfigurationPackage.SELECTION__PARENT:
+				setParent((Selection)newValue);
+				return;
+			case FeatureConfigurationPackage.SELECTION__ENABLED:
+				setEnabled((Boolean)newValue);
+				return;
+			case FeatureConfigurationPackage.SELECTION__VALUES:
+				getValues().clear();
+				getValues().addAll((Collection<? extends AttributeValue>)newValue);
+				return;
+			case FeatureConfigurationPackage.SELECTION__SELECTIONS:
+				getSelections().clear();
+				getSelections().addAll((Collection<? extends Selection>)newValue);
+				return;
+			case FeatureConfigurationPackage.SELECTION__FEATURE_CONFIGURATION:
+				setFeatureConfiguration((FeatureConfiguration)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public void eUnset(int featureID) {
-        switch (featureID) {
-            case FeatureConfigurationPackage.SELECTION__ID:
-                setId(ID_EDEFAULT);
-                return;
-            case FeatureConfigurationPackage.SELECTION__PARENT:
-                setParent((Selection)null);
-                return;
-            case FeatureConfigurationPackage.SELECTION__ENABLED:
-                setEnabled(ENABLED_EDEFAULT);
-                return;
-            case FeatureConfigurationPackage.SELECTION__VALUES:
-                getValues().clear();
-                return;
-            case FeatureConfigurationPackage.SELECTION__SELECTIONS:
-                getSelections().clear();
-                return;
-            case FeatureConfigurationPackage.SELECTION__FEATURE_CONFIGURATION:
-                setFeatureConfiguration((FeatureConfiguration)null);
-                return;
-        }
-        super.eUnset(featureID);
-    }
+		switch (featureID) {
+			case FeatureConfigurationPackage.SELECTION__ID:
+				setId(ID_EDEFAULT);
+				return;
+			case FeatureConfigurationPackage.SELECTION__PARENT:
+				setParent((Selection)null);
+				return;
+			case FeatureConfigurationPackage.SELECTION__ENABLED:
+				setEnabled(ENABLED_EDEFAULT);
+				return;
+			case FeatureConfigurationPackage.SELECTION__VALUES:
+				getValues().clear();
+				return;
+			case FeatureConfigurationPackage.SELECTION__SELECTIONS:
+				getSelections().clear();
+				return;
+			case FeatureConfigurationPackage.SELECTION__FEATURE_CONFIGURATION:
+				setFeatureConfiguration((FeatureConfiguration)null);
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public boolean eIsSet(int featureID) {
-        switch (featureID) {
-            case FeatureConfigurationPackage.SELECTION__ID:
-                return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
-            case FeatureConfigurationPackage.SELECTION__NAME:
-                return NAME_EDEFAULT == null ? getName() != null : !NAME_EDEFAULT.equals(getName());
-            case FeatureConfigurationPackage.SELECTION__DESCRIPTION:
-                return DESCRIPTION_EDEFAULT == null ? getDescription() != null : !DESCRIPTION_EDEFAULT.equals(getDescription());
-            case FeatureConfigurationPackage.SELECTION__COMMENT:
-                return COMMENT_EDEFAULT == null ? getComment() != null : !COMMENT_EDEFAULT.equals(getComment());
-            case FeatureConfigurationPackage.SELECTION__PARENT:
-                return getParent() != null;
-            case FeatureConfigurationPackage.SELECTION__ROOT:
-                return isRoot() != ROOT_EDEFAULT;
-            case FeatureConfigurationPackage.SELECTION__PRESENT:
-                return isPresent() != PRESENT_EDEFAULT;
-            case FeatureConfigurationPackage.SELECTION__ENABLED:
-                return enabled != ENABLED_EDEFAULT;
-            case FeatureConfigurationPackage.SELECTION__VALUES:
-                return values != null && !values.isEmpty();
-            case FeatureConfigurationPackage.SELECTION__SELECTIONS:
-                return selections != null && !selections.isEmpty();
-            case FeatureConfigurationPackage.SELECTION__FEATURE_CONFIGURATION:
-                return featureConfiguration != null;
-            case FeatureConfigurationPackage.SELECTION__FEATURE:
-                return basicGetFeature() != null;
-        }
-        return super.eIsSet(featureID);
-    }
+		switch (featureID) {
+			case FeatureConfigurationPackage.SELECTION__ID:
+				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
+			case FeatureConfigurationPackage.SELECTION__NAME:
+				return NAME_EDEFAULT == null ? getName() != null : !NAME_EDEFAULT.equals(getName());
+			case FeatureConfigurationPackage.SELECTION__DESCRIPTION:
+				return DESCRIPTION_EDEFAULT == null ? getDescription() != null : !DESCRIPTION_EDEFAULT.equals(getDescription());
+			case FeatureConfigurationPackage.SELECTION__COMMENT:
+				return COMMENT_EDEFAULT == null ? getComment() != null : !COMMENT_EDEFAULT.equals(getComment());
+			case FeatureConfigurationPackage.SELECTION__PARENT:
+				return getParent() != null;
+			case FeatureConfigurationPackage.SELECTION__ROOT:
+				return isRoot() != ROOT_EDEFAULT;
+			case FeatureConfigurationPackage.SELECTION__PRESENT:
+				return isPresent() != PRESENT_EDEFAULT;
+			case FeatureConfigurationPackage.SELECTION__ENABLED:
+				return enabled != ENABLED_EDEFAULT;
+			case FeatureConfigurationPackage.SELECTION__VALUES:
+				return values != null && !values.isEmpty();
+			case FeatureConfigurationPackage.SELECTION__SELECTIONS:
+				return selections != null && !selections.isEmpty();
+			case FeatureConfigurationPackage.SELECTION__FEATURE_CONFIGURATION:
+				return featureConfiguration != null;
+			case FeatureConfigurationPackage.SELECTION__FEATURE:
+				return basicGetFeature() != null;
+		}
+		return super.eIsSet(featureID);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+		if (eIsProxy()) return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (id: ");
-        result.append(id);
-        result.append(", enabled: ");
-        result.append(enabled);
-        result.append(')');
-        return result.toString();
-    }
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (id: ");
+		result.append(id);
+		result.append(", enabled: ");
+		result.append(enabled);
+		result.append(')');
+		return result.toString();
+	}
 
 } //SelectionImpl

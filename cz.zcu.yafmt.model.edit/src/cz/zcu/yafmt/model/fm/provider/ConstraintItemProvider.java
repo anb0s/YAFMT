@@ -42,55 +42,55 @@ public class ConstraintItemProvider
         IItemLabelProvider,
         IItemPropertySource {
     /**
-     * This constructs an instance from a factory and a notifier.
-     * <!-- begin-user-doc -->
+	 * This constructs an instance from a factory and a notifier.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public ConstraintItemProvider(AdapterFactory adapterFactory) {
-        super(adapterFactory);
-    }
+		super(adapterFactory);
+	}
 
     /**
-     * This returns the property descriptors for the adapted class.
-     * <!-- begin-user-doc -->
+	 * This returns the property descriptors for the adapted class.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
-        if (itemPropertyDescriptors == null) {
-            super.getPropertyDescriptors(object);
+		if (itemPropertyDescriptors == null) {
+			super.getPropertyDescriptors(object);
 
-            addValuePropertyDescriptor(object);
-            addLanguagePropertyDescriptor(object);
-            addDescriptionPropertyDescriptor(object);
-            addCommentPropertyDescriptor(object);
-        }
-        return itemPropertyDescriptors;
-    }
+			addValuePropertyDescriptor(object);
+			addLanguagePropertyDescriptor(object);
+			addDescriptionPropertyDescriptor(object);
+			addCommentPropertyDescriptor(object);
+		}
+		return itemPropertyDescriptors;
+	}
 
     /**
-     * This adds a property descriptor for the Value feature.
-     * <!-- begin-user-doc -->
+	 * This adds a property descriptor for the Value feature.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected void addValuePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_Constraint_value_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_Constraint_value_feature", "_UI_Constraint_type"),
-                 FeatureModelPackage.Literals.CONSTRAINT__VALUE,
-                 true,
-                 false,
-                 false,
-                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-                 null,
-                 null));
-    }
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Constraint_value_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Constraint_value_feature", "_UI_Constraint_type"),
+				 FeatureModelPackage.Literals.CONSTRAINT__VALUE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
 
     /**
      * This adds a property descriptor for the Language feature.
@@ -154,48 +154,48 @@ public class ConstraintItemProvider
     }
 
     /**
-     * This adds a property descriptor for the Description feature.
-     * <!-- begin-user-doc -->
+	 * This adds a property descriptor for the Description feature.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected void addDescriptionPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_Constraint_description_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_Constraint_description_feature", "_UI_Constraint_type"),
-                 FeatureModelPackage.Literals.CONSTRAINT__DESCRIPTION,
-                 true,
-                 false,
-                 false,
-                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-                 null,
-                 null));
-    }
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Constraint_description_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Constraint_description_feature", "_UI_Constraint_type"),
+				 FeatureModelPackage.Literals.CONSTRAINT__DESCRIPTION,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
 
     /**
-     * This adds a property descriptor for the Comment feature.
-     * <!-- begin-user-doc -->
+	 * This adds a property descriptor for the Comment feature.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected void addCommentPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_Constraint_comment_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_Constraint_comment_feature", "_UI_Constraint_type"),
-                 FeatureModelPackage.Literals.CONSTRAINT__COMMENT,
-                 true,
-                 true,
-                 false,
-                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-                 null,
-                 null));
-    }
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Constraint_comment_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Constraint_comment_feature", "_UI_Constraint_type"),
+				 FeatureModelPackage.Literals.CONSTRAINT__COMMENT,
+				 true,
+				 true,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
 
     /**
      * This returns Constraint.gif.
@@ -220,48 +220,48 @@ public class ConstraintItemProvider
     }
 
     /**
-     * This handles model notifications by calling {@link #updateChildren} to update any cached
-     * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
-     * <!-- begin-user-doc -->
+	 * This handles model notifications by calling {@link #updateChildren} to update any cached
+	 * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public void notifyChanged(Notification notification) {
-        updateChildren(notification);
+		updateChildren(notification);
 
-        switch (notification.getFeatureID(Constraint.class)) {
-            case FeatureModelPackage.CONSTRAINT__VALUE:
-            case FeatureModelPackage.CONSTRAINT__LANGUAGE:
-            case FeatureModelPackage.CONSTRAINT__DESCRIPTION:
-            case FeatureModelPackage.CONSTRAINT__COMMENT:
-                fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-                return;
-        }
-        super.notifyChanged(notification);
-    }
+		switch (notification.getFeatureID(Constraint.class)) {
+			case FeatureModelPackage.CONSTRAINT__VALUE:
+			case FeatureModelPackage.CONSTRAINT__LANGUAGE:
+			case FeatureModelPackage.CONSTRAINT__DESCRIPTION:
+			case FeatureModelPackage.CONSTRAINT__COMMENT:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+		}
+		super.notifyChanged(notification);
+	}
 
     /**
-     * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children
-     * that can be created under this object.
-     * <!-- begin-user-doc -->
+	 * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children
+	 * that can be created under this object.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
-        super.collectNewChildDescriptors(newChildDescriptors, object);
-    }
+		super.collectNewChildDescriptors(newChildDescriptors, object);
+	}
 
     /**
-     * Return the resource locator for this item provider's resources.
-     * <!-- begin-user-doc -->
+	 * Return the resource locator for this item provider's resources.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public ResourceLocator getResourceLocator() {
-        return FeatureModelEditPlugin.INSTANCE;
-    }
+		return FeatureModelEditPlugin.INSTANCE;
+	}
 
 }

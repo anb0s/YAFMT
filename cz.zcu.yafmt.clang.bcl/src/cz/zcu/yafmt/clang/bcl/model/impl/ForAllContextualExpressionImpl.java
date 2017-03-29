@@ -26,225 +26,225 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link cz.zcu.yafmt.clang.bcl.model.impl.ForAllContextualExpressionImpl#getContextId <em>Context Id</em>}</li>
  *   <li>{@link cz.zcu.yafmt.clang.bcl.model.impl.ForAllContextualExpressionImpl#getExpression <em>Expression</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
 public class ForAllContextualExpressionImpl extends ExpressionImpl implements ForAllContextualExpression {
     /**
-     * The default value of the '{@link #getContextId() <em>Context Id</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getContextId() <em>Context Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getContextId()
-     * @generated
-     * @ordered
-     */
+	 * @see #getContextId()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String CONTEXT_ID_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getContextId() <em>Context Id</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getContextId() <em>Context Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getContextId()
-     * @generated
-     * @ordered
-     */
+	 * @see #getContextId()
+	 * @generated
+	 * @ordered
+	 */
     protected String contextId = CONTEXT_ID_EDEFAULT;
 
     /**
-     * The cached value of the '{@link #getExpression() <em>Expression</em>}' containment reference.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getExpression() <em>Expression</em>}' containment reference.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getExpression()
-     * @generated
-     * @ordered
-     */
+	 * @see #getExpression()
+	 * @generated
+	 * @ordered
+	 */
     protected Expression expression;
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected ForAllContextualExpressionImpl() {
-        super();
-    }
+		super();
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     protected EClass eStaticClass() {
-        return ModelPackage.Literals.FOR_ALL_CONTEXTUAL_EXPRESSION;
-    }
+		return ModelPackage.Literals.FOR_ALL_CONTEXTUAL_EXPRESSION;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public String getContextId() {
-        return contextId;
-    }
+		return contextId;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setContextId(String newContextId) {
-        String oldContextId = contextId;
-        contextId = newContextId;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.FOR_ALL_CONTEXTUAL_EXPRESSION__CONTEXT_ID, oldContextId, contextId));
-    }
+		String oldContextId = contextId;
+		contextId = newContextId;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.FOR_ALL_CONTEXTUAL_EXPRESSION__CONTEXT_ID, oldContextId, contextId));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public Expression getExpression() {
-        return expression;
-    }
+		return expression;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public NotificationChain basicSetExpression(Expression newExpression, NotificationChain msgs) {
-        Expression oldExpression = expression;
-        expression = newExpression;
-        if (eNotificationRequired()) {
-            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.FOR_ALL_CONTEXTUAL_EXPRESSION__EXPRESSION, oldExpression, newExpression);
-            if (msgs == null) msgs = notification; else msgs.add(notification);
-        }
-        return msgs;
-    }
+		Expression oldExpression = expression;
+		expression = newExpression;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.FOR_ALL_CONTEXTUAL_EXPRESSION__EXPRESSION, oldExpression, newExpression);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public void setExpression(Expression newExpression) {
-        if (newExpression != expression) {
-            NotificationChain msgs = null;
-            if (expression != null)
-                msgs = ((InternalEObject)expression).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.FOR_ALL_CONTEXTUAL_EXPRESSION__EXPRESSION, null, msgs);
-            if (newExpression != null)
-                msgs = ((InternalEObject)newExpression).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.FOR_ALL_CONTEXTUAL_EXPRESSION__EXPRESSION, null, msgs);
-            msgs = basicSetExpression(newExpression, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.FOR_ALL_CONTEXTUAL_EXPRESSION__EXPRESSION, newExpression, newExpression));
-    }
+		if (newExpression != expression) {
+			NotificationChain msgs = null;
+			if (expression != null)
+				msgs = ((InternalEObject)expression).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.FOR_ALL_CONTEXTUAL_EXPRESSION__EXPRESSION, null, msgs);
+			if (newExpression != null)
+				msgs = ((InternalEObject)newExpression).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.FOR_ALL_CONTEXTUAL_EXPRESSION__EXPRESSION, null, msgs);
+			msgs = basicSetExpression(newExpression, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.FOR_ALL_CONTEXTUAL_EXPRESSION__EXPRESSION, newExpression, newExpression));
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-        switch (featureID) {
-            case ModelPackage.FOR_ALL_CONTEXTUAL_EXPRESSION__EXPRESSION:
-                return basicSetExpression(null, msgs);
-        }
-        return super.eInverseRemove(otherEnd, featureID, msgs);
-    }
+		switch (featureID) {
+			case ModelPackage.FOR_ALL_CONTEXTUAL_EXPRESSION__EXPRESSION:
+				return basicSetExpression(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-        switch (featureID) {
-            case ModelPackage.FOR_ALL_CONTEXTUAL_EXPRESSION__CONTEXT_ID:
-                return getContextId();
-            case ModelPackage.FOR_ALL_CONTEXTUAL_EXPRESSION__EXPRESSION:
-                return getExpression();
-        }
-        return super.eGet(featureID, resolve, coreType);
-    }
+		switch (featureID) {
+			case ModelPackage.FOR_ALL_CONTEXTUAL_EXPRESSION__CONTEXT_ID:
+				return getContextId();
+			case ModelPackage.FOR_ALL_CONTEXTUAL_EXPRESSION__EXPRESSION:
+				return getExpression();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public void eSet(int featureID, Object newValue) {
-        switch (featureID) {
-            case ModelPackage.FOR_ALL_CONTEXTUAL_EXPRESSION__CONTEXT_ID:
-                setContextId((String)newValue);
-                return;
-            case ModelPackage.FOR_ALL_CONTEXTUAL_EXPRESSION__EXPRESSION:
-                setExpression((Expression)newValue);
-                return;
-        }
-        super.eSet(featureID, newValue);
-    }
+		switch (featureID) {
+			case ModelPackage.FOR_ALL_CONTEXTUAL_EXPRESSION__CONTEXT_ID:
+				setContextId((String)newValue);
+				return;
+			case ModelPackage.FOR_ALL_CONTEXTUAL_EXPRESSION__EXPRESSION:
+				setExpression((Expression)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public void eUnset(int featureID) {
-        switch (featureID) {
-            case ModelPackage.FOR_ALL_CONTEXTUAL_EXPRESSION__CONTEXT_ID:
-                setContextId(CONTEXT_ID_EDEFAULT);
-                return;
-            case ModelPackage.FOR_ALL_CONTEXTUAL_EXPRESSION__EXPRESSION:
-                setExpression((Expression)null);
-                return;
-        }
-        super.eUnset(featureID);
-    }
+		switch (featureID) {
+			case ModelPackage.FOR_ALL_CONTEXTUAL_EXPRESSION__CONTEXT_ID:
+				setContextId(CONTEXT_ID_EDEFAULT);
+				return;
+			case ModelPackage.FOR_ALL_CONTEXTUAL_EXPRESSION__EXPRESSION:
+				setExpression((Expression)null);
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public boolean eIsSet(int featureID) {
-        switch (featureID) {
-            case ModelPackage.FOR_ALL_CONTEXTUAL_EXPRESSION__CONTEXT_ID:
-                return CONTEXT_ID_EDEFAULT == null ? contextId != null : !CONTEXT_ID_EDEFAULT.equals(contextId);
-            case ModelPackage.FOR_ALL_CONTEXTUAL_EXPRESSION__EXPRESSION:
-                return expression != null;
-        }
-        return super.eIsSet(featureID);
-    }
+		switch (featureID) {
+			case ModelPackage.FOR_ALL_CONTEXTUAL_EXPRESSION__CONTEXT_ID:
+				return CONTEXT_ID_EDEFAULT == null ? contextId != null : !CONTEXT_ID_EDEFAULT.equals(contextId);
+			case ModelPackage.FOR_ALL_CONTEXTUAL_EXPRESSION__EXPRESSION:
+				return expression != null;
+		}
+		return super.eIsSet(featureID);
+	}
 
     /**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+		if (eIsProxy()) return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (contextId: ");
-        result.append(contextId);
-        result.append(')');
-        return result.toString();
-    }
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (contextId: ");
+		result.append(contextId);
+		result.append(')');
+		return result.toString();
+	}
     
     @Override
     public void retrieveFeatureIds(Set<String> ids) {
