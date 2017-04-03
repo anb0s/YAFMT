@@ -169,10 +169,7 @@ public class FeatureFigure extends RoundedRectangleWithGradient {
     
     private String createDescriptionText() {
         String description = feature.getDescription() ;
-        if((description != null) && !description.isEmpty())
-            return "[" + feature.getId() + "] " + description;
-        else
-            return "[" + feature.getId() + "] ";
+        return "[" + feature.getId() + "]\n" + feature.getName() + "\n" + (((description != null) && !description.isEmpty()) ? description : "");
     }
     
     @Override

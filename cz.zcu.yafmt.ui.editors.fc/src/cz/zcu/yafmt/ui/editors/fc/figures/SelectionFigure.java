@@ -64,10 +64,7 @@ public class SelectionFigure extends RoundedRectangleWithGradient {
     
     private String createToolTipText() {
         String description = selection.getDescription();
-        if((description != null) && !description.isEmpty())
-            return "[" + selection.getId() + "] " + description;
-        else
-            return "[" + selection.getId() + "]";
+        return "[" + selection.getId() + "]\n" + selection.getName() + "\n" + (((description != null) && !description.isEmpty()) ? description : "");
     }
     
     // ==================================================================

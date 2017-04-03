@@ -85,10 +85,7 @@ public class AttributeFigure extends Label {
     
     private String createDescriptionText() {
         String description = attribute.getDescription() ;
-        if((description != null) && !description.isEmpty())
-            return "[" + attribute.getId() + "] " + description;
-        else
-            return "[" + attribute.getId() + "] ";
+        return "[" + attribute.getId() + "]\n" + attribute.getName() + ": " + attribute.getType() + "\n" + (((description != null) && !description.isEmpty()) ? description : "");
     }
     
 }

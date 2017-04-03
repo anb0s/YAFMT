@@ -52,10 +52,7 @@ public class AttributeValueFigure extends Label {
     
     private String createToolTipText() {
         String description = attributeValue.getDescription();
-        if((description != null) && !description.isEmpty())
-            return "[" + attributeValue.getId() + "] " + description;
-        else
-            return "[" + attributeValue.getId() + "]";
+        return "[" + attributeValue.getId() + "]\n" + attributeValue.getName() + "\n" + (((description != null) && !description.isEmpty()) ? description : "");
     }
     
     private IFigure createErrorMarker() {
