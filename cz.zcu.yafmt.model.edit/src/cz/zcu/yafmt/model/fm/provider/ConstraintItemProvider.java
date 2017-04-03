@@ -5,6 +5,7 @@ package cz.zcu.yafmt.model.fm.provider;
 
 import cz.zcu.yafmt.clang.ConstraintLanguageDescriptor;
 import cz.zcu.yafmt.clang.ConstraintLanguagePlugin;
+import cz.zcu.yafmt.model.fc.provider.FeatureModelEditPlugin;
 import cz.zcu.yafmt.model.fm.Constraint;
 import cz.zcu.yafmt.model.fm.FeatureModelPackage;
 

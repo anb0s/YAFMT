@@ -22,7 +22,6 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
 
 import cz.zcu.yafmt.model.fc.AttributeValue;
 import cz.zcu.yafmt.model.fc.FeatureConfigurationPackage;
-import cz.zcu.yafmt.model.fm.provider.FeatureModelEditPlugin;
 
 /**
  * This is the item provider adapter for a {@link cz.zcu.yafmt.model.fc.AttributeValue} object.

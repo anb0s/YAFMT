@@ -497,15 +497,6 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
      * @generated
      */
     public EAttribute getAttribute_Description() {
-        return (EAttribute)attributeEClass.getEStructuralFeatures().get(3);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getAttribute_Comment() {
         return (EAttribute)attributeEClass.getEStructuralFeatures().get(4);
     }
 
@@ -514,8 +505,17 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getAttribute_Comment() {
+        return (EAttribute)attributeEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EReference getAttribute_Feature() {
-        return (EReference)attributeEClass.getEStructuralFeatures().get(5);
+        return (EReference)attributeEClass.getEStructuralFeatures().get(6);
     }
 
     /**
@@ -525,6 +525,15 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
      */
     public EAttribute getAttribute_Type() {
         return (EAttribute)attributeEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getAttribute_DefaultValue() {
+        return (EAttribute)attributeEClass.getEStructuralFeatures().get(3);
     }
 
     /**
@@ -661,6 +670,7 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
         createEAttribute(attributeEClass, ATTRIBUTE__ID);
         createEAttribute(attributeEClass, ATTRIBUTE__NAME);
         createEAttribute(attributeEClass, ATTRIBUTE__TYPE);
+        createEAttribute(attributeEClass, ATTRIBUTE__DEFAULT_VALUE);
         createEAttribute(attributeEClass, ATTRIBUTE__DESCRIPTION);
         createEAttribute(attributeEClass, ATTRIBUTE__COMMENT);
         createEReference(attributeEClass, ATTRIBUTE__FEATURE);
@@ -756,6 +766,7 @@ public class FeatureModelPackageImpl extends EPackageImpl implements FeatureMode
         initEAttribute(getAttribute_Id(), ecorePackage.getEString(), "id", null, 1, 1, Attribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getAttribute_Name(), ecorePackage.getEString(), "name", null, 1, 1, Attribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getAttribute_Type(), this.getAttributeType(), "type", "boolean", 1, 1, Attribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getAttribute_DefaultValue(), ecorePackage.getEString(), "defaultValue", "", 0, 1, Attribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getAttribute_Description(), ecorePackage.getEString(), "description", null, 0, 1, Attribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getAttribute_Comment(), ecorePackage.getEString(), "comment", null, 0, 1, Attribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getAttribute_Feature(), this.getFeature(), this.getFeature_Attributes(), "feature", null, 1, 1, Attribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

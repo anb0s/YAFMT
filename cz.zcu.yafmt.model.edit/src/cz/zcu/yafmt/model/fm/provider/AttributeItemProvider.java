@@ -3,6 +3,7 @@
 package cz.zcu.yafmt.model.fm.provider;
 
 
+import cz.zcu.yafmt.model.fc.provider.FeatureModelEditPlugin;
 import cz.zcu.yafmt.model.fm.Attribute;
 import cz.zcu.yafmt.model.fm.FeatureModelPackage;
 
@@ -63,6 +64,7 @@ public class AttributeItemProvider
             addIdPropertyDescriptor(object);
             addNamePropertyDescriptor(object);
             addTypePropertyDescriptor(object);
+            addDefaultValuePropertyDescriptor(object);
             addDescriptionPropertyDescriptor(object);
             addCommentPropertyDescriptor(object);
         }
@@ -180,6 +182,28 @@ public class AttributeItemProvider
     }
 
     /**
+     * This adds a property descriptor for the Default Value feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addDefaultValuePropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_Attribute_defaultValue_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_Attribute_defaultValue_feature", "_UI_Attribute_type"),
+                 FeatureModelPackage.Literals.ATTRIBUTE__DEFAULT_VALUE,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
      * This returns Attribute.gif.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -216,6 +240,7 @@ public class AttributeItemProvider
             case FeatureModelPackage.ATTRIBUTE__ID:
             case FeatureModelPackage.ATTRIBUTE__NAME:
             case FeatureModelPackage.ATTRIBUTE__TYPE:
+            case FeatureModelPackage.ATTRIBUTE__DEFAULT_VALUE:
             case FeatureModelPackage.ATTRIBUTE__DESCRIPTION:
             case FeatureModelPackage.ATTRIBUTE__COMMENT:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));

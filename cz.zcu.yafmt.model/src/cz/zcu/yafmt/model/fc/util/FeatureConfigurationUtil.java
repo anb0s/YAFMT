@@ -71,9 +71,9 @@ public class FeatureConfigurationUtil {
                     public Resource createResource(URI uri) {
                         XMIResource resource = (XMIResource) super.createResource(uri);
                         resource.getDefaultLoadOptions().putAll(createSaveLoadOptions());
-                        resource.getDefaultLoadOptions().putAll(FeatureModelUtil.createSaveLoadOptions());
+                        resource.getDefaultLoadOptions().putAll(FeatureModelUtil.createLoadOptions());
                         resource.getDefaultSaveOptions().putAll(createSaveLoadOptions());
-                        resource.getDefaultSaveOptions().putAll(FeatureModelUtil.createSaveLoadOptions());
+                        resource.getDefaultSaveOptions().putAll(FeatureModelUtil.createSaveOptions());
                         return resource;
                     }
                 }

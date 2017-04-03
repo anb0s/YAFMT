@@ -7,7 +7,6 @@ package cz.zcu.yafmt.model.fc.provider;
 import cz.zcu.yafmt.model.fc.FeatureConfiguration;
 import cz.zcu.yafmt.model.fc.FeatureConfigurationFactory;
 import cz.zcu.yafmt.model.fc.FeatureConfigurationPackage;
-import cz.zcu.yafmt.model.fm.provider.FeatureModelEditPlugin;
 
 import java.util.Collection;
 import java.util.List;

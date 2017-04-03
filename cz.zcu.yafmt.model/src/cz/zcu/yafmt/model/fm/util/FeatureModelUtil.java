@@ -8,7 +8,9 @@ import java.util.Random;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.BasicExtendedMetaData;
 import org.eclipse.emf.ecore.util.ExtendedMetaData;
@@ -28,13 +30,14 @@ import cz.zcu.yafmt.model.fm.FeatureModelPackage.Literals;
 public class FeatureModelUtil {
 
     private static final Random random = new Random();
-    private static Map<Object, Object> saveLoadOptions;
+    private static Map<Object, Object> loadOptions;
+    private static Map<Object, Object> saveOptions;
 
     // ===============================================================================================
     //  Save and load utilities
     // ===============================================================================================
 
-    private static ExtendedMetaData createExtendedMetadata() {
+    private static ExtendedMetaData createExtendedMetadataLoadAndSave() {
         ExtendedMetaData emd = new BasicExtendedMetaData();
         // Rename some elements.
         emd.setName(Literals.FEATURE_MODEL, "featureModel");
@@ -54,15 +57,42 @@ public class FeatureModelUtil {
         return emd;
     }
 
-    public static Map<Object, Object> createSaveLoadOptions() {
-        if(saveLoadOptions == null) {
-            saveLoadOptions = new HashMap<Object, Object>();
-            saveLoadOptions.put(XMLResource.OPTION_ENCODING, "UTF-8");
-            saveLoadOptions.put(XMLResource.OPTION_EXTENDED_META_DATA, createExtendedMetadata());
-            saveLoadOptions.put(XMLResource.OPTION_LAX_FEATURE_PROCESSING, Boolean.TRUE); // Allows proper loading of renamed XML elements.
-            saveLoadOptions.put(XMLResource.OPTION_KEEP_DEFAULT_CONTENT, Boolean.TRUE); // Persist even attributes with default value.
+    private static ExtendedMetaData createExtendedMetadataLoad() {
+        ExtendedMetaData emd = createExtendedMetadataLoadAndSave();
+        // compatibility to value = defaultValue (issue #1)
+        emd.setName(Literals.ATTRIBUTE__DEFAULT_VALUE, "value");
+        return emd;
+    }
+
+    private static ExtendedMetaData createExtendedMetadataSave() {
+        ExtendedMetaData emd = createExtendedMetadataLoadAndSave();
+        // compatibility to value = defaultValue (issue #1)
+        //emd.setName(Literals.ATTRIBUTE__DEFAULT_VALUE, "defaultValue");
+        return emd;        
+    }
+
+    public static Map<Object, Object> createLoadOptions() {
+        if(loadOptions == null) {
+            loadOptions = new HashMap<Object, Object>();
+            loadOptions.put(XMLResource.OPTION_ENCODING, "UTF-8");
+            loadOptions.put(XMLResource.OPTION_EXTENDED_META_DATA, createExtendedMetadataLoad());
+            loadOptions.put(XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, Boolean.TRUE); // This options allows you to record unknown features during deserialization/loading. 
+            loadOptions.put(XMLResource.OPTION_LAX_FEATURE_PROCESSING, Boolean.TRUE); // Allows proper loading of renamed XML elements.
+            //loadOptions.put(XMLResource.OPTION_KEEP_DEFAULT_CONTENT, Boolean.TRUE); // Persist even attributes with default value.
+            loadOptions.put(XMLResource.OPTION_RESOURCE_HANDLER, new UnknownFeatureResourceHandler());
         }
-        return saveLoadOptions;
+        return loadOptions;
+    }
+
+    public static Map<Object, Object> createSaveOptions() {
+        if(saveOptions == null) {
+            saveOptions = new HashMap<Object, Object>();
+            saveOptions.put(XMLResource.OPTION_ENCODING, "UTF-8");
+            saveOptions.put(XMLResource.OPTION_EXTENDED_META_DATA, createExtendedMetadataSave());
+            //saveOptions.put(XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, Boolean.TRUE); // This options allows you to record unknown features during deserialization/loading. 
+            saveOptions.put(XMLResource.OPTION_KEEP_DEFAULT_CONTENT, Boolean.TRUE); // Persist even attributes with default value.
+        }
+        return saveOptions;
     }
 
     public static void hookResourceFactoryRegistry() {
@@ -71,12 +101,12 @@ public class FeatureModelUtil {
                     @Override
                     public Resource createResource(URI uri) {
                         XMIResource resource = (XMIResource) super.createResource(uri);
-                        resource.getDefaultLoadOptions().putAll(createSaveLoadOptions());
-                        resource.getDefaultSaveOptions().putAll(createSaveLoadOptions());
+                        resource.getDefaultLoadOptions().putAll(createLoadOptions());
+                        resource.getDefaultSaveOptions().putAll(createSaveOptions());
                         return resource;
                     }
                 }
-                );
+         );
     }
 
     public static void hookPackageRegistry() {

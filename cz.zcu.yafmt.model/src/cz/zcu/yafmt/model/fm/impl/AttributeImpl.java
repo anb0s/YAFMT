@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  *   <li>{@link cz.zcu.yafmt.model.fm.impl.AttributeImpl#getId <em>Id</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fm.impl.AttributeImpl#getName <em>Name</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fm.impl.AttributeImpl#getType <em>Type</em>}</li>
+ *   <li>{@link cz.zcu.yafmt.model.fm.impl.AttributeImpl#getDefaultValue <em>Default Value</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fm.impl.AttributeImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fm.impl.AttributeImpl#getComment <em>Comment</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fm.impl.AttributeImpl#getFeature <em>Feature</em>}</li>
@@ -95,6 +96,26 @@ public class AttributeImpl extends EObjectImpl implements Attribute {
      * @ordered
      */
     protected AttributeType type = TYPE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getDefaultValue() <em>Default Value</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDefaultValue()
+     * @generated
+     * @ordered
+     */
+    protected static final String DEFAULT_VALUE_EDEFAULT = "";
+
+    /**
+     * The cached value of the '{@link #getDefaultValue() <em>Default Value</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDefaultValue()
+     * @generated
+     * @ordered
+     */
+    protected String defaultValue = DEFAULT_VALUE_EDEFAULT;
 
     /**
      * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
@@ -350,6 +371,27 @@ public class AttributeImpl extends EObjectImpl implements Attribute {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getDefaultValue() {
+        return defaultValue;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setDefaultValue(String newDefaultValue) {
+        String oldDefaultValue = defaultValue;
+        defaultValue = newDefaultValue;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, FeatureModelPackage.ATTRIBUTE__DEFAULT_VALUE, oldDefaultValue, defaultValue));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
@@ -359,6 +401,8 @@ public class AttributeImpl extends EObjectImpl implements Attribute {
                 return getName();
             case FeatureModelPackage.ATTRIBUTE__TYPE:
                 return getType();
+            case FeatureModelPackage.ATTRIBUTE__DEFAULT_VALUE:
+                return getDefaultValue();
             case FeatureModelPackage.ATTRIBUTE__DESCRIPTION:
                 return getDescription();
             case FeatureModelPackage.ATTRIBUTE__COMMENT:
@@ -385,6 +429,9 @@ public class AttributeImpl extends EObjectImpl implements Attribute {
                 return;
             case FeatureModelPackage.ATTRIBUTE__TYPE:
                 setType((AttributeType)newValue);
+                return;
+            case FeatureModelPackage.ATTRIBUTE__DEFAULT_VALUE:
+                setDefaultValue((String)newValue);
                 return;
             case FeatureModelPackage.ATTRIBUTE__DESCRIPTION:
                 setDescription((String)newValue);
@@ -416,6 +463,9 @@ public class AttributeImpl extends EObjectImpl implements Attribute {
             case FeatureModelPackage.ATTRIBUTE__TYPE:
                 setType(TYPE_EDEFAULT);
                 return;
+            case FeatureModelPackage.ATTRIBUTE__DEFAULT_VALUE:
+                setDefaultValue(DEFAULT_VALUE_EDEFAULT);
+                return;
             case FeatureModelPackage.ATTRIBUTE__DESCRIPTION:
                 setDescription(DESCRIPTION_EDEFAULT);
                 return;
@@ -443,6 +493,8 @@ public class AttributeImpl extends EObjectImpl implements Attribute {
                 return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
             case FeatureModelPackage.ATTRIBUTE__TYPE:
                 return type != TYPE_EDEFAULT;
+            case FeatureModelPackage.ATTRIBUTE__DEFAULT_VALUE:
+                return DEFAULT_VALUE_EDEFAULT == null ? defaultValue != null : !DEFAULT_VALUE_EDEFAULT.equals(defaultValue);
             case FeatureModelPackage.ATTRIBUTE__DESCRIPTION:
                 return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
             case FeatureModelPackage.ATTRIBUTE__COMMENT:
@@ -469,6 +521,8 @@ public class AttributeImpl extends EObjectImpl implements Attribute {
         result.append(name);
         result.append(", type: ");
         result.append(type);
+        result.append(", defaultValue: ");
+        result.append(defaultValue);
         result.append(", description: ");
         result.append(description);
         result.append(", comment: ");

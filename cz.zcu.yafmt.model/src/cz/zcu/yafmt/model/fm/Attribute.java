@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link cz.zcu.yafmt.model.fm.Attribute#getId <em>Id</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fm.Attribute#getName <em>Name</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fm.Attribute#getType <em>Type</em>}</li>
+ *   <li>{@link cz.zcu.yafmt.model.fm.Attribute#getDefaultValue <em>Default Value</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fm.Attribute#getDescription <em>Description</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fm.Attribute#getComment <em>Comment</em>}</li>
  *   <li>{@link cz.zcu.yafmt.model.fm.Attribute#getFeature <em>Feature</em>}</li>
@@ -187,5 +188,32 @@ public interface Attribute extends EObject {
      * @generated
      */
     void setType(AttributeType value);
+
+    /**
+     * Returns the value of the '<em><b>Default Value</b></em>' attribute.
+     * The default value is <code>""</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Default Value</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Default Value</em>' attribute.
+     * @see #setDefaultValue(String)
+     * @see cz.zcu.yafmt.model.fm.FeatureModelPackage#getAttribute_DefaultValue()
+     * @model default=""
+     * @generated
+     */
+    String getDefaultValue();
+
+    /**
+     * Sets the value of the '{@link cz.zcu.yafmt.model.fm.Attribute#getDefaultValue <em>Default Value</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Default Value</em>' attribute.
+     * @see #getDefaultValue()
+     * @generated
+     */
+    void setDefaultValue(String value);
 
 } // Attribute

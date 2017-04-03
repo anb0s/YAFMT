@@ -448,13 +448,22 @@ public interface FeatureModelPackage extends EPackage {
     int ATTRIBUTE__TYPE = 2;
 
     /**
+     * The feature id for the '<em><b>Default Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE__DEFAULT_VALUE = 3;
+
+    /**
      * The feature id for the '<em><b>Description</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int ATTRIBUTE__DESCRIPTION = 3;
+    int ATTRIBUTE__DESCRIPTION = 4;
 
     /**
      * The feature id for the '<em><b>Comment</b></em>' attribute.
@@ -463,7 +472,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ATTRIBUTE__COMMENT = 4;
+    int ATTRIBUTE__COMMENT = 5;
 
     /**
      * The feature id for the '<em><b>Feature</b></em>' container reference.
@@ -472,7 +481,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ATTRIBUTE__FEATURE = 5;
+    int ATTRIBUTE__FEATURE = 6;
 
     /**
      * The number of structural features of the '<em>Attribute</em>' class.
@@ -481,7 +490,7 @@ public interface FeatureModelPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ATTRIBUTE_FEATURE_COUNT = 6;
+    int ATTRIBUTE_FEATURE_COUNT = 7;
 
     /**
      * The meta object id for the '{@link cz.zcu.yafmt.model.fm.impl.ConstraintImpl <em>Constraint</em>}' class.
@@ -1028,6 +1037,17 @@ public interface FeatureModelPackage extends EPackage {
     EAttribute getAttribute_Type();
 
     /**
+     * Returns the meta object for the attribute '{@link cz.zcu.yafmt.model.fm.Attribute#getDefaultValue <em>Default Value</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Default Value</em>'.
+     * @see cz.zcu.yafmt.model.fm.Attribute#getDefaultValue()
+     * @see #getAttribute()
+     * @generated
+     */
+    EAttribute getAttribute_DefaultValue();
+
+    /**
      * Returns the meta object for class '{@link cz.zcu.yafmt.model.fm.Constraint <em>Constraint</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1475,6 +1495,14 @@ public interface FeatureModelPackage extends EPackage {
          * @generated
          */
         EAttribute ATTRIBUTE__TYPE = eINSTANCE.getAttribute_Type();
+
+        /**
+         * The meta object literal for the '<em><b>Default Value</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ATTRIBUTE__DEFAULT_VALUE = eINSTANCE.getAttribute_DefaultValue();
 
         /**
          * The meta object literal for the '{@link cz.zcu.yafmt.model.fm.impl.ConstraintImpl <em>Constraint</em>}' class.

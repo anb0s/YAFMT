@@ -1,6 +1,7 @@
 package cz.zcu.yafmt.model.fm.provider;
 
 
+import cz.zcu.yafmt.model.fc.provider.FeatureModelEditPlugin;
 import cz.zcu.yafmt.model.fm.Feature;
 import cz.zcu.yafmt.model.fm.FeatureModelFactory;
 import cz.zcu.yafmt.model.fm.FeatureModelPackage;

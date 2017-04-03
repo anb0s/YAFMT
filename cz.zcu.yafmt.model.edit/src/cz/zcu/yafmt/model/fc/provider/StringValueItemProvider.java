@@ -28,13 +28,7 @@ import cz.zcu.yafmt.model.fc.StringValue;
  * @generated
  */
 public class StringValueItemProvider
-    extends AttributeValueItemProvider
-    implements
-        IEditingDomainItemProvider,
-        IStructuredItemContentProvider,
-        ITreeItemContentProvider,
-        IItemLabelProvider,
-        IItemPropertySource {
+    extends AttributeValueItemProvider {
     /**
      * This constructs an instance from a factory and a notifier.
      * <!-- begin-user-doc -->

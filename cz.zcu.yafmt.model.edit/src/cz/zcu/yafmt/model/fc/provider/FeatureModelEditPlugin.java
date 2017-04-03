@@ -1,6 +1,6 @@
 /**
  */
-package cz.zcu.yafmt.model.fm.provider;
+package cz.zcu.yafmt.model.fc.provider;
 
 import org.eclipse.emf.common.EMFPlugin;
 

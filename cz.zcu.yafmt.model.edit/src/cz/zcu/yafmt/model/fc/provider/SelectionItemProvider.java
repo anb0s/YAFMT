@@ -25,7 +25,6 @@ import cz.zcu.yafmt.model.fc.FeatureConfigurationFactory;
 import cz.zcu.yafmt.model.fc.FeatureConfigurationPackage;
 import cz.zcu.yafmt.model.fc.Selection;
 import cz.zcu.yafmt.model.fm.Feature;
-import cz.zcu.yafmt.model.fm.provider.FeatureModelEditPlugin;
 
 /**
  * This is the item provider adapter for a {@link cz.zcu.yafmt.model.fc.Selection} object.
