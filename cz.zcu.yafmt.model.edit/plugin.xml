@@ -22,7 +22,7 @@
    <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
       <!-- @generated FeatureModel -->
       <factory
-            uri="http://zcu.cz/yafmt/model/fm"
+            uri="http://zcu.cz/yafmt/model/fm-0.4.0"
             class="cz.zcu.yafmt.model.fm.provider.FeatureModelItemProviderAdapterFactory"
             supportedTypes=
               "org.eclipse.emf.edit.provider.IEditingDomainItemProvider

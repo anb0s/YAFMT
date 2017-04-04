@@ -86,7 +86,7 @@ public class FeatureItemProvider
                  getString("_UI_Feature_id_feature"),
                  getString("_UI_PropertyDescriptor_description", "_UI_Feature_id_feature", "_UI_Feature_type"),
                  FeatureModelPackage.Literals.FEATURE__ID,
-                 true,
+                 false,
                  false,
                  false,
                  ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,

@@ -38,7 +38,7 @@ public interface FeatureModelPackage extends EPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    String eNS_URI = "http://zcu.cz/yafmt/model/fm";
+    String eNS_URI = "http://zcu.cz/yafmt/model/fm-0.4.0";
 
     /**
      * The package namespace name.

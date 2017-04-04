@@ -75,7 +75,7 @@
       </genOperations>
     </genClasses>
     <genClasses provider="Stateful" ecoreClass="FeatureModel.ecore#//Feature">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Feature/id"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Feature/id"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Feature/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Feature/description"/>
       <genFeatures createChild="false" propertyMultiLine="true" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Feature/comment"/>
@@ -105,7 +105,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FeatureModel.ecore#//Group/features"/>
     </genClasses>
     <genClasses ecoreClass="FeatureModel.ecore#//Attribute">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Attribute/id"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Attribute/id"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Attribute/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Attribute/type"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute FeatureModel.ecore#//Attribute/defaultValue"/>

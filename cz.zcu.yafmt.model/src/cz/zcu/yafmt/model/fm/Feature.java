@@ -42,6 +42,7 @@ import org.eclipse.emf.ecore.EObject;
 public interface Feature extends EObject {
     /**
      * Returns the value of the '<em><b>Id</b></em>' attribute.
+     * The default value is <code>""</code>.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Id</em>' attribute isn't clear,
@@ -51,7 +52,7 @@ public interface Feature extends EObject {
      * @return the value of the '<em>Id</em>' attribute.
      * @see #setId(String)
      * @see cz.zcu.yafmt.model.fm.FeatureModelPackage#getFeature_Id()
-     * @model required="true"
+     * @model default="" id="true" required="true"
      * @generated
      */
     String getId();
