@@ -5,18 +5,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+//import java.util.UUID;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.BasicExtendedMetaData;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.ExtendedMetaData;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.eclipse.emf.mapping.ecore2xml.Ecore2XMLPackage;
+import org.eclipse.emf.mapping.ecore2xml.Ecore2XMLRegistry;
+import org.eclipse.emf.mapping.ecore2xml.impl.Ecore2XMLRegistryImpl;
+import org.eclipse.emf.mapping.ecore2xml.util.Ecore2XMLExtendedMetaData;
 
 import cz.zcu.yafmt.model.fm.Attribute;
 import cz.zcu.yafmt.model.fm.Constraint;
@@ -37,8 +44,10 @@ public class FeatureModelUtil {
     //  Save and load utilities
     // ===============================================================================================
 
-    private static ExtendedMetaData createExtendedMetadataLoadAndSave() {
-        ExtendedMetaData emd = new BasicExtendedMetaData();
+    private static ExtendedMetaData createExtendedMetadataLoadAndSave(ExtendedMetaData emd4use) {
+        ExtendedMetaData emd = emd4use;
+        if (emd4use == null)
+            emd = new BasicExtendedMetaData();
         // Rename some elements.
         emd.setName(Literals.FEATURE_MODEL, "featureModel");
         emd.setName(Literals.FEATURE_MODEL__CONSTRAINTS, "constraint");
@@ -57,29 +66,45 @@ public class FeatureModelUtil {
         return emd;
     }
 
-    private static ExtendedMetaData createExtendedMetadataLoad() {
-        ExtendedMetaData emd = createExtendedMetadataLoadAndSave();
+    private static ExtendedMetaData createExtendedMetadataLoad(ResourceSet resourceSet) {        
         // compatibility to value = defaultValue (issue #1)
-        emd.setName(Literals.ATTRIBUTE__DEFAULT_VALUE, "value");
+        //emd.setName(Literals.ATTRIBUTE__DEFAULT_VALUE, "value");
+        final String FM_NS_URI = "http://zcu.cz/yafmt/model/fm";
+        final String FM_PLATFORM_URI = "platform:/plugin/cz.zcu.yafmt.model/model/FeatureModel.ecore";
+        final String ECORE2XML_PLATFORM_URI = "platform:/plugin/cz.zcu.yafmt.model/model/FeatureModel-0.3.0-siemens_2_FeatureModel.ecore2xml";
+        if (resourceSet == null) {
+            resourceSet = new ResourceSetImpl();
+        }
+        EPackage.Registry ePackageRegistry = resourceSet.getPackageRegistry();
+        ePackageRegistry.put(FM_NS_URI, FeatureModelPackage.eINSTANCE);
+        ePackageRegistry.put(FM_PLATFORM_URI, FeatureModelPackage.eINSTANCE);
+        Ecore2XMLRegistry ecore2xmlRegistry = new Ecore2XMLRegistryImpl(Ecore2XMLRegistry.INSTANCE);
+        ecore2xmlRegistry.put(FM_NS_URI,
+                EcoreUtil.getObjectByType(
+                        resourceSet.getResource(URI.createURI(ECORE2XML_PLATFORM_URI), 
+                                true).getContents(),
+                                Ecore2XMLPackage.Literals.XML_MAP));
+        Ecore2XMLExtendedMetaData emd = new Ecore2XMLExtendedMetaData(ePackageRegistry, ecore2xmlRegistry);
+        createExtendedMetadataLoadAndSave(emd);
         return emd;
     }
 
     private static ExtendedMetaData createExtendedMetadataSave() {
-        ExtendedMetaData emd = createExtendedMetadataLoadAndSave();
+        ExtendedMetaData emd = createExtendedMetadataLoadAndSave(null);
         // compatibility to value = defaultValue (issue #1)
         //emd.setName(Literals.ATTRIBUTE__DEFAULT_VALUE, "defaultValue");
         return emd;        
     }
 
-    public static Map<Object, Object> createLoadOptions() {
+    public static Map<Object, Object> createLoadOptions(ResourceSet resourceSet) {
         if(loadOptions == null) {
             loadOptions = new HashMap<Object, Object>();
             loadOptions.put(XMLResource.OPTION_ENCODING, "UTF-8");
-            loadOptions.put(XMLResource.OPTION_EXTENDED_META_DATA, createExtendedMetadataLoad());
-            loadOptions.put(XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, Boolean.TRUE); // This options allows you to record unknown features during deserialization/loading. 
-            loadOptions.put(XMLResource.OPTION_LAX_FEATURE_PROCESSING, Boolean.TRUE); // Allows proper loading of renamed XML elements.
+            loadOptions.put(XMLResource.OPTION_EXTENDED_META_DATA, createExtendedMetadataLoad(resourceSet));
+            //loadOptions.put(XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, Boolean.TRUE); // This options allows you to record unknown features during deserialization/loading. 
+            //loadOptions.put(XMLResource.OPTION_LAX_FEATURE_PROCESSING, Boolean.TRUE); // Allows proper loading of renamed XML elements.
             //loadOptions.put(XMLResource.OPTION_KEEP_DEFAULT_CONTENT, Boolean.TRUE); // Persist even attributes with default value.
-            loadOptions.put(XMLResource.OPTION_RESOURCE_HANDLER, new UnknownFeatureResourceHandler());
+            //loadOptions.put(XMLResource.OPTION_RESOURCE_HANDLER, new UnknownFeatureResourceHandler());
         }
         return loadOptions;
     }
@@ -101,7 +126,7 @@ public class FeatureModelUtil {
                     @Override
                     public Resource createResource(URI uri) {
                         XMIResource resource = (XMIResource) super.createResource(uri);
-                        resource.getDefaultLoadOptions().putAll(createLoadOptions());
+                        resource.getDefaultLoadOptions().putAll(createLoadOptions(resource.getResourceSet()));
                         resource.getDefaultSaveOptions().putAll(createSaveOptions());
                         return resource;
                     }
@@ -137,10 +162,12 @@ public class FeatureModelUtil {
     
     public static String generateFeatureId() {
         return "f_" + Math.abs(random.nextInt());
+        //return "f_" + UUID.randomUUID().toString();
     }
     
     public static String generateAttributeId() {
         return "a_" + Math.abs(random.nextInt());
+        //return "a_" + UUID.randomUUID().toString();
     }
     
     public static String generateIdFromName(String name) {

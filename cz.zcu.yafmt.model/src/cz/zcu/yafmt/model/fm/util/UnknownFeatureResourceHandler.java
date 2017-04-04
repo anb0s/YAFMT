@@ -40,11 +40,11 @@ public class UnknownFeatureResourceHandler extends BasicResourceHandler {
     }
 
     private boolean handleUnknownFeature(EObject owner, EStructuralFeature f, Object value) {
-        /*if (owner.getClass() == cz.zcu.yafmt.model.fm.impl.AttributeImpl.class) {
+        if (owner.getClass() == cz.zcu.yafmt.model.fm.impl.AttributeImpl.class) {
             if (f.getName().equals("value")) {
                 f.setName("defaultValue");
             }
-        }*/
+        }
         return false;
     }
 
