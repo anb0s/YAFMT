@@ -2,8 +2,6 @@ package cz.zcu.yafmt.model.validation;
 
 import static cz.zcu.yafmt.model.validation.Localization.getMessage;
 
-import java.util.regex.Pattern;
-
 public class ValidationUtil {
     
     public static void checkEmptyValue(String name, String value) throws Exception {
@@ -13,8 +11,6 @@ public class ValidationUtil {
     
     public static void checkIdValue(String name, String value) throws Exception {
         checkEmptyValue(name, value);
-        if(!Pattern.matches("[a-zA-Z_][0-9a-zA-Z_]*", value))
-            throw new Exception(getMessage("Errors_WrongIdFormat"));
         //if(!Pattern.matches("[a-zA-Z_][0-9a-zA-Z_]*", value))
         //    throw new Exception(getMessage("Errors_WrongIdFormat"));
     }

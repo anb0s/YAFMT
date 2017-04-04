@@ -4,8 +4,7 @@ import java.text.Normalizer;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
-//import java.util.UUID;
+import java.util.UUID;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
@@ -36,7 +35,6 @@ import cz.zcu.yafmt.model.fm.FeatureModelPackage.Literals;
 
 public class FeatureModelUtil {
 
-    private static final Random random = new Random();
     private static Map<Object, Object> loadOptions;
     private static Map<Object, Object> saveOptions;
 
@@ -161,13 +159,11 @@ public class FeatureModelUtil {
     }
     
     public static String generateFeatureId() {
-        return "f_" + Math.abs(random.nextInt());
-        //return "f_" + UUID.randomUUID().toString();
+        return "f_" + UUID.randomUUID().toString();
     }
     
     public static String generateAttributeId() {
-        return "a_" + Math.abs(random.nextInt());
-        //return "a_" + UUID.randomUUID().toString();
+        return "a_" + UUID.randomUUID().toString();
     }
     
     public static String generateIdFromName(String name) {
