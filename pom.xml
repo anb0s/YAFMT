@@ -1,135 +1,135 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<modelVersion>4.0.0</modelVersion>
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+  xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
 
-	<groupId>cz.zcu.yafmt.group</groupId>
-	<artifactId>cz.zcu.yafmt</artifactId>
-	<version>0.3.1-SNAPSHOT</version>
-	<packaging>pom</packaging>
-	<name>YAFMT</name>
+  <groupId>cz.zcu.yafmt.group</groupId>
+  <artifactId>cz.zcu.yafmt</artifactId>
+  <version>0.4.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>YAFMT</name>
 
-	<modules>
-		<module>cz.zcu.yafmt.platform</module>
-		<!-- cz.zcu.yafmt.ui.views.fm.feature -->
-		<module>cz.zcu.yafmt.ui.views.fm.feature</module>
-		<module>cz.zcu.yafmt.clang</module>
-		<module>cz.zcu.yafmt.model</module>
-		<module>cz.zcu.yafmt.model.edit</module>
-		<module>cz.zcu.yafmt.model.validation</module>
-		<module>cz.zcu.yafmt.ui</module>
-		<module>cz.zcu.yafmt.ui.views.fm</module>
-		<!-- cz.zcu.yafmt.ui.editors.fm.feature -->
-		<module>cz.zcu.yafmt.ui.editors.fm.feature</module>
-		<module>cz.zcu.yafmt.ui.editors.fm</module>
-		<!-- cz.zcu.yafmt.ui.editors.fc.feature -->
-		<module>cz.zcu.yafmt.ui.editors.fc.feature</module>
-		<module>cz.zcu.yafmt.ui.editors.fc</module>
-		<!-- cz.zcu.yafmt.clang.bcl.feature -->
-		<module>cz.zcu.yafmt.clang.bcl.feature</module>
-		<module>cz.zcu.yafmt.clang.bcl.ui</module>
-		<module>cz.zcu.yafmt.clang.bcl</module>
-		<!-- cz.zcu.yafmt.update -->
-		<module>cz.zcu.yafmt.update</module>
-	</modules>
+  <modules>
+    <module>cz.zcu.yafmt.platform</module>
+    <!-- cz.zcu.yafmt.ui.views.fm.feature -->
+    <module>cz.zcu.yafmt.ui.views.fm.feature</module>
+    <module>cz.zcu.yafmt.clang</module>
+    <module>cz.zcu.yafmt.model</module>
+    <module>cz.zcu.yafmt.model.edit</module>
+    <module>cz.zcu.yafmt.model.validation</module>
+    <module>cz.zcu.yafmt.ui</module>
+    <module>cz.zcu.yafmt.ui.views.fm</module>
+    <!-- cz.zcu.yafmt.ui.editors.fm.feature -->
+    <module>cz.zcu.yafmt.ui.editors.fm.feature</module>
+    <module>cz.zcu.yafmt.ui.editors.fm</module>
+    <!-- cz.zcu.yafmt.ui.editors.fc.feature -->
+    <module>cz.zcu.yafmt.ui.editors.fc.feature</module>
+    <module>cz.zcu.yafmt.ui.editors.fc</module>
+    <!-- cz.zcu.yafmt.clang.bcl.feature -->
+    <module>cz.zcu.yafmt.clang.bcl.feature</module>
+    <module>cz.zcu.yafmt.clang.bcl.ui</module>
+    <module>cz.zcu.yafmt.clang.bcl</module>
+    <!-- cz.zcu.yafmt.update -->
+    <module>cz.zcu.yafmt.update</module>
+  </modules>
 
-	<properties>
-		<new.version>0.3.1-SNAPSHOT</new.version>
-		<tycho.version>0.24.0</tycho.version>
-		<target.platform>Eclipse-4.6</target.platform>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+  <properties>
+    <new.version>0.4.0-SNAPSHOT</new.version>
+    <tycho.version>0.24.0</tycho.version>
+    <target.platform>Eclipse-4.6</target.platform>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
 
-	<!-- repositories> <repository> <id>Mars</id> <layout>p2</layout> <url>http://download.eclipse.org/releases/mars/</url>
-		</repository> </repositories -->
+  <!-- repositories> <repository> <id>Mars</id> <layout>p2</layout> <url>http://download.eclipse.org/releases/mars/</url>
+    </repository> </repositories -->
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-maven-plugin</artifactId>
-				<version>${tycho.version}</version>
-				<extensions>true</extensions>
-			</plugin>
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>target-platform-configuration</artifactId>
-				<version>${tycho.version}</version>
-				<configuration>
-					<target>
-						<artifact>
-							<groupId>cz.zcu.yafmt.group</groupId>
-							<artifactId>cz.zcu.yafmt.platform</artifactId>
-							<version>${project.version}</version>
-							<classifier>${target.platform}</classifier>
-						</artifact>
-					</target>
-					<environments>
-						<environment>
-							<os>linux</os>
-							<ws>gtk</ws>
-							<arch>x86</arch>
-						</environment>
-						<environment>
-							<os>linux</os>
-							<ws>gtk</ws>
-							<arch>x86_64</arch>
-						</environment>
-						<environment>
-							<os>win32</os>
-							<ws>win32</ws>
-							<arch>x86</arch>
-						</environment>
-						<environment>
-							<os>win32</os>
-							<ws>win32</ws>
-							<arch>x86_64</arch>
-						</environment>
-						<environment>
-							<os>macosx</os>
-							<ws>cocoa</ws>
-							<arch>x86_64</arch>
-						</environment>
-					</environments>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-p2-plugin</artifactId>
-				<version>${tycho.version}</version>
-				<executions>
-					<execution>
-						<id>attach-p2-metadata</id>
-						<phase>package</phase>
-						<goals>
-							<goal>p2-metadata</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-packaging-plugin</artifactId>
-				<version>${tycho.version}</version>
-				<configuration>
-					<format>'v'yyyyMMdd'-'HHmm</format>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-versions-plugin</artifactId>
-				<version>${tycho.version}</version>
-				<configuration>
-					<newVersion>${new.version}</newVersion>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-				<version>1.10</version>
-			</plugin>
-		</plugins>
-	</build>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.eclipse.tycho</groupId>
+        <artifactId>tycho-maven-plugin</artifactId>
+        <version>${tycho.version}</version>
+        <extensions>true</extensions>
+      </plugin>
+      <plugin>
+        <groupId>org.eclipse.tycho</groupId>
+        <artifactId>target-platform-configuration</artifactId>
+        <version>${tycho.version}</version>
+        <configuration>
+          <target>
+            <artifact>
+              <groupId>cz.zcu.yafmt.group</groupId>
+              <artifactId>cz.zcu.yafmt.platform</artifactId>
+              <version>${project.version}</version>
+              <classifier>${target.platform}</classifier>
+            </artifact>
+          </target>
+          <environments>
+            <environment>
+              <os>linux</os>
+              <ws>gtk</ws>
+              <arch>x86</arch>
+            </environment>
+            <environment>
+              <os>linux</os>
+              <ws>gtk</ws>
+              <arch>x86_64</arch>
+            </environment>
+            <environment>
+              <os>win32</os>
+              <ws>win32</ws>
+              <arch>x86</arch>
+            </environment>
+            <environment>
+              <os>win32</os>
+              <ws>win32</ws>
+              <arch>x86_64</arch>
+            </environment>
+            <environment>
+              <os>macosx</os>
+              <ws>cocoa</ws>
+              <arch>x86_64</arch>
+            </environment>
+          </environments>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.eclipse.tycho</groupId>
+        <artifactId>tycho-p2-plugin</artifactId>
+        <version>${tycho.version}</version>
+        <executions>
+          <execution>
+            <id>attach-p2-metadata</id>
+            <phase>package</phase>
+            <goals>
+              <goal>p2-metadata</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.eclipse.tycho</groupId>
+        <artifactId>tycho-packaging-plugin</artifactId>
+        <version>${tycho.version}</version>
+        <configuration>
+          <format>'v'yyyyMMdd'-'HHmm</format>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.eclipse.tycho</groupId>
+        <artifactId>tycho-versions-plugin</artifactId>
+        <version>${tycho.version}</version>
+        <configuration>
+          <newVersion>${new.version}</newVersion>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>1.10</version>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>

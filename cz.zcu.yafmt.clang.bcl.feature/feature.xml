@@ -2,7 +2,7 @@
 <feature
       id="cz.zcu.yafmt.clang.bcl.feature"
       label="Boolean Constraint Language"
-      version="0.3.1.qualifier"
+      version="0.4.0.qualifier"
       provider-name="Andre Bossert"
       plugin="cz.zcu.yafmt.clang.bcl">
 
