@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore2xml:XMLMap xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:ecore2xml="http://www.eclipse.org/emf/2005/Ecore2XML">
   <ecoreToXMLInfo>
-    <key xsi:type="ecore:EPackage" href="FeatureModel.ecore#/"/>
-    <value name="value"/>
+    <key xsi:type="ecore:EPackage" href="fm-0.4.0.ecore#/"/>
+    <value name="fm" targetNamespace="http://zcu.cz/yafmt/model/fm"/>
   </ecoreToXMLInfo>
   <ecoreToXMLInfo>
-    <key xsi:type="ecore:EAttribute" href="FeatureModel.ecore#//Attribute/defaultValue"/>
+    <key xsi:type="ecore:EAttribute" href="fm-0.4.0.ecore#//Attribute/defaultValue"/>
     <value name="value"/>
   </ecoreToXMLInfo>
 </ecore2xml:XMLMap>

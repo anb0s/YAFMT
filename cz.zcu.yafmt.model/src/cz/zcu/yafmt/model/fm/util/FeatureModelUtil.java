@@ -1,10 +1,12 @@
 package cz.zcu.yafmt.model.fm.util;
 
 import java.text.Normalizer;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.Vector;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
@@ -64,24 +66,40 @@ public class FeatureModelUtil {
         return emd;
     }
 
-    private static ExtendedMetaData createExtendedMetadataLoad(ResourceSet resourceSet) {        
+    private static ExtendedMetaData createExtendedMetadataLoad(ResourceSet resourceSet) {
         // compatibility to value = defaultValue (issue #1)
         //emd.setName(Literals.ATTRIBUTE__DEFAULT_VALUE, "value");
+        List<String[]> modelsURIs=new ArrayList<String[]>();
+        modelsURIs.add(new String[]{
+                "http://zcu.cz/yafmt/model/fm",
+                "platform:/plugin/cz.zcu.yafmt.model/model/history/fm-0.4.0.ecore",
+                "platform:/plugin/cz.zcu.yafmt.model/model/history/fm-0.3.0_2_fm-0.4.0.ecore2xml"
+        });
+        /*modelsURIs.add(new String[]{
+                "http://zcu.cz/yafmt/model/fm-0.4.0",
+                "platform:/plugin/cz.zcu.yafmt.model/model/history/fm-0.5.0.ecore",
+                "platform:/plugin/cz.zcu.yafmt.model/model/history/fm-0.4.0_2_fm-0.5.0.ecore2xml"
+        });*/
+        /*
         final String FM_NS_URI = "http://zcu.cz/yafmt/model/fm";
-        final String FM_PLATFORM_URI = "platform:/plugin/cz.zcu.yafmt.model/model/FeatureModel.ecore";
-        final String ECORE2XML_PLATFORM_URI = "platform:/plugin/cz.zcu.yafmt.model/model/FeatureModel-0.3.0-siemens_2_FeatureModel.ecore2xml";
+        final String FM_PLATFORM_URI        = "platform:/plugin/cz.zcu.yafmt.model/model/history/fm-0.4.0.ecore";
+        final String ECORE2XML_PLATFORM_URI = "platform:/plugin/cz.zcu.yafmt.model/model/history/fm-0.3.0_2_fm-0.4.0.ecore2xml";
+        */
         if (resourceSet == null) {
             resourceSet = new ResourceSetImpl();
         }
+        Ecore2XMLRegistry ecore2xmlRegistry = null;
         EPackage.Registry ePackageRegistry = resourceSet.getPackageRegistry();
-        ePackageRegistry.put(FM_NS_URI, FeatureModelPackage.eINSTANCE);
-        ePackageRegistry.put(FM_PLATFORM_URI, FeatureModelPackage.eINSTANCE);
-        Ecore2XMLRegistry ecore2xmlRegistry = new Ecore2XMLRegistryImpl(Ecore2XMLRegistry.INSTANCE);
-        ecore2xmlRegistry.put(FM_NS_URI,
-                EcoreUtil.getObjectByType(
-                        resourceSet.getResource(URI.createURI(ECORE2XML_PLATFORM_URI), 
-                                true).getContents(),
-                                Ecore2XMLPackage.Literals.XML_MAP));
+        for (String[] modelURIs : modelsURIs) {
+            ePackageRegistry.put(modelURIs[0], FeatureModelPackage.eINSTANCE);
+            ePackageRegistry.put(modelURIs[1], FeatureModelPackage.eINSTANCE);
+            if (ecore2xmlRegistry == null) {
+                ecore2xmlRegistry = new Ecore2XMLRegistryImpl(Ecore2XMLRegistry.INSTANCE);
+            }
+            ecore2xmlRegistry.put(modelURIs[0],
+                    EcoreUtil.getObjectByType(resourceSet.getResource(URI.createURI(modelURIs[2]), true).getContents(),Ecore2XMLPackage.Literals.XML_MAP)
+            );
+        }
         Ecore2XMLExtendedMetaData emd = new Ecore2XMLExtendedMetaData(ePackageRegistry, ecore2xmlRegistry);
         createExtendedMetadataLoadAndSave(emd);
         return emd;
@@ -91,7 +109,7 @@ public class FeatureModelUtil {
         ExtendedMetaData emd = createExtendedMetadataLoadAndSave(null);
         // compatibility to value = defaultValue (issue #1)
         //emd.setName(Literals.ATTRIBUTE__DEFAULT_VALUE, "defaultValue");
-        return emd;        
+        return emd;
     }
 
     public static Map<Object, Object> createLoadOptions(ResourceSet resourceSet) {
@@ -99,7 +117,7 @@ public class FeatureModelUtil {
             loadOptions = new HashMap<Object, Object>();
             loadOptions.put(XMLResource.OPTION_ENCODING, "UTF-8");
             loadOptions.put(XMLResource.OPTION_EXTENDED_META_DATA, createExtendedMetadataLoad(resourceSet));
-            //loadOptions.put(XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, Boolean.TRUE); // This options allows you to record unknown features during deserialization/loading. 
+            //loadOptions.put(XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, Boolean.TRUE); // This options allows you to record unknown features during deserialization/loading.
             //loadOptions.put(XMLResource.OPTION_LAX_FEATURE_PROCESSING, Boolean.TRUE); // Allows proper loading of renamed XML elements.
             //loadOptions.put(XMLResource.OPTION_KEEP_DEFAULT_CONTENT, Boolean.TRUE); // Persist even attributes with default value.
             //loadOptions.put(XMLResource.OPTION_RESOURCE_HANDLER, new UnknownFeatureResourceHandler());
@@ -112,7 +130,7 @@ public class FeatureModelUtil {
             saveOptions = new HashMap<Object, Object>();
             saveOptions.put(XMLResource.OPTION_ENCODING, "UTF-8");
             saveOptions.put(XMLResource.OPTION_EXTENDED_META_DATA, createExtendedMetadataSave());
-            //saveOptions.put(XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, Boolean.TRUE); // This options allows you to record unknown features during deserialization/loading. 
+            //saveOptions.put(XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, Boolean.TRUE); // This options allows you to record unknown features during deserialization/loading.
             saveOptions.put(XMLResource.OPTION_KEEP_DEFAULT_CONTENT, Boolean.TRUE); // Persist even attributes with default value.
         }
         return saveOptions;
@@ -157,15 +175,15 @@ public class FeatureModelUtil {
         featureModel.setRoot(rootFeature);
         return featureModel;
     }
-    
+
     public static String generateFeatureId() {
         return "f_" + UUID.randomUUID().toString();
     }
-    
+
     public static String generateAttributeId() {
         return "a_" + UUID.randomUUID().toString();
     }
-    
+
     public static String generateIdFromName(String name) {
         String id = Normalizer.normalize(name, Normalizer.Form.NFD);
         id = id.replaceAll("^\\s+", "").replaceAll("\\s+$", "").replaceAll("\\s+", "_");
@@ -228,11 +246,11 @@ public class FeatureModelUtil {
         int upper = group.getUpper();
         return "<" + lower + "-" + ((upper == -1) ? "*" : upper) + ">";
     }
-    
+
     public static String getTranslatedCardinality(Group group) {
         if(group == null)
             return null;
-        
+
         if(group.isOr())
             return "OR";
         else if(group.isXor())
@@ -253,10 +271,10 @@ public class FeatureModelUtil {
             analyzeTreeNode(feature, info, 0);
         return info;
     }
-    
+
     private static void analyzeTreeNode(Feature feature, TreeInfo info, int currentHeight) {
         info.size++;
-        
+
         currentHeight++;
         if(currentHeight > info.height)
             info.height = currentHeight;
@@ -269,18 +287,18 @@ public class FeatureModelUtil {
                 analyzeTreeNode(child, info, currentHeight);
         }
     }
-    
+
     public static class TreeInfo {
-        
+
         public int size = 0;
         public int height = 0;
-        
+
     }
-    
+
     // ===============================================================================================
-    //  Comparison utilities 
+    //  Comparison utilities
     // ===============================================================================================
-    
+
     // Of course we could use EMF compare, but why another dependency when we just need to test if
     // models are the same.
 
@@ -289,7 +307,7 @@ public class FeatureModelUtil {
             return true;
         if((featureModelA == null) || (featureModelB == null))
             return false;
-        
+
         if(!compareStrings(featureModelA.getName(), featureModelB.getName()))
             return false;
         if(!compareStrings(featureModelA.getVersion(), featureModelB.getVersion()))
@@ -303,17 +321,17 @@ public class FeatureModelUtil {
         if(compareOrphanedFeatures && !compareFeatures(featureModelA.getOrphans(), featureModelB.getOrphans(), true))
             return false;
         if(!compareConstraints(featureModelA.getConstraints(), featureModelB.getConstraints()))
-            return false;       
-            
+            return false;
+
         return true;
     }
-    
+
     public static boolean compareFeatures(Feature featureA, Feature featureB, boolean recursive) {
         if(featureA == featureB)
             return true;
         if((featureA == null) || (featureB == null))
             return false;
-        
+
         if(!compareStrings(featureA.getId(), featureB.getId()))
             return false;
         if(!compareStrings(featureA.getName(), featureB.getName()))
@@ -332,32 +350,32 @@ public class FeatureModelUtil {
             return false;
         if(recursive && !compareGroups(featureA.getGroups(), featureB.getGroups(), recursive))
             return false;
-        
+
         return true;
     }
-    
+
     public static boolean compareFeatures(List<Feature> featuresA, List<Feature> featuresB, boolean recursive) {
         if(featuresA == featuresB)
             return true;
         if((featuresA == null) || (featuresB == null))
             return false;
-        
+
         if(featuresA.size() != featuresB.size())
             return false;
         for(int i = 0; i < featuresA.size(); i++) {
             if(!compareFeatures(featuresA.get(i), featuresB.get(i), recursive))
                 return false;
         }
-        
+
         return true;
     }
-    
+
     private static boolean compareAttributes(Attribute attributeA, Attribute attributeB) {
         if(attributeA == attributeB)
             return true;
         if((attributeA == null) || (attributeB == null))
             return false;
-        
+
         if(!compareStrings(attributeA.getId(), attributeB.getId()))
             return false;
         if(!compareStrings(attributeA.getName(), attributeB.getName()))
@@ -368,32 +386,32 @@ public class FeatureModelUtil {
             return false;
         if(!compareStrings(attributeA.getComment(), attributeB.getComment()))
             return false;
-        
+
         return true;
     }
-    
+
     public static boolean compareAttributes(List<Attribute> attributesA, List<Attribute> attributesB) {
         if(attributesA == attributesB)
             return true;
         if((attributesA == null) || (attributesB == null))
             return false;
-        
+
         if(attributesA.size() != attributesB.size())
             return false;
         for(int i = 0; i < attributesA.size(); i++) {
             if(!compareAttributes(attributesA.get(i), attributesB.get(i)))
                 return false;
         }
-        
+
         return true;
     }
-    
+
     public static boolean compareGroups(Group groupA, Group groupB, boolean recursive) {
         if(groupA == groupB)
             return true;
         if((groupA == null) || (groupB == null))
             return false;
-        
+
         if(groupA.getLower() != groupB.getLower())
             return false;
         if(groupA.getUpper() != groupB.getUpper())
@@ -404,23 +422,23 @@ public class FeatureModelUtil {
             return false;
         if(recursive && !compareFeatures(groupA.getFeatures(), groupB.getFeatures(), recursive))
             return false;
-        
+
         return true;
     }
-    
+
     public static boolean compareGroups(EList<Group> groupsA, EList<Group> groupsB, boolean recursive) {
         if(groupsA == groupsB)
             return true;
         if((groupsA == null) || (groupsB == null))
             return false;
-        
+
         if(groupsA.size() != groupsB.size())
             return false;
         for(int i = 0; i < groupsA.size(); i++) {
             if(!compareGroups(groupsA.get(i), groupsB.get(i), recursive))
                 return false;
         }
-        
+
         return true;
     }
 
@@ -429,7 +447,7 @@ public class FeatureModelUtil {
             return true;
         if((constraintA == null) || (constraintB == null))
             return false;
-        
+
         if(!compareStrings(constraintA.getLanguage(), constraintB.getLanguage()))
             return false;
         if(!compareStrings(constraintA.getValue(), constraintB.getValue()))
@@ -438,33 +456,33 @@ public class FeatureModelUtil {
             return false;
         if(!compareStrings(constraintA.getComment(), constraintB.getComment()))
             return false;
-        
+
         return true;
     }
-    
+
     public static boolean compareConstraints(List<Constraint> constraintsA, List<Constraint> constraintsB) {
         if(constraintsA == constraintsB)
             return true;
         if((constraintsA == null) || (constraintsB == null))
             return false;
-        
+
         if(constraintsA.size() != constraintsB.size())
             return false;
         for(int i = 0; i < constraintsA.size(); i++) {
             if(!compareConstraints(constraintsA.get(i), constraintsB.get(i)))
                 return false;
         }
-        
+
         return true;
     }
-    
+
     private static boolean compareStrings(String stringA, String stringB) {
         if(stringA == stringB)
             return true;
         if((stringA == null) || (stringB == null))
             return false;
-        
+
         return stringA.equals(stringB);
     }
-        
+
 }
