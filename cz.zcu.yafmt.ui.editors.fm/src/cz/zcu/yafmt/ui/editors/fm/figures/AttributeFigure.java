@@ -20,7 +20,7 @@ public class AttributeFigure extends Label {
     private Attribute attribute;
     private TooltipFigure toolTip;
     private ErrorMarker errorMarker;
-    
+
     public AttributeFigure(Attribute attribute) {
         this.attribute = attribute;
         initialize();
@@ -30,13 +30,13 @@ public class AttributeFigure extends Label {
     // ==================================================================
     //  Initialization
     // ==================================================================
-    
+
     private void initialize() {
         setForegroundColor(ColorConstants.black);
         setToolTip(createTooltip());
         add(createErrorMarker());
     }
-    
+
     private IFigure createTooltip() {
         toolTip = new TooltipFigure();
         return toolTip;
@@ -50,16 +50,16 @@ public class AttributeFigure extends Label {
     // ==================================================================
     //  Properties
     // ==================================================================
-    
+
     public void setErrors(List<String> messages) {
         errorMarker.setErrors(messages);
     }
-        
+
     public void refresh() {
         setNameAndType(attribute.getName(), attribute.getType());
         toolTip.setText(createDescriptionText());
     }
-    
+
     public void setName(String name) {
         setNameAndType(name, attribute.getType());
     }
@@ -82,10 +82,11 @@ public class AttributeFigure extends Label {
                 return "Unknown";
         }
     }
-    
+
     private String createDescriptionText() {
         String description = attribute.getDescription() ;
-        return "[" + attribute.getId() + "]\n" + attribute.getName() + ": " + attribute.getType() + "\n" + (((description != null) && !description.isEmpty()) ? description : "");
+        String comment = attribute.getComment();
+        return "[" + attribute.getId() + "]\n" + attribute.getName() + ": " + attribute.getType() + "\n" + (((description != null) && !description.isEmpty()) ? description : "") + "\n" + (((comment != null) && !comment.isEmpty()) ? comment : "");
     }
-    
+
 }

@@ -49,11 +49,11 @@ public class FeatureFigure extends RoundedRectangleWithGradient {
         initialize();
         refresh();
     }
-    
+
     // ==================================================================
     //  Initialization
     // ==================================================================
-    
+
     private void initialize() {
         setTopBackgroundColor(computeTopBackgroundColor());
         setBottomBackgroundColor(ColorConstants.white);
@@ -73,91 +73,91 @@ public class FeatureFigure extends RoundedRectangleWithGradient {
     // ==================================================================
     //  Initialization (main layer)
     // ==================================================================
-    
+
     private IFigure createMainLayer() {
         mainLayer = new Figure();
         mainLayer.setLayoutManager(new GridLayout());
         mainLayer.add(createLabel(), new GridData(SWT.CENTER, SWT.CENTER, true, true));
         return mainLayer;
     }
-    
+
     private IFigure createLabel() {
         label = new Label();
         label.setFont(DrawUtil.BOLD_FONT);
         label.setForegroundColor(ColorConstants.black);
         return label;
     }
-    
+
     private void initializeAttributesContainer() {
         mainLayer.add(createSeparatorFigure(), new GridData(SWT.FILL, SWT.CENTER, true, false), 1);
         mainLayer.add(createAttributesContainer(), new GridData(SWT.CENTER, SWT.CENTER, true, false), 2);
     }
-    
+
     private void destroyAttributesContainer() {
         mainLayer.remove(attributesContainer);
         mainLayer.remove(separatorFigure);
         attributesContainer = null;
         separatorFigure = null;
     }
-    
+
     private Figure createAttributesContainer() {
         attributesContainer = new VerticalToolbarFigure();
         return attributesContainer;
     }
-    
+
     private Figure createSeparatorFigure() {
         separatorFigure = new SeparatorFigure();
         return separatorFigure;
     }
-    
+
     // ==================================================================
     //  Initialization (marker layer)
     // ==================================================================
-    
+
     private IFigure createMarkerLayer() {
         markerLayer = new MarkerLayer();
         markerLayer.add(createErrorMarker());
         markerLayer.add(createConstraintMarker());
         return markerLayer;
     }
-    
+
     private IFigure createErrorMarker() {
         errorMarker = new ErrorMarker();
         return errorMarker;
     }
-    
+
     private IFigure createConstraintMarker() {
         constraintMarker = new ConstraintMarker();
         return constraintMarker;
     }
-    
+
     // ==================================================================
     //  Properties
     // ==================================================================
-    
+
     public void setErrors(List<String> messages) {
         errorMarker.setErrors(messages);
         markerLayer.refresh();
     }
-    
+
     public void setConstrained(boolean value) {
         if(constraintMarker.isVisible() != value) {
             constraintMarker.setVisible(value);
             markerLayer.refresh();
         }
     }
-    
+
     public void setOrphaned(boolean value) {
         if(orphaned != value) {
             orphaned = value;
             setTopBackgroundColor(computeTopBackgroundColor());
         }
     }
-    
+
     public Label getLabel() {
         return label;
     }
-    
+
     public Feature getFeature() {
         return feature;
     }
@@ -166,21 +166,22 @@ public class FeatureFigure extends RoundedRectangleWithGradient {
         label.setText(feature.getName());
         toolTip.setText(createDescriptionText());
     }
-    
+
     private String createDescriptionText() {
-        String description = feature.getDescription() ;
-        return "[" + feature.getId() + "]\n" + feature.getName() + "\n" + (((description != null) && !description.isEmpty()) ? description : "");
+        String description = feature.getDescription();
+        String comment = feature.getComment();
+        return "[" + feature.getId() + "]\n" + feature.getName() + "\n" + (((description != null) && !description.isEmpty()) ? description : "") + "\n" + (((comment != null) && !comment.isEmpty()) ? comment : "");
     }
-    
+
     @Override
     public Dimension getPreferredSize(int wHint, int hHint) {
         return super.getPreferredSize(wHint, hHint).getExpanded(24, 0);
     }
-    
+
     private Color computeTopBackgroundColor() {
         return orphaned ? ColorConstants.white : DrawUtil.FEATURE_GRADIENT_COLOR;
     }
-    
+
     // ==================================================================
     //  Drawing
     // ==================================================================
@@ -190,7 +191,7 @@ public class FeatureFigure extends RoundedRectangleWithGradient {
         DrawUtil.fixScaledFigureLocation(graphics);
         super.paint(graphics);
     }
-       
+
     @Override
     protected void outlineShape(Graphics graphics) {
         if(orphaned) {
@@ -203,7 +204,7 @@ public class FeatureFigure extends RoundedRectangleWithGradient {
     // ==================================================================
     //  Events
     // ==================================================================
-    
+
     @Override
     public void add(IFigure figure, Object constraint, int index) {
         if(figure instanceof AttributeFigure)
@@ -219,7 +220,7 @@ public class FeatureFigure extends RoundedRectangleWithGradient {
         else
             super.remove(figure);
     }
-    
+
     private void addAttributeFigure(IFigure figure, Object constraint, int index) {
         if(attributesContainer == null)
             initializeAttributesContainer();

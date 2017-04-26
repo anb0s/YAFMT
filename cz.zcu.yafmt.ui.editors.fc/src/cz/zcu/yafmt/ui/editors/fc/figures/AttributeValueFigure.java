@@ -39,22 +39,23 @@ public class AttributeValueFigure extends Label {
     // ==================================================================
     //  Initialization
     // ==================================================================
-    
+
     private void initialize() {
         setForegroundColor(ColorConstants.black);
         setToolTip(createToolTip());
         add(createErrorMarker());
     }
-    
+
     private TooltipFigure createToolTip() {
         return new TooltipFigure(createToolTipText());
     }
-    
+
     private String createToolTipText() {
         String description = attributeValue.getDescription();
-        return "[" + attributeValue.getId() + "]\n" + attributeValue.getName() + "\n" + (((description != null) && !description.isEmpty()) ? description : "");
+        String comment = attributeValue.getComment();
+        return "[" + attributeValue.getId() + "]\n" + attributeValue.getName() + "\n" + (((description != null) && !description.isEmpty()) ? description : "") + "\n" + (((comment != null) && !comment.isEmpty()) ? comment : "");
     }
-    
+
     private IFigure createErrorMarker() {
         errorMarker = new ErrorMarker();
         return errorMarker;
@@ -63,18 +64,18 @@ public class AttributeValueFigure extends Label {
     // ==================================================================
     //  Properties
     // ==================================================================
-    
+
     public void setErrors(List<String> messages) {
         errorMarker.setErrors(messages);
     }
-    
+
     public void setHightlighted(boolean value) {
         if(highlighted != value) {
             highlighted = value;
             repaint();
         }
     }
-    
+
     public void refresh() {
         setNameAndValue(attributeValue.getName(), getValue(attributeValue));
     }
@@ -87,43 +88,43 @@ public class AttributeValueFigure extends Label {
         // Spaces on sides are reserved to display highlight border properly.
         setText(" " + name + " = " + valueToString(value) + " ");
     }
-    
+
     private Object getValue(AttributeValue attributeValue) {
         switch(attributeValue.eClass().getClassifierID()) {
             case BOOLEAN_VALUE:
                 return ((BooleanValue) attributeValue).isValue();
-                
+
             case INTEGER_VALUE:
                 return ((IntegerValue) attributeValue).getValue();
-                
+
             case DOUBLE_VALUE:
                 return ((DoubleValue) attributeValue).getValue();
-                
+
             case STRING_VALUE:
                 return ((StringValue) attributeValue).getValue();
-                
+
             default:
                 return null;
         }
     }
-    
+
     private String valueToString(Object value) {
         return (value != null) ? value.toString() : "";
     }
-    
+
     // ==================================================================
     //  Drawing
     // ==================================================================
-    
+
     @Override
     protected void paintFigure(Graphics graphics) {
         super.paintFigure(graphics);
-        
+
         if(highlighted) {
             graphics.setLineStyle(SWT.LINE_CUSTOM);
             graphics.setLineDash(DrawUtil.LINE_DASHED);
             graphics.drawRectangle(bounds.x, bounds.y, bounds.width - 1, bounds.height - 1);
         }
     }
-    
+
 }

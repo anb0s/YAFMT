@@ -14,10 +14,11 @@ public class FeatureFigure extends DecoratableNodeFigure {
         setText(feature.getName());
         setToolTipText(createToolTipText(feature));
     }
-    
+
     private String createToolTipText(Feature feature) {
         String description = feature.getDescription();
-        return "[" + feature.getId() + "]\n" + feature.getName() + "\n" + (((description != null) && !description.isEmpty()) ? description : "");
+        String comment = feature.getComment();
+        return "[" + feature.getId() + "]\n" + feature.getName() + "\n" + (((description != null) && !description.isEmpty()) ? description : "") + "\n" + (((comment != null) && !comment.isEmpty()) ? comment : "");
     }
 
 }
