@@ -1,3 +1,12 @@
+/*******************************************************************************
+ * Copyright (c) 2012-2013 Jan Pikl and contributors.
+ * Copyright (c) 2015-2017 Andre Bossert and contributors.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
+
 package cz.zcu.yafmt.ui.editors.fm.policies;
 
 import org.eclipse.draw2d.IFigure;
@@ -9,6 +18,7 @@ import org.eclipse.gef.requests.GroupRequest;
 import cz.zcu.yafmt.model.fm.Feature;
 import cz.zcu.yafmt.ui.editors.fm.commands.DeleteFeatureCommand;
 import cz.zcu.yafmt.ui.editors.fm.commands.GenerateFeatureIdFromNameCommand;
+import cz.zcu.yafmt.ui.editors.fm.commands.GenerateUniqueFeatureIdCommand;
 import cz.zcu.yafmt.ui.editors.fm.commands.SetFeatureCardinalityCommand;
 import cz.zcu.yafmt.ui.editors.fm.commands.SetFeatureOptimalSizeCommand;
 import cz.zcu.yafmt.ui.editors.fm.layout.LayoutData;
@@ -31,6 +41,10 @@ public class FeatureEditPolicy extends ComponentEditPolicy {
         else if(RequestConstants.REQ_GENERATE_ID_FROM_NAME.equals(type)) {
             Feature feature = (Feature) getHost().getModel();
             return new GenerateFeatureIdFromNameCommand(feature);
+        }
+        else if(RequestConstants.REQ_GENERATE_UNIQUE_ID.equals(type)) {
+            Feature feature = (Feature) getHost().getModel();
+            return new GenerateUniqueFeatureIdCommand(feature);
         }
         else if(RequestConstants.REQ_SET_FEATURE_OPTIMAL_SIZE.equals(type)) {
             LayoutData layoutData =((FeatureEditPart) getHost()).getLayoutData();

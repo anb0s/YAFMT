@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.Vector;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
@@ -165,7 +164,8 @@ public class FeatureModelUtil {
         FeatureModelFactory factory = FeatureModelFactory.eINSTANCE;
 
         Feature rootFeature = factory.createFeature();
-        rootFeature.setId(generateIdFromName(name));
+        //rootFeature.setId(generateIdFromName(name));
+        rootFeature.setId(generateFeatureId());
         rootFeature.setName(name);
         rootFeature.setLower(1);
         rootFeature.setUpper(1);

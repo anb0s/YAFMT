@@ -1,3 +1,12 @@
+/*******************************************************************************
+ * Copyright (c) 2012-2013 Jan Pikl and contributors.
+ * Copyright (c) 2015-2017 Andre Bossert and contributors.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
+
 package cz.zcu.yafmt.ui.editors.fm;
 
 import org.eclipse.gef.ui.actions.ActionBarContributor;
@@ -17,7 +26,7 @@ import cz.zcu.yafmt.ui.actions.EditorZoomComboContributioItem;
 import cz.zcu.yafmt.ui.actions.ShowFeatureModelVisualizerAction;
 import cz.zcu.yafmt.ui.actions.SnapToGeometryRetargetAction;
 import cz.zcu.yafmt.ui.actions.SnapToGridRetargetAction;
-import cz.zcu.yafmt.ui.editors.fm.actions.GenerateIdFromNameAction;
+import cz.zcu.yafmt.ui.editors.fm.actions.GenerateUniqueIdAction;
 import cz.zcu.yafmt.ui.editors.fm.actions.GroupFeaturesAction;
 import cz.zcu.yafmt.ui.editors.fm.actions.ApplyLayoutAction;
 import cz.zcu.yafmt.ui.editors.fm.actions.SetFeatureCardinalityAction;
@@ -30,7 +39,7 @@ public class FeatureModelEditorActionBarContributor extends ActionBarContributor
         action.setActionDefinitionId(factory.getCommandId());
         return action;
     }
-    
+
     @Override
     protected void buildActions() {
         addRetargetAction(applyDefinitionId(new UndoRetargetAction(), ActionFactory.UNDO));
@@ -43,7 +52,8 @@ public class FeatureModelEditorActionBarContributor extends ActionBarContributor
         addRetargetAction(new SnapToGeometryRetargetAction());
         addRetargetAction(SetFeatureOptimalSizeAction.createRetargetAction());
         addRetargetAction(ApplyLayoutAction.createRetargetAction());
-        addRetargetAction(GenerateIdFromNameAction.createRetargetAction());
+        //addRetargetAction(GenerateIdFromNameAction.createRetargetAction());
+        addRetargetAction(GenerateUniqueIdAction.createRetargetAction());
         addRetargetAction(SetFeatureCardinalityAction.createRetargetAction(false));
         addRetargetAction(SetFeatureCardinalityAction.createRetargetAction(true));
         addRetargetAction(GroupFeaturesAction.createRetargetAction(true));
@@ -69,7 +79,8 @@ public class FeatureModelEditorActionBarContributor extends ActionBarContributor
         toolBarManager.add(getAction(ActionFactory.DELETE.getId()));
         toolBarManager.add(getAction(SetFeatureCardinalityAction.ID_OPTIONAL));
         toolBarManager.add(getAction(SetFeatureCardinalityAction.ID_MANDATORY));
-        toolBarManager.add(getAction(GenerateIdFromNameAction.ID));
+        //toolBarManager.add(getAction(GenerateIdFromNameAction.ID));
+        toolBarManager.add(getAction(GenerateUniqueIdAction.ID));
         toolBarManager.add(getAction(GroupFeaturesAction.ID_XOR));
         toolBarManager.add(getAction(GroupFeaturesAction.ID_OR));
         toolBarManager.add(getAction(UngroupFeaturesAction.ID));

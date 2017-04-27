@@ -1,3 +1,12 @@
+/*******************************************************************************
+ * Copyright (c) 2012-2013 Jan Pikl and contributors.
+ * Copyright (c) 2015-2017 Andre Bossert and contributors.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
+
 package cz.zcu.yafmt.ui.editors.fm;
 
 import java.io.IOException;
@@ -44,7 +53,7 @@ import cz.zcu.yafmt.ui.actions.ShowPropertiesAction;
 import cz.zcu.yafmt.ui.editors.ModelEditor;
 import cz.zcu.yafmt.ui.editors.fm.actions.ApplyLayoutAction;
 import cz.zcu.yafmt.ui.editors.fm.actions.DeleteAction;
-import cz.zcu.yafmt.ui.editors.fm.actions.GenerateIdFromNameAction;
+import cz.zcu.yafmt.ui.editors.fm.actions.GenerateUniqueIdAction;
 import cz.zcu.yafmt.ui.editors.fm.actions.GroupFeaturesAction;
 import cz.zcu.yafmt.ui.editors.fm.actions.SelectAllAction;
 import cz.zcu.yafmt.ui.editors.fm.actions.SetFeatureCardinalityAction;
@@ -66,23 +75,23 @@ public class FeatureModelEditor extends ModelEditor {
     private ConstraintsEditor constraintsEditor;
     private ConstraintCache constraintCache;
     private IContentOutlinePage contentOutlinePage;
-    
+
     // ==================================================================================
     //  Basic initialization
     // ==================================================================================
-    
+
     @Override
     public void init(IEditorSite site, IEditorInput input) throws PartInitException {
         super.init(site, input);
         getProblemManager().clearProblems(); // Revalidation occurs when edit parts are created.
     }
-    
+
     public void dispose() {
         if(constraintsEditor != null) // When input cannot be loaded.
             getSite().getPage().removeSelectionListener(constraintsEditor);
         super.dispose();
     }
-    
+
     // ==================================================================================
     //  Editor initialization
     // ==================================================================================
@@ -93,10 +102,10 @@ public class FeatureModelEditor extends ModelEditor {
         createFeatureTreeEditor(splitter);
         createConstraintsEditor(splitter);
     }
-    
+
     private void createFeatureTreeEditor(Composite parent) {
         super.createPartControl(parent); // Calls configureGraphicalViewer and others bellow.
-        
+
         GraphicalViewer viewer = getGraphicalViewer();
         viewer.addDropTargetListener(new TemplateTransferDropTargetListener(viewer));
         viewer.addDropTargetListener(new TemplateTransferDropTargetListener(viewer));
@@ -183,7 +192,8 @@ public class FeatureModelEditor extends ModelEditor {
         createAction(new SelectAllAction(this)); // Custom select all action.
         createAction(new SetFeatureCardinalityAction(this, false));
         createAction(new SetFeatureCardinalityAction(this, true));
-        createAction(new GenerateIdFromNameAction(this));
+        //createAction(new GenerateIdFromNameAction(this));
+        createAction(new GenerateUniqueIdAction(this));
         createAction(new GroupFeaturesAction(this, true));
         createAction(new GroupFeaturesAction(this, false));
         createAction(new UngroupFeaturesAction(this));
@@ -198,24 +208,24 @@ public class FeatureModelEditor extends ModelEditor {
             }
         });
     }
-    
+
     @Override
     protected void createActionsLate() {
         super.createActionsLate();
         createAction(new ToggleGridAction(getGraphicalViewer()));
         createAction(new ToggleSnapToGeometryAction(getGraphicalViewer()));
     }
-    
+
     // ==================================================================================
     //  Markers
     // ==================================================================================
-    
+
     @Override
     protected void gotoMarker(List<Object> markerObjects) {
         super.gotoMarker(markerObjects);
         constraintsEditor.selectionChanged(this, new StructuredSelection(markerObjects));
     }
-    
+
     // ==================================================================================
     //  Save and Load operations
     // ==================================================================================
@@ -231,11 +241,11 @@ public class FeatureModelEditor extends ModelEditor {
     private void loadFeatureModel(ResourceSet resourceSet, String path) throws Exception {
         Resource resource = resourceSet.createResource(URI.createPlatformResourceURI(path, true));
         resource.load(null);
-        
+
         EObject content = resource.getContents().get(0);
         if(!(content instanceof FeatureModel))
             throw new Exception(path + " does not contain valid feature model.");
-        
+
         featureModel = (FeatureModel) resource.getContents().get(0);
         constraintCache = new ConstraintCache(featureModel);
     }
@@ -277,7 +287,7 @@ public class FeatureModelEditor extends ModelEditor {
         options.put(XMLResource.OPTION_PROCESS_DANGLING_HREF, XMLResource.OPTION_PROCESS_DANGLING_HREF_DISCARD);
         return options;
     }
-    
+
     // ==================================================================================
     //  Adapters
     // ==================================================================================
@@ -290,14 +300,14 @@ public class FeatureModelEditor extends ModelEditor {
                 contentOutlinePage = new FeatureModelEditorContentOutlinePage(this);
             return contentOutlinePage;
         }
-        
+
         if(type == FeatureModel.class)
             return featureModel;
         if(type == LayoutData.class)
             return layoutData;
         if(type == ConstraintCache.class)
             return constraintCache;
-        
+
         return super.getAdapter(type);
     }
 

@@ -1,3 +1,12 @@
+/*******************************************************************************
+ * Copyright (c) 2012-2013 Jan Pikl and contributors.
+ * Copyright (c) 2015-2017 Andre Bossert and contributors.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
+
 package cz.zcu.yafmt.ui.editors.fm;
 
 import org.eclipse.gef.ui.actions.GEFActionConstants;
@@ -7,7 +16,7 @@ import org.eclipse.ui.actions.ActionFactory;
 
 import cz.zcu.yafmt.ui.actions.ExportGraphicalEditorAsImageAction;
 import cz.zcu.yafmt.ui.actions.ShowPropertiesAction;
-import cz.zcu.yafmt.ui.editors.fm.actions.GenerateIdFromNameAction;
+import cz.zcu.yafmt.ui.editors.fm.actions.GenerateUniqueIdAction;
 import cz.zcu.yafmt.ui.editors.fm.actions.GroupFeaturesAction;
 import cz.zcu.yafmt.ui.editors.fm.actions.SetFeatureCardinalityAction;
 import cz.zcu.yafmt.ui.editors.fm.actions.UngroupFeaturesAction;
@@ -30,7 +39,8 @@ public class FeatureModelEditorContextMenuProvider extends ModelEditorContextMen
         addActionToMenu(menu, GEFActionConstants.GROUP_EDIT, ActionFactory.DELETE.getId());
         addActionToMenu(menu, GEFActionConstants.GROUP_EDIT, SetFeatureCardinalityAction.ID_OPTIONAL);
         addActionToMenu(menu, GEFActionConstants.GROUP_EDIT, SetFeatureCardinalityAction.ID_MANDATORY);
-        addActionToMenu(menu, GEFActionConstants.GROUP_EDIT, GenerateIdFromNameAction.ID);
+        //addActionToMenu(menu, GEFActionConstants.GROUP_EDIT, GenerateIdFromNameAction.ID);
+        addActionToMenu(menu, GEFActionConstants.GROUP_EDIT, GenerateUniqueIdAction.ID);
         addActionToMenu(menu, GEFActionConstants.GROUP_EDIT, GroupFeaturesAction.ID_XOR);
         addActionToMenu(menu, GEFActionConstants.GROUP_EDIT, GroupFeaturesAction.ID_OR);
         addActionToMenu(menu, GEFActionConstants.GROUP_EDIT, UngroupFeaturesAction.ID);
