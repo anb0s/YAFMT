@@ -177,11 +177,23 @@ public class FeatureModelUtil {
     }
 
     public static String generateFeatureId() {
-        return "f_" + UUID.randomUUID().toString();
+        return getFeatureIdPrefix() + generateUniqueId();
     }
 
     public static String generateAttributeId() {
-        return "a_" + UUID.randomUUID().toString();
+        return getAttributeIdPrefix() + generateUniqueId();
+    }
+
+    public static String generateUniqueId() {
+        return UUID.randomUUID().toString();
+    }
+
+    public static String getFeatureIdPrefix() {
+        return "f_";
+    }
+
+    public static String getAttributeIdPrefix() {
+        return "a_";
     }
 
     public static String generateIdFromName(String name) {
