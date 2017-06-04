@@ -14,10 +14,10 @@ import org.eclipse.emf.ecore.xml.type.AnyType;
 
 public class UnknownFeatureResourceHandler extends BasicResourceHandler {
 
-    public void postLoad(XMLResource resource, InputStream inputStream, Map options) {
+    public void postLoad(XMLResource resource, InputStream inputStream, Map<?, ?> options) {
         final Map<EObject, AnyType> extMap = resource.getEObjectToExtensionMap();
         for(Iterator<Entry<EObject, AnyType>> itr = extMap.entrySet().iterator(); itr.hasNext();) {
-            Entry entry = (Entry) itr.next();
+            Entry<?, ?> entry = (Entry<?, ?>) itr.next();
             EObject key = (EObject) entry.getKey();
             AnyType value = (AnyType) entry.getValue();
             handleUnknownData(key, value);
