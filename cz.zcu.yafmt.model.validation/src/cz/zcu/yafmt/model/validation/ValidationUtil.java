@@ -41,4 +41,19 @@ public class ValidationUtil {
             throw new Exception(getMessage("Errors_UpperLowerBoundMismatch"));
     }
 
+    public static void checkBooleanValue(Object value) {
+        if(value instanceof String)
+            Boolean.parseBoolean((String) value);
+    }
+
+    public static void checkIntegerValue(Object value) {
+        if(value instanceof String)
+            Integer.parseInt((String) value);
+    }
+
+    public static void checkDoubleValue(Object value) {
+        if(value instanceof String)
+            Double.parseDouble((String) value);
+    }
+
 }

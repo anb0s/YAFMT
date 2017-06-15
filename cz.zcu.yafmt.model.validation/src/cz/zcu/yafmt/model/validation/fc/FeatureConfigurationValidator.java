@@ -1,5 +1,7 @@
 package cz.zcu.yafmt.model.validation.fc;
 
+import static cz.zcu.yafmt.model.fc.FeatureConfigurationPackage.BOOLEAN_VALUE;
+import static cz.zcu.yafmt.model.fc.FeatureConfigurationPackage.BOOLEAN_VALUE__VALUE;
 import static cz.zcu.yafmt.model.fc.FeatureConfigurationPackage.DOUBLE_VALUE;
 import static cz.zcu.yafmt.model.fc.FeatureConfigurationPackage.DOUBLE_VALUE__VALUE;
 import static cz.zcu.yafmt.model.fc.FeatureConfigurationPackage.FEATURE_CONFIGURATION;
@@ -36,30 +38,31 @@ import cz.zcu.yafmt.model.fm.Feature;
 import cz.zcu.yafmt.model.fm.FeatureModel;
 import cz.zcu.yafmt.model.fm.Group;
 import cz.zcu.yafmt.model.validation.BasicValidator;
+import cz.zcu.yafmt.model.validation.ValidationUtil;
 
 public class FeatureConfigurationValidator extends BasicValidator {
-    
+
     private static class Pair {
-        
+
         public Constraint constraint;
         public IEvaluator evaluator;
-        
+
         public Pair(Constraint constraint, IEvaluator evalutor) {
             this.constraint = constraint;
             this.evaluator = evalutor;
         }
-                
+
     }
-    
+
     public static final FeatureConfigurationValidator INSTANCE = new FeatureConfigurationValidator();
-        
+
     private FeatureConfiguration lastValidatedFeatureConfig;
     private List<Pair> evaluatorsCache;
-    
+
     // ===========================================================================
     //  Object validation
     // ===========================================================================
-    
+
     @Override
     protected boolean validate(EObject object, DiagnosticChain diagnostics, boolean recursive) {
         switch(object.eClass().getClassifierID()) {
@@ -79,21 +82,21 @@ public class FeatureConfigurationValidator extends BasicValidator {
         }
         return result;
     }
-    
+
     // ===========================================================================
     //  Local constraints
     // ===========================================================================
-        
+
     private boolean validateLocalConstraints(FeatureConfiguration featureConfig, DiagnosticChain diagnostics) {
         TreeIterator<EObject> it = featureConfig.getFeatureModelCopy().eAllContents();
         boolean result = true;
-        
+
         while(it.hasNext()) {
             EObject object = it.next();
             if(object instanceof Group)
                 result &= validateLocalConstraint(featureConfig, (Group) object, diagnostics);
         }
-        
+
         return result;
     }
 
@@ -126,44 +129,44 @@ public class FeatureConfigurationValidator extends BasicValidator {
                 result = false;
             }
         }
-        
+
         return result;
     }
-    
+
     private String getGroupedFeaturesNames(Group group) {
         StringBuilder builder = null;
-        
+
         for(Feature feature: group.getFeatures()) {
             if(builder == null)
                 builder = new StringBuilder(feature.getName());
             else
                 builder.append(", ").append(feature.getName());
         }
-        
+
         return builder.toString();
     }
-    
+
     // ===========================================================================
     //  Global constraints
     // ===========================================================================
-    
+
     private boolean validateGlobalConstraints(FeatureConfiguration featureConfig, DiagnosticChain diagnostics) {
         return validateGlobalConstraints(featureConfig, createEvaluators(featureConfig), diagnostics);
     }
-    
+
     private List<Pair> createEvaluators(FeatureConfiguration featureConfig) {
         // If we do not use global instance, we can reuse already created evaluators.
         if(this != INSTANCE) {
             if((lastValidatedFeatureConfig == featureConfig) && (evaluatorsCache != null))
                 return evaluatorsCache;
         }
-        
+
         FeatureModel featureModel = featureConfig.getFeatureModelCopy();
         ConstraintLanguageRegistry registry = ConstraintLanguagePlugin.getDefault().getConstraintLanguageRegistry();
-        
+
         List<Constraint> constraints = featureModel.getConstraints();
         List<Pair> evaluators = new ArrayList<Pair>(constraints.size());
-        
+
         for(Constraint constraint: constraints) {
             try {
                 // Add evaluators only for valid constraints.
@@ -178,16 +181,16 @@ public class FeatureConfigurationValidator extends BasicValidator {
                 // Ignore it.
             }
         }
-        
+
         // If we do not use global instance, remember created evaluators.
         if(this != INSTANCE) {
             lastValidatedFeatureConfig = featureConfig;
             evaluatorsCache = evaluators;
         }
-        
+
         return evaluators;
     }
-    
+
     private boolean validateGlobalConstraints(FeatureConfiguration featureConfig, List<Pair> evaluators, DiagnosticChain diagnostics) {
         boolean result = true;
         for(Pair pair: evaluators)
@@ -203,19 +206,19 @@ public class FeatureConfigurationValidator extends BasicValidator {
         String message = result.getErrorMessage();
         if((message == null) || (message.isEmpty()))
             message = "Global constraint is violated";
-        
+
         String description = constraint.getDescription();
         if((description != null) && !description.isEmpty())
-            message += " " + description; 
-        
+            message += " " + description;
+
         List<Object> problemElements = result.getProblemElements();
         if(problemElements == null)
             problemElements = Collections.emptyList();
-        
+
         addError(diagnostics, message, problemElements.toArray(new Selection[problemElements.size()]));
         return false;
     }
-    
+
     // ===========================================================================
     //  Structural features validation
     // ===========================================================================
@@ -226,11 +229,15 @@ public class FeatureConfigurationValidator extends BasicValidator {
             case FEATURE_CONFIGURATION:
                 checkFeatureConfigurationStructuralFeature((FeatureConfiguration) object, structuralFeature, value);
                 break;
-                
+
+            case BOOLEAN_VALUE:
+                checkBooleanValueStructuralFeature((IntegerValue) object, structuralFeature, value);
+                break;
+
             case INTEGER_VALUE:
                 checkIntegerValueStructuralFeature((IntegerValue) object, structuralFeature, value);
                 break;
-                
+
             case DOUBLE_VALUE:
                 checkDoubleValueStructuralFeature((DoubleValue) object, structuralFeature, value);
                 break;
@@ -245,22 +252,26 @@ public class FeatureConfigurationValidator extends BasicValidator {
         }
     }
 
+    private void checkBooleanValueStructuralFeature(IntegerValue integerValue, EStructuralFeature structuralFeature, Object value) {
+        switch(structuralFeature.getFeatureID()) {
+            case BOOLEAN_VALUE__VALUE:
+                ValidationUtil.checkBooleanValue(value);
+                break;
+        }
+    }
+
     private void checkIntegerValueStructuralFeature(IntegerValue integerValue, EStructuralFeature structuralFeature, Object value) {
         switch(structuralFeature.getFeatureID()) {
             case INTEGER_VALUE__VALUE:
-                if(value instanceof String)
-                    Integer.parseInt((String) value);
+                ValidationUtil.checkIntegerValue(value);
                 break;
         }
-        
-        
     }
 
     private void checkDoubleValueStructuralFeature(DoubleValue doubleValue, EStructuralFeature structuralFeature, Object value) {
         switch(structuralFeature.getFeatureID()) {
             case DOUBLE_VALUE__VALUE:
-                if(value instanceof String)
-                    Double.parseDouble((String) value);
+                ValidationUtil.checkDoubleValue(value);
                 break;
         }
     }
