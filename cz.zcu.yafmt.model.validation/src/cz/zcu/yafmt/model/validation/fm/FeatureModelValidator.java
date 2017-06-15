@@ -3,6 +3,7 @@ package cz.zcu.yafmt.model.validation.fm;
 import static cz.zcu.yafmt.model.fm.FeatureModelPackage.ATTRIBUTE;
 import static cz.zcu.yafmt.model.fm.FeatureModelPackage.ATTRIBUTE__ID;
 import static cz.zcu.yafmt.model.fm.FeatureModelPackage.ATTRIBUTE__NAME;
+import static cz.zcu.yafmt.model.fm.FeatureModelPackage.ATTRIBUTE__DEFAULT_VALUE;
 import static cz.zcu.yafmt.model.fm.FeatureModelPackage.CONSTRAINT;
 import static cz.zcu.yafmt.model.fm.FeatureModelPackage.CONSTRAINT__LANGUAGE;
 import static cz.zcu.yafmt.model.fm.FeatureModelPackage.CONSTRAINT__VALUE;
@@ -31,6 +32,7 @@ import cz.zcu.yafmt.clang.IConstraintLanguage;
 import cz.zcu.yafmt.clang.IEvaluator;
 import cz.zcu.yafmt.clang.IValidationResult;
 import cz.zcu.yafmt.model.fm.Attribute;
+import cz.zcu.yafmt.model.fm.AttributeType;
 import cz.zcu.yafmt.model.fm.Constraint;
 import cz.zcu.yafmt.model.fm.Feature;
 import cz.zcu.yafmt.model.fm.FeatureModel;
@@ -163,6 +165,7 @@ public class FeatureModelValidator extends BasicValidator {
             case CONSTRAINT:
                 checkConstraintStructuralFeature((Constraint) object, structuralFeature, value);
                 break;
+
         }
     }
 
@@ -238,6 +241,21 @@ public class FeatureModelValidator extends BasicValidator {
 
             case ATTRIBUTE__NAME:
                 ValidationUtil.checkEmptyValue(getMessage("Attribute_Name"), (String) value);
+                break;
+
+
+            case ATTRIBUTE__DEFAULT_VALUE:
+                switch(attribute.getType().getValue()){
+                    case AttributeType.BOOLEAN_VALUE:
+                        ValidationUtil.checkBooleanValue(value);
+                        break;
+                    case AttributeType.INTEGER_VALUE:
+                        ValidationUtil.checkIntegerValue(value);
+                        break;
+                    case AttributeType.DOUBLE_VALUE:
+                        ValidationUtil.checkDoubleValue(value);
+                        break;
+                }
                 break;
         }
     }

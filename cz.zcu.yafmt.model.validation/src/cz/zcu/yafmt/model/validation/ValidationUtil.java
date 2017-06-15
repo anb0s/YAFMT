@@ -41,19 +41,33 @@ public class ValidationUtil {
             throw new Exception(getMessage("Errors_UpperLowerBoundMismatch"));
     }
 
-    public static void checkBooleanValue(Object value) {
-        if(value instanceof String)
-            Boolean.parseBoolean((String) value);
+    public static void checkBooleanValue(Object value) throws Exception {
+        if(value instanceof String) {
+            String boolValStr = (String) value;
+            if (!(boolValStr.toLowerCase().equals("true") || boolValStr.toLowerCase().equals("false"))) {
+                throw new Exception(getMessage("Errors_NotABoolean", value));
+            }//Boolean.parseBoolean(boolValStr);
+        }
     }
 
-    public static void checkIntegerValue(Object value) {
-        if(value instanceof String)
-            Integer.parseInt((String) value);
+    public static void checkIntegerValue(Object value) throws Exception {
+        try {
+            if(value instanceof String)
+                Integer.parseInt((String) value);
+        }
+        catch(NumberFormatException ex) {
+            throw new Exception(getMessage("Errors_NotANInteger", value));
+        }
     }
 
-    public static void checkDoubleValue(Object value) {
-        if(value instanceof String)
-            Double.parseDouble((String) value);
+    public static void checkDoubleValue(Object value) throws Exception {
+        try {
+            if(value instanceof String)
+                Double.parseDouble((String) value);
+        }
+        catch(NumberFormatException ex) {
+            throw new Exception(getMessage("Errors_NotADouble", value));
+        }
     }
 
 }

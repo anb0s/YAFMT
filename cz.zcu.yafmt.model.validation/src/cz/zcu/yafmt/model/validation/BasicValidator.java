@@ -19,33 +19,33 @@ import org.eclipse.emf.ecore.EValidator;
 public abstract class BasicValidator implements EValidator, IStructuralFeatureValidator {
 
     private static final String DIAGNOSTIC_SOURCE = "cz.zcu.yafmt.model.validation";
-    
+
     // =============================================================================
     //  Public API
     // =============================================================================
-    
+
     public boolean validate(EObject object, DiagnosticChain diagnostics) {
         return validate(object, diagnostics, false);
     }
-    
+
     public boolean validateRecursive(EObject object, DiagnosticChain diagnostics) {
         return validate(object, diagnostics, true);
     }
-    
+
     public boolean validate(Collection<? extends EObject> object, DiagnosticChain diagnostics) {
         return validate(object, diagnostics, false);
     }
-    
+
     public boolean validateRecursive(Collection<? extends EObject> object, DiagnosticChain diagnostics) {
         return validate(object, diagnostics, true);
     }
-    
+
     // =============================================================================
     //  Object validations
     // =============================================================================
-    
+
     protected abstract boolean validate(EObject object, DiagnosticChain diagnostics, boolean recursive);
-    
+
     protected boolean validate(Collection<? extends EObject> objects, DiagnosticChain diagnostics, boolean recursive) {
         boolean result = true;
         for(EObject object: objects) {
@@ -54,7 +54,7 @@ public abstract class BasicValidator implements EValidator, IStructuralFeatureVa
         }
         return result;
     }
-    
+
     protected boolean validateAllContents(EObject object, DiagnosticChain diagnostics, boolean recursive) {
         TreeIterator<EObject> it = object.eAllContents();
         boolean result = true;
@@ -62,23 +62,23 @@ public abstract class BasicValidator implements EValidator, IStructuralFeatureVa
             result &= validate(it.next(), diagnostics, recursive);
         return result;
     }
-    
+
     // =============================================================================
     //  Structural features validation
     // =============================================================================
-        
+
     protected boolean validateAllStructuralFeatures(EObject object, DiagnosticChain diagnostics) {
-        EList<EStructuralFeature> structuralFeautures = object.eClass().getEAllStructuralFeatures(); 
+        EList<EStructuralFeature> structuralFeautures = object.eClass().getEAllStructuralFeatures();
         return validateStructuralFeatures(object, structuralFeautures.toArray(new EStructuralFeature[structuralFeautures.size()]), diagnostics);
     }
-    
+
     protected boolean validateStructuralFeatures(EObject object, EStructuralFeature[] structuralFeatures, DiagnosticChain diagnostics) {
         boolean result = true;
         for(EStructuralFeature structuralFeature: structuralFeatures)
             result &= validateStructuralFeature(object, structuralFeature, diagnostics);
         return result;
     }
-    
+
     protected boolean validateStructuralFeature(EObject object, EStructuralFeature structuralFeature, DiagnosticChain diagnostics) {
         String message = getStructuralFeatureError(object, structuralFeature, object.eGet(structuralFeature));
         if(message != null) {
@@ -87,7 +87,7 @@ public abstract class BasicValidator implements EValidator, IStructuralFeatureVa
         }
         return true;
     }
-    
+
     @Override
     public String getStructuralFeatureError(EObject object, EStructuralFeature structuralFeature, Object value) {
         try {
@@ -101,9 +101,9 @@ public abstract class BasicValidator implements EValidator, IStructuralFeatureVa
             return ex.getMessage();
         }
     }
-    
-    protected abstract void checkStructuralFeature(EObject object, EStructuralFeature structuralFeature, Object value) throws Exception ;
-    
+
+    protected abstract void checkStructuralFeature(EObject object, EStructuralFeature structuralFeature, Object value) throws Exception;
+
     // =============================================================================
     //  Utilities
     // =============================================================================
@@ -111,19 +111,19 @@ public abstract class BasicValidator implements EValidator, IStructuralFeatureVa
     protected void addError(DiagnosticChain diagnostics, String message, Object object) {
         addDiagnostics(diagnostics, Diagnostic.ERROR, message, new Object[] { object });
     }
-    
+
     protected void addError(DiagnosticChain diagnostics, String message, Object[] objects) {
         addDiagnostics(diagnostics, Diagnostic.ERROR, message, objects);
     }
-        
+
     protected void addDiagnostics(DiagnosticChain diagnostics, int code, String message, Object[] objects) {
         diagnostics.add(new BasicDiagnostic(DIAGNOSTIC_SOURCE, code, message, objects));
     }
-    
+
     // =============================================================================
     //  EValidator interface methods
     // =============================================================================
-    
+
     @Override
     public boolean validate(EObject eObject, DiagnosticChain diagnostics, Map<Object, Object> context) {
         return validateRecursive(eObject, diagnostics);
@@ -138,5 +138,5 @@ public abstract class BasicValidator implements EValidator, IStructuralFeatureVa
     public boolean validate(EDataType eDataType, Object value, DiagnosticChain diagnostics, Map<Object, Object> context) {
         return true;
     }
-        
+
 }

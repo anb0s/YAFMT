@@ -252,7 +252,7 @@ public class FeatureConfigurationValidator extends BasicValidator {
         }
     }
 
-    private void checkBooleanValueStructuralFeature(IntegerValue integerValue, EStructuralFeature structuralFeature, Object value) {
+    private void checkBooleanValueStructuralFeature(IntegerValue integerValue, EStructuralFeature structuralFeature, Object value) throws Exception {
         switch(structuralFeature.getFeatureID()) {
             case BOOLEAN_VALUE__VALUE:
                 ValidationUtil.checkBooleanValue(value);
@@ -260,7 +260,7 @@ public class FeatureConfigurationValidator extends BasicValidator {
         }
     }
 
-    private void checkIntegerValueStructuralFeature(IntegerValue integerValue, EStructuralFeature structuralFeature, Object value) {
+    private void checkIntegerValueStructuralFeature(IntegerValue integerValue, EStructuralFeature structuralFeature, Object value) throws Exception {
         switch(structuralFeature.getFeatureID()) {
             case INTEGER_VALUE__VALUE:
                 ValidationUtil.checkIntegerValue(value);
@@ -268,7 +268,7 @@ public class FeatureConfigurationValidator extends BasicValidator {
         }
     }
 
-    private void checkDoubleValueStructuralFeature(DoubleValue doubleValue, EStructuralFeature structuralFeature, Object value) {
+    private void checkDoubleValueStructuralFeature(DoubleValue doubleValue, EStructuralFeature structuralFeature, Object value) throws Exception {
         switch(structuralFeature.getFeatureID()) {
             case DOUBLE_VALUE__VALUE:
                 ValidationUtil.checkDoubleValue(value);

@@ -11,7 +11,7 @@ public abstract class NonBlockingCellEditorValidator implements ICellEditorListe
     private ICellEditorValidator originalValidator;
     private Object currentValue;
     private boolean enabled;
-            
+
     public NonBlockingCellEditorValidator(CellEditor cellEditor) {
         this.cellEditor = cellEditor;
         this.originalValidator = cellEditor.getValidator();
@@ -19,7 +19,7 @@ public abstract class NonBlockingCellEditorValidator implements ICellEditorListe
         this.enabled = true;
         cellEditor.setValidator(this);
     }
-    
+
     @Override
     public void applyEditorValue() {
         // This causes that is possible to confirm erroneous value.
@@ -37,23 +37,23 @@ public abstract class NonBlockingCellEditorValidator implements ICellEditorListe
         // Editor can be reused after apply/cancel value call, so we need to refresh it.
         enabled = true;
     }
-    
+
     @Override
     public String isValid(Object value) {
         currentValue = value;                                // Remember current value.
         String defaultError = getDefaultErrorMessage(value); // Use original validator.
         String customError = getErrorMessage(value);         // Use new validator.
-        
+
         // Return custom error when allowed or replace the defaul error message.
         if((customError != null) && (enabled || (defaultError != null)))
             return customError;
         return defaultError;
     }
-    
+
     private String getDefaultErrorMessage(Object value) {
         return (originalValidator != null) ? originalValidator.isValid(value) : null;
     }
-    
+
     protected abstract String getErrorMessage(Object value);
-    
+
 }
