@@ -12,6 +12,7 @@ Eclipse 4.4: http://download.eclipse.org/releases/luna/
 Eclipse 4.5: http://download.eclipse.org/releases/mars/
 Eclipse 4.6: http://download.eclipse.org/releases/neon/
 Eclipse 4.7: http://download.eclipse.org/releases/oxygen/
+Eclipse 4.7: http://download.eclipse.org/releases/photon/
 
 Additionally i will not use exact the version needed -> just use the version included in the main update site:
 <unit id="org.eclipse.sdk.ide" version="0.0.0"/>
