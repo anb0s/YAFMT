@@ -20,7 +20,3 @@ YAFMT (Yet Another Feature Modeling Tool) is collection of Eclipse plug-ins for 
 License:
 --------
 https://eclipse.org/org/documents/epl-v10.html
-
-<a href="http://with-eclipse.github.io/" target="_blank">
-<img alt="with-Eclipse logo" src="http://with-eclipse.github.io/with-eclipse-0.jpg" />
-</a>
