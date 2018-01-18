@@ -1,5 +1,7 @@
-# YAFMT [![Build Status](https://travis-ci.org/anb0s/YAFMT.svg)](https://travis-ci.org/anb0s/YAFMT)
+# YAFMT [![Version](https://img.shields.io/github/release/anb0s/YAFMT.svg)](https://github.com/anb0s/YAFMT/releases) [![Issues](https://img.shields.io/github/issues/anb0s/YAFMT.svg)](https://github.com/anb0s/YAFMT/issues) [![Build Status](https://travis-ci.org/anb0s/YAFMT.svg)](https://travis-ci.org/anb0s/YAFMT) [![License](https://img.shields.io/badge/License-EPL%201.0-blue.svg)](https://eclipse.org/org/documents/epl-v10.html)
+
 YAFMT - Yet Another Feature Modeling Tool for Eclipse
+
 see: https://en.wikipedia.org/wiki/Feature_model
 
 Installation:
@@ -16,3 +18,7 @@ Fork:
 https://bitbucket.org/jpikl/yafmt
 https://bitbucket.org/anb0s/efm
 YAFMT (Yet Another Feature Modeling Tool) is collection of Eclipse plug-ins for feature modeling. It allows creation of cardinality-based feature models in form of graphical diagrams.
+
+License:
+--------
+https://eclipse.org/org/documents/epl-v10.html
