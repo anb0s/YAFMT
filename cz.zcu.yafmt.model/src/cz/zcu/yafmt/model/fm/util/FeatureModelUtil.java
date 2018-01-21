@@ -185,7 +185,7 @@ public class FeatureModelUtil {
     }
 
     public static String generateUniqueId() {
-        return UUID.randomUUID().toString();
+        return UUID.randomUUID().toString().replace('-', '_');
     }
 
     public static String getFeatureIdPrefix() {
