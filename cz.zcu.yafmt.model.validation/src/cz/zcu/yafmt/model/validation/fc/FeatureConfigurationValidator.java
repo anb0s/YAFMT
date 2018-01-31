@@ -28,6 +28,7 @@ import cz.zcu.yafmt.clang.ConstraintLanguageRegistry;
 import cz.zcu.yafmt.clang.IConstraintLanguage;
 import cz.zcu.yafmt.clang.IEvaluationResult;
 import cz.zcu.yafmt.clang.IEvaluator;
+import cz.zcu.yafmt.model.fc.BooleanValue;
 import cz.zcu.yafmt.model.fc.DoubleValue;
 import cz.zcu.yafmt.model.fc.FeatureConfiguration;
 import cz.zcu.yafmt.model.fc.FeatureConfigurationPackage.Literals;
@@ -231,7 +232,7 @@ public class FeatureConfigurationValidator extends BasicValidator {
                 break;
 
             case BOOLEAN_VALUE:
-                checkBooleanValueStructuralFeature((IntegerValue) object, structuralFeature, value);
+                checkBooleanValueStructuralFeature((BooleanValue) object, structuralFeature, value);
                 break;
 
             case INTEGER_VALUE:
@@ -252,7 +253,7 @@ public class FeatureConfigurationValidator extends BasicValidator {
         }
     }
 
-    private void checkBooleanValueStructuralFeature(IntegerValue integerValue, EStructuralFeature structuralFeature, Object value) throws Exception {
+    private void checkBooleanValueStructuralFeature(BooleanValue booleanValue, EStructuralFeature structuralFeature, Object value) throws Exception {
         switch(structuralFeature.getFeatureID()) {
             case BOOLEAN_VALUE__VALUE:
                 ValidationUtil.checkBooleanValue(value);
