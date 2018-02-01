@@ -164,13 +164,13 @@ public class FeatureFigure extends RoundedRectangleWithGradient {
 
     public void refresh() {
         label.setText(feature.getName());
-        toolTip.setText(createDescriptionText());
+        toolTip.setText(createToolTipText());
     }
 
-    private String createDescriptionText() {
+    private String createToolTipText() {
         String description = feature.getDescription();
         String comment = feature.getComment();
-        return "[" + feature.getId() + "]\n" + feature.getName() + "\n" + (((description != null) && !description.isEmpty()) ? description : "") + "\n" + (((comment != null) && !comment.isEmpty()) ? comment : "");
+        return feature.getName() + "\n" + (((description != null) && !description.isEmpty()) ? description : "") + "\n" + (((comment != null) && !comment.isEmpty()) ? comment : "" + "id: " + feature.getId());
     }
 
     @Override

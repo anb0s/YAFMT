@@ -57,7 +57,7 @@ public class AttributeFigure extends Label {
 
     public void refresh() {
         setNameAndType(attribute.getName(), attribute.getType());
-        toolTip.setText(createDescriptionText());
+        toolTip.setText(createToolTipText());
     }
 
     public void setName(String name) {
@@ -83,10 +83,10 @@ public class AttributeFigure extends Label {
         }
     }
 
-    private String createDescriptionText() {
+    private String createToolTipText() {
         String description = attribute.getDescription() ;
         String comment = attribute.getComment();
-        return "[" + attribute.getId() + "]\n" + attribute.getName() + ": " + attribute.getType() + "\n" + (((description != null) && !description.isEmpty()) ? description : "") + "\n" + (((comment != null) && !comment.isEmpty()) ? comment : "");
+        return attribute.getName() + ": " + attribute.getType() + "\n" + (((description != null) && !description.isEmpty()) ? description : "") + "\n" + (((comment != null) && !comment.isEmpty()) ? comment : "" + "id: " + attribute.getId());
     }
 
 }

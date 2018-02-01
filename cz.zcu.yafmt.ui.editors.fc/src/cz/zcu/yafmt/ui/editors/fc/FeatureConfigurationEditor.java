@@ -46,6 +46,7 @@ import cz.zcu.yafmt.ui.dialogs.WorkspaceDialog;
 import cz.zcu.yafmt.ui.editors.ModelEditor;
 import cz.zcu.yafmt.ui.editors.fc.actions.DeselectFeaturesAction;
 import cz.zcu.yafmt.ui.editors.fc.actions.SelectFeaturesAction;
+import cz.zcu.yafmt.ui.editors.fc.actions.SetToDefaultValueAction;
 import cz.zcu.yafmt.ui.editors.fc.layout.FeatureConfigurationLayoutHelper;
 import cz.zcu.yafmt.ui.editors.fc.layout.HorizontalTreeLayout;
 import cz.zcu.yafmt.ui.editors.fc.layout.TreeLayout;
@@ -63,13 +64,13 @@ public class FeatureConfigurationEditor extends ModelEditor {
     // ==================================================================================
     //  Basic initialization
     // ==================================================================================
-    
+
     @Override
     public void init(IEditorSite site, IEditorInput input) throws PartInitException {
         super.init(site, input);
         featureConfigManager = new FeatureConfigurationManager(featureConfig, getProblemManager());
     }
-        
+
     // ==================================================================================
     //  Editor initialization
     // ==================================================================================
@@ -113,7 +114,7 @@ public class FeatureConfigurationEditor extends ModelEditor {
                 setEditorLayout(EDITOR_LAYOUTS[index]);
             }
         });
-        
+
         Label visibilityLabel = new Label(panel, SWT.NONE);
         visibilityLabel.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
         visibilityLabel.setText("Unselected Features Visibility: ");
@@ -179,7 +180,7 @@ public class FeatureConfigurationEditor extends ModelEditor {
     @Override
     protected void createActions() {
         super.createActions();
-        
+
         createAction(new ShowFeatureModelVisualizerAction());
         createAction(new ExportGraphicalEditorAsImageAction(this) {
             @Override
@@ -187,12 +188,14 @@ public class FeatureConfigurationEditor extends ModelEditor {
                 return featureConfig.getName();
             }
         });
+
+        createAction(new SetToDefaultValueAction(this));
     }
 
     @Override
     protected void createActionsLate() {
         super.createActionsLate();
-        
+
         createAction(new SelectFeaturesAction(this, featureConfigManager));
         createAction(new DeselectFeaturesAction(this, featureConfigManager));
     }
@@ -209,21 +212,21 @@ public class FeatureConfigurationEditor extends ModelEditor {
         checkFeatureModelChanges();
         checkFeatureModelValidity();
     }
-    
+
     private void loadFeatureConfiguration(ResourceSet resourceSet, String path) throws Exception {
         Resource resource = resourceSet.createResource(URI.createPlatformResourceURI(path, true));
         resource.load(null);
-        
+
         EObject content = resource.getContents().get(0);
         if(!(content instanceof FeatureConfiguration))
             throw new Exception(path + " does not contain valid feature configuration.");
         featureConfig = (FeatureConfiguration) content;
     }
-    
+
     private FeatureModel loadFeatureModel(ResourceSet resourceSet, String path) throws Exception {
         Resource resource = resourceSet.createResource(URI.createPlatformResourceURI(path, true));
         resource.load(null);
-        
+
         EObject content = resource.getContents().get(0);
         if(!(content instanceof FeatureModel))
             throw new Exception(path + " does not contain valid feature model.");
@@ -234,27 +237,27 @@ public class FeatureConfigurationEditor extends ModelEditor {
     protected void doSave() throws Exception {
         executeWorkspaceOperation(new ResourceSaveOperation(featureConfig.eResource()));
     }
-        
+
     // ==================================================================================
     //  Feature Model changes detection and resolution
     // ==================================================================================
-    
+
     private void checkFeatureModelExistence(ResourceSet resourceSet) {
-        // Root is null when original feature model was not loaded properly. 
+        // Root is null when original feature model was not loaded properly.
         if(featureConfig.getFeatureModel().getRoot() != null)
             return;
-        
+
         // Ask user for a file.
         Shell shell = getSite().getShell();
         String inputName = getEditorInput().getName();
         if(!MessageDialog.openQuestion(shell, inputName, "The original feature model was not found!\nWould you like to change its location?"))
             return;
-        
+
         // Let user to choose a file.
         String path = WorkspaceDialog.openFile(shell, "Feature Model Selection", "Select feature model new localtion.");
         if(path == null)
             return;
-        
+
         try {
             featureConfig.setFeatureModel(loadFeatureModel(resourceSet, path));
             doSave(null);
@@ -268,14 +271,14 @@ public class FeatureConfigurationEditor extends ModelEditor {
         // Root is null when the original feature model was not loaded properly.
         if(featureConfig.getFeatureModel().getRoot() == null)
             return;
-        
+
         // Look for changes in the original feature model.
         if(FeatureModelUtil.compareFeatureModels(featureConfig.getFeatureModel(), featureConfig.getFeatureModelCopy(), false))
             return;
-        
-        // The original feature model was changed. Check if the new version is valid. 
+
+        // The original feature model was changed. Check if the new version is valid.
         boolean isValid = FeatureModelValidator.INSTANCE.validateRecursive(featureConfig.getFeatureModel(), new BasicDiagnostic());
-        
+
         // Ask user for what to do.
         Shell shell = getSite().getShell();
         String inputName = getEditorInput().getName();
@@ -291,7 +294,7 @@ public class FeatureConfigurationEditor extends ModelEditor {
             doSave(null);
         }
     }
-        
+
     private void checkFeatureModelValidity() {
         BasicDiagnostic diagnostic = new BasicDiagnostic();
         if(!FeatureModelValidator.INSTANCE.validateRecursive(featureConfig.getFeatureModelCopy(), diagnostic)) {

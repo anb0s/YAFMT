@@ -392,6 +392,8 @@ public class FeatureModelUtil {
             return false;
         if(!compareStrings(attributeA.getName(), attributeB.getName()))
             return false;
+        if(!compareStrings(attributeA.getDefaultValue(), attributeB.getDefaultValue()))
+            return false;
         if(attributeA.getType() != attributeB.getType())
             return false;
         if(!compareStrings(attributeA.getDescription(), attributeB.getDescription()))

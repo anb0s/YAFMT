@@ -12,14 +12,15 @@ import cz.zcu.yafmt.model.fc.IntegerValue;
 import cz.zcu.yafmt.model.fc.StringValue;
 import cz.zcu.yafmt.ui.commands.RecordingCommand;
 
-public class SetAttributeValueCommand extends RecordingCommand {
+public class SetToDefaultValueCommand extends RecordingCommand {
 
     private AttributeValue attributeValue;
     private Object newValue;
 
-    public SetAttributeValueCommand(AttributeValue attributeValue, Object newValue) {
+    public SetToDefaultValueCommand(AttributeValue attributeValue, Object newValue) {
         this.attributeValue = attributeValue;
         this.newValue = newValue;
+        setLabel("Set To Default Value");
     }
 
     @Override

@@ -16,6 +16,7 @@ import cz.zcu.yafmt.ui.actions.EditorZoomComboContributioItem;
 import cz.zcu.yafmt.ui.actions.ShowFeatureModelVisualizerAction;
 import cz.zcu.yafmt.ui.editors.fc.actions.DeselectFeaturesAction;
 import cz.zcu.yafmt.ui.editors.fc.actions.SelectFeaturesAction;
+import cz.zcu.yafmt.ui.editors.fc.actions.SetToDefaultValueAction;
 
 public class FeatureConfigurationEditorActionBarContributor extends ActionBarContributor {
 
@@ -23,7 +24,7 @@ public class FeatureConfigurationEditorActionBarContributor extends ActionBarCon
         action.setActionDefinitionId(factory.getCommandId());
         return action;
     }
-    
+
     @Override
     protected void buildActions() {
         addRetargetAction(applyDefinitionId(new UndoRetargetAction(), ActionFactory.UNDO));
@@ -33,6 +34,7 @@ public class FeatureConfigurationEditorActionBarContributor extends ActionBarCon
         addRetargetAction(new ZoomOutRetargetAction());
         addRetargetAction(SelectFeaturesAction.createRetargetAction());
         addRetargetAction(DeselectFeaturesAction.createRetargetAction());
+        addRetargetAction(SetToDefaultValueAction.createRetargetAction());
         addRetargetAction(ShowFeatureModelVisualizerAction.createRetargetAction());
     }
 
@@ -47,6 +49,8 @@ public class FeatureConfigurationEditorActionBarContributor extends ActionBarCon
         toolBarManager.add(new Separator());
         toolBarManager.add(getAction(SelectFeaturesAction.ID));
         toolBarManager.add(getAction(DeselectFeaturesAction.ID));
+        toolBarManager.add(new Separator());
+        toolBarManager.add(getAction(SetToDefaultValueAction.ID));
         toolBarManager.add(new Separator());
         toolBarManager.add(getAction(ShowFeatureModelVisualizerAction.ID));
     }

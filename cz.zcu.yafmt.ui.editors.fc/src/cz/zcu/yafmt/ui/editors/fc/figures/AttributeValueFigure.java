@@ -12,6 +12,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Color;
 
 import cz.zcu.yafmt.model.fc.AttributeValue;
 import cz.zcu.yafmt.model.fc.BooleanValue;
@@ -28,6 +29,7 @@ public class AttributeValueFigure extends Label {
     private AttributeValue attributeValue;
     private ErrorMarker errorMarker;
     private boolean highlighted;
+    private TooltipFigure toolTip;
 
     public AttributeValueFigure(AttributeValue attributeValue) {
         this.attributeValue = attributeValue;
@@ -41,19 +43,53 @@ public class AttributeValueFigure extends Label {
     // ==================================================================
 
     private void initialize() {
-        setForegroundColor(ColorConstants.black);
-        setToolTip(createToolTip());
+        setForegroundColor(calculateColor());
+        setToolTip(createTooltip());
         add(createErrorMarker());
     }
 
-    private TooltipFigure createToolTip() {
-        return new TooltipFigure(createToolTipText());
+    private boolean isDefaultValue(AttributeValue attributeValue) {
+        String defVal = attributeValue.getAttribute().getDefaultValue();
+        switch(attributeValue.eClass().getClassifierID()) {
+        case BOOLEAN_VALUE:
+            if (defVal.isEmpty()) {
+                defVal = "false";
+            }
+            return Boolean.valueOf(defVal) == ((BooleanValue) attributeValue).isValue();
+        case INTEGER_VALUE:
+            if (defVal.isEmpty()) {
+                defVal = "0";
+            }
+            return Integer.valueOf(defVal) == ((IntegerValue) attributeValue).getValue();
+        case DOUBLE_VALUE:
+            if (defVal.isEmpty()) {
+                defVal = "0";
+            }
+            return Double.valueOf(defVal) == ((DoubleValue) attributeValue).getValue();
+        case STRING_VALUE:
+            return ((StringValue) attributeValue).getValue().equals(defVal);
+        default:
+            return false;
+        }
+    }
+
+    private Color calculateColor() {
+        if (isDefaultValue(attributeValue)) {
+            return ColorConstants.gray;
+        }
+        return ColorConstants.black;
+    }
+
+    private IFigure createTooltip() {
+        toolTip = new TooltipFigure();
+        return toolTip;
     }
 
     private String createToolTipText() {
         String description = attributeValue.getDescription();
         String comment = attributeValue.getComment();
-        return "[" + attributeValue.getId() + "]\n" + attributeValue.getName() + "\n" + (((description != null) && !description.isEmpty()) ? description : "") + "\n" + (((comment != null) && !comment.isEmpty()) ? comment : "");
+        String defVal = attributeValue.getAttribute().getDefaultValue();
+        return attributeValue.getName() + ": " + attributeValue.getAttribute().getType() + "\ndefault: " + defVal + "\n" + (((description != null) && !description.isEmpty()) ? description : "") + "\n" + (((comment != null) && !comment.isEmpty()) ? comment : "" + "id: " + attributeValue.getId());
     }
 
     private IFigure createErrorMarker() {
@@ -78,6 +114,8 @@ public class AttributeValueFigure extends Label {
 
     public void refresh() {
         setNameAndValue(attributeValue.getName(), getValue(attributeValue));
+        setForegroundColor(calculateColor());
+        toolTip.setText(createToolTipText());
     }
 
     public void setValue(Object value) {
@@ -93,16 +131,12 @@ public class AttributeValueFigure extends Label {
         switch(attributeValue.eClass().getClassifierID()) {
             case BOOLEAN_VALUE:
                 return ((BooleanValue) attributeValue).isValue();
-
             case INTEGER_VALUE:
                 return ((IntegerValue) attributeValue).getValue();
-
             case DOUBLE_VALUE:
                 return ((DoubleValue) attributeValue).getValue();
-
             case STRING_VALUE:
                 return ((StringValue) attributeValue).getValue();
-
             default:
                 return null;
         }

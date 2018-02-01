@@ -24,6 +24,7 @@ import cz.zcu.yafmt.ui.directediting.ComboDirectEditManager;
 import cz.zcu.yafmt.ui.directediting.LabelDirectEditManager;
 import cz.zcu.yafmt.ui.editors.fc.figures.AttributeValueFigure;
 import cz.zcu.yafmt.ui.editors.fc.policies.AttributeValueDirectEditPolicy;
+import cz.zcu.yafmt.ui.editors.fc.policies.AttributeValueEditPolicy;
 import cz.zcu.yafmt.ui.editors.fc.policies.AttributeValueSelectionPolicy;
 import cz.zcu.yafmt.ui.editors.fc.util.BooleanCellEditor;
 
@@ -41,33 +42,33 @@ public class AttributeValueEditPart extends AbstractGraphicalEditPart {
     // ===================================================================
     //  Initialization
     // ===================================================================
-    
+
     @Override
     public void activate() {
         super.activate();
         attributeValue.eAdapters().add(attributeValueAdapter);
     }
-    
+
     @Override
     public void deactivate() {
         attributeValue.eAdapters().remove(attributeValueAdapter);
         super.deactivate();
     }
-    
+
     // ===================================================================
     //  Visuals
     // ===================================================================
-    
+
     @Override
     protected IFigure createFigure() {
         return new AttributeValueFigure(attributeValue);
     }
-    
+
     @Override
     public AttributeValueFigure getFigure() {
         return (AttributeValueFigure) super.getFigure();
     }
-    
+
     @Override
     protected void refreshVisuals() {
         getFigure().refresh();
@@ -76,49 +77,50 @@ public class AttributeValueEditPart extends AbstractGraphicalEditPart {
     // ===================================================================
     //  Policies
     // ===================================================================
-    
+
     @Override
     protected void createEditPolicies() {
         installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new AttributeValueSelectionPolicy());
+        installEditPolicy(EditPolicy.COMPONENT_ROLE, new AttributeValueEditPolicy());
         installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new AttributeValueDirectEditPolicy());
     }
-    
+
     @Override
     public void performRequest(Request request) {
         if(REQ_OPEN.equals(request.getType()))
             performDirectEditing();
     }
-    
+
     private void performDirectEditing() {
         AttributeValueFigure figure = getFigure();
         Rectangle figureBounds = figure.getBounds().getCopy();
         figure.translateToAbsolute(figureBounds);
-        
+
         String attributeName = attributeValue.getName();
         int attributeNameWidth = TextUtilities.INSTANCE.getStringExtents(attributeName + " = ", figure.getFont()).width;
-        
+
         LabelDirectEditManager manager = null;
-        
+
         switch(attributeValue.eClass().getClassifierID()) {
             case BOOLEAN_VALUE:
                 manager = new ComboDirectEditManager(this, BooleanCellEditor.class, figure, ((BooleanValue) attributeValue).isValue());
                 break;
-                
+
             case INTEGER_VALUE:
                 manager = new LabelDirectEditManager(this, figure, Integer.toString(((IntegerValue) attributeValue).getValue()));
                 break;
-                
+
             case DOUBLE_VALUE:
                 manager = new LabelDirectEditManager(this, figure, Double.toString(((DoubleValue) attributeValue).getValue()));
                 break;
-                
+
             case STRING_VALUE: {
                 String value = ((StringValue) attributeValue).getValue();
                 manager = new LabelDirectEditManager(this, figure, (value != null) ? value : "");
                 break;
             }
         }
-        
+
         manager.setAlignment(SWT.LEFT | SWT.CENTER);
         manager.setXOffset(attributeNameWidth);
         manager.show();
@@ -127,14 +129,14 @@ public class AttributeValueEditPart extends AbstractGraphicalEditPart {
     // ===================================================================
     //  Events
     // ===================================================================
-        
+
     private class AttributeValueAdapter extends AdapterImpl {
-        
+
         @Override
         public void notifyChanged(Notification msg) {
             refreshVisuals(); // Only value change notification can occurs.
         }
-        
+
     }
-    
+
 }
