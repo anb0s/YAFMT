@@ -14,7 +14,7 @@ Require-Bundle: org.antlr.runtime;bundle-version="3.2.0",
  cz.zcu.yafmt.clang;bundle-version="0.3.0",
  cz.zcu.yafmt.model;bundle-version="0.3.0"
 Import-Package: org.apache.log4j
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: cz.zcu.yafmt.clang.bcl;uses:="org.eclipse.xtext,org.eclipse.xtext.service,com.google.inject",
  cz.zcu.yafmt.clang.bcl.model,
  cz.zcu.yafmt.clang.bcl.model.impl,
@@ -24,3 +24,4 @@ Export-Package: cz.zcu.yafmt.clang.bcl;uses:="org.eclipse.xtext,org.eclipse.xtex
  cz.zcu.yafmt.clang.bcl.serializer,
  cz.zcu.yafmt.clang.bcl.services;uses:="org.eclipse.xtext,org.eclipse.xtext.common.services,org.eclipse.xtext.service"
 Bundle-Vendor: %providerName
+Automatic-Module-Name: cz.zcu.yafmt.clang.bcl

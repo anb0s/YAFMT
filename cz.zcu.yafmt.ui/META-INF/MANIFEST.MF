@@ -16,7 +16,7 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="3.8.0",
  cz.zcu.yafmt.model;bundle-version="0.3.0",
  cz.zcu.yafmt.model.edit;bundle-version="0.3.0"
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: cz.zcu.yafmt.ui,
  cz.zcu.yafmt.ui.actions,
  cz.zcu.yafmt.ui.commands,
@@ -33,3 +33,4 @@ Export-Package: cz.zcu.yafmt.ui,
  cz.zcu.yafmt.ui.widgets,
  cz.zcu.yafmt.ui.wizards
 Bundle-Vendor: Andre Bossert
+Automatic-Module-Name: cz.zcu.yafmt.ui
