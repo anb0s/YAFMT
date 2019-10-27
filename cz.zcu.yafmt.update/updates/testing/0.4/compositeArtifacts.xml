@@ -2,13 +2,14 @@
 <?compositeArtifactRepository version='1.0.0'?>
 <repository name='YAFMT 0.4' type='org.eclipse.equinox.internal.p2.artifact.repository.CompositeArtifactRepository' version='1.0.0'>
   <properties size='2'>
-    <property name='p2.timestamp' value='1516551521591'/>
+    <property name='p2.timestamp' value='1572208878027'/>
     <property name='p2.atomic.composite.loading' value='true'/>
   </properties>
-  <children size='4'>
+  <children size='5'>
     <child location='0.4.0.v20170425-2048'/>
     <child location='0.4.0.v20170427-1144'/>
     <child location='0.4.0.v20180121-1352'/>
     <child location='0.4.0.v20180121-1618'/>
+    <child location='0.4.0.v20191027-2040'/>
   </children>
 </repository>
