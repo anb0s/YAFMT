@@ -1,4 +1,4 @@
-# YAFMT [![Version](https://img.shields.io/github/release/anb0s/YAFMT.svg)](https://github.com/anb0s/YAFMT/releases) [![Issues](https://img.shields.io/github/issues/anb0s/YAFMT.svg)](https://github.com/anb0s/YAFMT/issues) [![Build Status](https://travis-ci.org/anb0s/YAFMT.svg)](https://travis-ci.org/anb0s/YAFMT) [![License](https://img.shields.io/badge/License-EPL%202.0-blue.svg)](https://www.eclipse.org/legal/epl-2.0)
+# YAFMT [![Version](https://img.shields.io/github/release/anb0s/YAFMT.svg)](https://github.com/anb0s/YAFMT/releases) [![Issues](https://img.shields.io/github/issues/anb0s/YAFMT.svg)](https://github.com/anb0s/YAFMT/issues) [![Build Status](https://app.travis-ci.com/anb0s/YAFMT.svg?branch=master)](https://app.travis-ci.com/anb0s/YAFMT) [![License](https://img.shields.io/badge/License-EPL%202.0-blue.svg)](https://www.eclipse.org/legal/epl-2.0)
 
 YAFMT - Yet Another Feature Modeling Tool for Eclipse
 
